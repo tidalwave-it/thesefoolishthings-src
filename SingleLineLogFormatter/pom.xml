@@ -11,6 +11,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>it.tidalwave</groupId>
     <artifactId>singlelinelogformatter</artifactId>
     <packaging>jar</packaging>
     <!-- packaging>nbm</packaging FIXME -->
