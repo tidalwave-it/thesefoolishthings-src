@@ -89,8 +89,10 @@
 
     <distributionManagement>
         <repository>
-            <id>java.net-m2-repository</id>
-            <url>java-net:/maven2-repository/trunk/repository/</url>
+            <id>maven2-repository.tidalwave.kenai.com</id>
+            <name>Tidalwave Maven Repository</name>
+            <url>file:${tidalwave.maven.repo}</url>
+            <uniqueVersion>false</uniqueVersion>
         </repository>
     </distributionManagement>
 
