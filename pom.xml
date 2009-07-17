@@ -425,6 +425,7 @@
     **************************************************************************************************************** -->
     <modules>
         <module>SingleLineLogFormatter</module>
+        <module>StopWatch</module>
     </modules>
 
 </project>
