@@ -30,7 +30,7 @@
 -->
 
     <scm>
-        <connection>scm:svn:https://kenai.com/svn/thesefoolishthings~svn/trunk/src</connection>
+        <connection>scm:svn:http://kenai.com/svn/thesefoolishthings~svn/trunk/src</connection>
         <developerConnection>scm:svn:https://kenai.com/svn/thesefoolishthings~svn/trunk/src</developerConnection>
         <url>https://kenai.com/svn/thesefoolishthings~svn/trunk/src</url>
     </scm>
