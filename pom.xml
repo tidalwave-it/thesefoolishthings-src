@@ -91,7 +91,7 @@
         <repository>
             <id>maven2-repository.tidalwave.kenai.com</id>
             <name>Tidalwave Maven Repository</name>
-            <url>file:${tidalwave.maven.repo}</url>
+            <url>svn:https://kenai.com/svn/tidalwave~maven-repo/2</url>
             <uniqueVersion>false</uniqueVersion>
         </repository>
     </distributionManagement>
