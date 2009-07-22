@@ -9,8 +9,8 @@
         <version>1.0.2-SNAPSHOT</version>
     </parent>
 
-    <groupId>it.tidalwave</groupId>
-    <artifactId>singlelinelogformatter</artifactId>
+    <groupId>it.tidalwave.thesefoolishthings</groupId>
+    <artifactId>it.tidalwave.singlelinelogformatter</artifactId>
     <packaging>jar</packaging>
     <!-- packaging>nbm</packaging FIXME -->
     <name>Single Line Log Formatter</name>
