@@ -11,7 +11,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>These Foolish Things</name>
 
     <url>http://thesefoolishthings.kenai.com</url>
@@ -30,9 +30,9 @@
 -->
 
     <scm>
-        <connection>scm:svn:http://kenai.com/svn/thesefoolishthings~svn/trunk/src</connection>
-        <developerConnection>scm:svn:https://kenai.com/svn/thesefoolishthings~svn/trunk/src</developerConnection>
-        <url>https://kenai.com/svn/thesefoolishthings~svn/trunk/src</url>
+        <connection>scm:svn:http://kenai.com/svn/thesefoolishthings~svn/tags/1.0.1</connection>
+        <developerConnection>scm:svn:https://kenai.com/svn/thesefoolishthings~svn/tags/1.0.1</developerConnection>
+        <url>https://kenai.com/svn/thesefoolishthings~svn/tags/1.0.1</url>
     </scm>
 
     <developers>
