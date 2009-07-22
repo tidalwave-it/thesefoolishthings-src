@@ -30,9 +30,9 @@
 -->
 
     <scm>
-        <connection>scm:svn:http://kenai.com/svn/thesefoolishthings~svn/trunk/src</connection>
-        <developerConnection>scm:svn:https://kenai.com/svn/thesefoolishthings~svn/trunk/src</developerConnection>
-        <url>https://kenai.com/svn/thesefoolishthings~svn/trunk/src</url>
+        <connection>scm:hg:http://kenai.com/hg/thesefoolishthings~src</connection>
+        <developerConnection>scm:hg:https://kenai.com/hg/thesefoolishthings~src</developerConnection>
+        <url>http://kenai.com/projects/thesefoolishthings/sources/src/show</url>
     </scm>
 
     <developers>
@@ -114,13 +114,24 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>default</id>
+            <properties>
+                <buildNumber>unknown</buildNumber>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
+
     <!-- ***************************************************************************************************************
     *
     *
     *
     **************************************************************************************************************** -->
     <build>
-        <!-- For buildNumber to be properly evaluated by assembly:assembly, use also the validate goal -->
         <finalName>${project.artifactId}-${project.version}.${buildNumber}</finalName>
 
         <extensions>
@@ -196,16 +207,6 @@
 
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>buildnumber-maven-plugin</artifactId>
-                    <version>1.0-beta-1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>buildnumber-maven-plugin</artifactId>
-                    <version>1.0-beta-1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
                     <artifactId>nbm-maven-plugin</artifactId>
                     <version>3.0</version>
                     <extensions>true</extensions>
@@ -260,24 +261,6 @@
                         <descriptor>etc/bin.xml</descriptor>
                         <descriptor>etc/project.xml</descriptor>
                     </descriptors>
-                </configuration>
-            </plugin>
-
-            <!-- Retrieves the 4th build number from Subversion revision. -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <doCheck>false</doCheck>
-                    <doUpdate>false</doUpdate>
                 </configuration>
             </plugin>
 
