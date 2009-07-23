@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 
+package it.tidalwave.util.logging;
+
 import org.junit.Test;
 
 /**
