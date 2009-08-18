@@ -1,3 +1,6 @@
 target
 StopWatch/target
 SingleLineLogFormatter/target
+.repository
+hudson.env
+
