@@ -1,0 +1,3 @@
+OpenIDE-Module-Name: TheseFoolishThings
+OpenIDE-Module-Display-Category: TheseFoolishThings
+AutoUpdate-Show-In-Client: true
