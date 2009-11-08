@@ -11,7 +11,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.3</version>
     <name>These Foolish Things</name>
 
     <url>http://thesefoolishthings.kenai.com</url>
