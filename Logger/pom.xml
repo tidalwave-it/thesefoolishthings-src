@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
-    <artifactId>it-tidalwave-util-logger</artifactId>
+    <artifactId>it-tidalwave-util-logging</artifactId>
     <packaging>nbm</packaging>
     <name>Logger</name>
 
