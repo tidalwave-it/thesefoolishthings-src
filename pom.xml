@@ -341,22 +341,6 @@
                 <extensions>true</extensions>
             </plugin>
 
-            <!-- Produces the OSGi bundle information. -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- Cobertura support -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
