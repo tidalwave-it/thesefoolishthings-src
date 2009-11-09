@@ -1,6 +1,6 @@
 <nbm>
     <moduleType>normal</moduleType>
-    <codeNameBase>it.tidalwave.util.logger/1</codeNameBase>
+    <codeNameBase>it.tidalwave.util.logging/1</codeNameBase>
     <cluster>thesefoolishthings</cluster>
     <manifest>src/main/nbm/manifest.mf</manifest>
     <homepageUrl>http://thesefoolishthings.kenai.com</homepageUrl>
