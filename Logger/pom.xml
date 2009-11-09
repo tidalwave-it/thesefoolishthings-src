@@ -10,14 +10,10 @@
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
-    <artifactId>it-tidalwave-util-logging</artifactId>
-    <packaging>nbm</packaging>
+    <artifactId>it.tidalwave.util.logging</artifactId>
+    <packaging>jar</packaging>
     <name>Logger</name>
 
-    <build>
-        <plugins>
-        </plugins>
-    </build>
 </project>
 
 
