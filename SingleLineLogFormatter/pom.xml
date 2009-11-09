@@ -12,11 +12,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it.tidalwave.singlelinelogformatter</artifactId>
     <packaging>jar</packaging>
-    <!-- packaging>nbm</packaging FIXME -->
     <name>Single Line Log Formatter</name>
-
-    <dependencies>
-    </dependencies>
 
     <build>
         <plugins>
@@ -25,12 +21,7 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <Export-Package>it.tidalwave.image.*</Export-Package>
-                        <!-- FIXME: some packages are needed by reajent - how to do friends?
-                        <Private-Package>it.tidalwave.imageio.*</Private-Package>
-                        <Export-Package>it.tidalwave.image
-                        </Export-Package>
-                        -->
+                        <Export-Package>it.tidalwave.singlelinelogformatter.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
