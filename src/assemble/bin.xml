@@ -14,7 +14,7 @@
                 </includes>
             </fileSet>
             <fileSet>
-                <directory>SingleLineLogFormatter</directory>
+                <directory>SingleLineLogFormatter/target</directory>
                 <outputDirectory>/</outputDirectory>
                 <includes>
                     <include>*.jar</include>
@@ -22,7 +22,23 @@
                 </includes>
             </fileSet>
             <fileSet>
-                <directory>StopWatch</directory>
+                <directory>StopWatch/target</directory>
+                <outputDirectory>/</outputDirectory>
+                <includes>
+                    <include>*.jar</include>
+                    <include>*.nbm</include>
+                </includes>
+            </fileSet>
+            <fileSet>
+                <directory>Logger/target</directory>
+                <outputDirectory>/</outputDirectory>
+                <includes>
+                    <include>*.jar</include>
+                    <include>*.nbm</include>
+                </includes>
+            </fileSet>
+            <fileSet>
+                <directory>Logger-NBM/target</directory>
                 <outputDirectory>/</outputDirectory>
                 <includes>
                     <include>*.jar</include>
