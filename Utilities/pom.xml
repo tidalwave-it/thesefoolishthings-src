@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.thesefoolishthings</groupId>
+        <artifactId>thesefoolishthings</artifactId>
+        <version>1.0.6-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <groupId>it.tidalwave.thesefoolishthings</groupId>
+    <artifactId>it-tidalwave-util</artifactId>
+    <packaging>nbm</packaging>
+    <version>1.10.26-SNAPSHOT</version>
+    <name>TheseFoolishThings - Utilities</name>
+
+    <dependencies>
+<!--        <dependency>
+            <groupId>com.kenai.nbpwr</groupId>
+            <artifactId>javax-annotation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kenai.nbpwr</groupId>
+            <artifactId>javax-inject</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it-tidalwave-util-logging</artifactId>
+        </dependency>
+-->
+        <!-- TEST DEPENDENCIES -->
+  <!--      <dependency>
+            <groupId>it.tidalwave.netbeans</groupId>
+            <artifactId>it-tidalwave-netbeans-util-test</artifactId>
+            <scope>test</scope>
+        </dependency>-->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
+                <configuration>
+                    <publicPackages>
+                        <publicPackage>it.tidalwave.util</publicPackage>
+                    </publicPackages>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
