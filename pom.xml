@@ -287,8 +287,8 @@
                 <configuration>
                     <debug>true</debug>
                     <optimize>true</optimize>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.5</source>
+                    <target>1.5</target>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
                     <!-- Workaround for http://jira.codehaus.org/browse/MCOMPILER-98 -->
@@ -809,6 +809,7 @@
         <module>SingleLineLogFormatter</module>
         <module>Logger</module>
         <module>StopWatch</module>
+        <module>Utilities</module>
     </modules>
 
 </project>
