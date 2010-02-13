@@ -16,29 +16,12 @@
     <name>TheseFoolishThings - Utilities</name>
 
     <dependencies>
-<!--        <dependency>
-            <groupId>com.kenai.nbpwr</groupId>
-            <artifactId>javax-annotation</artifactId>
-        </dependency>
+        <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
         <dependency>
-            <groupId>com.kenai.nbpwr</groupId>
-            <artifactId>javax-inject</artifactId>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.netbeans.api</groupId>
-            <artifactId>org-openide-util</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>it.tidalwave.thesefoolishthings</groupId>
-            <artifactId>it-tidalwave-util-logging</artifactId>
-        </dependency>
--->
-        <!-- TEST DEPENDENCIES -->
-  <!--      <dependency>
-            <groupId>it.tidalwave.netbeans</groupId>
-            <artifactId>it-tidalwave-netbeans-util-test</artifactId>
-            <scope>test</scope>
-        </dependency>-->
     </dependencies>
 
     <build>

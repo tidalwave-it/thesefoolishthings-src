@@ -14,6 +14,15 @@
     <packaging>nbm</packaging>
     <name>StopWatch</name>
 
+    <dependencies>
+        <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    
     <build>
         <plugins>
             <plugin>
