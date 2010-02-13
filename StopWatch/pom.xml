@@ -12,7 +12,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it.tidalwave.stopwatch</artifactId>
     <packaging>nbm</packaging>
-    <name>StopWatch</name>
+    <name>TheseFoolishThings - StopWatch</name>
 
     <dependencies>
         <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->

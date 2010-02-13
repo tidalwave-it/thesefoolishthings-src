@@ -12,7 +12,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it.tidalwave.util.logging</artifactId>
     <packaging>nbm</packaging>
-    <name>Logger</name>
+    <name>TheseFoolishThings - Logger</name>
 
     <dependencies>
         <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
