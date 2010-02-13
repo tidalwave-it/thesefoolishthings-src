@@ -118,7 +118,8 @@ public abstract class FinderSupport<T> implements Finder<T>
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Override
+//    @Override
+    @Nonnull
     public T result()
       throws NotFoundException
       {
