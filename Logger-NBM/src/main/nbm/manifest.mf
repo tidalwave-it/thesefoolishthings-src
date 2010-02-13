@@ -1,3 +1,0 @@
-OpenIDE-Module-Name: Logger
-OpenIDE-Module-Display-Category: TheseFoolishThings
-AutoUpdate-Show-In-Client: true

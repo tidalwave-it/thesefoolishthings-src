@@ -10,11 +10,32 @@
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
-    <artifactId>it.tidalwave.util.logging</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>it-tidalwave-util-logging</artifactId>
+    <packaging>nbm</packaging>
     <name>Logger</name>
 
+    <dependencies>
+        <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <publicPackages>
+                        <publicPackage>it.tidalwave.util.logging</publicPackage>
+                    </publicPackages>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
-
-
 

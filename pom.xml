@@ -3,11 +3,6 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- ***************************************************************************************************************
-    *
-    * Project description
-    *
-    **************************************************************************************************************** -->
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings</artifactId>
     <packaging>pom</packaging>
@@ -15,19 +10,17 @@
     <name>These Foolish Things (master)</name>
 
     <url>http://thesefoolishthings.kenai.com</url>
-    <description />
+    <description>These Foolish Things</description>
     <organization>
         <name>Tidalwave s.a.s.</name>
         <url>http://www.tidalwave.it</url>
     </organization>
     <inceptionYear>2009</inceptionYear>
 
-<!--
     <issueManagement>
         <system>Jira</system>
-        <url>https://services.tidalwave.it/jira/browse/MST</url>
+        <url>https://services.tidalwave.it/jira/browse/BM</url>
     </issueManagement>
--->
 
     <scm>
         <connection>scm:hg:http://kenai.com/hg/thesefoolishthings~src</connection>
@@ -72,7 +65,7 @@
             <comments>Apache License 2.0</comments>
         </license>
     </licenses>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
@@ -98,6 +91,46 @@
             <uniqueVersion>true</uniqueVersion>
         </snapshotRepository>
     </distributionManagement>
+<!--    <distributionManagement>
+        <repository>
+            <id>staging-oss.sonatype.org</id>
+            <name>SonaType Release Repository</name>
+            <url>dav:http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots-oss.sonatype.org</id>
+            <name>SonaType Snapshot Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <site>
+            <id>website-thesefoolishthings.kenai.com</id>
+            <url>dav:https://kenai.com/website/thesefoolishthings/site/${project.version}</url>
+        </site>
+    </distributionManagement>
+-->
+
+    <mailingLists>
+        <mailingList>
+            <name>Continuous Integration</name>
+            <post>ci@thesefoolishthings.kenai.com</post>
+            <archive>http://kenai.com/projects/thesefoolishthings/lists/ci/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Commits</name>
+            <post>commits@thesefoolishthings.kenai.com</post>
+            <archive>http://kenai.com/projects/thesefoolishthings/lists/commits/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Developers</name>
+            <post>dev@thesefoolishthings.kenai.com</post>
+            <archive>http://kenai.com/projects/thesefoolishthings/lists/dev/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Users</name>
+            <post>users@thesefoolishthings.kenai.com</post>
+            <archive>http://kenai.com/projects/thesefoolishthings/lists/users/archive</archive>
+        </mailingList>
+    </mailingLists>
 
     <dependencyManagement>
         <dependencies>
@@ -120,33 +153,11 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>
-                <version>1.7</version>
+                <version>1.8.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <!-- ***************************************************************************************************************
-    *
-    *
-    *
-    **************************************************************************************************************** -->
+    
     <build>
         <extensions>
             <extension>
@@ -154,27 +165,15 @@
                 <artifactId>wagon-svn</artifactId>
                 <version>1.9</version>
             </extension>
-            <!--
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-webdav-jackrabbit</artifactId>
                 <version>1.0-beta-5</version>
             </extension>
-            -->
         </extensions>
 
         <!-- For buildNumber to be properly evaluated by assembly:assembly, use also the validate goal -->
         <finalName>${project.artifactId}-${project.version}${buildNumberSep}${buildNumber}</finalName>
-
-        <resources>
-            <resource>
-                <filtering>true</filtering>
-                <directory>src/main/resources/</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
-        </resources>
 
         <!-- ***********************************************************************************************************
         *
@@ -260,7 +259,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>2.1</version>
+                    <version>2.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -288,10 +287,14 @@
                 <configuration>
                     <debug>true</debug>
                     <optimize>true</optimize>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
+                    <!-- Workaround for http://jira.codehaus.org/browse/MCOMPILER-98 -->
+                    <compilerArguments>
+                        <sourcepath>${project.basedir}/src/main/java</sourcepath>
+                    </compilerArguments>
                 </configuration>
             </plugin>
 
@@ -300,7 +303,6 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <descriptors>
-                        <descriptor>src/assemble/bin.xml</descriptor>
                         <descriptor>src/assemble/project.xml</descriptor>
                     </descriptors>
                     <tarLongFileMode>gnu</tarLongFileMode>
@@ -336,21 +338,20 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
-                    <argLine>-Xmx512M</argLine>
+                    <!-- systemProperties>
+                        <property>
+                        </property>
+                    </systemProperties -->
+                    <argLine>-Xmx768M</argLine>
+                    <testFailureIgnore>${testFailureIgnore}</testFailureIgnore>
                 </configuration>
             </plugin>
 
-            <!-- Produces the JARs, with OSGi support and the Subversion revision in the Manifest -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <useDefaultManifestFile>true</useDefaultManifestFile> <!-- required since nbm-plugin 3.0-->
-                    <archive>
-                        <manifestEntries>
-                            <Implementation-Build>${buildNumber}</Implementation-Build>
-                        </manifestEntries>
-                    </archive>
                 </configuration>
                 <executions>
                     <execution>
@@ -371,6 +372,17 @@
                     <preparationGoals>clean install verify</preparationGoals>
                     <goals>clean install javadoc:javadoc assembly:assembly deploy</goals>
                     <arguments>-Prelease -DaltDeploymentRepository="${altDeploymentRepository}"</arguments>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <descriptor>src/main/nbm/module.xml</descriptor>
+                    <brandingToken>openbluesky</brandingToken>
+                    <cluster>openbluesky</cluster>
                 </configuration>
             </plugin>
 
@@ -611,7 +623,7 @@
             </properties>
             <build>
                 <plugins>
-                            <!-- Attaches the extra artifacts prepared during the release process by the assembly plugin -->
+                    <!-- Attaches the extra artifacts prepared during the release process by the assembly plugin -->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
@@ -632,11 +644,6 @@
                                     <type>tar.gz</type>
                                     <classifier>project</classifier>
                                 </artifact>
-                                <artifact>
-                                    <file>${project.build.directory}/${project.build.finalName}-bin.tar.gz</file>
-                                    <type>tar.gz</type>
-                                    <classifier>bin</classifier>
-                                </artifact>
                             </artifacts>
                         </configuration>
                     </plugin>
@@ -648,7 +655,7 @@
         <profile>
             <id>cobertura</id>
             <properties>
-                <testReportsDirectory>${project.build.directory}/surefire-reports/${java.version}/cobertura</testReportsDirectory>
+                <testReportsDirectory>${project.build.directory}/surefire-reports/cobertura</testReportsDirectory>
             </properties>
             <build>
                 <plugins>
@@ -673,13 +680,46 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>deployment</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>nbm-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>updatesite</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>autoupdate</goal>
+                                </goals>
+                                <configuration>
+                                    <fileName>catalog.xml</fileName>
+                                    <distBase>openbluesky-update-center::default::https://services.tidalwave.it/nexus/content/groups/public</distBase>
+                                    <etcConfFile>config/openbluesky.conf</etcConfFile>
+                                </configuration>
+                            </execution>
+                            <!--
+                            <execution>
+                                <id>webstart</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>webstart-app</goal>
+                                </goals>
+                                <configuration>
+                                    <codebase>${project.build.directory}/webstart/${brandingToken}</codebase>
+                                </configuration>
+                            </execution>
+                            -->
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
-    <!-- ***************************************************************************************************************
-    *
-    *
-    *
-    **************************************************************************************************************** -->
     <reporting>
         <plugins>
             <!-- JavaDoc support -->
@@ -691,6 +731,10 @@
                     <excludePackageNames>*.impl:*.impl.*</excludePackageNames>
                     <links>
                         <link href="http://java.sun.com/javase/6/docs/api/" />
+                        <link href="http://bits.netbeans.org/6.7/javadoc/org-openide-util" />
+                        <link href="http://bits.netbeans.org/6.7/javadoc/org-openide-nodes" />
+                        <link href="http://bits.netbeans.org/6.7/javadoc/org-openide-explorer" />
+                        <link href="http://bits.netbeans.org/6.7/javadoc/org-openide-filesystems" />
                     </links>
                     <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
                     <docletArtifact>
@@ -709,33 +753,52 @@
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <configuration>
                     <xmlOutput>true</xmlOutput>
-                    <threshold>Low</threshold>
-                    <effort>Max</effort>
-                    <debug>false</debug>
-                    <relaxed>false</relaxed>
                     <findbugsXmlOutput>true</findbugsXmlOutput>
+                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <failOnError>false</failOnError>
                 </configuration>
             </plugin>
 
-            <!-- PMD/CPD support -->
+            <!-- PMD support -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
-                    <targetJdk>1.5</targetJdk>
+                    <linkXref>true</linkXref>
+                    <sourceEncoding>utf-8</sourceEncoding>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>1.6</targetJdk>
                 </configuration>
             </plugin>
 
-            <!-- CheckStyle support -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
-                    <configLocation>config/checkstyle.xml</configLocation>
+                    <configLocation>config/sun_checks.xml</configLocation>
                 </configuration>
             </plugin>
         </plugins>
     </reporting>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <!-- ***************************************************************************************************************
     *
@@ -745,7 +808,6 @@
     <modules>
         <module>SingleLineLogFormatter</module>
         <module>Logger</module>
-        <module>Logger-NBM</module>
         <module>StopWatch</module>
     </modules>
 

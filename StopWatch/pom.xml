@@ -11,16 +11,23 @@
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it.tidalwave.stopwatch</artifactId>
-    <packaging>jar</packaging>
-    <!-- packaging>nbm</packaging FIXME -->
+    <packaging>nbm</packaging>
     <name>StopWatch</name>
-
-    <dependencies>
-    </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <publicPackages>
+                        <publicPackage>it.tidalwave.stopwatch</publicPackage>
+                    </publicPackages>
+                </configuration>
+            </plugin>
+
+<!--        <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
@@ -28,7 +35,8 @@
                         <Export-Package>it.tidalwave.stopwatch.*</Export-Package>
                     </instructions>
                 </configuration>
-            </plugin>
+            </plugin>-->
+            
         </plugins>
     </build>
 </project>

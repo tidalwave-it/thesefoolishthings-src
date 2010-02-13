@@ -11,12 +11,31 @@
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it.tidalwave.singlelinelogformatter</artifactId>
-    <packaging>jar</packaging>
+    <packaging>nbm</packaging>
     <name>Single Line Log Formatter</name>
+
+    <dependencies>
+        <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <publicPackages>
+                        <publicPackage>it.tidalwave.singlelinelogformatter</publicPackage>
+                    </publicPackages>
+                </configuration>
+            </plugin>
+<!--            <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
@@ -25,7 +44,7 @@
                     </instructions>
                 </configuration>
             </plugin>
-        </plugins>
+-->        </plugins>
     </build>
 </project>
 
