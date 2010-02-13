@@ -65,7 +65,8 @@ public class Id implements Serializable, Comparable<Id>, StringValue
      * {@inheritDoc}
      *
      **************************************************************************/
-    @Override @Nonnull 
+//    @Override
+    @Nonnull
     public String stringValue()
       {
         return value;

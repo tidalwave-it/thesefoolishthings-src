@@ -67,7 +67,8 @@ public abstract class FinderSupport<T> implements Finder<T>
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Override @Nonnegative
+//    @Override
+    @Nonnegative
     public int count()
       {
         compute();
@@ -79,7 +80,8 @@ public abstract class FinderSupport<T> implements Finder<T>
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Override @Nonnull
+//    @Override
+    @Nonnull
     public Finder from (final @Nonnegative int firstResult)
       {
         this.firstResult = firstResult;
@@ -91,7 +93,8 @@ public abstract class FinderSupport<T> implements Finder<T>
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Override @Nonnull
+//    @Override
+    @Nonnull
     public Finder max (final @Nonnegative int maxResults)
       {
         this.maxResults = maxResults;
@@ -103,7 +106,8 @@ public abstract class FinderSupport<T> implements Finder<T>
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Override @Nonnull
+//    @Override
+    @Nonnull
     public <X> it.tidalwave.util.Finder<X> ofType (final @Nonnull Class<X> type)
       {
         throw new UnsupportedOperationException("Not supported.");
@@ -139,7 +143,8 @@ public abstract class FinderSupport<T> implements Finder<T>
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Override
+//    @Override
+    @Nonnull
     public T firstResult()
       throws NotFoundException
       {
@@ -159,7 +164,8 @@ public abstract class FinderSupport<T> implements Finder<T>
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Override @Nonnull
+//    @Override
+    @Nonnull
     public List<? extends T> results()
       {
         compute();
@@ -171,7 +177,8 @@ public abstract class FinderSupport<T> implements Finder<T>
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Override
+//    @Override
+    @Nonnull
     public Finder<T> sort (final @Nonnull SortCriterion criterion,
                            final @Nonnull SortDirection direction)
       {
@@ -183,7 +190,8 @@ public abstract class FinderSupport<T> implements Finder<T>
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Override
+//    @Override
+    @Nonnull
     public Finder<T> sort (final @Nonnull SortCriterion criterion)
       {
         return sort(criterion, SortDirection.ASCENDING);

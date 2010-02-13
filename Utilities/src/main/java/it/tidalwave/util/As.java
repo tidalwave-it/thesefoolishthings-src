@@ -69,7 +69,8 @@ public interface As
           {
             return new NotFoundBehaviour<X>()
               {
-                @Override @Nonnull
+//                @Override
+                @Nonnull
                 public X run (final @Nonnull Throwable t)
                   {
                     throw new AsException(clazz, t);

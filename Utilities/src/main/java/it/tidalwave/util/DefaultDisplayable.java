@@ -60,31 +60,36 @@ public class DefaultDisplayable implements Displayable, Serializable
         displayNameMap.put(Locale.ENGLISH, displayName);
       }
 
-    @Override @Nonnull
+//    @Override
+    @Nonnull
     public String getDisplayName()
       {
         return displayName;
       }
 
-    @Override @Nonnull
+//    @Override
+    @Nonnull
     public String getDisplayName (final @Nonnull Locale locale)
       {
         return displayNameMap.get(locale);
       }
 
-    @Override @Nonnull
+//    @Override
+    @Nonnull
     public SortedSet<Locale> getLocales()
       {
         return new TreeSet<Locale>(displayNameMap.keySet());
       }
 
-    @Override @Nonnull
+//    @Override
+    @Nonnull
     public Map<Locale, String> getDisplayNames()
       {
         return Collections.unmodifiableMap(displayNameMap);
       }
 
-    @Override @Nonnull
+//    @Override
+    @Nonnull
     public String toString()
       {
         return String.format("%s@%x$Displayable[]", toStringName, System.identityHashCode(this));

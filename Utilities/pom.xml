@@ -12,7 +12,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it.tidalwave.util</artifactId>
     <packaging>nbm</packaging>
-    <version>1.10.26-SNAPSHOT</version>
+    <version>1.10.27-SNAPSHOT</version>
     <name>TheseFoolishThings - Utilities</name>
 
     <dependencies>

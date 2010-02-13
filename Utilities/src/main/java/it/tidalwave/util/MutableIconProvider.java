@@ -39,13 +39,13 @@ public abstract class MutableIconProvider implements IconProvider
   {
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-    @Override
+//    @Override
     public void addPropertyChangeListener (final @Nonnull PropertyChangeListener listener)
       {
         pcs.addPropertyChangeListener(listener);
       }
 
-    @Override
+//    @Override
     public void removePropertyChangeListener (final @Nonnull PropertyChangeListener listener)
       {
         pcs.removePropertyChangeListener(listener);
