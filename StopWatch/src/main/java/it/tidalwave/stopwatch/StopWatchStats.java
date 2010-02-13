@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: StopWatchStats.java 8 2009-07-17 14:22:11Z fabriziogiudici $
+ * $Id$
  *
  ******************************************************************************/
 package it.tidalwave.stopwatch;
@@ -36,7 +36,7 @@ import java.util.logging.Logger;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: StopWatchStats.java 8 2009-07-17 14:22:11Z fabriziogiudici $
+ * @version $Id$
  *
  ******************************************************************************/
 public class StopWatchStats implements Comparable<StopWatchStats>

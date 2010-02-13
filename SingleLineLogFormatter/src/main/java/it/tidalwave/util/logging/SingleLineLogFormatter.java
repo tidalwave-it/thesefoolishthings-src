@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: SingleLineLogFormatter.java 2 2009-07-13 17:26:45Z fabriziogiudici $
+ * $Id$
  *
  ******************************************************************************/
 package it.tidalwave.util.logging;
@@ -38,7 +38,7 @@ import java.util.logging.LogRecord;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: SingleLineLogFormatter.java 2 2009-07-13 17:26:45Z fabriziogiudici $
+ * @version $Id$
  *
  ******************************************************************************/
 public class SingleLineLogFormatter extends Formatter
