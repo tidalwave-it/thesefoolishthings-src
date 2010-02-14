@@ -95,7 +95,7 @@ public class NotFoundException extends Exception
     public static <T extends Collection> T throwWhenEmpty (final @Nullable T collection, final @Nonnull String message)
       throws NotFoundException
       {
-        if (collection.isEmpty())
+        if ((collection == null) || collection.isEmpty())
           {
             throw new NotFoundException(message);
           }
