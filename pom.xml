@@ -90,6 +90,10 @@
             <url>http://services.tidalwave.it/nexus/content/repositories/snapshots/</url>
             <uniqueVersion>true</uniqueVersion>
         </snapshotRepository>
+        <site>
+            <id>website-thesefoolishthings.kenai.com</id>
+            <url>dav:https://kenai.com/website/thesefoolishthings/site/${project.version}</url>
+        </site>
     </distributionManagement>
 <!--    <distributionManagement>
         <repository>
