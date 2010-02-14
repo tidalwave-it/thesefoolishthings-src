@@ -6,7 +6,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.6</version>
     <name>These Foolish Things (master)</name>
 
     <url>http://thesefoolishthings.kenai.com</url>
@@ -137,7 +137,7 @@
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it.tidalwave.util.logging</artifactId>
-                <version>1.0.6-SNAPSHOT</version>
+                <version>1.0.6</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
