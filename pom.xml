@@ -43,20 +43,18 @@
         </developer>
     </developers>
 
-<!--
     <mailingLists>
         <mailingList>
-            <name>Commits</name>
-            <post>commits@mistral.dev.java.net</post>
-            <archive>https://mistral.dev.java.net/servlets/SummarizeList?listName=commits</archive>
+            <name>Continuous Integration</name>
+            <post>ci@thesefoolishthings.kenai.com</post>
+            <archive>http://kenai.com/projects/thesefoolishthings/lists/ci/archive</archive>
         </mailingList>
         <mailingList>
-            <name>Dev</name>
-            <post>dev@mistral.dev.java.net</post>
-            <archive>https://mistral.dev.java.net/servlets/SummarizeList?listName=dev</archive>
+            <name>Commits</name>
+            <post>commits@thesefoolishthings.kenai.com</post>
+            <archive>http://kenai.com/projects/thesefoolishthings/lists/commits/archive</archive>
         </mailingList>
     </mailingLists>
--->
 
     <licenses>
         <license>
@@ -79,24 +77,6 @@
 
     <distributionManagement>
         <repository>
-            <id>maven2-repository.tidalwave.kenai.com</id>
-            <name>Tidalwave Maven Release Repository</name>
-            <url>svn:https://kenai.com/svn/tidalwave~maven-repo/release/2</url>
-            <uniqueVersion>false</uniqueVersion>
-        </repository>
-        <snapshotRepository>
-            <id>maven2-snapshot-repository.tidalwave.it</id>
-            <name>Tidalwave Maven Snapshot Repository</name>
-            <url>http://services.tidalwave.it/nexus/content/repositories/snapshots/</url>
-            <uniqueVersion>true</uniqueVersion>
-        </snapshotRepository>
-        <site>
-            <id>website-thesefoolishthings.kenai.com</id>
-            <url>dav:https://kenai.com/website/thesefoolishthings/site/${project.version}</url>
-        </site>
-    </distributionManagement>
-<!--    <distributionManagement>
-        <repository>
             <id>staging-oss.sonatype.org</id>
             <name>SonaType Release Repository</name>
             <url>dav:http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
@@ -111,30 +91,6 @@
             <url>dav:https://kenai.com/website/thesefoolishthings/site/${project.version}</url>
         </site>
     </distributionManagement>
--->
-
-    <mailingLists>
-        <mailingList>
-            <name>Continuous Integration</name>
-            <post>ci@thesefoolishthings.kenai.com</post>
-            <archive>http://kenai.com/projects/thesefoolishthings/lists/ci/archive</archive>
-        </mailingList>
-        <mailingList>
-            <name>Commits</name>
-            <post>commits@thesefoolishthings.kenai.com</post>
-            <archive>http://kenai.com/projects/thesefoolishthings/lists/commits/archive</archive>
-        </mailingList>
-        <mailingList>
-            <name>Developers</name>
-            <post>dev@thesefoolishthings.kenai.com</post>
-            <archive>http://kenai.com/projects/thesefoolishthings/lists/dev/archive</archive>
-        </mailingList>
-        <mailingList>
-            <name>Users</name>
-            <post>users@thesefoolishthings.kenai.com</post>
-            <archive>http://kenai.com/projects/thesefoolishthings/lists/users/archive</archive>
-        </mailingList>
-    </mailingLists>
 
     <dependencyManagement>
         <dependencies>
