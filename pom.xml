@@ -6,7 +6,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.7</version>
     <name>TheseFoolishThings (master)</name>
 
     <url>http://thesefoolishthings.kenai.com</url>
@@ -97,32 +97,32 @@
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it.tidalwave.util.logging</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it.tidalwave.beans</artifactId>
-                <version>1.4.6-SNAPSHOT</version>
+                <version>1.4.6</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it.tidalwave.swing.beansbinding</artifactId>
-                <version>1.1.5-SNAPSHOT</version>
+                <version>1.1.5</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it.tidalwave.singlelinelogformatter</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it.tidalwave.util.logging</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it.tidalwave.stopwatch</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.7</version>
             </dependency>
 
             <dependency>
