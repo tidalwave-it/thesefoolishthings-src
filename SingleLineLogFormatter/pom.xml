@@ -31,7 +31,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <publicPackages>
-                        <publicPackage>it.tidalwave.singlelinelogformatter</publicPackage>
+                        <publicPackage>it.tidalwave.util.logging</publicPackage>
                     </publicPackages>
                 </configuration>
             </plugin>
@@ -40,7 +40,7 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <Export-Package>it.tidalwave.singlelinelogformatter.*</Export-Package>
+                        <Export-Package>it.tidalwave.util.logging.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
