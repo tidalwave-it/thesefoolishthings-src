@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+OpenIDE-Module: it.tidalwave.beans/1
+OpenIDE-Module-Localizing-Bundle: it/tidalwave/beans/Bundle.properties
+
