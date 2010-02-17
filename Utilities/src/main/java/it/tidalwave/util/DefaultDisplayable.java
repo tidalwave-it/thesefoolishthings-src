@@ -1,10 +1,10 @@
 /***********************************************************************************************************************
  *
- * OpenBlueSky - NetBeans Platform Enhancements
+ * TheseFoolishThings - Miscellaneous utilities
  * ============================================
  *
- * Copyright (C) 2007-2010 by Tidalwave s.a.s.
- * Project home page: http://openbluesky.kenai.com
+ * Copyright (C) 2009-2010 by Tidalwave s.a.s.
+ * Project home page: http://thesefoolishthings.kenai.com
  *
  ***********************************************************************************************************************
  *
