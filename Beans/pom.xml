@@ -6,12 +6,12 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings</artifactId>
-        <version>1.0.8-SNAPSHOT</version>
+        <version>1.0.8</version>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it.tidalwave.beans</artifactId>
-    <version>1.4.7-SNAPSHOT</version>
+    <version>1.4.7</version>
     <packaging>nbm</packaging>
     <name>TheseFoolishThings - Beans</name>
 
