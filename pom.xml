@@ -102,7 +102,12 @@
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it.tidalwave.beans</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.4.6-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it.tidalwave.swing.beansbinding</artifactId>
+                <version>1.1.5-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -782,10 +787,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -804,6 +805,7 @@
     **************************************************************************************************************** -->
     <modules>
         <module>Beans</module>
+        <module>BeansBinding</module>
         <module>Logger</module>
         <module>SingleLineLogFormatter</module>
         <module>StopWatch</module>

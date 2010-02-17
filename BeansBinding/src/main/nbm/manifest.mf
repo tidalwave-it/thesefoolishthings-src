@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+OpenIDE-Module: it.tidalwave.swing.beansbinding/1
+OpenIDE-Module-Localizing-Bundle: it/tidalwave/swing/beansbinding/Bundle.properties
+
