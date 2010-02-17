@@ -11,6 +11,7 @@
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it.tidalwave.beans</artifactId>
+    <version>1.4.6-SNAPSHOT</version>
     <packaging>nbm</packaging>
     <name>TheseFoolishThings - Beans</name>
 
@@ -49,6 +50,7 @@
                 <configuration>
                     <publicPackages>
                         <publicPackage>it.tidalwave.beans</publicPackage>
+                        <publicPackage>it.tidalwave.beans.swing</publicPackage>
                     </publicPackages>
                 </configuration>
             </plugin>
@@ -59,6 +61,7 @@
                 <configuration>
                     <instructions>
                         <Export-Package>it.tidalwave.beans.*</Export-Package>
+                        <Export-Package>it.tidalwave.beans.swing.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>-->
