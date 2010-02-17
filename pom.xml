@@ -377,7 +377,7 @@
                 <configuration>
                     <preparationGoals>clean install verify</preparationGoals>
                     <goals>clean install javadoc:javadoc assembly:assembly deploy</goals>
-                    <arguments>-Prelease -DaltDeploymentRepository="${altDeploymentRepository}"</arguments>
+                    <arguments>-Prelease -DaltDeploymentRepository="${altDeploymentRepository} -Dgpg.password="${gpg.password}"</arguments>
                 </configuration>
             </plugin>
 
