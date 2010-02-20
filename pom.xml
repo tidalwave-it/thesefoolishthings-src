@@ -47,6 +47,20 @@
         <hg.repo.url>https://kenai.com/hg/thesefoolishthings~src</hg.repo.url>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>snapshots-oss.sonatype.org</id>
+            <name>Sonatype Snapshots Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <distributionManagement>
         <site>
             <id>website-thesefoolishthings.kenai.com</id>
