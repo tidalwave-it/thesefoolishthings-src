@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>superpom</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -112,10 +112,11 @@
                     <target>1.5</target>
                 </configuration>
             </plugin>
-            <plugin>
+            <plugin> <!-- FIXME: drop this with SuperPOM 1.1.0 -->
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <descriptors>
+                        <descriptor>src/assemble/bin.xml</descriptor>
                         <descriptor>src/assemble/project.xml</descriptor>
                     </descriptors>
                 </configuration>
