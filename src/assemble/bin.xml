@@ -14,7 +14,7 @@
                 </includes>
             </fileSet>
             <fileSet>
-                <directory>SingleLineLogFormatter/target</directory>
+                <directory>modules/Beans/target</directory>
                 <outputDirectory>/</outputDirectory>
                 <includes>
                     <include>*.jar</include>
@@ -22,7 +22,7 @@
                 </includes>
             </fileSet>
             <fileSet>
-                <directory>StopWatch/target</directory>
+                <directory>modules/BeansBinding/target</directory>
                 <outputDirectory>/</outputDirectory>
                 <includes>
                     <include>*.jar</include>
@@ -30,7 +30,7 @@
                 </includes>
             </fileSet>
             <fileSet>
-                <directory>Logger/target</directory>
+                <directory>modules/Logger/target</directory>
                 <outputDirectory>/</outputDirectory>
                 <includes>
                     <include>*.jar</include>
@@ -38,7 +38,23 @@
                 </includes>
             </fileSet>
             <fileSet>
-                <directory>Logger-NBM/target</directory>
+                <directory>modules/SingleLineLogFormatter/target</directory>
+                <outputDirectory>/</outputDirectory>
+                <includes>
+                    <include>*.jar</include>
+                    <include>*.nbm</include>
+                </includes>
+            </fileSet>
+            <fileSet>
+                <directory>modules/StopWatch/target</directory>
+                <outputDirectory>/</outputDirectory>
+                <includes>
+                    <include>*.jar</include>
+                    <include>*.nbm</include>
+                </includes>
+            </fileSet>
+            <fileSet>
+                <directory>modules/Utilities/target</directory>
                 <outputDirectory>/</outputDirectory>
                 <includes>
                     <include>*.jar</include>
