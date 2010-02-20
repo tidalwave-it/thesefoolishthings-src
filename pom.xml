@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>superpom</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -24,12 +24,6 @@
         <url>https://services.tidalwave.it/jira/browse/BM</url>
     </issueManagement>
 
-    <scm>
-        <connection>scm:hg:http://kenai.com/hg/thesefoolishthings~src</connection>
-        <developerConnection>scm:hg:${hg.repo.url}</developerConnection>
-        <url>http://kenai.com/projects/thesefoolishthings/sources/src/show</url>
-    </scm>
-
     <mailingLists>
         <mailingList>
             <name>Continuous Integration</name>
@@ -44,7 +38,9 @@
     </mailingLists>
 
     <properties>
-        <hg.repo.url>https://kenai.com/hg/thesefoolishthings~src</hg.repo.url>
+        <scm.repo.url>https://kenai.com/hg/thesefoolishthings~src</scm.repo.url>
+        <scm.repo.readonly.url>http://kenai.com/hg/thesefoolishthings~src</scm.repo.readonly.url>
+        <scm.repo.browse.url>http://kenai.com/projects/thesefoolishthings/sources/src/show</scm.repo.browse.url>
     </properties>
 
     <repositories>
@@ -110,15 +106,6 @@
                 <configuration>
                     <source>1.5</source>
                     <target>1.5</target>
-                </configuration>
-            </plugin>
-            <plugin> <!-- FIXME: drop this with SuperPOM 1.1.0 -->
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/assemble/bin.xml</descriptor>
-                        <descriptor>src/assemble/project.xml</descriptor>
-                    </descriptors>
                 </configuration>
             </plugin>
         </plugins>
