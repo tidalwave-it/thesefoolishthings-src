@@ -181,6 +181,7 @@
         <module>Logger</module>
         <module>SingleLineLogFormatter</module>
         <module>StopWatch</module>
+        <module>SuperPOM</module>
         <module>Utilities</module>
     </modules>
 

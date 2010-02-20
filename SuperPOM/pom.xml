@@ -48,6 +48,9 @@
         <buildNumberSep>.</buildNumberSep>
         <testFailureIgnore>false</testFailureIgnore>
         <revision.stamp>.revision</revision.stamp>
+        <breakBuildOnIncompatibleAPIChanges>false</breakBuildOnIncompatibleAPIChanges>
+        <disableJavaDocs>false</disableJavaDocs>
+        <disableDeploy>false</disableDeploy>
     </properties>
 
     <repositories>
@@ -303,6 +306,14 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>${disableDeploy}</skip>
+                </configuration>
+            </plugin>
+
             <!-- Configures the release process, calling the assembly to include extra artifacts in deploy -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -328,6 +339,9 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>clirr-maven-plugin</artifactId>
+                <configuration>
+                    <failOnError>${breakBuildOnIncompatibleAPIChanges}</failOnError>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -755,7 +769,8 @@
                         <version>5.1</version>
                     </docletArtifact>
                     <additionalparam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferdep -inferrel -inferdepinpackage -hide java.*|javax.*</additionalparam>
-                    <useStandardDocletOptions>true</useStandardDocletOptions>
+                    <useStandardDocletOptions>true</useStandardDocletOptions> 
+                    <skip>${disableJavaDocs}</skip>
                 </configuration>
             </plugin>
             <plugin>
