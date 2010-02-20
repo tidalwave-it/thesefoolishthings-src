@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.thesefoolishthings</groupId>
+        <artifactId>thesefoolishthings</artifactId>
+        <version>1.1.0-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <groupId>it.tidalwave.thesefoolishthings</groupId>
+    <artifactId>modules</artifactId>
+    <packaging>pom</packaging>
+    <version>1.1.0-SNAPSHOT</version>
+    <name>TheseFoolishThings (modules)</name>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>org-jdesktop-beansbinding</artifactId>
+                <version>1.2.1.5</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>net-sf-cglib</artifactId>
+                <version>2.1.3.5</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>javax-annotation</artifactId>
+                <version>1.3.7.3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>1.3.7</version>
+                <!-- WARNING: don't use 1.3.8, it has got a broken pom which brings is tons of useless stuff! -->
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.7</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>1.8.2</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>Beans</module>
+        <module>BeansBinding</module>
+        <module>Logger</module>
+        <module>SingleLineLogFormatter</module>
+        <module>StopWatch</module>
+        <module>Utilities</module>
+    </modules>
+
+</project>
