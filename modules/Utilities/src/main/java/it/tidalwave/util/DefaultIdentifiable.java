@@ -47,7 +47,8 @@ public class DefaultIdentifiable implements Identifiable, Serializable
         this.id = id;
       }
 
-    @Override @Nonnull
+//    @Override
+    @Nonnull
     public Id getId()
       {
         return id;
