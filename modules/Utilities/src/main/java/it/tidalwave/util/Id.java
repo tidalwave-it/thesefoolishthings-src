@@ -24,6 +24,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.util;
 
+import javax.annotation.concurrent.Immutable;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.io.Serializable;
@@ -36,6 +37,7 @@ import java.io.Serializable;
  * @version $Id$
  *
  **********************************************************************************************************************/
+@Immutable
 public class Id implements Serializable, Comparable<Id>, StringValue
   {
     private static final long serialVersionUID = 3309234234279593043L;
