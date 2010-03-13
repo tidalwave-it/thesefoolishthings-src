@@ -25,6 +25,8 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
+import java.io.Serializable;
 
 /***********************************************************************************************************************
  *
@@ -32,8 +34,11 @@ import javax.annotation.Nonnull;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DefaultIdentifiable implements Identifiable
+@Immutable
+public class DefaultIdentifiable implements Identifiable, Serializable
   {
+    private static final long serialVersionUID = 45654634423793043L;
+
     @Nonnull
     private final Id id;
 
