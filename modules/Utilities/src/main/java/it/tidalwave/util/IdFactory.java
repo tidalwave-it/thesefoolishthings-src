@@ -38,4 +38,10 @@ public interface IdFactory
     
     @Nonnull
     public Id createId();
+    
+    @Nonnull
+    public Id createId (@Nonnull Class<?> clazz);
+    
+    @Nonnull
+    public Id createId (@Nonnull Class<?> clazz, @Nonnull Object object);
   }
