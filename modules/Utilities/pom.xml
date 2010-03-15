@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
-    <artifactId>it.tidalwave.util</artifactId>
+    <artifactId>it-tidalwave-util</artifactId>
     <packaging>nbm</packaging>
     <version>1.10.34-SNAPSHOT</version>
     <name>TheseFoolishThings - Utilities</name>

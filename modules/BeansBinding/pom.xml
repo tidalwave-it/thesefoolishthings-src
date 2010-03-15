@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
-    <artifactId>it.tidalwave.swing.beansbinding</artifactId>
+    <artifactId>it-tidalwave-swing-beansbinding</artifactId>
     <version>1.1.11-SNAPSHOT</version>
     <packaging>nbm</packaging>
     <name>TheseFoolishThings - Swing BeansBindings</name>
@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
-            <artifactId>it.tidalwave.util.logging</artifactId>
+            <artifactId>it-tidalwave-util-logging</artifactId>
         </dependency>
         <dependency>
             <groupId>com.kenai.nbpwr</groupId>
@@ -32,7 +32,7 @@
         <!-- Test -->
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
-            <artifactId>it.tidalwave.singlelinelogformatter</artifactId>
+            <artifactId>it-tidalwave-util-logging-singlelinelogformatter</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
