@@ -15,6 +15,10 @@
     <version>1.10.34-SNAPSHOT</version>
     <name>TheseFoolishThings - Utilities</name>
 
+    <properties>
+        <stableAPI>true</stableAPI>
+    </properties>
+
     <dependencies>
         <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
         <dependency>
