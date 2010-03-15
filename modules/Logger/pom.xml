@@ -15,6 +15,10 @@
     <packaging>nbm</packaging>
     <name>TheseFoolishThings - Logger</name>
 
+    <properties>
+        <stableAPI>true</stableAPI>
+    </properties>
+
     <dependencies>
         <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
         <dependency>
