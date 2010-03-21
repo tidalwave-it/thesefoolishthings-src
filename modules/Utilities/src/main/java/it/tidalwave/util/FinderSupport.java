@@ -35,6 +35,7 @@ import it.tidalwave.util.Finder.SortDirection;
  *
  * @author Fabrizio Giudici
  * @version $Id$
+ * @draft
  *
  **********************************************************************************************************************/
 public abstract class FinderSupport<T> implements Finder<T>

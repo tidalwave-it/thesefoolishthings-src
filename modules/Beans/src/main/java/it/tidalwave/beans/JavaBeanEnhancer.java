@@ -30,6 +30,7 @@ import net.sf.cglib.proxy.Callback;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @experimental
  *
  ******************************************************************************/
 public class JavaBeanEnhancer extends AbstractEnhancer<JavaBean>

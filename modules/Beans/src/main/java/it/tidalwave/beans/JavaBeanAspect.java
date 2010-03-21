@@ -54,6 +54,7 @@ import it.tidalwave.util.logging.Logger;
  * @author  jarppe2@dev.java.net
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @experimental
  *
  ******************************************************************************/
 public class JavaBeanAspect 

@@ -30,12 +30,13 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.logging.Logger;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @experimental
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class StopWatchStats implements Comparable<StopWatchStats>
   {
     private final static String CLASS = StopWatchStats.class.getName();

@@ -35,6 +35,7 @@ import org.jdesktop.beansbinding.BindingGroup;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @experimental
  *
  ******************************************************************************/
 public class AbstractBindablePane<Bean> extends JPanel

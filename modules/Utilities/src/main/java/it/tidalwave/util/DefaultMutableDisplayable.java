@@ -38,6 +38,7 @@ import java.util.TreeSet;
  *
  * @author Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public class DefaultMutableDisplayable implements MutableDisplayable

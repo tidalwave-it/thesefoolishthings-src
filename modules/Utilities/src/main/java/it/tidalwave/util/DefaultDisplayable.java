@@ -37,6 +37,7 @@ import java.io.Serializable;
  *
  * @author Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public class DefaultDisplayable implements Displayable, Serializable 

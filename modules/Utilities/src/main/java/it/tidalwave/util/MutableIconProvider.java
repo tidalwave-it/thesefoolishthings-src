@@ -33,6 +33,7 @@ import java.awt.Image;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @draft
  *
  **********************************************************************************************************************/
 public abstract class MutableIconProvider implements IconProvider

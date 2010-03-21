@@ -33,7 +33,8 @@ import java.beans.PropertyChangeListener;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- *
+ * @draft
+ * 
  **********************************************************************************************************************/
 public interface IconProvider
   {

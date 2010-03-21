@@ -35,6 +35,7 @@ import java.beans.VetoableChangeSupport;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @experimental
  *
  ******************************************************************************/
 public abstract class JavaBeanSupport implements JavaBean
@@ -100,5 +101,10 @@ public abstract class JavaBeanSupport implements JavaBean
     public final VetoableChangeListener[] getVetoableChangeListeners(String propertyName) 
       {
         return vetoableChangeSupport.getVetoableChangeListeners(propertyName);
+      }
+
+    public Object __getDelegate()
+      {
+        return this;
       }
   }

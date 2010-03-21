@@ -33,6 +33,7 @@ import java.util.Map;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public interface MutableDisplayable extends Displayable

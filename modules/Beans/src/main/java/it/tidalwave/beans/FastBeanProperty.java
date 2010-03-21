@@ -35,6 +35,7 @@ import org.jdesktop.beansbinding.PropertyStateListener;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @experimental
  *
  ******************************************************************************/
 public class FastBeanProperty<S,V> extends Property<S,V>

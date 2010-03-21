@@ -37,6 +37,7 @@ import java.io.Serializable;
  * @author  jarppe2@dev.java.net
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @experimental
  *
  ******************************************************************************/
 public interface JavaBean extends Serializable

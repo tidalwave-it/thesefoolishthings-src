@@ -28,6 +28,7 @@ package it.tidalwave.util;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public class DuplicateException extends Exception

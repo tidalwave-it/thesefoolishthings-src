@@ -33,6 +33,7 @@ import java.io.Serializable;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @draft
  *
  **********************************************************************************************************************/
 public interface Finder<T> extends Cloneable, Serializable

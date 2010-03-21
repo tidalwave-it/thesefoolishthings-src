@@ -40,6 +40,7 @@ import net.sf.cglib.proxy.Enhancer;
  * @author  jarppe2@dev.java.net
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @experimental
  *
  ******************************************************************************/
 public abstract class AbstractEnhancer<T> 

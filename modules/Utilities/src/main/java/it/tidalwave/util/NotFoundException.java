@@ -32,6 +32,7 @@ import java.util.Collection;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public class NotFoundException extends Exception

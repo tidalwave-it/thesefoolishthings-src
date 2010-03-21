@@ -36,6 +36,7 @@ import java.util.SortedSet;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public interface Displayable

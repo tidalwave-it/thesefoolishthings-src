@@ -28,9 +28,11 @@ package it.tidalwave.util;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public interface Removable
   {
-    public void remove();
+    public void remove()
+      throws Exception;
   }

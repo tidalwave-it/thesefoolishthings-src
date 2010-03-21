@@ -30,6 +30,7 @@ import javax.annotation.Nonnull;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public interface Identifiable
