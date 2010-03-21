@@ -30,6 +30,19 @@
 
     <build>
         <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>clirr-maven-plugin</artifactId>
+            <configuration>
+                <!-- workaround, as enum signature is slightly different in Java 5 and 6, so 
+                     it fails the check when compiling with Java 5. -->
+                <excludes>
+                    <exclude>it/tidalwave/util/Finder$SortDirection</exclude>
+                    <exclude>it/tidalwave/util/IconProvider$Type</exclude>
+                </excludes>
+            </configuration>
+          </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
