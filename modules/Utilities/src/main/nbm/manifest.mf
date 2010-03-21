@@ -1,4 +1,3 @@
-OpenIDE-Module-Name: TheseFoolishThings - Utilities
-OpenIDE-Module-Display-Category: TheseFoolishThings
+Manifest-Version: 1.0
 OpenIDE-Module-Localizing-Bundle: it/tidalwave/util/Bundle.properties
 AutoUpdate-Show-In-Client: true

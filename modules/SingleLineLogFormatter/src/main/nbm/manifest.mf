@@ -1,4 +1,3 @@
-OpenIDE-Module-Name: TheseFoolishThings - SingleLineLogFormatter
-OpenIDE-Module-Display-Category: TheseFoolishThings
-OpenIDE-Module-Localizing-Bundle: it/tidalwave/singlelinelogformatter/Bundle.properties
+Manifest-Version: 1.0
+OpenIDE-Module-Localizing-Bundle: it/tidalwave/util/logging/Bundle.properties
 AutoUpdate-Show-In-Client: true

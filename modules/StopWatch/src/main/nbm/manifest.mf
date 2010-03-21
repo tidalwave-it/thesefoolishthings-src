@@ -1,4 +1,3 @@
-OpenIDE-Module-Name: TheseFoolishThings - StopWatch
-OpenIDE-Module-Display-Category: TheseFoolishThings
+Manifest-Version: 1.0
 OpenIDE-Module-Localizing-Bundle: it/tidalwave/stopwatch/Bundle.properties
 AutoUpdate-Show-In-Client: true
