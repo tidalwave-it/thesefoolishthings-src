@@ -53,7 +53,7 @@ public final class AsDisplayableComparator implements Comparator<As>, Serializab
         return INSTANCE;
       }
 
-    @Override
+    // @Override
     public int compare (final @Nonnull As object1, final @Nonnull As object2)
       {
         return collator.compare(object1.as(Displayable).getDisplayName(), object2.as(Displayable).getDisplayName());

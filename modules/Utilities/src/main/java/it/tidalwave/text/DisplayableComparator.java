@@ -51,7 +51,7 @@ public final class DisplayableComparator implements Comparator<Displayable>, Ser
         return INSTANCE;
       }
 
-    @Override
+    // @Override
     public int compare (final @Nonnull Displayable d1, final @Nonnull Displayable d2)
       {
         return collator.compare(d1.getDisplayName(), d2.getDisplayName());
