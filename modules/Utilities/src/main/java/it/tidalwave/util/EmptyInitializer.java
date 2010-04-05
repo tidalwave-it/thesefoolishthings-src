@@ -40,7 +40,7 @@ public final class EmptyInitializer<K> implements Initializer<K>
         return new EmptyInitializer<K>();   
       }
 
-    @Nonnull @Override
+    @Nonnull // @Override
     public K initialize (@Nonnull final K entity)
       {
         return entity;
