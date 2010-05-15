@@ -35,7 +35,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom> <!-- otherwise release fails -->
+                            <createDependencyReducedPom>false</createDependencyReducedPom> <!-- otherwise release fails - see THESEFOOLISHTHINGS-20 -->
                             <filters>
                                 <filter>
                                     <artifact>org.netbeans.api:org-openide-util</artifact>
