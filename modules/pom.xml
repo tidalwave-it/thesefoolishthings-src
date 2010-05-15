@@ -58,6 +58,7 @@
         <module>Beans</module>
         <module>BeansBinding</module>
         <module>Logger</module>
+        <module>NetBeansPlatformUtilitiesForAndroid</module>
         <module>SingleLineLogFormatter</module>
         <module>StopWatch</module>
         <module>Utilities</module>

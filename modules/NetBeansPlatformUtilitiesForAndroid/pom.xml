@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.thesefoolishthings</groupId>
+        <artifactId>modules</artifactId>
+        <version>1.4.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>it.tidalwave.thesefoolishthings</groupId>
+    <artifactId>it-tidalwave-android-org-openide-util</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>TheseFoolishThings - NetBeans Platform Utilities for Android</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-util</artifactId>
+            <version>RELEASE68</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.3.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <filters>
+                                <filter>
+                                    <artifact>org.netbeans.api:org-openide-util</artifact>
+                                    <excludes>
+                                        <exclude>org/netbeans/modules/openide/util/ActiveQueue.class</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <relocations>
+                                <relocation>
+                                    <pattern>java.beans</pattern>
+                                    <shadedPattern>it.tidalwave.java.beans</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>java.awt</pattern>
+                                    <shadedPattern>it.tidalwave.java.awt</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax.swing</pattern>
+                                    <shadedPattern>it.tidalwave.javax.swing</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.netbeans.modules.openide.util.ActiveQueue</pattern>
+                                    <shadedPattern>it.tidalwave.netbeans.modules.openide.util.ActiveQueue</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+
