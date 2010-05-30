@@ -10,6 +10,6 @@ package it.tidalwave.javax.swing;
  * @version $Id: $
  *
  **********************************************************************************************************************/
-public class Icon
+public interface Icon
   {
   }
