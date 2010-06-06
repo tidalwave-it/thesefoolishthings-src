@@ -55,6 +55,7 @@
     </dependencyManagement>
 
     <modules>
+        <module>AWTSwingForAndroid</module>
         <module>Beans</module>
         <module>BeansBinding</module>
         <module>Logger</module>

@@ -105,6 +105,11 @@
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-android-awt</artifactId>
+                <version>1.0.2-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-android-org-openide-util</artifactId>
                 <version>1.0.2-SNAPSHOT</version>
             </dependency>

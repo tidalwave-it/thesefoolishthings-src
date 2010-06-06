@@ -20,6 +20,10 @@
             <artifactId>org-openide-util</artifactId>
             <version>RELEASE68</version>
         </dependency>
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it-tidalwave-android-awt</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
