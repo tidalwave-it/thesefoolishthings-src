@@ -77,12 +77,21 @@ public class NotFoundException extends Exception
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> T throwWhenNull (final @Nullable T object, final @Nonnull String message)
+    public static <T> T throwWhenNull (final @Nullable T object,
+                                       final @Nonnull String message,
+                                       final @Nonnull Object... args)
       throws NotFoundException
       {
         if (object == null)
           {
-            throw new NotFoundException(message);
+            if (args.length == 0)
+              {
+                throw new NotFoundException(message);
+              }
+            else
+              {
+                throw new NotFoundException(String.format(message, args));
+              }
           }
 
         return object;
@@ -93,12 +102,21 @@ public class NotFoundException extends Exception
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T extends Collection> T throwWhenEmpty (final @Nullable T collection, final @Nonnull String message)
+    public static <T extends Collection> T throwWhenEmpty (final @Nullable T collection, 
+                                                           final @Nonnull String message,
+                                                           final @Nonnull Object... args)
       throws NotFoundException
       {
         if ((collection == null) || collection.isEmpty())
           {
-            throw new NotFoundException(message);
+            if (args.length == 0)
+              {
+                throw new NotFoundException(message);
+              }
+            else
+              {
+                throw new NotFoundException(String.format(message, args));
+              }
           }
 
         return collection;
