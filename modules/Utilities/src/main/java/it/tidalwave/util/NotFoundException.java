@@ -81,7 +81,12 @@ public class NotFoundException extends Exception
                                        final @Nonnull String message)
       throws NotFoundException
       {
-        return throwWhenNull(object, message); 
+        if (object == null)
+          {
+            throw new NotFoundException(message);
+          }
+
+        return object;
       }
 
     /*******************************************************************************************************************
@@ -96,14 +101,7 @@ public class NotFoundException extends Exception
       {
         if (object == null)
           {
-            if (args.length == 0)
-              {
-                throw new NotFoundException(message);
-              }
-            else
-              {
-                throw new NotFoundException(String.format(message, args));
-              }
+            throw new NotFoundException(String.format(message, args));
           }
 
         return object;
@@ -118,7 +116,12 @@ public class NotFoundException extends Exception
                                                            final @Nonnull String message)
       throws NotFoundException
       {
-        return throwWhenEmpty(collection, message);
+        if ((collection == null) || collection.isEmpty())
+          {
+            throw new NotFoundException(message);
+          }
+
+        return collection;
       }
 
     /*******************************************************************************************************************
@@ -133,14 +136,7 @@ public class NotFoundException extends Exception
       {
         if ((collection == null) || collection.isEmpty())
           {
-            if (args.length == 0)
-              {
-                throw new NotFoundException(message);
-              }
-            else
-              {
-                throw new NotFoundException(String.format(message, args));
-              }
+            throw new NotFoundException(String.format(message, args));
           }
 
         return collection;
