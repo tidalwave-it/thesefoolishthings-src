@@ -76,6 +76,18 @@ public class NotFoundException extends Exception
      *
      *
      ******************************************************************************************************************/
+    @Nonnull // needed for binary backward compatibility
+    public static <T> T throwWhenNull (final @Nullable T object,
+                                       final @Nonnull String message)
+      throws NotFoundException
+      {
+        return throwWhenNull(object, message); 
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public static <T> T throwWhenNull (final @Nullable T object,
                                        final @Nonnull String message,
@@ -101,8 +113,20 @@ public class NotFoundException extends Exception
      *
      *
      ******************************************************************************************************************/
+    @Nonnull // needed for binary backward compatibility
+    public static <T extends Collection> T throwWhenEmpty (final @Nullable T collection,
+                                                           final @Nonnull String message)
+      throws NotFoundException
+      {
+        return throwWhenEmpty(collection, message);
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     @Nonnull
-    public static <T extends Collection> T throwWhenEmpty (final @Nullable T collection, 
+    public static <T extends Collection> T throwWhenEmpty (final @Nullable T collection,
                                                            final @Nonnull String message,
                                                            final @Nonnull Object... args)
       throws NotFoundException
