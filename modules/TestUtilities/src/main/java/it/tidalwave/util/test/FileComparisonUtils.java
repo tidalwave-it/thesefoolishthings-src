@@ -80,7 +80,7 @@ public final class FileComparisonUtils
     public static List<String> stringToStrings (final @Nonnull String string)
       throws IOException
       {
-        return fileToStrings(new ByteArrayInputStream(string.getBytes()));
+        return fileToStrings(new ByteArrayInputStream(string.getBytes("UTF-8")));
       }
 
     /*******************************************************************************************************************
@@ -120,7 +120,7 @@ public final class FileComparisonUtils
     public static List<String> fileToStrings (final @Nonnull InputStream is)
       throws IOException
       {
-        final BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        final BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
         final List<String> result = new ArrayList<String>();
 
         for (;;)
