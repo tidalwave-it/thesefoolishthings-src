@@ -52,7 +52,7 @@ public final class FileComparisonUtils
 
                     for (int i = addedStart; i <= addedEnd; i++)
                       {
-                        buffer.append(String.format("-act: %d: *%s*\n", i + 1, actual.get(i)));
+                        buffer.append(String.format("-act: %3d: *%s*\n", i + 1, actual.get(i)));
                       }
                   }
 
@@ -62,7 +62,7 @@ public final class FileComparisonUtils
 
                     for (int i = deletedStart; i <= deletedEnd; i++)
                       {
-                        buffer.append(String.format("+exp: %d: *%s*\n", i + 1, expected.get(i)));
+                        buffer.append(String.format("+exp: %3d: *%s*\n", i + 1, expected.get(i)));
                       }
                   }
               }
