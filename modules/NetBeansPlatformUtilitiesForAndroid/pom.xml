@@ -47,6 +47,12 @@
                                         <exclude>org/netbeans/modules/openide/util/ActiveQueue.class</exclude>
                                     </excludes>
                                 </filter>
+                                <filter>
+                                    <artifact>it.tidalwave.thesefoolishthings:it-tidalwave-android-awt</artifact>
+                                    <excludes>
+                                        <exclude>**/*</exclude>
+                                    </excludes>
+                                </filter>
                             </filters>
                             <relocations>
                                 <relocation>
