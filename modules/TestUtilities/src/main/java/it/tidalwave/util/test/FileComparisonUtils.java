@@ -30,6 +30,19 @@ public final class FileComparisonUtils
      *
      *
      ******************************************************************************************************************/
+    public static void assertSameContents (final @Nonnull File expectedFile, final @Nonnull File actualFile)
+      throws IOException
+      {
+        System.err.println("******** Comparing files");
+        System.err.printf(">>>> exp is: %s\n", expectedFile.getAbsolutePath());
+        System.err.printf(">>>> act is: %s\n", actualFile.getAbsolutePath());
+        assertSameContents(fileToStrings(expectedFile), fileToStrings(actualFile));
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     public static void assertSameContents (final @Nonnull List<String> expected, final @Nonnull List<String> actual)
       {
         final Diff diff = new Diff(expected, actual);
