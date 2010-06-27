@@ -14,6 +14,14 @@
     <packaging>jar</packaging>
     <name>TheseFoolishThings - NetBeans Platform Utilities for Android</name>
 
+    <licenses>
+        <license>
+            <name>CDDL and GNU Public License v.2 w/Classpath Exception</name>
+            <url>http://netbeans.org/about/legal/license.html</url>
+            <comments>CDDL and GNU Public License v.2 w/Classpath Exception</comments>
+        </license>
+    </licenses>
+    
     <dependencies>
         <dependency>
             <groupId>org.netbeans.api</groupId>
