@@ -7,6 +7,7 @@ package it.tidalwave.util.test;
 import java.io.InputStream;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import it.tidalwave.util.logging.Logger;
 import org.incava.util.diff.Diff;
 import org.incava.util.diff.Difference;
 import static org.junit.Assert.*;
@@ -26,6 +28,9 @@ import static org.junit.Assert.*;
  **********************************************************************************************************************/
 public final class FileComparisonUtils
   {
+    private static final String CLASS = FileComparisonUtils.class.getName();
+    private static final Logger logger = Logger.getLogger(CLASS);
+
     /*******************************************************************************************************************
      *
      *
@@ -33,9 +38,9 @@ public final class FileComparisonUtils
     public static void assertSameContents (final @Nonnull File expectedFile, final @Nonnull File actualFile)
       throws IOException
       {
-        System.err.println("******** Comparing files");
-        System.err.printf(">>>> exp is: %s\n", expectedFile.getAbsolutePath());
-        System.err.printf(">>>> act is: %s\n", actualFile.getAbsolutePath());
+        logger.info("******** Comparing files:"); 
+        logger.info(">>>> exp is: %s", expectedFile.getAbsolutePath());
+        logger.info(">>>> act is: %s", actualFile.getAbsolutePath());
         assertSameContents(fileToStrings(expectedFile), fileToStrings(actualFile));
       }
 
@@ -80,7 +85,7 @@ public final class FileComparisonUtils
                   }
               }
 
-            System.err.println(buffer);
+            logger.info("%s", buffer);
             fail("Unexpected contents:\n" + buffer);
           }
       }
@@ -93,6 +98,7 @@ public final class FileComparisonUtils
     public static List<String> stringToStrings (final @Nonnull String string)
       throws IOException
       {
+        //return Arrays.asList(string.split("\n"));
         return fileToStrings(new ByteArrayInputStream(string.getBytes("UTF-8")));
       }
 

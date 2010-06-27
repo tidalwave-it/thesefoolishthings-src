@@ -21,6 +21,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it-tidalwave-util-logging</artifactId>
+        </dependency>
+
         <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
