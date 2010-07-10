@@ -1,8 +1,8 @@
-jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+TheseFoolishThings
 ===============================================================
 
-Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
-http://jrawio.tidalwave.it
+Copyright (C) 2009-2010 by Tidalwave s.a.s. (http://www.tidalwave.it)
+http://thesefoolishthings.kenai.com
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 
