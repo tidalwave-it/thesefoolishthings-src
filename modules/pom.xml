@@ -22,7 +22,7 @@
                 <!-- TODO: depend on BBB! -->
                 <groupId>com.kenai.nbpwr</groupId>
                 <artifactId>org-jdesktop-beansbinding</artifactId>
-                <version>1.2.1-201002281504</version>
+                <version>1.2.1-201007271250</version>
             </dependency>
             <dependency>
                 <groupId>com.kenai.nbpwr</groupId>
