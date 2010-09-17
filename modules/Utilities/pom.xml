@@ -5,14 +5,14 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>1.6.2-SNAPSHOT</version>
+        <version>1.6.2</version>
         <relativePath>..</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-util</artifactId>
     <packaging>nbm</packaging>
-    <version>1.10.42-SNAPSHOT</version>
+    <version>1.10.42</version>
     <name>TheseFoolishThings - Utilities</name>
 
     <properties>
