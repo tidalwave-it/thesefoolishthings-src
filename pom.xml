@@ -51,6 +51,11 @@
     </scm>
 
     <repositories>
+        <repository> <!-- Needed for org.incava.util.diff -->
+            <id>maven2-release-repository.tidalwave.it</id>
+            <name>Tidalwave Releases Repository</name>
+            <url>http://services.tidalwave.it/nexus/content/repositories/releases/</url>
+        </repository>
         <repository>
             <id>snapshots-oss.sonatype.org</id>
             <name>Sonatype Snapshots Repository</name>
