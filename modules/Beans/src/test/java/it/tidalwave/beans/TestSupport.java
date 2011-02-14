@@ -3,7 +3,7 @@
  * TheseFoolishThings - Miscellaneous utilities
  * ============================================
  *
- * Copyright (C) 2009-2010 by Tidalwave s.a.s.
+ * Copyright (C) 2009-2011 by Tidalwave s.a.s.
  * Project home page: http://thesefoolishthings.kenai.com
  *
  ***********************************************************************************************************************
