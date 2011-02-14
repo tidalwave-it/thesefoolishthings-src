@@ -26,6 +26,7 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.awt.Image;
 
 /***********************************************************************************************************************
@@ -35,16 +36,24 @@ import java.awt.Image;
  * @draft
  *
  **********************************************************************************************************************/
-public interface MutableIconProvider extends IconProvider
+public abstract class MutableIconProviderSupport implements MutableIconProvider
   {
-    public static final Class<MutableIconProvider> MutableIconProvider = MutableIconProvider.class;
-    
-    public final static String PROP_ICON = "icon";
-    
-    @Nonnull
-    public void setIcon (@Nonnull Image icon);
-    
-    public void addPropertyChangeListener (@Nonnull PropertyChangeListener listener);
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-    public void removePropertyChangeListener (@Nonnull PropertyChangeListener listener);
+//    @Override
+    public void addPropertyChangeListener (final @Nonnull PropertyChangeListener listener)
+      {
+        pcs.addPropertyChangeListener(listener);
+      }
+
+//    @Override
+    public void removePropertyChangeListener (final @Nonnull PropertyChangeListener listener)
+      {
+        pcs.removePropertyChangeListener(listener);
+      }
+
+    protected void fireIconChange (final @Nonnull Image oldIcon, final @Nonnull Image newIcon)
+      {
+        pcs.firePropertyChange(PROP_ICON, oldIcon, newIcon); // FIXME: should be in the EDT?
+      }
   }

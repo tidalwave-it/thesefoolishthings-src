@@ -27,7 +27,6 @@ package it.tidalwave.util;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.awt.Image;
-import java.beans.PropertyChangeListener;
 
 /***********************************************************************************************************************
  *
@@ -40,15 +39,6 @@ public interface IconProvider
   {
     public static final Class<IconProvider> IconProvider = IconProvider.class;
     
-    public enum Type
-      {
-        DEFAULT, OPEN
-      }
-
     @Nonnull
-    public Image getIcon (@Nonnull Type type, @Nonnegative int size);
-
-    public void addPropertyChangeListener (@Nonnull PropertyChangeListener listener);
-
-    public void removePropertyChangeListener (@Nonnull PropertyChangeListener listener);
+    public Image getIcon (@Nonnegative int size);
   }
