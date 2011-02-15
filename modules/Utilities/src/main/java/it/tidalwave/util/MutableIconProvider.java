@@ -26,7 +26,7 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
-import java.awt.Image;
+import javax.swing.Icon;
 
 /***********************************************************************************************************************
  *
@@ -42,7 +42,7 @@ public interface MutableIconProvider extends IconProvider
     public final static String PROP_ICON = "icon";
     
     @Nonnull
-    public void setIcon (@Nonnull Image icon);
+    public void setIcon (@Nonnull Icon icon);
     
     public void addPropertyChangeListener (@Nonnull PropertyChangeListener listener);
 

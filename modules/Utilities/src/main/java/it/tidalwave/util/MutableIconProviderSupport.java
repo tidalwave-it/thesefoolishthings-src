@@ -27,7 +27,7 @@ package it.tidalwave.util;
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.awt.Image;
+import javax.swing.Icon;
 
 /***********************************************************************************************************************
  *
@@ -52,7 +52,7 @@ public abstract class MutableIconProviderSupport implements MutableIconProvider
         pcs.removePropertyChangeListener(listener);
       }
 
-    protected void fireIconChange (final @Nonnull Image oldIcon, final @Nonnull Image newIcon)
+    protected void fireIconChange (final @Nonnull Icon oldIcon, final @Nonnull Icon newIcon)
       {
         pcs.firePropertyChange(PROP_ICON, oldIcon, newIcon); // FIXME: should be in the EDT?
       }

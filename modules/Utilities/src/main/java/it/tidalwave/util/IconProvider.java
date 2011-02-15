@@ -26,7 +26,7 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.awt.Image;
+import javax.swing.Icon;
 
 /***********************************************************************************************************************
  *
@@ -40,5 +40,5 @@ public interface IconProvider
     public static final Class<IconProvider> IconProvider = IconProvider.class;
     
     @Nonnull
-    public Image getIcon (@Nonnegative int size);
+    public Icon getIcon (@Nonnegative int size);
   }
