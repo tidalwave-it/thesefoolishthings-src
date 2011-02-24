@@ -26,7 +26,9 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.awt.image.BufferedImage;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /***********************************************************************************************************************
  *
@@ -38,6 +40,17 @@ import javax.swing.Icon;
 public interface IconProvider
   {
     public static final Class<IconProvider> IconProvider = IconProvider.class;
+    
+    public final static IconProvider DEFAULT = new IconProvider() 
+      {
+        private final Icon EMPTY_ICON = new ImageIcon(new BufferedImage(16, 16, BufferedImage.TYPE_4BYTE_ABGR));
+    
+        @Nonnull
+        public Icon getIcon (final @Nonnegative int size) 
+          {
+            return EMPTY_ICON;
+          }
+      };
     
     @Nonnull
     public Icon getIcon (@Nonnegative int size);

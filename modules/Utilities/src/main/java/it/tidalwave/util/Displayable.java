@@ -43,6 +43,8 @@ public interface Displayable
   {
     public final static Class<Displayable> Displayable = Displayable.class;
     
+    public final static Displayable DEFAULT = new DefaultDisplayable("", "DEFAULT"); 
+    
     /***************************************************************************
      *
      * Returns the display name in the current {@link Locale}.
