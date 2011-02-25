@@ -33,6 +33,15 @@ package it.tidalwave.role;
  **********************************************************************************************************************/
 public interface Removable
   {
+    public final static Class<Removable> Removable = Removable.class;
+    
+    public final static Removable DEFAULT = new Removable() 
+      {
+        public void remove() 
+          {
+          }
+      };
+    
     public void remove()
       throws Exception;
   }
