@@ -24,8 +24,8 @@
  **********************************************************************************************************************/
 package it.tidalwave.role;
 
-import it.tidalwave.util.Id;
 import javax.annotation.Nonnull;
+import it.tidalwave.util.Id;
 
 /***********************************************************************************************************************
  *
@@ -36,6 +36,8 @@ import javax.annotation.Nonnull;
  **********************************************************************************************************************/
 public interface Identifiable
   {
+    public final static Class<Identifiable> Identifiable = Identifiable.class;
+    
     @Nonnull
     public Id getId();
   }
