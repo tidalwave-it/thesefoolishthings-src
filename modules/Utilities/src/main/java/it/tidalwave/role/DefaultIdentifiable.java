@@ -22,38 +22,43 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.text;
+package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
-import java.util.Comparator;
-import java.text.Collator;
+import javax.annotation.concurrent.Immutable;
 import java.io.Serializable;
-import it.tidalwave.role.Displayable;
+import it.tidalwave.util.Id;
 
 /***********************************************************************************************************************
  *
- * A {@link Comparator} for classes implementing the {@link Displayable} role.
- *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @draft Will be moved to a different package
+ * @stable
  *
  **********************************************************************************************************************/
-public final class DisplayableComparator implements Comparator<Displayable>, Serializable
+@Immutable
+public class DefaultIdentifiable implements Identifiable, Serializable
   {
-    private static final DisplayableComparator INSTANCE = new DisplayableComparator();
-
-    private final Collator collator = Collator.getInstance();
+    private static final long serialVersionUID = 45654634423793043L;
 
     @Nonnull
-    public static DisplayableComparator getInstance()
+    private final Id id;
+
+    public DefaultIdentifiable (final @Nonnull Id id)
       {
-        return INSTANCE;
+        this.id = id;
       }
 
-    // @Override
-    public int compare (final @Nonnull Displayable d1, final @Nonnull Displayable d2)
+//    @Override
+    @Nonnull
+    public Id getId()
       {
-        return collator.compare(d1.getDisplayName(), d2.getDisplayName());
+        return id;
+      }
+
+    @Override @Nonnull
+    public String toString()
+      {
+        return String.format("DefaultIdentifiable[%s]", id);
       }
   }

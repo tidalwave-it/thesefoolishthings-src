@@ -22,27 +22,38 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.util;
+package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import javax.swing.Icon;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @draft
  *
  **********************************************************************************************************************/
-public interface IdFactory
+public abstract class MutableIconProviderSupport implements MutableIconProvider
   {
-    public final static Class<IdFactory> IdFactory = IdFactory.class;
-    
-    @Nonnull
-    public Id createId();
-    
-    @Nonnull
-    public Id createId (@Nonnull Class<?> clazz);
-    
-    @Nonnull
-    public Id createId (@Nonnull Class<?> clazz, @Nonnull Object object);
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+//    @Override
+    public void addPropertyChangeListener (final @Nonnull PropertyChangeListener listener)
+      {
+        pcs.addPropertyChangeListener(listener);
+      }
+
+//    @Override
+    public void removePropertyChangeListener (final @Nonnull PropertyChangeListener listener)
+      {
+        pcs.removePropertyChangeListener(listener);
+      }
+
+    protected void fireIconChange (final @Nonnull Icon oldIcon, final @Nonnull Icon newIcon)
+      {
+        pcs.firePropertyChange(PROP_ICON, oldIcon, newIcon); // FIXME: should be in the EDT?
+      }
   }

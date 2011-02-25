@@ -22,29 +22,36 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.util;
+package it.tidalwave.role;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.beans.PropertyChangeListener;
+import java.awt.image.BufferedImage;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @draft
- *
+ * 
  **********************************************************************************************************************/
-public interface MutableIconProvider extends IconProvider
+public interface IconProvider
   {
-    public static final Class<MutableIconProvider> MutableIconProvider = MutableIconProvider.class;
+    public static final Class<IconProvider> IconProvider = IconProvider.class;
     
-    public final static String PROP_ICON = "icon";
+    public final static IconProvider DEFAULT = new IconProvider() 
+      {
+        private final Icon EMPTY_ICON = new ImageIcon(new BufferedImage(16, 16, BufferedImage.TYPE_4BYTE_ABGR));
+    
+        @Nonnull
+        public Icon getIcon (final @Nonnegative int size) 
+          {
+            return EMPTY_ICON;
+          }
+      };
     
     @Nonnull
-    public void setIcon (@Nonnull Icon icon);
-    
-    public void addPropertyChangeListener (@Nonnull PropertyChangeListener listener);
-
-    public void removePropertyChangeListener (@Nonnull PropertyChangeListener listener);
+    public Icon getIcon (@Nonnegative int size);
   }

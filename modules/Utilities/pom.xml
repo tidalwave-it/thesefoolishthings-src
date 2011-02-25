@@ -5,14 +5,14 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>1.8.1-SNAPSHOT</version>
+        <version>1.9.0-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-util</artifactId>
     <packaging>nbm</packaging>
-    <version>1.10.44-SNAPSHOT</version>
+    <version>1.11.1-SNAPSHOT</version>
     <name>TheseFoolishThings - Utilities</name>
 
     <properties>
@@ -38,7 +38,6 @@
                      it fails the check when compiling with Java 5. -->
                 <excludes>
                     <exclude>it/tidalwave/util/Finder$SortDirection</exclude>
-                    <exclude>it/tidalwave/util/IconProvider$Type</exclude>
                 </excludes>
             </configuration>
           </plugin>
@@ -49,6 +48,7 @@
                 <configuration>
                     <publicPackages>
                         <publicPackage>it.tidalwave.util</publicPackage>
+                        <publicPackage>it.tidalwave.role</publicPackage>
                         <publicPackage>it.tidalwave.text</publicPackage>
                     </publicPackages>
                 </configuration>

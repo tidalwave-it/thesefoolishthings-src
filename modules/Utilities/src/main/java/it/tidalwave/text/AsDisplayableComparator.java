@@ -29,8 +29,8 @@ import java.util.Comparator;
 import java.text.Collator;
 import java.io.Serializable;
 import it.tidalwave.util.As;
-import it.tidalwave.util.Displayable;
-import static it.tidalwave.util.Displayable.Displayable;
+import it.tidalwave.role.Displayable;
+import static it.tidalwave.role.Displayable.Displayable;
 
 /***********************************************************************************************************************
  *

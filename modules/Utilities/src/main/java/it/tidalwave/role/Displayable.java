@@ -22,36 +22,34 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.util;
+package it.tidalwave.role;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.awt.image.BufferedImage;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import java.util.Locale;
 
 /***********************************************************************************************************************
  *
+ * This interface defines the behavior of objects that can display their names possibly according to the current
+ * {@link Locale}.
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @draft
- * 
+ * @stable
+ *
  **********************************************************************************************************************/
-public interface IconProvider
+public interface Displayable
   {
-    public static final Class<IconProvider> IconProvider = IconProvider.class;
+    public final static Class<Displayable> Displayable = Displayable.class;
     
-    public final static IconProvider DEFAULT = new IconProvider() 
-      {
-        private final Icon EMPTY_ICON = new ImageIcon(new BufferedImage(16, 16, BufferedImage.TYPE_4BYTE_ABGR));
+    public final static Displayable DEFAULT = new DefaultDisplayable("", "DEFAULT"); 
     
-        @Nonnull
-        public Icon getIcon (final @Nonnegative int size) 
-          {
-            return EMPTY_ICON;
-          }
-      };
-    
+    /*******************************************************************************************************************
+     *
+     * Returns the display name in the current {@link Locale}.
+     *
+     * @returns  the display name
+     *
+     ******************************************************************************************************************/
     @Nonnull
-    public Icon getIcon (@Nonnegative int size);
+    public String getDisplayName();
   }

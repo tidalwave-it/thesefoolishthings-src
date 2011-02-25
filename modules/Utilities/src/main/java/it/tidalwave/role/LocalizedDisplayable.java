@@ -22,7 +22,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.util;
+package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
 import java.util.Locale;
@@ -39,22 +39,10 @@ import java.util.SortedSet;
  * @stable
  *
  **********************************************************************************************************************/
-public interface Displayable
+public interface LocalizedDisplayable extends Displayable
   {
-    public final static Class<Displayable> Displayable = Displayable.class;
+    public final static Class<LocalizedDisplayable> LocalizedDisplayable = LocalizedDisplayable.class;
     
-    public final static Displayable DEFAULT = new DefaultDisplayable("", "DEFAULT"); 
-    
-    /***************************************************************************
-     *
-     * Returns the display name in the current {@link Locale}.
-     *
-     * @returns  the display name
-     *
-     **************************************************************************/
-    @Nonnull
-    public String getDisplayName();
-
     /***************************************************************************
      *
      * Returns the display name in the given {@link Locale}.

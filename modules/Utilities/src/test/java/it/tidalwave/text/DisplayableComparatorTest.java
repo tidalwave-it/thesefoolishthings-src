@@ -24,8 +24,8 @@
  **********************************************************************************************************************/
 package it.tidalwave.text;
 
-import it.tidalwave.util.DefaultDisplayable;
-import it.tidalwave.util.Displayable;
+import it.tidalwave.role.DefaultDisplayable;
+import it.tidalwave.role.Displayable;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;

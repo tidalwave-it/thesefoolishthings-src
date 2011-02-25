@@ -22,11 +22,10 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.util;
+package it.tidalwave.role;
 
+import it.tidalwave.util.Id;
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.io.Serializable;
 
 /***********************************************************************************************************************
  *
@@ -35,29 +34,8 @@ import java.io.Serializable;
  * @stable
  *
  **********************************************************************************************************************/
-@Immutable
-public class DefaultIdentifiable implements Identifiable, Serializable
+public interface Identifiable
   {
-    private static final long serialVersionUID = 45654634423793043L;
-
     @Nonnull
-    private final Id id;
-
-    public DefaultIdentifiable (final @Nonnull Id id)
-      {
-        this.id = id;
-      }
-
-//    @Override
-    @Nonnull
-    public Id getId()
-      {
-        return id;
-      }
-
-    @Override @Nonnull
-    public String toString()
-      {
-        return String.format("DefaultIdentifiable[%s]", id);
-      }
+    public Id getId();
   }

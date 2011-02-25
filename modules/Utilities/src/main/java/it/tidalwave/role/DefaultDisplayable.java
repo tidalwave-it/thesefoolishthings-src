@@ -22,7 +22,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.util;
+package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -40,7 +40,7 @@ import java.io.Serializable;
  * @stable
  *
  **********************************************************************************************************************/
-public class DefaultDisplayable implements Displayable, Serializable 
+public class DefaultDisplayable implements LocalizedDisplayable, Serializable 
   {
     private static final long serialVersionUID = 45345436345634734L;
 
@@ -51,8 +51,13 @@ public class DefaultDisplayable implements Displayable, Serializable
     private final String toStringName;
 
     @Nonnull
-    private  final Map<Locale, String> displayNameMap = new HashMap<Locale, String>();
+    private final Map<Locale, String> displayNameMap = new HashMap<Locale, String>();
 
+    public DefaultDisplayable (final @Nonnull String displayName)
+      {
+        this(displayName, "???");
+      }
+    
     public DefaultDisplayable (final @Nonnull String displayName,
                                final @Nonnull String toStringName)
       {

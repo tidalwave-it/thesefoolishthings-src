@@ -22,11 +22,10 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.util;
+package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import javax.swing.Icon;
 
 /***********************************************************************************************************************
@@ -36,24 +35,16 @@ import javax.swing.Icon;
  * @draft
  *
  **********************************************************************************************************************/
-public abstract class MutableIconProviderSupport implements MutableIconProvider
+public interface MutableIconProvider extends IconProvider
   {
-    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    public static final Class<MutableIconProvider> MutableIconProvider = MutableIconProvider.class;
+    
+    public final static String PROP_ICON = "icon";
+    
+    @Nonnull
+    public void setIcon (@Nonnull Icon icon);
+    
+    public void addPropertyChangeListener (@Nonnull PropertyChangeListener listener);
 
-//    @Override
-    public void addPropertyChangeListener (final @Nonnull PropertyChangeListener listener)
-      {
-        pcs.addPropertyChangeListener(listener);
-      }
-
-//    @Override
-    public void removePropertyChangeListener (final @Nonnull PropertyChangeListener listener)
-      {
-        pcs.removePropertyChangeListener(listener);
-      }
-
-    protected void fireIconChange (final @Nonnull Icon oldIcon, final @Nonnull Icon newIcon)
-      {
-        pcs.firePropertyChange(PROP_ICON, oldIcon, newIcon); // FIXME: should be in the EDT?
-      }
+    public void removePropertyChangeListener (@Nonnull PropertyChangeListener listener);
   }

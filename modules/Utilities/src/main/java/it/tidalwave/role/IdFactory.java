@@ -22,8 +22,9 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.util;
+package it.tidalwave.role;
 
+import it.tidalwave.util.Id;
 import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
@@ -33,8 +34,16 @@ import javax.annotation.Nonnull;
  * @stable
  *
  **********************************************************************************************************************/
-public interface Identifiable
+public interface IdFactory
   {
+    public final static Class<IdFactory> IdFactory = IdFactory.class;
+    
     @Nonnull
-    public Id getId();
+    public Id createId();
+    
+    @Nonnull
+    public Id createId (@Nonnull Class<?> clazz);
+    
+    @Nonnull
+    public Id createId (@Nonnull Class<?> clazz, @Nonnull Object object);
   }
