@@ -39,6 +39,7 @@ import javax.swing.ImageIcon;
  **********************************************************************************************************************/
 public interface IconProvider
   {
+    //@bluebook-begin other
     public static final Class<IconProvider> IconProvider = IconProvider.class;
     
     public final static IconProvider DEFAULT = new IconProvider() 
@@ -52,6 +53,7 @@ public interface IconProvider
           }
       };
     
+    //@bluebook-end other
     @Nonnull
     public Icon getIcon (@Nonnegative int size);
   }

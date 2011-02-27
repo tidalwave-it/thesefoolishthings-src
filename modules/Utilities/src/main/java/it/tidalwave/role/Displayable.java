@@ -25,12 +25,10 @@
 package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
-import java.util.Locale;
 
 /***********************************************************************************************************************
  *
- * This interface defines the behavior of objects that can display their names possibly according to the current
- * {@link Locale}.
+ * This interface defines the behavior of objects that can display their names.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -39,10 +37,12 @@ import java.util.Locale;
  **********************************************************************************************************************/
 public interface Displayable
   {
+    //@bluebook-begin other
     public final static Class<Displayable> Displayable = Displayable.class;
     
     public final static Displayable DEFAULT = new DefaultDisplayable("", "DEFAULT"); 
     
+    //@bluebook-end other
     /*******************************************************************************************************************
      *
      * Returns the display name in the current {@link Locale}.
