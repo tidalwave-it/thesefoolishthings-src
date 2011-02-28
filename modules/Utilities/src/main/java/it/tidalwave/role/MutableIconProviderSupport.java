@@ -56,4 +56,10 @@ public abstract class MutableIconProviderSupport implements MutableIconProvider
       {
         pcs.firePropertyChange(PROP_ICON, oldIcon, newIcon); // FIXME: should be in the EDT?
       }
+
+    // Some subclasses (e.g. those triggering internally an icon change) won't implement it
+    public void setIcon (final @Nonnull Icon icon) 
+      {
+        throw new UnsupportedOperationException("Not supported yet.");
+      }
   }
