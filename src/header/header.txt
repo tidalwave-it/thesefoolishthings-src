@@ -17,5 +17,5 @@
 
  WWW: ${url}
  SCM: ${scm}
- $Id: $
+ $Id$
   
