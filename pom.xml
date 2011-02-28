@@ -16,7 +16,7 @@
     <name>TheseFoolishThings (master)</name>
 
     <url>http://thesefoolishthings.kenai.com</url>
-    <description>These Foolish Things</description>
+    <description>These Foolish Things - Miscellaneous utilities</description>
     <inceptionYear>2009</inceptionYear>
 
     <issueManagement>
@@ -134,6 +134,41 @@
                     <source>1.5</source>
                     <target>1.5</target>
                 </configuration>
+            </plugin>
+            
+            <plugin>
+                <inherited>false</inherited>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.9.0</version>
+                <configuration>
+                    <header>${basedir}/src/header/header.txt</header>
+                    <strictCheck>true</strictCheck>
+                    <failIfMissing>true</failIfMissing>
+                    <aggregate>true</aggregate>
+                    <properties>
+                        <description>${project.description}</description>
+                        <url>${project.url}</url>
+                        <inceptionYear>${project.inceptionYear}</inceptionYear>
+                        <scm>${scm.repo.url}</scm>
+                    </properties>
+                    <excludes>
+                        <exclude>LICENSE.txt</exclude>
+                    </excludes>
+                    <encoding>UTF-8</encoding>
+                    <headerDefinitions>
+                        <headerDefinition>${basedir}/src/header/javadoc.xml</headerDefinition>
+                    </headerDefinitions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>check-headers</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
