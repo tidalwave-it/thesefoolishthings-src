@@ -17,5 +17,4 @@
 
  WWW: ${url}
  SCM: ${scm}
- $Id$
   
