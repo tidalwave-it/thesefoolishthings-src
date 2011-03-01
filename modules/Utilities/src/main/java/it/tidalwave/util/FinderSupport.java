@@ -192,7 +192,7 @@ public abstract class FinderSupport<T> implements Finder<T>
      ******************************************************************************************************************/
 //    @Override
     @Nonnull
-    public Finder<T> sort (final @Nonnull SortCriterion criterion)
+    public final Finder<T> sort (final @Nonnull SortCriterion criterion)
       {
         return sort(criterion, SortDirection.ASCENDING);
       }
@@ -202,13 +202,13 @@ public abstract class FinderSupport<T> implements Finder<T>
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected abstract List<T> doCompute();
+    protected abstract List<? extends T> doCompute();
 
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    private final synchronized void compute()
+    private synchronized void compute()
       {
         if (!computed)
           {
