@@ -57,6 +57,7 @@ public interface Finder<T> extends Cloneable, Serializable
      *
      *
      **************************************************************************/
+    @Nonnegative
     public int count();
 
     /***************************************************************************
@@ -116,4 +117,4 @@ public interface Finder<T> extends Cloneable, Serializable
      **************************************************************************/
     @Nonnull
     public Finder<T> sort (@Nonnull SortCriterion criterion);
-}
+  }
