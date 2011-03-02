@@ -34,6 +34,7 @@ import it.tidalwave.util.Finder.SortDirection;
  **********************************************************************************************************************/
 public interface Sortable 
   {
+    //@bluebook-begin others
     public final static Class<Sortable> Sortable = Sortable.class; 
     
     public final static Sortable DEFAULT = new Sortable()
@@ -61,12 +62,13 @@ public interface Sortable
           }
       };
     
+    //@bluebook-end others
     public void setSortCriterion (@Nonnull SortCriterion sortCriterion);
+    
+    public void setSortDirection (@Nonnull SortDirection sortDirection);
     
     @Nonnull
     public SortCriterion getSortCriterion();
-    
-    public void setSortDirection (@Nonnull SortDirection sortDirection);
     
     @Nonnull
     public SortDirection getSortDirection();
