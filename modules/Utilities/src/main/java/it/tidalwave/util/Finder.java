@@ -42,6 +42,22 @@ public interface Finder<T> extends Cloneable, Serializable
      **************************************************************************/
     public static interface SortCriterion
       {
+        public static final Class<SortCriterion> SortCriterion = SortCriterion.class;
+        
+        /***************************************************************************
+         *
+         *
+         **************************************************************************/
+        public static final SortCriterion UNSORTED = new FilterSortCriterion() 
+          {
+            @Nonnull
+            public Finder sort (final @Nonnull Finder finder, final @Nonnull SortDirection sortDirection) 
+              {
+                return finder;
+              }
+          };
+        
+        public static final SortCriterion DEFAULT = UNSORTED;
       }
 
     /***************************************************************************
