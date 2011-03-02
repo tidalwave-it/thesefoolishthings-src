@@ -32,11 +32,11 @@ import it.tidalwave.util.Finder.SortDirection;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface SortController 
+public interface Sortable 
   {
-    public final static Class<SortController> SortController = SortController.class; 
+    public final static Class<Sortable> Sortable = Sortable.class; 
     
-    public final static SortController DEFAULT = new SortController()
+    public final static Sortable DEFAULT = new Sortable()
       {
         @Override
         public void setSortCriterion (final @Nonnull SortCriterion sortCriterion)
