@@ -42,6 +42,7 @@ public interface Finder<T> extends Cloneable, Serializable
      **************************************************************************/
     public static interface SortCriterion
       {
+        //@bluebook-ignore-begin
         public static final Class<SortCriterion> SortCriterion = SortCriterion.class;
         
         /***************************************************************************
@@ -58,6 +59,7 @@ public interface Finder<T> extends Cloneable, Serializable
           };
         
         public static final SortCriterion DEFAULT = UNSORTED;
+        //@bluebook-ignore-end
       }
 
     /***************************************************************************
@@ -77,6 +79,7 @@ public interface Finder<T> extends Cloneable, Serializable
     public static enum SortDirection
       {
         ASCENDING(+1), DESCENDING(-1);
+        //@bluebook-ignore-begin
         
         private final int intValue;
         
@@ -89,6 +92,7 @@ public interface Finder<T> extends Cloneable, Serializable
           {
             return intValue;  
           }
+        //@bluebook-ignore-end
       }
 
     /***************************************************************************
