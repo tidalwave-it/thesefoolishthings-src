@@ -49,6 +49,7 @@
                     <publicPackages>
                         <publicPackage>it.tidalwave.util</publicPackage>
                         <publicPackage>it.tidalwave.role</publicPackage>
+                        <publicPackage>it.tidalwave.role.io</publicPackage>
                         <publicPackage>it.tidalwave.role.annotation</publicPackage>
                         <publicPackage>it.tidalwave.text</publicPackage>
                     </publicPackages>
