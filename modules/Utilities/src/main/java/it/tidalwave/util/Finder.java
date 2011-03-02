@@ -48,9 +48,31 @@ public interface Finder<T> extends Cloneable, Serializable
      *
      *
      **************************************************************************/
+    public static interface FilterSortCriterion<T> extends SortCriterion
+      {
+        @Nonnull
+        public Finder<T> sort (@Nonnull Finder<T> finder, @Nonnull SortDirection sortDirection);
+      }
+
+    /***************************************************************************
+     *
+     *
+     **************************************************************************/
     public static enum SortDirection
       {
-        ASCENDING, DESCENDING
+        ASCENDING(+1), DESCENDING(-1);
+        
+        private final int intValue;
+        
+        private SortDirection (int intValue)
+          {
+            this.intValue = intValue;
+          }
+        
+        public int intValue()
+          {
+            return intValue;  
+          }
       }
 
     /***************************************************************************

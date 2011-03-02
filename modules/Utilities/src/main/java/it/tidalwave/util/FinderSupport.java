@@ -182,7 +182,14 @@ public abstract class FinderSupport<T> implements Finder<T>
     public Finder<T> sort (final @Nonnull SortCriterion criterion,
                            final @Nonnull SortDirection direction)
       {
-        throw new UnsupportedOperationException("Not supported yet."); // TODO
+        if (criterion instanceof FilterSortCriterion)
+          {
+            return ((FilterSortCriterion<T>)criterion).sort(this, direction);
+          }
+        
+        final String message = String.format("%s does not implement %s - you need to subclass Finder and override sort()",
+                                             criterion, FilterSortCriterion.class);
+        throw new UnsupportedOperationException(message); 
       }
 
     /*******************************************************************************************************************
