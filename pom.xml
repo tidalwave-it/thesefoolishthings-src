@@ -12,7 +12,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings</artifactId>
     <packaging>pom</packaging>
-    <version>1.9.0-SNAPSHOT</version>
+    <version>1.9.0</version>
     <name>TheseFoolishThings (master)</name>
 
     <url>http://thesefoolishthings.kenai.com</url>
@@ -81,37 +81,37 @@
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util</artifactId>
-                <version>1.11.1-SNAPSHOT</version>
+                <version>1.11.1</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-beans</artifactId>
-                <version>1.4.22-SNAPSHOT</version>
+                <version>1.4.22</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-swing-beansbinding</artifactId>
-                <version>1.1.21-SNAPSHOT</version>
+                <version>1.1.21</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-logging-singlelinelogformatter</artifactId>
-                <version>1.1.13-SNAPSHOT</version>
+                <version>1.1.13</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-logging</artifactId>
-                <version>1.1.13-SNAPSHOT</version>
+                <version>1.1.13</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-stopwatch</artifactId>
-                <version>1.1.13-SNAPSHOT</version>
+                <version>1.1.13</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-android-awt</artifactId>
-                <version>1.0.9-SNAPSHOT</version>
+                <version>1.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -121,7 +121,7 @@
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-test</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.7</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

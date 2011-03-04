@@ -5,13 +5,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>1.9.0-SNAPSHOT</version>
+        <version>1.9.0</version>
         <relativePath>..</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-android-awt</artifactId>
-    <version>1.0.9-SNAPSHOT</version>
+    <version>1.0.9</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings - AWT/Swing Android</name>
 
