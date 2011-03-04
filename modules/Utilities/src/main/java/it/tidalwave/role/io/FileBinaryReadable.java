@@ -34,7 +34,7 @@ import java.io.InputStream;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public class FileBinaryReadable implements BinaryReadable

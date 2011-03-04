@@ -29,14 +29,14 @@ import javax.annotation.Nullable;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public interface As
   {
     /*******************************************************************************************************************
      *
-     * @stable
+     * @it.tidalwave.javadoc.stable
      *
      ******************************************************************************************************************/
     public static interface NotFoundBehaviour<T>

@@ -28,7 +28,7 @@ package it.tidalwave.role;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public interface MutableLocalizedDisplayable extends MutableDisplayable, LocalizedDisplayable

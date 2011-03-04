@@ -33,7 +33,7 @@ import java.io.Serializable;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
- * @draft
+ * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
 public interface Finder<T> extends Cloneable, Serializable
@@ -94,7 +94,7 @@ public interface Finder<T> extends Cloneable, Serializable
      *
      * An enumeration to define the direction of a sort (ascending or descending).
      * 
-     * @stable
+     * @it.tidalwave.javadoc.stable
      *
      ******************************************************************************************************************/
     public static enum SortDirection

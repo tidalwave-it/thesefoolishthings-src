@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public class AsException extends RuntimeException

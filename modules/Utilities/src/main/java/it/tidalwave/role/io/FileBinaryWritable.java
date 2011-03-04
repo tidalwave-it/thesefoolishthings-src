@@ -34,7 +34,7 @@ import java.io.OutputStream;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public class FileBinaryWritable implements BinaryWritable

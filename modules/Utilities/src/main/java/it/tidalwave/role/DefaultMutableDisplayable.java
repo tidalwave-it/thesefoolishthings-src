@@ -39,7 +39,7 @@ import java.util.TreeSet;
  * 
  * @author Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public class DefaultMutableDisplayable implements MutableLocalizedDisplayable

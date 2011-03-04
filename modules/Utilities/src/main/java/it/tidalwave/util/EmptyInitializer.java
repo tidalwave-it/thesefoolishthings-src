@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @draft
+ * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
 public final class EmptyInitializer<K> implements Initializer<K>

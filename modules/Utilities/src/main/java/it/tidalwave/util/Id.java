@@ -33,7 +33,7 @@ import java.io.Serializable;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 @Immutable

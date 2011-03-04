@@ -36,7 +36,7 @@ import static it.tidalwave.role.Displayable.Displayable;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @draft Will be moved to a different package
+ * @it.tidalwave.javadoc.draft Will be moved to a different package
  *
  **********************************************************************************************************************/
 public final class AsDisplayableComparator implements Comparator<As>, Serializable

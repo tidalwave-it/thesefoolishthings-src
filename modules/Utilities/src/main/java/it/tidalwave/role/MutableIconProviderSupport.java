@@ -33,7 +33,7 @@ import javax.swing.Icon;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
- * @draft
+ * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
 public abstract class MutableIconProviderSupport implements MutableIconProvider

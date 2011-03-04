@@ -34,7 +34,7 @@ import it.tidalwave.util.FinderSupport;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public interface Composite<T>

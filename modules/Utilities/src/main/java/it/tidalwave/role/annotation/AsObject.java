@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @draft
+ * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
 @Target(ElementType.TYPE)

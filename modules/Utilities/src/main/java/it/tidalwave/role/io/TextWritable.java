@@ -32,7 +32,7 @@ import java.io.Writer;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public interface TextWritable 

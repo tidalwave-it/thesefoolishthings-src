@@ -35,7 +35,7 @@ import it.tidalwave.role.Displayable;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @draft Will be removed (FIXME)
+ * @it.tidalwave.javadoc.draft Will be removed (FIXME)
  *
  **********************************************************************************************************************/
 public final class DisplayableComparator implements Comparator<Displayable>, Serializable

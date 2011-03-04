@@ -32,7 +32,7 @@ import java.util.logging.Level;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public class Logger 

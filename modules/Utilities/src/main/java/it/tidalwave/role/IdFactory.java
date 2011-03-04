@@ -31,7 +31,7 @@ import it.tidalwave.util.Id;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public interface IdFactory

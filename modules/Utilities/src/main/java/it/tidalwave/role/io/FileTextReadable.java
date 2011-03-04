@@ -34,7 +34,7 @@ import java.io.Reader;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public class FileTextReadable implements TextReadable

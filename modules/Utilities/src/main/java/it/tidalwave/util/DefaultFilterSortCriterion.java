@@ -35,7 +35,7 @@ import it.tidalwave.util.Finder.SortDirection;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
- * @draft
+ * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
 public class DefaultFilterSortCriterion<T> implements Finder.FilterSortCriterion<T> 

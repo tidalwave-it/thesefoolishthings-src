@@ -38,7 +38,7 @@ import java.io.Serializable;
  * 
  * @author Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public class DefaultDisplayable implements LocalizedDisplayable, Serializable 

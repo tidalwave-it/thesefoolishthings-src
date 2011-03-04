@@ -33,7 +33,7 @@ import java.util.Collection;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public final class Parameters

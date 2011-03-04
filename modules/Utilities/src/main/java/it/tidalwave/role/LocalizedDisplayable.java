@@ -33,7 +33,7 @@ import java.util.SortedSet;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public interface LocalizedDisplayable extends Displayable

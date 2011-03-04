@@ -34,7 +34,7 @@ import javax.swing.ImageIcon;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
- * @draft
+ * @it.tidalwave.javadoc.draft
  * 
  **********************************************************************************************************************/
 public interface IconProvider

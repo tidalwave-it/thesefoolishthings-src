@@ -33,7 +33,7 @@ import it.tidalwave.util.Finder.SortDirection;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
- * @stable
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 public interface Sortable 
