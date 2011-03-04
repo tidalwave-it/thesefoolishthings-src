@@ -28,6 +28,9 @@ import java.util.Collection;
 
 /***********************************************************************************************************************
  *
+ * Notifies that a searched object couldn't be found.
+ * 
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @stable
@@ -72,9 +75,16 @@ public class NotFoundException extends Exception
 
     /*******************************************************************************************************************
      *
+     * Throws the {@code NotFoundException} when the passed object is {@code null}. The method returns the object
+     * itself and thus it can be used with fluent interfaces.
+     * 
+     * @param  object             the object to be tested
+     * @param  message            the error message to be thrown 
+     * @return                    the object
+     * @throws NotFoundException  if the object is null
      *
      ******************************************************************************************************************/
-    @Nonnull // needed for binary backward compatibility
+    @Nonnull // needed for binary backward compatibility (this method interprets % in message in verbatim mode)
     public static <T> T throwWhenNull (final @Nullable T object,
                                        final @Nonnull String message)
       throws NotFoundException
@@ -89,6 +99,14 @@ public class NotFoundException extends Exception
 
     /*******************************************************************************************************************
      *
+     * Throws the {@code NotFoundException} when the passed object is {@code null}. The method returns the object
+     * itself and thus it can be used with fluent interfaces.
+     * 
+     * @param  object             the object to be tested
+     * @param  message            the error message to be thrown (formatted as in {@link String#format}
+     * @param  args               the arguments to format the error message
+     * @return                    the object
+     * @throws NotFoundException  if the object is null
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -107,11 +125,18 @@ public class NotFoundException extends Exception
 
     /*******************************************************************************************************************
      *
+     * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the 
+     * collection itself and thus it can be used with fluent interfaces.
+     * 
+     * @param  object             the collection to be tested
+     * @param  message            the error message to be thrown
+     * @return                    the collection
+     * @throws NotFoundException  if the collection is null or empty
      *
      ******************************************************************************************************************/
-    @Nonnull // needed for binary backward compatibility
-    public static <T extends Collection> T throwWhenEmpty (final @Nullable T collection,
-                                                           final @Nonnull String message)
+    @Nonnull // needed for binary backward compatibility (this method interprets % in message in verbatim mode)
+    public static <T extends Collection<?>> T throwWhenEmpty (final @Nullable T collection,
+                                                              final @Nonnull String message)
       throws NotFoundException
       {
         if ((collection == null) || collection.isEmpty())
@@ -124,12 +149,20 @@ public class NotFoundException extends Exception
 
     /*******************************************************************************************************************
      *
+     * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the 
+     * collection itself and thus it can be used with fluent interfaces.
+     * 
+     * @param  object             the collection to be tested
+     * @param  message            the error message to be thrown (formatted as in {@link String#format}
+     * @param  args               the arguments to format the error message
+     * @return                    the collection
+     * @throws NotFoundException  if the collection is null or empty
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T extends Collection> T throwWhenEmpty (final @Nullable T collection,
-                                                           final @Nonnull String message,
-                                                           final @Nonnull Object... args)
+    public static <T extends Collection<?>> T throwWhenEmpty (final @Nullable T collection,
+                                                              final @Nonnull String message,
+                                                              final @Nonnull Object... args)
       throws NotFoundException
       {
         if ((collection == null) || collection.isEmpty())
