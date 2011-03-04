@@ -30,8 +30,11 @@ import java.io.InputStream;
 
 /***********************************************************************************************************************
  * 
+ * An implementation of {@link BinaryReadable} which delegates to a {@link File}.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public class FileBinaryReadable implements BinaryReadable
@@ -39,11 +42,23 @@ public class FileBinaryReadable implements BinaryReadable
     @Nonnull
     private final File file;
 
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with the given {@link File} delegate.
+     * 
+     * @param  file  the file
+     * 
+     ******************************************************************************************************************/
     public FileBinaryReadable (final @Nonnull File file) 
       {
         this.file = file;
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     * 
+     ******************************************************************************************************************/
     @Override @Nonnull
     public InputStream openStream() 
       throws IOException 

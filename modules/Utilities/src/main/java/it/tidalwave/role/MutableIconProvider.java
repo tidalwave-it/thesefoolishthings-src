@@ -28,6 +28,8 @@ import javax.swing.Icon;
 
 /***********************************************************************************************************************
  *
+ * A specialized {@link IconProvider} which is mutable and fires {@code PropertyChangeEvent}s.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @draft
@@ -39,10 +41,33 @@ public interface MutableIconProvider extends IconProvider
     
     public final static String PROP_ICON = "icon";
     
+    /*******************************************************************************************************************
+     *
+     * Sets the icon. Note that implementations don't actually need to do something in this method: for instance,
+     * a valid {@code MutableIconProvider} can autonomously change icon in function of time (e.g. a blinking icon) or
+     * reacting to a change in the context.
+     * 
+     * @param  icon  the icon
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public void setIcon (@Nonnull Icon icon);
     
+    /*******************************************************************************************************************
+     *
+     * Registers a {@link PropertyChangeListener}.
+     * 
+     * @param  listener   the listener
+     *
+     ******************************************************************************************************************/
     public void addPropertyChangeListener (@Nonnull PropertyChangeListener listener);
 
+    /*******************************************************************************************************************
+     *
+     * Unregisters a {@link PropertyChangeListener}.
+     * 
+     * @param  listener   the listener
+     *
+     ******************************************************************************************************************/
     public void removePropertyChangeListener (@Nonnull PropertyChangeListener listener);
   }

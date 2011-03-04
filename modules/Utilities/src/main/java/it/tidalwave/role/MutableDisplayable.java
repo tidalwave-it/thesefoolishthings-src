@@ -29,6 +29,8 @@ import java.util.Map;
 
 /***********************************************************************************************************************
  *
+ * A specialized {@link Displayable} which is mutable and fires {@code PropertyChangeEvent}s.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @stable
@@ -43,31 +45,46 @@ public interface MutableDisplayable extends Displayable
     
     /*******************************************************************************************************************
      *
+     * Sets the display name in {@code Locale.ENGLISH}.
+     * 
+     * @param  displayName  the display name
      *
      ******************************************************************************************************************/
     public void setDisplayName (@Nonnull String displayName);
 
     /*******************************************************************************************************************
      *
+     * Sets the display name in the given {@code Locale}.
+     * 
+     * @param  displayName  the display name
+     * @param  locale       the locale
      *
      ******************************************************************************************************************/
-    public void setDisplayName (@Nonnull String displayName,
-                                @Nonnull Locale locale);
+    public void setDisplayName (@Nonnull String displayName, @Nonnull Locale locale);
 
     /*******************************************************************************************************************
      *
+     * Sets a bag of display names for a number of {@code Locale}s.
+     * 
+     * @param  displayNames  the display names
      *
      ******************************************************************************************************************/
     public void setDisplayNames (@Nonnull Map<Locale, String> displayNames);
 
     /*******************************************************************************************************************
      *
+     * Registers a {@link PropertyChangeListener}.
+     * 
+     * @param  listener   the listener
      *
      ******************************************************************************************************************/
     public void addPropertyChangeListener (@Nonnull PropertyChangeListener listener);
 
     /*******************************************************************************************************************
      *
+     * Unregisters a {@link PropertyChangeListener}.
+     * 
+     * @param  listener   the listener
      *
      ******************************************************************************************************************/
     public void removePropertyChangeListener (@Nonnull PropertyChangeListener listener);

@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
  *
- * This interface defines the behavior of objects that can display their names.
+ * The role of an object which can provide its own display name.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -38,6 +38,11 @@ public interface Displayable
     //@bluebook-begin other
     public final static Class<Displayable> Displayable = Displayable.class;
     
+    /*******************************************************************************************************************
+     *
+     * A default {@code Displayable} with a empty display name.
+     * 
+     ******************************************************************************************************************/
     public final static Displayable DEFAULT = new DefaultDisplayable("", "DEFAULT"); 
     
     //@bluebook-end other

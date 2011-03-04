@@ -30,8 +30,11 @@ import java.io.Writer;
 
 /***********************************************************************************************************************
  * 
+ * An implementation of {@link TextWritable} which delegates to a {@link File}.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public class FileTextWritable implements TextWritable
@@ -39,11 +42,23 @@ public class FileTextWritable implements TextWritable
     @Nonnull
     private final File file;
 
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with the given {@link File} delegate.
+     * 
+     * @param  file  the file
+     * 
+     ******************************************************************************************************************/
     public FileTextWritable (final @Nonnull File file) 
       {
         this.file = file;
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     * 
+     ******************************************************************************************************************/
     @Override @Nonnull
     public Writer openWriter() 
       throws IOException 

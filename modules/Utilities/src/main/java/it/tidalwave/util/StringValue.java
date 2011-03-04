@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
  *
- * This interface describes the behavior of classes that can be converted into a {@link String}.
+ * This interface should be implemented by classes for which is meaningful to be converted into a {@link String}.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -35,13 +35,13 @@ import javax.annotation.Nonnull;
  **********************************************************************************************************************/
 public interface StringValue 
   {
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
-     * Returns a {@link String} representing this object.
+     * Returns the {@link String} value of this object.
      *
      * @return  the string
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     public String stringValue();
   }

@@ -30,8 +30,11 @@ import java.io.OutputStream;
 
 /***********************************************************************************************************************
  * 
+ * An implementation of {@link BinaryWritable} which delegates to a {@link File}.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public class FileBinaryWritable implements BinaryWritable
@@ -39,11 +42,23 @@ public class FileBinaryWritable implements BinaryWritable
     @Nonnull
     private final File file;
 
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with the given {@link File} delegate.
+     * 
+     * @param  file  the file
+     * 
+     ******************************************************************************************************************/
     public FileBinaryWritable (final @Nonnull File file) 
       {
         this.file = file;
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     * 
+     ******************************************************************************************************************/
     @Override @Nonnull
     public OutputStream openStream() 
       throws IOException 

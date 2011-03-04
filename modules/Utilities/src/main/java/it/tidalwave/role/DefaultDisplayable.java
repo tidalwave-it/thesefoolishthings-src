@@ -33,6 +33,9 @@ import java.io.Serializable;
 
 /***********************************************************************************************************************
  *
+ * A default implementation of {@link LocalizedDisplayable} which a single, immutable display name in 
+ * {@code Locale.ENGLISH} language.
+ * 
  * @author Fabrizio Giudici
  * @version $Id$
  * @stable
@@ -51,19 +54,42 @@ public class DefaultDisplayable implements LocalizedDisplayable, Serializable
     @Nonnull
     private final Map<Locale, String> displayNameMap = new HashMap<Locale, String>();
 
+    private final Locale defaultLocale = Locale.ENGLISH;
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with a given display name.
+     * 
+     * @param  displayName   the display name
+     *
+     ******************************************************************************************************************/
     public DefaultDisplayable (final @Nonnull String displayName)
       {
         this(displayName, "???");
       }
     
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with a given display name in {@code Locale.ENGLISH} and an explicit identifier for 
+     * {@code toString()}.
+     * 
+     * @param  displayName   the display name
+     * @param  toStringName  the name to be rendered when {@code toString()} is called
+     *
+     ******************************************************************************************************************/
     public DefaultDisplayable (final @Nonnull String displayName,
                                final @Nonnull String toStringName)
       {
         this.displayName = displayName;
         this.toStringName = toStringName;
-        displayNameMap.put(Locale.ENGLISH, displayName);
+        displayNameMap.put(defaultLocale, displayName);
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
 //    @Override
     @Nonnull
     public String getDisplayName()
@@ -71,6 +97,11 @@ public class DefaultDisplayable implements LocalizedDisplayable, Serializable
         return displayName;
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
 //    @Override
     @Nonnull
     public String getDisplayName (final @Nonnull Locale locale)
@@ -78,6 +109,11 @@ public class DefaultDisplayable implements LocalizedDisplayable, Serializable
         return displayNameMap.get(locale);
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
 //    @Override
     @Nonnull
     public SortedSet<Locale> getLocales()
@@ -85,6 +121,11 @@ public class DefaultDisplayable implements LocalizedDisplayable, Serializable
         return new TreeSet<Locale>(displayNameMap.keySet());
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
 //    @Override
     @Nonnull
     public Map<Locale, String> getDisplayNames()
@@ -92,6 +133,11 @@ public class DefaultDisplayable implements LocalizedDisplayable, Serializable
         return Collections.unmodifiableMap(displayNameMap);
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
 //    @Override
     @Nonnull
     public String toString()

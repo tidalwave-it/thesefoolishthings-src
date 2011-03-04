@@ -30,8 +30,11 @@ import java.io.Reader;
 
 /***********************************************************************************************************************
  * 
+ * An implementation of {@link TextReadable} which delegates to a {@link File}.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public class FileTextReadable implements TextReadable
@@ -39,11 +42,23 @@ public class FileTextReadable implements TextReadable
     @Nonnull
     private final File file;
 
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with the given {@link File} delegate.
+     * 
+     * @param  file  the file
+     * 
+     ******************************************************************************************************************/
     public FileTextReadable (final @Nonnull File file) 
       {
         this.file = file;
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     * 
+     ******************************************************************************************************************/
     @Override @Nonnull
     public Reader openReader() 
       throws IOException 

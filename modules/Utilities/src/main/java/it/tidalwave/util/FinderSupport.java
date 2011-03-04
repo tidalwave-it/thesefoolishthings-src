@@ -31,6 +31,10 @@ import it.tidalwave.util.Finder.SortDirection;
 
 /***********************************************************************************************************************
  *
+ * A support class for implementing a {@link Finder}. Subclasses only need to implement the {@link #doCompute()} method
+ * where <i>raw</i> results are retrieved. With raw we mean that they shouldn't be filtered or sorted, as this 
+ * post-processing will be performed by this class.
+ * 
  * @author Fabrizio Giudici
  * @version $Id$
  * @draft
@@ -39,7 +43,7 @@ import it.tidalwave.util.Finder.SortDirection;
 public abstract class FinderSupport<T> implements Finder<T>
   {
     @Nonnull
-    private final String description;
+    private final String name;
 
     @Nonnegative
     protected int firstResult = 0;
@@ -54,11 +58,14 @@ public abstract class FinderSupport<T> implements Finder<T>
 
     /*******************************************************************************************************************
      *
+     * Creates an instance with the given name (that will be used for diagnostics).
+     * 
+     * @param  name   the name
      *
      ******************************************************************************************************************/
-    public FinderSupport (final @Nonnull String description)
+    public FinderSupport (final @Nonnull String name)
       {
-        this.description = description;
+        this.name = name;
       }
 
     /*******************************************************************************************************************
@@ -123,18 +130,17 @@ public abstract class FinderSupport<T> implements Finder<T>
       throws NotFoundException
       {
         compute();
-        final String message = String.format("%s", description);
 
         switch (result.size())
           {
             case 0:
-              throw new NotFoundException(message);
+              throw new NotFoundException(name);
 
             case 1:
               return result.get(0);
 
             default:
-              throw new RuntimeException("More than one result, " + message + ": " + result);
+              throw new RuntimeException("More than one result, " + name + ": " + result);
           }
       }
 
@@ -149,14 +155,7 @@ public abstract class FinderSupport<T> implements Finder<T>
       throws NotFoundException
       {
         compute();
-
-        if (result.isEmpty())
-          {
-            final String message = String.format("%s", description);
-            throw new NotFoundException(message);
-          }
-
-        return result.get(0);
+        return NotFoundException.throwWhenEmpty(result, "Empty result").get(0);
       }
 
     /*******************************************************************************************************************
@@ -207,6 +206,9 @@ public abstract class FinderSupport<T> implements Finder<T>
 
     /*******************************************************************************************************************
      *
+     * Subclasses must implement this method where raw results are actually retrieved.
+     * 
+     * @return  the unprocessed results  
      *
      ******************************************************************************************************************/
     @Nonnull

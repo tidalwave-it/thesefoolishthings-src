@@ -20,9 +20,6 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-/***********************************************************************************************************************
- *
- **********************************************************************************************************************/
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
@@ -33,6 +30,9 @@ import it.tidalwave.util.Finder.SortDirection;
 
 /***********************************************************************************************************************
  *
+ * A default implementation of {@link Finder.FilterSortCriterion} which relies on sorting capabilities of the Java
+ * runtime library and only needs a {@link Comparator} to be specified.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @draft
@@ -41,17 +41,30 @@ import it.tidalwave.util.Finder.SortDirection;
 public class DefaultFilterSortCriterion<T> implements Finder.FilterSortCriterion<T> 
   {
     @Nonnull
-    private final String name;
-    
-    @Nonnull
     private final Comparator<? super T> comparator;
 
-    public DefaultFilterSortCriterion (final @Nonnull String name, final @Nonnull Comparator<? super T> comparator) 
+    @Nonnull
+    private final String name;
+    
+    /*******************************************************************************************************************
+     *
+     * Creates an instance that will use the given {@link Comparator}, with the given name (used for diagnostics).
+     * 
+     * @param  comparator   the comparator
+     * @param  name         a name used for diagnostics
+     *
+     ******************************************************************************************************************/
+    public DefaultFilterSortCriterion (final @Nonnull Comparator<? super T> comparator, final @Nonnull String name) 
       {
-        this.name = name;
         this.comparator = comparator;
+        this.name = name;
       }
     
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
     @Override @Nonnull
     public Finder<T> sort (final @Nonnull Finder<T> finder,
                            final @Nonnull SortDirection sortDirection)

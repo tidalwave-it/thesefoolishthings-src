@@ -42,10 +42,10 @@ public final class Parameters
       {
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     public static void checkNonNull (@CheckForNull final Object parameter,
                                      @Nonnull final String name)
       throws IllegalArgumentException
@@ -56,22 +56,21 @@ public final class Parameters
           }
       }
     
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
-     * Extracts a singled-value parameter of the given type from an array. If the
-     * parameter is not found, the default value is passed. If more than a single
-     * parameter is found, an {@link IllegalparameterException} is thrown.
+     * Extracts a singled-value parameter of the given type from an array. If the parameter is not found, the default 
+     * value is returned. If more than a single parameter is found, an {@link IllegalparameterException} is thrown.
      *
      * @param  parameterClass           the class of the parameter to retrieve
      * @param  defaultOption            the default value of the parameter
      * @param  parameters                the array of parameters
      * @throws IllegalparameterException if more than a single value is found
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     @CheckForNull
-    public static <T,O> T find (@Nonnull final Class<T> parameterClass,
-                                @CheckForNull final T defaultOption,
-                                @Nonnull final O ... parameters)
+    public static <T,O> T find (final @Nonnull Class<T> parameterClass,
+                                final @CheckForNull T defaultOption,
+                                final @Nonnull O ... parameters)
       throws IllegalArgumentException
       {
         final Collection<T> c = find(parameterClass, parameters);
@@ -85,18 +84,18 @@ public final class Parameters
         return c.isEmpty() ? defaultOption : c.iterator().next();
       }
     
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
-     * Extracts multiple-value parameters of the given type from an array. If the
-     * parameter is not found, an empty collection is returned.
+     * Extracts multiple-value parameters of the given type from an array. If the parameter is not found, an empty
+     * collection is returned.
      * 
      * @param  parameterClass            the class of the parameter to retrieve
      * @param  parameters                the array of parameters
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
-    public static <T,O> Collection<T> find (@Nonnull final Class<T> parameterClass,
-                                            @Nonnull final O ... parameters)
+    public static <T,O> Collection<T> find (final @Nonnull Class<T> parameterClass,
+                                            final @Nonnull O ... parameters)
       {
         final Collection<T> result = new ArrayList<T>();
         

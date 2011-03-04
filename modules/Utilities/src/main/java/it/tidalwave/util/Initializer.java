@@ -37,5 +37,5 @@ public interface Initializer<T>
      *
      *
      ******************************************************************************************************************/
-    public T initialize (@Nonnull T entity);
+    public T initialize (@Nonnull T object);
   }

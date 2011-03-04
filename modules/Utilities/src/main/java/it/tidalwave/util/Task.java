@@ -29,7 +29,7 @@ import javax.annotation.Nonnull;
  * A class which encapsulates a task..
  *
  * @author  Fabrizio Giudici
- * @version $Id: $
+ * @version $Id$
  * @experimental
  *
  **********************************************************************************************************************/

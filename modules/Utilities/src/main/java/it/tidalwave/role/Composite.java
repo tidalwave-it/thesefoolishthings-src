@@ -30,10 +30,11 @@ import it.tidalwave.util.FinderSupport;
 
 /***********************************************************************************************************************
  * 
- * The role of a composite object, according to the GoF pattern.
+ * The role of a composite object, that is an object which contains children.
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public interface Composite<T>
@@ -41,12 +42,17 @@ public interface Composite<T>
     //@bluebook-begin other
     public static final Class<Composite> Composite = Composite.class;
 
+    /*******************************************************************************************************************
+     * 
+     * A default <code>Composite</code> with no children.
+     *
+     ******************************************************************************************************************/
     public final static Composite<?> DEFAULT = new Composite<Object>() 
       {
         private final Finder<Object> emptyFinder = new FinderSupport<Object>("Composite.DEFAULT") 
           {
             @Override @Nonnull
-            protected List<Object> doCompute() 
+            protected List<? extends Object> doCompute() 
               {
                 return Collections.emptyList();
               }

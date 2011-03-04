@@ -31,10 +31,11 @@ import it.tidalwave.role.Displayable;
 /***********************************************************************************************************************
  *
  * A {@link Comparator} for classes implementing the {@link Displayable} role.
+ * FIXME: don't use it, it requires the objects to statically implement Displayable
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @draft Will be moved to a different package
+ * @draft Will be removed (FIXME)
  *
  **********************************************************************************************************************/
 public final class DisplayableComparator implements Comparator<Displayable>, Serializable

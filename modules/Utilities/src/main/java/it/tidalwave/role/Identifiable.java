@@ -27,6 +27,8 @@ import it.tidalwave.util.Id;
 
 /***********************************************************************************************************************
  *
+ * The role of an object that owns an unique identifier.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @stable

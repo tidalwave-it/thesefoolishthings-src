@@ -28,8 +28,11 @@ import java.io.InputStream;
 
 /***********************************************************************************************************************
  * 
+ * The role of an object that can be read as a stream of bytes.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public interface BinaryReadable 
@@ -37,17 +40,30 @@ public interface BinaryReadable
     //@bluebook-begin other
     public final static Class<BinaryReadable> BinaryReadable = BinaryReadable.class;
         
+    /*******************************************************************************************************************
+     *
+     * A default implementation which throws {@link IOException} when opening the stream.
+     * 
+     ******************************************************************************************************************/
     public final static BinaryReadable DEFAULT = new BinaryReadable() 
       {
         @Override @Nonnull
         public InputStream openStream() 
           throws IOException 
           {
-            throw new IOException();
+            throw new IOException("Operation not supported");
           }
       };
     
     //@bluebook-end other
+    /*******************************************************************************************************************
+     *
+     * Returns an {@link InputStream} to read from the object.
+     * 
+     * @return               the {@code InputStream}
+     * @throws  IOException  if the operation can't be performed
+     * 
+     ******************************************************************************************************************/
     @Nonnull
     public InputStream openStream()
       throws IOException;

@@ -22,8 +22,13 @@
  **********************************************************************************************************************/
 package it.tidalwave.util;
 
+import javax.annotation.Nonnull;
+
 /***********************************************************************************************************************
  *
+ * Notifies that the current operation failed because it would create an illegal duplication (of objects, of ids, 
+ * etc...)
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @stable
@@ -35,8 +40,8 @@ public class DuplicateException extends Exception
       {
       }
 
-    public DuplicateException (final String msg)
+    public DuplicateException (final @Nonnull String message)
       {
-        super(msg);
+        super(message);
       }
 }

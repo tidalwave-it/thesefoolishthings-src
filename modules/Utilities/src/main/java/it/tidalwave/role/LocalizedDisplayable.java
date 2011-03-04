@@ -29,8 +29,7 @@ import java.util.SortedSet;
 
 /***********************************************************************************************************************
  *
- * This interface defines the behavior of objects that can display their names possibly according to the current
- * {@link Locale}.
+ * A specialized {@link Displayable} which can manage names in multiple {@link Locale}s.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -43,27 +42,34 @@ public interface LocalizedDisplayable extends Displayable
     public final static Class<LocalizedDisplayable> LocalizedDisplayable = LocalizedDisplayable.class;
     
     //@bluebook-end other
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * Returns the display name in the given {@link Locale}.
      *
-     * @param    locale    the <code>Locale</code>
+     * @param    locale    the {@code Locale}
      * @return             the display name
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     public String getDisplayName (@Nonnull Locale locale);
 
+    /*******************************************************************************************************************
+     *
+     * Returns all the display names in {@link Map} where they are indexed by {@code Locale}.
+     * 
+     * @return   the display names
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public Map<Locale, String> getDisplayNames();
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
-     * Returns the available {@link Locale}s.
+     * Returns the supported {@code Locale}s.
      *
-     * @return             the available <code>Locale</code>s
+     * @return             the available {@code Locale}s
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     public SortedSet<Locale> getLocales();
   }

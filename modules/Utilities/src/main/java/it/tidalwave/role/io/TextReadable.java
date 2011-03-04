@@ -28,8 +28,11 @@ import java.io.Reader;
 
 /***********************************************************************************************************************
  * 
+ * The role of an object that can be read as a stream of characters.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public interface TextReadable 
@@ -37,16 +40,29 @@ public interface TextReadable
     //@bluebook-begin other
     public final static Class<TextReadable> TextReadable = TextReadable.class;
     
+    /*******************************************************************************************************************
+     *
+     * A default implementation which throws {@link IOException} when opening the stream.
+     * 
+     ******************************************************************************************************************/
     public final static TextReadable DEFAULT = new TextReadable() 
       {
         @Override @Nonnull
         public Reader openReader() 
           throws IOException 
           {
-            throw new IOException();
+            throw new IOException("Operation not supported");
           }
       };
     
+    /*******************************************************************************************************************
+     *
+     * Returns a {@link Reader} to read from the object.
+     * 
+     * @return               the {@code Reader}
+     * @throws  IOException  if the operation can't be performed
+     * 
+     ******************************************************************************************************************/
     //@bluebook-end other
     @Nonnull
     public Reader openReader()

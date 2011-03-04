@@ -29,6 +29,8 @@ import it.tidalwave.util.Id;
 
 /***********************************************************************************************************************
  *
+ * A default implementation of {@link Identifiable} which wraps a given id.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @stable
@@ -42,11 +44,23 @@ public class DefaultIdentifiable implements Identifiable, Serializable
     @Nonnull
     private final Id id;
 
+    /*******************************************************************************************************************
+     *
+     * Create a new instance with the specified id.
+     * 
+     * @param  id  the id
+     *
+     ******************************************************************************************************************/
     public DefaultIdentifiable (final @Nonnull Id id)
       {
         this.id = id;
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
 //    @Override
     @Nonnull
     public Id getId()
@@ -54,6 +68,11 @@ public class DefaultIdentifiable implements Identifiable, Serializable
         return id;
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
     @Override @Nonnull
     public String toString()
       {
