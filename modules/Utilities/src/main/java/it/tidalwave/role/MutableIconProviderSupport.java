@@ -29,6 +29,8 @@ import javax.swing.Icon;
 
 /***********************************************************************************************************************
  *
+ * A convenient support for implementing a {@link MutableIconProvider}.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @draft
@@ -38,26 +40,50 @@ public abstract class MutableIconProviderSupport implements MutableIconProvider
   {
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
 //    @Override
     public void addPropertyChangeListener (final @Nonnull PropertyChangeListener listener)
       {
         pcs.addPropertyChangeListener(listener);
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
 //    @Override
     public void removePropertyChangeListener (final @Nonnull PropertyChangeListener listener)
       {
         pcs.removePropertyChangeListener(listener);
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     * FIXME: this method does nothing. Probably this is inconsistent with DefaultMutableDisplayable? But that is
+     * a Default*, we're just a *Support...
+     * 
+     ******************************************************************************************************************/
+    public void setIcon (final @Nonnull Icon icon) 
+      {
+      }
+    
+    /*******************************************************************************************************************
+     *
+     * Fires the event notifying that {@link PROP_ICON} has been changed.
+     * 
+     * @param  oldIcon   the old value of the property
+     * @param  newIcon   the new value of the property
+     *
+     ******************************************************************************************************************/
     protected void fireIconChange (final @Nonnull Icon oldIcon, final @Nonnull Icon newIcon)
       {
         pcs.firePropertyChange(PROP_ICON, oldIcon, newIcon); // FIXME: should be in the EDT?
-      }
-
-    // Some subclasses (e.g. those triggering internally an icon change) won't implement it
-    public void setIcon (final @Nonnull Icon icon) 
-      {
-        throw new UnsupportedOperationException("Not supported yet.");
       }
   }
