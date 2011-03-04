@@ -1,6 +1,6 @@
 
  ${description}
- Copyright (C) ${inceptionYear}-2011 by Tidalwave s.a.s.
+ Copyright (C) ${inceptionYear}-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
 
 **********************************************************************************************************************
 
