@@ -62,6 +62,19 @@ public class DefaultFilterSortCriterion<T> implements Finder.FilterSortCriterion
     
     /*******************************************************************************************************************
      *
+     * Creates an instance that will use the given {@link Comparator}.
+     * 
+     * @param  comparator   the comparator
+     *
+     ******************************************************************************************************************/
+    protected DefaultFilterSortCriterion (final @Nonnull Comparator<? super T> comparator) 
+      {
+        this.comparator = comparator;
+        this.name = getClass().getSimpleName();
+      }
+    
+    /*******************************************************************************************************************
+     *
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
