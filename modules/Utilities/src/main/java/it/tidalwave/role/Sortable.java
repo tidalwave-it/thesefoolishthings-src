@@ -23,13 +23,17 @@
 package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
+import it.tidalwave.util.Finder;
 import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.SortDirection;
 
 /***********************************************************************************************************************
  * 
+ * The role of an object that has contents that can be sorted.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @stable
  *
  **********************************************************************************************************************/
 public interface Sortable 
@@ -37,6 +41,13 @@ public interface Sortable
     //@bluebook-begin others
     public final static Class<Sortable> Sortable = Sortable.class; 
     
+    /*******************************************************************************************************************
+     *
+     * A default {@code Sortable} which does nothing (useful for implementing the NullObject pattern). This object 
+     * always returns {@link Finder.SortCriterion.UNSORTED} as {@code sortCriterion} and 
+     * {@link SortDirection.ASCENDING} as {@code sortDirection}.
+     * 
+     ******************************************************************************************************************/
     public final static Sortable DEFAULT = new Sortable()
       {
         @Override
@@ -47,7 +58,7 @@ public interface Sortable
         @Override @Nonnull 
         public SortCriterion getSortCriterion() 
           {
-            throw new UnsupportedOperationException("Not supported.");
+            return Finder.SortCriterion.UNSORTED;
           }
 
         @Override
@@ -58,18 +69,46 @@ public interface Sortable
         @Override @Nonnull 
         public SortDirection getSortDirection() 
           {
-            throw new UnsupportedOperationException("Not supported.");
+            return SortDirection.ASCENDING;
           }
       };
     
     //@bluebook-end others
+    /*******************************************************************************************************************
+     *
+     * Sets the sort criterion.
+     * 
+     * @param sortCriterion  the sort criterion
+     * 
+     ******************************************************************************************************************/
     public void setSortCriterion (@Nonnull SortCriterion sortCriterion);
     
+    /*******************************************************************************************************************
+     * 
+     * Sets the sort direction.
+     *
+     * @param sortDirection  the sort direction
+     * 
+     ******************************************************************************************************************/
     public void setSortDirection (@Nonnull SortDirection sortDirection);
     
+    /*******************************************************************************************************************
+     *
+     * Returns the current sort criterion.
+     * 
+     * @return  the sort criterion
+     * 
+     ******************************************************************************************************************/
     @Nonnull
     public SortCriterion getSortCriterion();
     
+    /*******************************************************************************************************************
+     *
+     * Returns the current sort direction.
+     * 
+     * @return  the sort direction
+     * 
+     ******************************************************************************************************************/
     @Nonnull
     public SortDirection getSortDirection();
   }
