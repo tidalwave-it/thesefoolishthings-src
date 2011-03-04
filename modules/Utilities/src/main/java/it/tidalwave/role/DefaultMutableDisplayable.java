@@ -34,12 +34,15 @@ import java.util.TreeSet;
 
 /***********************************************************************************************************************
  *
+ * A default implementation of {@link MutableLocalizedDisplayable} starting which a single display name in 
+ * {@code Locale.ENGLISH} language.
+ * 
  * @author Fabrizio Giudici
  * @version $Id$
  * @stable
  *
  **********************************************************************************************************************/
-public class DefaultMutableDisplayable implements MutableDisplayable
+public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
   {
     private static final long serialVersionUID = 45345436345634734L;
 
@@ -55,6 +58,23 @@ public class DefaultMutableDisplayable implements MutableDisplayable
 
     /*******************************************************************************************************************
      *
+     * Creates an instance with an initial given display name in {@code Locale.ENGLISH}.
+     * 
+     * @param  displayName   the display name
+     *
+     ******************************************************************************************************************/
+    public DefaultMutableDisplayable (final @Nonnull String displayName)
+      {
+        this(displayName, "???");
+      }
+    
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with an initial given display name in {@code Locale.ENGLISH} and an explicit identifier for 
+     * {@code toString()}.
+     * 
+     * @param  displayName   the display name
+     * @param  toStringName  the name to be rendered when {@code toString()} is called
      *
      ******************************************************************************************************************/
     public DefaultMutableDisplayable (final @Nonnull String displayName,
@@ -66,6 +86,7 @@ public class DefaultMutableDisplayable implements MutableDisplayable
 
     /*******************************************************************************************************************
      *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
 //    @Override
@@ -77,6 +98,7 @@ public class DefaultMutableDisplayable implements MutableDisplayable
 
     /*******************************************************************************************************************
      *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
 //    @Override
@@ -88,6 +110,7 @@ public class DefaultMutableDisplayable implements MutableDisplayable
 
     /*******************************************************************************************************************
      *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
 //    @Override
@@ -99,6 +122,7 @@ public class DefaultMutableDisplayable implements MutableDisplayable
 
     /*******************************************************************************************************************
      *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
 //    @Override
@@ -110,6 +134,7 @@ public class DefaultMutableDisplayable implements MutableDisplayable
 
     /*******************************************************************************************************************
      *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
 //    @Override
@@ -122,6 +147,7 @@ public class DefaultMutableDisplayable implements MutableDisplayable
 
     /*******************************************************************************************************************
      *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
 //    @Override
@@ -134,6 +160,7 @@ public class DefaultMutableDisplayable implements MutableDisplayable
 
     /*******************************************************************************************************************
      *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
 //    @Override
@@ -146,6 +173,7 @@ public class DefaultMutableDisplayable implements MutableDisplayable
 
     /*******************************************************************************************************************
      *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
 //    @Override
@@ -156,6 +184,7 @@ public class DefaultMutableDisplayable implements MutableDisplayable
 
     /*******************************************************************************************************************
      *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
 //    @Override
@@ -166,6 +195,7 @@ public class DefaultMutableDisplayable implements MutableDisplayable
 
     /*******************************************************************************************************************
      *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
 //    @Override
