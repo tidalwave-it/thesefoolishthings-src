@@ -29,7 +29,8 @@
     </build>
 
     <modules>
-        <module>FinderExamples</module>
+        <module>FinderExample1</module>
+        <module>FinderExample2</module>
     </modules>
 
 </project>
