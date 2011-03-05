@@ -5,12 +5,11 @@
 
 package it.tidalwave.thesefoolishthings.examples.finderexample;
 
-import it.tidalwave.util.DefaultFilterSortCriterion;
-import it.tidalwave.util.Finder.SortCriterion;
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import javax.annotation.Nonnull;
+import it.tidalwave.util.Finder.SortCriterion;
 
 /**
  *
@@ -18,38 +17,31 @@ import javax.annotation.Nonnull;
  */
 public enum PersonSortCriterion implements SortCriterion 
   {
-    BY_FIRST_NAME
+    BY_FIRST_NAME(new Comparator<Person>() 
       {
-        protected Comparator<Person> getComparator()
+        public int compare (final @Nonnull Person p1, final @Nonnull Person p2) 
           {
-            return new Comparator<Person>() 
-              {
-                public int compare (final @Nonnull Person p1, final @Nonnull Person p2) 
-                  {
-                    return p1.getFirstName().compareTo(p2.getFirstName());
-                  }
-              };  
+            return p1.getFirstName().compareTo(p2.getFirstName());
           }
-      },
+      }),
     
-    BY_LAST_NAME
+    BY_LAST_NAME(new Comparator<Person>() 
       {
-        protected Comparator<Person> getComparator()
+        public int compare (final @Nonnull Person p1, final @Nonnull Person p2) 
           {
-            return new Comparator<Person>() 
-              {
-                public int compare (final @Nonnull Person p1, final @Nonnull Person p2) 
-                  {
-                    return p1.getLastName().compareTo(p2.getLastName());
-                  }
-              };  
+            return p1.getLastName().compareTo(p2.getLastName());
           }
-      };
+      });  
     
-    protected void sort (List<? extends Person> persons)
+    private final Comparator<Person> comparator;
+    
+    protected void sort (final @Nonnull List<? extends Person> persons)
       {
-        Collections.sort(persons, getComparator());
+        Collections.sort(persons, comparator);
       }
     
-    protected abstract Comparator<Person> getComparator();
+    private PersonSortCriterion (final @Nonnull Comparator<Person> comparator)
+      {
+        this.comparator = comparator;  
+      }
   }
