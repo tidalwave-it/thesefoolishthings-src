@@ -24,6 +24,10 @@ package it.tidalwave.util;
 
 import java.util.List;
 import it.tidalwave.role.Composite;
+import it.tidalwave.role.Sortable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
  *
@@ -33,26 +37,64 @@ import it.tidalwave.role.Composite;
  **********************************************************************************************************************/
 public class FinderTest 
   {    
-    static interface MyFinder extends Finder<String, MyFinder>
-      {
-        public MyFinder anExtraMethod();  
-      }
+    private final static List<String> ALL_NAMES = Arrays.asList("");
     
-    static class MyFinderImplementation extends FinderSupport<String, MyFinder> implements MyFinder
+    static class SortableCompositeDecorator<T, F> implements Composite<T, Finder<T, F>> 
       {
-        public MyFinderImplementation() 
+        @Nonnull
+        private final Composite<T, Finder<T, F>> delegate;
+
+        @Nonnull
+        private final Sortable sortController;
+
+        public SortableCompositeDecorator (final @Nonnull Composite<T, Finder<T, F>> delegate, 
+                                           final @Nonnull Sortable sortController) 
           {
-            super("MyFinderImplementation");
+            this.delegate = delegate;
+            this.sortController = sortController;
           }
         
-        @Override
+        @Override @Nonnull
+        public Finder<T, F> findChildren()
+          {
+            return (Finder<T, F>)delegate.findChildren().sort(sortController.getSortCriterion(), sortController.getSortDirection());
+          } 
+      }
+    
+    static interface NameFinder extends Finder<String, NameFinder>
+      {
+        public NameFinder startingWith (@Nonnull String prefix);  
+      }
+    
+    static class NameFinderImplementation extends FinderSupport<String, NameFinder> implements NameFinder
+      {
+        private String prefix = "";
+        
+        public NameFinderImplementation() 
+          {
+            super("NameFinderImplementation");
+          }
+        
+        @Override @Nonnull
         protected List<? extends String> doCompute() 
           {
-            throw new UnsupportedOperationException("Not supported yet.");
+            final List<String> results = new ArrayList<String>();
+            
+            for (final String name : ALL_NAMES)
+              {
+                if (name.startsWith(prefix))
+                  {
+                    results.add(name);  
+                  }
+              }
+            
+            return results;
           }
 
-        public MyFinder anExtraMethod() 
+        @Nonnull
+        public NameFinder startingWith (final @Nonnull String prefix)
           {
+            this.prefix = prefix;
             return this;
           }
       }
@@ -66,8 +108,15 @@ public class FinderTest
     
     public void test2()
       {
-        Composite<String, MyFinder> composite = null;
-        List<? extends String> results1 = composite.findChildren().max(10).anExtraMethod().results();
+        Composite<String, NameFinder> composite = null;
+        List<? extends String> results1 = composite.findChildren().startingWith("A").max(10).results();
         List<? extends Integer> results2 = composite.findChildren().ofType(Integer.class).results();
+      }
+    
+    public void test3()
+      {
+        Composite<Object, Finder<?, ? extends Finder<?, ?>>> composite1 = null;  
+        composite1.findChildren().from(10).max(5).results();
+        new SortableCompositeDecorator<?, ?>(composite1);
       }
   }
