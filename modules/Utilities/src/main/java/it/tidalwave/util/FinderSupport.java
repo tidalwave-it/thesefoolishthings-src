@@ -199,8 +199,7 @@ public abstract class FinderSupport<Type, SpecializedFinder> implements Finder<T
      ******************************************************************************************************************/
 //    @Override
     @Nonnull
-    // can't be final, as it will be subclassed for a specialized result type
-    public SpecializedFinder sort (final @Nonnull SortCriterion criterion) 
+    public final SpecializedFinder sort (final @Nonnull SortCriterion criterion) 
       {
         return sort(criterion, SortDirection.ASCENDING);
       }

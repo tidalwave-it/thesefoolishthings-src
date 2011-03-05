@@ -52,10 +52,11 @@ public interface Finder<Type, SpecializedFinder> extends Cloneable, Serializable
         public static final Class<SortCriterion> SortCriterion = SortCriterion.class;
     
         /** A special {@link SortCriterion} which indicates that no sort has been performed. */
-        public static final SortCriterion UNSORTED = new FilterSortCriterion() 
+        public static final SortCriterion UNSORTED = new FilterSortCriterion<Object>() 
           {
             @Nonnull
-            public Finder sort (final @Nonnull Finder finder, final @Nonnull SortDirection sortDirection) 
+            public Finder<Object, ?> sort (final @Nonnull Finder<Object, ?> finder, 
+                                           final @Nonnull SortDirection sortDirection) 
               {
                 return finder;
               }
@@ -87,8 +88,7 @@ public interface Finder<Type, SpecializedFinder> extends Cloneable, Serializable
          *
          **************************************************************************************************************/
         @Nonnull
-        public Finder<Type, ?> sort (@Nonnull Finder<Type, ?> finder, 
-                                     @Nonnull SortDirection sortDirection);
+        public Finder<Type, ?> sort (@Nonnull Finder<Type, ?> finder, @Nonnull SortDirection sortDirection);
       }
 
     /*******************************************************************************************************************
@@ -144,7 +144,6 @@ public interface Finder<Type, SpecializedFinder> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-//    public <AnotherType, AnotherSpecializedFinder extends SpecializedFinder> AnotherSpecializedFinder ofType (final @Nonnull Class<AnotherType> type);
     public <AnotherType, AnotherSpecializedFinder extends Finder<AnotherType, AnotherSpecializedFinder>> 
             AnotherSpecializedFinder ofType (final @Nonnull Class<AnotherType> type);
 
