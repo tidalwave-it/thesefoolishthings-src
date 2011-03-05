@@ -22,15 +22,15 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.finderexample;
 
-import it.tidalwave.util.Finder;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import it.tidalwave.util.Finder;
 import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.SortDirection;
 import it.tidalwave.util.NotFoundException;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 /***********************************************************************************************************************
  *
