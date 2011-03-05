@@ -5,14 +5,14 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>1.9.1-SNAPSHOT</version>
+        <version>1.10.0-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-util</artifactId>
     <packaging>nbm</packaging>
-    <version>1.11.2-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
     <name>TheseFoolishThings - Utilities</name>
 
     <properties>
@@ -48,6 +48,7 @@
                 <configuration>
                     <publicPackages>
                         <publicPackage>it.tidalwave.util</publicPackage>
+                        <publicPackage>it.tidalwave.util.spi</publicPackage>
                         <publicPackage>it.tidalwave.role</publicPackage>
                         <publicPackage>it.tidalwave.role.io</publicPackage>
                         <publicPackage>it.tidalwave.role.annotation</publicPackage>

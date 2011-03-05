@@ -20,85 +20,50 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.util;
+package it.tidalwave.util.spi;
 
-import it.tidalwave.util.spi.FinderSupport;
+import it.tidalwave.util.Finder;
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import it.tidalwave.util.Finder.SortDirection;
 
 /***********************************************************************************************************************
  *
- * A default implementation of {@link Finder.FilterSortCriterion} which relies on sorting capabilities of the Java
- * runtime library and only needs a {@link Comparator} to be specified.
- * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public class DefaultFilterSortCriterion<T> implements Finder.FilterSortCriterion<T> 
+public interface SpecializedFinderSupport<Type, SpecializedFinder extends Finder<Type>> extends Finder<Type>
   {
-    @Nonnull
-    private final Comparator<? super T> comparator;
-
-    @Nonnull
-    private final String name;
-    
-    /*******************************************************************************************************************
-     *
-     * Creates an instance that will use the given {@link Comparator}, with the given name (used for diagnostics).
-     * 
-     * @param  comparator   the comparator
-     * @param  name         a name used for diagnostics
-     *
-     ******************************************************************************************************************/
-    public DefaultFilterSortCriterion (final @Nonnull Comparator<? super T> comparator, final @Nonnull String name) 
-      {
-        this.comparator = comparator;
-        this.name = name;
-      }
-    
-    /*******************************************************************************************************************
-     *
-     * Creates an instance that will use the given {@link Comparator}.
-     * 
-     * @param  comparator   the comparator
-     *
-     ******************************************************************************************************************/
-    protected DefaultFilterSortCriterion (final @Nonnull Comparator<? super T> comparator) 
-      {
-        this.comparator = comparator;
-        this.name = getClass().getSimpleName();
-      }
-    
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
-     *
+     * 
      ******************************************************************************************************************/
-    @Override @Nonnull
-    public Finder<T> sort (final @Nonnull Finder<T> finder,
-                           final @Nonnull SortDirection sortDirection)
-      {
-        return new FinderSupport<T, Finder<T>>(name) 
-          {
-            @Override @Nonnull
-            protected List<? extends T> doCompute() 
-              {
-                final List<? extends T> results = finder.results();
-                Collections.sort(results, new Comparator<T>()
-                  {
-                    public int compare (final @Nonnull T o1, final @Nonnull T o2) 
-                      {
-                        return comparator.compare(o1, o2) * sortDirection.intValue();
-                      }
-                  });
-                
-                return results;
-              }
-          };
-      }
+    @Nonnull
+    public SpecializedFinder from (@Nonnegative int firstResult);
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     * 
+     ******************************************************************************************************************/
+    @Nonnull
+    public SpecializedFinder max (@Nonnegative int maxResults);
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     * 
+     ******************************************************************************************************************/
+    @Nonnull
+    public SpecializedFinder sort (@Nonnull SortCriterion criterion);
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     * 
+     ******************************************************************************************************************/
+    @Nonnull
+    public SpecializedFinder sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
   }

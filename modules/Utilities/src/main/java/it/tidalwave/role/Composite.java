@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import it.tidalwave.util.Finder;
-import it.tidalwave.util.FinderSupport;
+import it.tidalwave.util.spi.FinderSupport;
 
 /***********************************************************************************************************************
  * 
@@ -37,7 +37,7 @@ import it.tidalwave.util.FinderSupport;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public interface Composite<T, F extends Finder<T>>
+public interface Composite<Type, SpecializedFinder extends Finder<Type>>
   {
     //@bluebook-begin other
     public static final Class<Composite> Composite = Composite.class;
@@ -49,7 +49,7 @@ public interface Composite<T, F extends Finder<T>>
      ******************************************************************************************************************/
     public final static Composite<Object, Finder<Object>> DEFAULT = new Composite<Object, Finder<Object>>() 
       {
-        private final Finder<Object> emptyFinder = new FinderSupport<Object>("Composite.DEFAULT") 
+        private final Finder<Object> emptyFinder = new FinderSupport<Object, Finder<Object>>("Composite.DEFAULT") 
           {
             @Override @Nonnull
             protected List<? extends Object> doCompute() 
@@ -74,5 +74,5 @@ public interface Composite<T, F extends Finder<T>>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public F findChildren();
+    public SpecializedFinder findChildren();
   }

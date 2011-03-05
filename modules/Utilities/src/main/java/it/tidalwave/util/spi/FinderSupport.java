@@ -20,14 +20,16 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.util;
+package it.tidalwave.util.spi;
 
+import it.tidalwave.util.Finder;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.SortDirection;
+import it.tidalwave.util.NotFoundException;
 
 /***********************************************************************************************************************
  *
@@ -40,7 +42,7 @@ import it.tidalwave.util.Finder.SortDirection;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public abstract class FinderSupport<Type> implements Finder<Type>
+public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>> implements Finder<Type>
   {
     @Nonnull
     private final String name;
@@ -88,10 +90,10 @@ public abstract class FinderSupport<Type> implements Finder<Type>
      ******************************************************************************************************************/
 //    @Override
     @Nonnull
-    public Finder from (final @Nonnegative int firstResult)
+    public SpecializedFinder from (final @Nonnegative int firstResult)
       {
         this.firstResult = firstResult;
-        return this;
+        return (SpecializedFinder)this;
       }
 
     /*******************************************************************************************************************
@@ -101,10 +103,10 @@ public abstract class FinderSupport<Type> implements Finder<Type>
      ******************************************************************************************************************/
 //    @Override
     @Nonnull
-    public Finder max (final @Nonnegative int maxResults)
+    public SpecializedFinder max (final @Nonnegative int maxResults)
       {
         this.maxResults = maxResults;
-        return this;
+        return (SpecializedFinder)this;
       }
 
     /*******************************************************************************************************************
@@ -178,12 +180,12 @@ public abstract class FinderSupport<Type> implements Finder<Type>
      ******************************************************************************************************************/
 //    @Override
     @Nonnull
-    public Finder<Type> sort (final @Nonnull SortCriterion criterion,
-                              final @Nonnull SortDirection direction)
+    public SpecializedFinder sort (final @Nonnull SortCriterion criterion,
+                                     final @Nonnull SortDirection direction)
       {
         if (criterion instanceof FilterSortCriterion)
           {
-            return ((FilterSortCriterion<Type>)criterion).sort(this, direction);
+            return (SpecializedFinder)((FilterSortCriterion<Type>)criterion).sort(this, direction);
           }
         
         final String message = String.format("%s does not implement %s - you need to subclass Finder and override sort()",
@@ -198,8 +200,7 @@ public abstract class FinderSupport<Type> implements Finder<Type>
      ******************************************************************************************************************/
 //    @Override
     @Nonnull
-    // can't be final, as it will be subclassed for a specialized result type
-    public Finder<Type> sort (final @Nonnull SortCriterion criterion) 
+    public final SpecializedFinder sort (final @Nonnull SortCriterion criterion) 
       {
         return sort(criterion, SortDirection.ASCENDING);
       }
