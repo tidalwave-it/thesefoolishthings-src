@@ -5,7 +5,10 @@
 
 package it.tidalwave.thesefoolishthings.examples.finderexample;
 
+import it.tidalwave.util.Finder;
 import it.tidalwave.util.spi.FinderSupport;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Nonnull;
 
 /**
@@ -16,6 +19,7 @@ public abstract class DefaultPersonFinder extends FinderSupport<Person, PersonFi
   {
     protected String firstName = ".*";
     protected String lastName = ".*";
+    protected List<PersonSortCriterion> sortCriteria = new ArrayList<PersonSortCriterion>();
     
     public DefaultPersonFinder() 
       {
@@ -33,6 +37,13 @@ public abstract class DefaultPersonFinder extends FinderSupport<Person, PersonFi
     public PersonFinder withLastName (final @Nonnull String lastName) 
       {
         this.lastName = lastName;
+        return this;
+      }
+
+    @Override
+    public PersonFinder sort (SortCriterion criterion, SortDirection direction) 
+      {
+        sortCriteria.add((PersonSortCriterion)criterion);
         return this;
       }
   }

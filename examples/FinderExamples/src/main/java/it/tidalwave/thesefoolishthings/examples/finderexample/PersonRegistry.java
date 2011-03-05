@@ -7,7 +7,6 @@ package it.tidalwave.thesefoolishthings.examples.finderexample;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 
@@ -49,6 +48,11 @@ public class PersonRegistry
                       {
                         result.add(person);  
                       }
+                  }
+                
+                for (final PersonSortCriterion sortCriterion : sortCriteria)
+                  {
+                    sortCriterion.sort(result);                        
                   }
                 
                 return result;
