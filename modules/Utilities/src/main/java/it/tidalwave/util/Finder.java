@@ -36,7 +36,7 @@ import java.io.Serializable;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public interface Finder<T> extends Cloneable, Serializable
+public interface Finder<Type> extends Cloneable, Serializable
   {
     /*******************************************************************************************************************
      *
@@ -75,7 +75,7 @@ public interface Finder<T> extends Cloneable, Serializable
      * implementation of {@code FilterSortCriterion} is {@link DefaultFilterSortCriterion}.
      *
      ******************************************************************************************************************/
-    public static interface FilterSortCriterion<T> extends SortCriterion
+    public static interface FilterSortCriterion<Type> extends SortCriterion
       {
         /***************************************************************************************************************
          *
@@ -87,7 +87,7 @@ public interface Finder<T> extends Cloneable, Serializable
          *
          **************************************************************************************************************/
         @Nonnull
-        public Finder<T> sort (@Nonnull Finder<T> finder, @Nonnull SortDirection sortDirection);
+        public Finder<Type> sort (@Nonnull Finder<Type> finder, @Nonnull SortDirection sortDirection);
       }
 
     /*******************************************************************************************************************
@@ -125,7 +125,7 @@ public interface Finder<T> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Finder<T> from (@Nonnegative int firstResult);
+    public Finder<Type> from (@Nonnegative int firstResult);
 
     /*******************************************************************************************************************
      *
@@ -135,7 +135,7 @@ public interface Finder<T> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Finder<T> max (@Nonnegative int maxResults);
+    public Finder<Type> max (@Nonnegative int maxResults);
 
     /*******************************************************************************************************************
      *
@@ -143,7 +143,7 @@ public interface Finder<T> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <X> Finder<X> ofType (@Nonnull Class<X> type);
+    public <AnotherType> Finder<AnotherType> ofType (@Nonnull Class<AnotherType> type);
 
     /*******************************************************************************************************************
      *
@@ -154,7 +154,7 @@ public interface Finder<T> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Finder<T> sort (@Nonnull SortCriterion criterion);
+    public Finder<Type> sort (@Nonnull SortCriterion criterion);
 
     /*******************************************************************************************************************
      *
@@ -166,7 +166,7 @@ public interface Finder<T> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Finder<T> sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
+    public Finder<Type> sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
 
     /*******************************************************************************************************************
      *
@@ -179,7 +179,7 @@ public interface Finder<T> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public T result()
+    public Type result()
       throws NotFoundException;
 
     /*******************************************************************************************************************
@@ -191,7 +191,7 @@ public interface Finder<T> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public T firstResult()
+    public Type firstResult()
       throws NotFoundException;
 
     /*******************************************************************************************************************
@@ -202,7 +202,7 @@ public interface Finder<T> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public List<? extends T> results();
+    public List<? extends Type> results();
 
     /*******************************************************************************************************************
      *

@@ -40,7 +40,7 @@ import it.tidalwave.util.Finder.SortDirection;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public abstract class FinderSupport<T> implements Finder<T>
+public abstract class FinderSupport<Type> implements Finder<Type>
   {
     @Nonnull
     private final String name;
@@ -52,7 +52,7 @@ public abstract class FinderSupport<T> implements Finder<T>
     protected int maxResults = 9999999; // gets inolved in some math, so can't use Integer.MAX_VALUE
 
     @Nonnull
-    private final List<T> result = new ArrayList<T>();
+    private final List<Type> result = new ArrayList<Type>();
 
     private boolean computed = false;
 
@@ -114,7 +114,7 @@ public abstract class FinderSupport<T> implements Finder<T>
      ******************************************************************************************************************/
 //    @Override
     @Nonnull
-    public <X> it.tidalwave.util.Finder<X> ofType (final @Nonnull Class<X> type)
+    public <AnotherType> Finder<AnotherType> ofType (final @Nonnull Class<AnotherType> type)
       {
         throw new UnsupportedOperationException("Not supported.");
       }
@@ -126,7 +126,7 @@ public abstract class FinderSupport<T> implements Finder<T>
      ******************************************************************************************************************/
 //    @Override
     @Nonnull
-    public T result()
+    public Type result()
       throws NotFoundException
       {
         compute();
@@ -151,7 +151,7 @@ public abstract class FinderSupport<T> implements Finder<T>
      ******************************************************************************************************************/
 //    @Override
     @Nonnull
-    public T firstResult()
+    public Type firstResult()
       throws NotFoundException
       {
         compute();
@@ -165,7 +165,7 @@ public abstract class FinderSupport<T> implements Finder<T>
      ******************************************************************************************************************/
 //    @Override
     @Nonnull
-    public List<? extends T> results()
+    public List<? extends Type> results()
       {
         compute();
         return result.subList(firstResult, Math.min(result.size(), firstResult + maxResults));
@@ -178,12 +178,12 @@ public abstract class FinderSupport<T> implements Finder<T>
      ******************************************************************************************************************/
 //    @Override
     @Nonnull
-    public Finder<T> sort (final @Nonnull SortCriterion criterion,
-                           final @Nonnull SortDirection direction)
+    public Finder<Type> sort (final @Nonnull SortCriterion criterion,
+                              final @Nonnull SortDirection direction)
       {
         if (criterion instanceof FilterSortCriterion)
           {
-            return ((FilterSortCriterion<T>)criterion).sort(this, direction);
+            return ((FilterSortCriterion<Type>)criterion).sort(this, direction);
           }
         
         final String message = String.format("%s does not implement %s - you need to subclass Finder and override sort()",
@@ -199,7 +199,7 @@ public abstract class FinderSupport<T> implements Finder<T>
 //    @Override
     @Nonnull
     // can't be final, as it will be subclassed for a specialized result type
-    public Finder<T> sort (final @Nonnull SortCriterion criterion) 
+    public Finder<Type> sort (final @Nonnull SortCriterion criterion) 
       {
         return sort(criterion, SortDirection.ASCENDING);
       }
@@ -212,7 +212,7 @@ public abstract class FinderSupport<T> implements Finder<T>
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected abstract List<? extends T> doCompute();
+    protected abstract List<? extends Type> doCompute();
 
     /*******************************************************************************************************************
      *
