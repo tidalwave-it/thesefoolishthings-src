@@ -42,7 +42,8 @@ public class PersonFinderTest
     @Before
     public void setupFixture() 
       {
-        final PersonRegistry registry = new PersonRegistry();
+        final PersonRegistry registry = new DefaultPersonRegistry();
+
         registry.add(new Person("Richard", "Nixon"));
         registry.add(new Person("Jimmy", "Carter"));
         registry.add(new Person("Ronald", "Reagan"));
