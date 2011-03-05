@@ -5,12 +5,7 @@
 
 package it.tidalwave.thesefoolishthings.examples.finderexample;
 
-import it.tidalwave.util.NotFoundException;
-import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -32,7 +27,8 @@ public class PersonFinderTest
     public void test1()
       {
         assertThat(fixture.results().toString(),
-                   is("[Richard Nixon, Jimmy Carter, Ronald Reagan, George Bush, Bill Clinton, George Walker Bush, Barack Obama]"));
+                   is("[Richard Nixon, Jimmy Carter, Ronald Reagan, George Bush, "
+                    + "Bill Clinton, George Walker Bush, Barack Obama]"));
       }
     
     @Test
