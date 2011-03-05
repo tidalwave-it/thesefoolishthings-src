@@ -22,6 +22,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.role;
 
+import it.tidalwave.util.BaseFinder;
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +38,7 @@ import it.tidalwave.util.FinderSupport;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public interface Composite<T>
+public interface Composite<Type, SpecializedFinder extends Finder<Type, SpecializedFinder>>
   {
     //@bluebook-begin other
     public static final Class<Composite> Composite = Composite.class;
@@ -47,9 +48,9 @@ public interface Composite<T>
      * A default <code>Composite</code> with no children.
      *
      ******************************************************************************************************************/
-    public final static Composite<?> DEFAULT = new Composite<Object>() 
+    public final static Composite<Object, BaseFinder<Object>> DEFAULT = new Composite<Object, BaseFinder<Object>>() 
       {
-        private final Finder<Object> emptyFinder = new FinderSupport<Object>("Composite.DEFAULT") 
+        private final Finder<Object, BaseFinder<Object>> emptyFinder = new FinderSupport<Object, BaseFinder<Object>>("Composite.DEFAULT") 
           {
             @Override @Nonnull
             protected List<? extends Object> doCompute() 
@@ -59,9 +60,9 @@ public interface Composite<T>
           };
         
         @Override @Nonnull
-        public Finder<Object> findChildren() 
+        public BaseFinder<Object> findChildren() 
           {
-            return emptyFinder;
+            return (BaseFinder<Object>)emptyFinder;
           }
       };
     
@@ -74,5 +75,5 @@ public interface Composite<T>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Finder<T> findChildren();
+    public SpecializedFinder findChildren();
   }

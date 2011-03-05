@@ -38,10 +38,12 @@ import it.tidalwave.util.Finder.SortDirection;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public class DefaultFilterSortCriterion<T> implements Finder.FilterSortCriterion<T> 
+public class DefaultFilterSortCriterion<Type, SpecializedFinder 
+                                                    extends Finder<Type, SpecializedFinder>> 
+                                                    implements Finder.FilterSortCriterion<Type, SpecializedFinder> 
   {
     @Nonnull
-    private final Comparator<? super T> comparator;
+    private final Comparator<? super Type> comparator;
 
     @Nonnull
     private final String name;
@@ -54,7 +56,7 @@ public class DefaultFilterSortCriterion<T> implements Finder.FilterSortCriterion
      * @param  name         a name used for diagnostics
      *
      ******************************************************************************************************************/
-    public DefaultFilterSortCriterion (final @Nonnull Comparator<? super T> comparator, final @Nonnull String name) 
+    public DefaultFilterSortCriterion (final @Nonnull Comparator<? super Type> comparator, final @Nonnull String name) 
       {
         this.comparator = comparator;
         this.name = name;
@@ -67,7 +69,7 @@ public class DefaultFilterSortCriterion<T> implements Finder.FilterSortCriterion
      * @param  comparator   the comparator
      *
      ******************************************************************************************************************/
-    protected DefaultFilterSortCriterion (final @Nonnull Comparator<? super T> comparator) 
+    protected DefaultFilterSortCriterion (final @Nonnull Comparator<? super Type> comparator) 
       {
         this.comparator = comparator;
         this.name = getClass().getSimpleName();
@@ -79,18 +81,18 @@ public class DefaultFilterSortCriterion<T> implements Finder.FilterSortCriterion
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Finder<T> sort (final @Nonnull Finder<T> finder,
-                           final @Nonnull SortDirection sortDirection)
+    public Finder<Type, SpecializedFinder> sort (final @Nonnull Finder<Type, SpecializedFinder> finder,
+                                                 final @Nonnull SortDirection sortDirection)
       {
-        return new FinderSupport<T>(name) 
+        return new FinderSupport<Type, SpecializedFinder>(name) 
           {
             @Override @Nonnull
-            protected List<? extends T> doCompute() 
+            protected List<? extends Type> doCompute() 
               {
-                final List<? extends T> results = finder.results();
-                Collections.sort(results, new Comparator<T>()
+                final List<? extends Type> results = finder.results();
+                Collections.sort(results, new Comparator<Type>()
                   {
-                    public int compare (final @Nonnull T o1, final @Nonnull T o2) 
+                    public int compare (final @Nonnull Type o1, final @Nonnull Type o2) 
                       {
                         return comparator.compare(o1, o2) * sortDirection.intValue();
                       }
