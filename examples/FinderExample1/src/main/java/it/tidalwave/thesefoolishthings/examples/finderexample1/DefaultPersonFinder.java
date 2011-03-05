@@ -25,6 +25,7 @@ package it.tidalwave.thesefoolishthings.examples.finderexample1;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import it.tidalwave.util.spi.FinderSupport;
 
 /***********************************************************************************************************************
@@ -33,15 +34,20 @@ import it.tidalwave.util.spi.FinderSupport;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public abstract class DefaultPersonFinder extends FinderSupport<Person, PersonFinder> implements PersonFinder
+public class DefaultPersonFinder extends FinderSupport<Person, PersonFinder> implements PersonFinder
   {
-    protected String firstName = ".*";
-    protected String lastName = ".*";
-    protected List<PersonSortCriterion> sortCriteria = new ArrayList<PersonSortCriterion>();
+    private final List<Person> persons;
     
-    public DefaultPersonFinder() 
+    private String firstName = ".*";
+    
+    private String lastName = ".*";
+    
+    private List<PersonSortCriterion> sortCriteria = new ArrayList<PersonSortCriterion>();
+    
+    public DefaultPersonFinder (final List<Person> persons) 
       {
         super("DefaultPersonFinder");
+        this.persons = persons;
       }
 
     @Nonnull
@@ -63,5 +69,29 @@ public abstract class DefaultPersonFinder extends FinderSupport<Person, PersonFi
       {
         sortCriteria.add((PersonSortCriterion)criterion);
         return this;
+      }
+    
+    @Override @Nonnull
+    protected List<? extends Person> doCompute() 
+      {
+        final List<Person> result = new ArrayList<Person>();
+        final Pattern firstNameRegEx = Pattern.compile(firstName);
+        final Pattern lastNameRegEx = Pattern.compile(lastName);
+
+        for (final Person person : persons)
+          {
+            if (firstNameRegEx.matcher(person.getFirstName()).matches() 
+                && lastNameRegEx.matcher(person.getLastName()).matches())
+              {
+                result.add(person);  
+              }
+          }
+
+        for (final PersonSortCriterion sortCriterion : sortCriteria)
+          {
+            sortCriterion.sort(result);                        
+          }
+
+        return result;
       }
   }

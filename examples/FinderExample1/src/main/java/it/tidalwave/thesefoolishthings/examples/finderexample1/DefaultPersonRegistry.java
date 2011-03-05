@@ -25,7 +25,6 @@ package it.tidalwave.thesefoolishthings.examples.finderexample1;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /***********************************************************************************************************************
  *
@@ -46,31 +45,6 @@ public class DefaultPersonRegistry implements PersonRegistry
     @Override @Nonnull
     public PersonFinder findPersons()
       {
-        return new DefaultPersonFinder()
-          {    
-            @Override @Nonnull
-            protected List<? extends Person> doCompute() 
-              {
-                final List<Person> result = new ArrayList<Person>();
-                final Pattern firstNameRegEx = Pattern.compile(firstName);
-                final Pattern lastNameRegEx = Pattern.compile(lastName);
-                
-                for (final Person person : persons)
-                  {
-                    if (firstNameRegEx.matcher(person.getFirstName()).matches() 
-                        && lastNameRegEx.matcher(person.getLastName()).matches())
-                      {
-                        result.add(person);  
-                      }
-                  }
-                
-                for (final PersonSortCriterion sortCriterion : sortCriteria)
-                  {
-                    sortCriterion.sort(result);                        
-                  }
-                
-                return result;
-              }
-          };
+        return new DefaultPersonFinder(persons);
       }
   }
