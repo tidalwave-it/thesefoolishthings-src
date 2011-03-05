@@ -14,16 +14,16 @@ import java.util.List;
  */
 public class FinderTest 
   {    
-    static interface SpecializedFinder extends Finder<String, SpecializedFinder>
+    static interface MyFinder extends Finder<String, MyFinder>
       {
-        public SpecializedFinder anExtraMethod();  
+        public MyFinder anExtraMethod();  
       }
     
-    static class DefaultSpecializedFinder extends FinderSupport<String, DefaultSpecializedFinder> implements SpecializedFinder
+    static class MyFinderImplementation extends FinderSupport<String, MyFinder> implements MyFinder
       {
-        public DefaultSpecializedFinder() 
+        public MyFinderImplementation() 
           {
-            super("foobar");
+            super("MyFinderImplementation");
           }
         
         @Override
@@ -32,7 +32,7 @@ public class FinderTest
             throw new UnsupportedOperationException("Not supported yet.");
           }
 
-        public SpecializedFinder anExtraMethod() 
+        public MyFinder anExtraMethod() 
           {
             return this;
           }
@@ -40,19 +40,19 @@ public class FinderTest
     
     static interface SpecializedFinderProvider 
       {
-        public SpecializedFinder findSomething();  
+        public MyFinder findSomething();  
       }
     
     public void test1()
       {
-        Composite<String, BaseFinder<String>> provider = null;
+        Composite<String, SimpleFinder<String>> provider = null;
         List<? extends String> results1 = provider.findChildren().max(10).results();
         List<? extends Integer> results2 = provider.findChildren().ofType(Integer.class).results();
       }
     
     public void test2()
       {
-        Composite<String, SpecializedFinder> provider = null;
+        Composite<String, MyFinder> provider = null;
         List<? extends String> results1 = provider.findChildren().max(10).anExtraMethod().results();
         List<? extends Integer> results2 = provider.findChildren().ofType(Integer.class).results();
       }

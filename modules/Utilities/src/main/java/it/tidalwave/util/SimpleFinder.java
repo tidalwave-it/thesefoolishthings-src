@@ -9,6 +9,6 @@ package it.tidalwave.util;
  *
  * @author fritz
  */
-public interface BaseFinder<Type> extends Finder<Type, BaseFinder<Type>>
+public interface SimpleFinder<Type> extends Finder<Type, SimpleFinder<Type>>
   {
   }

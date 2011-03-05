@@ -36,7 +36,7 @@ import java.io.Serializable;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public interface Finder<Type, SpecializedFinder extends Finder<Type, SpecializedFinder>> extends Cloneable, Serializable
+public interface Finder<Type, SpecializedFinder> extends Cloneable, Serializable
   {
     /*******************************************************************************************************************
      *
@@ -75,7 +75,7 @@ public interface Finder<Type, SpecializedFinder extends Finder<Type, Specialized
      * implementation of {@code FilterSortCriterion} is {@link DefaultFilterSortCriterion}.
      *
      ******************************************************************************************************************/
-    public static interface FilterSortCriterion<Type, SpecializedFinder extends Finder<Type, SpecializedFinder>> extends SortCriterion
+    public static interface FilterSortCriterion<Type> extends SortCriterion
       {
         /***************************************************************************************************************
          *
@@ -87,8 +87,8 @@ public interface Finder<Type, SpecializedFinder extends Finder<Type, Specialized
          *
          **************************************************************************************************************/
         @Nonnull
-        public Finder<Type, SpecializedFinder> sort (@Nonnull Finder<Type, SpecializedFinder> finder, 
-                                                     @Nonnull SortDirection sortDirection);
+        public Finder<Type, ?> sort (@Nonnull Finder<Type, ?> finder, 
+                                     @Nonnull SortDirection sortDirection);
       }
 
     /*******************************************************************************************************************

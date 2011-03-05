@@ -40,7 +40,7 @@ import it.tidalwave.util.Finder.SortDirection;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public abstract class FinderSupport<Type, SpecializedFinder extends BaseFinder<Type>> implements BaseFinder<Type>
+public abstract class FinderSupport<Type, SpecializedFinder> implements Finder<Type, SpecializedFinder>
   {
     @Nonnull
     private final String name;
@@ -184,7 +184,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends BaseFinder<T
       {
         if (criterion instanceof FilterSortCriterion)
           {
-            return (SpecializedFinder)((FilterSortCriterion<Type, BaseFinder<Type>>)criterion).sort(this, direction);
+            return (SpecializedFinder)((FilterSortCriterion<Type>)criterion).sort(this, direction);
           }
         
         final String message = String.format("%s does not implement %s - you need to subclass Finder and override sort()",

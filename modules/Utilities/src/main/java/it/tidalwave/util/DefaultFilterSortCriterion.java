@@ -38,9 +38,7 @@ import it.tidalwave.util.Finder.SortDirection;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public class DefaultFilterSortCriterion<Type, SpecializedFinder 
-                                                    extends Finder<Type, SpecializedFinder>> 
-                                                    implements Finder.FilterSortCriterion<Type, SpecializedFinder> 
+public class DefaultFilterSortCriterion<Type, SpecializedFinder> implements Finder.FilterSortCriterion<Type> 
   {
     @Nonnull
     private final Comparator<? super Type> comparator;
@@ -81,8 +79,8 @@ public class DefaultFilterSortCriterion<Type, SpecializedFinder
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Finder<Type, SpecializedFinder> sort (final @Nonnull Finder<Type, SpecializedFinder> finder,
-                                                 final @Nonnull SortDirection sortDirection)
+    public Finder<Type, ?> sort (final @Nonnull Finder<Type, ?> finder,
+                                 final @Nonnull SortDirection sortDirection)
       {
         return new FinderSupport<Type, SpecializedFinder>(name) 
           {

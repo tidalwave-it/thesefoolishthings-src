@@ -22,12 +22,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.role;
 
-import it.tidalwave.util.BaseFinder;
+import it.tidalwave.util.SimpleFinder;
+import it.tidalwave.util.SimpleFinderSupport;
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
-import it.tidalwave.util.Finder;
-import it.tidalwave.util.FinderSupport;
 
 /***********************************************************************************************************************
  * 
@@ -38,7 +37,7 @@ import it.tidalwave.util.FinderSupport;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public interface Composite<Type, SpecializedFinder extends Finder<Type, SpecializedFinder>>
+public interface Composite<Type, SpecializedFinder>
   {
     //@bluebook-begin other
     public static final Class<Composite> Composite = Composite.class;
@@ -48,9 +47,9 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type, Speciali
      * A default <code>Composite</code> with no children.
      *
      ******************************************************************************************************************/
-    public final static Composite<Object, BaseFinder<Object>> DEFAULT = new Composite<Object, BaseFinder<Object>>() 
+    public final static Composite<Object, SimpleFinder<Object>> DEFAULT = new Composite<Object, SimpleFinder<Object>>() 
       {
-        private final Finder<Object, BaseFinder<Object>> emptyFinder = new FinderSupport<Object, BaseFinder<Object>>("Composite.DEFAULT") 
+        private final SimpleFinder<Object> emptyFinder = new SimpleFinderSupport<Object>("Composite.DEFAULT") 
           {
             @Override @Nonnull
             protected List<? extends Object> doCompute() 
@@ -60,9 +59,9 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type, Speciali
           };
         
         @Override @Nonnull
-        public BaseFinder<Object> findChildren() 
+        public SimpleFinder<Object> findChildren() 
           {
-            return (BaseFinder<Object>)emptyFinder;
+            return emptyFinder;
           }
       };
     
