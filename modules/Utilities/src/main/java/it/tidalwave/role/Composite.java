@@ -37,7 +37,7 @@ import it.tidalwave.util.FinderSupport;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public interface Composite<T>
+public interface Composite<T, F extends Finder<T>>
   {
     //@bluebook-begin other
     public static final Class<Composite> Composite = Composite.class;
@@ -47,7 +47,7 @@ public interface Composite<T>
      * A default <code>Composite</code> with no children.
      *
      ******************************************************************************************************************/
-    public final static Composite<?> DEFAULT = new Composite<Object>() 
+    public final static Composite<Object, Finder<Object>> DEFAULT = new Composite<Object, Finder<Object>>() 
       {
         private final Finder<Object> emptyFinder = new FinderSupport<Object>("Composite.DEFAULT") 
           {
@@ -74,5 +74,5 @@ public interface Composite<T>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Finder<T> findChildren();
+    public F findChildren();
   }
