@@ -22,10 +22,10 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.finderexample;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
  *
@@ -36,16 +36,10 @@ import javax.annotation.Nonnull;
 public class PersonRegistry 
   {
     private final List<Person> persons = new ArrayList<Person>();
-
-    public PersonRegistry() 
+    
+    public void add (final @Nonnull Person person)
       {
-        persons.add(new Person("Richard", "Nixon"));
-        persons.add(new Person("Jimmy", "Carter"));
-        persons.add(new Person("Ronald", "Reagan"));
-        persons.add(new Person("George", "Bush"));
-        persons.add(new Person("Bill", "Clinton"));
-        persons.add(new Person("George Walker", "Bush"));
-        persons.add(new Person("Barack", "Obama"));
+        persons.add(person);    
       }
     
     @Nonnull
