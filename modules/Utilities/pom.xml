@@ -1,3 +1,4 @@
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -30,17 +31,17 @@
 
     <build>
         <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>clirr-maven-plugin</artifactId>
-            <configuration>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>clirr-maven-plugin</artifactId>
+                <configuration>
                 <!-- workaround, as enum signature is slightly different in Java 5 and 6, so 
                      it fails the check when compiling with Java 5. -->
-                <excludes>
-                    <exclude>it/tidalwave/util/Finder$SortDirection</exclude>
-                </excludes>
-            </configuration>
-          </plugin>
+                    <excludes>
+                        <exclude>it/tidalwave/util/Finder$SortDirection</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
