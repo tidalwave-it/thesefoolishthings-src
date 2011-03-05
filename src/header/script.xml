@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--********************************************************************************************************************
  *
- * OpenBlueSky - NetBeans Platform Enhancements
- * Copyright (C) 2006-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * These Foolish Things - Miscellaneous utilities
+ * Copyright (C) 2009-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
  *
  ***********************************************************************************************************************
  *
@@ -17,8 +17,8 @@
  *
  ***********************************************************************************************************************
  *
- * WWW: http://openbluesky.kenai.com
- * SCM: https://kenai.com/hg/openbluesky~src
+ * WWW: http://thesefoolishthings.kenai.com
+ * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  ********************************************************************************************************************-->
 <additionalHeaders>
