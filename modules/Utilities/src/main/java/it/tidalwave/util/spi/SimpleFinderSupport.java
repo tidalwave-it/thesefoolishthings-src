@@ -37,4 +37,9 @@ public abstract class SimpleFinderSupport<Type> extends FinderSupport<Type, Simp
       {
         super(name);
       }
+    
+    protected SimpleFinderSupport()
+      {
+        super();   
+      }
   }

@@ -22,6 +22,10 @@
  **********************************************************************************************************************/
 package it.tidalwave.util;
 
+import org.junit.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+import javax.persistence.Query;
 import it.tidalwave.util.spi.FinderSupport;
 import it.tidalwave.util.spi.SpecializedFinderSupport;
 import java.util.List;
@@ -29,7 +33,9 @@ import it.tidalwave.role.Composite;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.annotation.Nonnull;
-
+import javax.persistence.EntityManager;
+import static org.mockito.Mockito.*;
+        
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
@@ -79,14 +85,14 @@ public class FinderTest
           }
       }
     
-    public void test1()
+    public void test1() // just to see the syntax
       {
         Composite<String, Finder<String>> composite = null;
         List<? extends String> results1 = composite.findChildren().max(10).results();
         List<? extends Integer> results2 = composite.findChildren().ofType(Integer.class).results();
       }
     
-    public void test2()
+    public void test2() // just to see the syntax
       {
         Composite<String, NameFinder> composite = null;
         List<? extends String> results1 = composite.findChildren().from(2).startingWith("A").max(10).results();
