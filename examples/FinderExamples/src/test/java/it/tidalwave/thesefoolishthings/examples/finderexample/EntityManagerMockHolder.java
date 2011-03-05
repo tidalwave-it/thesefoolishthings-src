@@ -20,11 +20,11 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.util;
+package it.tidalwave.thesefoolishthings.examples.finderexample;
 
 import javax.annotation.Nonnull;
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -65,7 +65,7 @@ public class EntityManagerMockHolder
             @Nonnull
             public Query answer (final @Nonnull InvocationOnMock invocation)  
               {
-                firstResult = (int)invocation.getArguments()[0];
+                firstResult = (Integer)invocation.getArguments()[0];
                 return query;
               }
           });
@@ -75,7 +75,7 @@ public class EntityManagerMockHolder
             @Nonnull
             public Query answer (final @Nonnull InvocationOnMock invocation)  
               {
-                maxResults = (int)invocation.getArguments()[0];
+                maxResults = (Integer)invocation.getArguments()[0];
                 return query;
               }
           });

@@ -22,19 +22,13 @@
  **********************************************************************************************************************/
 package it.tidalwave.util;
 
-import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-import javax.persistence.Query;
-import it.tidalwave.util.spi.FinderSupport;
-import it.tidalwave.util.spi.SpecializedFinderSupport;
-import java.util.List;
-import it.tidalwave.role.Composite;
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
-import javax.annotation.Nonnull;
-import javax.persistence.EntityManager;
-import static org.mockito.Mockito.*;
+import java.util.List;
+import it.tidalwave.role.Composite;
+import it.tidalwave.util.spi.FinderSupport;
+import it.tidalwave.util.spi.SpecializedFinderSupport;
         
 /***********************************************************************************************************************
  *

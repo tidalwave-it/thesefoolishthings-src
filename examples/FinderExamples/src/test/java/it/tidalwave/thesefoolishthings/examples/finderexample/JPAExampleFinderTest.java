@@ -20,13 +20,13 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.util;
+package it.tidalwave.thesefoolishthings.examples.finderexample;
 
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static it.tidalwave.util.Finder.SortDirection.*;
-import static it.tidalwave.util.JPAExampleFinder.*;
+import static it.tidalwave.thesefoolishthings.examples.finderexample.JPAExampleFinder.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
