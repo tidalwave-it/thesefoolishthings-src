@@ -85,19 +85,6 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
      *
      ******************************************************************************************************************/
 //    @Override
-    @Nonnegative
-    public int count()
-      {
-        compute();
-        return result.size();
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-//    @Override
     @Nonnull
     public SpecializedFinder from (final @Nonnegative int firstResult)
       {
@@ -128,6 +115,38 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
     public <AnotherType> Finder<AnotherType> ofType (final @Nonnull Class<AnotherType> type)
       {
         throw new UnsupportedOperationException("Not supported.");
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+//    @Override
+    @Nonnull
+    public SpecializedFinder sort (final @Nonnull SortCriterion criterion,
+                                     final @Nonnull SortDirection direction)
+      {
+        if (criterion instanceof FilterSortCriterion)
+          {
+            return (SpecializedFinder)((FilterSortCriterion<Type>)criterion).sort(this, direction);
+          }
+        
+        final String message = String.format("%s does not implement %s - you need to subclass Finder and override sort()",
+                                             criterion, FilterSortCriterion.class);
+        throw new UnsupportedOperationException(message); 
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+//    @Override
+    @Nonnull
+    public final SpecializedFinder sort (final @Nonnull SortCriterion criterion) 
+      {
+        return sort(criterion, SortDirection.ASCENDING);
       }
 
     /*******************************************************************************************************************
@@ -188,30 +207,11 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
      *
      ******************************************************************************************************************/
 //    @Override
-    @Nonnull
-    public SpecializedFinder sort (final @Nonnull SortCriterion criterion,
-                                     final @Nonnull SortDirection direction)
+    @Nonnegative
+    public int count()
       {
-        if (criterion instanceof FilterSortCriterion)
-          {
-            return (SpecializedFinder)((FilterSortCriterion<Type>)criterion).sort(this, direction);
-          }
-        
-        final String message = String.format("%s does not implement %s - you need to subclass Finder and override sort()",
-                                             criterion, FilterSortCriterion.class);
-        throw new UnsupportedOperationException(message); 
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-//    @Override
-    @Nonnull
-    public final SpecializedFinder sort (final @Nonnull SortCriterion criterion) 
-      {
-        return sort(criterion, SortDirection.ASCENDING);
+        compute();
+        return result.size();
       }
 
     /*******************************************************************************************************************
