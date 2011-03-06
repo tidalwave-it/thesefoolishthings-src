@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 import it.tidalwave.role.Composite;
 import it.tidalwave.util.spi.FinderSupport;
-import it.tidalwave.util.spi.SpecializedFinderSupport;
+import it.tidalwave.util.spi.ExtendedFinderSupport;
         
 /***********************************************************************************************************************
  *
@@ -40,7 +40,7 @@ public class FinderTest
   {    
     private final static List<String> ALL_NAMES = Arrays.asList("");
 
-    static interface NameFinder extends SpecializedFinderSupport<String, NameFinder>
+    static interface NameFinder extends ExtendedFinderSupport<String, NameFinder>
       {
         @Nonnull
         public NameFinder startingWith (@Nonnull String prefix);  

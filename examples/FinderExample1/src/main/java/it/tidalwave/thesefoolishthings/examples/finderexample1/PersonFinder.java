@@ -23,7 +23,7 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.spi.SpecializedFinderSupport;
+import it.tidalwave.util.spi.ExtendedFinderSupport;
 
 /***********************************************************************************************************************
  *
@@ -31,7 +31,7 @@ import it.tidalwave.util.spi.SpecializedFinderSupport;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface PersonFinder extends SpecializedFinderSupport<Person, PersonFinder> 
+public interface PersonFinder extends ExtendedFinderSupport<Person, PersonFinder> 
   {
     @Nonnull
     public PersonFinder withFirstName (@Nonnull String firstName);

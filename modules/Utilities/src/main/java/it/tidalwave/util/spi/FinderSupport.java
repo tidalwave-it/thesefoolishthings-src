@@ -43,13 +43,16 @@ import it.tidalwave.util.NotFoundException;
  * method where <i>raw</i> results are retrieved (with raw we mean that they shouldn't be filtered or sorted, as  
  * post-processing will be performed by this class) and a clone constructor.
  * 
+ * If you don't need to extend the {@link Finder} with extra methods, please use the simplified 
+ * {@link SimpleFinderSupport}.
+ * 
  * @author Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public abstract class FinderSupport<Type, SpecializedFinder extends FinderSupport<Type, SpecializedFinder>> 
-                                                            implements Finder<Type>, Cloneable
+public abstract class FinderSupport<Type, ExtendedFinder extends FinderSupport<Type, ExtendedFinder>> 
+                                                         implements Finder<Type>, Cloneable
   {
     static class Sorter<Type>
       {
@@ -106,7 +109,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends FinderSuppor
      *
      *
      ******************************************************************************************************************/
-    protected FinderSupport (final @Nonnull FinderSupport<Type, SpecializedFinder> prototype)
+    protected FinderSupport (final @Nonnull FinderSupport<Type, ExtendedFinder> prototype)
       {
         this.name        = prototype.name;
         this.firstResult = prototype.firstResult;
@@ -123,7 +126,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends FinderSuppor
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public final SpecializedFinder clone()
+    public final ExtendedFinder clone()
       {
         final Class<? extends FinderSupport> myClass = getClass();
         
@@ -151,12 +154,12 @@ public abstract class FinderSupport<Type, SpecializedFinder extends FinderSuppor
                   }
                 
                 final Constructor<? extends FinderSupport> constructor = myClass.getConstructor(enclosingClass, myClass);
-                return (SpecializedFinder)constructor.newInstance(enclosingThis, this);
+                return (ExtendedFinder)constructor.newInstance(enclosingThis, this);
               }
             else
               {
                 final Constructor<? extends FinderSupport> constructor = myClass.getConstructor(myClass);
-                return (SpecializedFinder)constructor.newInstance(this);
+                return (ExtendedFinder)constructor.newInstance(this);
               }
             
           }
@@ -196,9 +199,9 @@ public abstract class FinderSupport<Type, SpecializedFinder extends FinderSuppor
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public SpecializedFinder from (final @Nonnegative int firstResult)
+    public ExtendedFinder from (final @Nonnegative int firstResult)
       {
-        final SpecializedFinder clone = clone();
+        final ExtendedFinder clone = clone();
         clone.firstResult = firstResult;
         return clone;
       }
@@ -209,9 +212,9 @@ public abstract class FinderSupport<Type, SpecializedFinder extends FinderSuppor
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public SpecializedFinder max (final @Nonnegative int maxResults)
+    public ExtendedFinder max (final @Nonnegative int maxResults)
       {
-        final SpecializedFinder clone = clone();
+        final ExtendedFinder clone = clone();
         clone.maxResults = maxResults;
         return clone;
       }
@@ -233,12 +236,12 @@ public abstract class FinderSupport<Type, SpecializedFinder extends FinderSuppor
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public SpecializedFinder sort (final @Nonnull SortCriterion criterion,
-                                   final @Nonnull SortDirection direction)
+    public ExtendedFinder sort (final @Nonnull SortCriterion criterion,
+                                final @Nonnull SortDirection direction)
       {
         if (criterion instanceof FilterSortCriterion)
           {
-            final SpecializedFinder clone = clone();
+            final ExtendedFinder clone = clone();
             clone.sorters.add(new Sorter<Type>((FilterSortCriterion<Type>)criterion, direction));
             return clone;
           }
@@ -254,7 +257,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends FinderSuppor
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public final SpecializedFinder sort (final @Nonnull SortCriterion criterion) 
+    public final ExtendedFinder sort (final @Nonnull SortCriterion criterion) 
       {
         return sort(criterion, SortDirection.ASCENDING);
       }
@@ -322,12 +325,14 @@ public abstract class FinderSupport<Type, SpecializedFinder extends FinderSuppor
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
+    //@bluebook-ignore-begin
     @Override @Nonnull
     public String toString() 
       {
         return String.format("%s@%x[from: %d max: %d sorters: %s]", 
                              name, System.identityHashCode(this),firstResult, maxResults, sorters);
       }
+    //@bluebook-ignore-end
     
     /*******************************************************************************************************************
      *

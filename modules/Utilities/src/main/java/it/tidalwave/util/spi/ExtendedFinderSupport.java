@@ -22,18 +22,30 @@
  **********************************************************************************************************************/
 package it.tidalwave.util.spi;
 
-import it.tidalwave.util.Finder;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import it.tidalwave.util.Finder;
 
 /***********************************************************************************************************************
  *
+ * A utility interface for creating extended {@link Finder}s, it provides automatic covariant return types. MAke your
+ * extended {@code Finder} interface to extend from this. For instance, a custom {@code Date} finder can be declared as:
+ * 
+ * <pre>
+ * public class DateFinder extends ExtendedFinderSupport<Date, DateFinder>
+ *   {
+ *     public DateFinder before (Date date);
+ * 
+ *     public DateFinder after (Date date);
+ *   }
+ * </pre>
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public interface SpecializedFinderSupport<Type, SpecializedFinder extends Finder<Type>> extends Finder<Type>
+public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>> extends Finder<Type>
   {
     /*******************************************************************************************************************
      *
@@ -41,7 +53,7 @@ public interface SpecializedFinderSupport<Type, SpecializedFinder extends Finder
      * 
      ******************************************************************************************************************/
     @Nonnull
-    public SpecializedFinder from (@Nonnegative int firstResult);
+    public ExtendedFinder from (@Nonnegative int firstResult);
 
     /*******************************************************************************************************************
      *
@@ -49,7 +61,7 @@ public interface SpecializedFinderSupport<Type, SpecializedFinder extends Finder
      * 
      ******************************************************************************************************************/
     @Nonnull
-    public SpecializedFinder max (@Nonnegative int maxResults);
+    public ExtendedFinder max (@Nonnegative int maxResults);
 
     /*******************************************************************************************************************
      *
@@ -57,7 +69,7 @@ public interface SpecializedFinderSupport<Type, SpecializedFinder extends Finder
      * 
      ******************************************************************************************************************/
     @Nonnull
-    public SpecializedFinder sort (@Nonnull SortCriterion criterion);
+    public ExtendedFinder sort (@Nonnull SortCriterion criterion);
 
     /*******************************************************************************************************************
      *
@@ -65,5 +77,5 @@ public interface SpecializedFinderSupport<Type, SpecializedFinder extends Finder
      * 
      ******************************************************************************************************************/
     @Nonnull
-    public SpecializedFinder sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
+    public ExtendedFinder sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
   }
