@@ -34,7 +34,7 @@ import it.tidalwave.util.spi.FinderSupport;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DefaultPersonFinder extends FinderSupport<Person, PersonFinder> implements PersonFinder
+public class DefaultPersonFinder extends FinderSupport<Person, DefaultPersonFinder> implements PersonFinder
   {
     private List<Person> persons;
     
@@ -44,24 +44,17 @@ public class DefaultPersonFinder extends FinderSupport<Person, PersonFinder> imp
     
     public DefaultPersonFinder (final @Nonnull List<Person> persons) 
       {
-        super("DefaultPersonFinder");
         this.persons = persons;
       }
     
-    public DefaultPersonFinder() // for clone()
+    public DefaultPersonFinder (final @Nonnull DefaultPersonFinder prototype) 
       {
+        super(prototype);
+        this.persons   = prototype.persons;
+        this.firstName = prototype.firstName;
+        this.lastName  = prototype.lastName;
       }
 
-    @Override @Nonnull
-    protected DefaultPersonFinder clone() 
-      {
-        final DefaultPersonFinder clone = (DefaultPersonFinder)super.clone();
-        clone.persons      = this.persons;
-        clone.firstName    = this.firstName;
-        clone.lastName     = this.lastName;
-        return clone;
-      }
-    
     @Override @Nonnull
     public PersonFinder withFirstName (final @Nonnull String firstName) 
       {

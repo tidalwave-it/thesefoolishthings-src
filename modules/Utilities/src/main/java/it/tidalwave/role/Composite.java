@@ -42,6 +42,24 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type>>
     //@bluebook-begin other
     public static final Class<Composite> Composite = Composite.class;
 
+    static class EmptyFinder extends FinderSupport<Object, EmptyFinder>
+      {
+        public EmptyFinder() 
+          {
+          }
+
+        public EmptyFinder (final @Nonnull EmptyFinder prototype)
+          {
+            super(prototype);
+          }
+
+        @Override @Nonnull
+        protected List<? extends Object> computeResults() 
+          {
+            return Collections.emptyList();
+          }
+      }
+    
     /*******************************************************************************************************************
      * 
      * A default <code>Composite</code> with no children.
@@ -49,19 +67,12 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type>>
      ******************************************************************************************************************/
     public final static Composite<Object, Finder<Object>> DEFAULT = new Composite<Object, Finder<Object>>() 
       {
-        private final Finder<Object> emptyFinder = new FinderSupport<Object, Finder<Object>>("Composite.DEFAULT") 
-          {
-            @Override @Nonnull
-            protected List<? extends Object> computeResults() 
-              {
-                return Collections.emptyList();
-              }
-          };
+        private final Finder<Object> EMPTY_FINDER = new EmptyFinder();
         
         @Override @Nonnull
         public Finder<Object> findChildren() 
           {
-            return emptyFinder;
+            return EMPTY_FINDER;
           }
       };
     

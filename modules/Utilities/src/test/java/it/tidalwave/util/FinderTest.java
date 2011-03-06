@@ -46,13 +46,12 @@ public class FinderTest
         public NameFinder startingWith (@Nonnull String prefix);  
       }
     
-    static class NameFinderImplementation extends FinderSupport<String, NameFinder> implements NameFinder
+    static class NameFinderImplementation extends FinderSupport<String, NameFinderImplementation> implements NameFinder
       {
         private String prefix = "";
         
         public NameFinderImplementation() 
           {
-            super("NameFinderImplementation");
           }
         
         @Override @Nonnull

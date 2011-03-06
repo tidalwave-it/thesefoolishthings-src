@@ -22,28 +22,34 @@
  **********************************************************************************************************************/
 package it.tidalwave.util.spi;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.Finder.FilterSortCriterion;
 import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.SortDirection;
 import it.tidalwave.util.NotFoundException;
+import java.util.Arrays;
 
 /***********************************************************************************************************************
  *
- * A support class for implementing a {@link Finder}. Subclasses only need to implement the {@link #doCompute()} method
- * where <i>raw</i> results are retrieved. With raw we mean that they shouldn't be filtered or sorted, as this 
- * post-processing will be performed by this class.
+ * A support class for implementing a {@link Finder}. Subclasses only need to implement the {@link #computeResults()} 
+ * method where <i>raw</i> results are retrieved (with raw we mean that they shouldn't be filtered or sorted, as  
+ * post-processing will be performed by this class) and a clone constructor.
  * 
  * @author Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>> implements Finder<Type>, Cloneable
+public abstract class FinderSupport<Type, SpecializedFinder extends FinderSupport<Type, SpecializedFinder>> 
+                                                            implements Finder<Type>, Cloneable
   {
     static class Sorter<Type>
       {
@@ -67,12 +73,13 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
     private final String name;
 
     @Nonnegative
-    private int firstResult = 0;
+    protected int firstResult = 0;
 
     @Nonnegative
-    private int maxResults = 9999999; // gets inolved in some math, so can't use Integer.MAX_VALUE
+    protected int maxResults = 9999999; // gets inolved in some math, so can't use Integer.MAX_VALUE
 
-    private List<Sorter<Type>> sorters = new ArrayList<Sorter<Type>>();
+    @Nonnull
+    protected List<Sorter<Type>> sorters = Collections.emptyList();
     
     /*******************************************************************************************************************
      *
@@ -81,7 +88,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
      * @param  name   the name
      *
      ******************************************************************************************************************/
-    public FinderSupport (final @Nonnull String name)
+    protected FinderSupport (final @Nonnull String name)
       {
         this.name = name;
       }
@@ -92,27 +99,86 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
      ******************************************************************************************************************/
     protected FinderSupport()
       {
-        this.name = getClass().getName();   
+        this.name = getClass().getName(); 
+      }
+    
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    protected FinderSupport (final @Nonnull FinderSupport<Type, SpecializedFinder> prototype)
+      {
+        this.name        = prototype.name;
+        this.firstResult = prototype.firstResult;
+        this.maxResults  = prototype.maxResults;
+        this.sorters     = new CopyOnWriteArrayList<Sorter<Type>>(prototype.sorters);
       }
 
     /*******************************************************************************************************************
      *
      * Clones this object. This operation is called whenever a parameter-setting method is called in fluent-interface
-     * style. Subclasses must first call {@code super.clone()} and then copy their part of state variables.
+     * style. 
      * 
      * @return  the cloned object
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    protected SpecializedFinder clone()
+    public final SpecializedFinder clone()
       {
+        final Class<? extends FinderSupport> myClass = getClass();
+        
         try 
           {
-            final SpecializedFinder clone = (SpecializedFinder)getClass().newInstance();
-            ((FinderSupport<Type, SpecializedFinder>)clone).firstResult = this.firstResult;
-            ((FinderSupport<Type, SpecializedFinder>)clone).maxResults = this.maxResults;
-            ((FinderSupport<Type, SpecializedFinder>)clone).sorters = new ArrayList<Sorter<Type>>(this.sorters);
-            return clone;
+            final Class<?> enclosingClass = myClass.getEnclosingClass();
+            
+            if (enclosingClass != null)
+              {
+                Object enclosingThis = null;
+                
+                for (final Field field : myClass.getDeclaredFields())
+                  {
+                    if (field.getName().equals("this$0")) // TODO: is this valid for any Java compiler?
+                      {
+                        field.setAccessible(true);
+                        enclosingThis = field.get(this);
+                        break;
+                      }
+                  }
+                
+                if (enclosingThis == null)
+                  {
+                    throw new RuntimeException("Can't find reference to enclosing object");  
+                  }
+                
+                final Constructor<? extends FinderSupport> constructor = myClass.getConstructor(enclosingClass, myClass);
+                return (SpecializedFinder)constructor.newInstance(enclosingThis, this);
+              }
+            else
+              {
+                final Constructor<? extends FinderSupport> constructor = myClass.getConstructor(myClass);
+                return (SpecializedFinder)constructor.newInstance(this);
+              }
+            
+          }
+        catch (InvocationTargetException e) 
+          {
+            throw new RuntimeException(e);
+          } 
+        catch (NoSuchMethodException e) 
+          {
+            final Constructor<?>[] constructors = myClass.getConstructors();
+            final String message = String.format("%s must expose a clone constructor:\n"
+                                                 + "public %s(%s)\n"
+                                                 + "Available constructors: %s",
+                                                 myClass.getName(),
+                                                 myClass.getSimpleName(),
+                                                 myClass.getSimpleName(),
+                                                 Arrays.toString(constructors));
+            throw new RuntimeException(message, e);
+          } 
+        catch (SecurityException e) 
+          {
+            throw new RuntimeException(e);
           }
         catch (InstantiationException e) 
           {
@@ -133,7 +199,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
     public SpecializedFinder from (final @Nonnegative int firstResult)
       {
         final SpecializedFinder clone = clone();
-        ((FinderSupport<Type, SpecializedFinder>)clone).firstResult = firstResult;
+        clone.firstResult = firstResult;
         return clone;
       }
 
@@ -146,7 +212,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
     public SpecializedFinder max (final @Nonnegative int maxResults)
       {
         final SpecializedFinder clone = clone();
-        ((FinderSupport<Type, SpecializedFinder>)clone).maxResults = maxResults;
+        clone.maxResults = maxResults;
         return clone;
       }
 
@@ -173,8 +239,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
         if (criterion instanceof FilterSortCriterion)
           {
             final SpecializedFinder clone = clone();
-            final Sorter<Type> sorter = new Sorter<Type>((FilterSortCriterion<Type>)criterion, direction);
-            ((FinderSupport<Type, SpecializedFinder>)clone).sorters.add(sorter);
+            clone.sorters.add(new Sorter<Type>((FilterSortCriterion<Type>)criterion, direction));
             return clone;
           }
         
@@ -252,6 +317,18 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
         return computeAndPostProcessResults().size();
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public String toString() 
+      {
+        return String.format("%s@%x[from: %d max: %d sorters: %s]", 
+                             name, System.identityHashCode(this),firstResult, maxResults, sorters);
+      }
+    
     /*******************************************************************************************************************
      *
      * Subclasses must implement this method where raw results are actually retrieved.

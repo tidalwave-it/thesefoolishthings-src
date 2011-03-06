@@ -33,13 +33,18 @@ import javax.annotation.Nonnull;
  **********************************************************************************************************************/
 public abstract class SimpleFinderSupport<Type> extends FinderSupport<Type, SimpleFinderSupport<Type>> 
   {
-    public SimpleFinderSupport (final @Nonnull String name) 
-      {
-        super(name);
-      }
-    
     protected SimpleFinderSupport()
       {
         super();   
+      }
+    
+    protected SimpleFinderSupport (final @Nonnull String name) 
+      {
+        super(name);
+      }
+
+    protected SimpleFinderSupport (final @Nonnull SimpleFinderSupport<Type> prototype) 
+      {
+        super(prototype);
       }
   }
