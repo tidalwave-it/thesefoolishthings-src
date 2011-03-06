@@ -29,7 +29,7 @@ import java.io.Serializable;
 
 /***********************************************************************************************************************
  *
- * A factory for providing results of a search.
+ * A factory for providing results of a search. {@code Finder} implementations must be <em>immutable</em>.
  * 
  * @author  Fabrizio Giudici
  * @version $Id$

@@ -36,7 +36,7 @@ import it.tidalwave.util.spi.FinderSupport;
  **********************************************************************************************************************/
 public class DefaultPersonFinder extends FinderSupport<Person, PersonFinder> implements PersonFinder
   {
-    private final List<Person> persons;
+    private List<Person> persons;
     
     private String firstName = ".*";
     
@@ -44,35 +44,53 @@ public class DefaultPersonFinder extends FinderSupport<Person, PersonFinder> imp
     
     private List<PersonSortCriterion> sortCriteria = new ArrayList<PersonSortCriterion>();
     
-    public DefaultPersonFinder (final List<Person> persons) 
+    public DefaultPersonFinder (final @Nonnull List<Person> persons) 
       {
         super("DefaultPersonFinder");
         this.persons = persons;
       }
-
-    @Nonnull
-    public PersonFinder withFirstName (final @Nonnull String firstName) 
+    
+    public DefaultPersonFinder() // for clone()
       {
-        this.firstName = firstName;
-        return this;
       }
 
-    @Nonnull
-    public PersonFinder withLastName (final @Nonnull String lastName) 
+    @Override @Nonnull
+    protected DefaultPersonFinder clone() 
       {
-        this.lastName = lastName;
-        return this;
-      }
-
-    @Override
-    public PersonFinder sort (SortCriterion criterion, SortDirection direction) 
-      {
-        sortCriteria.add((PersonSortCriterion)criterion);
-        return this;
+        final DefaultPersonFinder clone = (DefaultPersonFinder)super.clone();
+        clone.persons      = this.persons;
+        clone.firstName    = this.firstName;
+        clone.lastName     = this.lastName;
+        clone.sortCriteria = new ArrayList<PersonSortCriterion>(this.sortCriteria);
+        return clone;
       }
     
     @Override @Nonnull
-    protected List<? extends Person> doCompute() 
+    public PersonFinder withFirstName (final @Nonnull String firstName) 
+      {
+        final DefaultPersonFinder clone = clone();
+        clone.firstName = firstName;
+        return clone;
+      }
+
+    @Override @Nonnull
+    public PersonFinder withLastName (final @Nonnull String lastName) 
+      {
+        final DefaultPersonFinder clone = clone();
+        clone.lastName = lastName;
+        return clone;
+      }
+
+    @Override @Nonnull
+    public PersonFinder sort (final @Nonnull SortCriterion criterion, final @Nonnull SortDirection direction) 
+      {
+        final DefaultPersonFinder clone = clone();
+        clone.sortCriteria.add((PersonSortCriterion)criterion);
+        return clone;
+      }
+    
+    @Override @Nonnull
+    protected List<? extends Person> computeResults() 
       {
         final List<Person> result = new ArrayList<Person>();
         final Pattern firstNameRegEx = Pattern.compile(firstName);

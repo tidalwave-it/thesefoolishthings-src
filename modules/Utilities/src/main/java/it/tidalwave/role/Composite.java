@@ -52,7 +52,7 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type>>
         private final Finder<Object> emptyFinder = new FinderSupport<Object, Finder<Object>>("Composite.DEFAULT") 
           {
             @Override @Nonnull
-            protected List<? extends Object> doCompute() 
+            protected List<? extends Object> computeResults() 
               {
                 return Collections.emptyList();
               }

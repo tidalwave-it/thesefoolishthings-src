@@ -22,12 +22,12 @@
  **********************************************************************************************************************/
 package it.tidalwave.util;
 
-import it.tidalwave.util.spi.FinderSupport;
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import it.tidalwave.util.Finder.SortDirection;
+import it.tidalwave.util.spi.FinderSupport;
 
 /***********************************************************************************************************************
  *
@@ -83,10 +83,11 @@ public class DefaultFilterSortCriterion<T> implements Finder.FilterSortCriterion
     public Finder<T> sort (final @Nonnull Finder<T> finder,
                            final @Nonnull SortDirection sortDirection)
       {
+        // FIXME: it should rather clone() the original finder
         return new FinderSupport<T, Finder<T>>(name) 
           {
             @Override @Nonnull
-            protected List<? extends T> doCompute() 
+            protected List<? extends T> computeResults() 
               {
                 final List<? extends T> results = finder.results();
                 Collections.sort(results, new Comparator<T>()
