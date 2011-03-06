@@ -62,11 +62,13 @@ public class FinderExample2
         System.out.println("Two persons from the 3rd position: " 
                            + registry.findPersons().from(3).max(2).results());
         
+        final PersonFinder withFirstNameStartingWithB = registry.findPersons().withFirstName("B.*");
+        
         System.out.println("Whose first name starts with B: " 
-                           + registry.findPersons().withFirstName("B.*").results());
+                           + withFirstNameStartingWithB.results());
         
         System.out.println("Whose first name starts with B, sorted by first name: " 
-                           + registry.findPersons().withFirstName("B.*").sort(BY_FIRST_NAME).results());
+                           + withFirstNameStartingWithB.sort(BY_FIRST_NAME).results());
         
         System.out.println("The first found whose last name is Bush: "
                            + registry.findPersons().withLastName("Bush").firstResult());
