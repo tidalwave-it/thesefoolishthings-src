@@ -22,10 +22,6 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
-import it.tidalwave.thesefoolishthings.examples.finderexample1.PersonRegistry;
-import it.tidalwave.thesefoolishthings.examples.finderexample1.DefaultPersonRegistry;
-import it.tidalwave.thesefoolishthings.examples.finderexample1.PersonFinder;
-import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
 import it.tidalwave.util.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
