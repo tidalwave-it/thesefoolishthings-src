@@ -24,6 +24,8 @@ package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.util.NotFoundException;
+import static it.tidalwave.util.Finder.SortDirection.*;
+import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
 
 /***********************************************************************************************************************
  *
@@ -50,8 +52,13 @@ public class FinderExample1
         System.out.println("All: " 
                            + registry.findPersons().results());
         
+        System.out.println("All, sorted by first name: " 
+                           + registry.findPersons().sort(BY_FIRST_NAME).results());
+        
+        System.out.println("All, sorted by last name, descending: " 
+                           + registry.findPersons().sort(BY_LAST_NAME, DESCENDING).results());
+        
         System.out.println("Two persons from the 3rd position: " 
                            + registry.findPersons().from(3).max(2).results());
-        //@bluebook-end example
-     }
+      }
   }

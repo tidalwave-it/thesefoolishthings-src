@@ -25,6 +25,8 @@ package it.tidalwave.thesefoolishthings.examples.finderexample1;
 import it.tidalwave.util.Finder;
 import org.junit.Before;
 import org.junit.Test;
+import static it.tidalwave.util.Finder.SortDirection.*;
+import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -60,6 +62,22 @@ public class PersonFinderTest
         assertThat(finder.results().toString(),
                    is("[Richard Nixon, Jimmy Carter, Ronald Reagan, George Bush, "
                     + "Bill Clinton, George Walker Bush, Barack Obama]"));
+      }
+    
+    @Test
+    public void testAllPersonsSortedByFirstName()
+      {
+        assertThat(finder.sort(BY_FIRST_NAME).results().toString(),
+                   is("[Barack Obama, Bill Clinton, George Bush, George Walker Bush, "
+                    + "Jimmy Carter, Richard Nixon, Ronald Reagan]"));
+      }
+    
+    @Test
+    public void testAllPersonsSortedByLastNameDescending()
+      {
+        assertThat(finder.sort(BY_LAST_NAME, DESCENDING).results().toString(),
+                   is("[Ronald Reagan, Barack Obama, Richard Nixon, Bill Clinton, "
+                    + "Jimmy Carter, George Bush, George Walker Bush]"));
       }
     
     @Test

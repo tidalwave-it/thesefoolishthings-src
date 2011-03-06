@@ -22,10 +22,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.finderexample2;
 
-import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
 import it.tidalwave.util.NotFoundException;
+import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
 import org.junit.Before;
 import org.junit.Test;
+import static it.tidalwave.util.Finder.SortDirection.*;
 import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -38,7 +39,7 @@ import static org.hamcrest.CoreMatchers.*;
  **********************************************************************************************************************/
 public class PersonFinderTest 
   {
-    private PersonFinder fixture;
+    private PersonFinder finder;
     
     @Before
     public void setupFixture() 
@@ -53,35 +54,52 @@ public class PersonFinderTest
         registry.add(new Person("George Walker", "Bush"));
         registry.add(new Person("Barack", "Obama"));
         
-        fixture = registry.findPersons();
+        finder = registry.findPersons();
       }
 
     @Test
     public void testAllPersons()
       {
-        assertThat(fixture.results().toString(),
+        assertThat(finder.results().toString(),
                    is("[Richard Nixon, Jimmy Carter, Ronald Reagan, George Bush, "
                     + "Bill Clinton, George Walker Bush, Barack Obama]"));
+      }
+    
+    
+    @Test
+    public void testAllPersonsSortedByFirstName()
+      {
+        assertThat(finder.sort(BY_FIRST_NAME).results().toString(),
+                   is("[Barack Obama, Bill Clinton, George Bush, George Walker Bush, "
+                    + "Jimmy Carter, Richard Nixon, Ronald Reagan]"));
+      }
+    
+    @Test
+    public void testAllPersonsSortedByLastNameDescending()
+      {
+        assertThat(finder.sort(BY_LAST_NAME, DESCENDING).results().toString(),
+                   is("[Ronald Reagan, Barack Obama, Richard Nixon, Bill Clinton, "
+                    + "Jimmy Carter, George Bush, George Walker Bush]"));
       }
     
     @Test
     public void testPersonRange()
       {
-        assertThat(fixture.from(3).max(2).results().toString(),
+        assertThat(finder.from(3).max(2).results().toString(),
                    is("[George Bush, Bill Clinton]"));
       }
     
     @Test
     public void testFirstNameStartingWithB()
       {
-        assertThat(fixture.withFirstName("B.*").results().toString(),
+        assertThat(finder.withFirstName("B.*").results().toString(),
                    is("[Bill Clinton, Barack Obama]"));
       }
     
     @Test
     public void testFirstNameStartingWithBSortedByFirstName()
       {
-        assertThat(fixture.withFirstName("B.*").sort(BY_FIRST_NAME).results().toString(),
+        assertThat(finder.withFirstName("B.*").sort(BY_FIRST_NAME).results().toString(),
                    is("[Barack Obama, Bill Clinton]"));
       }
     
@@ -89,7 +107,7 @@ public class PersonFinderTest
     public void testLastNameIsBushFirstResult() 
       throws NotFoundException
       {
-        assertThat(fixture.withLastName("Bush").firstResult().toString(),
+        assertThat(finder.withLastName("Bush").firstResult().toString(),
                    is("George Bush"));
       }
   }

@@ -23,8 +23,8 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.spi.SimpleFinderSupport;
 
@@ -52,6 +52,6 @@ public class DefaultPersonFinder1 extends SimpleFinderSupport<Person> implements
     @Override @Nonnull
     protected List<? extends Person> computeResults() 
       {
-        return new CopyOnWriteArrayList<Person>(persons); // don't expose internal status
+        return new ArrayList<Person>(persons); // don't expose internal status
       }
   }
