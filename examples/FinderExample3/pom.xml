@@ -10,9 +10,9 @@
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
-    <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample2</artifactId>
+    <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample3</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>TheseFoolishThings Examples - FinderExample2</name>
+    <name>TheseFoolishThings Examples - FinderExample3</name>
 
     <dependencies>
         <dependency>
@@ -22,6 +22,11 @@
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it-tidalwave-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>

@@ -23,6 +23,9 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import it.tidalwave.util.Finder;
 
 /***********************************************************************************************************************
  *
@@ -30,10 +33,19 @@ import javax.annotation.Nonnull;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface PersonRegistry 
+public class DefaultPersonRegistry1 implements PersonRegistry1 
   {
-    public void add (@Nonnull Person person);
-
-    @Nonnull
-    public PersonFinder findPersons();
+    private final List<Person> persons = new ArrayList<Person>();
+    
+    @Override
+    public void add (final @Nonnull Person person)
+      {
+        persons.add(person);    
+      }
+    
+    @Override @Nonnull
+    public Finder<Person> findPersons()
+      {
+        return new DefaultPersonFinder1(persons);
+      }
   }

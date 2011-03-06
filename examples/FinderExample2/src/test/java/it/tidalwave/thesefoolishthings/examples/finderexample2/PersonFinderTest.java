@@ -22,11 +22,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.finderexample2;
 
-import java.util.List;
+import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
+import it.tidalwave.util.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
-import static it.tidalwave.util.Finder.SortDirection.*;
-import static it.tidalwave.thesefoolishthings.examples.finderexample2.JPAExampleFinder.*;
+import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -36,56 +36,60 @@ import static org.hamcrest.CoreMatchers.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class JPAExampleFinderTest 
+public class PersonFinderTest 
   {
-    private EntityManagerMockHolder emmh;
-
-    private JPAExampleFinder fixture;
-
+    private PersonFinder fixture;
+    
     @Before
-    public void setupFixture()
+    public void setupFixture() 
       {
-        emmh = new EntityManagerMockHolder();
-        fixture = new JPAExampleFinder(emmh.em);
+        final PersonRegistry2 registry = new DefaultPersonRegistry2();
+
+        registry.add(new Person("Richard", "Nixon"));
+        registry.add(new Person("Jimmy", "Carter"));
+        registry.add(new Person("Ronald", "Reagan"));
+        registry.add(new Person("George", "Bush"));
+        registry.add(new Person("Bill", "Clinton"));
+        registry.add(new Person("George Walker", "Bush"));
+        registry.add(new Person("Barack", "Obama"));
+        
+        fixture = registry.findPersons();
+      }
+
+    @Test
+    public void testAllPersons()
+      {
+        assertThat(fixture.results().toString(),
+                   is("[Richard Nixon, Jimmy Carter, Ronald Reagan, George Bush, "
+                    + "Bill Clinton, George Walker Bush, Barack Obama]"));
       }
     
     @Test
-    public void testSimpleQuery()
+    public void testPersonRange()
       {
-        final List<? extends String> results = fixture.results();
-        
-        assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p"));
-        assertThat(emmh.firstResult, is(0));
-        assertThat(emmh.maxResults, is(Integer.MAX_VALUE));
+        assertThat(fixture.from(3).max(2).results().toString(),
+                   is("[George Bush, Bill Clinton]"));
       }
     
     @Test
-    public void testQueryWithAscendingSortAndFirstMax()
+    public void testFirstNameStartingWithB()
       {
-        final List<? extends String> results = fixture.sort(BY_FIRST_NAME).from(2).max(4).results();
-        
-        assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p ORDER BY p.firstName"));
-        assertThat(emmh.firstResult, is(2));
-        assertThat(emmh.maxResults, is(4));
+        assertThat(fixture.withFirstName("B.*").results().toString(),
+                   is("[Bill Clinton, Barack Obama]"));
       }
     
     @Test
-    public void testQueryWithDesccendingSortAndFirstMax()
+    public void testFirstNameStartingWithBSortedByFirstName()
       {
-        final List<? extends String> results = fixture.sort(BY_LAST_NAME, DESCENDING).from(2).max(4).results();
-        
-        assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p ORDER BY p.lastName DESC"));
-        assertThat(emmh.firstResult, is(2));
-        assertThat(emmh.maxResults, is(4));
+        assertThat(fixture.withFirstName("B.*").sort(BY_FIRST_NAME).results().toString(),
+                   is("[Barack Obama, Bill Clinton]"));
       }
     
     @Test
-    public void testQueryWithCount()
+    public void testLastNameIsBushFirstResult() 
+      throws NotFoundException
       {
-        final int count = fixture.count();
-        
-        assertThat(emmh.sqlQuery, is("SELECT COUNT(*) FROM Person p"));
-        assertThat(emmh.firstResult, is(0));
-        assertThat(emmh.maxResults, is(Integer.MAX_VALUE));
+        assertThat(fixture.withLastName("Bush").firstResult().toString(),
+                   is("George Bush"));
       }
   }

@@ -20,7 +20,7 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.finderexample2;
+package it.tidalwave.thesefoolishthings.examples.finderexample3;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;

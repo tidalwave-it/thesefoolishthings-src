@@ -20,10 +20,10 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.finderexample1;
+package it.tidalwave.thesefoolishthings.examples.finderexample2;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.spi.ExtendedFinderSupport;
+import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
 
 /***********************************************************************************************************************
  *
@@ -31,11 +31,10 @@ import it.tidalwave.util.spi.ExtendedFinderSupport;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface PersonFinder extends ExtendedFinderSupport<Person, PersonFinder> 
+public interface PersonRegistry2 
   {
+    public void add (@Nonnull Person person);
+
     @Nonnull
-    public PersonFinder withFirstName (@Nonnull String firstName);
-    
-    @Nonnull
-    public PersonFinder withLastName (@Nonnull String firstName);
+    public PersonFinder findPersons();
   }

@@ -20,10 +20,12 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.finderexample1;
+package it.tidalwave.thesefoolishthings.examples.finderexample2;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.util.NotFoundException;
+import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
+import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
 
 /***********************************************************************************************************************
  *
@@ -31,12 +33,12 @@ import it.tidalwave.util.NotFoundException;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class FinderExample1
+public class FinderExample2
   {
     public static void main (final @Nonnull String ... args)
       throws NotFoundException 
       {
-        final PersonRegistry1 registry = new DefaultPersonRegistry1();
+        final PersonRegistry2 registry = new DefaultPersonRegistry2();
 
         registry.add(new Person("Richard", "Nixon"));
         registry.add(new Person("Jimmy", "Carter"));
@@ -52,6 +54,15 @@ public class FinderExample1
         
         System.out.println("Two persons from the 3rd position: " 
                            + registry.findPersons().from(3).max(2).results());
+        
+        System.out.println("Whose first name starts with B: " 
+                           + registry.findPersons().withFirstName("B.*").results());
+        
+        System.out.println("Whose first name starts with B, sorted by last name: " 
+                           + registry.findPersons().withFirstName("B.*").sort(BY_FIRST_NAME).results());
+        
+        System.out.println("The first found whose last name is Bush: "
+                           + registry.findPersons().withLastName("Bush").firstResult());
         //@bluebook-end example
      }
   }

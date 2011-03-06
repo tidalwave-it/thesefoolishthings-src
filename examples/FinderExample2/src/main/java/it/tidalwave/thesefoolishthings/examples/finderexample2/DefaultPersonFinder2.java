@@ -20,13 +20,14 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.finderexample1;
+package it.tidalwave.thesefoolishthings.examples.finderexample2;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import it.tidalwave.util.spi.FinderSupport;
+import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
 
 /***********************************************************************************************************************
  *
@@ -34,7 +35,7 @@ import it.tidalwave.util.spi.FinderSupport;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DefaultPersonFinder extends FinderSupport<Person, DefaultPersonFinder> implements PersonFinder
+public class DefaultPersonFinder2 extends FinderSupport<Person, DefaultPersonFinder2> implements PersonFinder
   {
     private List<Person> persons;
     
@@ -42,12 +43,12 @@ public class DefaultPersonFinder extends FinderSupport<Person, DefaultPersonFind
     
     private String lastName = ".*";
     
-    public DefaultPersonFinder (final @Nonnull List<Person> persons) 
+    public DefaultPersonFinder2 (final @Nonnull List<Person> persons) 
       {
         this.persons = persons;
       }
     
-    public DefaultPersonFinder (final @Nonnull DefaultPersonFinder prototype) 
+    public DefaultPersonFinder2 (final @Nonnull DefaultPersonFinder2 prototype) 
       {
         super(prototype);
         this.persons   = prototype.persons;
@@ -58,7 +59,7 @@ public class DefaultPersonFinder extends FinderSupport<Person, DefaultPersonFind
     @Override @Nonnull
     public PersonFinder withFirstName (final @Nonnull String firstName) 
       {
-        final DefaultPersonFinder clone = clone();
+        final DefaultPersonFinder2 clone = clone();
         clone.firstName = firstName;
         return clone;
       }
@@ -66,7 +67,7 @@ public class DefaultPersonFinder extends FinderSupport<Person, DefaultPersonFind
     @Override @Nonnull
     public PersonFinder withLastName (final @Nonnull String lastName) 
       {
-        final DefaultPersonFinder clone = clone();
+        final DefaultPersonFinder2 clone = clone();
         clone.lastName = lastName;
         return clone;
       }

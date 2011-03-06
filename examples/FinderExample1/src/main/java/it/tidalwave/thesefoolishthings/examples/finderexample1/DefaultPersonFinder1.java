@@ -23,7 +23,10 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.NotFoundException;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import it.tidalwave.util.Finder;
+import it.tidalwave.util.spi.SimpleFinderSupport;
 
 /***********************************************************************************************************************
  *
@@ -31,27 +34,24 @@ import it.tidalwave.util.NotFoundException;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class FinderExample1
+public class DefaultPersonFinder1 extends SimpleFinderSupport<Person> implements Finder<Person>
   {
-    public static void main (final @Nonnull String ... args)
-      throws NotFoundException 
+    private List<Person> persons;
+    
+    public DefaultPersonFinder1 (final @Nonnull List<Person> persons) 
       {
-        final PersonRegistry1 registry = new DefaultPersonRegistry1();
+        this.persons = persons;
+      }
+    
+    public DefaultPersonFinder1 (final @Nonnull DefaultPersonFinder1 prototype) 
+      {
+        super(prototype);
+        this.persons = prototype.persons;
+      }
 
-        registry.add(new Person("Richard", "Nixon"));
-        registry.add(new Person("Jimmy", "Carter"));
-        registry.add(new Person("Ronald", "Reagan"));
-        registry.add(new Person("George", "Bush"));
-        registry.add(new Person("Bill", "Clinton"));
-        registry.add(new Person("George Walker", "Bush"));
-        registry.add(new Person("Barack", "Obama"));
-        
-        //@bluebook-begin example
-        System.out.println("All: " 
-                           + registry.findPersons().results());
-        
-        System.out.println("Two persons from the 3rd position: " 
-                           + registry.findPersons().from(3).max(2).results());
-        //@bluebook-end example
-     }
+    @Override @Nonnull
+    protected List<? extends Person> computeResults() 
+      {
+        return new CopyOnWriteArrayList<Person>(persons); // don't expose internal status
+      }
   }

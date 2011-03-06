@@ -20,10 +20,12 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.finderexample1;
+package it.tidalwave.thesefoolishthings.examples.finderexample2;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.NotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
 
 /***********************************************************************************************************************
  *
@@ -31,27 +33,19 @@ import it.tidalwave.util.NotFoundException;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class FinderExample1
+public class DefaultPersonRegistry2 implements PersonRegistry2 
   {
-    public static void main (final @Nonnull String ... args)
-      throws NotFoundException 
+    private final List<Person> persons = new ArrayList<Person>();
+    
+    @Override
+    public void add (final @Nonnull Person person)
       {
-        final PersonRegistry1 registry = new DefaultPersonRegistry1();
-
-        registry.add(new Person("Richard", "Nixon"));
-        registry.add(new Person("Jimmy", "Carter"));
-        registry.add(new Person("Ronald", "Reagan"));
-        registry.add(new Person("George", "Bush"));
-        registry.add(new Person("Bill", "Clinton"));
-        registry.add(new Person("George Walker", "Bush"));
-        registry.add(new Person("Barack", "Obama"));
-        
-        //@bluebook-begin example
-        System.out.println("All: " 
-                           + registry.findPersons().results());
-        
-        System.out.println("Two persons from the 3rd position: " 
-                           + registry.findPersons().from(3).max(2).results());
-        //@bluebook-end example
-     }
+        persons.add(person);    
+      }
+    
+    @Override @Nonnull
+    public PersonFinder findPersons()
+      {
+        return new DefaultPersonFinder2(persons);
+      }
   }
