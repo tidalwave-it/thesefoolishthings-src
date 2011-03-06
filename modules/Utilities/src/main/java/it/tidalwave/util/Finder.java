@@ -52,12 +52,10 @@ public interface Finder<Type> extends Cloneable, Serializable
         public static final Class<SortCriterion> SortCriterion = SortCriterion.class;
     
         /** A special {@link SortCriterion} which indicates that no sort has been performed. */
-        public static final SortCriterion UNSORTED = new FilterSortCriterion() 
+        public static final SortCriterion UNSORTED = new FilterSortCriterion<Object>() 
           {
-            @Nonnull
-            public Finder sort (final @Nonnull Finder finder, final @Nonnull SortDirection sortDirection) 
+            public void sort (@Nonnull List<?> results, final @Nonnull SortDirection sortDirection) 
               {
-                return finder;
               }
           };
         
@@ -81,13 +79,12 @@ public interface Finder<Type> extends Cloneable, Serializable
          *
          * Performs the sort of results.
          * 
-         * @param  finder         the {@code Finder} that provides unsorted results
+         * @param  results        the list of objects to be sorted in place
          * @param  sortDirection  the sort direction
-         * @return                a {@code Finder} that will return sorted results
          *
          **************************************************************************************************************/
         @Nonnull
-        public Finder<Type> sort (@Nonnull Finder<Type> finder, @Nonnull SortDirection sortDirection);
+        public void sort (@Nonnull List<? extends Type> results, @Nonnull SortDirection sortDirection);
       }
 
     /*******************************************************************************************************************

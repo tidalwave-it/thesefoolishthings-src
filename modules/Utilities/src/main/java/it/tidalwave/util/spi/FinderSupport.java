@@ -24,6 +24,7 @@ package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.Finder.FilterSortCriterion;
@@ -44,15 +45,35 @@ import it.tidalwave.util.NotFoundException;
  **********************************************************************************************************************/
 public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>> implements Finder<Type>, Cloneable
   {
+    static class Sorter<Type>
+      {
+        private final FilterSortCriterion<Type> sortCriterion; 
+        private final SortDirection sortDirection;
+
+        public Sorter (final @Nonnull FilterSortCriterion<Type> sortCriterion, 
+                       final @Nonnull SortDirection sortDirection)
+          {
+            this.sortCriterion = sortCriterion;
+            this.sortDirection = sortDirection;
+          }
+        
+        public void sort (final @Nonnull List<? extends Type> results) 
+          {
+            sortCriterion.sort(results, sortDirection);
+          }
+      }
+    
     @Nonnull
     private final String name;
 
     @Nonnegative
-    protected int firstResult = 0;
+    private int firstResult = 0;
 
     @Nonnegative
-    protected int maxResults = 9999999; // gets inolved in some math, so can't use Integer.MAX_VALUE
+    private int maxResults = 9999999; // gets inolved in some math, so can't use Integer.MAX_VALUE
 
+    private List<Sorter<Type>> sorters = new ArrayList<Sorter<Type>>();
+    
     /*******************************************************************************************************************
      *
      * Creates an instance with the given name (that will be used for diagnostics).
@@ -90,6 +111,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
             final SpecializedFinder clone = (SpecializedFinder)getClass().newInstance();
             ((FinderSupport<Type, SpecializedFinder>)clone).firstResult = this.firstResult;
             ((FinderSupport<Type, SpecializedFinder>)clone).maxResults = this.maxResults;
+            ((FinderSupport<Type, SpecializedFinder>)clone).sorters = new ArrayList<Sorter<Type>>(this.sorters);
             return clone;
           }
         catch (InstantiationException e) 
@@ -150,8 +172,10 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
       {
         if (criterion instanceof FilterSortCriterion)
           {
-            final FilterSortCriterion<Type> filterSortCriterion = (FilterSortCriterion<Type>)criterion;
-            return (SpecializedFinder)filterSortCriterion.sort(this, direction);
+            final SpecializedFinder clone = clone();
+            final Sorter<Type> sorter = new Sorter<Type>((FilterSortCriterion<Type>)criterion, direction);
+            ((FinderSupport<Type, SpecializedFinder>)clone).sorters.add(sorter);
+            return clone;
           }
         
         final String message = String.format("%s does not implement %s - you need to subclass Finder and override sort()",
@@ -179,7 +203,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
     public Type result()
       throws NotFoundException
       {
-        final List<? extends Type> result = results();
+        final List<? extends Type> result = computeAndPostProcessResults();
 
         switch (result.size())
           {
@@ -203,7 +227,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
     public Type firstResult()
       throws NotFoundException
       {
-        return NotFoundException.throwWhenEmpty(results(), "Empty result").get(0);
+        return NotFoundException.throwWhenEmpty(computeAndPostProcessResults(), "Empty result").get(0);
       }
 
     /*******************************************************************************************************************
@@ -214,8 +238,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
     @Override @Nonnull
     public List<? extends Type> results()
       {
-        final List<? extends Type> result = computeResults();
-        return result.subList(firstResult, Math.min(result.size(), firstResult + maxResults));
+        return computeAndPostProcessResults();
       }
 
     /*******************************************************************************************************************
@@ -226,7 +249,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
     @Override @Nonnegative
     public int count()
       {
-        return results().size();
+        return computeAndPostProcessResults().size();
       }
 
     /*******************************************************************************************************************
@@ -238,4 +261,25 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
      ******************************************************************************************************************/
     @Nonnull
     protected abstract List<? extends Type> computeResults();
+
+    /*******************************************************************************************************************
+     *
+     * Subclasses must implement this method where raw results are actually retrieved.
+     * 
+     * @return  the unprocessed results  
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    private List<? extends Type> computeAndPostProcessResults()
+      {
+        List<? extends Type> results = computeResults();
+        results = results.subList(firstResult, Math.min(results.size(), firstResult + maxResults));
+        
+        for (final Sorter<Type> sorter : sorters)
+          {
+            sorter.sort(results);                        
+          }
+        
+        return results;
+      }
   }

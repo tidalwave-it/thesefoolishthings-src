@@ -42,8 +42,6 @@ public class DefaultPersonFinder extends FinderSupport<Person, PersonFinder> imp
     
     private String lastName = ".*";
     
-    private List<PersonSortCriterion> sortCriteria = new ArrayList<PersonSortCriterion>();
-    
     public DefaultPersonFinder (final @Nonnull List<Person> persons) 
       {
         super("DefaultPersonFinder");
@@ -61,7 +59,6 @@ public class DefaultPersonFinder extends FinderSupport<Person, PersonFinder> imp
         clone.persons      = this.persons;
         clone.firstName    = this.firstName;
         clone.lastName     = this.lastName;
-        clone.sortCriteria = new ArrayList<PersonSortCriterion>(this.sortCriteria);
         return clone;
       }
     
@@ -82,14 +79,6 @@ public class DefaultPersonFinder extends FinderSupport<Person, PersonFinder> imp
       }
 
     @Override @Nonnull
-    public PersonFinder sort (final @Nonnull SortCriterion criterion, final @Nonnull SortDirection direction) 
-      {
-        final DefaultPersonFinder clone = clone();
-        clone.sortCriteria.add((PersonSortCriterion)criterion);
-        return clone;
-      }
-    
-    @Override @Nonnull
     protected List<? extends Person> computeResults() 
       {
         final List<Person> result = new ArrayList<Person>();
@@ -103,11 +92,6 @@ public class DefaultPersonFinder extends FinderSupport<Person, PersonFinder> imp
               {
                 result.add(person);  
               }
-          }
-
-        for (final PersonSortCriterion sortCriterion : sortCriteria)
-          {
-            sortCriterion.sort(result);                        
           }
 
         return result;

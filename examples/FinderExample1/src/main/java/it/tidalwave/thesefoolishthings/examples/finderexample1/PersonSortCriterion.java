@@ -26,7 +26,8 @@ import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import it.tidalwave.util.Finder.SortCriterion;
+import it.tidalwave.util.Finder.FilterSortCriterion;
+import it.tidalwave.util.Finder.SortDirection;
 
 /***********************************************************************************************************************
  *
@@ -34,7 +35,7 @@ import it.tidalwave.util.Finder.SortCriterion;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public enum PersonSortCriterion implements SortCriterion 
+public enum PersonSortCriterion implements FilterSortCriterion<Person>
   {
     BY_FIRST_NAME(new Comparator<Person>() 
       {
@@ -54,7 +55,7 @@ public enum PersonSortCriterion implements SortCriterion
     
     private final Comparator<Person> comparator;
     
-    protected void sort (final @Nonnull List<? extends Person> persons)
+    public void sort (final @Nonnull List<? extends Person> persons, final @Nonnull SortDirection sortDirection)
       {
         Collections.sort(persons, comparator);
       }

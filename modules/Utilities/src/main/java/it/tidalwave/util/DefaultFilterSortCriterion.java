@@ -27,7 +27,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import it.tidalwave.util.Finder.SortDirection;
-import it.tidalwave.util.spi.FinderSupport;
 
 /***********************************************************************************************************************
  *
@@ -80,26 +79,26 @@ public class DefaultFilterSortCriterion<T> implements Finder.FilterSortCriterion
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Finder<T> sort (final @Nonnull Finder<T> finder,
-                           final @Nonnull SortDirection sortDirection)
+    public void sort (final @Nonnull List<? extends T> results,
+                      final @Nonnull SortDirection sortDirection)
       {
-        // FIXME: it should rather clone() the original finder
-        return new FinderSupport<T, Finder<T>>(name) 
+        Collections.sort(results, new Comparator<T>()
           {
-            @Override @Nonnull
-            protected List<? extends T> computeResults() 
+            public int compare (final @Nonnull T o1, final @Nonnull T o2) 
               {
-                final List<? extends T> results = finder.results();
-                Collections.sort(results, new Comparator<T>()
-                  {
-                    public int compare (final @Nonnull T o1, final @Nonnull T o2) 
-                      {
-                        return comparator.compare(o1, o2) * sortDirection.intValue();
-                      }
-                  });
-                
-                return results;
+                return comparator.compare(o1, o2) * sortDirection.intValue();
               }
-          };
+          });
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public String toString() 
+      {
+        return name;
       }
   }
