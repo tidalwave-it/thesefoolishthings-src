@@ -179,7 +179,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
     public Type result()
       throws NotFoundException
       {
-        final List<? extends Type> result = computeResults();
+        final List<? extends Type> result = results();
 
         switch (result.size())
           {
@@ -203,7 +203,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
     public Type firstResult()
       throws NotFoundException
       {
-        return NotFoundException.throwWhenEmpty(computeResults(), "Empty result").get(0);
+        return NotFoundException.throwWhenEmpty(results(), "Empty result").get(0);
       }
 
     /*******************************************************************************************************************
@@ -226,7 +226,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
     @Override @Nonnegative
     public int count()
       {
-        return computeResults().size();
+        return results().size();
       }
 
     /*******************************************************************************************************************
