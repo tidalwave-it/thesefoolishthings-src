@@ -223,7 +223,7 @@ public abstract class FinderSupport<Type, SpecializedFinder extends Finder<Type>
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Override @Nonnull
+    @Override @Nonnegative
     public int count()
       {
         return computeResults().size();
