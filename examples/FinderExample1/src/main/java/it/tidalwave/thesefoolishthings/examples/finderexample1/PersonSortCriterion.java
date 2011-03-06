@@ -23,11 +23,9 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-import it.tidalwave.util.Finder.FilterSortCriterion;
-import it.tidalwave.util.Finder.SortDirection;
+import it.tidalwave.util.Finder.SortCriterion;
+import it.tidalwave.util.DefaultFilterSortCriterion;
 
 /***********************************************************************************************************************
  *
@@ -35,33 +33,23 @@ import it.tidalwave.util.Finder.SortDirection;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public enum PersonSortCriterion implements FilterSortCriterion<Person>
+public final class PersonSortCriterion 
   {
-    BY_FIRST_NAME(new Comparator<Person>() 
-      {
-        public int compare (final @Nonnull Person p1, final @Nonnull Person p2) 
+    public final static SortCriterion BY_FIRST_NAME = new DefaultFilterSortCriterion<Person>(
+        new Comparator<Person>() 
           {
-            return p1.getFirstName().compareTo(p2.getFirstName());
-          }
-      }),
+            public int compare (final @Nonnull Person p1, final @Nonnull Person p2) 
+              {
+                return p1.getFirstName().compareTo(p2.getFirstName());
+              }
+          }, "BY_FIRST_NAME");
     
-    BY_LAST_NAME(new Comparator<Person>() 
-      {
-        public int compare (final @Nonnull Person p1, final @Nonnull Person p2) 
+    public final static SortCriterion BY_LAST_NAME = new DefaultFilterSortCriterion<Person>(
+        new Comparator<Person>() 
           {
-            return p1.getLastName().compareTo(p2.getLastName());
-          }
-      });  
-    
-    private final Comparator<Person> comparator;
-    
-    public void sort (final @Nonnull List<? extends Person> persons, final @Nonnull SortDirection sortDirection)
-      {
-        Collections.sort(persons, comparator);
-      }
-    
-    private PersonSortCriterion (final @Nonnull Comparator<Person> comparator)
-      {
-        this.comparator = comparator;  
-      }
+            public int compare (final @Nonnull Person p1, final @Nonnull Person p2) 
+              {
+                return p1.getLastName().compareTo(p2.getLastName());
+              }
+          }, "BY_LAST_NAME");
   }
