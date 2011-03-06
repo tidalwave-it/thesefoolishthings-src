@@ -51,7 +51,6 @@
                         <publicPackage>it.tidalwave.util</publicPackage>
                         <publicPackage>it.tidalwave.util.spi</publicPackage>
                         <publicPackage>it.tidalwave.role</publicPackage>
-                        <publicPackage>it.tidalwave.role.io</publicPackage>
                         <publicPackage>it.tidalwave.role.spi</publicPackage>
                         <publicPackage>it.tidalwave.role.annotation</publicPackage>
                         <publicPackage>it.tidalwave.text</publicPackage>

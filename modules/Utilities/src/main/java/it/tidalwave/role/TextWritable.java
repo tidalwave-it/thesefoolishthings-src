@@ -20,51 +20,51 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.role.io;
+package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.io.Reader;
+import java.io.Writer;
 
 /***********************************************************************************************************************
  * 
- * The role of an object that can be read as a stream of characters.
+ * The role of an object that can be written as a stream of characters.
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public interface TextReadable 
+public interface TextWritable 
   {
     //@bluebook-begin other
-    public final static Class<TextReadable> TextReadable = TextReadable.class;
+    public final static Class<TextWritable> TextWritable = TextWritable.class;
     
     /*******************************************************************************************************************
      *
      * A default implementation which throws {@link IOException} when opening the stream.
      * 
      ******************************************************************************************************************/
-    public final static TextReadable DEFAULT = new TextReadable() 
+    public final static TextWritable DEFAULT = new TextWritable() 
       {
         @Override @Nonnull
-        public Reader openReader() 
+        public Writer openWriter() 
           throws IOException 
           {
             throw new IOException("Operation not supported");
           }
       };
     
+    //@bluebook-end other
     /*******************************************************************************************************************
      *
-     * Returns a {@link Reader} to read from the object.
+     * Returns a {@link Writer} to write into the object.
      * 
-     * @return               the {@code Reader}
+     * @return               the {@code Writer}
      * @throws  IOException  if the operation can't be performed
      * 
      ******************************************************************************************************************/
-    //@bluebook-end other
     @Nonnull
-    public Reader openReader()
+    public Writer openWriter()
       throws IOException;
   }

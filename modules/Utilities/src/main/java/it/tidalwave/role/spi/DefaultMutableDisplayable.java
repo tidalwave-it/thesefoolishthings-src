@@ -20,7 +20,7 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.role;
+package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
@@ -31,6 +31,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import it.tidalwave.role.MutableLocalizedDisplayable;
 
 /***********************************************************************************************************************
  *

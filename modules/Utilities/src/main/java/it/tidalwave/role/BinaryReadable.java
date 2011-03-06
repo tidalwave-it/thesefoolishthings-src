@@ -20,35 +20,35 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.role.io;
+package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.io.Writer;
+import java.io.InputStream;
 
 /***********************************************************************************************************************
  * 
- * The role of an object that can be written as a stream of characters.
+ * The role of an object that can be read as a stream of bytes.
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public interface TextWritable 
+public interface BinaryReadable 
   {
     //@bluebook-begin other
-    public final static Class<TextWritable> TextWritable = TextWritable.class;
-    
+    public final static Class<BinaryReadable> BinaryReadable = BinaryReadable.class;
+        
     /*******************************************************************************************************************
      *
      * A default implementation which throws {@link IOException} when opening the stream.
      * 
      ******************************************************************************************************************/
-    public final static TextWritable DEFAULT = new TextWritable() 
+    public final static BinaryReadable DEFAULT = new BinaryReadable() 
       {
         @Override @Nonnull
-        public Writer openWriter() 
+        public InputStream openStream() 
           throws IOException 
           {
             throw new IOException("Operation not supported");
@@ -58,13 +58,13 @@ public interface TextWritable
     //@bluebook-end other
     /*******************************************************************************************************************
      *
-     * Returns a {@link Writer} to write into the object.
+     * Returns an {@link InputStream} to read from the object.
      * 
-     * @return               the {@code Writer}
+     * @return               the {@code InputStream}
      * @throws  IOException  if the operation can't be performed
      * 
      ******************************************************************************************************************/
     @Nonnull
-    public Writer openWriter()
+    public InputStream openStream()
       throws IOException;
   }

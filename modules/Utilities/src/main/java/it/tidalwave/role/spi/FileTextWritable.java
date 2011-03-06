@@ -20,24 +20,25 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.role.io;
+package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Reader;
+import java.io.Writer;
+import it.tidalwave.role.TextWritable;
 
 /***********************************************************************************************************************
  * 
- * An implementation of {@link TextReadable} which delegates to a {@link File}.
+ * An implementation of {@link TextWritable} which delegates to a {@link File}.
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public class FileTextReadable implements TextReadable
+public class FileTextWritable implements TextWritable
   {
     @Nonnull
     private final File file;
@@ -49,7 +50,7 @@ public class FileTextReadable implements TextReadable
      * @param  file  the file
      * 
      ******************************************************************************************************************/
-    public FileTextReadable (final @Nonnull File file) 
+    public FileTextWritable (final @Nonnull File file) 
       {
         this.file = file;
       }
@@ -60,9 +61,9 @@ public class FileTextReadable implements TextReadable
      * 
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Reader openReader() 
+    public Writer openWriter() 
       throws IOException 
       {
-        return new FileReader(file);
+        return new FileWriter(file);
       }
   }

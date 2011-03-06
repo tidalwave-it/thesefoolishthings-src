@@ -20,7 +20,7 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.role;
+package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.io.Serializable;
+import it.tidalwave.role.LocalizedDisplayable;
 
 /***********************************************************************************************************************
  *

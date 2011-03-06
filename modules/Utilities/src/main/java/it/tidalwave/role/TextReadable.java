@@ -23,59 +23,48 @@
 package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.io.Serializable;
-import it.tidalwave.util.Id;
+import java.io.IOException;
+import java.io.Reader;
 
 /***********************************************************************************************************************
- *
- * A default implementation of {@link Identifiable} which wraps a given id.
+ * 
+ * The role of an object that can be read as a stream of characters.
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-@Immutable
-public class DefaultIdentifiable implements Identifiable, Serializable
+public interface TextReadable 
   {
-    private static final long serialVersionUID = 45654634423793043L;
-
-    @Nonnull
-    private final Id id;
-
+    //@bluebook-begin other
+    public final static Class<TextReadable> TextReadable = TextReadable.class;
+    
     /*******************************************************************************************************************
      *
-     * Create a new instance with the specified id.
+     * A default implementation which throws {@link IOException} when opening the stream.
      * 
-     * @param  id  the id
-     *
      ******************************************************************************************************************/
-    public DefaultIdentifiable (final @Nonnull Id id)
+    public final static TextReadable DEFAULT = new TextReadable() 
       {
-        this.id = id;
-      }
-
+        @Override @Nonnull
+        public Reader openReader() 
+          throws IOException 
+          {
+            throw new IOException("Operation not supported");
+          }
+      };
+    
     /*******************************************************************************************************************
      *
-     * {@inheritDoc}
-     *
+     * Returns a {@link Reader} to read from the object.
+     * 
+     * @return               the {@code Reader}
+     * @throws  IOException  if the operation can't be performed
+     * 
      ******************************************************************************************************************/
-//    @Override
+    //@bluebook-end other
     @Nonnull
-    public Id getId()
-      {
-        return id;
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public String toString()
-      {
-        return String.format("DefaultIdentifiable[%s]", id);
-      }
+    public Reader openReader()
+      throws IOException;
   }

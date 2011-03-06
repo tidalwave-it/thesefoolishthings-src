@@ -20,51 +20,50 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.role.io;
+package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStream;
+import it.tidalwave.role.BinaryReadable;
 
 /***********************************************************************************************************************
  * 
- * The role of an object that can be written as a stream of bytes.
+ * An implementation of {@link BinaryReadable} which delegates to a {@link File}.
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public interface BinaryWritable 
+public class FileBinaryReadable implements BinaryReadable
   {
-    //@bluebook-begin other
-    public final static Class<BinaryWritable> BinaryWritable = BinaryWritable.class;
-    
-    /*******************************************************************************************************************
-     *
-     * A default implementation which throws {@link IOException} when opening the stream.
-     * 
-     ******************************************************************************************************************/
-    public final static BinaryWritable DEFAULT = new BinaryWritable() 
-      {
-        @Override @Nonnull
-        public OutputStream openStream() 
-          throws IOException 
-          {
-            throw new IOException("Operation not supported");
-          }
-      };
-    
-    /*******************************************************************************************************************
-     *
-     * Returns an {@link OutputStream} to write into the object.
-     * 
-     * @return               the {@code OutputStream}
-     * @throws  IOException  if the operation can't be performed
-     * 
-     ******************************************************************************************************************/
-    //@bluebook-end other
     @Nonnull
-    public OutputStream openStream()
-      throws IOException;
+    private final File file;
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with the given {@link File} delegate.
+     * 
+     * @param  file  the file
+     * 
+     ******************************************************************************************************************/
+    public FileBinaryReadable (final @Nonnull File file) 
+      {
+        this.file = file;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     * 
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public InputStream openStream() 
+      throws IOException 
+      {
+        return new FileInputStream(file);
+      }
   }

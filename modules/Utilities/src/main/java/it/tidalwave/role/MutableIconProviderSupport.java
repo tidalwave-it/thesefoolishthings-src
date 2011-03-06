@@ -22,6 +22,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.role;
 
+import it.tidalwave.role.MutableIconProvider;
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

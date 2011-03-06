@@ -20,49 +20,63 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.role.io;
+package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.annotation.concurrent.Immutable;
+import java.io.Serializable;
+import it.tidalwave.util.Id;
+import it.tidalwave.role.Identifiable;
 
 /***********************************************************************************************************************
- * 
- * An implementation of {@link BinaryReadable} which delegates to a {@link File}.
+ *
+ * A default implementation of {@link Identifiable} which wraps a given id.
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public class FileBinaryReadable implements BinaryReadable
+@Immutable
+public class DefaultIdentifiable implements Identifiable, Serializable
   {
+    private static final long serialVersionUID = 45654634423793043L;
+
     @Nonnull
-    private final File file;
+    private final Id id;
 
     /*******************************************************************************************************************
      *
-     * Creates an instance with the given {@link File} delegate.
+     * Create a new instance with the specified id.
      * 
-     * @param  file  the file
-     * 
+     * @param  id  the id
+     *
      ******************************************************************************************************************/
-    public FileBinaryReadable (final @Nonnull File file) 
+    public DefaultIdentifiable (final @Nonnull Id id)
       {
-        this.file = file;
+        this.id = id;
       }
 
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
-     * 
+     *
+     ******************************************************************************************************************/
+//    @Override
+    @Nonnull
+    public Id getId()
+      {
+        return id;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public InputStream openStream() 
-      throws IOException 
+    public String toString()
       {
-        return new FileInputStream(file);
+        return String.format("DefaultIdentifiable[%s]", id);
       }
   }
