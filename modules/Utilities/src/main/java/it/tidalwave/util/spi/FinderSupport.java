@@ -27,6 +27,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -35,7 +36,6 @@ import it.tidalwave.util.Finder.FilterSortCriterion;
 import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.SortDirection;
 import it.tidalwave.util.NotFoundException;
-import java.util.Arrays;
 
 /***********************************************************************************************************************
  *
