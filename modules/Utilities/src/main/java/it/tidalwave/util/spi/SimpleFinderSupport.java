@@ -23,6 +23,7 @@
 package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
+import it.tidalwave.util.Finder;
 
 /***********************************************************************************************************************
  *
@@ -31,7 +32,7 @@ import javax.annotation.Nonnull;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public abstract class SimpleFinderSupport<Type> extends FinderSupport<Type, SimpleFinderSupport<Type>> 
+public abstract class SimpleFinderSupport<Type> extends FinderSupport<Type, Finder<Type>> 
   {
     protected SimpleFinderSupport()
       {
