@@ -22,20 +22,16 @@
  **********************************************************************************************************************/
 package it.tidalwave.util.spi;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.Finder.FilterSortCriterion;
 import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.SortDirection;
 import it.tidalwave.util.NotFoundException;
+import java.util.ArrayList;
 
 /***********************************************************************************************************************
  *
@@ -51,8 +47,7 @@ import it.tidalwave.util.NotFoundException;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public abstract class FinderSupport<Type, ExtendedFinder extends FinderSupport<Type, ExtendedFinder>> 
-                                                         implements Finder<Type>, Cloneable
+public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> implements Finder<Type>, Cloneable
   {
     static class Sorter<Type>
       {
@@ -82,7 +77,7 @@ public abstract class FinderSupport<Type, ExtendedFinder extends FinderSupport<T
     protected int maxResults = 9999999; // gets inolved in some math, so can't use Integer.MAX_VALUE
 
     @Nonnull
-    protected List<Sorter<Type>> sorters = Collections.emptyList();
+    protected List<Sorter<Type>> sorters = new ArrayList<Sorter<Type>>();
     
     /*******************************************************************************************************************
      *
@@ -114,7 +109,7 @@ public abstract class FinderSupport<Type, ExtendedFinder extends FinderSupport<T
         this.name        = prototype.name;
         this.firstResult = prototype.firstResult;
         this.maxResults  = prototype.maxResults;
-        this.sorters     = new CopyOnWriteArrayList<Sorter<Type>>(prototype.sorters);
+        this.sorters     = new ArrayList<Sorter<Type>>(prototype.sorters);
       }
 
     /*******************************************************************************************************************
@@ -126,68 +121,13 @@ public abstract class FinderSupport<Type, ExtendedFinder extends FinderSupport<T
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public final ExtendedFinder clone()
+    public FinderSupport<Type, ExtendedFinder> clone() 
       {
-        final Class<? extends FinderSupport> myClass = getClass();
-        
         try 
           {
-            final Class<?> enclosingClass = myClass.getEnclosingClass();
-            
-            if (enclosingClass != null)
-              {
-                Object enclosingThis = null;
-                
-                for (final Field field : myClass.getDeclaredFields())
-                  {
-                    if (field.getName().equals("this$0")) // TODO: is this valid for any Java compiler?
-                      {
-                        field.setAccessible(true);
-                        enclosingThis = field.get(this);
-                        break;
-                      }
-                  }
-                
-                if (enclosingThis == null)
-                  {
-                    throw new RuntimeException("Can't find reference to enclosing object");  
-                  }
-                
-                final Constructor<? extends FinderSupport> constructor = myClass.getConstructor(enclosingClass, myClass);
-                return (ExtendedFinder)constructor.newInstance(enclosingThis, this);
-              }
-            else
-              {
-                final Constructor<? extends FinderSupport> constructor = myClass.getConstructor(myClass);
-                return (ExtendedFinder)constructor.newInstance(this);
-              }
-            
+            return (FinderSupport<Type, ExtendedFinder>)super.clone();
           }
-        catch (InvocationTargetException e) 
-          {
-            throw new RuntimeException(e);
-          } 
-        catch (NoSuchMethodException e) 
-          {
-            final Constructor<?>[] constructors = myClass.getConstructors();
-            final String message = String.format("%s must expose a clone constructor:\n"
-                                                 + "public %s(%s)\n"
-                                                 + "Available constructors: %s",
-                                                 myClass.getName(),
-                                                 myClass.getSimpleName(),
-                                                 myClass.getSimpleName(),
-                                                 Arrays.toString(constructors));
-            throw new RuntimeException(message, e);
-          } 
-        catch (SecurityException e) 
-          {
-            throw new RuntimeException(e);
-          }
-        catch (InstantiationException e) 
-          {
-            throw new RuntimeException(e);
-          } 
-        catch (IllegalAccessException e) 
+        catch (CloneNotSupportedException e)
           {
             throw new RuntimeException(e);
           }
@@ -201,9 +141,9 @@ public abstract class FinderSupport<Type, ExtendedFinder extends FinderSupport<T
     @Override @Nonnull
     public ExtendedFinder from (final @Nonnegative int firstResult)
       {
-        final ExtendedFinder clone = clone();
+        final FinderSupport<Type, ExtendedFinder> clone = clone();
         clone.firstResult = firstResult;
-        return clone;
+        return (ExtendedFinder)clone;
       }
 
     /*******************************************************************************************************************
@@ -214,9 +154,9 @@ public abstract class FinderSupport<Type, ExtendedFinder extends FinderSupport<T
     @Override @Nonnull
     public ExtendedFinder max (final @Nonnegative int maxResults)
       {
-        final ExtendedFinder clone = clone();
+        final FinderSupport<Type, ExtendedFinder> clone = clone();
         clone.maxResults = maxResults;
-        return clone;
+        return (ExtendedFinder)clone;
       }
 
     /*******************************************************************************************************************
@@ -241,9 +181,9 @@ public abstract class FinderSupport<Type, ExtendedFinder extends FinderSupport<T
       {
         if (criterion instanceof FilterSortCriterion)
           {
-            final ExtendedFinder clone = clone();
+            final FinderSupport<Type, ExtendedFinder> clone = clone();
             clone.sorters.add(new Sorter<Type>((FilterSortCriterion<Type>)criterion, direction));
-            return clone;
+            return (ExtendedFinder)clone;
           }
         
         final String message = String.format("%s does not implement %s - you need to subclass Finder and override sort()",

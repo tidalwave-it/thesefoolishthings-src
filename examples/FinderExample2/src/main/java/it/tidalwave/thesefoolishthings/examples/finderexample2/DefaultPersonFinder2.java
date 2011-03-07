@@ -35,7 +35,7 @@ import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DefaultPersonFinder2 extends FinderSupport<Person, DefaultPersonFinder2> implements PersonFinder
+public class DefaultPersonFinder2 extends FinderSupport<Person, PersonFinder> implements PersonFinder
   {
     private List<Person> persons;
     
@@ -48,12 +48,15 @@ public class DefaultPersonFinder2 extends FinderSupport<Person, DefaultPersonFin
         this.persons = persons;
       }
     
-    public DefaultPersonFinder2 (final @Nonnull DefaultPersonFinder2 prototype) 
+    @Override @Nonnull
+    public DefaultPersonFinder2 clone()
       {
-        super(prototype);
-        this.persons   = prototype.persons;
-        this.firstName = prototype.firstName;
-        this.lastName  = prototype.lastName;
+        final DefaultPersonFinder2 clone = (DefaultPersonFinder2)super.clone();
+        clone.persons   = this.persons;
+        clone.firstName = this.firstName;
+        clone.lastName  = this.lastName;
+        
+        return clone;
       }
 
     @Override @Nonnull
