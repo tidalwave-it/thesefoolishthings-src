@@ -43,10 +43,13 @@ public class DefaultPersonFinder1 extends SimpleFinderSupport<Person> implements
         this.persons = persons;
       }
     
-    public DefaultPersonFinder1 (final @Nonnull DefaultPersonFinder1 prototype) 
+    @Override @Nonnull
+    public DefaultPersonFinder1 clone()
       {
-        super(prototype);
-        this.persons = prototype.persons;
+        final DefaultPersonFinder1 clone = (DefaultPersonFinder1)super.clone();
+        clone.persons   = this.persons;
+        
+        return clone;
       }
 
     @Override @Nonnull

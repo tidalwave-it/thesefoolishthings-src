@@ -43,9 +43,4 @@ public abstract class SimpleFinderSupport<Type> extends FinderSupport<Type, Find
       {
         super(name);
       }
-
-    protected SimpleFinderSupport (final @Nonnull SimpleFinderSupport<Type> prototype) 
-      {
-        super(prototype);
-      }
   }

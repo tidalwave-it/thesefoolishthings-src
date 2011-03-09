@@ -44,15 +44,6 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type>>
 
     static class EmptyFinder extends FinderSupport<Object, EmptyFinder>
       {
-        public EmptyFinder() 
-          {
-          }
-
-        public EmptyFinder (final @Nonnull EmptyFinder prototype)
-          {
-            super(prototype);
-          }
-
         @Override @Nonnull
         protected List<? extends Object> computeResults() 
           {
@@ -67,7 +58,7 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type>>
      ******************************************************************************************************************/
     public final static Composite<Object, Finder<Object>> DEFAULT = new Composite<Object, Finder<Object>>() 
       {
-        private final Finder<Object> EMPTY_FINDER = new EmptyFinder();
+        private final Finder<Object> EMPTY_FINDER = new EmptyFinder(); // TODO: move to Finder
         
         @Override @Nonnull
         public Finder<Object> findChildren() 

@@ -24,14 +24,13 @@ package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.Finder.FilterSortCriterion;
 import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.SortDirection;
 import it.tidalwave.util.NotFoundException;
-import java.util.ArrayList;
 
 /***********************************************************************************************************************
  *
@@ -68,7 +67,7 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
       }
     
     @Nonnull
-    private final String name;
+    private String name;
 
     @Nonnegative
     protected int firstResult = 0;
@@ -99,18 +98,6 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
       {
         this.name = getClass().getName(); 
       }
-    
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    protected FinderSupport (final @Nonnull FinderSupport<Type, ExtendedFinder> prototype)
-      {
-        this.name        = prototype.name;
-        this.firstResult = prototype.firstResult;
-        this.maxResults  = prototype.maxResults;
-        this.sorters     = new ArrayList<Sorter<Type>>(prototype.sorters);
-      }
 
     /*******************************************************************************************************************
      *
@@ -125,7 +112,13 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
       {
         try 
           {
-            return (FinderSupport<Type, ExtendedFinder>)super.clone();
+            final FinderSupport<Type, ExtendedFinder> clone = (FinderSupport<Type, ExtendedFinder>)super.clone();
+            clone.name        = this.name;
+            clone.firstResult = this.firstResult;
+            clone.maxResults  = this.maxResults;
+            clone.sorters     = new ArrayList<Sorter<Type>>(this.sorters);
+        
+            return clone;
           }
         catch (CloneNotSupportedException e)
           {
