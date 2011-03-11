@@ -35,7 +35,7 @@ import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DefaultPersonFinder2 extends FinderSupport<Person, PersonFinder> implements PersonFinder
+/* package */ class DefaultPersonFinder2 extends FinderSupport<Person, PersonFinder> implements PersonFinder
   {
     private List<Person> persons;
     

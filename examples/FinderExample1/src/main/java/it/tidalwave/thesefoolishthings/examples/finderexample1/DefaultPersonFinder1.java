@@ -34,7 +34,7 @@ import it.tidalwave.util.spi.SimpleFinderSupport;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DefaultPersonFinder1 extends SimpleFinderSupport<Person> implements Finder<Person>
+/* package */ class DefaultPersonFinder1 extends SimpleFinderSupport<Person> implements Finder<Person>
   {
     private List<Person> persons;
     
@@ -47,7 +47,7 @@ public class DefaultPersonFinder1 extends SimpleFinderSupport<Person> implements
     public DefaultPersonFinder1 clone()
       {
         final DefaultPersonFinder1 clone = (DefaultPersonFinder1)super.clone();
-        clone.persons   = this.persons;
+        clone.persons = this.persons;
         
         return clone;
       }
