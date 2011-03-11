@@ -68,6 +68,7 @@
         <module>StopWatch</module>
         <module>Utilities</module>
         <module>TestUtilities</module>
+        <module>examples</module>
     </modules>
 
 </project>

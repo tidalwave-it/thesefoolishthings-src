@@ -190,7 +190,6 @@
 
     <modules>
         <module>modules</module>
-        <module>examples</module>
     </modules>
 
 </project>
