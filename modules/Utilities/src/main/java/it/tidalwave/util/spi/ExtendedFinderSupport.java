@@ -52,7 +52,7 @@ public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>
      * {@inheritDoc}
      * 
      ******************************************************************************************************************/
-    @Nonnull
+    @Override @Nonnull
     public ExtendedFinder from (@Nonnegative int firstResult);
 
     /*******************************************************************************************************************
@@ -60,7 +60,7 @@ public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>
      * {@inheritDoc}
      * 
      ******************************************************************************************************************/
-    @Nonnull
+    @Override @Nonnull
     public ExtendedFinder max (@Nonnegative int maxResults);
 
     /*******************************************************************************************************************
@@ -68,7 +68,7 @@ public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>
      * {@inheritDoc}
      * 
      ******************************************************************************************************************/
-    @Nonnull
+    @Override @Nonnull
     public ExtendedFinder sort (@Nonnull SortCriterion criterion);
 
     /*******************************************************************************************************************
@@ -76,6 +76,6 @@ public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>
      * {@inheritDoc}
      * 
      ******************************************************************************************************************/
-    @Nonnull
+    @Override @Nonnull
     public ExtendedFinder sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
   }
