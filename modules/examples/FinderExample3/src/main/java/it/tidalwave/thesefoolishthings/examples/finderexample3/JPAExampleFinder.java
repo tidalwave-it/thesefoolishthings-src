@@ -22,8 +22,6 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.finderexample3;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.List;
