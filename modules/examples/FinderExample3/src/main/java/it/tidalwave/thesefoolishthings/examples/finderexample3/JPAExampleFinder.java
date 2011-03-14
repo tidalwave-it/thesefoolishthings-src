@@ -22,6 +22,8 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.finderexample3;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -60,9 +62,8 @@ public class JPAExampleFinder implements Finder<String>
     public static final SortCriterion BY_LAST_NAME  = new JpaqlSortCriterion("p.lastName");
             
     @Nonnull
-    private final EntityManager em;
+    private EntityManager em;
     
-    private Query querY;
     private int firstResult = 0;
     private int maxResults = Integer.MAX_VALUE;
     private String sql;
@@ -72,29 +73,50 @@ public class JPAExampleFinder implements Finder<String>
         this.em = em;
         sql = " FROM Person p";
       }
+    
+    @Nonnull @Override
+    public JPAExampleFinder clone()
+      {
+        try 
+          {
+            final JPAExampleFinder clone = (JPAExampleFinder)super.clone();
+            clone.em = this.em;
+            clone.firstResult = this.firstResult;
+            clone.maxResults = this.maxResults;
+            clone.sql = this.sql;
+            
+            return clone;
+          } 
+        catch (CloneNotSupportedException e) 
+          {
+            throw new RuntimeException(e);
+          }
+      }
 
     @Nonnull
     public Finder<String> from (final @Nonnegative int firstResult) 
       {
-        this.firstResult = firstResult;
-        return this;
+        final JPAExampleFinder clone = clone();
+        clone.firstResult = firstResult;
+        return clone;
       }
 
     @Nonnull
     public Finder<String> max (final @Nonnegative int maxResults) 
       {
-        this.maxResults = maxResults;
-        return this;
+        final JPAExampleFinder clone = clone();
+        clone.maxResults = maxResults;
+        return clone;
       }
 
     @Nonnull
-    public <AnotherType> Finder<AnotherType> ofType (Class<AnotherType> type) 
+    public <AnotherType> Finder<AnotherType> ofType (final @Nonnull Class<AnotherType> type) 
       {
         throw new UnsupportedOperationException("Not supported yet.");
       }
 
     @Nonnull
-    public Finder<String> sort (SortCriterion criterion) 
+    public Finder<String> sort (final @Nonnull SortCriterion criterion) 
       {
         return sort(criterion, SortDirection.ASCENDING);
       }
@@ -105,8 +127,9 @@ public class JPAExampleFinder implements Finder<String>
       {
         if (criterion instanceof JpaqlSortCriterion)
           {
-            sql = ((JpaqlSortCriterion)criterion).processSql(sql, direction); 
-            return this;
+            final JPAExampleFinder clone = clone();
+            clone.sql = ((JpaqlSortCriterion)criterion).processSql(this.sql, direction); 
+            return clone;
           }
         else
           {
