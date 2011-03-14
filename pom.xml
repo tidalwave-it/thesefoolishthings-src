@@ -41,6 +41,8 @@
         <scm.repo.url>https://kenai.com/hg/thesefoolishthings~src</scm.repo.url>
         <scm.repo.readonly.url>http://kenai.com/hg/thesefoolishthings~src</scm.repo.readonly.url>
         <scm.repo.browse.url>http://kenai.com/projects/thesefoolishthings/sources/src/show</scm.repo.browse.url>
+        
+        <netbeans.version>RELEASE68</netbeans.version>
     </properties>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->

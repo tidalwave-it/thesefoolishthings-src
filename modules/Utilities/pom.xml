@@ -21,6 +21,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-util</artifactId>
+        </dependency>
         <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
