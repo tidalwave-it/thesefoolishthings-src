@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>superpom</artifactId>
-        <version>1.0.18</version>
+        <version>1.0.19-SNAPSHOT</version>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -43,6 +43,9 @@
         <scm.repo.browse.url>http://kenai.com/projects/thesefoolishthings/sources/src/show</scm.repo.browse.url>
         
         <netbeans.version>RELEASE68</netbeans.version>
+        
+        <tft.javac.source>1.5</tft.javac.source>
+        <tft.javac.target>1.5</tft.javac.target>
     </properties>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
@@ -147,13 +150,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
             <!-- Needed for setting that inherited = false -->
             <plugin>
                 <groupId>com.mycila.maven-license-plugin</groupId>
