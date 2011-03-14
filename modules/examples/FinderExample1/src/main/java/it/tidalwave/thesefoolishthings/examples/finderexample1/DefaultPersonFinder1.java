@@ -23,6 +23,7 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
+import lombok.AllArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 import it.tidalwave.util.Finder;
@@ -34,14 +35,10 @@ import it.tidalwave.util.spi.SimpleFinderSupport;
  * @version $Id$
  *
  **********************************************************************************************************************/
+@AllArgsConstructor
 /* package */ class DefaultPersonFinder1 extends SimpleFinderSupport<Person> implements Finder<Person>
   {
     private List<Person> persons;
-    
-    public DefaultPersonFinder1 (final @Nonnull List<Person> persons) 
-      {
-        this.persons = persons;
-      }
     
     @Override @Nonnull
     public DefaultPersonFinder1 clone()

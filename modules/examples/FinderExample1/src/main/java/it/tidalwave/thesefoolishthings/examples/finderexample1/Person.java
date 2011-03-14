@@ -23,6 +23,8 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
@@ -30,29 +32,14 @@ import javax.annotation.Nonnull;
  * @version $Id$
  *
  **********************************************************************************************************************/
+@RequiredArgsConstructor
 public class Person 
   {
+    @Getter
     private final String firstName;
 
+    @Getter
     private final String lastName;
-
-    public Person (final @Nonnull String firstName, final @Nonnull String lastName) 
-      {
-        this.firstName = firstName;
-        this.lastName = lastName;
-      }
-        
-    @Nonnull
-    public String getFirstName() 
-      {
-        return firstName;
-      }
-
-    @Nonnull
-    public String getLastName() 
-      {
-        return lastName;
-      }
     
     @Override @Nonnull
     public String toString()
