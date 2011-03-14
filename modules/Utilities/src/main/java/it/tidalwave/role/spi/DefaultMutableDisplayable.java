@@ -82,7 +82,7 @@ public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
                                       final @Nonnull String toStringName)
       {
         this.toStringName = toStringName;
-        displayNameMap.put( defaultLocale, displayName);
+        displayNameMap.put(defaultLocale, displayName);
       }
 
     /*******************************************************************************************************************

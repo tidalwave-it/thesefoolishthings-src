@@ -23,6 +23,7 @@
 package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
+import lombok.RequiredArgsConstructor;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -38,22 +39,11 @@ import it.tidalwave.role.BinaryReadable;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
+@RequiredArgsConstructor
 public class FileBinaryReadable implements BinaryReadable
   {
     @Nonnull
     private final File file;
-
-    /*******************************************************************************************************************
-     *
-     * Creates an instance with the given {@link File} delegate.
-     * 
-     * @param  file  the file
-     * 
-     ******************************************************************************************************************/
-    public FileBinaryReadable (final @Nonnull File file) 
-      {
-        this.file = file;
-      }
 
     /*******************************************************************************************************************
      *

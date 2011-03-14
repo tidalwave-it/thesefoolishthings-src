@@ -25,6 +25,7 @@ package it.tidalwave.util;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import lombok.RequiredArgsConstructor;
 import java.io.Serializable;
 
 /***********************************************************************************************************************
@@ -36,30 +37,13 @@ import java.io.Serializable;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-@Immutable
+@Immutable @RequiredArgsConstructor
 public class Id implements Serializable, Comparable<Id>, StringValue
   {
     private static final long serialVersionUID = 3309234234279593043L;
     
     @Nonnull
     private final Object value;
-
-    /*******************************************************************************************************************
-     *
-     * Creates a new {@code Id}.
-     *
-     * @param   value  the value of the id
-     *
-     ******************************************************************************************************************/
-    public Id (final @Nonnull Object value)
-      {
-        if (value == null)
-          {
-            throw new IllegalArgumentException("value is mandatory");
-          }
-
-        this.value = value;
-      }
 
     /*******************************************************************************************************************
      *
@@ -79,7 +63,7 @@ public class Id implements Serializable, Comparable<Id>, StringValue
      *
      ******************************************************************************************************************/
     @Override
-    public boolean equals (@CheckForNull final Object object)
+    public boolean equals (final @CheckForNull Object object)
       {
         if (object == null)
           {

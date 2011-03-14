@@ -24,6 +24,7 @@ package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import lombok.RequiredArgsConstructor;
 import java.io.Serializable;
 import it.tidalwave.util.Id;
 import it.tidalwave.role.Identifiable;
@@ -37,25 +38,13 @@ import it.tidalwave.role.Identifiable;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-@Immutable
+@Immutable @RequiredArgsConstructor 
 public class DefaultIdentifiable implements Identifiable, Serializable
   {
     private static final long serialVersionUID = 45654634423793043L;
 
     @Nonnull
     private final Id id;
-
-    /*******************************************************************************************************************
-     *
-     * Create a new instance with the specified id.
-     * 
-     * @param  id  the id
-     *
-     ******************************************************************************************************************/
-    public DefaultIdentifiable (final @Nonnull Id id)
-      {
-        this.id = id;
-      }
 
     /*******************************************************************************************************************
      *
@@ -77,6 +66,6 @@ public class DefaultIdentifiable implements Identifiable, Serializable
     @Override @Nonnull
     public String toString()
       {
-        return String.format("DefaultIdentifiable[%s]", id);
+        return String.format("DefaultIdentifiable@%x[%s]", System.identityHashCode(this), id);
       }
   }
