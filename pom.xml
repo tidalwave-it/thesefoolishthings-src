@@ -42,8 +42,6 @@
         <scm.repo.readonly.url>http://kenai.com/hg/thesefoolishthings~src</scm.repo.readonly.url>
         <scm.repo.browse.url>http://kenai.com/projects/thesefoolishthings/sources/src/show</scm.repo.browse.url>
         
-        <netbeans.version>RELEASE68</netbeans.version>
-        
         <tft.javac.source>1.5</tft.javac.source>
         <tft.javac.target>1.5</tft.javac.target>
     </properties>
