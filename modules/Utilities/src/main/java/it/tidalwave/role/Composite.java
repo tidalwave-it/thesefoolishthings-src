@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import it.tidalwave.util.Finder;
+import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.spi.FinderSupport;
 
 /***********************************************************************************************************************
@@ -77,4 +78,82 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type>>
      ******************************************************************************************************************/
     @Nonnull
     public SpecializedFinder findChildren();
+    
+    /*******************************************************************************************************************
+     * 
+     *
+     ******************************************************************************************************************/
+    public static interface Visitor<T, R> 
+      {
+        /***************************************************************************************************************
+         * 
+         * Visits an object. This method is called before visiting children (pre-order).
+         * 
+         * @param  object  the visited object
+         *
+         **************************************************************************************************************/
+        public void preVisit (@Nonnull T object);
+
+        /***************************************************************************************************************
+         * 
+         * Visits an object. This method is actually called just after {@link #preVisit()}, it makes sense to implement
+         * it when you don't need to distinguish between pre-order and post-order traversal.
+         * 
+         * @param  object  the visited object
+         *
+         **************************************************************************************************************/
+        public void visit (@Nonnull T object);
+
+        /***************************************************************************************************************
+         * 
+         * Visits an object. This method is called after visiting children (post-order).
+         * 
+         * @param  object  the visited object
+         *
+         **************************************************************************************************************/
+        public void postVisit (@Nonnull T object);
+
+        /***************************************************************************************************************
+         * 
+         * Returns the value of this visitor.
+         * 
+         * @return                     the value
+         * @throws  NotFoundException  when no value has been found
+         *
+         **************************************************************************************************************/
+        @Nonnull 
+        public R getValue()
+          throws NotFoundException;
+      }
+    
+    /*******************************************************************************************************************
+     * 
+     * A support class for {@link Visitor} which provides default empty methods.
+     *
+     ******************************************************************************************************************/
+    public static class VisitorSupport<T, R> implements Visitor<T, R>
+      {
+        /** {@inheritDoc} */
+        public void preVisit (final @Nonnull T object) 
+          {            
+          }
+
+        /** {@inheritDoc} */
+        public void visit (final @Nonnull T object)
+          {            
+          }
+
+        /** {@inheritDoc} */
+        public void postVisit (final @Nonnull T object)
+          {            
+          }
+
+        /** {@inheritDoc} */
+        @Nonnull 
+        public R getValue()
+          throws NotFoundException
+          {
+            throw new NotFoundException("Must be implemented by subclasses");  
+          }
+      }
   }
