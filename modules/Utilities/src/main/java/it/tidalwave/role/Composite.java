@@ -78,6 +78,8 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type>>
      ******************************************************************************************************************/
     @Nonnull
     public SpecializedFinder findChildren();
+    //@bluebook-begin other
+    //@bluebook-begin visitor
     
     /*******************************************************************************************************************
      * 
@@ -125,6 +127,7 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type>>
         public R getValue()
           throws NotFoundException;
       }
+    //@bluebook-end visitor
     
     /*******************************************************************************************************************
      * 
@@ -156,4 +159,5 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type>>
             throw new NotFoundException("Must be implemented by subclasses");  
           }
       }
+    //@bluebook-end other
   }
