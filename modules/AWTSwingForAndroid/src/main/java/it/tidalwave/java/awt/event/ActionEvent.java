@@ -20,10 +20,9 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.javax.swing;
+package it.tidalwave.java.awt.event;
 
-import it.tidalwave.java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
+import it.tidalwave.java.awt.AWTEvent;
 
 /***********************************************************************************************************************
  *
@@ -31,39 +30,61 @@ import java.beans.PropertyChangeListener;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface Action extends ActionListener
+public class ActionEvent extends AWTEvent 
   {
-    public static final String DEFAULT = "Default";
-
-    public static final String NAME = "Name";
-
-    public static final String SHORT_DESCRIPTION = "ShortDescription";
-
-    public static final String LONG_DESCRIPTION = "LongDescription";
-
-    public static final String SMALL_ICON = "SmallIcon";
-
-    public static final String ACTION_COMMAND_KEY = "ActionCommandKey";
-
-    public static final String ACCELERATOR_KEY="AcceleratorKey";
+    private static final long serialVersionUID = -7671078796273832149L;
     
-    public static final String MNEMONIC_KEY="MnemonicKey";
-
-    public static final String SELECTED_KEY = "SwingSelectedKey";
-
-    public static final String DISPLAYED_MNEMONIC_INDEX_KEY = "SwingDisplayedMnemonicIndexKey";
-
-    public static final String LARGE_ICON_KEY = "SwingLargeIconKey";
-
-    public Object getValue (String key);
-
-    public void putValue (String key, Object value);
-
-    public void setEnabled (boolean b);
-
-    public boolean isEnabled();
-
-    public void addPropertyChangeListener (PropertyChangeListener listener);
+    public static final int SHIFT_MASK = 1;
+    public static final int CTRL_MASK = 2;
+    public static final int META_MASK = 4;
+    public static final int ALT_MASK = 8;
+    public static final int ACTION_FIRST = 1001;
+    public static final int ACTION_LAST = 1001;
+    public static final int ACTION_PERFORMED = 1001;
     
-    public void removePropertyChangeListener (PropertyChangeListener listener);
+    private String command;
+
+    private long when;
+    
+    private int modifiers;
+    
+    public ActionEvent (Object source, int id, String command) 
+      {
+        this(source, id, command, 0);
+      }
+
+    public ActionEvent (Object source, int id, String command, int modifiers) 
+      {
+        this(source, id, command, 0l, modifiers);
+      }
+
+    public ActionEvent (Object source, int id, String command, long when, int modifiers) 
+      {
+        super(source, id);
+
+        this.command = command;
+        this.when = when;
+        this.modifiers = modifiers;
+      }
+
+    public int getModifiers() 
+      {
+        return modifiers;
+      }
+
+    public String getActionCommand() 
+      {
+        return command;
+      }
+
+    public long getWhen() 
+      {
+        return when;
+      }
+
+    @Override
+    public String paramString()   
+      {
+        return "";
+      }
   }

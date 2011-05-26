@@ -20,10 +20,9 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.javax.swing;
+package it.tidalwave.java.awt;
 
-import it.tidalwave.java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
+import java.util.EventObject;
 
 /***********************************************************************************************************************
  *
@@ -31,39 +30,36 @@ import java.beans.PropertyChangeListener;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface Action extends ActionListener
+public abstract class AWTEvent extends EventObject 
   {
-    public static final String DEFAULT = "Default";
+    private static final long serialVersionUID = -1825314779160409405L;
 
-    public static final String NAME = "Name";
-
-    public static final String SHORT_DESCRIPTION = "ShortDescription";
-
-    public static final String LONG_DESCRIPTION = "LongDescription";
-
-    public static final String SMALL_ICON = "SmallIcon";
-
-    public static final String ACTION_COMMAND_KEY = "ActionCommandKey";
-
-    public static final String ACCELERATOR_KEY="AcceleratorKey";
+    protected int id;
     
-    public static final String MNEMONIC_KEY="MnemonicKey";
+    public AWTEvent (Object source, int id) 
+      {
+        super(source);
+        this.id = id;
+      }
 
-    public static final String SELECTED_KEY = "SwingSelectedKey";
+    public void setSource (Object newSource) 
+      {
+        source = newSource;
+      }
 
-    public static final String DISPLAYED_MNEMONIC_INDEX_KEY = "SwingDisplayedMnemonicIndexKey";
+    public int getID() 
+      {
+        return id;
+      }
 
-    public static final String LARGE_ICON_KEY = "SwingLargeIconKey";
+    public String paramString() 
+      {
+        return "";
+      }
 
-    public Object getValue (String key);
-
-    public void putValue (String key, Object value);
-
-    public void setEnabled (boolean b);
-
-    public boolean isEnabled();
-
-    public void addPropertyChangeListener (PropertyChangeListener listener);
-    
-    public void removePropertyChangeListener (PropertyChangeListener listener);
+    @Override
+    public String toString() 
+      {
+        return getClass().getName();
+      }
   }

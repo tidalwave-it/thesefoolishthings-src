@@ -20,18 +20,17 @@
  * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-/***********************************************************************************************************************
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- **********************************************************************************************************************/
 package it.tidalwave.java.awt.event;
+
+import java.util.EventListener;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: $
+ * @version $Id$
  *
  **********************************************************************************************************************/
-public interface ActionListener
+public interface ActionListener extends EventListener
   {
+    public void actionPerformed (ActionEvent event);
   }
