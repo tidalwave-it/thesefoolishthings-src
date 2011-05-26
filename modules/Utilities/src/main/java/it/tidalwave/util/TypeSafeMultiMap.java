@@ -32,7 +32,6 @@ import java.util.Set;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
 public interface TypeSafeMultiMap extends Iterable<Collection<? extends Object>>

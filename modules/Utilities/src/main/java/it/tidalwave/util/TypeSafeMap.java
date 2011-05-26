@@ -31,7 +31,6 @@ import java.util.Set;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
 public interface TypeSafeMap extends Iterable<Object>
