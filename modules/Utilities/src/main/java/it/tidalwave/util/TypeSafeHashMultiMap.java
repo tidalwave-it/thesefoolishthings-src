@@ -35,21 +35,20 @@ import java.util.Set;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: $
- * @it.tidalwave.javadoc.draft
+ * @version $Id$
  *
  **********************************************************************************************************************/
 @Immutable
 public class TypeSafeHashMultiMap implements TypeSafeMultiMap
   {
     @Nonnull
-    private final Map<Key<?>, Collection<? extends Object>> map;
+    private final Map<Key<?>, Collection<?>> map;
 
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    public TypeSafeHashMultiMap (final @Nonnull Map<Key<?>, Collection<? extends Object>> map)
+    public TypeSafeHashMultiMap (final @Nonnull Map<Key<?>, Collection<?>> map)
       {
         this(new HashMap<Key<?>, Collection<? extends Object>>(), true);
         this.map.putAll(map);
@@ -59,17 +58,17 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap
      *
      *
      ******************************************************************************************************************/
-    /* package */ TypeSafeHashMultiMap (final @Nonnull Map<Key<?>, Collection<? extends Object>> map, final boolean dummy)
+    /* package */ TypeSafeHashMultiMap (final @Nonnull Map<Key<?>, Collection<?>> map, final boolean dummy)
       {
         this.map = map;
       }
 
     /*******************************************************************************************************************
      *
-     * {@inheritDocs}
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nonnull @SuppressWarnings("unchecked")
     public <T> Collection<T> get (final @Nonnull Key<T> key)
       {
         return containsKey(key) ? Collections.unmodifiableCollection((Collection<T>)map.get(key)) :
@@ -78,7 +77,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap
 
     /*******************************************************************************************************************
      *
-     * {@inheritDocs}
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
     public boolean containsKey (final @Nonnull Key<?> key)
@@ -88,7 +87,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap
 
     /*******************************************************************************************************************
      *
-     * {@inheritDocs}
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -99,7 +98,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap
 
     /*******************************************************************************************************************
      *
-     * {@inheritDocs}
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Nonnegative
@@ -110,29 +109,29 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap
 
     /*******************************************************************************************************************
      *
-     * {@inheritDocs}
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Iterator <Collection<? extends Object>> iterator()
+    public Iterator <Collection<?>> iterator()
       {
         return Collections.unmodifiableCollection(map.values()).iterator();
       }
 
     /*******************************************************************************************************************
      *
-     * {@inheritDocs}
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Map<Key<?>, Collection<? extends Object>> asMap()
+    public Map<Key<?>, Collection<?>> asMap()
       {
-        return new HashMap<Key<?>, Collection<? extends Object>>(map);
+        return new HashMap<Key<?>, Collection<?>>(map);
       }
 
     /*******************************************************************************************************************
      *
-     * {@inheritDocs}
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override @Nonnull
