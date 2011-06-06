@@ -23,6 +23,7 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
+import java.io.Serializable;
 
 /***********************************************************************************************************************
  *
@@ -31,7 +32,7 @@ import javax.annotation.Nonnull;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public final class EmptyInitializer<K> implements Initializer<K>
+public final class EmptyInitializer<K> implements Initializer<K>, Serializable
   {
     public static <K> Initializer<K> instance()
       {

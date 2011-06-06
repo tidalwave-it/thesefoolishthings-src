@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.io.Serializable;
 
 /***********************************************************************************************************************
  *
@@ -39,7 +40,7 @@ import java.util.Set;
  *
  **********************************************************************************************************************/
 @Immutable
-public class TypeSafeHashMap implements TypeSafeMap
+public class TypeSafeHashMap implements TypeSafeMap, Serializable
   {
     @Nonnull
     private final Map<Key<?>, Object> map;

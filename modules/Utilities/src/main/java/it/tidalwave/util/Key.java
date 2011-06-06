@@ -24,6 +24,7 @@ package it.tidalwave.util;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import java.io.Serializable;
 
 /***********************************************************************************************************************
  *
@@ -31,7 +32,7 @@ import javax.annotation.Nonnull;
  * @version $Id: $
  *
  **********************************************************************************************************************/
-public final class Key<T> implements StringValue, Comparable<Key<T>>
+public final class Key<T> implements StringValue, Comparable<Key<T>>, Serializable
   {
     @Nonnull
     private final String name;

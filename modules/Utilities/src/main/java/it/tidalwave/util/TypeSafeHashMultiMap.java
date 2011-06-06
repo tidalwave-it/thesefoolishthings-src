@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.io.Serializable;
 
 /***********************************************************************************************************************
  *
@@ -39,7 +40,7 @@ import java.util.Set;
  *
  **********************************************************************************************************************/
 @Immutable
-public class TypeSafeHashMultiMap implements TypeSafeMultiMap
+public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
   {
     @Nonnull
     private final Map<Key<?>, Collection<?>> map;

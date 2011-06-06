@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.io.Serializable;
 import it.tidalwave.util.Finder.SortDirection;
 
 /***********************************************************************************************************************
@@ -38,7 +39,7 @@ import it.tidalwave.util.Finder.SortDirection;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public class DefaultFilterSortCriterion<Type> implements Finder.FilterSortCriterion<Type> 
+public class DefaultFilterSortCriterion<Type> implements Finder.FilterSortCriterion<Type>, Serializable 
   {
     @Nonnull
     private final Comparator<? super Type> comparator;
