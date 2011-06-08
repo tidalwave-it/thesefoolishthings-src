@@ -92,6 +92,12 @@
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util</artifactId>
+                <version>1.12.3-SNAPSHOT</version>
+                <classifier>tests</classifier>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-beans</artifactId>
                 <version>1.4.26-SNAPSHOT</version>
             </dependency>
