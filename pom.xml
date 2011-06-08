@@ -42,6 +42,7 @@
         <scm.repo.readonly.url>http://kenai.com/hg/thesefoolishthings~src</scm.repo.readonly.url>
         <scm.repo.browse.url>http://kenai.com/projects/thesefoolishthings/sources/src/show</scm.repo.browse.url>
 
+        <netbeans.version>RELEASE691</netbeans.version>
         <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide java.*|javax.*</tft.UmlGraphDoc.additionalParam>
        
         <tft.maven.requiredVersion>3.0</tft.maven.requiredVersion> <!-- FIXME: should be 3.0.2, but Hudson always reports 3.0 --> 
