@@ -1,6 +1,6 @@
 /***********************************************************************************************************************
  *
- * blueBill Core - open source birding
+ * These Foolish Things - Miscellaneous utilities
  * Copyright (C) 2009-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
  *
  ***********************************************************************************************************************
@@ -16,8 +16,8 @@
  *
  ***********************************************************************************************************************
  *
- * WWW: http://bluebill.tidalwave.it
- * SCM: https://kenai.com/hg/bluebill~core-src
+ * WWW: http://thesefoolishthings.kenai.com
+ * SCM: https://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
 package it.tidalwave.util.thread.annotation;
