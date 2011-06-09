@@ -73,8 +73,9 @@ public final class UserNotificationWithFeedbackTestHelper
     public static final Answer<Void> CONFIRM = new Answer<Void>() 
       {
         public Void answer (final @Nonnull InvocationOnMock invocation)
+          throws Exception
           {
-            EventQueue.invokeLater(new Runnable() 
+            EventQueue.invokeAndWait(new Runnable() 
               {
                 @Override
                 public void run() 
@@ -103,8 +104,9 @@ public final class UserNotificationWithFeedbackTestHelper
     public static final Answer<Void> CANCEL = new Answer<Void>() 
       {
         public Void answer (final @Nonnull InvocationOnMock invocation)
+          throws Exception
           {
-            EventQueue.invokeLater(new Runnable() 
+            EventQueue.invokeAndWait(new Runnable() 
               {
                 @Override
                 public void run() 
