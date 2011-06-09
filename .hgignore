@@ -1,0 +1,10 @@
+target
+.repository
+.revision
+release.properties
+\.orig\..*$
+\.orig$
+\.chg\..*$
+\.rej$
+\.conflict\~$
+

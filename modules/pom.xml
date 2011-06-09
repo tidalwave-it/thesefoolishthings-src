@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.thesefoolishthings</groupId>
+        <artifactId>thesefoolishthings</artifactId>
+        <version>1.13.0-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <groupId>it.tidalwave.thesefoolishthings</groupId>
+    <artifactId>modules</artifactId>
+    <packaging>pom</packaging>
+    <version>1.13.0-SNAPSHOT</version>
+    <name>TheseFoolishThings (modules)</name>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- TODO: depend on BBB! -->
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>org-jdesktop-beansbinding</artifactId>
+                <version>1.2.1-201007271250</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>net-sf-cglib</artifactId>
+                <version>2.1.3-201002241208</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>javax-annotation</artifactId>
+                <version>1.3.7-201002241900</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>1.3.7</version>
+                <!-- WARNING: don't use 1.3.8, it has got a broken pom which brings is tons of useless stuff! -->
+            </dependency>
+
+            <dependency>
+                <groupId>it.tidalwave.superpom</groupId>
+                <artifactId>platform12</artifactId>
+                <version>${netbeans.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.incava</groupId>
+                <artifactId>org.incava.util.diff</artifactId>
+                <version>1.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>0.9.3</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>Beans</module>
+        <module>BeansBinding</module>
+        <module>Logger</module>
+        <module>SingleLineLogFormatter</module>
+        <module>StopWatch</module>
+        <module>Utilities</module>
+        <module>TestUtilities</module>
+        <module>examples</module>
+    </modules>
+
+</project>
