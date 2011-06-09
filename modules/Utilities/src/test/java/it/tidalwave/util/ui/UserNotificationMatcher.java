@@ -30,7 +30,6 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import it.tidalwave.util.ui.UserNotificationWithFeedback;
 
 /***********************************************************************************************************************
  *
@@ -39,9 +38,9 @@ import it.tidalwave.util.ui.UserNotificationWithFeedback;
  *
  **********************************************************************************************************************/
 // FIXME: merge with the one in blueBill Core
-public class UserNotificationWithFeedbackMatcher extends BaseMatcher<UserNotificationWithFeedback>
+public class UserNotificationMatcher extends BaseMatcher<UserNotification>
   {    
-    private static final Logger log = LoggerFactory.getLogger(UserNotificationWithFeedbackMatcher.class);
+    private static final Logger log = LoggerFactory.getLogger(UserNotificationMatcher.class);
     
     @Nonnull
     private final String caption;
@@ -49,20 +48,20 @@ public class UserNotificationWithFeedbackMatcher extends BaseMatcher<UserNotific
     @Nonnull
     private final String text;
     
-    private String d = "UserNotificationWithFeedback ?";
+    private String d = "UserNotification ?";
 
-    private UserNotificationWithFeedback notification;
+    private UserNotification notification;
     
     /*******************************************************************************************************************
      *
      * 
      *
      ******************************************************************************************************************/
-    /* package */ UserNotificationWithFeedbackMatcher (final @Nonnull String caption, final @Nonnull String text)
+    /* package */ UserNotificationMatcher (final @Nonnull String caption, final @Nonnull String text)
       {
         this.caption = caption;
         this.text = text;
-        this.d = String.format("UserNotificationWithFeedback[text=%s, caption=%s]", text, caption);
+        this.d = String.format("UserNotification[text=%s, caption=%s]", text, caption);
       }
 
     /*******************************************************************************************************************
@@ -72,12 +71,12 @@ public class UserNotificationWithFeedbackMatcher extends BaseMatcher<UserNotific
      ******************************************************************************************************************/
     public boolean matches (final @Nullable Object item)
       {
-        if (!(item instanceof UserNotificationWithFeedback))
+        if (!(item instanceof UserNotification))
           {
             return false;
           }
 
-        notification = (UserNotificationWithFeedback)item;
+        notification = (UserNotification)item;
 
         final boolean b = Pattern.matches(caption, notification.getCaption()) &&
                           Pattern.matches(text, notification.getText());
