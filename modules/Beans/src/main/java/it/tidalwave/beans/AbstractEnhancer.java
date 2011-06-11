@@ -29,7 +29,7 @@ import org.jdesktop.beansbinding.Property;
 import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * Thanks to pupmonster@dev.java.net, jarppe2@dev.java.net for contributing the
  * base code.
@@ -40,7 +40,7 @@ import net.sf.cglib.proxy.Enhancer;
  * @version $Id$
  * @experimental
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public abstract class AbstractEnhancer<T> 
   {
     private final static String CLASS = AbstractEnhancer.class.getName();
