@@ -28,6 +28,7 @@
         <netbeans.version>RELEASE691</netbeans.version>
         <slf4j.version>1.6.1</slf4j.version>
         <logback.version>0.9.28</logback.version>
+        <tft.lombok.version>0.9.3</tft.lombok.version>
 
 <!-- E.g. for Android
         <tft.javac.source>1.5</tft.javac.source>

@@ -50,6 +50,10 @@
         <tft.maven.requiredVersion>3.0</tft.maven.requiredVersion> <!-- FIXME: should be 3.0.2, but Hudson always reports 3.0 --> 
         <tft.javac.source>1.5</tft.javac.source>
         <tft.javac.target>1.5</tft.javac.target>
+        
+        <tft.maven-archetype-plugin.version>2.0-alpha-5</tft.maven-archetype-plugin.version> <!-- FIXME: push up -->
+        <tft.archetype-packaging.version>2.0-alpha-5</tft.archetype-packaging.version> <!-- FIXME: push up -->
+
     </properties>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
