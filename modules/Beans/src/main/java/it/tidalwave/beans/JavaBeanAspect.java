@@ -41,7 +41,8 @@ import net.sf.cglib.proxy.MethodProxy;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.Property;
 import it.tidalwave.beans.AbstractEnhancer.PropertyFilter;
-import it.tidalwave.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /*******************************************************************************
  *
@@ -59,9 +60,7 @@ public class JavaBeanAspect
   extends JavaBeanSupport
   implements MethodInterceptor, JavaBean 
   {
-    private final static String CLASS = JavaBeanAspect.class.getName();
-    private final static Logger logger = Logger.getLogger(CLASS);
-    
+    private static final Logger log = LoggerFactory.getLogger(JavaBeanAspect.class);
     private static final String SET_PREFIX = "set";
     
     private static final List<Method> javaBeanMethods = Arrays.asList(JavaBean.class.getMethods());
@@ -193,7 +192,7 @@ public class JavaBeanAspect
 
             if (enhancedObject != null) 
               {
-                logger.finest(String.format(">>>> replacing result: %s -> %s", result, enhancedObject));
+                log.trace(String.format(">>>> replacing result: {} -> {}", result, enhancedObject));
                 result = enhancedObject;
               }
           }
@@ -230,7 +229,7 @@ public class JavaBeanAspect
                           }
                         catch (Exception e)
                           {
-                            logger.throwing(CLASS, "doSetterInEDT()", e);  
+                            log.error("doSetterInEDT()", e);  
                           }
                       }
                   });
@@ -268,7 +267,8 @@ public class JavaBeanAspect
             returnValue = object;
           }
 
-        logger.finest(String.format(">>>> %s - %s changed : %s -> %s", object, propertyName, oldValue, methodParameters[0]));
+        log.trace(">>>> {} - {} changed : {} -> {}", 
+                new Object[] { object, propertyName, oldValue, methodParameters[0] } );
         propertyChangeSupport.firePropertyChange(propertyName, oldValue, methodParameters[0]);
 
         return returnValue;
@@ -313,7 +313,7 @@ public class JavaBeanAspect
 
             if (property.isReadable(bean) && !property.isWriteable(bean) && filter.accept(propertyDescriptor, property))
               {
-                logger.fine(String.format(">>>> enhancing property %s type %s", propertyName, propertyType));
+                log.trace(">>>> enhancing property {} type {}", propertyName, propertyType);
                 final Object object = property.getValue(bean);
 
                 if (object != null)

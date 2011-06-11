@@ -35,6 +35,7 @@ import it.tidalwave.util.logging.SingleLineLogFormatter;
  * @version $Id$
  *
  ******************************************************************************/
+@Deprecated
 public class TestSupport 
   {
     @BeforeClass

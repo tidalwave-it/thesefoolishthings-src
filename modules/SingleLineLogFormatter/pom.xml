@@ -45,7 +45,15 @@
                     </instructions>
                 </configuration>
             </plugin>
--->        </plugins>
+-->        
+<!--
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+        </configuration>
+      </plugin>
+-->
+        </plugins>
     </build>
 </project>
 

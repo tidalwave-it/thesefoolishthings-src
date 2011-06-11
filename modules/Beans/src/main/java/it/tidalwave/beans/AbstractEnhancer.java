@@ -22,12 +22,12 @@
  **********************************************************************************************************************/
 package it.tidalwave.beans;
 
-import it.tidalwave.util.logging.Logger;
 import java.beans.PropertyDescriptor;
-import java.util.Arrays;
 import org.jdesktop.beansbinding.Property;
 import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /***********************************************************************************************************************
  *
@@ -43,8 +43,7 @@ import net.sf.cglib.proxy.Enhancer;
  **********************************************************************************************************************/
 public abstract class AbstractEnhancer<T> 
   {
-    private final static String CLASS = AbstractEnhancer.class.getName();
-    private final static Logger logger = Logger.getLogger(CLASS);
+    private static final Logger log = LoggerFactory.getLogger(AbstractEnhancer.class);
     
     private final Class<T> interfaces;
     
@@ -79,7 +78,7 @@ public abstract class AbstractEnhancer<T>
   
     public T createEnhancedBean (final Object bean, final Object ... arguments)
       {
-        logger.fine("createEnhancedItem(%s, %s) - interfaces: %s", bean, Arrays.asList(arguments), interfaces);
+        log.trace("createEnhancedItem({}, {}) - interfaces: {}", new Object[] { bean, arguments, interfaces });
         final long time = System.currentTimeMillis();
         final Enhancer enhancer = new Enhancer();
         enhancer.setClassLoader(Thread.currentThread().getContextClassLoader());
@@ -87,7 +86,7 @@ public abstract class AbstractEnhancer<T>
         enhancer.setInterfaces(new Class[] {interfaces});
         enhancer.setCallback(createInterceptor(bean, arguments));
         final T result = (T)enhancer.create();
-        logger.finer(">>>> created decorator %s in %d msec", result, (int)(System.currentTimeMillis() - time));
+        log.trace(">>>> created decorator {} in {} msec", result, (int)(System.currentTimeMillis() - time));
         return result;
       }
     

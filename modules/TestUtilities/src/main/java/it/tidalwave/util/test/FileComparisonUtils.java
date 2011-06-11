@@ -32,9 +32,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import it.tidalwave.util.logging.Logger;
 import org.incava.util.diff.Diff;
 import org.incava.util.diff.Difference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
@@ -45,9 +46,8 @@ import static org.junit.Assert.*;
  **********************************************************************************************************************/
 public final class FileComparisonUtils
   {
-    private static final String CLASS = FileComparisonUtils.class.getName();
-    private static final Logger logger = Logger.getLogger(CLASS);
-
+    private static final Logger log = LoggerFactory.getLogger(FileComparisonUtils.class);
+    
     /*******************************************************************************************************************
      *
      *
@@ -55,9 +55,13 @@ public final class FileComparisonUtils
     public static void assertSameContents (final @Nonnull File expectedFile, final @Nonnull File actualFile)
       throws IOException
       {
-        logger.info("******** Comparing files:"); 
-        logger.info(">>>> exp is: %s", expectedFile.getAbsolutePath());
-        logger.info(">>>> act is: %s", actualFile.getAbsolutePath());
+        final String expectedPath = expectedFile.getAbsolutePath();
+        final String actualPath = actualFile.getAbsolutePath();
+        final String commonPath = commonPrefix(expectedPath, actualPath);
+        log.info("******** Comparing files:"); 
+        log.info(">>>> path is: {}", commonPath);
+        log.info(">>>> exp is:  {}", expectedPath.substring(commonPath.length()));
+        log.info(">>>> act is:  {}", actualPath.substring(commonPath.length()));
         assertSameContents(fileToStrings(expectedFile), fileToStrings(actualFile));
       }
 
@@ -102,7 +106,7 @@ public final class FileComparisonUtils
                   }
               }
 
-            logger.info("%s", buffer);
+            log.info("%s", buffer);
             fail("Unexpected contents:\n" + buffer);
           }
       }
@@ -174,5 +178,25 @@ public final class FileComparisonUtils
         br.close();
 
         return result;
+      }
+    
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static String commonPrefix (final @Nonnull String s1, final @Nonnull String s2)
+      {
+        final int min = Math.min(s1.length(), s2.length());
+        
+        for (int i = 0; i < min; i++)
+          {
+            if (s1.charAt(i) != s2.charAt(i))
+              {
+                return (i == 0) ? "" : s1.substring(0, i);
+              }
+          }
+        
+        return s1.substring(0, min);
       }
   }
