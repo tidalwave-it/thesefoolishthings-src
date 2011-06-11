@@ -4,7 +4,7 @@
     <resources>
         <resource>.hgignore</resource>
         <resource>pom.xml</resource>
-        <resource>TODO-LICENSE.txt</resource>
+        <resource>LICENSE.txt</resource>
         <resource>src/assemble/bin.xml</resource>
         <resource>src/assemble/project.xml</resource>
         <resource>src/checkstyle/checkstyle.xml</resource>
@@ -12,9 +12,13 @@
         <resource>src/header/javadoc.xml</resource>
         <resource>src/header/script.xml</resource>
         <resource>src/header/xml.xml</resource>
+        <resource>modules/pom.xml</resource>
         <resource>modules/Module1</resource>
         <resource>modules/Module1/pom.xml</resource>
-        <resource>modules/pom.xml</resource>
+        <resource>modules/Module1/src/main/java/Dummy.java</resource>
+        <resource>modules/Module1/src/main/resources/dummy.txt</resource>
+        <resource>modules/Module1/src/test/java/DummyTest.java</resource>
+        <resource>modules/Module1/src/test/resources/dummy.txt</resource>
     </resources>
 </archetype>
 

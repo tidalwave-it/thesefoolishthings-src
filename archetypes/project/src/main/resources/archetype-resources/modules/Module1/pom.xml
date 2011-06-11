@@ -15,7 +15,7 @@
 
     <groupId>${groupId}</groupId>
     <artifactId>${groupId}.module1</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>${version}</version>
     <name>${projectName} - Module 1</name>
     <description>${projectName} - Module 1</description>

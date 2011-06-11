@@ -34,6 +34,14 @@
         <module filtered="true" id="${rootArtifactId}-modules" name="${projectName} (modules)" dir="modules">
             <modules>
                 <module id="${rootArtifactId}-module1" name="${projectName} - Module 1" dir="Module1">
+                    <fileSets>
+                        <fileSet filtered="true" encoding="UTF-8">
+                            <directory>src</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </fileSet>
+                    </fileSets>
                 </module>
             </modules>
         </module>
