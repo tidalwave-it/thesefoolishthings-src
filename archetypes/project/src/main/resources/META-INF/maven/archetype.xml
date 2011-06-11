@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype>
+    <id>it-tidalwave-thesefoolishthings-project-archetype</id>
+    <resources>
+        <resource>.hgignore</resource>
+        <resource>pom.xml</resource>
+        <resource>TODO-LICENSE.txt</resource>
+        <resource>src/assemble/bin.xml</resource>
+        <resource>src/assemble/project.xml</resource>
+        <resource>src/checkstyle/checkstyle.xml</resource>
+        <resource>src/header/header.txt</resource>
+        <resource>src/header/javadoc.xml</resource>
+        <resource>src/header/script.xml</resource>
+        <resource>src/header/xml.xml</resource>
+        <resource>modules/Module1</resource>
+        <resource>modules/Module1/pom.xml</resource>
+        <resource>modules/pom.xml</resource>
+    </resources>
+</archetype>
+
