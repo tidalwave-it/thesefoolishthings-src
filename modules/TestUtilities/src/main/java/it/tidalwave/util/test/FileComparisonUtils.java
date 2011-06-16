@@ -106,7 +106,7 @@ public final class FileComparisonUtils
                   }
               }
 
-            log.info("%s", buffer);
+            log.info("{}", buffer);
             fail("Unexpected contents:\n" + buffer);
           }
       }
