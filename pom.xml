@@ -47,13 +47,11 @@
         
         <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide java.*|javax.*</tft.UmlGraphDoc.additionalParam>
        
-        <tft.maven.requiredVersion>3.0</tft.maven.requiredVersion> <!-- FIXME: should be 3.0.2, but Hudson always reports 3.0 --> 
         <tft.javac.source>1.5</tft.javac.source>
         <tft.javac.target>1.5</tft.javac.target>
         
         <tft.maven-archetype-plugin.version>2.0-alpha-5</tft.maven-archetype-plugin.version> <!-- FIXME: push up -->
         <tft.archetype-packaging.version>2.0-alpha-5</tft.archetype-packaging.version> <!-- FIXME: push up -->
-
     </properties>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
@@ -161,7 +159,6 @@
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample3</artifactId>
                 <version>1.0.5-SNAPSHOT</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -189,19 +186,6 @@
             </plugin>
         </plugins>
     </reporting>
-
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
     <modules>
         <module>modules</module>

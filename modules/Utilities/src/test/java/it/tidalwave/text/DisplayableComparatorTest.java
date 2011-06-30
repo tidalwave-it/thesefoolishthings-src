@@ -24,9 +24,9 @@ package it.tidalwave.text;
 
 import it.tidalwave.role.spi.DefaultDisplayable;
 import it.tidalwave.role.Displayable;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *

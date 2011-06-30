@@ -24,12 +24,12 @@ package it.tidalwave.thesefoolishthings.examples.finderexample2;
 
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
 import static it.tidalwave.util.Finder.SortDirection.*;
 import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
-import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *
@@ -41,7 +41,7 @@ public class PersonFinderTest
   {
     private PersonFinder finder;
     
-    @Before
+    @BeforeMethod
     public void setupFixture() 
       {
         final PersonRegistry2 registry = new DefaultPersonRegistry2();

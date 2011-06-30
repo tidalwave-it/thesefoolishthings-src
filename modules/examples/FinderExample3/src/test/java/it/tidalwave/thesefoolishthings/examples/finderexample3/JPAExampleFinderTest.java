@@ -23,12 +23,12 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample3;
 
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
 import static it.tidalwave.util.Finder.SortDirection.*;
 import static it.tidalwave.thesefoolishthings.examples.finderexample3.JPAExampleFinder.*;
-import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *
@@ -42,7 +42,7 @@ public class JPAExampleFinderTest
 
     private JPAExampleFinder fixture;
 
-    @Before
+    @BeforeMethod
     public void setupFixture()
       {
         emmh = new EntityManagerMockHolder();

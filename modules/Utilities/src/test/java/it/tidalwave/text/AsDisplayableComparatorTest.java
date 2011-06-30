@@ -26,10 +26,10 @@ import javax.annotation.Nonnull;
 import it.tidalwave.util.As;
 import it.tidalwave.role.spi.DefaultDisplayable;
 import it.tidalwave.role.Displayable;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.testng.annotations.Test;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *

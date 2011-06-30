@@ -22,6 +22,10 @@
  **********************************************************************************************************************/
 package it.tidalwave.beans;
 
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.AssertJUnit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -29,10 +33,6 @@ import java.util.List;
 import it.tidalwave.beans.mock.CompositeMockItem;
 import java.io.Serializable;
 import java.util.logging.Logger;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 class PropertyChangeListenerMock implements PropertyChangeListener
   {
@@ -58,7 +58,7 @@ public class JavaBeanAspectTest extends TestSupport
     private CompositeMockItem bean;
     private CompositeMockItem enhancedBean;
     
-    @Before
+    @BeforeMethod
     public void setup() 
       {
         logger.info("******** setup()");
@@ -68,7 +68,7 @@ public class JavaBeanAspectTest extends TestSupport
         logger.info("******** setup() completed");
       }
 
-    @After
+    @AfterMethod
     public void tearDown() 
       {
         bean = null;
@@ -79,10 +79,10 @@ public class JavaBeanAspectTest extends TestSupport
     public void testEnhancementWorks()
       {
         logger.info("******** testEnhancementWorks()");
-        assertTrue(enhancedBean instanceof JavaBean);
-        assertTrue(enhancedBean.getItem1() instanceof JavaBean);
-        assertTrue(enhancedBean.getItem2() instanceof JavaBean);
-        assertTrue(enhancedBean instanceof Serializable); // TODO: you should also try to serialize it to check other problems
+        AssertJUnit.assertTrue(enhancedBean instanceof JavaBean);
+        AssertJUnit.assertTrue(enhancedBean.getItem1() instanceof JavaBean);
+        AssertJUnit.assertTrue(enhancedBean.getItem2() instanceof JavaBean);
+        AssertJUnit.assertTrue(enhancedBean instanceof Serializable); // TODO: you should also try to serialize it to check other problems
         // TODO: this test should fail if JavaBeanAspect doesn't use IdentityHashMap
         // I tried with forcing MockItem1.equals() to return true, but it doesn't fail...
       }
@@ -95,8 +95,8 @@ public class JavaBeanAspectTest extends TestSupport
         final PropertyChangeListenerMock listener = new PropertyChangeListenerMock();
         ((JavaBean)enhancedBean).addPropertyChangeListener(listener);
         enhancedBean.setName("new name");
-        assertFalse(listener.events.isEmpty());
-        assertTrue(enhancedBean == listener.events.get(0).getSource());
+        AssertJUnit.assertFalse(listener.events.isEmpty());
+        AssertJUnit.assertTrue(enhancedBean == listener.events.get(0).getSource());
       }
     
     // TODO test events - at the moment this is covered by tests of MetadataItemEnhancer,

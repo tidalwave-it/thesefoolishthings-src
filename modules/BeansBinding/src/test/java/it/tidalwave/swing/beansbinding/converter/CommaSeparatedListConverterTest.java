@@ -24,10 +24,10 @@ package it.tidalwave.swing.beansbinding.converter;
 
 import java.util.Arrays;
 import java.util.Collections;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.AssertJUnit;
 
 /*******************************************************************************
  *
@@ -39,13 +39,13 @@ public class CommaSeparatedListConverterTest
   {
     private CommaSeparatedListConverter converter;
 
-    @Before
+    @BeforeMethod
     public void setUp() 
       {
         converter = new CommaSeparatedListConverter();
       }  
 
-    @After
+    @AfterMethod
     public void tearDown() 
       {
         converter = null;
@@ -54,48 +54,48 @@ public class CommaSeparatedListConverterTest
     @Test
     public void convertForward1() 
       {
-        assertEquals("one", converter.convertForward(Arrays.asList("one")));
+        AssertJUnit.assertEquals("one", converter.convertForward(Arrays.asList("one")));
       }
 
     @Test
     public void convertForward2() 
       {
-        assertEquals("one, two", converter.convertForward(Arrays.asList("one", "two")));
+        AssertJUnit.assertEquals("one, two", converter.convertForward(Arrays.asList("one", "two")));
       }
 
     @Test
     public void convertForwardNull() 
       {
-        assertEquals(null, converter.convertForward(null));
+        AssertJUnit.assertEquals(null, converter.convertForward(null));
       }
 
     @Test
     public void convertForwardEmpty() 
       {
-        assertEquals("", converter.convertForward(Collections.<String>emptyList()));
+        AssertJUnit.assertEquals("", converter.convertForward(Collections.<String>emptyList()));
       }
     
     @Test
     public void convertReverse1() 
       {
-        assertEquals(Arrays.asList("one"), converter.convertReverse("one"));
+        AssertJUnit.assertEquals(Arrays.asList("one"), converter.convertReverse("one"));
       }
     
     @Test
     public void convertReverse2() 
       {
-        assertEquals(Arrays.asList("one", "two"), converter.convertReverse("one, two"));
+        AssertJUnit.assertEquals(Arrays.asList("one", "two"), converter.convertReverse("one, two"));
       }
     
     @Test
     public void convertReverseNull() 
       {
-        assertEquals(null, converter.convertReverse(null));
+        AssertJUnit.assertEquals(null, converter.convertReverse(null));
       }
     
     @Test
     public void convertReverseEmpty() 
       {
-        assertEquals(Collections.<String>emptyList(), converter.convertReverse(""));
+        AssertJUnit.assertEquals(Collections.<String>emptyList(), converter.convertReverse(""));
       }
   }

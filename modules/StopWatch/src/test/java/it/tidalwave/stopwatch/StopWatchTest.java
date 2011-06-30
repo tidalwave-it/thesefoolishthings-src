@@ -27,7 +27,7 @@
 
 package it.tidalwave.stopwatch;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 /**
  *

@@ -22,9 +22,9 @@
  **********************************************************************************************************************/
 package it.tidalwave.util;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+import static org.testng.AssertJUnit.*;
 
 /***********************************************************************************************************************
  *
@@ -38,7 +38,7 @@ public class IdTest
     private Id id2;
     private Id id1a;
     
-    @Before
+    @BeforeMethod
     public void setUp() 
       {
         id1 = new Id("id1");
