@@ -19,6 +19,23 @@
     <description>These Foolish Things - Miscellaneous utilities</description>
     <inceptionYear>2009</inceptionYear>
 
+    <properties>
+        <scm.repo.url>ssh://fabriziogiudici@hg.kenai.com/thesefoolishthings~src</scm.repo.url>
+        <scm.repo.readonly.url>http://kenai.com/hg/thesefoolishthings~src</scm.repo.readonly.url>
+        <scm.repo.browse.url>http://kenai.com/projects/thesefoolishthings/sources/src/show</scm.repo.browse.url>
+
+        <netbeans.version>RELEASE691</netbeans.version>
+        <slf4j.version>1.6.1</slf4j.version>
+        
+        <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide java.*|javax.*</tft.UmlGraphDoc.additionalParam>
+       
+        <tft.javac.source>1.5</tft.javac.source>
+        <tft.javac.target>1.5</tft.javac.target>
+        
+        <tft.maven-archetype-plugin.version>2.0-alpha-5</tft.maven-archetype-plugin.version> <!-- FIXME: push up -->
+        <tft.archetype-packaging.version>2.0-alpha-5</tft.archetype-packaging.version> <!-- FIXME: push up -->
+    </properties>
+    
     <issueManagement>
         <system>Jira</system>
         <url>http://kenai.com/jira/browse/THESEFOOLISHTHINGS</url>
@@ -36,23 +53,6 @@
             <archive>http://kenai.com/projects/thesefoolishthings/lists/commits/archive</archive>
         </mailingList>
     </mailingLists>
-
-    <properties>
-        <scm.repo.url>ssh://fabriziogiudici@hg.kenai.com/thesefoolishthings~src</scm.repo.url>
-        <scm.repo.readonly.url>http://kenai.com/hg/thesefoolishthings~src</scm.repo.readonly.url>
-        <scm.repo.browse.url>http://kenai.com/projects/thesefoolishthings/sources/src/show</scm.repo.browse.url>
-
-        <netbeans.version>RELEASE691</netbeans.version>
-        <slf4j.version>1.6.1</slf4j.version>
-        
-        <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide java.*|javax.*</tft.UmlGraphDoc.additionalParam>
-       
-        <tft.javac.source>1.5</tft.javac.source>
-        <tft.javac.target>1.5</tft.javac.target>
-        
-        <tft.maven-archetype-plugin.version>2.0-alpha-5</tft.maven-archetype-plugin.version> <!-- FIXME: push up -->
-        <tft.archetype-packaging.version>2.0-alpha-5</tft.archetype-packaging.version> <!-- FIXME: push up -->
-    </properties>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
     <scm>
