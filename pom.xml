@@ -31,9 +31,6 @@
        
         <tft.javac.source>1.5</tft.javac.source> <!-- For Android compatibility -->
         <tft.javac.target>1.5</tft.javac.target>
-        
-        <tft.maven-archetype-plugin.version>2.0-alpha-5</tft.maven-archetype-plugin.version> <!-- FIXME: push up -->
-        <tft.archetype-packaging.version>2.0-alpha-5</tft.archetype-packaging.version> <!-- FIXME: push up -->
     </properties>
     
     <issueManagement>
