@@ -17,7 +17,7 @@
  ***********************************************************************************************************************
  *
  * WWW: http://thesefoolishthings.kenai.com
- * SCM: https://kenai.com/hg/thesefoolishthings~src
+ * SCM: http://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
 package it.tidalwave.util.logging;

@@ -1,6 +1,6 @@
 /***********************************************************************************************************************
  *
- * blueBill Mobile - Android - open source birding
+ * These Foolish Things - Miscellaneous utilities
  * Copyright (C) 2009-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
  *
  ***********************************************************************************************************************
@@ -16,8 +16,8 @@
  *
  ***********************************************************************************************************************
  *
- * WWW: http://bluebill.tidalwave.it/mobile
- * SCM: https://java.net/hg/bluebill-mobile~android-src
+ * WWW: http://thesefoolishthings.kenai.com
+ * SCM: http://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
 package it.tidalwave.util.test;
