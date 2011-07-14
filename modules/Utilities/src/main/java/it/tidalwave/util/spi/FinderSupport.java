@@ -204,7 +204,7 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
     public Type result()
       throws NotFoundException
       {
-        final List<? extends Type> result = computeAndPostProcessResults();
+        final List<? extends Type> result = computeNeededResults();
 
         switch (result.size())
           {
@@ -228,7 +228,7 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
     public Type firstResult()
       throws NotFoundException
       {
-        return NotFoundException.throwWhenEmpty(computeAndPostProcessResults(), "Empty result").get(0);
+        return NotFoundException.throwWhenEmpty(computeNeededResults(), "Empty result").get(0);
       }
 
     /*******************************************************************************************************************
@@ -239,7 +239,7 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
     @Override @Nonnull
     public List<? extends Type> results()
       {
-        return computeAndPostProcessResults();
+        return computeNeededResults();
       }
 
     /*******************************************************************************************************************
@@ -250,7 +250,7 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
     @Override @Nonnegative
     public int count()
       {
-        return computeAndPostProcessResults().size();
+        return computeNeededResults().size();
       }
 
     /*******************************************************************************************************************
@@ -269,23 +269,26 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
     
     /*******************************************************************************************************************
      *
-     * Subclasses must implement this method where raw results are actually retrieved.
+     * Subclasses can implement this method where *all* the raw results must be actually retrieved.
      * 
      * @return  the unprocessed results  
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected abstract List<? extends Type> computeResults();
+    protected List<? extends Type> computeResults()
+      {
+        throw new UnsupportedOperationException("You must implement me!");
+      }
 
     /*******************************************************************************************************************
      *
-     * Subclasses must implement this method where raw results are actually retrieved.
+     * Subclasses can implement this method where *only the requested* raw results must be retrieved.
      * 
      * @return  the unprocessed results  
      *
      ******************************************************************************************************************/
     @Nonnull
-    private List<? extends Type> computeAndPostProcessResults()
+    protected List<? extends Type> computeNeededResults()
       {
         List<? extends Type> results = computeResults();
         results = results.subList(firstResult, Math.min(results.size(), firstResult + maxResults));
