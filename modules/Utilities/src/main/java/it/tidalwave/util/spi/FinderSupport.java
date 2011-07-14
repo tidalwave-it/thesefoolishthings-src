@@ -31,6 +31,8 @@ import it.tidalwave.util.Finder.FilterSortCriterion;
 import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.SortDirection;
 import it.tidalwave.util.NotFoundException;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
@@ -46,6 +48,7 @@ import it.tidalwave.util.NotFoundException;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
+@Slf4j @ToString
 public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> implements Finder<Type>, Cloneable
   {
     static class Sorter<Type>
@@ -252,20 +255,6 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
       {
         return computeNeededResults().size();
       }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    //@bluebook-ignore-begin
-    @Override @Nonnull
-    public String toString() 
-      {
-        return String.format("%s@%x[from: %d max: %d sorters: %s]", 
-                             name, System.identityHashCode(this),firstResult, maxResults, sorters);
-      }
-    //@bluebook-ignore-end
     
     /*******************************************************************************************************************
      *
@@ -290,13 +279,17 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
     @Nonnull
     protected List<? extends Type> computeNeededResults()
       {
+        log.debug("computeNeededResults() - {}", this);
         List<? extends Type> results = computeResults();
-        results = results.subList(firstResult, Math.min(results.size(), firstResult + maxResults));
         
+        // First sort and then extract the sublist
         for (final Sorter<Type> sorter : sorters)
           {
+            log.trace(">>>> sorting with {}...", sorter);
             sorter.sort(results);                        
           }
+        
+        results = results.subList(firstResult, Math.min(results.size(), firstResult + maxResults));
         
         return results;
       }
