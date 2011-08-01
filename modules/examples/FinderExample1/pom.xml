@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.thesefoolishthings</groupId>
+        <artifactId>thesefoolishthings-examples</artifactId>
+        <version>1.0.7-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <groupId>it.tidalwave.thesefoolishthings</groupId>
+    <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample1</artifactId>
+    <version>1.0.7-SNAPSHOT</version>
+    <name>TheseFoolishThings Examples - FinderExample1</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it-tidalwave-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,147 @@
+#set( $dollar = '$' )
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.thesefoolishthings</groupId>
+        <artifactId>superpom</artifactId>
+        <version>1.0.24</version>
+    </parent>
+
+    <groupId>${groupId}</groupId>
+    <artifactId>${rootArtifactId}</artifactId>
+    <version>${version}</version>
+    <packaging>pom</packaging>
+    <name>${projectName} (master)</name>
+    <description>${projectName} (master)</description>
+
+    <properties>
+        <scm.repo.url>https://${forgeName}/hg/${rootArtifactId}~src</scm.repo.url>
+        <scm.repo.readonly.url>http://${forgeName}/hg/${rootArtifactId}~src</scm.repo.readonly.url>
+        <scm.repo.browse.url>http://${forgeName}/projects/${rootArtifactId}/sources/src/show</scm.repo.browse.url>
+
+        <thesefoolishthings.version>1.14.0</thesefoolishthings.version>
+        <netbeans.version>RELEASE691</netbeans.version>
+        <slf4j.version>1.6.1</slf4j.version>
+        <logback.version>0.9.28</logback.version>
+        <tft.lombok.version>0.9.3</tft.lombok.version>
+
+<!-- E.g. for Android
+        <tft.javac.source>1.5</tft.javac.source>
+        <tft.javac.target>1.5</tft.javac.target>
+-->
+<!--
+        <tft.mockito.version>1.8.5</tft.mockito.version>
+        <tft.test.maxMemory>1024M</tft.test.maxMemory>
+        <tft.test.listeners>it.tidalwave.util.test.TestLogger</tft.test.listeners>
+
+        <tft.UmlGraphDoc.version>5.4</tft.UmlGraphDoc.version>
+        <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferdep -inferrel -inferdepinpackage -hide java.*|javax.*|android.*</tft.UmlGraphDoc.additionalParam>
+-->
+
+    </properties>
+
+    <url>http://${rootArtifactId}.${forgeName}</url>
+    <inceptionYear>2011</inceptionYear>
+
+    <issueManagement>
+        <system>Jira</system>
+        <url>http://${forgeName}/jira/browse/${rootArtifactId}</url>
+    </issueManagement>
+
+    <distributionManagement>
+        <site>
+            <id>website-${rootArtifactId}.${forgeName}</id>
+            <url>dav:https://${forgeName}/website/${rootArtifactId}/site/</url>
+        </site>
+    </distributionManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>Continuous Integration</name>
+            <post>ci@${rootArtifactId}.${forgeName}</post>
+            <archive>http://${forgeName}/projects/${rootArtifactId}/lists/ci/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Developers</name>
+            <post>dev@${rootArtifactId}.${forgeName}</post>
+            <archive>http://${forgeName}/projects/${rootArtifactId}/lists/dev/archive</archive>
+        </mailingList>
+    </mailingLists>
+
+    <repositories>
+        <repository>
+            <id>releases-oss.sonatype.org</id>
+            <name>Sonatype Releases Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+        <repository>
+            <id>snapshots-oss.sonatype.org</id>
+            <name>Sonatype Snapshots Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${groupId}.module1</artifactId>
+                <version>${version}</version>
+            </dependency>
+
+            <!-- TODO: ADD YOUR DEPENDENCIES HERE -->
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
+    <scm>
+        <connection>scm:hg:${scm.repo.readonly.url}</connection>
+        <developerConnection>scm:hg:${scm.repo.effective.url}</developerConnection>
+        <url>${scm.repo.browse.url}</url>
+    </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>${tft.test.listeners}</value>
+                        </property>
+                    </properties>
+                </configuration>
+            </plugin>
+
+            <!-- Needed for setting that inherited = false -->
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <inherited>false</inherited>
+                <configuration>
+                    <excludes>
+                        <exclude>LICENSE.txt</exclude>
+                        <exclude>**/*.mf</exclude>
+                        <exclude>**/.revision</exclude>
+                        <exclude>.hgtags</exclude>
+                        <exclude>.hgignore</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

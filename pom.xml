@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.thesefoolishthings</groupId>
+        <artifactId>superpom</artifactId>
+        <version>1.2.1</version>
+    </parent>
+
+    <groupId>it.tidalwave.thesefoolishthings</groupId>
+    <artifactId>thesefoolishthings</artifactId>
+    <packaging>pom</packaging>
+    <version>1.17-SNAPSHOT</version>
+    <name>TheseFoolishThings (master)</name>
+
+    <url>http://thesefoolishthings.kenai.com</url>
+    <description>These Foolish Things - Miscellaneous utilities</description>
+    <inceptionYear>2009</inceptionYear>
+
+    <properties>
+        <scm.repo.url>ssh://hg.kenai.com/thesefoolishthings~src</scm.repo.url>
+        <scm.repo.readonly.url>http://kenai.com/hg/thesefoolishthings~src</scm.repo.readonly.url>
+        <scm.repo.browse.url>http://kenai.com/projects/thesefoolishthings/sources/src/show</scm.repo.browse.url>
+
+        <netbeans.version>RELEASE691</netbeans.version>
+        <slf4j.version>1.6.1</slf4j.version>
+        
+        <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide java.*|javax.*</tft.UmlGraphDoc.additionalParam>
+       
+        <tft.javac.source>1.5</tft.javac.source> <!-- For Android compatibility -->
+        <tft.javac.target>1.5</tft.javac.target>
+    </properties>
+    
+    <issueManagement>
+        <system>Jira</system>
+        <url>http://kenai.com/jira/browse/THESEFOOLISHTHINGS</url>
+    </issueManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>Continuous Integration</name>
+            <post>ci@thesefoolishthings.kenai.com</post>
+            <archive>http://kenai.com/projects/thesefoolishthings/lists/ci/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Commits</name>
+            <post>commits@thesefoolishthings.kenai.com</post>
+            <archive>http://kenai.com/projects/thesefoolishthings/lists/commits/archive</archive>
+        </mailingList>
+    </mailingLists>
+
+    <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
+    <scm>
+        <connection>scm:hg:${scm.repo.readonly.url}</connection>
+        <developerConnection>scm:hg:${scm.repo.effective.url}</developerConnection>
+        <url>${scm.repo.browse.url}</url>
+    </scm>
+
+    <repositories>
+        <repository> <!-- Needed for org.incava.util.diff -->
+            <id>maven2-release-repository.tidalwave.it</id>
+            <name>Tidalwave Releases Repository</name>
+            <url>http://services.tidalwave.it/nexus/content/repositories/releases/</url>
+        </repository>
+        <repository>
+            <id>netbeans</id>
+            <name>NetBeans Platform Maven Repository</name>
+            <url>http://bits.netbeans.org/maven2/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>snapshots-oss.sonatype.org</id>
+            <name>Sonatype Snapshots Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <site>
+            <id>website-thesefoolishthings.kenai.com</id>
+            <url>dav:https://kenai.com/website/thesefoolishthings/site/${project.version}</url>
+        </site>
+    </distributionManagement>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util</artifactId>
+                <version>1.12.7-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util</artifactId>
+                <version>1.12.7-SNAPSHOT</version>
+                <classifier>tests</classifier>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-beans</artifactId>
+                <version>1.4.30-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-swing-beansbinding</artifactId>
+                <version>1.1.29-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util-logging-singlelinelogformatter</artifactId>
+                <version>1.1.21-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util-logging</artifactId>
+                <version>1.1.21-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-stopwatch</artifactId>
+                <version>1.1.21-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-android-org-openide-util</artifactId>
+                <version>1.0.5-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util-test</artifactId>
+                <version>1.0.15-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample1</artifactId>
+                <version>1.0.7-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample2</artifactId>
+                <version>1.0.7-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample3</artifactId>
+                <version>1.0.7-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <!-- Needed for setting that inherited = false -->
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <inherited>false</inherited>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <links>
+                        <link href="http://java.sun.com/javase/6/docs/api/" />
+                    </links>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <modules>
+        <module>modules</module>
+        <module>archetypes/project</module>
+    </modules>
+
+</project>
