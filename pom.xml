@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>superpom</artifactId>
-        <version>1.4</version>
+        <version>1.5-SNAPSHOT</version>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -25,6 +25,7 @@
         <scm.repo.browse.url>http://kenai.com/projects/thesefoolishthings/sources/src/show</scm.repo.browse.url>
 
         <netbeans.version>RELEASE691</netbeans.version>
+        <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
         <slf4j.version>1.6.1</slf4j.version>
         
         <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide java.*|javax.*</tft.UmlGraphDoc.additionalParam>
@@ -139,6 +140,16 @@
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-test</artifactId>
                 <version>1.0.15-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-eventbus</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-eventbus-spring</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>

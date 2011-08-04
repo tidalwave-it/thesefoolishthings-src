@@ -54,7 +54,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            
+           
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+ 
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -90,8 +96,10 @@
     <modules>
         <module>Beans</module>
         <module>BeansBinding</module>
+        <module>EventBus</module>
         <module>Logger</module>
         <module>SingleLineLogFormatter</module>
+        <module>SpringEventBus</module>
         <module>StopWatch</module>
         <module>Utilities</module>
         <module>TestUtilities</module>
