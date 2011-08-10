@@ -29,7 +29,7 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings</artifactId>
-        <version>1.18-SNAPSHOT</version>
+        <version>1.17.1-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
 
