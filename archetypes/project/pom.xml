@@ -29,13 +29,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings</artifactId>
-        <version>1.17.1</version>
+        <version>1.17.2-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>project-archetype</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5-SNAPSHOT</version>
     <packaging>maven-archetype</packaging>
     <name>TheseFoolishThings - Project Archetype</name>
     <description>TheseFoolishThings - Project Archetype</description>
