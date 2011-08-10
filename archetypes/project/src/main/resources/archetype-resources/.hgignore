@@ -1,10 +1,10 @@
 target
-.repository
-.revision
-.classpath
-.project
-.settings
-release.properties
+\.repository
+\.description
+\.classpath
+\.project
+\.settings
+release\.properties
 \.orig\..*$
 \.orig$
 \.chg\..*$
