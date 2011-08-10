@@ -6,13 +6,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>1.17.1-SNAPSHOT</version>
+        <version>1.17.1</version>
         <relativePath>..</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-eventbus</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>nbm</packaging>
     <name>TheseFoolishThings - EventBus</name>
     <description>TheseFoolishThings - EventBus</description>

@@ -6,14 +6,14 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>1.17.1-SNAPSHOT</version>
+        <version>1.17.1</version>
         <relativePath>..</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-stopwatch</artifactId>
     <packaging>nbm</packaging>
-    <version>1.1.22-SNAPSHOT</version>
+    <version>1.1.22</version>
     <name>TheseFoolishThings - StopWatch</name>
 
     <dependencies>
