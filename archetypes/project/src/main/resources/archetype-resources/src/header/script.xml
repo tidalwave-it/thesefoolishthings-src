@@ -1,0 +1,15 @@
+#set( $dollar = '$' )
+#set( $hash = '#' )
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<additionalHeaders>
+    <script_style>
+        <firstLine><![CDATA[$hash***********************************************************************************************************************]]></firstLine>
+        <beforeEachLine>$hash*</beforeEachLine>
+        <endLine><![CDATA[$hash**********************************************************************************************************************]]></endLine>
+        <skipLine><![CDATA[^$hash!.*$dollar]]></skipLine>
+        <firstLineDetectionPattern><![CDATA[$hash.*$dollar]]></firstLineDetectionPattern>
+        <lastLineDetectionPattern><![CDATA[$hash\**.*$dollar]]></lastLineDetectionPattern>
+        <allowBlankLines>false</allowBlankLines>
+        <isMultiline>false</isMultiline>
+    </script_style>
+</additionalHeaders>
