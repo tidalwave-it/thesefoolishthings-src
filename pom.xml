@@ -20,9 +20,9 @@
     <inceptionYear>2009</inceptionYear>
 
     <properties>
-        <scm.repo.url>ssh://hg.kenai.com/thesefoolishthings~src</scm.repo.url>
-        <scm.repo.readonly.url>http://kenai.com/hg/thesefoolishthings~src</scm.repo.readonly.url>
-        <scm.repo.browse.url>http://kenai.com/projects/thesefoolishthings/sources/src/show</scm.repo.browse.url>
+        <scm.repo.url>ssh://hg@bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.url>
+        <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
+        <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
 
         <netbeans.version>RELEASE691</netbeans.version>
         <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
