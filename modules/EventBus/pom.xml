@@ -25,5 +25,18 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    
+   
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
+                <configuration>
+                    <publicPackages>
+                        <publicPackage>it.tidalwave.eventbus</publicPackage>
+                    </publicPackages>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build> 
 </project>
