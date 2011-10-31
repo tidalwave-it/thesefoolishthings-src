@@ -24,11 +24,11 @@
         <scm.repo.readonly.url>http://${forgeName}/hg/${rootArtifactId}~src</scm.repo.readonly.url>
         <scm.repo.browse.url>http://${forgeName}/projects/${rootArtifactId}/sources/src/show</scm.repo.browse.url>
 
-        <thesefoolishthings.version>1.14.0</thesefoolishthings.version>
-        <netbeans.version>RELEASE691</netbeans.version>
+        <thesefoolishthings.version>1.18</thesefoolishthings.version>
+        <netbeans.version>RELEASE70</netbeans.version>
         <slf4j.version>1.6.1</slf4j.version>
         <logback.version>0.9.28</logback.version>
-        <tft.lombok.version>0.9.3</tft.lombok.version>
+        <tft.lombok.version>0.10.1</tft.lombok.version>
 
 <!-- E.g. for Android
         <tft.javac.source>1.5</tft.javac.source>
