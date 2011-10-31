@@ -27,6 +27,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.springframework.core.task.TaskExecutor;
@@ -93,6 +94,30 @@ public class SpringEventBus implements EventBus
       {
         log.info("subscribe({}, {})", topic, listener);
         findListenersByTopic(topic).add(new WeakReference<EventBusListener<Topic>>(listener));
+      }
+    
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    public void unsubscribe (final @Nonnull EventBusListener<?> listener) 
+      {
+        log.info("unsubscribe({})", listener);
+        
+        for (final List<WeakReference<EventBusListener<?>>> list : listenersMapByTopic.values())
+          {
+            for (final Iterator<WeakReference<EventBusListener<?>>> i = list.iterator(); i.hasNext(); )
+              { 
+                final WeakReference<?> ref = i.next();
+                
+                if ((ref.get() == null) || (ref.get() == listener))
+                  {
+                    i.remove();  
+                  }
+              }
+          }
       }
     
     /*******************************************************************************************************************

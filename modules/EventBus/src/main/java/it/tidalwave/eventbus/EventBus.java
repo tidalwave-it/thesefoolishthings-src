@@ -63,4 +63,13 @@ public interface EventBus
      *
      ******************************************************************************************************************/
     public <Topic> void subscribe (@Nonnull Class<Topic> topic, @Nonnull EventBusListener<Topic> listener);
+    
+    /*******************************************************************************************************************
+     *
+     * Unsubscribes an {@link EventBusListener} from a topic.
+     * 
+     * @param  listener  the listener
+     *
+     ******************************************************************************************************************/
+    public void unsubscribe (@Nonnull EventBusListener<?> listener);
   }
