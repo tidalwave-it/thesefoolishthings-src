@@ -49,7 +49,7 @@
 
             <dependency>
                 <groupId>it.tidalwave.superpom</groupId>
-                <artifactId>platform12</artifactId>
+                <artifactId>platform13</artifactId>
                 <version>${netbeans.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
