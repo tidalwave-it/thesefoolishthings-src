@@ -32,6 +32,11 @@
                 </exclusion>    
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.kenai.nbpwr</groupId>
+            <artifactId>org-slf4j-jdk14</artifactId> <!-- FIXME: this should be slf4j alone -->
+        </dependency>
+        
         <!-- Needed in compilation, because of the annotation processor -->
         <dependency>
             <groupId>org.netbeans.api</groupId>
@@ -50,11 +55,6 @@
             <scope>provided</scope>
         </dependency>
         
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>

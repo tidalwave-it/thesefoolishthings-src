@@ -24,7 +24,6 @@
         <dependency>
             <groupId>com.kenai.nbpwr</groupId>
             <artifactId>org-slf4j-jdk14</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.kenai.nbpwr</groupId>

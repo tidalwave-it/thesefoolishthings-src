@@ -33,6 +33,7 @@
        
         <tft.javac.source>1.5</tft.javac.source> <!-- For Android compatibility -->
         <tft.javac.target>1.5</tft.javac.target>
+        <tft.nbm-maven-plugin.version>3.6</tft.nbm-maven-plugin.version>
     </properties>
     
     <issueManagement>
