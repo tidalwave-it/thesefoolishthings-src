@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
-            <artifactId>it-tidalwave-eventbus</artifactId>
+            <artifactId>it-tidalwave-messagebus</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

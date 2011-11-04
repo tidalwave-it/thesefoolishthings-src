@@ -145,7 +145,7 @@
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
-                <artifactId>it-tidalwave-eventbus</artifactId>
+                <artifactId>it-tidalwave-messagebus</artifactId>
                 <version>1.0.3-SNAPSHOT</version>
             </dependency>
             <dependency>

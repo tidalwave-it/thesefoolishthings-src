@@ -20,56 +20,38 @@
  * SCM: http://kenai.com/hg/thesefoolishthings~src
  *
  **********************************************************************************************************************/
-package it.tidalwave.eventbus;
+package it.tidalwave.messagebus.impl.spring;
 
+import java.util.concurrent.Executor;
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.ThreadSafe;
+import org.springframework.core.task.TaskExecutor;
+import it.tidalwave.messagebus.spi.MessageBusSupport;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
- * A simple event bus for a local publish/subscribe facility.
+ * A simple implementation of {@link EventBus} based on Spring.
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface EventBus
+@ThreadSafe @Slf4j
+public class SpringMessageBus extends MessageBusSupport
   {
-    /*******************************************************************************************************************
-     *
-     * Publishes the given event. The topic is the class of the event.
-     * 
-     * @param  event  the event
-     *
-     ******************************************************************************************************************/
-    public <Topic> void publish (@Nonnull Topic event);
+    @Getter @Setter @Nonnull
+    private TaskExecutor taskExecutor;
     
     /*******************************************************************************************************************
      *
-     * Publishes the given event and topic. Passing an explicit topic can be useful when dealing with a hierarchy of
-     * events (so, perhaps a subclass is passed but the topic is the root of the hierarchy).
-     * 
-     * @param  topic  the topic
-     * @param  event  the event
      *
      ******************************************************************************************************************/
-    public <Topic> void publish (@Nonnull Class<Topic> topic, @Nonnull Topic event);
-    
-    /*******************************************************************************************************************
-     *
-     * Subscribes an {@link EventBusListener} to a topic.
-     * 
-     * @param  topic     the topic
-     * @param  listener  the listener
-     *
-     ******************************************************************************************************************/
-    public <Topic> void subscribe (@Nonnull Class<Topic> topic, @Nonnull EventBusListener<Topic> listener);
-    
-    /*******************************************************************************************************************
-     *
-     * Unsubscribes an {@link EventBusListener} from a topic.
-     * 
-     * @param  listener  the listener
-     *
-     ******************************************************************************************************************/
-    public void unsubscribe (@Nonnull EventBusListener<?> listener);
+    @Override @Nonnull
+    protected Executor getExecutor() 
+      {
+        return taskExecutor;
+      }
   }

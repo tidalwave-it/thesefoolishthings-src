@@ -11,11 +11,11 @@
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
-    <artifactId>it-tidalwave-eventbus</artifactId>
+    <artifactId>it-tidalwave-messagebus</artifactId>
     <version>1.0.3-SNAPSHOT</version>
     <packaging>nbm</packaging>
-    <name>TheseFoolishThings - EventBus</name>
-    <description>TheseFoolishThings - EventBus</description>
+    <name>TheseFoolishThings - MessageBus</name>
+    <description>TheseFoolishThings - MessageBus</description>
 
     <dependencies>
         <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
@@ -23,6 +23,15 @@
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.kenai.nbpwr</groupId>
+            <artifactId>org-slf4j-jdk14</artifactId>
         </dependency>
     </dependencies>
    
@@ -33,7 +42,8 @@
                 <artifactId>nbm-maven-plugin</artifactId>
                 <configuration>
                     <publicPackages>
-                        <publicPackage>it.tidalwave.eventbus</publicPackage>
+                        <publicPackage>it.tidalwave.messagebus</publicPackage>
+                        <publicPackage>it.tidalwave.messagebus.spi</publicPackage>
                     </publicPackages>
                 </configuration>
             </plugin>

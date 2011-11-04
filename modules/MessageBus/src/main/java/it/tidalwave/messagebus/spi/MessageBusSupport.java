@@ -1,7 +1,7 @@
 /***********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * Copyright (C) 2009-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * SolidBlue - open source safe data
+ * Copyright (C) 2011-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
  *
  ***********************************************************************************************************************
  *
@@ -16,11 +16,11 @@
  *
  ***********************************************************************************************************************
  *
- * WWW: http://thesefoolishthings.kenai.com
- * SCM: http://kenai.com/hg/thesefoolishthings~src
+ * WWW: http://solidblue.java.net
+ * SCM: https://bitbucket.org/tidalwave/solidblue-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.eventbus.impl.spring;
+package it.tidalwave.messagebus.spi;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
@@ -30,29 +30,24 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.springframework.core.task.TaskExecutor;
-import it.tidalwave.eventbus.EventBus;
-import it.tidalwave.eventbus.EventBusListener;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.concurrent.Executor;
+import it.tidalwave.messagebus.MessageBus;
+import it.tidalwave.messagebus.MessageBus.Listener;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
- * A simple implementation of {@link EventBus} based on Spring.
+ * A partial implementation of {@link MessageBus}.
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
 @ThreadSafe @Slf4j
-public class SpringEventBus implements EventBus
+public abstract class MessageBusSupport implements MessageBus
   {
-    private final Map<Class<?>, List<WeakReference<EventBusListener<?>>>> listenersMapByTopic =
-            new HashMap<Class<?>, List<WeakReference<EventBusListener<?>>>>();
-    
-    @Getter @Setter
-    private TaskExecutor taskExecutor;
+    private final Map<Class<?>, List<WeakReference<Listener<?>>>> listenersMapByTopic =
+            new HashMap<Class<?>, List<WeakReference<Listener<?>>>>();
     
     /*******************************************************************************************************************
      *
@@ -60,9 +55,9 @@ public class SpringEventBus implements EventBus
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void publish (final @Nonnull Topic event) 
+    public <Topic> void publish (final @Nonnull Topic message) 
       {
-        publish((Class<Topic>)event.getClass(), event);
+        publish((Class<Topic>)message.getClass(), message);
       }
     
     /*******************************************************************************************************************
@@ -71,15 +66,15 @@ public class SpringEventBus implements EventBus
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void publish (final @Nonnull Class<Topic> topic, final @Nonnull Topic event) 
+    public <Topic> void publish (final @Nonnull Class<Topic> topic, final @Nonnull Topic message) 
       {
-        log.debug("publish({}, {})", topic, event);
-        taskExecutor.execute(new Runnable() 
+        log.trace("publish({}, {})", topic, message);
+        getExecutor().execute(new Runnable() 
           {
             @Override
             public void run() 
               {
-                publishImpl(topic, event);
+                deliverMessage(topic, message);
               }
         });
       }
@@ -90,10 +85,10 @@ public class SpringEventBus implements EventBus
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void subscribe (final @Nonnull Class<Topic> topic, final @Nonnull EventBusListener<Topic> listener) 
+    public <Topic> void subscribe (final @Nonnull Class<Topic> topic, final @Nonnull Listener<Topic> listener) 
       {
-        log.info("subscribe({}, {})", topic, listener);
-        findListenersByTopic(topic).add(new WeakReference<EventBusListener<Topic>>(listener));
+        log.debug("subscribe({}, {})", topic, listener);
+        findListenersByTopic(topic).add(new WeakReference<Listener<Topic>>(listener));
       }
     
     /*******************************************************************************************************************
@@ -102,19 +97,19 @@ public class SpringEventBus implements EventBus
      *
      ******************************************************************************************************************/
     @Override
-    public void unsubscribe (final @Nonnull EventBusListener<?> listener) 
+    public void unsubscribe (final @Nonnull Listener<?> listener)
       {
         log.info("unsubscribe({})", listener);
-        
-        for (final List<WeakReference<EventBusListener<?>>> list : listenersMapByTopic.values())
+
+        for (final List<WeakReference<Listener<?>>> list : listenersMapByTopic.values())
           {
-            for (final Iterator<WeakReference<EventBusListener<?>>> i = list.iterator(); i.hasNext(); )
-              { 
+            for (final Iterator<WeakReference<Listener<?>>> i = list.iterator(); i.hasNext(); )
+              {
                 final WeakReference<?> ref = i.next();
-                
+
                 if ((ref.get() == null) || (ref.get() == listener))
                   {
-                    i.remove();  
+                    i.remove();
                   }
               }
           }
@@ -124,23 +119,23 @@ public class SpringEventBus implements EventBus
      *
      *
      ******************************************************************************************************************/
-    private <Topic> void publishImpl (final @Nonnull Class<Topic> topic, final @Nonnull Topic event) 
+    protected <Topic> void deliverMessage (final @Nonnull Class<Topic> topic, final @Nonnull Topic message) 
       {
-        final List<WeakReference<EventBusListener<Topic>>> listeners = new ArrayList<WeakReference<EventBusListener<Topic>>>(findListenersByTopic(topic));
+        final List<WeakReference<Listener<Topic>>> listeners = new ArrayList<WeakReference<Listener<Topic>>>(findListenersByTopic(topic));
         
-        for (final WeakReference<EventBusListener<Topic>> listenerReference : listeners)
+        for (final WeakReference<Listener<Topic>> listenerReference : listeners)
           {
-            final EventBusListener<Topic> listener = listenerReference.get();
+            final Listener<Topic> listener = listenerReference.get();
 
             if (listener != null)
               {
                 try
                   {
-                    listener.notify(event);   
+                    listener.notify(message);   
                   }
                 catch (Throwable t)
                   {
-                    log.warn("publish()", t); 
+                    log.warn("deliverMessage()", t); 
                   }
               }
           }
@@ -151,14 +146,21 @@ public class SpringEventBus implements EventBus
      *
      ******************************************************************************************************************/
     @Nonnull
-    private <Topic> List<WeakReference<EventBusListener<Topic>>> findListenersByTopic (final @Nonnull Class<Topic> topic)
+    protected abstract Executor getExecutor();
+    
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    private <Topic> List<WeakReference<Listener<Topic>>> findListenersByTopic (final @Nonnull Class<Topic> topic)
       {
         final List tmp = listenersMapByTopic.get(topic);
-        List<WeakReference<EventBusListener<Topic>>> listeners = tmp;
+        List<WeakReference<Listener<Topic>>> listeners = tmp;
         
         if (listeners == null)
           {
-            listeners = new ArrayList<WeakReference<EventBusListener<Topic>>>();
+            listeners = new ArrayList<WeakReference<Listener<Topic>>>();
             listenersMapByTopic.put(topic, (List)listeners);
           } 
         

@@ -108,10 +108,10 @@
     <modules>
         <module>Beans</module>
         <module>BeansBinding</module>
-        <module>EventBus</module>
+        <module>MessageBus</module>
         <module>Logger</module>
         <module>SingleLineLogFormatter</module>
-        <module>SpringEventBus</module>
+        <module>SpringMessageBus</module>
         <module>StopWatch</module>
         <module>Utilities</module>
         <module>TestUtilities</module>
