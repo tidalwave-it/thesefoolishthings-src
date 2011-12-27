@@ -10,4 +10,4 @@ release\.properties
 \.chg\..*$
 \.rej$
 \.conflict\~$
-
+\.DS_Store$
