@@ -15,7 +15,7 @@
     <version>1.19-SNAPSHOT</version>
     <name>TheseFoolishThings (master)</name>
 
-    <url>http://thesefoolishthings.kenai.com</url>
+    <url>http://thesefoolishthings.java.net</url>
     <description>These Foolish Things - Miscellaneous utilities</description>
     <inceptionYear>2009</inceptionYear>
 
@@ -89,8 +89,8 @@
 
     <distributionManagement>
         <site>
-            <id>website-thesefoolishthings.kenai.com</id>
-            <url>dav:https://kenai.com/website/thesefoolishthings/site/${project.version}</url>
+            <id>website-thesefoolishthings.java.net</id>
+            <url>dav:https://java.net/website/thesefoolishthings/site/${project.version}</url>
         </site>
     </distributionManagement>
 
