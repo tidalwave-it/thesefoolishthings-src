@@ -23,7 +23,7 @@
 <nbm>
     <moduleType>normal</moduleType>
     <codeNameBase>it.tidalwave.util.logging/1</codeNameBase>
-    <cluster>semantic</cluster>
+    <cluster>thesefoolishthings</cluster>
     <manifest>src/main/nbm/manifest.mf</manifest>
     <homepageUrl>http://thesefoolishthings.java.net</homepageUrl>
     <author>Fabrizio Giudici</author>
