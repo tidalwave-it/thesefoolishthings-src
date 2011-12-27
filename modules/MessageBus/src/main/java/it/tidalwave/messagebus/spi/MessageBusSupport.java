@@ -27,9 +27,11 @@ import javax.annotation.concurrent.ThreadSafe;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.Executor;
 import it.tidalwave.messagebus.MessageBus;
 import it.tidalwave.messagebus.MessageBus.Listener;
@@ -121,24 +123,31 @@ public abstract class MessageBusSupport implements MessageBus
      ******************************************************************************************************************/
     protected <Topic> void deliverMessage (final @Nonnull Class<Topic> topic, final @Nonnull Topic message) 
       {
-        final List<WeakReference<Listener<Topic>>> listeners = new ArrayList<WeakReference<Listener<Topic>>>(findListenersByTopic(topic));
-        
-        for (final WeakReference<Listener<Topic>> listenerReference : listeners)
+        for (final Entry<Class<?>, List<WeakReference<Listener<?>>>> e : new HashSet<Entry<Class<?>, List<WeakReference<Listener<?>>>>>(listenersMapByTopic.entrySet()))
           {
-            final Listener<Topic> listener = listenerReference.get();
-
-            if (listener != null)
+            if (e.getKey().isAssignableFrom(topic))
               {
-                try
+                final List tmp = e.getValue();
+                final List<WeakReference<Listener<Topic>>> listeners = tmp;
+                
+                for (final WeakReference<Listener<Topic>> listenerReference : listeners)
                   {
-                    listener.notify(message);   
-                  }
-                catch (Throwable t)
-                  {
-                    log.warn("deliverMessage()", t); 
+                    final Listener<Topic> listener = listenerReference.get();
+
+                    if (listener != null)
+                      {
+                        try
+                          {
+                            listener.notify(message);   
+                          }
+                        catch (Throwable t)
+                          {
+                            log.warn("deliverMessage()", t); 
+                          }
+                      }
                   }
               }
-          }
+          }        
       }
 
     /*******************************************************************************************************************
