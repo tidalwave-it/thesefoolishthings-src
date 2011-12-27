@@ -16,8 +16,8 @@
  *
  ***********************************************************************************************************************
  *
- * WWW: http://thesefoolishthings.kenai.com
- * SCM: http://kenai.com/hg/thesefoolishthings~src
+ * WWW: http://thesefoolishthings.java.net
+ * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.finderexample1;

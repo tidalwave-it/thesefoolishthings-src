@@ -1,7 +1,7 @@
 /***********************************************************************************************************************
  *
- * SolidBlue - open source safe data
- * Copyright (C) 2011-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * These Foolish Things - Miscellaneous utilities
+ * Copyright (C) 2009-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
  *
  ***********************************************************************************************************************
  *
@@ -16,8 +16,8 @@
  *
  ***********************************************************************************************************************
  *
- * WWW: http://solidblue.java.net
- * SCM: https://bitbucket.org/tidalwave/solidblue-src
+ * WWW: http://thesefoolishthings.java.net
+ * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
 package it.tidalwave.messagebus.spi;
