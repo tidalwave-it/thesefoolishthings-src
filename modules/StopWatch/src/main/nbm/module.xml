@@ -25,7 +25,7 @@
     <codeNameBase>it.tidalwave.stopwatch/1</codeNameBase>
     <cluster>semantic</cluster>
     <manifest>src/main/nbm/manifest.mf</manifest>
-    <homepageUrl>http://thesefoolishthings.kenai.com</homepageUrl>
+    <homepageUrl>http://thesefoolishthings.java.net</homepageUrl>
     <author>Fabrizio Giudici</author>
     <licenseName>Apache License, Version 2.0</licenseName>
     <licenseFile>../../LICENSE.txt</licenseFile>
