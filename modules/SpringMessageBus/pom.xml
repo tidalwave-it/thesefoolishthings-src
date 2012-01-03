@@ -17,10 +17,6 @@
     <name>TheseFoolishThings - EventBus (Spring)</name>
     <description>TheseFoolishThings - EventBus (Spring)</description>
    
-    <properties>
-        <tft.javadoc.excludePackageNames />
-    </properties>
- 
     <dependencies>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
