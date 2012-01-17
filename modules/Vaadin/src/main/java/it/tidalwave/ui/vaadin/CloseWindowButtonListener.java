@@ -26,10 +26,12 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Window;
 import lombok.RequiredArgsConstructor;
 
-/**
- *
+/***********************************************************************************************************************
+ * 
  * @author Gabriele Cuccu <gabriele.cuccu@gmail.com>
- */
+ * @version $Id$
+ *
+ **********************************************************************************************************************/
 @RequiredArgsConstructor
 public class CloseWindowButtonListener implements  Button.ClickListener 
   {

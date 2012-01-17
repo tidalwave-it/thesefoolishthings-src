@@ -29,10 +29,12 @@ import javax.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/**
+/***********************************************************************************************************************
  *
  * @author Gabriele Cuccu <gabriele.cuccu@gmail.com>
- */
+ * @version $Id$
+ *
+ **********************************************************************************************************************/
 @RequiredArgsConstructor
 @Slf4j
 public class RefresherQueue {
