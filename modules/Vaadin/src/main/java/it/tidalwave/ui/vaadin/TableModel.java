@@ -1,7 +1,7 @@
 /***********************************************************************************************************************
  *
- * blueBill Stats
- * Copyright (C) 2011-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * These Foolish Things - Miscellaneous utilities
+ * Copyright (C) 2009-2012 by Tidalwave s.a.s. (http://www.tidalwave.it)
  *
  ***********************************************************************************************************************
  *
@@ -16,8 +16,8 @@
  *
  ***********************************************************************************************************************
  *
- * WWW: http://bluebill.tidalwave.it/mobile/
- * SCM: http://java.net/hg/bluebill-server~stats-src
+ * WWW: http://thesefoolishthings.java.net
+ * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
 package it.tidalwave.ui.vaadin;
