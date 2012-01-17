@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>superpom</artifactId>
-        <version>1.8</version>
+        <version>1.10</version>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -24,6 +24,7 @@
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
 
+        <vaadin.version>6.6.1</vaadin.version>
         <netbeans.version>RELEASE70</netbeans.version>
         <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
 
@@ -151,6 +152,11 @@
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-eventbus-spring</artifactId>
                 <version>1.0.4-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-ui-vaadin</artifactId>
+                <version>1.0.2-SNAPSHOT</version>
             </dependency>
 
             <dependency>
