@@ -31,7 +31,7 @@ import static lombok.AccessLevel.PRIVATE;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: VaadinBindings.java 1039 2011-10-19 07:56:26Z cuccu $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 @NoArgsConstructor(access=PRIVATE)

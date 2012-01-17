@@ -35,7 +35,7 @@ import com.vaadin.data.Container;
  * @stereotype  Model
  *
  * @author  Fabrizio Giudici
- * @version $Id: TableModel.java 1039 2011-10-19 07:56:26Z cuccu $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public interface TableModel extends Container

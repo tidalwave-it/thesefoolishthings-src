@@ -32,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 /***********************************************************************************************************************
  * 
  * @author  Fabrizio Giudici
- * @version $Id: FormattedPropertyDecorator.java 1039 2011-10-19 07:56:26Z cuccu $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor

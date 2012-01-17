@@ -36,7 +36,7 @@ import com.vaadin.data.util.ObjectProperty;
 /***********************************************************************************************************************
  * 
  * @author  Fabrizio Giudici
- * @version $Id: FormattedItemDecorator.java 1342 2011-11-23 11:07:10Z cuccu $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class FormattedItemDecorator implements Item 
