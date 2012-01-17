@@ -22,34 +22,15 @@
  **********************************************************************************************************************/
 package it.tidalwave.ui.vaadin;
 
-import javax.annotation.Nonnull;
-import java.util.List;
-import it.tidalwave.util.NotFoundException;
-import com.vaadin.data.Container;
+import com.vaadin.data.Property;
 
-/***********************************************************************************************************************
+/**
  *
- * This class extends {@link Container} to provide all the required data to populate a {@link Table}, such as the 
- * header labels and so on.
+ * @stereotype Role
  * 
- * @stereotype  Model
- *
- * @author  Fabrizio Giudici
- * @version $Id: TableModel.java 1039 2011-10-19 07:56:26Z cuccu $
- *
- **********************************************************************************************************************/
-public interface TableModel extends Container
+ * @author Gabriele Cuccu <gabriele.cuccu@gmail.com>
+ */
+public interface DerivedPropertyFactory
   {
-    /*******************************************************************************************************************
-     *
-     * Returns the labels for the table headers. For a convenient implementation, delegate to 
-     * {@link HeaderLabelProvider}.
-     * 
-     * @return                     the labels
-     * @throws  NotFoundException  if the {@code Table} must not have header labels 
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public List<String> getHeaderLabels()
-      throws NotFoundException; 
+    public Property getProperty(Object propertyId);  
   }

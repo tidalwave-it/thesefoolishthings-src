@@ -32,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 /***********************************************************************************************************************
  * 
  * @author  Fabrizio Giudici
- * @version $Id$
+ * @version $Id: FormattedPropertyDecorator.java 1039 2011-10-19 07:56:26Z cuccu $
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor
@@ -43,10 +43,22 @@ public class FormattedPropertyDecorator implements Property
     
     @Nullable 
     private final Format format;
-    
+ 
     @Override @Nonnull
     public String toString() 
       {
-        return (format == null) ? delegate.getValue().toString() : (format.format(delegate.getValue()));
+        if (delegate == null) 
+          {
+            return "null property";
+          }
+
+        final Object value = delegate.getValue();
+
+        if (value == null) 
+          {
+            return "null";
+          }
+        
+        return (format == null) ? value.toString() : (format.format(value));
       }
   }

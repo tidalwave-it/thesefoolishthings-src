@@ -43,7 +43,7 @@ import lombok.extern.slf4j.Slf4j;
  * </pre>
  * 
  * @author  Fabrizio Giudici
- * @version $Id$
+ * @version $Id: HeaderLabelProvider.java 1039 2011-10-19 07:56:26Z cuccu $
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor @Slf4j 

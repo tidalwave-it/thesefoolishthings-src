@@ -122,7 +122,7 @@ public class ReadOnlyPresentationModelContainer extends IndexedContainerSupport
         final int baseIndex = index - index % batchSize;
         final PresentationModel pm = finder.from(baseIndex).max(batchSize).results().get(index - baseIndex);
         final Object object = pm.as(datumType);
-        return new FormattedItemDecorator(new BeanItem<Object>(object), formatMapByPropertyId);
+        return new FormattedItemDecorator(pm, new BeanItem<Object>(object), formatMapByPropertyId);
       }
     
     public void registerPropertyFormat (final @Nonnull Object propertyId, final @Nonnull Format format)

@@ -22,49 +22,72 @@
  **********************************************************************************************************************/
 package it.tidalwave.ui.vaadin;
 
-import java.util.Collection;
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.text.Format;
+import it.tidalwave.util.AsException;
+import it.tidalwave.role.ui.PresentationModel;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
-import lombok.Delegate;
+import com.vaadin.data.util.ObjectProperty;
 
 /***********************************************************************************************************************
  * 
  * @author  Fabrizio Giudici
- * @version $Id$
+ * @version $Id: FormattedItemDecorator.java 1342 2011-11-23 11:07:10Z cuccu $
  *
  **********************************************************************************************************************/
 public class FormattedItemDecorator implements Item 
   {
 //    @Delegate(types=Item.class) @Nonnull
+
+    private final PresentationModel pm;
     private final Item delegate;
-    
     private final Map<Object, Format> formatMapByPropertyId = new HashMap<Object, Format>();
 
-    public FormattedItemDecorator (final @Nonnull Item delegate, final @Nonnull Map<Object, Format> formatMapByPropertyId)
+    public FormattedItemDecorator (final @Nonnull PresentationModel pm,
+                                   final @Nonnull Item delegate,
+                                   final @Nonnull Map<Object, Format> formatMapByPropertyId) 
       {
+        this.pm = pm;
         this.delegate = delegate;
         this.formatMapByPropertyId.putAll(formatMapByPropertyId);
-      }   
-    
-    @Override @Nonnull
-    public Property getItemProperty (final @Nonnull Object propertyId) 
-      {
-        return new FormattedPropertyDecorator(delegate.getItemProperty(propertyId), formatMapByPropertyId.get(propertyId));
       }
 
-    public boolean removeItemProperty(Object id) throws UnsupportedOperationException {
+    @Override @Nonnull
+    public Property getItemProperty (final @Nonnull Object propertyId)
+      {
+        Property delegateProperty = delegate.getItemProperty(propertyId);
+        
+        if (delegateProperty != null) 
+          {
+            return new FormattedPropertyDecorator(delegateProperty, formatMapByPropertyId.get(propertyId));
+          }
+
+        try
+          {
+            return pm.as(DerivedPropertyFactory.class).getProperty(propertyId);
+          }
+        catch (AsException e)
+          {
+            return new ObjectProperty<String>("missing: " + propertyId);
+          }
+      }
+
+    public boolean removeItemProperty(Object id) 
+      {
         return delegate.removeItemProperty(id);
-    }
+      }
 
-    public Collection<?> getItemPropertyIds() {
+    public Collection<?> getItemPropertyIds()
+      {
         return delegate.getItemPropertyIds();
-    }
+      }
 
-    public boolean addItemProperty(Object id, Property property) throws UnsupportedOperationException {
+    public boolean addItemProperty(Object id, Property property) 
+      {
         return delegate.addItemProperty(id, property);
-    }
+      }
   }

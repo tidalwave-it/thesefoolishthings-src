@@ -42,7 +42,7 @@ import com.vaadin.data.Property;
  * 
  * @author  Fabrizio Giudici
  * @author  based on LazyQyeryFinder by Tommi S.E. Laukkanen
- * @version $Id$
+ * @version $Id: IndexedContainerSupport.java 1039 2011-10-19 07:56:26Z cuccu $
  *
  **********************************************************************************************************************/
 public abstract class IndexedContainerSupport implements Container, Indexed
