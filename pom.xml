@@ -150,7 +150,7 @@
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
-                <artifactId>it-tidalwave-eventbus-spring</artifactId>
+                <artifactId>it-tidalwave-messagebus-spring</artifactId>
                 <version>1.0.6-SNAPSHOT</version>
             </dependency>
             <dependency>
