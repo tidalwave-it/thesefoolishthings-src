@@ -57,6 +57,7 @@ public class RefresherQueue
 
                 if (job == null)
                   {
+                    internalStop();
                     break;
                   }
 
@@ -77,19 +78,16 @@ public class RefresherQueue
         log.info("stop()");
         refresher.removeListener(listener);
 
-
         synchronized (this)
           {
             if (started)
               {
-                refresher.setRefreshInterval(0);
-                started = false;
-                log.info(">>>> stopped refresher");
+                internalStop();
               }
           }
       }
 
-    public void invokeLater(final @Nonnull Runnable job)
+    public void invokeLater (final @Nonnull Runnable job)
       {
         log.info("invokeLater({})", job);
         pendingJobs.add(job);
@@ -103,5 +101,12 @@ public class RefresherQueue
                 started = true;
               }
           }
+      }
+    
+    protected synchronized void internalStop()
+      {
+        refresher.setRefreshInterval(0);
+        started = false;
+        log.debug(">>>> stopped refresher");
       }
   }
