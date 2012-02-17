@@ -22,75 +22,86 @@
  **********************************************************************************************************************/
 package it.tidalwave.ui.vaadin;
 
-import com.github.wolfie.refresher.Refresher;
+import javax.annotation.Nonnull;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.annotation.Nonnull;
+import com.github.wolfie.refresher.Refresher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
+ * @author Fabrizio Giudici
  * @author Gabriele Cuccu <gabriele.cuccu@gmail.com>
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor
-@Slf4j
-public class RefresherQueue {
-
+@RequiredArgsConstructor @Slf4j
+public class RefresherQueue 
+  {
     @Nonnull
     private final Refresher refresher;
     private boolean started;
     private final Queue<Runnable> pendingJobs = new ConcurrentLinkedQueue<Runnable>();
-    private final Refresher.RefreshListener listener = new Refresher.RefreshListener() {
+    private final Refresher.RefreshListener listener = new Refresher.RefreshListener()
+      {
 
         @Override
-        public void refresh(Refresher source) {
+        public void refresh(Refresher source) 
+          {
 //            log.info("executing pending jobs...");
 
-            for (;;) {
+            for (;;) 
+              {
                 Runnable job = pendingJobs.poll();
 
-                if (job == null) {
+                if (job == null)
+                  {
                     break;
-                }
+                  }
 
                 log.debug(">>>> executing pending job: {} ...", job);
                 job.run();
-            }
-        }
-    };
+              }
+          }
+      };
 
-    public void start() {
+    public void start() 
+      {
         log.info("start()");
         refresher.addListener(listener);
-    }
+      }
 
-    public void stop() {
+    public void stop() 
+      {
         log.info("stop()");
         refresher.removeListener(listener);
 
 
-        synchronized (this) {
-            if (started) {
+        synchronized (this)
+          {
+            if (started)
+              {
                 refresher.setRefreshInterval(0);
                 started = false;
                 log.info(">>>> stopped refresher");
-            }
-        }
-    }
+              }
+          }
+      }
 
-    public void invokeLater(final @Nonnull Runnable job) {
+    public void invokeLater(final @Nonnull Runnable job)
+      {
         log.info("invokeLater({})", job);
         pendingJobs.add(job);
 
-        synchronized (this) {
-            if (!started) {
+        synchronized (this) 
+          {
+            if (!started) 
+              {
                 log.debug(">>>> started refresher");
                 refresher.setRefreshInterval(500);
                 started = true;
-            }
-        }
-    }
-}
+              }
+          }
+      }
+  }
