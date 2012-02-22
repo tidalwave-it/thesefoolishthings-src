@@ -44,13 +44,13 @@
     <mailingLists>
         <mailingList>
             <name>Continuous Integration</name>
-            <post>ci@thesefoolishthings.kenai.com</post>
-            <archive>http://kenai.com/projects/thesefoolishthings/lists/ci/archive</archive>
+            <post>ci@thesefoolishthings.java.net</post>
+            <archive>http://java.net/projects/thesefoolishthings/lists/ci/archive</archive>
         </mailingList>
         <mailingList>
             <name>Commits</name>
-            <post>commits@thesefoolishthings.kenai.com</post>
-            <archive>http://kenai.com/projects/thesefoolishthings/lists/commits/archive</archive>
+            <post>commits@thesefoolishthings.java.net</post>
+            <archive>http://java.net/projects/thesefoolishthings/lists/commits/archive</archive>
         </mailingList>
     </mailingLists>
 
