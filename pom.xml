@@ -12,7 +12,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings</artifactId>
     <packaging>pom</packaging>
-    <version>1.22</version>
+    <version>1.23-SNAPSHOT</version>
     <name>TheseFoolishThings (master)</name>
 
     <url>http://thesefoolishthings.java.net</url>
@@ -100,38 +100,38 @@
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util</artifactId>
-                <version>1.12.13</version>
+                <version>1.12.14-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util</artifactId>
-                <version>1.12.13</version>
+                <version>1.12.14-SNAPSHOT</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-beans</artifactId>
-                <version>1.4.36</version>
+                <version>1.4.37-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-swing-beansbinding</artifactId>
-                <version>1.1.35</version>
+                <version>1.1.36-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-logging-singlelinelogformatter</artifactId>
-                <version>1.1.27</version>
+                <version>1.1.28-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-logging</artifactId>
-                <version>1.1.27</version>
+                <version>1.1.28-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-stopwatch</artifactId>
-                <version>1.1.27</version>
+                <version>1.1.28-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -141,38 +141,38 @@
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-test</artifactId>
-                <version>1.0.21</version>
+                <version>1.0.22-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus</artifactId>
-                <version>1.0.6</version>
+                <version>1.0.7-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus-spring</artifactId>
-                <version>1.0.6</version>
+                <version>1.0.7-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-ui-vaadin</artifactId>
-                <version>1.0.4</version>
+                <version>1.0.5-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample1</artifactId>
-                <version>1.0.13</version>
+                <version>1.0.14-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample2</artifactId>
-                <version>1.0.13</version>
+                <version>1.0.14-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample3</artifactId>
-                <version>1.0.13</version>
+                <version>1.0.14-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
