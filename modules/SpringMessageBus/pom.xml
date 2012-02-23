@@ -6,19 +6,19 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>1.22-SNAPSHOT</version>
+        <version>1.22</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-messagebus-spring</artifactId>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.6</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings - MessageBus (Spring)</name>
     <description>TheseFoolishThings - MessageBus (Spring)</description>
   
     <properties>
-        <tft.javadoc.excludePackageNames></tft.javadoc.excludePackageNames>
+        <tft.javadoc.excludePackageNames />
     </properties>
  
     <dependencies>
