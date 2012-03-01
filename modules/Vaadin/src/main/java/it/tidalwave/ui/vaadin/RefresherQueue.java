@@ -57,7 +57,7 @@ public class RefresherQueue
 
                 if (job == null)
                   {
-                    internalStop();
+//                    internalStop();
                     break;
                   }
 
