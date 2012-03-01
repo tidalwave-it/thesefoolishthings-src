@@ -122,8 +122,9 @@ public abstract class IndexedContainerSupport implements Container, Indexed
     public final Collection<?> getItemIds() 
       {
         final List<Object> result = new ArrayList<Object>();
+        final int count = size() - 1;
         
-        for (int i = 0; i < size() - 1; i++)
+        for (int i = 0; i < count; i++)
           {
             result.add(i);
           }
