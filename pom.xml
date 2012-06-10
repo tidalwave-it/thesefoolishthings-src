@@ -212,7 +212,7 @@
             <id>hudson-compile-only</id>
             <activation>
                 <property>
-                    <name>hudson-phase</name> 
+                    <name>hudsonPhase</name> 
                     <value>compileOnly</value>
                 </property>
             </activation>
@@ -225,7 +225,7 @@
             <id>hudson-test</id>
             <activation>
                 <property>
-                    <name>hudson-phase</name> 
+                    <name>hudsonPhase</name> 
                     <value>test</value>
                 </property>
             </activation>
@@ -235,7 +235,7 @@
             <id>hudson-metrics</id>
             <activation>
                 <property>
-                    <name>hudson-phase</name> 
+                    <name>hudsonPhase</name> 
                     <value>metrics</value>
                 </property>
             </activation>
