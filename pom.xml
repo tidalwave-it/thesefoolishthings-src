@@ -207,4 +207,119 @@
         <module>archetypes/project</module>
     </modules>
 
+    <profiles>
+        <profile>
+            <id>hudson-compile-only</id>
+            <activation>
+                <property>
+                    <name>hudson-phase</name> 
+                    <value>compileOnly</value>
+                </property>
+            </activation>
+            <properties>
+                <skipTests>true<skipTests>
+            <properties>
+        </profile>
+
+        <profile>
+            <id>hudson-test</id>
+            <activation>
+                <property>
+                    <name>hudson-phase</name> 
+                    <value>test</value>
+                </property>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>hudson-metrics</id>
+            <activation>
+                <property>
+                    <name>hudson-phase</name> 
+                    <value>metrics</value>
+                </property>
+            </activation>
+            <properties>
+                <tft.test.reportsDirectory>${project.build.directory}/surefire-reports/cobertura</tft.test.reportsDirectory>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- Cobertura -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <configuration>
+                            <formats>
+                                <format>xml</format>
+                                <format>html</format>
+                            </formats>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>cobertura</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
+            <reporting>
+                <plugins>
+                    <!-- Cobertura -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <!-- version must be replicated here -->
+                        <version>${tft.cobertura-maven-plugin.version}</version>
+                    </plugin>
+
+                    <!-- FindBugs -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>findbugs-maven-plugin</artifactId>
+                        <!-- version must be replicated here -->
+                        <version>${tft.findbugs-maven-plugin.version}</version>
+                        <configuration>
+                            <xmlOutput>true</xmlOutput>
+                            <findbugsXmlOutput>true</findbugsXmlOutput>
+                            <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+                            <effort>Max</effort>
+                            <threshold>Low</threshold>
+                            <failOnError>false</failOnError>
+                        </configuration>
+                    </plugin>
+
+                    <!-- PMD -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-pmd-plugin</artifactId>
+                        <!-- version must be replicated here -->
+                        <version>${tft.maven-pmd-plugin.version}</version>
+                        <configuration>
+                            <linkXref>true</linkXref>
+                            <sourceEncoding>utf-8</sourceEncoding>
+                            <minimumTokens>100</minimumTokens>
+                            <targetJdk>1.6</targetJdk>
+                        </configuration>
+                    </plugin>
+
+                    <!-- CheckStyle -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <!-- version must be replicated here -->
+                        <version>${tft.maven-checkstyle-plugin.version}</version>
+                        <configuration>
+                            <configLocation>${project.basedir}/src/checkstyle/checkstyle.xml</configLocation>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+
+    </profiles>
+
 </project>
