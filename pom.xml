@@ -217,7 +217,7 @@
                 </property>
             </activation>
             <properties>
-                <skipTests>true<skipTests>
+                <skipTests>true</skipTests>
             <properties>
         </profile>
 

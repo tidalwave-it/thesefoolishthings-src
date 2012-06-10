@@ -97,7 +97,7 @@ public class RefresherQueue
             if (!started) 
               {
                 log.debug(">>>> started refresher");
-                refresher.setRefreshInterval(500);
+//                refresher.setRefreshInterval(500);
                 started = true;
               }
           }
@@ -105,7 +105,7 @@ public class RefresherQueue
     
     protected synchronized void internalStop()
       {
-        refresher.setRefreshInterval(0);
+//        refresher.setRefreshInterval(0);
         started = false;
         log.debug(">>>> stopped refresher");
       }
