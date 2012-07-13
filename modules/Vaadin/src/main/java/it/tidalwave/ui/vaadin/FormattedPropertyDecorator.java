@@ -53,12 +53,7 @@ public class FormattedPropertyDecorator implements Property
           }
 
         final Object value = delegate.getValue();
-
-        if (value == null) 
-          {
-            return "null";
-          }
         
-        return (format == null) ? value.toString() : (format.format(value));
+        return (format != null) ? format.format(value) : (value != null) ? value.toString() : "";
       }
   }
