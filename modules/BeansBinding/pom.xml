@@ -6,13 +6,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>1.24</version>
+        <version>1.25-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-swing-beansbinding</artifactId>
-    <version>1.1.37</version>
+    <version>1.1.38-SNAPSHOT</version>
     <packaging>nbm</packaging>
     <name>TheseFoolishThings - Swing BeansBindings</name>
 
