@@ -47,9 +47,9 @@ public class RefresherQueue
       {
 
         @Override
-        public void refresh(Refresher source) 
+        public void refresh (final @Nonnull Refresher source) 
           {
-//            log.info("executing pending jobs...");
+            log.debug("executing pending jobs...");
 
             for (;;) 
               {
@@ -69,13 +69,13 @@ public class RefresherQueue
 
     public void start() 
       {
-        log.info("start()");
+        log.debug("start()");
         refresher.addListener(listener);
       }
 
     public void stop() 
       {
-        log.info("stop()");
+        log.debug("stop()");
         refresher.removeListener(listener);
 
         synchronized (this)
@@ -89,7 +89,7 @@ public class RefresherQueue
 
     public void invokeLater (final @Nonnull Runnable job)
       {
-        log.info("invokeLater({})", job);
+        log.debug("invokeLater({})", job);
         pendingJobs.add(job);
 
         synchronized (this) 
