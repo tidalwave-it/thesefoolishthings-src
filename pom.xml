@@ -195,6 +195,17 @@
                 <groupId>com.mycila.maven-license-plugin</groupId>
                 <artifactId>maven-license-plugin</artifactId>
                 <inherited>false</inherited>
+                <configuration>
+                    <excludes>
+                        <exclude>LICENSE.txt</exclude>
+                        <exclude>**/*.form</exclude>
+                        <exclude>**/*.mf</exclude>
+                        <exclude>**/.description</exclude>
+                        <exclude>.hgtags</exclude>
+                        <exclude>.hgignore</exclude>
+                        <exclude>**/archetypes/**</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
