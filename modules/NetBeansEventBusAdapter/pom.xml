@@ -10,10 +10,10 @@
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
-    <artifactId>it-tidalwave-messagebus-netbeans-eventbus</artifactId>
+    <artifactId>it-tidalwave-messagebus-platformx-eventbus</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>nbm</packaging>
-    <name>TheseFoolishThings - MessageBus (NetBeans EventBus Adapter)</name>
+    <name>TheseFoolishThings - MessageBus (NetBeans PlatformX EventBus Adapter)</name>
 
     <dependencies>
         <dependency>

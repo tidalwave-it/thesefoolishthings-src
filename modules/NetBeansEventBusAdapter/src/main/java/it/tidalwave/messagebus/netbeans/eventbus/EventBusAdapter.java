@@ -1,7 +1,7 @@
 /***********************************************************************************************************************
  *
  * These Foolish Things - Miscellaneous utilities
- * Copyright (C) 2009-2012 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009-2012 by Tidalwave s.a.s. (http://www.tidalwave.it)
  *
  ***********************************************************************************************************************
  *
@@ -38,10 +38,11 @@ import lombok.extern.slf4j.Slf4j;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@NoArgsConstructor(access= AccessLevel.PRIVATE) @Slf4j
+@NoArgsConstructor(access=AccessLevel.PRIVATE) @Slf4j
 public class EventBusAdapter implements MessageBusHelper.AdapterFactory
   {
     public static final MessageBusHelper.AdapterFactory INSTANCE = new EventBusAdapter();
+    public static final MessageBusHelper.AdapterFactory PLATFORMX_EVENTBUS_ADAPTER = INSTANCE;
 
     /*******************************************************************************************************************
      * 
