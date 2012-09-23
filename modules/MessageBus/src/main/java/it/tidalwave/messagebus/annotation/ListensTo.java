@@ -22,6 +22,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.messagebus.annotation;
 
+import it.tidalwave.messagebus.MessageBusHelper;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -29,6 +30,20 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /***********************************************************************************************************************
+ * 
+ * This annotation is used to write simpler code which uses a message bus. With the proper support, code that receives
+ * messages can be written as simple methods such as:
+ * 
+ * <pre>
+ * private void onMessage (final @ListenTo Message message);
+ * </pre>
+ * 
+ * Note that this annotation doesn't support any further semantics; for instance, <code>message</code> could be null or
+ * not, in function of the message bus implementation. The exact semantics are defined by further annotations (on the
+ * class containing the listener method), or by the build context (e.g. an annotation processor, AspectJ, etc...).
+ * 
+ * Specific support must be used in order to have this annotation working. For instance, an annotation processor, or 
+ * some facility which scans classes at runtime, or {@link MessageBusHelper}.
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
