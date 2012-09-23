@@ -114,6 +114,7 @@
         <module>Beans</module>
         <module>BeansBinding</module>
         <module>MessageBus</module>
+        <module>NetBeansEventBusAdapter</module>
         <module>Logger</module>
         <module>SingleLineLogFormatter</module>
         <module>SpringMessageBus</module>
@@ -122,6 +123,6 @@
         <module>TestUtilities</module>
         <module>Vaadin</module>
         <module>examples</module>
-    </modules>
+  </modules>
 
 </project>
