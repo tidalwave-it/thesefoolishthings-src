@@ -41,8 +41,23 @@
             </dependency>
             <dependency>
                 <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>javax-inject</artifactId>
+                <version>${javax-inject.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
                 <artifactId>org-slf4j-jdk14</artifactId>
                 <version>1.6.1-201106101300</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>com-eaio-uuid</artifactId>
+                <version>${uuid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
             </dependency>
 
             <dependency>
@@ -54,8 +69,8 @@
 
             <dependency>
                 <groupId>it.tidalwave.superpom</groupId>
-                <artifactId>platform13</artifactId>
-                <version>${netbeans.version}</version>
+                <artifactId>platform</artifactId>
+                <version>${netbeans.version}-1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -111,6 +126,7 @@
     </dependencies>
 
     <modules>
+        <module>Actors</module>
         <module>Beans</module>
         <module>BeansBinding</module>
         <module>MessageBus</module>
