@@ -56,6 +56,25 @@ public class ReflectionUtils
      * 
      * 
      ******************************************************************************************************************/
+    public static class MethodProcessorSupport implements MethodProcessor
+      {
+        @Override @Nonnull
+        public FilterResult filter (final @Nonnull Class<?> clazz)
+          {
+            return FilterResult.ACCEPT;        
+          }
+        
+        @Override
+        public void process (final @Nonnull Method method)
+          {
+          }  
+      }
+    
+    /*******************************************************************************************************************
+     * 
+     * 
+     * 
+     ******************************************************************************************************************/
     public static void forEachMethodInTopDownHierarchy (final @Nonnull Object object,       
                                                         final @Nonnull MethodProcessor processor) 
       {
