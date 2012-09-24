@@ -6,14 +6,14 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>1.26-SNAPSHOT</version>
+        <version>1.26</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-util-test</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.25-SNAPSHOT</version>
+    <version>1.0.25</version>
     <name>TheseFoolishThings - Test Utilities</name>
 
     <properties>
