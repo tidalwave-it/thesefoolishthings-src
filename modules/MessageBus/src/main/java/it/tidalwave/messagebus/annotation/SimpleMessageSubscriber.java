@@ -20,49 +20,26 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.messagebus;
+package it.tidalwave.messagebus.annotation;
 
-import javax.annotation.Nonnull;
-import it.tidalwave.messagebus.annotation.ListensTo;
-import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
-import lombok.extern.slf4j.Slf4j;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import it.tidalwave.messagebus.MessageBusHelper;
 
 /***********************************************************************************************************************
- *
+ * 
+ * Designates a class as a simple subscriber of a message bus. This makes it possible to avoid plumbing code for 
+ * subscribing to topics and use instead {@link ListensTo} with {@link MessageBusHelper}.
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@SimpleMessageSubscriber @Slf4j
-public class EventBusAdapterExample 
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Documented
+public @interface SimpleMessageSubscriber 
   {
-    private final MessageBusHelper messageBusHelper;
-
-    public EventBusAdapterExample (final @Nonnull MessageBusHelper.Adapter adapter) 
-      {
-        messageBusHelper = new MessageBusHelper(this, adapter);
-      }
-
-    public void start()
-      {
-        messageBusHelper.subscribeAll();  
-        // set up your stuff
-      }
-    
-    public void stop()
-      { 
-        messageBusHelper.unsubscribeAll();
-        // dispose your stuff
-      }
-    
-    private void onMessage1 (final @ListensTo Message1 message)
-      {
-        log.info("Received {}", message); 
-        messageBusHelper.publish(new Message2());
-      }
-    
-    private void onMessage2 (final @ListensTo Message2 message)
-      {
-        log.info("Received {}", message); 
-      }
   }

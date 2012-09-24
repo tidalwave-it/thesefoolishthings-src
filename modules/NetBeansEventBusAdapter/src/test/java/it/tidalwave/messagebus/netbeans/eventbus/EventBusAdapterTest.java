@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 import org.netbeans.platformx.eventbus.api.EventBus;
 import it.tidalwave.messagebus.MessageBusHelper;
 import it.tidalwave.messagebus.EventBusAdapterTestSupport;
-import static it.tidalwave.messagebus.netbeans.eventbus.EventBusAdapter.*;
+import static it.tidalwave.messagebus.netbeans.eventbus.PlatformXEventBusAdapter.*;
 
 /***********************************************************************************************************************
  *
@@ -43,7 +43,7 @@ public class EventBusAdapterTest extends EventBusAdapterTestSupport
       }
 
     @Override @Nonnull
-    protected MessageBusHelper.AdapterFactory getAdapterFactory() 
+    protected MessageBusHelper.Adapter getAdapterFactory() 
       {
         return PLATFORMX_EVENTBUS_ADAPTER;
       }

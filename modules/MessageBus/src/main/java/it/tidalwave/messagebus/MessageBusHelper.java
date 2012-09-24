@@ -28,9 +28,11 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import it.tidalwave.messagebus.annotation.ListensTo;
+import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.messagebus.spi.ReflectionUtils.*;
+import static it.tidalwave.messagebus.spi.ReflectionUtils.MethodProcessor.FilterResult.*;
 
 /***********************************************************************************************************************
  *
@@ -46,7 +48,7 @@ public class MessageBusHelper
      * 
      * 
      ******************************************************************************************************************/
-    public static interface AdapterFactory
+    public static interface Adapter
       {
         @Nonnull
         public <Topic> MethodAdapter<Topic> createMethodAdapter (@Nonnull Object object, 
@@ -74,7 +76,7 @@ public class MessageBusHelper
     private final Object owner;
     
     @Nonnull
-    private final AdapterFactory methodAdapterFactory;
+    private final Adapter methodAdapterFactory;
     
     private final List<MethodAdapter<?>> methodAdapters = new ArrayList<MethodAdapter<?>>();
     
@@ -87,6 +89,12 @@ public class MessageBusHelper
       {
         forEachMethodInTopDownHierarchy(owner, new MethodProcessor() 
           {
+            @Override @Nonnull
+            public FilterResult filter (final @Nonnull Class<?> clazz)
+              {
+                return clazz.getAnnotation(SimpleMessageSubscriber.class) != null ? ACCEPT : IGNORE;
+              }
+            
             @Override
             public void process (final @Nonnull Method method) 
               {

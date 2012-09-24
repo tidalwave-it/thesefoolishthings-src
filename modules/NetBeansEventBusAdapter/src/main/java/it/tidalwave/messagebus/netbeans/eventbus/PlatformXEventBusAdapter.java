@@ -39,10 +39,10 @@ import lombok.extern.slf4j.Slf4j;
  *
  **********************************************************************************************************************/
 @NoArgsConstructor(access=AccessLevel.PRIVATE) @Slf4j
-public class EventBusAdapter implements MessageBusHelper.AdapterFactory
+public class PlatformXEventBusAdapter implements MessageBusHelper.Adapter
   {
-    public static final MessageBusHelper.AdapterFactory INSTANCE = new EventBusAdapter();
-    public static final MessageBusHelper.AdapterFactory PLATFORMX_EVENTBUS_ADAPTER = INSTANCE;
+    public static final MessageBusHelper.Adapter INSTANCE = new PlatformXEventBusAdapter();
+    public static final MessageBusHelper.Adapter PLATFORMX_EVENTBUS_ADAPTER = INSTANCE;
 
     /*******************************************************************************************************************
      * 

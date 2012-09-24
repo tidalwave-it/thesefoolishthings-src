@@ -47,5 +47,5 @@ public abstract class EventBusAdapterTestSupport
     
     protected abstract void publish (final @Nonnull Object message);
     
-    protected abstract MessageBusHelper.AdapterFactory getAdapterFactory();
+    protected abstract MessageBusHelper.Adapter getAdapterFactory();
   }

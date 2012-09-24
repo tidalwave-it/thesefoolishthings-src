@@ -44,6 +44,10 @@ public class ReflectionUtils
      ******************************************************************************************************************/
     public static interface MethodProcessor
       {
+        enum FilterResult { ACCEPT, IGNORE };
+        
+        public FilterResult filter (@Nonnull Class<?> clazz);
+        
         public void process (@Nonnull Method method);  
       }
     
@@ -77,9 +81,12 @@ public class ReflectionUtils
         
         for (final Class<?> clazz : hierarchy)
           {
-            for (final Method method : clazz.getDeclaredMethods())
+            if (processor.filter(clazz) == MethodProcessor.FilterResult.ACCEPT)
               {
-                processor.process(method);
+                for (final Method method : clazz.getDeclaredMethods())
+                  {
+                    processor.process(method);
+                  }
               }
           }
       }
@@ -90,7 +97,7 @@ public class ReflectionUtils
      * 
      ******************************************************************************************************************/
     @Nonnull
-    public static List<Class<?>> getClassHierarchy (final @Nonnull Class<?> clazz)
+    private static List<Class<?>> getClassHierarchy (final @Nonnull Class<?> clazz)
       {  
         final List<Class<?>> hierarchy = new ArrayList<Class<?>>();
         
