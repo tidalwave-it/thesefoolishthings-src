@@ -20,7 +20,7 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.messagebus.netbeans.eventbus;
+package it.tidalwave.messagebus.netbeans.platformx.eventbus;
 
 import javax.annotation.Nonnull;
 import org.netbeans.platformx.eventbus.api.EventBus;
