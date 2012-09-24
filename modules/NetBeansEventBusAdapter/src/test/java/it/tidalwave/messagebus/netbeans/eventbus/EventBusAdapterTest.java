@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 import org.netbeans.platformx.eventbus.api.EventBus;
 import it.tidalwave.messagebus.MessageBusHelper;
 import it.tidalwave.messagebus.EventBusAdapterTestSupport;
-import static it.tidalwave.messagebus.netbeans.eventbus.PlatformXEventBusAdapter.*;
+import static it.tidalwave.messagebus.netbeans.platformx.eventbus.PlatformXEventBusAdapter.*;
 
 /***********************************************************************************************************************
  *
