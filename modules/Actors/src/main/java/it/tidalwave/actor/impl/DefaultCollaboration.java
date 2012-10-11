@@ -326,7 +326,14 @@ public class DefaultCollaboration implements Serializable, Collaboration
       {
         log.trace("registerDeliveringMessage({})", message);
         
-        if (message.getClass().getAnnotation(Message.class).daemon())
+        final Message annotation = message.getClass().getAnnotation(Message.class);
+        
+        if (annotation == null)
+          {
+            throw new IllegalArgumentException("Message must be annotated with @Message: " + message.getClass());  
+          }
+        
+        if (annotation.daemon())
           {
             deliveringMessages.add(message);  
     
