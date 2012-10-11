@@ -29,9 +29,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import java.io.Serializable;
+import it.tidalwave.util.As;
+import it.tidalwave.util.AsException;
+import it.tidalwave.util.spi.AsDelegate;
+import it.tidalwave.util.spi.AsDelegateProvider;
 import it.tidalwave.actor.impl.Locator;
 import it.tidalwave.actor.impl.DefaultCollaboration;
 import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
+import lombok.Delegate;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,12 +51,16 @@ import lombok.extern.slf4j.Slf4j;
  *
  **********************************************************************************************************************/
 @Slf4j @EqualsAndHashCode(of="collaboration")
-public abstract class MessageSupport implements Collaboration.Provider, Serializable
+public abstract class MessageSupport implements Collaboration.Provider, As, Serializable
   {
+    // TODO: @Inject
     private final Provider<CollaborationAwareMessageBus> messageBus = Locator.createProviderFor(CollaborationAwareMessageBus.class);
 
     @Nonnull
     protected final DefaultCollaboration collaboration;
+    
+    @Delegate
+    private AsDelegate asDelegate = AsDelegateProvider.Locator.find().createAsDelegate(this);
 
     /*******************************************************************************************************************
      * 
@@ -75,7 +84,9 @@ public abstract class MessageSupport implements Collaboration.Provider, Serializ
     
     /*******************************************************************************************************************
      * 
+     * Returns the {@link Collaboration} that this message is part of.
      * 
+     * @return  the {@code Collaboration}
      * 
      ******************************************************************************************************************/
     @Override @Nonnull
@@ -120,4 +131,22 @@ public abstract class MessageSupport implements Collaboration.Provider, Serializ
         
         return collaboration;
       }
- } 
+
+    /*******************************************************************************************************************
+     * 
+     * {@inheritDoc}
+     * 
+     ******************************************************************************************************************/
+    @Nonnull
+    public <T> T as (final @Nonnull Class<T> type) 
+      {
+        return as(type, new As.NotFoundBehaviour<T>() 
+          {
+            @Nonnull
+            public T run (final @Nonnull Throwable t) 
+              {
+                throw new AsException(type, t);
+              }
+          });
+      }
+  } 
