@@ -39,6 +39,7 @@ import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
 import lombok.Delegate;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.actor.MessageReplacer.MessageReplacer;
 
 /***********************************************************************************************************************
  * 
@@ -58,6 +59,8 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
 
     @Nonnull
     protected final DefaultCollaboration collaboration;
+    
+    private final MessageReplacer sameMessageReplacer = new MessageReplacer.Same(this);
     
     @Delegate
     private AsDelegate asDelegate = AsDelegateProvider.Locator.find().createAsDelegate(this);
@@ -97,13 +100,29 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     
     /*******************************************************************************************************************
      * 
+     * Sends this message, eventually performing a replacement (see {@link MessageReplacer} for further info).
      * 
+     * @return  the {@code Collaboration} that this message is part of
      * 
      ******************************************************************************************************************/
     @Nonnull
     public Collaboration send()
       {
         log.debug("send() - {}", this);
+        return findReplacedMessage().sendDirectly();
+      }
+    
+    /*******************************************************************************************************************
+     * 
+     * Sends this message directly, not performing any replacement (see {@link MessageReplacer} for further info).
+     * 
+     * @return  the {@code Collaboration} that this message is part of
+     * 
+     ******************************************************************************************************************/
+    @Nonnull
+    public Collaboration sendDirectly()
+      {
+        log.debug("sendDirectly() - {}", this);
         collaboration.registerDeliveringMessage(this);
         messageBus.get().publish(this); 
         return collaboration;
@@ -111,21 +130,27 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     
     /*******************************************************************************************************************
      * 
+     * Sends this message after a delay, eventually performing a replacement (see {@link MessageReplacer} for 
+     * further info).
      * 
+     * @param   delay     the delay
+     * @param   timeUnit  the {@link TimeUnit} for the delay
+     * @return            the {@code Collaboration} that this message is part of
      * 
      ******************************************************************************************************************/
     @Nonnull
     public Collaboration sendLater (final @Nonnegative int delay, final @Nonnull TimeUnit timeUnit)
       {
         log.debug("sendLater({}, {}) - {}", new Object[] { delay, timeUnit, this });
-        collaboration.registerDeliveringMessage(this);
+        final MessageSupport message = findReplacedMessage();
+        collaboration.registerDeliveringMessage(message);
           
         new Timer().schedule(new TimerTask() 
           {
             @Override
             public void run() 
               {
-                messageBus.get().publish(MessageSupport.this); 
+                messageBus.get().publish(message); 
               }
           }, TimeUnit.MILLISECONDS.convert(delay, timeUnit));
         
@@ -145,8 +170,36 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
             @Nonnull
             public T run (final @Nonnull Throwable t) 
               {
+                if (type.equals(MessageReplacer.class))
+                  {
+                    return type.cast(sameMessageReplacer);
+                  }
+                
                 throw new AsException(type, t);
               }
           });
       }
-  } 
+
+    /*******************************************************************************************************************
+     * 
+     * 
+     * 
+     ******************************************************************************************************************/
+    @Nonnull
+    @SuppressWarnings("empty-statement")
+    private MessageSupport findReplacedMessage()
+      {
+        MessageSupport previous = null;
+        
+        for (MessageSupport message = this; 
+             message != previous; 
+             previous = message, message = message.as(MessageReplacer).getReplacedMessage());
+        
+        if (previous != this)
+          { 
+            log.info("MESSAGE REPLACED: {} -> {}", this, previous);  
+          }
+        
+        return previous;
+      }
+ } 
