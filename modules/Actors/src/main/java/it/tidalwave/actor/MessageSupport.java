@@ -186,20 +186,16 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
      * 
      ******************************************************************************************************************/
     @Nonnull
-    @SuppressWarnings("empty-statement")
     private MessageSupport findDecoratedMessage()
       {
-        MessageSupport previous = null;
+        MessageSupport decoratedMessage = this.as(MessageDecorator).getDecoratedMessage();
         
-        for (MessageSupport message = this; 
-             message != previous; 
-             previous = message, message = message.as(MessageDecorator).getDecoratedMessage());
-        
-        if (previous != this)
-          { 
-            log.info("MESSAGE REPLACED: {} -> {}", this, previous);  
+        if (decoratedMessage != this)
+          {
+            log.info("MESSAGE HAS BEEN DECORATED: {} -> {}", this, decoratedMessage);  
+            decoratedMessage = decoratedMessage.findDecoratedMessage();  
           }
         
-        return previous;
+        return decoratedMessage;
       }
  } 
