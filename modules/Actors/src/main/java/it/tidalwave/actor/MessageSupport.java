@@ -188,14 +188,16 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     @Nonnull
     private MessageSupport findDecoratedMessage()
       {
-        MessageSupport decoratedMessage = this.as(MessageDecorator).getDecoratedMessage();
-        
-        if (decoratedMessage != this)
-          {
-            log.info("MESSAGE HAS BEEN DECORATED: {} -> {}", this, decoratedMessage);  
-            decoratedMessage = decoratedMessage.findDecoratedMessage();  
-          }
-        
-        return decoratedMessage;
+        final MessageSupport decoratedMessage = this.as(MessageDecorator).getDecoratedMessage();
+        return (decoratedMessage == this) ? this : decoratedMessage.findDecoratedMessage();  
+//        MessageSupport decoratedMessage = this.as(MessageDecorator).getDecoratedMessage();
+//        
+//        if (decoratedMessage != this)
+//          {
+//            log.info("MESSAGE HAS BEEN DECORATED: {} -> {}", this, decoratedMessage);  
+//            decoratedMessage = decoratedMessage.findDecoratedMessage();  
+//          }
+//        
+//        return decoratedMessage;
       }
  } 
