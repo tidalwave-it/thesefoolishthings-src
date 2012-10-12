@@ -29,7 +29,7 @@ import lombok.ToString;
 
 /***********************************************************************************************************************
  *
- * This role should be injected into a message to replace it a the moment of sending. This technique is experimental
+ * This role should be injected into a message to decorated it a the moment of sending. This technique is experimental
  * and represents the function of a Decorator Pattern in a message-oriented design.
  * 
  * @stereotype Role
@@ -38,29 +38,29 @@ import lombok.ToString;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface MessageReplacer 
+public interface MessageDecorator 
   {
-    public static final Class<MessageReplacer> MessageReplacer = MessageReplacer.class;
+    public static final Class<MessageDecorator> MessageDecorator = MessageDecorator.class;
     
     /*******************************************************************************************************************
      * 
-     * A default implementation of {@link MessageReplacer} which returns the same message.
+     * A default implementation of {@code MessageDecorator} which returns the same message.
      * 
      ******************************************************************************************************************/
     @RequiredArgsConstructor @ToString
-    public static class Same<T extends MessageSupport> implements MessageReplacer
+    public static class Same<T extends MessageSupport> implements MessageDecorator
       {
         @Getter @Nonnull
-        private final T replacedMessage;
+        private final T decoratedMessage;
       }
     
     /*******************************************************************************************************************
      * 
-     * Returns the replaced message.
+     * Returns the decorated message.
      * 
-     * @return  the replaced message
+     * @return  the decorated message
      * 
      ******************************************************************************************************************/
     @Nonnull
-    public MessageSupport getReplacedMessage();
+    public MessageSupport getDecoratedMessage();
   }

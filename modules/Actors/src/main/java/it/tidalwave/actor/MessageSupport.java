@@ -39,7 +39,7 @@ import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
 import lombok.Delegate;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.actor.MessageReplacer.MessageReplacer;
+import static it.tidalwave.actor.MessageDecorator.MessageDecorator;
 
 /***********************************************************************************************************************
  * 
@@ -60,7 +60,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     @Nonnull
     protected final DefaultCollaboration collaboration;
     
-    private final MessageReplacer sameMessageReplacer = new MessageReplacer.Same(this);
+    private final MessageDecorator sameMessageDecorator = new MessageDecorator.Same(this);
     
     @Delegate
     private AsDelegate asDelegate = AsDelegateProvider.Locator.find().createAsDelegate(this);
@@ -109,7 +109,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     public Collaboration send()
       {
         log.debug("send() - {}", this);
-        return findReplacedMessage().sendDirectly();
+        return findDecoratedMessage().sendDirectly();
       }
     
     /*******************************************************************************************************************
@@ -142,7 +142,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     public Collaboration sendLater (final @Nonnegative int delay, final @Nonnull TimeUnit timeUnit)
       {
         log.debug("sendLater({}, {}) - {}", new Object[] { delay, timeUnit, this });
-        final MessageSupport message = findReplacedMessage();
+        final MessageSupport message = findDecoratedMessage();
         collaboration.registerDeliveringMessage(message);
           
         new Timer().schedule(new TimerTask() 
@@ -170,9 +170,9 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
             @Nonnull
             public T run (final @Nonnull Throwable t) 
               {
-                if (type.equals(MessageReplacer.class))
+                if (type.equals(MessageDecorator.class))
                   {
-                    return type.cast(sameMessageReplacer);
+                    return type.cast(sameMessageDecorator);
                   }
                 
                 throw new AsException(type, t);
@@ -187,13 +187,13 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
      ******************************************************************************************************************/
     @Nonnull
     @SuppressWarnings("empty-statement")
-    private MessageSupport findReplacedMessage()
+    private MessageSupport findDecoratedMessage()
       {
         MessageSupport previous = null;
         
         for (MessageSupport message = this; 
              message != previous; 
-             previous = message, message = message.as(MessageReplacer).getReplacedMessage());
+             previous = message, message = message.as(MessageDecorator).getDecoratedMessage());
         
         if (previous != this)
           { 
