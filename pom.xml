@@ -23,19 +23,6 @@
         <scm.repo.url>ssh://hg@bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
-
-        <javax-inject.version>1.0-201002241208</javax-inject.version>
-        <joda-time.version>1.6.2-201110292322</joda-time.version>
-        <netbeans.version>RELEASE712</netbeans.version>
-        <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
-        <slf4j.version>1.6.1</slf4j.version>
-        <uuid.version>2.1.5-201007271250</uuid.version>
-        <vaadin.version>6.6.1</vaadin.version>
-        
-        <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide java.*|javax.*</tft.UmlGraphDoc.additionalParam>
-       
-        <tft.javac.source>1.5</tft.javac.source> <!-- For Android compatibility -->
-        <tft.javac.target>1.5</tft.javac.target>
     </properties>
     
     <issueManagement>
