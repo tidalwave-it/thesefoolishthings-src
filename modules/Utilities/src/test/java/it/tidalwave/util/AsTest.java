@@ -53,9 +53,9 @@ public class AsTest
     @Test
     public void test1()
       {
-        final Datum1 datum1 = new Datum1("foo");
+        final Datum1 datum = new Datum1("foo");
         
-        datum1.as(Renderable.class).renderTo(terminal);
+        datum.as(Renderable).renderTo(terminal);
         
         verify(terminal).render(eq("foo"));
       }
@@ -63,9 +63,9 @@ public class AsTest
     @Test
     public void test2()
       {
-        final Datum2 datum2 = new Datum2("bar");
+        final Datum2 datum = new Datum2("bar");
         
-        datum2.as(Renderable).renderTo(terminal);
+        datum.as(Renderable).renderTo(terminal);
         
         verify(terminal).render(eq("bar"));
       }
