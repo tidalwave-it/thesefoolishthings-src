@@ -26,7 +26,6 @@ import it.tidalwave.util.asexamples.AsExtensions;
 import it.tidalwave.util.asexamples.Datum1;
 import it.tidalwave.util.asexamples.Datum2;
 import it.tidalwave.util.asexamples.RenderingContext;
-import it.tidalwave.util.asexamples.Renderable;
 import lombok.experimental.ExtensionMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
