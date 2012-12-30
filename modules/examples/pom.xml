@@ -38,6 +38,7 @@
     </build>
 
     <modules>
+        <module>AsExample1</module>
         <module>FinderExample1</module>
         <module>FinderExample2</module>
         <module>FinderExample3</module>
