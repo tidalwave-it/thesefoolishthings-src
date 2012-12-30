@@ -65,9 +65,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>it.tidalwave.northernwind</groupId>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it-tidalwave-role-spring</artifactId>
-            <version>1.0.36-SNAPSHOT</version> <!-- FIXME -->
         </dependency>
     </dependencies>
 </project>
