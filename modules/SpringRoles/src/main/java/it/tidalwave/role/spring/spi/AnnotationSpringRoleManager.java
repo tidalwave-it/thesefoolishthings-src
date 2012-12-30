@@ -169,6 +169,12 @@ public class AnnotationSpringRoleManager implements RoleManager
           {
             final RoleFor role = roleImplementationClass.getAnnotation(RoleFor.class);
             final Class<?> datumClass = role.datum();
+            final Class<?> contextClass = role.context();
+            
+            if (!contextClass.equals(Object.class))
+              {
+                throw new RuntimeException("Non global context not implemented yet");  
+              }
             
             for (final Class<?> roleClass : roleImplementationClass.getInterfaces())
               {

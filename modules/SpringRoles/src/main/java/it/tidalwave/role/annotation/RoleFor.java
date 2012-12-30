@@ -44,4 +44,6 @@ public @interface RoleFor
   {
     @Nonnull
     public Class<?> datum();
+    
+    public Class<?> context() default Object.class;
   }
