@@ -168,11 +168,11 @@ public class AnnotationSpringRoleManager implements RoleManager
         for (final Class<?> roleImplementationClass : classScanner.findClasses())
           {
             final RoleFor role = roleImplementationClass.getAnnotation(RoleFor.class);
-            final Class<?> ownerClass = role.datum();
+            final Class<?> datumClass = role.datum();
             
             for (final Class<?> roleClass : roleImplementationClass.getInterfaces())
               {
-                roleMapByOwnerClass.add(new ClassAndRole(ownerClass, roleClass), roleImplementationClass);
+                roleMapByOwnerClass.add(new ClassAndRole(datumClass, roleClass), roleImplementationClass);
               }
           }
         
