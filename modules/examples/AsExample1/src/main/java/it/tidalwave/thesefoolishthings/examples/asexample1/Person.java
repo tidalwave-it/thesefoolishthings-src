@@ -22,6 +22,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.asexample1;
 
+import javax.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
@@ -34,7 +35,9 @@ import lombok.ToString;
 @RequiredArgsConstructor @ToString
 public class Person 
   {
+    @Nonnull
     final String firstName;
 
+    @Nonnull
     final String lastName;
   }
