@@ -33,7 +33,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.beans.factory.annotation.Configurable;
 import it.tidalwave.util.spring.ClassScanner;
-import it.tidalwave.role.annotation.RoleImplementation;
+import it.tidalwave.role.annotation.RoleFor;
 import it.tidalwave.role.spi.RoleManager;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -163,12 +163,12 @@ public class AnnotationSpringRoleManager implements RoleManager
     @PostConstruct
     /* package */ void initialize()
       {
-        final ClassScanner classScanner = new ClassScanner().withAnnotationFilter(RoleImplementation.class);
+        final ClassScanner classScanner = new ClassScanner().withAnnotationFilter(RoleFor.class);
         
         for (final Class<?> roleImplementationClass : classScanner.findClasses())
           {
-            final RoleImplementation role = roleImplementationClass.getAnnotation(RoleImplementation.class);
-            final Class<?> ownerClass = role.ownerClass();
+            final RoleFor role = roleImplementationClass.getAnnotation(RoleFor.class);
+            final Class<?> ownerClass = role.datum();
             
             for (final Class<?> roleClass : roleImplementationClass.getInterfaces())
               {

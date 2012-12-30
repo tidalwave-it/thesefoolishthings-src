@@ -24,7 +24,7 @@ package it.tidalwave.thesefoolishthings.examples.asexample1;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.role.Displayable;
-import it.tidalwave.role.annotation.RoleImplementation;
+import it.tidalwave.role.annotation.RoleFor;
 import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
@@ -33,10 +33,10 @@ import lombok.RequiredArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor
-@RoleImplementation(ownerClass=Person.class)
+@RoleFor(datum=Person.class) @RequiredArgsConstructor
 public class PersonDisplayable implements Displayable
   {
+    @Nonnull
     private final Person datum;
     
     @Override @Nonnull

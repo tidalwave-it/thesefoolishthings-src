@@ -40,8 +40,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RoleImplementation 
+public @interface RoleFor 
   {
     @Nonnull
-    public Class<?> ownerClass();
+    public Class<?> datum();
   }
