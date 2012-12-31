@@ -10,12 +10,12 @@
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
-    <artifactId>it-tidalwave-thesefoolishthings-examples-asexample1</artifactId>
+    <artifactId>it-tidalwave-thesefoolishthings-examples-asexample2</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>TheseFoolishThings Examples - As Example 1</name>
+    <name>TheseFoolishThings Examples - As Example 2</name>
 
     <properties>
-        <mainClass>it.tidalwave.thesefoolishthings.examples.asexample1.AsExample1</mainClass>
+        <mainClass>it.tidalwave.thesefoolishthings.examples.asexample2.AsExample2</mainClass>
     </properties>
 
     <dependencies>

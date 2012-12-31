@@ -20,39 +20,6 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.asexample1;
-
-import javax.annotation.Nonnull;
-import javax.inject.Inject;
-import java.util.List;
-import it.tidalwave.util.As;
-import it.tidalwave.util.NotFoundException;
-import it.tidalwave.role.spi.RoleManager;
-import org.springframework.beans.factory.annotation.Configurable;
-
-/***********************************************************************************************************************
- *
- * @author  Fabrizio Giudici
- * @version $Id$
- *
- **********************************************************************************************************************/
-@Configurable
-public class AsExtensionsBean
+public class DummyTest
   {
-    @Inject @Nonnull
-    private RoleManager roleManager;
-
-    public <T> T as (final @Nonnull Object datum, 
-                     final @Nonnull Class<T> roleType,
-                     final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour) 
-      {
-        final List<? extends T> roles = roleManager.findRoles(datum, roleType);
-        
-        if (roles.isEmpty())
-          {
-            return notFoundBehaviour.run(new NotFoundException("No " + roleType.getName() + " in " + datum)); 
-          }
-        
-        return roles.get(0);
-      }    
   }

@@ -20,14 +20,18 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.asexample1;
+package it.tidalwave.thesefoolishthings.examples.asexample2;
 
 import it.tidalwave.role.AsExtensions;
+import static it.tidalwave.role.ContextRunner.*;
 import it.tidalwave.thesefoolishthings.examples.datum.Person;
 import javax.annotation.Nonnull;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.Displayable.Displayable;
+import it.tidalwave.thesefoolishthings.examples.datum.JpaPersistenceContext;
+import static it.tidalwave.role.Persistable.Persistable;
+import static it.tidalwave.role.Removable.Removable;
 
 /***********************************************************************************************************************
  *
@@ -38,13 +42,22 @@ import static it.tidalwave.role.Displayable.Displayable;
 @ExtensionMethod(AsExtensions.class)
 public class AsExample1 
   {
-    private static Object context;
-    
     public static void main (final @Nonnull String ... args)
       throws Exception
       {
-        context = new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
+        new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
         final Person joe = new Person("Joe", "Smith");
         System.err.println(joe.as(Displayable).getDisplayName());
+        
+        final JpaPersistenceContext jpaContext = new JpaPersistenceContext(); // FIXME: use Spring
+        runInContext(jpaContext, new SimpleCallable()
+          {
+            public Void run() 
+              {
+//                joe.as(Persistable).persist();
+//                joe.as(Removable).remove();
+                return null;
+              }
+          });
       } 
   }

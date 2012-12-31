@@ -20,31 +20,20 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.asexample1;
-
-import it.tidalwave.role.AsExtensions;
-import it.tidalwave.thesefoolishthings.examples.datum.Person;
-import javax.annotation.Nonnull;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.role.Displayable.Displayable;
+package it.tidalwave.role;
 
 /***********************************************************************************************************************
  *
+ * The role of an object that can be persisted.
+ * 
  * @author  Fabrizio Giudici
+ * @it.tidalwave.javadoc.draft
  * @version $Id$
  *
  **********************************************************************************************************************/
-@ExtensionMethod(AsExtensions.class)
-public class AsExample1 
+public interface Persistable 
   {
-    private static Object context;
+    public static final Class<Persistable> Persistable = Persistable.class;
     
-    public static void main (final @Nonnull String ... args)
-      throws Exception
-      {
-        context = new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
-        final Person joe = new Person("Joe", "Smith");
-        System.err.println(joe.as(Displayable).getDisplayName());
-      } 
+    public void persist();
   }

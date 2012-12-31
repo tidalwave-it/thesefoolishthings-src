@@ -20,14 +20,15 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.asexample1;
+package it.tidalwave.role;
 
-import it.tidalwave.role.AsExtensions;
-import it.tidalwave.thesefoolishthings.examples.datum.Person;
 import javax.annotation.Nonnull;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.role.Displayable.Displayable;
+import javax.inject.Inject;
+import java.util.List;
+import it.tidalwave.util.As;
+import it.tidalwave.util.NotFoundException;
+import it.tidalwave.role.spi.RoleManager;
+import org.springframework.beans.factory.annotation.Configurable;
 
 /***********************************************************************************************************************
  *
@@ -35,16 +36,23 @@ import static it.tidalwave.role.Displayable.Displayable;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@ExtensionMethod(AsExtensions.class)
-public class AsExample1 
+@Configurable
+public class AsExtensionsBean
   {
-    private static Object context;
-    
-    public static void main (final @Nonnull String ... args)
-      throws Exception
+    @Inject @Nonnull
+    private RoleManager roleManager;
+
+    public <T> T as (final @Nonnull Object datum, 
+                     final @Nonnull Class<T> roleType,
+                     final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour) 
       {
-        context = new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
-        final Person joe = new Person("Joe", "Smith");
-        System.err.println(joe.as(Displayable).getDisplayName());
-      } 
+        final List<? extends T> roles = roleManager.findRoles(datum, roleType);
+        
+        if (roles.isEmpty())
+          {
+            return notFoundBehaviour.run(new NotFoundException("No " + roleType.getName() + " in " + datum)); 
+          }
+        
+        return roles.get(0);
+      }    
   }

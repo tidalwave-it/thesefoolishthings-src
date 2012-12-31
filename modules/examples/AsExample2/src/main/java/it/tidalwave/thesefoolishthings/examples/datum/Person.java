@@ -20,10 +20,11 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.asexample1;
+package it.tidalwave.thesefoolishthings.examples.datum;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.As;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /***********************************************************************************************************************
  *
@@ -31,20 +32,12 @@ import it.tidalwave.util.As;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class AsExtensions
+@RequiredArgsConstructor @ToString
+public class Person 
   {
-    private final static AsExtensionsBean bean = new AsExtensionsBean();
+    @Nonnull
+    final String firstName;
 
-    public static <T> T as (final @Nonnull Object datum,
-                            final @Nonnull Class<T> roleType)
-      {
-        return as(datum, roleType, As.Defaults.throwAsException(roleType));
-      }
-
-    public static <T> T as (final @Nonnull Object datum, 
-                            final @Nonnull Class<T> roleType,
-                            final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour) 
-      {
-        return bean.as(datum, roleType, notFoundBehaviour);
-      }    
+    @Nonnull
+    final String lastName;
   }

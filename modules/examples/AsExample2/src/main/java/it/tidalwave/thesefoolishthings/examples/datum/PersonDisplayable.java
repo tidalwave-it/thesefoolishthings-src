@@ -20,14 +20,12 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.asexample1;
+package it.tidalwave.thesefoolishthings.examples.datum;
 
-import it.tidalwave.role.AsExtensions;
-import it.tidalwave.thesefoolishthings.examples.datum.Person;
 import javax.annotation.Nonnull;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.role.Displayable.Displayable;
+import it.tidalwave.role.Displayable;
+import it.tidalwave.role.annotation.RoleFor;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
@@ -35,16 +33,15 @@ import static it.tidalwave.role.Displayable.Displayable;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@ExtensionMethod(AsExtensions.class)
-public class AsExample1 
+@RoleFor(datum=Person.class) @RequiredArgsConstructor
+public class PersonDisplayable implements Displayable
   {
-    private static Object context;
+    @Nonnull
+    private final Person datum;
     
-    public static void main (final @Nonnull String ... args)
-      throws Exception
+    @Override @Nonnull
+    public String getDisplayName() 
       {
-        context = new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
-        final Person joe = new Person("Joe", "Smith");
-        System.err.println(joe.as(Displayable).getDisplayName());
-      } 
+        return String.format("%s %s", datum.firstName, datum.lastName);
+      }
   }
