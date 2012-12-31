@@ -30,6 +30,7 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.Displayable.Displayable;
 import static it.tidalwave.role.Marshallable.Marshallable;
+import it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry;
 import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
 import java.util.Arrays;
 
@@ -53,8 +54,16 @@ public class AsExample1
         System.err.println(joe.as(Displayable).getDisplayName());
         
         joe.as(Marshallable).marshal(System.err);
+        System.err.println("");
         
         final ListOfPersons listOfPersons = new ListOfPersons(Arrays.asList(joe, luke));
         listOfPersons.as(Marshallable).marshal(System.err);
+        System.err.println("");
+        
+        final DefaultPersonRegistry personRegistry = new DefaultPersonRegistry();
+        personRegistry.addPerson(joe);
+        personRegistry.addPerson(luke);
+        personRegistry.as(Marshallable).marshal(System.err);
+        System.err.println("");
       } 
   }
