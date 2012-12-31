@@ -24,7 +24,7 @@ package it.tidalwave.thesefoolishthings.examples.asexample2;
 
 import it.tidalwave.role.AsExtensions;
 import static it.tidalwave.role.ContextRunner.*;
-import it.tidalwave.thesefoolishthings.examples.datum.Person;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 import javax.annotation.Nonnull;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import lombok.experimental.ExtensionMethod;

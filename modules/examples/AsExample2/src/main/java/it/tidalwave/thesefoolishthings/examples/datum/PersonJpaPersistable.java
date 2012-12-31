@@ -4,6 +4,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.datum;
 
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 import javax.annotation.Nonnull;
 import java.io.Serializable;
 import javax.persistence.Column;

@@ -20,16 +20,13 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.asexample1;
+package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import it.tidalwave.util.Id;
-import it.tidalwave.role.AsExtensions;
-import it.tidalwave.thesefoolishthings.examples.person.Person;
-import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.role.Displayable.Displayable;
-import static it.tidalwave.role.Marshallable.Marshallable;
+import java.util.ArrayList;
+import java.util.List;
+import it.tidalwave.util.Finder;
+import it.tidalwave.util.spi.SimpleFinderSupport;
 
 /***********************************************************************************************************************
  *
@@ -37,18 +34,28 @@ import static it.tidalwave.role.Marshallable.Marshallable;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@ExtensionMethod(AsExtensions.class)
-public class AsExample1 
+public class DefaultPersonRegistry implements PersonRegistry 
   {
-    private static Object context;
+    private final List<Person> persons = new ArrayList<Person>();
     
-    public static void main (final @Nonnull String ... args)
-      throws Exception
+    @Override @Nonnull
+    public Finder<Person> findPerson() 
       {
-        context = new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
-        final Person joe = new Person(new Id("1"), "Joe", "Smith");
-        System.err.println(joe.as(Displayable).getDisplayName());
-        
-        joe.as(Marshallable).marshal(System.err);
-      } 
+        return new SimpleFinderSupport<Person>() 
+          {
+            @Override @Nonnull
+            protected List<? extends Person> computeResults() 
+              {
+                final List<Person> results = new ArrayList<Person>();
+                results.addAll(persons);
+                return results;
+              }
+          };
+      }
+
+    @Override @Nonnull
+    public void addPerson (final @Nonnull Person person) 
+      {
+        persons.add(person);
+      }  
   }

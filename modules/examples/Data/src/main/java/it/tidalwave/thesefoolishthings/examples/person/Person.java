@@ -20,10 +20,10 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.datum;
+package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
-import lombok.RequiredArgsConstructor;
+import it.tidalwave.util.Id;
 import lombok.ToString;
 
 /***********************************************************************************************************************
@@ -32,12 +32,23 @@ import lombok.ToString;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor @ToString
+@ToString
 public class Person 
   {
+    final Id id;
+    
     @Nonnull
     final String firstName;
 
     @Nonnull
     final String lastName;
+
+    public Person (final @Nonnull Id id, 
+                   final @Nonnull String firstName, 
+                   final @Nonnull String lastName)
+      {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+      }
   }
