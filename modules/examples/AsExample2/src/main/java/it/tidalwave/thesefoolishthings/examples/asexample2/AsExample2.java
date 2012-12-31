@@ -40,7 +40,7 @@ import static it.tidalwave.role.Removable.Removable;
  *
  **********************************************************************************************************************/
 @ExtensionMethod(AsExtensions.class)
-public class AsExample1 
+public class AsExample2 
   {
     public static void main (final @Nonnull String ... args)
       throws Exception
