@@ -30,6 +30,8 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.Displayable.Displayable;
 import static it.tidalwave.role.Marshallable.Marshallable;
+import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
+import java.util.Arrays;
 
 /***********************************************************************************************************************
  *
@@ -47,8 +49,12 @@ public class AsExample1
       {
         context = new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
+        final Person luke = new Person(new Id("2"), "Luke", "Skywalker");
         System.err.println(joe.as(Displayable).getDisplayName());
         
         joe.as(Marshallable).marshal(System.err);
+        
+        final ListOfPersons listOfPersons = new ListOfPersons(Arrays.asList(joe, luke));
+        listOfPersons.as(Marshallable).marshal(System.err);
       } 
   }

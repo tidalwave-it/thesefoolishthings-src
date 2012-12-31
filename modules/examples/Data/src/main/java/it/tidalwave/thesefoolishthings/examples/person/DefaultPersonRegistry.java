@@ -36,7 +36,7 @@ import it.tidalwave.util.spi.SimpleFinderSupport;
  **********************************************************************************************************************/
 public class DefaultPersonRegistry implements PersonRegistry 
   {
-    private final List<Person> persons = new ArrayList<Person>();
+    final ListOfPersons persons = new ListOfPersons();
     
     @Override @Nonnull
     public Finder<Person> findPerson() 

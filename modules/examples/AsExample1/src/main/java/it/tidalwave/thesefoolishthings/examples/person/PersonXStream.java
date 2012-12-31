@@ -23,8 +23,9 @@ public class PersonXStream extends XStream
         super(new StaxDriver());
         aliasField("first-name", Person.class, "firstName");
         aliasField("last-name", Person.class, "lastName");
-//        alias("id", Id.class);
         alias("person", Person.class);
+        alias("persons", ListOfPersons.class);
+        addImplicitCollection(ListOfPersons.class, "persons");
         
         useAttributeFor(Person.class, "id");
         registerConverter(new SingleValueConverter() 
