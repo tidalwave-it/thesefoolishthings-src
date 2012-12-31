@@ -20,11 +20,12 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.asexample1;
+package it.tidalwave.thesefoolishthings.examples.datum;
 
 import javax.annotation.Nonnull;
+import it.tidalwave.role.Displayable;
+import it.tidalwave.role.annotation.RoleFor;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 /***********************************************************************************************************************
  *
@@ -32,12 +33,15 @@ import lombok.ToString;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor @ToString
-public class Person 
+@RoleFor(datum=Person.class) @RequiredArgsConstructor
+public class PersonDisplayable implements Displayable
   {
     @Nonnull
-    final String firstName;
-
-    @Nonnull
-    final String lastName;
+    private final Person datum;
+    
+    @Override @Nonnull
+    public String getDisplayName() 
+      {
+        return String.format("%s %s", datum.firstName, datum.lastName);
+      }
   }

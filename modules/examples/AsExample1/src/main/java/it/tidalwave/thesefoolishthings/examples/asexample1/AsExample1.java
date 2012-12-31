@@ -22,10 +22,13 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.asexample1;
 
+import it.tidalwave.thesefoolishthings.examples.datum.Person;
 import javax.annotation.Nonnull;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.Displayable.Displayable;
+//import static it.tidalwave.role.Persistable.Persistable;
+//import static it.tidalwave.role.Removable.Removable;
 
 /***********************************************************************************************************************
  *
@@ -37,9 +40,13 @@ import static it.tidalwave.role.Displayable.Displayable;
 public class AsExample1 
   {
     public static void main (final @Nonnull String ... args)
+      throws Exception
       {
         final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
         final Person joe = new Person("Joe", "Smith");
         System.err.println(joe.as(Displayable).getDisplayName());
+        
+//        joe.as(Persistable).persist();
+//        joe.as(Removable).remove();
       } 
   }
