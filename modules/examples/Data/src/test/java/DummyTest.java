@@ -20,24 +20,6 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.datum;
-
-import javax.annotation.Nonnull;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-
-/***********************************************************************************************************************
- *
- * @author  Fabrizio Giudici
- * @version $Id$
- *
- **********************************************************************************************************************/
-@RequiredArgsConstructor @ToString
-public class Person 
+public class DummyTest
   {
-    @Nonnull
-    final String firstName;
-
-    @Nonnull
-    final String lastName;
   }
