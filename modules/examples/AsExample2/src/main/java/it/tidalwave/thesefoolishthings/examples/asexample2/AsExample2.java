@@ -22,16 +22,16 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.asexample2;
 
-import it.tidalwave.role.AsExtensions;
-import static it.tidalwave.role.ContextRunner.*;
-import it.tidalwave.thesefoolishthings.examples.person.Person;
 import javax.annotation.Nonnull;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import it.tidalwave.util.Id;
+import it.tidalwave.role.AsExtensions;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
+import it.tidalwave.thesefoolishthings.examples.datum.JpaPersistenceContext;
 import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.Displayable.Displayable;
-import it.tidalwave.thesefoolishthings.examples.datum.JpaPersistenceContext;
-import static it.tidalwave.role.Persistable.Persistable;
-import static it.tidalwave.role.Removable.Removable;
+import static it.tidalwave.role.ContextRunner.*;
+import static it.tidalwave.role.AsExtensions.*;
 
 /***********************************************************************************************************************
  *
@@ -46,8 +46,9 @@ public class AsExample2
       throws Exception
       {
         new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
-        final Person joe = new Person("Joe", "Smith");
-        System.err.println(joe.as(Displayable).getDisplayName());
+        final Person joe = new Person(new Id("1"), "Joe", "Smith");
+        System.err.println(as(joe, Displayable).getDisplayName());
+//        System.err.println(joe.as(Displayable).getDisplayName());
         
         final JpaPersistenceContext jpaContext = new JpaPersistenceContext(); // FIXME: use Spring
         runInContext(jpaContext, new SimpleCallable()

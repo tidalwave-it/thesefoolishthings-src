@@ -39,7 +39,7 @@
 
     <modules>
         <module>AsExample1</module>
-        <module>AsExample2</module>
+        <!-- module>AsExample2</module -->
         <module>Data</module>
         <module>FinderExample1</module>
         <module>FinderExample2</module>

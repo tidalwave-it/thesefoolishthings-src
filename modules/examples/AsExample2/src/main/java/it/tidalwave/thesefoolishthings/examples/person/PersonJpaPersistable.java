@@ -20,25 +20,24 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.datum;
+package it.tidalwave.thesefoolishthings.examples.person;
 
-import it.tidalwave.thesefoolishthings.examples.person.Person;
 import javax.annotation.Nonnull;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Transient;
 import it.tidalwave.role.Persistable;
 import it.tidalwave.role.Removable;
 import it.tidalwave.role.annotation.RoleFor;
 import it.tidalwave.role.AsExtensions;
+import it.tidalwave.thesefoolishthings.examples.datum.JpaPersistenceContext;
+import javax.persistence.Id;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import lombok.experimental.ExtensionMethod;
 import lombok.Getter;
 import lombok.Setter;
-import static it.tidalwave.role.Identifiable.Identifiable;
-import javax.persistence.Transient;
+import lombok.experimental.ExtensionMethod;
 
 /***********************************************************************************************************************
  *
@@ -48,7 +47,7 @@ import javax.persistence.Transient;
  **********************************************************************************************************************/
 @RoleFor(datum=Person.class, context=JpaPersistenceContext.class) 
 @Entity @NoArgsConstructor @Getter @Setter @ToString
-@ExtensionMethod(AsExtensions.class)
+//@ExtensionMethod(AsExtensions.class)
 public class PersonJpaPersistable implements Serializable, Persistable, Removable
   {
     @Transient
@@ -66,7 +65,7 @@ public class PersonJpaPersistable implements Serializable, Persistable, Removabl
     public PersonJpaPersistable (final @Nonnull Person datum, final @Nonnull JpaPersistenceContext context) 
       {
         this.context = context;
-        this.id = datum.as(Identifiable).getId().stringValue();
+        this.id = datum.id.stringValue();
         this.firstName = datum.firstName;
         this.lastName = datum.lastName;
       }
@@ -74,7 +73,7 @@ public class PersonJpaPersistable implements Serializable, Persistable, Removabl
     @Nonnull
     public Person toPerson()
       {
-        return new Person(firstName, lastName);
+        return new Person(new it.tidalwave.util.Id(id), firstName, lastName);
       }
 
     public void persist() 
