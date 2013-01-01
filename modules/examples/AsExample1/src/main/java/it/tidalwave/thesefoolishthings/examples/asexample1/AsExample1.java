@@ -27,16 +27,15 @@ import java.util.Arrays;
 import java.io.IOException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import it.tidalwave.util.Id;
-import it.tidalwave.role.AsExtensions;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry;
 import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
 import it.tidalwave.thesefoolishthings.examples.person.XStreamContext;
-import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.Displayable.Displayable;
 import static it.tidalwave.role.Marshallable.Marshallable;
 import static it.tidalwave.role.ContextRunner.*;
 import static it.tidalwave.role.AsExtensions.*;
+import it.tidalwave.util.Task;
 
 /***********************************************************************************************************************
  *
@@ -45,10 +44,10 @@ import static it.tidalwave.role.AsExtensions.*;
  *
  **********************************************************************************************************************/
 //@ExtensionMethod(AsExtensions.class)
-public class AsExample1 
+public class AsExample1
   {
     private static Object context;
-    
+
     public static void main (final @Nonnull String ... args)
       throws Exception
       {
@@ -57,11 +56,11 @@ public class AsExample1
         final Person luke = new Person(new Id("2"), "Luke", "Skywalker");
 //        System.err.println(joe.as(Displayable).getDisplayName());
         System.err.println(as(joe, Displayable).getDisplayName());
-        
+
         final XStreamContext ctx = new XStreamContext();
-        runInContext(ctx,  new Callable<Void, IOException>() 
+        runInContext(ctx, new Task<Void, IOException>()
           {
-            public Void run() 
+            public Void run()
               throws IOException
               {
 //                joe.as(Marshallable).marshal(System.err);
@@ -79,9 +78,9 @@ public class AsExample1
 //                personRegistry.as(Marshallable).marshal(System.err);
                 as(personRegistry, Marshallable).marshal(System.err);
                 System.err.println("");
-                
+
                 return null;
               }
           });
-      } 
+      }
   }

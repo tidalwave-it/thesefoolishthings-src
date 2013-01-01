@@ -22,12 +22,13 @@
  **********************************************************************************************************************/
 package it.tidalwave.role;
 
-import it.tidalwave.util.NotFoundException;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
+import it.tidalwave.util.NotFoundException;
+import it.tidalwave.util.Task;
 
 /***********************************************************************************************************************
  *
@@ -35,24 +36,14 @@ import java.util.Stack;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ContextRunner 
+public class ContextRunner
   {
-    public static interface Callable<V, T extends Throwable>
-      {
-        public V run()
-          throws T;
-      }
-    
-    public static interface SimpleCallable extends Callable<Void, RuntimeException>
-      {       
-      }
-    
     private final static List<Object> globalContexts = new ArrayList<Object>();
-    
+
     private final static Stack<Object> localContexts = new Stack<Object>();
-    
+
     private final static ThreadLocal<Object> currentContext = new ThreadLocal<Object>();
-    
+
     @Nonnull
     public static List<Object> getContexts()
       {
@@ -62,7 +53,7 @@ public class ContextRunner
         contexts.addAll(0, globalContexts);
         return contexts;
       }
-    
+
     @Nonnull
     public static <T> T findContext (final @Nonnull Class<T> contextClass)
       throws NotFoundException
@@ -71,27 +62,28 @@ public class ContextRunner
           {
             if (contextClass.isAssignableFrom(context.getClass()))
               {
-                return contextClass.cast(context);  
+                return contextClass.cast(context);
               }
           }
-        
+
         throw new NotFoundException();
       }
-    
+
     public static void addGlobalContext (final @Nonnull Object context)
       {
         globalContexts.add(context);
       }
-    
-    public static <V, T extends Throwable> V runInContext (final @Nonnull Object context, final @Nonnull Callable<V, T> callable)
+
+    public static <V, T extends Throwable> V runInContext (final @Nonnull Object context,
+                                                           final @Nonnull Task<V, T> task)
       throws T
       {
         try
           {
             localContexts.push(context);
             currentContext.set(context);
-            
-            return callable.run();        
+
+            return task.run();
           }
         finally
           {
