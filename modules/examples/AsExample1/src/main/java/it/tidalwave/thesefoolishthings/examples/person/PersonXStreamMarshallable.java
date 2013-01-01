@@ -18,18 +18,19 @@ import lombok.RequiredArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RoleFor(datum = Person.class) @RequiredArgsConstructor
+@RoleFor(datum = Person.class, context = XStreamContext.class) @RequiredArgsConstructor
 public final class PersonXStreamMarshallable implements Marshallable
   {
     @Nonnull
     private final Person datum;
     
-    private final XStream xstream = new PersonXStream();
-            
+    @Nonnull
+    private final XStreamContext xStreamContext;
+                        
     @Override
     public void marshal (final @Nonnull OutputStream os) 
       throws IOException 
       {
-        xstream.toXML(datum, os);
+        xStreamContext.getXStream().toXML(datum, os);
       }
   }

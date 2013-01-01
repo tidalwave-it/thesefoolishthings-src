@@ -28,6 +28,8 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /***********************************************************************************************************************
  *
@@ -42,8 +44,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RoleFor 
   {
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static final class NoContext
+      {
+      }
+    
     @Nonnull
     public Class<?> datum();
     
-    public Class<?> context() default Object.class;
+    public Class<?> context() default NoContext.class;
   }

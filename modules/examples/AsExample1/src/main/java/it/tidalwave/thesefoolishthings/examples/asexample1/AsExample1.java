@@ -23,16 +23,19 @@
 package it.tidalwave.thesefoolishthings.examples.asexample1;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.io.IOException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import it.tidalwave.util.Id;
 import it.tidalwave.role.AsExtensions;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
+import it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry;
+import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
+import it.tidalwave.thesefoolishthings.examples.person.XStreamContext;
 import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.Displayable.Displayable;
 import static it.tidalwave.role.Marshallable.Marshallable;
-import it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry;
-import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
-import java.util.Arrays;
+import static it.tidalwave.role.ContextRunner.*;
 
 /***********************************************************************************************************************
  *
@@ -53,17 +56,27 @@ public class AsExample1
         final Person luke = new Person(new Id("2"), "Luke", "Skywalker");
         System.err.println(joe.as(Displayable).getDisplayName());
         
-        joe.as(Marshallable).marshal(System.err);
-        System.err.println("");
-        
-        final ListOfPersons listOfPersons = new ListOfPersons(Arrays.asList(joe, luke));
-        listOfPersons.as(Marshallable).marshal(System.err);
-        System.err.println("");
-        
-        final DefaultPersonRegistry personRegistry = new DefaultPersonRegistry();
-        personRegistry.addPerson(joe);
-        personRegistry.addPerson(luke);
-        personRegistry.as(Marshallable).marshal(System.err);
-        System.err.println("");
+        final XStreamContext ctx = new XStreamContext();
+        runInContext(ctx, new Callable<Void, IOException>() 
+          {
+            public Void run() 
+              throws IOException
+              {
+                joe.as(Marshallable).marshal(System.err);
+                System.err.println("");
+
+                final ListOfPersons listOfPersons = new ListOfPersons(Arrays.asList(joe, luke));
+                listOfPersons.as(Marshallable).marshal(System.err);
+                System.err.println("");
+
+                final DefaultPersonRegistry personRegistry = new DefaultPersonRegistry();
+                personRegistry.addPerson(joe);
+                personRegistry.addPerson(luke);
+                personRegistry.as(Marshallable).marshal(System.err);
+                System.err.println("");
+                
+                return null;
+              }
+          });
       } 
   }

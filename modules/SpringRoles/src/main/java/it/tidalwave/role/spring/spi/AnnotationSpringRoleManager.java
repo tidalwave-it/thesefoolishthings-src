@@ -22,6 +22,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.role.spring.spi;
 
+import it.tidalwave.role.ContextRunner;
 import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Constructor;
@@ -29,17 +30,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
+import javax.inject.Inject;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Configurable;
 import it.tidalwave.util.spring.ClassScanner;
 import it.tidalwave.role.annotation.RoleFor;
 import it.tidalwave.role.spi.RoleManager;
+import it.tidalwave.util.NotFoundException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.BeanCreationException;
 
 /***********************************************************************************************************************
  *
@@ -50,6 +55,9 @@ import lombok.extern.slf4j.Slf4j;
 @Configurable @Slf4j
 public class AnnotationSpringRoleManager implements RoleManager
   {
+    @Inject @Nonnull
+    private BeanFactory beanFactory;
+    
     /*******************************************************************************************************************
      *
      *
@@ -98,17 +106,51 @@ public class AnnotationSpringRoleManager implements RoleManager
         final Class<?> ownerClass = owner.getClass();
         final List<RoleType> roles = new ArrayList<RoleType>();
         
-        for (final Class<? extends RoleType> roleImplementationClass : findRoleImplementationsFor(ownerClass, roleClass))
+outer:  for (final Class<? extends RoleType> roleImplementationClass : findRoleImplementationsFor(ownerClass, roleClass))
           {
             for (final Constructor<?> constructor : roleImplementationClass.getDeclaredConstructors())
               {
                 final Class<?>[] parameterTypes = constructor.getParameterTypes();
+                final Class<?> contextClass = roleImplementationClass.getAnnotation(RoleFor.class).context();
                 
-                if ((parameterTypes.length == 1) && parameterTypes[0].isAssignableFrom(ownerClass))
+                if (parameterTypes.length > 0)
                   {
                     try 
                       {
-                        roles.add((RoleType)constructor.newInstance(owner));
+                        final List<Object> parameters = new ArrayList<Object>();
+                        
+                        for (Class<?> parameterType : parameterTypes)
+                          {
+                            if (parameterType.isAssignableFrom(ownerClass))    
+                              {
+                                parameters.add(owner);  
+                              }
+                            else if (parameterType.equals(contextClass))
+                              {
+                                try
+                                  {
+                                    parameters.add(ContextRunner.findContext(parameterType));
+                                  }
+                                catch (NotFoundException e)
+                                  {
+                                    try
+                                      {
+                                        parameters.add(beanFactory.getBean(parameterType));
+                                      }
+                                    catch (BeanCreationException e2) // couldn't satisfy the context
+                                      {
+                                        log.debug("Role discarded", e2);
+                                        continue outer;
+                                      }
+                                  }
+                              }
+                            else
+                              {
+                                parameters.add(beanFactory.getBean(parameterType));
+                              }
+                          }
+                        
+                        roles.add((RoleType)constructor.newInstance(parameters.toArray()));
                       }
                     catch (Exception e) 
                       {
@@ -170,11 +212,6 @@ public class AnnotationSpringRoleManager implements RoleManager
             final RoleFor role = roleImplementationClass.getAnnotation(RoleFor.class);
             final Class<?> datumClass = role.datum();
             final Class<?> contextClass = role.context();
-            
-            if (!contextClass.equals(Object.class))
-              {
-                throw new RuntimeException("Non global context not implemented yet");  
-              }
             
             for (final Class<?> roleClass : roleImplementationClass.getInterfaces())
               {

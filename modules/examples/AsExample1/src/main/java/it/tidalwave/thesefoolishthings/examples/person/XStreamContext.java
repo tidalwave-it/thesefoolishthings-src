@@ -9,6 +9,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.SingleValueConverter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import it.tidalwave.util.Id;
+import lombok.Getter;
 
 /***********************************************************************************************************************
  *
@@ -16,35 +17,39 @@ import it.tidalwave.util.Id;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class PersonXStream extends XStream
+public class XStreamContext
   {
-    public PersonXStream() 
+    @Getter
+    private final XStream xStream = new XStream(new StaxDriver());
+    
+    public XStreamContext()
       {
-        super(new StaxDriver());
-        aliasField("first-name", Person.class, "firstName");
-        aliasField("last-name", Person.class, "lastName");
-        alias("person", Person.class);
-        alias("persons", ListOfPersons.class);
-        addImplicitCollection(ListOfPersons.class, "persons");
+        xStream.aliasField("first-name", Person.class, "firstName");
+        xStream.aliasField("last-name", Person.class, "lastName");
+        xStream.alias("person", Person.class);
+        xStream.alias("persons", ListOfPersons.class);
+        xStream.addImplicitCollection(ListOfPersons.class, "persons");
         
-        useAttributeFor(Person.class, "id");
-        registerConverter(new SingleValueConverter() 
+        xStream.useAttributeFor(Person.class, "id");
+        xStream.registerConverter(new SingleValueConverter() 
           {
+            @Override
             public String toString (final Object object) 
               {
                 return ((Id)object).stringValue();
               }
 
+            @Override
             public Object fromString (final String string) 
               {
                 return new Id(string);
               }
 
+            @Override
             public boolean canConvert (Class type) 
               {
                 return type.equals(Id.class);
               }
           });
       }
-    
   }

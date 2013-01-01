@@ -4,6 +4,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.role;
 
+import it.tidalwave.util.NotFoundException;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,7 +21,7 @@ public class ContextRunner
   {
     public static interface Callable<V, T extends Throwable>
       {
-        public <V> V run()
+        public V run()
           throws T;
       }
     
@@ -44,6 +45,21 @@ public class ContextRunner
         return contexts;
       }
     
+    @Nonnull
+    public static <T> T findContext (final @Nonnull Class<T> contextClass)
+      throws NotFoundException
+      {
+        for (final Object context : getContexts())
+          {
+            if (contextClass.isAssignableFrom(context.getClass()))
+              {
+                return contextClass.cast(context);  
+              }
+          }
+        
+        throw new NotFoundException();
+      }
+    
     public static void addGlobalContext (final @Nonnull Object context)
       {
         globalContexts.add(context);
@@ -62,7 +78,7 @@ public class ContextRunner
         finally
           {
             localContexts.pop();
-            currentContext.set(localContexts.peek());
+            currentContext.set(localContexts.isEmpty() ? null : localContexts.peek());
           }
       }
   }
