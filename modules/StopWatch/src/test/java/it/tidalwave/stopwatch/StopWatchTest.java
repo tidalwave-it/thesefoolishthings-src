@@ -1,7 +1,7 @@
 /***********************************************************************************************************************
  *
  * These Foolish Things - Miscellaneous utilities
- * Copyright (C) 2009-2012 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009-2013 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  ***********************************************************************************************************************
  *
@@ -20,11 +20,6 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package it.tidalwave.stopwatch;
 
 import org.testng.annotations.Test;
