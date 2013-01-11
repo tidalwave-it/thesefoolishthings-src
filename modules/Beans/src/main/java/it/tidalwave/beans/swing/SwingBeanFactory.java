@@ -33,35 +33,35 @@ import it.tidalwave.beans.JavaBeanEnhancer;
 public class SwingBeanFactory<Bean>
   {
     private static final JavaBeanEnhancer JAVA_BEAN_ENHANCER = new JavaBeanEnhancer();
-    
+
     private final Bean bean;
-    
+
     /***************************************************************************
      *
      *
      **************************************************************************/
     public SwingBeanFactory (final Class<Bean> beanClass)
       {
-        try 
+        try
           {
             bean = (Bean)JAVA_BEAN_ENHANCER.createEnhancedBean(beanClass.newInstance(), JavaBeanEnhancer.EDT_COMPLIANT);
-          } 
-        catch (InstantiationException e) 
+          }
+        catch (InstantiationException e)
           {
             throw new IllegalArgumentException(e);
           }
-        catch (IllegalAccessException e) 
+        catch (IllegalAccessException e)
           {
             throw new IllegalArgumentException(e);
           }
       }
-    
+
     /***************************************************************************
      *
      *
      **************************************************************************/
     public final Bean getBean()
       {
-        return bean;    
+        return bean;
       }
   }

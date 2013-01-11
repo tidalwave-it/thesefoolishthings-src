@@ -28,40 +28,40 @@ package it.tidalwave.beans.mock;
  * @version $Id$
  *
  ******************************************************************************/
-public class MockItem2 
+public class MockItem2
   {
     private String name;
     private boolean nameAvailable;
-    
+
     public void setName (final String name)
       {
-        this.name = name;    
+        this.name = name;
       }
-    
+
     public String getName()
       {
-        return name;    
+        return name;
       }
-    
+
     public void setNameAvailable (final boolean nameAvailable)
       {
-        this.nameAvailable = nameAvailable;    
+        this.nameAvailable = nameAvailable;
       }
-    
+
     public boolean isNameAvailable()
       {
-        return nameAvailable;    
+        return nameAvailable;
       }
-    
+
     public boolean isAvailable()
       {
-        return nameAvailable;   
+        return nameAvailable;
       }
-    
+
 //    // This is necessary to verify that JavaBeanAspect doesn't use equals()
 //    // for replacing inner beans.
 //    @Override
-//    public boolean equals (final Object object) 
+//    public boolean equals (final Object object)
 //      {
 //        return false;
 //      }

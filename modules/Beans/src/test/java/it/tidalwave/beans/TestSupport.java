@@ -36,18 +36,18 @@ import it.tidalwave.util.logging.SingleLineLogFormatter;
  *
  ******************************************************************************/
 @Deprecated
-public class TestSupport 
+public class TestSupport
   {
     @BeforeClass
     public static void setupLogging()
       throws Exception
       {
-        try 
+        try
           {
             final InputStream is = TestSupport.class.getResourceAsStream("log.properties");
             LogManager.getLogManager().readConfiguration(is);
             is.close();
-            
+
             //
             // The formatter must be set programmatically as the property in the log.properties won't
             // be honored. I suspect it is related with NetBeans module classloaders as the formatter
@@ -55,18 +55,18 @@ public class TestSupport
             //
             final SingleLineLogFormatter formatter = new SingleLineLogFormatter();
             Logger rootLogger = Logger.getLogger(TestSupport.class.getName());
-            
+
             while (rootLogger.getParent() != null)
               {
-                rootLogger = rootLogger.getParent();  
+                rootLogger = rootLogger.getParent();
               }
 
             for (final Handler handler : rootLogger.getHandlers())
               {
                 handler.setFormatter(formatter);
               }
-          } 
-        catch (Exception e) 
+          }
+        catch (Exception e)
           {
             e.printStackTrace();
           }

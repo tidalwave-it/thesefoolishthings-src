@@ -37,8 +37,8 @@ import java.util.logging.Logger;
 class PropertyChangeListenerMock implements PropertyChangeListener
   {
     public List<PropertyChangeEvent> events = new ArrayList<PropertyChangeEvent>();
-    
-    public void propertyChange (final PropertyChangeEvent event)  
+
+    public void propertyChange (final PropertyChangeEvent event)
       {
         events.add(event);
       }
@@ -54,12 +54,12 @@ public class JavaBeanAspectTest extends TestSupport
   {
     private final static String CLASS = JavaBeanAspectTest.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
-    
+
     private CompositeMockItem bean;
     private CompositeMockItem enhancedBean;
-    
+
     @BeforeMethod
-    public void setup() 
+    public void setup()
       {
         logger.info("******** setup()");
         final JavaBeanEnhancer enhancer = new JavaBeanEnhancer();
@@ -69,7 +69,7 @@ public class JavaBeanAspectTest extends TestSupport
       }
 
     @AfterMethod
-    public void tearDown() 
+    public void tearDown()
       {
         bean = null;
         enhancedBean = null;
@@ -86,10 +86,10 @@ public class JavaBeanAspectTest extends TestSupport
         // TODO: this test should fail if JavaBeanAspect doesn't use IdentityHashMap
         // I tried with forcing MockItem1.equals() to return true, but it doesn't fail...
       }
-    
+
     @Test
-    public void testCorrectEventSource() 
-      throws Exception 
+    public void testCorrectEventSource()
+      throws Exception
       {
         logger.info("******** testCorrectEventSource()");
         final PropertyChangeListenerMock listener = new PropertyChangeListenerMock();
@@ -98,7 +98,7 @@ public class JavaBeanAspectTest extends TestSupport
         AssertJUnit.assertFalse(listener.events.isEmpty());
         AssertJUnit.assertTrue(enhancedBean == listener.events.get(0).getSource());
       }
-    
+
     // TODO test events - at the moment this is covered by tests of MetadataItemEnhancer,
     // but you must put tests here when this class is spinned off to OpenBlueSky.
   }

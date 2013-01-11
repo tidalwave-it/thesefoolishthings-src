@@ -34,15 +34,14 @@ import net.sf.cglib.proxy.Callback;
 public class JavaBeanEnhancer extends AbstractEnhancer<JavaBean>
   {
     public final static Object EDT_COMPLIANT = "EDT_Compliant";
-    
-    public JavaBeanEnhancer() 
+
+    public JavaBeanEnhancer()
       {
         super(JavaBean.class);
       }
-  
+
     protected Callback createInterceptor (final Object bean, final Object ... arguments)
       {
         return new JavaBeanAspect(bean, this, arguments);
       }
   }
-         

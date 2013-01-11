@@ -40,19 +40,19 @@ public class FastBeanProperty<S,V> extends Property<S,V>
   {
     private static final Map<String, Method> setterCache = new HashMap<String, Method>();
     private static final Map<String, Method> getterCache = new HashMap<String, Method>();
-    
+
     private final String name;
-    
+
     public static <S, V> FastBeanProperty create (final String name)
       {
-        return new FastBeanProperty<S, V>(name); 
+        return new FastBeanProperty<S, V>(name);
       }
 
     private FastBeanProperty (final String name)
       {
         this.name = name;
       }
-    
+
     @Override
     public Class<? extends V> getWriteType (final S bean)
       {
@@ -60,49 +60,49 @@ public class FastBeanProperty<S,V> extends Property<S,V>
       }
 
     @Override
-    public V getValue (final S bean) 
+    public V getValue (final S bean)
       {
-        try 
+        try
           {
             return (V)getGetter(bean).invoke(bean);
-          } 
+          }
         catch (IllegalAccessException e)
           {
-            throw new RuntimeException(e);    
+            throw new RuntimeException(e);
           }
-        catch (IllegalArgumentException e) 
+        catch (IllegalArgumentException e)
           {
-            throw new RuntimeException(e);    
-          } 
-        catch (InvocationTargetException e) 
+            throw new RuntimeException(e);
+          }
+        catch (InvocationTargetException e)
           {
-            throw new RuntimeException(e);    
+            throw new RuntimeException(e);
           }
       }
 
     @Override
-    public void setValue (final S bean, final V value) 
+    public void setValue (final S bean, final V value)
       {
-        try 
+        try
           {
             getSetter(bean).invoke(bean, value);
-          } 
+          }
         catch (IllegalAccessException e)
           {
-            throw new RuntimeException(e);    
+            throw new RuntimeException(e);
           }
-        catch (IllegalArgumentException e) 
+        catch (IllegalArgumentException e)
           {
-            throw new RuntimeException(e);    
-          } 
-        catch (InvocationTargetException e) 
+            throw new RuntimeException(e);
+          }
+        catch (InvocationTargetException e)
           {
-            throw new RuntimeException(e);    
+            throw new RuntimeException(e);
           }
       }
 
     @Override
-    public boolean isReadable (final S bean) 
+    public boolean isReadable (final S bean)
       {
         try
           {
@@ -116,7 +116,7 @@ public class FastBeanProperty<S,V> extends Property<S,V>
       }
 
     @Override
-    public boolean isWriteable (final S bean) 
+    public boolean isWriteable (final S bean)
       {
         try
           {
@@ -130,28 +130,28 @@ public class FastBeanProperty<S,V> extends Property<S,V>
       }
 
     @Override
-    public void addPropertyStateListener(S arg0, PropertyStateListener arg1) 
+    public void addPropertyStateListener (final S arg0, final PropertyStateListener arg1)
       {
         throw new UnsupportedOperationException("Not supported yet.");
       }
 
     @Override
-    public void removePropertyStateListener(S arg0, PropertyStateListener arg1)
+    public void removePropertyStateListener (final S arg0, final PropertyStateListener arg1)
       {
         throw new UnsupportedOperationException("Not supported yet.");
       }
 
     @Override
-    public PropertyStateListener[] getPropertyStateListeners(S arg0) 
+    public PropertyStateListener[] getPropertyStateListeners (final S arg0)
       {
         throw new UnsupportedOperationException("Not supported yet.");
       }
-    
+
     private Method getGetter (final S bean)
       {
-        final String key = bean.getClass().getName() + "." + name;        
+        final String key = bean.getClass().getName() + "." + name;
         Method getter = getterCache.get(key);
-        
+
         if (getter == null)
           {
             try
@@ -166,21 +166,21 @@ public class FastBeanProperty<S,V> extends Property<S,V>
                   }
                 catch (Exception e2)
                   {
-                    throw new RuntimeException(e2);    
+                    throw new RuntimeException(e2);
                   }
               }
 
             getterCache.put(key, getter);
           }
-        
+
         return getter;
       }
-    
+
     private Method getSetter (final S bean)
       {
-        final String key = bean.getClass().getName() + "." + name;        
+        final String key = bean.getClass().getName() + "." + name;
         Method setter = setterCache.get(key);
-        
+
         if (setter == null)
           {
             try
@@ -190,15 +190,15 @@ public class FastBeanProperty<S,V> extends Property<S,V>
               }
             catch (Exception e)
               {
-                throw new RuntimeException(e);    
+                throw new RuntimeException(e);
               }
           }
-        
+
         return setter;
       }
-    
+
     private static String capitalized (final String string)
       {
-        return string.substring(0, 1).toUpperCase() + string.substring(1);    
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
       }
- } 
+ }

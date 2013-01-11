@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
  *
  * Thanks to pupmonster@dev.java.net, jarppe2@dev.java.net for contributing the
  * base code.
- * 
+ *
  * @author  pupmonster@dev.java.net
  * @author  jarppe2@dev.java.net
  * @author  Fabrizio Giudici
@@ -56,29 +56,29 @@ import org.slf4j.LoggerFactory;
  * @experimental
  *
  ******************************************************************************/
-public class JavaBeanAspect 
+public class JavaBeanAspect
   extends JavaBeanSupport
-  implements MethodInterceptor, JavaBean 
+  implements MethodInterceptor, JavaBean
   {
     private static final Logger log = LoggerFactory.getLogger(JavaBeanAspect.class);
     private static final String SET_PREFIX = "set";
-    
+
     private static final List<Method> javaBeanMethods = Arrays.asList(JavaBean.class.getMethods());
 
     protected final Object bean;
-    
-    /** A map used for replacing inner enhanced beans. Note that an IdentityHashMap 
+
+    /** A map used for replacing inner enhanced beans. Note that an IdentityHashMap
      *  is mandatory here, as we don't want to compare them through equals(). */
     private final Map<Object, JavaBean> enhancedObjectMap = new IdentityHashMap<Object, JavaBean>();
-    
+
     /** True of setter methods must be invoked in the EventDispatcherThread. */
     private final boolean edtCompliant;
-    
+
     /***************************************************************************
      *
-     * 
+     *
      **************************************************************************/
-    public JavaBeanAspect (final Object bean, 
+    public JavaBeanAspect (final Object bean,
                            final AbstractEnhancer<?> enhancer,
                            final Object ... arguments)
       {
@@ -86,16 +86,16 @@ public class JavaBeanAspect
         fixContainedBeans(bean, enhancer, arguments);
         this.edtCompliant = Arrays.asList(arguments).contains(JavaBeanEnhancer.EDT_COMPLIANT);
       }
-    
+
     /***************************************************************************
      *
-     * 
+     *
      **************************************************************************/
-    public Object intercept (final Object object, 
-                             final Method method, 
-                             final Object[] methodParameters, 
-                             final MethodProxy proxy) 
-      throws Throwable 
+    public Object intercept (final Object object,
+                             final Method method,
+                             final Object[] methodParameters,
+                             final MethodProxy proxy)
+      throws Throwable
       {
         // This ensures that the event source is the decorator, not the original bean
         // Also, it restores stuff after a serialization (change support is volatile)
@@ -107,24 +107,24 @@ public class JavaBeanAspect
                 vetoableChangeSupport = new VetoableChangeSupport(object);
               }
           }
-        
+
 //        System.err.println("$$$$$$$$$$$ " + method);
 //        if (method.getName().equals("toString") && (methodParameters.length == 0))
 //          {
 //            return String.format("%s[%s]", object, bean.toString());
 //          }
-        
-        if (javaBeanMethods.contains(method)) 
+
+        if (javaBeanMethods.contains(method))
           {
             return method.invoke(this, methodParameters);
-          }  
+          }
 
         if (method.getName().equals("equals") && (methodParameters.length == 1))
           {
             return doEquals(methodParameters[0]);
           }
-        
-        if (!method.getName().startsWith(SET_PREFIX) || (methodParameters.length != 1)) 
+
+        if (!method.getName().startsWith(SET_PREFIX) || (methodParameters.length != 1))
           {
             return doGenericMethod(method, methodParameters);
           }
@@ -134,25 +134,25 @@ public class JavaBeanAspect
 
     /***************************************************************************
      *
-     * 
+     *
      **************************************************************************/
     public Object __getDelegate()
       {
         return bean;
       }
-    
+
     /***************************************************************************
      *
-     * 
+     *
      **************************************************************************/
     protected static String getPropertyName (final Method method)
       {
         return Introspector.decapitalize(method.getName().substring(SET_PREFIX.length()));
       }
-    
+
     /***************************************************************************
      *
-     * 
+     *
      **************************************************************************/
     protected Collection<JavaBean> getEnhancedObjects()
       {
@@ -161,36 +161,36 @@ public class JavaBeanAspect
 
     /***************************************************************************
      *
-     * 
+     *
      **************************************************************************/
-    private Object doEquals (Object other) 
+    private Object doEquals (Object other)
       {
-        if (other instanceof JavaBean) 
+        if (other instanceof JavaBean)
           {
             other = ((JavaBean)other).__getDelegate();
           }
 
         return bean.equals(other);
-      }  
+      }
 
     /***************************************************************************
      *
-     * 
+     *
      **************************************************************************/
     private Object doGenericMethod (final Method method, final Object[] methodParameters)
-      throws IllegalArgumentException, IllegalAccessException, InvocationTargetException 
+      throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
       {
         //logger.finest(String.format("doGenericMethod(%s, %s)", method, Arrays.asList(methodParameters)));
-        
+
         // FIXME: or proxy.invokeSuper()?
         // "The original method may either be invoked by normal reflection using the Method object, or by using the MethodProxy (faster)."
         Object result = method.invoke(bean, methodParameters);
 
-        if (result != null) 
+        if (result != null)
           {
             Object enhancedObject = enhancedObjectMap.get(result);
 
-            if (enhancedObject != null) 
+            if (enhancedObject != null)
               {
                 log.trace(String.format(">>>> replacing result: {} -> {}", result, enhancedObject));
                 result = enhancedObject;
@@ -202,12 +202,12 @@ public class JavaBeanAspect
 
     /***************************************************************************
      *
-     * 
+     *
      **************************************************************************/
-    private Object doSetter (final Object object, 
-                             final Object[] methodParameters, 
-                             final Method method) 
-      throws InvocationTargetException, IllegalArgumentException, IllegalAccessException 
+    private Object doSetter (final Object object,
+                             final Object[] methodParameters,
+                             final Method method)
+      throws InvocationTargetException, IllegalArgumentException, IllegalAccessException
       {
         if (!edtCompliant || SwingUtilities.isEventDispatchThread())
           {
@@ -216,12 +216,12 @@ public class JavaBeanAspect
         else
           {
             final Object[] result = new Object[1];
-            
-            try   
+
+            try
               {
-                SwingUtilities.invokeAndWait(new Runnable() 
+                SwingUtilities.invokeAndWait(new Runnable()
                   {
-                    public void run() 
+                    public void run()
                       {
                         try
                           {
@@ -229,63 +229,63 @@ public class JavaBeanAspect
                           }
                         catch (Exception e)
                           {
-                            log.error("doSetterInEDT()", e);  
+                            log.error("doSetterInEDT()", e);
                           }
                       }
                   });
-                  
+
                 return result[0];
-              } 
-            catch (InterruptedException e)  
+              }
+            catch (InterruptedException e)
               {
                 throw new RuntimeException(e);
-              } 
-            catch (InvocationTargetException e) 
+              }
+            catch (InvocationTargetException e)
               {
                 throw new RuntimeException(e);
               }
           }
       }
-    
+
     /***************************************************************************
      *
-     * 
+     *
      **************************************************************************/
-    private Object doSetterInEDT (final Object object, 
-                                  final Object[] methodParameters, 
-                                  final Method method) 
-      throws InvocationTargetException, IllegalArgumentException, IllegalAccessException 
+    private Object doSetterInEDT (final Object object,
+                                  final Object[] methodParameters,
+                                  final Method method)
+      throws InvocationTargetException, IllegalArgumentException, IllegalAccessException
       {
         final String propertyName = getPropertyName(method);
         final Property property = BeanProperty.create(Introspector.decapitalize(propertyName));
         final Object oldValue = property.getValue(object);
 
         Object returnValue = method.invoke(bean, methodParameters); // FIXME: or proxy.invokeSuper()?
-        
-        if (returnValue == bean) 
+
+        if (returnValue == bean)
           {
             returnValue = object;
           }
 
-        log.trace(">>>> {} - {} changed : {} -> {}", 
+        log.trace(">>>> {} - {} changed : {} -> {}",
                 new Object[] { object, propertyName, oldValue, methodParameters[0] } );
         propertyChangeSupport.firePropertyChange(propertyName, oldValue, methodParameters[0]);
 
         return returnValue;
       }
-            
+
     /***************************************************************************
      *
-     * 
+     *
      **************************************************************************/
-    private void fixContainedBeans (final Object bean, 
+    private void fixContainedBeans (final Object bean,
                                     final AbstractEnhancer<?> enhancer,
-                                    final Object ... arguments) 
-      throws RuntimeException 
+                                    final Object ... arguments)
+      throws RuntimeException
       {
         final PropertyDescriptor[] propertyDescriptors;
 
-        try 
+        try
           {
             propertyDescriptors = Introspector.getBeanInfo(bean.getClass()).getPropertyDescriptors();
           }
@@ -295,7 +295,7 @@ public class JavaBeanAspect
           }
 
         PropertyFilter filter = PropertyFilter.DEFAULT_FILTER;
-        
+
         for (final Object argument : arguments)
           {
             if (argument instanceof AbstractEnhancer.PropertyFilter)
@@ -304,8 +304,8 @@ public class JavaBeanAspect
                 break;
               }
           }
-        
-        for (final PropertyDescriptor propertyDescriptor : propertyDescriptors) 
+
+        for (final PropertyDescriptor propertyDescriptor : propertyDescriptors)
           {
             final String propertyName = propertyDescriptor.getName();
             final Class<?> propertyType = propertyDescriptor.getPropertyType();

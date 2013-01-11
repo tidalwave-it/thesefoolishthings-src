@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  *
  * Thanks to pupmonster@dev.java.net, jarppe2@dev.java.net for contributing the
  * base code.
- * 
+ *
  * @author  pupmonster@dev.java.net
  * @author  jarppe2@dev.java.net
  * @author  Fabrizio Giudici
@@ -41,41 +41,41 @@ import org.slf4j.LoggerFactory;
  * @experimental
  *
  **********************************************************************************************************************/
-public abstract class AbstractEnhancer<T> 
+public abstract class AbstractEnhancer<T>
   {
     private static final Logger log = LoggerFactory.getLogger(AbstractEnhancer.class);
-    
+
     private final Class<T> interfaces;
-    
-    public static interface PropertyFilter 
+
+    public static interface PropertyFilter
       {
         public boolean accept (PropertyDescriptor propertyDescriptor, Property property);
-    
-        public static final PropertyFilter DEFAULT_FILTER = new PropertyFilter() 
+
+        public static final PropertyFilter DEFAULT_FILTER = new PropertyFilter()
           {
-            public boolean accept (final PropertyDescriptor propertyDescriptor, final Property property) 
+            public boolean accept (final PropertyDescriptor propertyDescriptor, final Property property)
               {
                 final Class<?> propertyType = propertyDescriptor.getPropertyType();
                 return (!propertyType.isPrimitive() && !propertyType.isArray() && !propertyType.getName().startsWith("java"));
               }
-          }; 
+          };
       }
 
-    public AbstractEnhancer (final Class<T> interfaces) 
+    public AbstractEnhancer (final Class<T> interfaces)
       {
         if (interfaces == null)
           {
             throw new IllegalArgumentException("Interface is mandatory");
           }
-        
+
         if (!interfaces.isInterface())
           {
             throw new IllegalArgumentException("Only interfaces allowed here");
           }
-        
+
         this.interfaces = interfaces;
       }
-  
+
     public T createEnhancedBean (final Object bean, final Object ... arguments)
       {
         log.trace("createEnhancedItem({}, {}) - interfaces: {}", new Object[] { bean, arguments, interfaces });
@@ -89,7 +89,6 @@ public abstract class AbstractEnhancer<T>
         log.trace(">>>> created decorator {} in {} msec", result, (int)(System.currentTimeMillis() - time));
         return result;
       }
-    
+
     protected abstract Callback createInterceptor (final Object bean, final Object ... arguments);
   }
-         

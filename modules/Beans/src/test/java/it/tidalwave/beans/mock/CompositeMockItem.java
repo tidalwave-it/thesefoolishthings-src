@@ -28,45 +28,45 @@ package it.tidalwave.beans.mock;
  * @version $Id$
  *
  ******************************************************************************/
-public class CompositeMockItem 
+public class CompositeMockItem
   {
     private String name;
     private boolean nameAvailable;
     private final MockItem1 item1 = new MockItem1();
     private final MockItem2 item2 = new MockItem2();
-    
+
     public MockItem1 getItem1()
       {
         return item1;
       }
-    
+
     public MockItem2 getItem2()
       {
         return item2;
       }
-    
+
     public void setName (final String name)
       {
-        this.name = name;    
+        this.name = name;
       }
-    
+
     public String getName()
       {
-        return name;    
+        return name;
       }
-    
+
     public void setNameAvailable (final boolean nameAvailable)
       {
-        this.nameAvailable = nameAvailable;    
+        this.nameAvailable = nameAvailable;
       }
-    
+
     public boolean isNameAvailable()
       {
-        return nameAvailable;    
+        return nameAvailable;
       }
-    
+
     public boolean isAvailable()
       {
-        return nameAvailable;   
+        return nameAvailable;
       }
   }

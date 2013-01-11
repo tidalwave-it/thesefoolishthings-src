@@ -30,7 +30,7 @@ import java.io.Serializable;
  *
  * Thanks to pupmonster@dev.java.net, jarppe2@dev.java.net for contributing the
  * base code.
- * 
+ *
  * @author  pupmonster@dev.java.net
  * @author  jarppe2@dev.java.net
  * @author  Fabrizio Giudici
@@ -63,7 +63,7 @@ public interface JavaBean extends Serializable
     public void removeVetoableChangeListener(String propertyName, VetoableChangeListener listener);
 
     public void removeVetoableChangeListener(VetoableChangeListener listener);
-    
+
     /** Used for equals() implementation, don't use. FIXME: try to remove from this interface. */
-    public Object __getDelegate();     
+    public Object __getDelegate();
   }
