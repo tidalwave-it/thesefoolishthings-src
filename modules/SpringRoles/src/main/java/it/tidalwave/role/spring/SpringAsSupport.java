@@ -33,7 +33,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 /***********************************************************************************************************************
  *
  * An implementation for {@link As} based on Spring.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -43,14 +43,14 @@ public class SpringAsSupport implements As
   {
     @Inject @Nonnull
     private RoleManager roleManager;
-    
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> T as (final @Nonnull Class<T> roleType) 
+    public <T> T as (final @Nonnull Class<T> roleType)
       {
         return as(roleType, As.Defaults.throwAsException(roleType));
       }
@@ -64,12 +64,12 @@ public class SpringAsSupport implements As
     public <T> T as (final @Nonnull Class<T> roleType, final @Nonnull NotFoundBehaviour<T> notFoundBehaviour)
       {
         final List<? extends T> roles = roleManager.findRoles(this, roleType);
-        
+
         if (roles.isEmpty())
           {
-            return notFoundBehaviour.run(new NotFoundException("No " + roleType.getName() + " in " + this)); 
+            return notFoundBehaviour.run(new NotFoundException("No " + roleType.getName() + " in " + this));
           }
-        
+
         return roles.get(0);
-      }    
+      }
   }

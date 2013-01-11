@@ -41,10 +41,10 @@ public class AsExtensions
         return as(datum, roleType, As.Defaults.throwAsException(roleType));
       }
 
-    public static <T> T as (final @Nonnull Object datum, 
+    public static <T> T as (final @Nonnull Object datum,
                             final @Nonnull Class<T> roleType,
-                            final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour) 
+                            final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour)
       {
         return bean.as(datum, roleType, notFoundBehaviour);
-      }    
+      }
   }

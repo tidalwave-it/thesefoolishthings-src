@@ -28,17 +28,17 @@ import java.util.List;
 /***********************************************************************************************************************
  *
  * A service which retrieves DCI Roles for a given object.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface RoleManager 
+public interface RoleManager
   {
     /*******************************************************************************************************************
      *
      * Retrieves the roles of the given class for the given owner object.
-     * 
+     *
      * @param   owner      the owner object
      * @param   roleType   the role type
      * @return             a list of roles

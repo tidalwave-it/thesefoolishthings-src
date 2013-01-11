@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
 /***********************************************************************************************************************
  *
  * An annotation for DCI Contexts.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -39,6 +39,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DciContext 
+public @interface DciContext
   {
   }

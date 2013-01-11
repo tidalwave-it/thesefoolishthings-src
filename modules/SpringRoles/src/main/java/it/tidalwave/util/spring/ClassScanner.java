@@ -36,44 +36,47 @@ import org.springframework.util.ClassUtils;
 /***********************************************************************************************************************
  *
  * A utility for scanning classes in the classpath with some criteria.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ClassScanner 
+public class ClassScanner
   {
-    private final String basePackages = System.getProperty(ClassScanner.class.getCanonicalName() + ".basePackages", "com:org:it"); // FIME
-    
-    private final ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
+    private final String basePackages = System.getProperty(ClassScanner.class.getCanonicalName() + ".basePackages",
+                                                           "com:org:it"); // FIME
+
+    private final ClassPathScanningCandidateComponentProvider scanner =
+            new ClassPathScanningCandidateComponentProvider(false);
 
     /*******************************************************************************************************************
      *
      * Scans for classes and returns them.
-     * 
+     *
      * @return  the collection of scanned classes
      *
      ******************************************************************************************************************/
     @Nonnull
-    public final Collection<Class<?>> findClasses() 
+    public final Collection<Class<?>> findClasses()
       {
         final List<Class<?>> classes = new ArrayList<Class<?>>();
-      
+
         for (final String basePackage : basePackages.split(":"))
           {
-            for (final BeanDefinition candidate : scanner.findCandidateComponents(basePackage)) 
+            for (final BeanDefinition candidate : scanner.findCandidateComponents(basePackage))
               {
-                classes.add(ClassUtils.resolveClassName(candidate.getBeanClassName(), ClassUtils.getDefaultClassLoader()));
+                classes.add(ClassUtils.resolveClassName(candidate.getBeanClassName(),
+                            ClassUtils.getDefaultClassLoader()));
               }
           }
-        
+
         return classes;
       }
 
     /*******************************************************************************************************************
      *
      * Adds an "include" filter.
-     * 
+     *
      * @param  filter  the filter
      *
      ******************************************************************************************************************/
@@ -83,11 +86,11 @@ public class ClassScanner
         scanner.addIncludeFilter(filter);
         return this;
       }
-    
+
     /*******************************************************************************************************************
      *
      * Adds a filter for an annotation.
-     * 
+     *
      * @param  annotationClass  the annotation class
      *
      ******************************************************************************************************************/

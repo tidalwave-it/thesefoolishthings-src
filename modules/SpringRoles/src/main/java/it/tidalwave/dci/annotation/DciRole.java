@@ -34,7 +34,7 @@ import lombok.NoArgsConstructor;
 /***********************************************************************************************************************
  *
  * Designates a DCI role implementation for a given owner object.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -42,15 +42,15 @@ import lombok.NoArgsConstructor;
 @Target(ElementType.TYPE)
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DciRole 
+public @interface DciRole
   {
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class NoContext
       {
       }
-    
+
     @Nonnull
     public Class<?> datum();
-    
+
     public Class<?> context() default NoContext.class;
   }

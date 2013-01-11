@@ -94,7 +94,8 @@ public class AnnotationSpringRoleManager implements RoleManager
           }
       }
 
-    private MultiValueMap<ClassAndRole, Class<?>> roleMapByOwnerClass = new LinkedMultiValueMap<ClassAndRole, Class<?>>();
+    private MultiValueMap<ClassAndRole, Class<?>> roleMapByOwnerClass =
+            new LinkedMultiValueMap<ClassAndRole, Class<?>>();
 
     /*******************************************************************************************************************
      *
@@ -102,14 +103,16 @@ public class AnnotationSpringRoleManager implements RoleManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <RoleType> List<? extends RoleType> findRoles (final @Nonnull Object owner, final @Nonnull Class<RoleType> roleClass)
+    public <RoleType> List<? extends RoleType> findRoles (final @Nonnull Object owner,
+                                                          final @Nonnull Class<RoleType> roleClass)
       {
         log.trace("findRoles({}, {})", owner, roleClass);
 
         final Class<?> ownerClass = owner.getClass();
         final List<RoleType> roles = new ArrayList<RoleType>();
+        final List<Class<? extends RoleType>> roleImplementations = findRoleImplementationsFor(ownerClass, roleClass);
 
-outer:  for (final Class<? extends RoleType> roleImplementationClass : findRoleImplementationsFor(ownerClass, roleClass))
+outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImplementations)
           {
             for (final Constructor<?> constructor : roleImplementationClass.getDeclaredConstructors())
               {
@@ -173,7 +176,8 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : findRoleI
      *
      ******************************************************************************************************************/
     @Nonnull
-    private synchronized <RoleType> List<Class<? extends RoleType>> findRoleImplementationsFor (final Class<?> ownerClass, final Class<RoleType> roleClass)
+    private synchronized <RT> List<Class<? extends RT>> findRoleImplementationsFor (final Class<?> ownerClass,
+                                                                                    final Class<RT> roleClass)
       {
         final ClassAndRole classAndRole = new ClassAndRole(ownerClass, roleClass);
         final List<Class<?>> implementations = roleMapByOwnerClass.get(classAndRole);
