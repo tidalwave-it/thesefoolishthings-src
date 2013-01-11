@@ -33,9 +33,9 @@ import it.tidalwave.util.Task;
 /***********************************************************************************************************************
  *
  * An utility class to register and unregister global and local contexts.
- * 
+ *
  * FIXME: turn static methods in regular ones
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -46,14 +46,21 @@ public class ContextManager
     private final static List<Object> globalContexts = new ArrayList<Object>();
 
     /** The list of local contexts, ordered by priority. */
-    private final static ThreadLocal<Stack<Object>> localContexts = new ThreadLocal<Stack<Object>>();
+    private final static ThreadLocal<Stack<Object>> localContexts = new ThreadLocal<Stack<Object>>()
+      {
+        @Override @Nonnull
+        protected Stack<Object> initialValue()
+          {
+            return new Stack<Object>();
+          }
+      };
 
     /*******************************************************************************************************************
      *
      * Returns the list of current contexts, ordered by their priority.
-     * 
+     *
      * @return  the list of current contexts
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public static List<Object> getContexts()
@@ -68,11 +75,11 @@ public class ContextManager
     /*******************************************************************************************************************
      *
      * Finds a context of the given type.
-     * 
+     *
      * @param   contextClass       the context type
      * @return                     the requested context
      * @throws  NotFoundException  if no context of that type is found
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public static <T> T findContext (final @Nonnull Class<T> contextClass)
@@ -92,33 +99,33 @@ public class ContextManager
     /*******************************************************************************************************************
      *
      * Adds a global context.
-     * 
+     *
      * @param  context             the new context
-     * 
+     *
      ******************************************************************************************************************/
     public static void addGlobalContext (final @Nonnull Object context)
       {
         globalContexts.add(context);
       }
-    
+
     /*******************************************************************************************************************
      *
      * Adds a local context.
-     * 
+     *
      * @param  context             the new context
-     * 
+     *
      ******************************************************************************************************************/
     public static void addLocalContext (final @Nonnull Object context)
       {
         localContexts.get().push(context);
       }
-    
+
     /*******************************************************************************************************************
      *
      * Removes a local context.
-     * 
+     *
      * @param  context             the context
-     * 
+     *
      ******************************************************************************************************************/
     public static void removeLocalContext (final @Nonnull Object context)
       {
@@ -128,10 +135,10 @@ public class ContextManager
     /*******************************************************************************************************************
      *
      * Runs a {@link Task} associated with a new local context.
-     * 
+     *
      * @param  context             the context
      * @param  task                the task
-     * 
+     *
      ******************************************************************************************************************/
     public static <V, T extends Throwable> V runWithContext (final @Nonnull Object context,
                                                              final @Nonnull Task<V, T> task)
