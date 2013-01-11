@@ -31,6 +31,6 @@ import lombok.ToString;
  *
  **********************************************************************************************************************/
 @ToString
-public class Message2 
+public class Message2
   {
   }

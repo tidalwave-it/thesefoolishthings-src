@@ -34,35 +34,35 @@ import lombok.extern.slf4j.Slf4j;
  *
  **********************************************************************************************************************/
 @SimpleMessageSubscriber @Slf4j
-public class EventBusAdapterExample 
+public class EventBusAdapterExample
   {
     private final MessageBusHelper messageBusHelper;
 
-    public EventBusAdapterExample (final @Nonnull MessageBusHelper.Adapter adapter) 
+    public EventBusAdapterExample (final @Nonnull MessageBusHelper.Adapter adapter)
       {
         messageBusHelper = new MessageBusHelper(this, adapter);
       }
 
     public void start()
       {
-        messageBusHelper.subscribeAll();  
+        messageBusHelper.subscribeAll();
         // set up your stuff
       }
-    
+
     public void stop()
-      { 
+      {
         messageBusHelper.unsubscribeAll();
         // dispose your stuff
       }
-    
+
     private void onMessage1 (final @ListensTo Message1 message)
       {
-        log.info("Received {}", message); 
+        log.info("Received {}", message);
         messageBusHelper.publish(new Message2());
       }
-    
+
     private void onMessage2 (final @ListensTo Message2 message)
       {
-        log.info("Received {}", message); 
+        log.info("Received {}", message);
       }
   }

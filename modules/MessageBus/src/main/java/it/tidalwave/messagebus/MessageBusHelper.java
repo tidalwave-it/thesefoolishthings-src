@@ -41,62 +41,62 @@ import static it.tidalwave.messagebus.spi.ReflectionUtils.MethodProcessor.Filter
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor @Slf4j
-public class MessageBusHelper 
+public class MessageBusHelper
   {
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     public static interface Adapter
       {
         @Nonnull
-        public <Topic> MethodAdapter<Topic> createMethodAdapter (@Nonnull Object object, 
+        public <Topic> MethodAdapter<Topic> createMethodAdapter (@Nonnull Object object,
                                                                  @Nonnull Method method,
                                                                  @Nonnull Class<Topic> topic);
 
         public void publish (@Nonnull Object message);
-        
+
         public <Topic> void publish (Class<Topic> topic, @Nonnull Topic message);
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     public static interface MethodAdapter<Topic>
-      { 
+      {
         public void subscribe();
 
         public void unsubscribe();
       }
-    
+
     @Nonnull
     private final Object owner;
-    
+
     @Nonnull
     private final Adapter methodAdapterFactory;
-    
+
     private final List<MethodAdapter<?>> methodAdapters = new ArrayList<MethodAdapter<?>>();
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     public void subscribeAll()
       {
-        forEachMethodInTopDownHierarchy(owner, new MethodProcessor() 
+        forEachMethodInTopDownHierarchy(owner, new MethodProcessor()
           {
             @Override @Nonnull
             public FilterResult filter (final @Nonnull Class<?> clazz)
               {
                 return clazz.getAnnotation(SimpleMessageSubscriber.class) != null ? ACCEPT : IGNORE;
               }
-            
+
             @Override
-            public void process (final @Nonnull Method method) 
+            public void process (final @Nonnull Method method)
               {
                 final Annotation[][] parameterAnnotations = method.getParameterAnnotations();
 
@@ -107,52 +107,52 @@ public class MessageBusHelper
               }
           });
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     public void unsubscribeAll()
       {
         for (final MethodAdapter<?> methodAdapter : methodAdapters)
           {
-            methodAdapter.unsubscribe();  
+            methodAdapter.unsubscribe();
           }
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
-    public void publish (final @Nonnull Object message) 
+    public void publish (final @Nonnull Object message)
       {
         methodAdapterFactory.publish(message);
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
-    public <Topic> void publish (final @Nonnull Class<Topic> topicType, final @Nonnull Topic topic) 
+    public <Topic> void publish (final @Nonnull Class<Topic> topicType, final @Nonnull Topic topic)
       {
         methodAdapterFactory.publish(topicType, topic);
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     private <Topic> void registerMessageListener (final @Nonnull Method method)
       {
         log.trace("registerMessageListener({})", method);
 
-        final Class<Topic> topic = (Class<Topic>)method.getParameterTypes()[0];        
+        final Class<Topic> topic = (Class<Topic>)method.getParameterTypes()[0];
         final MethodAdapter<Topic> methodAdapter = methodAdapterFactory.createMethodAdapter(owner, method, topic);
         methodAdapters.add(methodAdapter);
         methodAdapter.subscribe();
-      }  
+      }
   }

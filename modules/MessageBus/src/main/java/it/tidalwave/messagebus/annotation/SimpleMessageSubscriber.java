@@ -27,12 +27,11 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import it.tidalwave.messagebus.MessageBusHelper;
 
 /***********************************************************************************************************************
- * 
- * Designates a class as a simple subscriber of a message bus. This makes it possible to avoid plumbing code for 
- * subscribing to topics and use instead {@link ListensTo} with {@link MessageBusHelper}.
+ *
+ * Designates a class as a simple subscriber of a message bus. This makes it possible to avoid plumbing code for
+ * subscribing to topics and use instead {@link ListensTo} with {@link it.tidalwave.messagebus.MessageBusHelper}.
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -40,6 +39,6 @@ import it.tidalwave.messagebus.MessageBusHelper;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-public @interface SimpleMessageSubscriber 
+public @interface SimpleMessageSubscriber
   {
   }

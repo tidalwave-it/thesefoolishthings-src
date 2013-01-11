@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 /***********************************************************************************************************************
  *
  * A partial implementation of {@link MessageBus}.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -50,49 +50,49 @@ public abstract class MessageBusSupport implements MessageBus
   {
     private final Map<Class<?>, List<WeakReference<Listener<?>>>> listenersMapByTopic =
             new HashMap<Class<?>, List<WeakReference<Listener<?>>>>();
-    
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void publish (final @Nonnull Topic message) 
+    public <Topic> void publish (final @Nonnull Topic message)
       {
         publish((Class<Topic>)message.getClass(), message);
       }
-    
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void publish (final @Nonnull Class<Topic> topic, final @Nonnull Topic message) 
+    public <Topic> void publish (final @Nonnull Class<Topic> topic, final @Nonnull Topic message)
       {
         log.trace("publish({}, {})", topic, message);
-        getExecutor().execute(new Runnable() 
+        getExecutor().execute(new Runnable()
           {
             @Override
-            public void run() 
+            public void run()
               {
                 deliverMessage(topic, message);
               }
         });
       }
-    
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void subscribe (final @Nonnull Class<Topic> topic, final @Nonnull Listener<Topic> listener) 
+    public <Topic> void subscribe (final @Nonnull Class<Topic> topic, final @Nonnull Listener<Topic> listener)
       {
         log.debug("subscribe({}, {})", topic, listener);
         findListenersByTopic(topic).add(new WeakReference<Listener<Topic>>(listener));
       }
-    
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -116,20 +116,23 @@ public abstract class MessageBusSupport implements MessageBus
               }
           }
       }
-    
+
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    protected <Topic> void deliverMessage (final @Nonnull Class<Topic> topic, final @Nonnull Topic message) 
+    protected <Topic> void deliverMessage (final @Nonnull Class<Topic> topic, final @Nonnull Topic message)
       {
-        for (final Entry<Class<?>, List<WeakReference<Listener<?>>>> e : new HashSet<Entry<Class<?>, List<WeakReference<Listener<?>>>>>(listenersMapByTopic.entrySet()))
+        final HashSet<Entry<Class<?>, List<WeakReference<Listener<?>>>>> clone =
+                new HashSet<Entry<Class<?>, List<WeakReference<Listener<?>>>>>(listenersMapByTopic.entrySet());
+
+        for (final Entry<Class<?>, List<WeakReference<Listener<?>>>> e : clone)
           {
             if (e.getKey().isAssignableFrom(topic))
               {
                 final List tmp = e.getValue();
                 final List<WeakReference<Listener<Topic>>> listeners = tmp;
-                
+
                 for (final WeakReference<Listener<Topic>> listenerReference : listeners)
                   {
                     final Listener<Topic> listener = listenerReference.get();
@@ -138,16 +141,16 @@ public abstract class MessageBusSupport implements MessageBus
                       {
                         try
                           {
-                            listener.notify(message);   
+                            listener.notify(message);
                           }
                         catch (Throwable t)
                           {
-                            log.warn("deliverMessage()", t); 
+                            log.warn("deliverMessage()", t);
                           }
                       }
                   }
               }
-          }        
+          }
       }
 
     /*******************************************************************************************************************
@@ -156,7 +159,7 @@ public abstract class MessageBusSupport implements MessageBus
      ******************************************************************************************************************/
     @Nonnull
     protected abstract Executor getExecutor();
-    
+
     /*******************************************************************************************************************
      *
      *
@@ -166,13 +169,13 @@ public abstract class MessageBusSupport implements MessageBus
       {
         final List tmp = listenersMapByTopic.get(topic);
         List<WeakReference<Listener<Topic>>> listeners = tmp;
-        
+
         if (listeners == null)
           {
             listeners = new ArrayList<WeakReference<Listener<Topic>>>();
             listenersMapByTopic.put(topic, (List)listeners);
-          } 
-        
+          }
+
         return listeners;
       }
   }

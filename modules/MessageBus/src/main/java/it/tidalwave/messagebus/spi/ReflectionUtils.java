@@ -35,48 +35,48 @@ import java.util.List;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ReflectionUtils 
+public class ReflectionUtils
   {
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     public static interface MethodProcessor
       {
         enum FilterResult { ACCEPT, IGNORE };
-        
+
         public FilterResult filter (@Nonnull Class<?> clazz);
-        
-        public void process (@Nonnull Method method);  
+
+        public void process (@Nonnull Method method);
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     public static class MethodProcessorSupport implements MethodProcessor
       {
         @Override @Nonnull
         public FilterResult filter (final @Nonnull Class<?> clazz)
           {
-            return FilterResult.ACCEPT;        
+            return FilterResult.ACCEPT;
           }
-        
+
         @Override
         public void process (final @Nonnull Method method)
           {
-          }  
+          }
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
-    public static void forEachMethodInTopDownHierarchy (final @Nonnull Object object,       
-                                                        final @Nonnull MethodProcessor processor) 
+    public static void forEachMethodInTopDownHierarchy (final @Nonnull Object object,
+                                                        final @Nonnull MethodProcessor processor)
       {
         for (final Class<?> clazz : getClassHierarchy(object.getClass()))
           {
@@ -86,18 +86,18 @@ public class ReflectionUtils
               }
           }
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
-    public static void forEachMethodInBottomUpHierarchy (final @Nonnull Object object, 
-                                                         final @Nonnull MethodProcessor processor) 
+    public static void forEachMethodInBottomUpHierarchy (final @Nonnull Object object,
+                                                         final @Nonnull MethodProcessor processor)
       {
         final List<Class<?>> hierarchy = getClassHierarchy(object.getClass());
         Collections.reverse(hierarchy);
-        
+
         for (final Class<?> clazz : hierarchy)
           {
             if (processor.filter(clazz) == MethodProcessor.FilterResult.ACCEPT)
@@ -109,40 +109,41 @@ public class ReflectionUtils
               }
           }
       }
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Returns the hierarchy of the given class, starting from the highest.
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     private static List<Class<?>> getClassHierarchy (final @Nonnull Class<?> clazz)
-      {  
+      {
         final List<Class<?>> hierarchy = new ArrayList<Class<?>>();
-        
+
         for (Class<?> ancestor = clazz; ancestor != null; ancestor = ancestor.getSuperclass())
           {
             hierarchy.add(0, ancestor);
           }
-        
+
         return hierarchy;
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
-    public static boolean containsAnnotation (final @Nonnull Annotation[] annotations, final @Nonnull Class<?> annotationClass)
+    public static boolean containsAnnotation (final @Nonnull Annotation[] annotations,
+                                              final @Nonnull Class<?> annotationClass)
       {
-        for (final Annotation annotation : annotations) 
+        for (final Annotation annotation : annotations)
           {
             if (annotationClass.isAssignableFrom(annotation.getClass()))
               {
-                return true;  
+                return true;
               }
           }
-        
+
         return false;
       }
   }

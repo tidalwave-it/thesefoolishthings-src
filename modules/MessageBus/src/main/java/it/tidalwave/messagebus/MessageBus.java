@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 /***********************************************************************************************************************
  *
  * A simple message bus for a local publish/subscribe facility.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -37,56 +37,56 @@ public interface MessageBus
     /*******************************************************************************************************************
      *
      * A listener to receive notifications from a {@link MessageBus}.
-     * 
+     *
      * @stereotype  Listener
-     * 
+     *
      ******************************************************************************************************************/
     public static interface Listener<Topic>
       {
         /***************************************************************************************************************
          *
          * Notifies the reception of the given message.
-         * 
+         *
          * @param  message  the event
          *
          **************************************************************************************************************/
-        public void notify (@Nonnull Topic message);  
+        public void notify (@Nonnull Topic message);
       }
-    
+
     /*******************************************************************************************************************
      *
      * Publishes the given event. The topic is the class of the event.
-     * 
+     *
      * @param  message  the event
      *
      ******************************************************************************************************************/
     public <Topic> void publish (@Nonnull Topic message);
-    
+
     /*******************************************************************************************************************
      *
      * Publishes the given event and topic. Passing an explicit topic can be useful when dealing with a hierarchy of
      * events (so, perhaps a subclass is passed but the topic is the root of the hierarchy).
-     * 
+     *
      * @param  topic  the topic
      * @param  message  the event
      *
      ******************************************************************************************************************/
     public <Topic> void publish (@Nonnull Class<Topic> topic, @Nonnull Topic message);
-    
+
     /*******************************************************************************************************************
      *
      * Subscribes a {@link Listener} to a topic.
-     * 
+     *
      * @param  topic     the topic
      * @param  listener  the listener
      *
      ******************************************************************************************************************/
     public <Topic> void subscribe (@Nonnull Class<Topic> topic, @Nonnull Listener<Topic> listener);
-    
+
     /*******************************************************************************************************************
      *
      * Unsubscribes a {@link Listener}.
-     * 
+     *
      * @param  listener  the listener
      *
      ******************************************************************************************************************/

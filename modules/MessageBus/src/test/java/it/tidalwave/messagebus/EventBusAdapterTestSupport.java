@@ -31,7 +31,7 @@ import org.testng.annotations.Test;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public abstract class EventBusAdapterTestSupport 
+public abstract class EventBusAdapterTestSupport
   {
     @Test
     public void testCreateMethodAdapter()
@@ -41,11 +41,11 @@ public abstract class EventBusAdapterTestSupport
         example.start();
         publish(new Message1());
         example.stop();
-        
+
         // TODO: assertions
       }
-    
+
     protected abstract void publish (final @Nonnull Object message);
-    
+
     protected abstract MessageBusHelper.Adapter getAdapterFactory();
   }
