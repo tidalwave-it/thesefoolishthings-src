@@ -26,18 +26,16 @@ import javax.annotation.Nonnull;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Transient;
 import it.tidalwave.role.Persistable;
 import it.tidalwave.role.Removable;
 import it.tidalwave.role.annotation.RoleFor;
-import it.tidalwave.role.AsExtensions;
 import it.tidalwave.thesefoolishthings.examples.datum.JpaPersistenceContext;
-import javax.persistence.Id;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.ExtensionMethod;
 
 /***********************************************************************************************************************
  *
@@ -45,43 +43,42 @@ import lombok.experimental.ExtensionMethod;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RoleFor(datum=Person.class, context=JpaPersistenceContext.class) 
-@Entity @NoArgsConstructor @Getter @Setter @ToString
-//@ExtensionMethod(AsExtensions.class)
+@RoleFor(datum=Person.class, context=JpaPersistenceContext.class)
+@Entity @NoArgsConstructor @Getter @Setter @ToString(exclude="context")
 public class PersonJpaPersistable implements Serializable, Persistable, Removable
   {
     @Transient
     private JpaPersistenceContext context;
-    
+
     @Id
     private String id;
-    
+
     @Column
     private String firstName;
-    
+
     @Column
     private String lastName;
-    
-    public PersonJpaPersistable (final @Nonnull Person datum, final @Nonnull JpaPersistenceContext context) 
+
+    public PersonJpaPersistable (final @Nonnull Person datum, final @Nonnull JpaPersistenceContext context)
       {
         this.context = context;
         this.id = datum.id.stringValue();
         this.firstName = datum.firstName;
         this.lastName = datum.lastName;
       }
-    
+
     @Nonnull
     public Person toPerson()
       {
         return new Person(new it.tidalwave.util.Id(id), firstName, lastName);
       }
 
-    public void persist() 
+    public void persist()
       {
         context.persist(this);
       }
 
-    public void remove() 
+    public void remove()
       {
         context.remove(this);
       }

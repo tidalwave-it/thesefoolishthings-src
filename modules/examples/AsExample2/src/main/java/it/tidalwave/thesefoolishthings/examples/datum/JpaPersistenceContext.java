@@ -23,6 +23,7 @@
 package it.tidalwave.thesefoolishthings.examples.datum;
 
 import javax.annotation.Nonnull;
+import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
@@ -30,20 +31,21 @@ import javax.annotation.Nonnull;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class JpaPersistenceContext 
+@Slf4j
+public class JpaPersistenceContext
   {
 //    @PersistenceContext
 //    private EntityManager em;
-    
+
     public void persist (final @Nonnull Object object)
       {
-          System.err.println("PERSIST " + object);
+        log.info("******** PERSIST {}", object);
 //        em.persist(object);
       }
-    
+
     public void remove (final @Nonnull Object object)
       {
-          System.err.println("REMOVE " + object);
+        log.info("******** REMOVE {}", object);
 //        em.remove(object);
       }
   }

@@ -50,8 +50,8 @@ public class AsExample2
       {
         new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample2/Beans.xml");
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
-//        System.err.println(as(joe, Displayable).getDisplayName());
-        System.err.println(joe.as(Displayable).getDisplayName());
+////        System.err.println(as(joe, Displayable).getDisplayName());
+//        System.err.println(joe.as(Displayable).getDisplayName());
         
         final JpaPersistenceContext jpaContext = new JpaPersistenceContext(); // FIXME: use Spring
         addLocalContext(jpaContext);
