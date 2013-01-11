@@ -40,13 +40,13 @@ public class PostConstructInvoker extends ReflectionUtils.MethodProcessorSupport
   {
     @Nonnull
     private final Object object;
-    
+
     @Override
     public void process (final @Nonnull Method method)
       {
         if (method.getAnnotation(PostConstruct.class) != null)
           {
-            try 
+            try
               {
                 method.invoke(object);
               }

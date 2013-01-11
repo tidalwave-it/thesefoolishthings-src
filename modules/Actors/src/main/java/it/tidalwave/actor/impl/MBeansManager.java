@@ -49,104 +49,104 @@ import it.tidalwave.messagebus.spi.ReflectionUtils.MethodProcessor.FilterResult;
  *
  **********************************************************************************************************************/
 @Slf4j
-public class MBeansManager 
+public class MBeansManager
   {
     @Nonnull
     private final Object actorObject;
-    
+
     @Nonnull @Getter
-    private final ActorActivatorStats stats;             
+    private final ActorActivatorStats stats;
 
     private ObjectName statsName;
-    
+
     private final Map<ObjectName, Object> mbeansMapByName = new HashMap<ObjectName, Object>();
 
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     public MBeansManager (final @Nonnull Object actorObject, final @Nonnegative int poolSize)
       {
         this.actorObject = actorObject;
         stats = new ActorActivatorStats(poolSize);
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     public void register()
       {
         forEachMethodInTopDownHierarchy(actorObject, new MethodProcessorSupport()
           {
             @Override @Nonnull
-            public FilterResult filter (final @Nonnull Class<?> clazz) 
+            public FilterResult filter (final @Nonnull Class<?> clazz)
               {
                 mbeansMapByName.putAll(getMBeans(actorObject, clazz));
                 return FilterResult.IGNORE;
               }
-          });        
-        
+          });
+
         final MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
-        
-        try 
+
+        try
           {
-            final String name = String.format("%s:type=%s", actorObject.getClass().getPackage().getName(), 
+            final String name = String.format("%s:type=%s", actorObject.getClass().getPackage().getName(),
                                                             actorObject.getClass().getSimpleName());
             statsName = new ObjectName(name);
             mBeanServer.registerMBean(stats, statsName);
           }
-        catch (InstanceAlreadyExistsException e) 
+        catch (InstanceAlreadyExistsException e)
           {
             log.error("Cannot register master MBean for actor " + actorObject, e);
           }
-        catch (MalformedObjectNameException e) 
+        catch (MalformedObjectNameException e)
           {
             log.error("Cannot register master MBean for actor " + actorObject, e);
           }
-        catch (MBeanRegistrationException e) 
+        catch (MBeanRegistrationException e)
           {
             log.error("Cannot register master MBean for actor " + actorObject, e);
           }
-        catch (NotCompliantMBeanException e) 
+        catch (NotCompliantMBeanException e)
           {
             log.error("Cannot register master MBean for actor " + actorObject, e);
           }
 
         for (final Map.Entry<ObjectName, Object> entry : mbeansMapByName.entrySet())
           {
-            try 
+            try
               {
                 log.info(">>>> registering MBean {}", entry);
                 mBeanServer.registerMBean(entry.getValue(), entry.getKey());
               }
-            catch (InstanceAlreadyExistsException e) 
+            catch (InstanceAlreadyExistsException e)
               {
                 log.error("Cannot register MBean: " + entry, e);
               }
-            catch (MBeanRegistrationException e) 
+            catch (MBeanRegistrationException e)
               {
                 log.error("Cannot register MBean: " + entry, e);
               }
-            catch (NotCompliantMBeanException e) 
+            catch (NotCompliantMBeanException e)
               {
                 log.error("Cannot register MBean: " + entry, e);
               }
           }
       }
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Unregisters the MBeans.
-     * 
+     *
      ******************************************************************************************************************/
     public void unregister()
       {
-        final MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer(); 
+        final MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
 
-        try 
+        try
           {
             mBeanServer.unregisterMBean(statsName);
           }
@@ -158,7 +158,7 @@ public class MBeansManager
           {
             log.error("Cannot register master MBean for actor " + actorObject, e);
           }
-        
+
         for (final Map.Entry<ObjectName, Object> entry : mbeansMapByName.entrySet())
           {
             try
@@ -176,11 +176,11 @@ public class MBeansManager
               }
           }
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     @Nonnull
     private static Map<ObjectName, Object> getMBeans (final @Nonnull Object actorObject, final @Nonnull Class<?> clazz)
@@ -191,11 +191,11 @@ public class MBeansManager
           {
             if (!field.isSynthetic() && ((field.getModifiers() & Modifier.STATIC) == 0))
               {
-                try 
+                try
                   {
                     field.setAccessible(true);
                     final Object value = field.get(actorObject);
-                    
+
                     if (value != null)
                       {
                         final Class<?>[] interfaces = value.getClass().getInterfaces();
@@ -204,27 +204,27 @@ public class MBeansManager
                         //
                         if ((interfaces.length > 0) && interfaces[0].getName().endsWith("MBean"))
                           {
-                            final String name = String.format("%s:type=%s", clazz.getPackage().getName(), 
+                            final String name = String.format("%s:type=%s", clazz.getPackage().getName(),
                                                                             value.getClass().getSimpleName());
                             result.put(new ObjectName(name), value);
                           }
                       }
                   }
-                catch (IllegalArgumentException e) 
+                catch (IllegalArgumentException e)
                   {
                     log.error("Cannot handle object: {}", field);
                   }
-                catch (IllegalAccessException e) 
+                catch (IllegalAccessException e)
                   {
                     log.error("Cannot handle object: {}", field);
                   }
-                catch (MalformedObjectNameException e) 
+                catch (MalformedObjectNameException e)
                   {
                     log.error("Cannot handle object: {}", field);
                   }
               }
           }
-        
+
         return result;
       }
   }

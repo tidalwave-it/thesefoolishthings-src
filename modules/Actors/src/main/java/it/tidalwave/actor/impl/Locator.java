@@ -29,12 +29,12 @@ import org.openide.util.Lookup;
 /***********************************************************************************************************************
  *
  * A trimmed down replacement for OpenBlueSky Locator, in order to avoid depending on OpenBlueSky.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class Locator 
+public class Locator
   {
     public static class NotFoundException extends RuntimeException
       {
@@ -61,7 +61,7 @@ public class Locator
               }
           };
       }
-    
+
     /*******************************************************************************************************************
      *
      *

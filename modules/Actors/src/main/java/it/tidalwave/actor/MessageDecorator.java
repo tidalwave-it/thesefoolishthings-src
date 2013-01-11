@@ -31,21 +31,21 @@ import lombok.ToString;
  *
  * This role should be injected into a message to decorated it a the moment of sending. This technique is experimental
  * and represents the function of a Decorator Pattern in a message-oriented design.
- * 
+ *
  * @stereotype Role
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface MessageDecorator 
+public interface MessageDecorator
   {
     public static final Class<MessageDecorator> MessageDecorator = MessageDecorator.class;
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * A default implementation of {@code MessageDecorator} which returns the same message.
-     * 
+     *
      ******************************************************************************************************************/
     @RequiredArgsConstructor @ToString
     public static class Same<T extends MessageSupport> implements MessageDecorator
@@ -53,13 +53,13 @@ public interface MessageDecorator
         @Getter @Nonnull
         private final T decoratedMessage;
       }
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Returns the decorated message.
-     * 
+     *
      * @return  the decorated message
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public MessageSupport getDecoratedMessage();

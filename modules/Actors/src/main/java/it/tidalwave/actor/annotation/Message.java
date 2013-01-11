@@ -29,7 +29,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /***********************************************************************************************************************
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -37,16 +37,16 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-public @interface Message 
-  { 
+public @interface Message
+  {
     /*******************************************************************************************************************
-     * 
+     *
      * Out of band messages are processed with priority, that is they are posted at the head of a queue rather than at
      * the tail.
-     * 
+     *
      ******************************************************************************************************************/
     public boolean outOfBand() default false;
-    
+
     /** Doesn't work, don't use */
     public boolean daemon() default true;
   }

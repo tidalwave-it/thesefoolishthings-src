@@ -28,15 +28,15 @@ package it.tidalwave.actor.spi;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface ActorActivatorStatsMBean 
+public interface ActorActivatorStatsMBean
   {
     public int getPoolSize();
-    
+
     public int getPendingMessageCount();
-    
+
     public int getInvocationCount();
-    
+
     public int getSuccesfulInvocationCount();
-    
+
     public int getInvocationErrorCount();
   }

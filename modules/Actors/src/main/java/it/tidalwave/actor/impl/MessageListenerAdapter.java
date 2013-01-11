@@ -52,17 +52,17 @@ class MessageListenerAdapter<Topic> implements MessageBus.Listener<Topic>
     private final ActorActivatorStats stats;
 
     @Override
-    public void notify (final @Nonnull Topic message) 
+    public void notify (final @Nonnull Topic message)
       {
         log.trace("notify({})", message);
         final DefaultCollaboration collaboration = DefaultCollaboration.getCollaboration(message);
-        collaboration.registerPendingMessage(message); 
+        collaboration.registerPendingMessage(message);
         stats.changePendingMessageCount(+1);
 
         final Runnable messageWorker = new Runnable()
           {
             @Override
-            public void run() 
+            public void run()
               {
                 collaboration.bindToCurrentThread();
                 collaboration.unregisterPendingMessage(message);
@@ -77,7 +77,7 @@ class MessageListenerAdapter<Topic> implements MessageBus.Listener<Topic>
                   {
                     stats.incrementInvocationErrorCount();
                     log.error("Error calling {} with {}", method, message.getClass());
-                    log.error("", t); 
+                    log.error("", t);
                   }
                 finally
                   {
@@ -94,7 +94,7 @@ class MessageListenerAdapter<Topic> implements MessageBus.Listener<Topic>
         else
           {
             executor.execute(messageWorker);
-          } 
+          }
       }
   }
 

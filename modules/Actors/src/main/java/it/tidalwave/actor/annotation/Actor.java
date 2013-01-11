@@ -29,7 +29,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /***********************************************************************************************************************
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -37,10 +37,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-public @interface Actor 
-  { 
+public @interface Actor
+  {
     // Too bad @ThreadSafe doesn't have runtime retention
     public boolean threadSafe() default true;
-    
+
     public int initialPriority() default Thread.NORM_PRIORITY;
   }

@@ -35,35 +35,35 @@ import org.joda.time.DateTime;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Message @Immutable 
+@Message @Immutable
 @EqualsAndHashCode(callSuper=true) @ToString(callSuper=false)
 public class CollaborationStartedMessage extends MessageSupport
   {
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     private CollaborationStartedMessage (final @Nonnull Collaboration collaboration)
       {
         super(collaboration);
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     @Nonnull
     public static CollaborationStartedMessage forCollaboration (final @Nonnull Collaboration collaboration)
       {
         return new CollaborationStartedMessage(collaboration);
       }
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Returns the time when this unit of work has been created.
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public DateTime getStartTime()

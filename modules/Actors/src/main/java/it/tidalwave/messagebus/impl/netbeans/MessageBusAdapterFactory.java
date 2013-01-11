@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 /***********************************************************************************************************************
  *
  * FIXME: this is not related to NetBeans, but to MessageBus - move into a specific adapter module.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -45,37 +45,37 @@ import lombok.extern.slf4j.Slf4j;
 public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
   {
     public static final MessageBusHelper.Adapter INSTANCE = new MessageBusAdapterFactory();
-    
+
     private final Provider<MessageBus> messageBus = Locator.createProviderFor(MessageBus.class);
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
-    class MessageBusListenerAdapter <Topic> implements MethodAdapter<Topic>, MessageBus.Listener<Topic>
+    class MessageBusListenerAdapter<Topic> implements MethodAdapter<Topic>, MessageBus.Listener<Topic>
       {
         @Nonnull
         private final Object owner;
 
         @Nonnull
         private final Method method;
-        
+
         @Nonnull
         private final Class<Topic> topic;
-        
-        public MessageBusListenerAdapter (final @Nonnull Object owner, 
+
+        public MessageBusListenerAdapter (final @Nonnull Object owner,
                                           final @Nonnull Method method,
-                                          final @Nonnull Class<Topic> topic) 
+                                          final @Nonnull Class<Topic> topic)
           {
             this.owner  = owner;
             this.method = method;
             this.topic  = topic;
             method.setAccessible(true);
           }
-        
+
         @Override
-        public void notify (final @Nonnull Topic message) 
+        public void notify (final @Nonnull Topic message)
           {
             log.trace("notify({})", message);
 
@@ -86,27 +86,27 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
             catch (Throwable t)
               {
                 log.error("Error calling {} with {}", method, message.getClass());
-                log.error("", t); 
+                log.error("", t);
               }
           }
 
         @Override
-        public void subscribe() 
+        public void subscribe()
           {
             messageBus.get().subscribe(topic, this);
           }
 
         @Override
-        public void unsubscribe() 
+        public void unsubscribe()
           {
-            messageBus.get().unsubscribe(this);  
+            messageBus.get().unsubscribe(this);
           }
       }
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override @Nonnull
     public <Topic> MethodAdapter createMethodAdapter (final @Nonnull Object owner,
@@ -115,25 +115,25 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
       {
         return new MessageBusListenerAdapter(owner, method, topic);
       }
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override
-    public void publish (final @Nonnull Object message) 
+    public void publish (final @Nonnull Object message)
       {
         messageBus.get().publish(message);
       }
 
     /*******************************************************************************************************************
-     * 
+     *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void publish (final @Nonnull Class<Topic> topic, final @Nonnull Topic message) 
+    public <Topic> void publish (final @Nonnull Class<Topic> topic, final @Nonnull Topic message)
       {
         messageBus.get().publish(topic, message);
       }

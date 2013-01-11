@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 /***********************************************************************************************************************
  *
  * An implementation of {@link MessageBus} for the NetBeans Platform. FIXME: indeed this is not related to the Platform!
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -46,13 +46,13 @@ public class NetBeansPlatformMessageBus extends MessageBusSupport
   {
 //    private final RequestProcessor executor = RequestProcessor.getDefault(); FIXME
     private final ExecutorService executor = Executors.newFixedThreadPool(10);
-    
+
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    protected Executor getExecutor() 
+    protected Executor getExecutor()
       {
         return executor;
       }

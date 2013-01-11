@@ -28,33 +28,33 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
 @Slf4j
-public class ActorGroupActivator  
+public class ActorGroupActivator
   {
     private final List<ActorActivator> actorActivators = new ArrayList<ActorActivator>();
-    
-    public void add (final @Nonnull ActorActivator actorActivator) 
+
+    public void add (final @Nonnull ActorActivator actorActivator)
       {
         actorActivators.add(actorActivator);
       }
 
-    public void activate() 
+    public void activate()
       {
-        for (final ActorActivator actorActivator : actorActivators) 
+        for (final ActorActivator actorActivator : actorActivators)
           {
             actorActivator.initialize();
             log.info(">>>> activated {}", actorActivator.getActorObject());
           }
       }
 
-    public void deactivate() 
+    public void deactivate()
       {
-        for (final ActorActivator actorActivator : actorActivators) 
+        for (final ActorActivator actorActivator : actorActivators)
           {
             actorActivator.dispose();
             log.info(">>>> deactivated {}", actorActivator.getActorObject());

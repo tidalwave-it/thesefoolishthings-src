@@ -36,59 +36,59 @@ import org.joda.time.Duration;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Message @Immutable 
+@Message @Immutable
 @EqualsAndHashCode @ToString(callSuper=false)
 public class CollaborationCompletedMessage extends MessageSupport
   {
     private final long endTime = System.currentTimeMillis();
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     private CollaborationCompletedMessage (final @Nonnull Collaboration collaboration)
       {
         super(collaboration);
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     @Nonnull
     public static CollaborationCompletedMessage forCollaboration (final @Nonnull Collaboration collaboration)
       {
         return new CollaborationCompletedMessage(collaboration);
       }
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Returns the time when this unit of work has been created.
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public DateTime getStartTime()
       {
         return collaboration.getStartTime();
       }
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Returns the time when this unit of work has been completed.
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public DateTime getEndTime()
       {
         return new DateTime(endTime);
       }
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Returns the time this unit of work took to complete.
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public Duration getDuration()

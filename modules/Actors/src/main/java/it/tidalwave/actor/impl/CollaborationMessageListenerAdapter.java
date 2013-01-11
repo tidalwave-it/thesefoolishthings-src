@@ -55,20 +55,20 @@ class CollaborationMessageListenerAdapter<Topic extends Collaboration.Provider> 
     private final ActorActivatorStats stats;
 
     @Override
-    public void notify (final @Nonnull Topic message) 
+    public void notify (final @Nonnull Topic message)
       {
         log.trace("notify({})", message);
         final DefaultCollaboration collaboration = (DefaultCollaboration)message.getCollaboration();
-        collaboration.registerPendingMessage(message); 
+        collaboration.registerPendingMessage(message);
         stats.changePendingMessageCount(+1);
         executor.execute(new Runnable()
           {
             @Override
-            public void run() 
+            public void run()
               {
                 collaboration.unregisterPendingMessage(message);
                 stats.changePendingMessageCount(-1);
-                
+
                 if (collaboration.getOriginatingMessage().getClass().equals(messageType))
                   {
                     collaboration.bindToCurrentThread();
@@ -77,13 +77,13 @@ class CollaborationMessageListenerAdapter<Topic extends Collaboration.Provider> 
                       {
                         stats.incrementInvocationCount();
                         method.invoke(owner, message, collaboration.getOriginatingMessage());
-                        stats.incrementSuccessfulInvocationCount(); 
+                        stats.incrementSuccessfulInvocationCount();
                       }
                     catch (Throwable t)
                       {
                         stats.incrementInvocationErrorCount();
                         log.error("Error calling {} with {}", method, message.getClass());
-                        log.error("", t); 
+                        log.error("", t);
                       }
                     finally
                       {

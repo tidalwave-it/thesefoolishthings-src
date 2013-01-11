@@ -33,21 +33,22 @@ import lombok.extern.slf4j.Slf4j;
 /***********************************************************************************************************************
  *
  * An implementation of {@link EventBus}.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@ServiceProvider(service=CollaborationAwareMessageBus.class)
+@ServiceProvider(service = CollaborationAwareMessageBus.class)
 @ThreadSafe @Slf4j
-public class NetBeansPlatformCollaborationAwareMessageBus extends NetBeansPlatformMessageBus implements CollaborationAwareMessageBus
+public class NetBeansPlatformCollaborationAwareMessageBus extends NetBeansPlatformMessageBus 
+                                                          implements CollaborationAwareMessageBus
   {
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
     @Override
-    protected <Topic> void deliverMessage (final @Nonnull Class<Topic> topic, final @Nonnull Topic message) 
+    protected <Topic> void deliverMessage (final @Nonnull Class<Topic> topic, final @Nonnull Topic message)
       {
         super.deliverMessage(topic, message);
         DefaultCollaboration.getCollaboration(message).unregisterDeliveringMessage(message);

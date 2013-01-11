@@ -28,7 +28,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import it.tidalwave.actor.impl.Locator;
 import it.tidalwave.messagebus.MessageBus;
 import it.tidalwave.messagebus.annotation.ListensTo;
 import it.tidalwave.messagebus.spi.ReflectionUtils;
@@ -60,27 +59,28 @@ public class CollaborationAwareMessageBusAdapter implements ReflectionUtils.Meth
     private final ActorActivatorStats stats;
 
     private final List<MessageBus.Listener<?>> messageBusListeners = new ArrayList<MessageBus.Listener<?>>();
-    
-    private final Provider<CollaborationAwareMessageBus> messageBus = Locator.createProviderFor(CollaborationAwareMessageBus.class);
-    
+
+    private final Provider<CollaborationAwareMessageBus> messageBus = 
+            Locator.createProviderFor(CollaborationAwareMessageBus.class);
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public FilterResult filter (final @Nonnull Class<?> clazz) 
+    public FilterResult filter (final @Nonnull Class<?> clazz)
       {
         return FilterResult.ACCEPT; // TODO: should filter with @Actor?
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     @Override
-    public void process (final @Nonnull Method method) 
+    public void process (final @Nonnull Method method)
       {
         final Annotation[][] parameterAnnotations = method.getParameterAnnotations();
 
@@ -96,59 +96,59 @@ public class CollaborationAwareMessageBusAdapter implements ReflectionUtils.Meth
       }
 
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     public void unsubscribe()
       {
         for (final MessageBus.Listener<?> listener : messageBusListeners)
           {
-            messageBus.get().unsubscribe(listener);  
+            messageBus.get().unsubscribe(listener);
           }
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     private <Topic> void registerMessageListener (final @Nonnull Method method)
       {
         log.info("registerMessageListener({})", method);
 
         final Class<Topic> topic = (Class<Topic>)method.getParameterTypes()[0];
-        addListener(method, new MessageListenerAdapter<Topic>(owner, method, executor, stats), topic);        
+        addListener(method, new MessageListenerAdapter<Topic>(owner, method, executor, stats), topic);
       }
 
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     private <Topic> void registerCollaborationListener (final @Nonnull Method method)
       {
         log.info("registerCollaborationListener({})", method);
         final Class<?> collaborationMessageType = method.getParameterTypes()[0];
         final Class<?> messageType = method.getParameterTypes()[1];
-        
+
         final MessageBus.Listener messageListener = collaborationMessageType.equals(CollaborationStartedMessage.class)
-                                               ? new CollaborationMessageListenerAdapter<CollaborationStartedMessage>(owner, method, executor, messageType, stats)
-                                               : new CollaborationMessageListenerAdapter<CollaborationCompletedMessage>(owner, method, executor, messageType, stats);
-        addListener(method, messageListener, collaborationMessageType);        
+            ? new CollaborationMessageListenerAdapter<CollaborationStartedMessage>(owner, method, executor, messageType, stats)
+            : new CollaborationMessageListenerAdapter<CollaborationCompletedMessage>(owner, method, executor, messageType, stats);
+        addListener(method, messageListener, collaborationMessageType);
       }
 
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
-    private <Topic> void addListener (final @Nonnull Method method, 
+    private <Topic> void addListener (final @Nonnull Method method,
                                       final @Nonnull MessageBus.Listener<Topic> messageListener,
-                                      final @Nonnull Class<Topic> topic) throws SecurityException 
+                                      final @Nonnull Class<Topic> topic) throws SecurityException
       {
         method.setAccessible(true);
         messageBusListeners.add(messageListener);
         messageBus.get().subscribe(topic, messageListener);
-      }      
+      }
   }

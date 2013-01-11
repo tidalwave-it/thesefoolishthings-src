@@ -29,20 +29,20 @@ import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
 /***********************************************************************************************************************
- * 
+ *
  * Represents a single task that is possibly decomposed in multiple subtasks and provides support for waiting for it
  * completion.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface Collaboration 
+public interface Collaboration
   {
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     public final static Collaboration NULL_COLLABORATION = new Collaboration()
       {
@@ -53,18 +53,18 @@ public interface Collaboration
           }
 
         @Override
-        public boolean isCompleted() 
+        public boolean isCompleted()
           {
             return true;
           }
 
         @Override
-        public void waitForCompletion() 
+        public void waitForCompletion()
           {
-          }  
+          }
 
         @Override
-        public DateTime getStartTime() 
+        public DateTime getStartTime()
           {
             return new DateTime(0);
           }
@@ -80,175 +80,176 @@ public interface Collaboration
           {
             return new UUID();
           }
-        
+
         @Override
         public void resume (final @Nonnull Object suspensionToken, final @Nonnull Runnable runnable)
           {
           }
-        
+
         @Override
         public void resumeAndDie (final @Nonnull Object suspensionToken)
           {
           }
-        
+
         @Override
         public boolean isSuspended()
           {
-            return false;  
+            return false;
           }
-        
+
         @Override
-        public int getDeliveringMessagesCount() 
+        public int getDeliveringMessagesCount()
           {
             return 0;
           }
 
         @Override
-        public int getPendingMessagesCount() 
+        public int getPendingMessagesCount()
           {
             return 0;
           }
 
         @Override
-        public int getRunningThreadsCount() 
+        public int getRunningThreadsCount()
           {
             return 0;
           }
       };
 
     /*******************************************************************************************************************
-     * 
+     *
      * A provider of a {@link Collaboration}.
-     * 
+     *
      ******************************************************************************************************************/
-    public static interface Provider 
+    public static interface Provider
       {
         @Nonnull
         public Collaboration getCollaboration();
       }
 
     /*******************************************************************************************************************
-     * 
+     *
      * Returns the message that originated this {@code Collaboration}.
-     * 
+     *
      * @return  the message
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public Object getOriginatingMessage();
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Returns {@code true} if the {@code Collaboration} has been completed.
-     * 
+     *
      ******************************************************************************************************************/
     public boolean isCompleted();
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Waits for the completion of this {@code Collaboration}.
-     * 
+     *
      ******************************************************************************************************************/
-    public void waitForCompletion() 
+    public void waitForCompletion()
       throws InterruptedException;
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Return the time when this {@code Collaboration} has been created.
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public DateTime getStartTime();
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Return the duration of this {@code Collaboration}.
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public Duration getDuration();
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Sometimes a {@code Collaboration} must coordinate with the external world, waiting for an external asynchronous
      * event that cannot be modeled with agents. For instance, a user intervention (e.g. by clicking a button) or an
      * external piece of software that is not part of the {@code Collaboration} model. In this case, it can be marked
-     * as 'suspended' and in this case it won't be considered completed, even though there are no related pending 
-     * messages or working threads. When the external event occurs, call {@link #resume(java.lang.Object, java.lang.Runnable)).
-     * 
+     * as 'suspended' and in this case it won't be considered completed, even though there are no related pending
+     * messages or working threads. When the external event occurs, call 
+     * {@link #resume(java.lang.Object, java.lang.Runnable)).
+     *
      * In order to support multiple reasons for suspension, a token is generated and returned. It must be passed to
      * {@code resume()) for resuming.
-     * 
-     * @see #resume(java.lang.Object, java.lang.Runnable) 
-     * @see #terminate() 
-     * @see #isSuspended() 
-     * 
+     *
+     * @see #resume(java.lang.Object, java.lang.Runnable)
+     * @see #terminate()
+     * @see #isSuspended()
+     *
      * @return   a token representing the reason for the suspension
-     * 
+     *
      ******************************************************************************************************************/
     public Object suspend();
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Resumes a suspended {@code Collaboration}. It executes the given {@link Runnable} which is expected to send new
      * messages.
-     * 
-     * @see #suspend() 
-     * @see #terminate() 
-     * @see #isSuspended() 
+     *
+     * @see #suspend()
+     * @see #terminate()
+     * @see #isSuspended()
      *
      * @param  suspensionToken  the token representing the reason for the suspension
      * @param  resumerTask      the code which resumes the {@code Collaboration}
-     * 
+     *
      ******************************************************************************************************************/
     public void resume (@Nonnull Object suspensionToken, @Nonnull Runnable resumerTask);
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Resumes a suspended {@code Collaboration} and lets it terminate without any further operation.
-     * 
-     * @see #suspend() 
-     * @see #resume(java.lang.Object, java.lang.Runnable) 
-     * @see #isSuspended() 
-     * 
+     *
+     * @see #suspend()
+     * @see #resume(java.lang.Object, java.lang.Runnable)
+     * @see #isSuspended()
+     *
      * @param  suspensionToken  the token representing the reason for the suspension
-     * 
+     *
      ******************************************************************************************************************/
     public void resumeAndDie (@Nonnull Object suspensionToken);
 
     /*******************************************************************************************************************
-     * 
+     *
      * Returns {@code true} when the current {@code Collaboration} is suspended.
-     * 
-     * @see #suspend() 
-     * @see #terminate() 
-     * @see #resume(java.lang.Object, java.lang.Runnable) 
-     * 
+     *
+     * @see #suspend()
+     * @see #terminate()
+     * @see #resume(java.lang.Object, java.lang.Runnable)
+     *
      * @return {@code true} when it's suspended
-     * 
+     *
      ******************************************************************************************************************/
     public boolean isSuspended();
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Returns the number of messages related to this {@code Collaboration} not yet delivered.
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnegative
     public int getDeliveringMessagesCount();
 
     /*******************************************************************************************************************
-     * 
+     *
      * Returns the number of messages related to this {@code Collaboration} not yet consumed.
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnegative
     public int getPendingMessagesCount();
 
     /*******************************************************************************************************************
-     * 
+     *
      * Returns the number of running threads assigned to this {@code Collaboration}.
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnegative
     public int getRunningThreadsCount();

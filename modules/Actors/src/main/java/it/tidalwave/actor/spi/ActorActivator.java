@@ -35,9 +35,9 @@ import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.messagebus.spi.ReflectionUtils.*;
 
 /***********************************************************************************************************************
- * 
+ *
  * @stereotype Actor
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -45,60 +45,60 @@ import static it.tidalwave.messagebus.spi.ReflectionUtils.*;
 @Slf4j
 public class ActorActivator
   {
-    @Nonnull 
+    @Nonnull
     private final Class<?> actorClass;
 
     @Nonnegative @Getter
     private final int poolSize;
-    
+
     @Getter
     private Object actorObject;
-    
+
     private ExecutorWithPriority executor;
-    
+
     private CollaborationAwareMessageBusAdapter messageBusAdapter;
-    
+
     private MBeansManager mBeansManager;
 
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     public static ActorActivator activatorFor (final @Nonnull Class<?> actorClass)
       {
         return new ActorActivator(actorClass, 1);
       }
-            
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     @Nonnull
-    public ActorActivator withPoolSize (@Nonnegative int poolSize)
+    public ActorActivator withPoolSize (final @Nonnegative int poolSize)
       {
         return new ActorActivator(actorClass, poolSize);
       }
-            
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     private ActorActivator (final @Nonnull Class<?> actorClass, final @Nonnegative int poolSize)
       {
         this.actorClass = actorClass;
         this.poolSize = poolSize;
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
-    public void initialize() 
-      {        
+    public void initialize()
+      {
         try
           {
             final Actor actor = actorClass.getAnnotation(Actor.class);
@@ -109,46 +109,46 @@ public class ActorActivator
             messageBusAdapter = new CollaborationAwareMessageBusAdapter(actorObject, executor, mBeansManager.getStats());
           }
         catch (InstantiationException e)
-          { 
-            throw new RuntimeException(e);  
+          {
+            throw new RuntimeException(e);
           }
         catch (IllegalAccessException e)
-          { 
-            throw new RuntimeException(e);  
+          {
+            throw new RuntimeException(e);
           }
-        
+
         forEachMethodInTopDownHierarchy(actorObject, messageBusAdapter);
-        forEachMethodInTopDownHierarchy(actorObject, new PostConstructInvoker(actorObject));        
+        forEachMethodInTopDownHierarchy(actorObject, new PostConstructInvoker(actorObject));
         mBeansManager.register();
-      }
-    
-    /*******************************************************************************************************************
-     * 
-     * 
-     * 
-     ******************************************************************************************************************/
-    public void dispose() 
-      {
-        mBeansManager.unregister();
-        forEachMethodInBottomUpHierarchy(actorObject, new PreDestroyInvoker(actorObject));
-        messageBusAdapter.unsubscribe();        
       }
 
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
-    private void validate (final @Nonnull Actor actor) 
+    public void dispose()
+      {
+        mBeansManager.unregister();
+        forEachMethodInBottomUpHierarchy(actorObject, new PreDestroyInvoker(actorObject));
+        messageBusAdapter.unsubscribe();
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
+    private void validate (final @Nonnull Actor actor)
       {
         if (actor == null)
           {
-            throw new IllegalArgumentException("Actor class must be annotated with @Actor: " + actorClass);  
+            throw new IllegalArgumentException("Actor class must be annotated with @Actor: " + actorClass);
           }
 
         if (!actor.threadSafe() && (poolSize != 1))
           {
-            throw new IllegalArgumentException("Actors that aren't thread safe can't have pool size > 1");  
+            throw new IllegalArgumentException("Actors that aren't thread safe can't have pool size > 1");
           }
       }
-  } 
+  }

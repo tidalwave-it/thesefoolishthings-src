@@ -37,25 +37,25 @@ public class ActorActivatorStats implements ActorActivatorStatsMBean
   {
     @Nonnegative @Getter
     private final int poolSize;
-    
+
     @Getter
     private int pendingMessageCount;
-    
+
     @Getter
     private int invocationCount;
-    
+
     @Getter
     private int succesfulInvocationCount;
-    
+
     @Getter
     private int invocationErrorCount;
-    
+
     public void changePendingMessageCount (final int delta)
       {
         pendingMessageCount += delta;
       }
 
-    public void incrementInvocationCount() 
+    public void incrementInvocationCount()
       {
         invocationCount++;
       }
@@ -65,7 +65,7 @@ public class ActorActivatorStats implements ActorActivatorStatsMBean
         invocationErrorCount++;
       }
 
-    public void incrementSuccessfulInvocationCount() 
+    public void incrementSuccessfulInvocationCount()
       {
         succesfulInvocationCount++;
       }

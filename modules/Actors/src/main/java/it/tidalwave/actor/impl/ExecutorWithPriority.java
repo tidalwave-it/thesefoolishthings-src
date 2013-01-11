@@ -34,9 +34,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
- * 
+ *
  * An executor that propagates the {@link Collaboration}.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -44,10 +44,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExecutorWithPriority
   {
-    private final Runnable consumer = new Runnable() 
+    private final Runnable consumer = new Runnable()
       {
         @Override
-        public void run() 
+        public void run()
           {
             for (;;)
               {
@@ -57,73 +57,73 @@ public class ExecutorWithPriority
                   {
                     break;
                   }
-                
+
                 runnable.run();
               }
           }
       };
-    
+
     private static interface PriorityRunnable extends Runnable
       {
       }
-    
+
     private final BlockingQueue<Runnable> runnableQueue = new LinkedBlockingDeque<Runnable>()
       {
         @Override
         public boolean add (final @Nonnull Runnable runnable)
           {
             if (runnable instanceof PriorityRunnable)
-              {  
-                addFirst(runnable);  
+              {
+                addFirst(runnable);
               }
             else
-              {  
-                addLast(runnable);  
+              {
+                addLast(runnable);
               }
-            
+
             return true;
           }
       };
 
     private final Executor executor;
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Creates an executor with the given pool size.
-     * 
+     *
      * @param  poolSize          the pool size
      * @param  name              the thread base name
      * @param  initialPriority   the initial thread priority in this executor
-     * 
+     *
      ******************************************************************************************************************/
-    public ExecutorWithPriority (final @Nonnegative int poolSize, 
+    public ExecutorWithPriority (final @Nonnegative int poolSize,
                                  final @Nonnull String name,
-                                 final @Nonnegative int initialPriority) 
+                                 final @Nonnegative int initialPriority)
       {
-        final ThreadFactory threadFactory = new ThreadFactory() 
+        final ThreadFactory threadFactory = new ThreadFactory()
           {
             private int count = 0;
-            
+
             @Override @Nonnull
-            public Thread newThread (final @Nonnull Runnable runnable) 
+            public Thread newThread (final @Nonnull Runnable runnable)
               {
                 final Thread thread = new Thread(runnable, name + "-" + count++);
                 thread.setPriority(initialPriority);
-                return thread; 
+                return thread;
               }
           };
-        
+
         // first parameter should be 0, but in this case it goes monothread
         executor = new ThreadPoolExecutor(poolSize, poolSize, 2, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(), threadFactory);
 //        executor = new ThreadPoolExecutor(poolSize, poolSize, 2, TimeUnit.SECONDS, runnableQueue, threadFactory);
       }
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Schedules the execution of a worker at the end of the queue.
-     * 
+     *
      * @param  worker  the worker
-     * 
+     *
      ******************************************************************************************************************/
     public void execute (final @Nonnull Runnable worker)
       {
@@ -133,19 +133,19 @@ public class ExecutorWithPriority
       }
 
     /*******************************************************************************************************************
-     * 
+     *
      * Schedules the execution of a worker as soon as possible.
-     * 
+     *
      * @param  worker  the worker
-     * 
+     *
      ******************************************************************************************************************/
-    public void executeWithPriority (final @Nonnull Runnable worker) 
+    public void executeWithPriority (final @Nonnull Runnable worker)
       {
 //        executor.execute(new PriorityRunnable()
         runnableQueue.add(new PriorityRunnable()
           {
             @Override
-            public void run() 
+            public void run()
               {
                 worker.run();
               }
