@@ -40,7 +40,7 @@ public class AbstractBindablePane<Bean> extends JPanel
   {
     private BindingGroup bindingGroup;
     private Field beanField;
-    
+
     /***************************************************************************
      *
      *
@@ -48,7 +48,7 @@ public class AbstractBindablePane<Bean> extends JPanel
     public void initialize (final String beanFieldName, final BindingGroup bindingGroup)
       {
         this.bindingGroup = bindingGroup;
-        
+
         try
           {
             beanField = getClass().getDeclaredField(beanFieldName);
@@ -58,15 +58,15 @@ public class AbstractBindablePane<Bean> extends JPanel
             throw new ExceptionInInitializerError(e);
           }
       }
-    
+
     /***************************************************************************
      *
      *
      **************************************************************************/
-    final public void bind (final Bean bean) 
+    final public void bind (final Bean bean)
       {
         final Bean oldValue;
-        
+
         try
           {
             oldValue = (Bean)beanField.get(this);
@@ -76,7 +76,7 @@ public class AbstractBindablePane<Bean> extends JPanel
           {
             throw new RuntimeException(e);
           }
-        
+
         bindingGroup.unbind();
         //
         // This is needed NOW so the list of state/province is populated
@@ -84,7 +84,7 @@ public class AbstractBindablePane<Bean> extends JPanel
         //
         specialBind(bean);
         bindingGroup.unbind();
-        
+
         for (Binding binding : bindingGroup.getBindings())
           {
             if (binding.getSourceObject() == oldValue)
@@ -92,10 +92,10 @@ public class AbstractBindablePane<Bean> extends JPanel
                 binding.setSourceObject(bean);
               }
           }
-        
+
         bindingGroup.bind();
       }
-    
+
     /***************************************************************************
      *
      *
@@ -104,7 +104,7 @@ public class AbstractBindablePane<Bean> extends JPanel
     public void setForeground (final Color color)
       {
         super.setForeground(color);
-        
+
         for (final Component component : getComponents())
           {
             component.setForeground(color);

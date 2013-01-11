@@ -38,7 +38,7 @@ import org.jdesktop.beansbinding.Converter;
 public class DateConverter extends Converter<Date, String>
   {
     private static final String DEFAULT_PATTERN = "yyyy/MM/dd";
-    
+
     private String pattern = DEFAULT_PATTERN;
 
     private Locale locale = Locale.getDefault();
@@ -88,10 +88,10 @@ public class DateConverter extends Converter<Date, String>
     @Override
     public Date convertReverse (final String string)
       {
-        try 
+        try
           {
             return dateFormat.parse(string);
-          } 
+          }
         catch (ParseException ex)
           {
             Logger.getLogger(DateConverter.class.getName()).log(Level.SEVERE, null, ex);

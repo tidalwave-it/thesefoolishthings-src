@@ -35,66 +35,66 @@ import org.testng.AssertJUnit;
  * @version $Id$
  *
  ******************************************************************************/
-public class CommaSeparatedListConverterTest 
+public class CommaSeparatedListConverterTest
   {
     private CommaSeparatedListConverter converter;
 
     @BeforeMethod
-    public void setUp() 
+    public void setUp()
       {
         converter = new CommaSeparatedListConverter();
-      }  
+      }
 
     @AfterMethod
-    public void tearDown() 
+    public void tearDown()
       {
         converter = null;
       }
 
     @Test
-    public void convertForward1() 
+    public void convertForward1()
       {
         AssertJUnit.assertEquals("one", converter.convertForward(Arrays.asList("one")));
       }
 
     @Test
-    public void convertForward2() 
+    public void convertForward2()
       {
         AssertJUnit.assertEquals("one, two", converter.convertForward(Arrays.asList("one", "two")));
       }
 
     @Test
-    public void convertForwardNull() 
+    public void convertForwardNull()
       {
         AssertJUnit.assertEquals(null, converter.convertForward(null));
       }
 
     @Test
-    public void convertForwardEmpty() 
+    public void convertForwardEmpty()
       {
         AssertJUnit.assertEquals("", converter.convertForward(Collections.<String>emptyList()));
       }
-    
+
     @Test
-    public void convertReverse1() 
+    public void convertReverse1()
       {
         AssertJUnit.assertEquals(Arrays.asList("one"), converter.convertReverse("one"));
       }
-    
+
     @Test
-    public void convertReverse2() 
+    public void convertReverse2()
       {
         AssertJUnit.assertEquals(Arrays.asList("one", "two"), converter.convertReverse("one, two"));
       }
-    
+
     @Test
-    public void convertReverseNull() 
+    public void convertReverseNull()
       {
         AssertJUnit.assertEquals(null, converter.convertReverse(null));
       }
-    
+
     @Test
-    public void convertReverseEmpty() 
+    public void convertReverseEmpty()
       {
         AssertJUnit.assertEquals(Collections.<String>emptyList(), converter.convertReverse(""));
       }

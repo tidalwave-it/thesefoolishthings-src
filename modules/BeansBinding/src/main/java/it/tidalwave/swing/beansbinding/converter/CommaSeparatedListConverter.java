@@ -37,49 +37,49 @@ import org.jdesktop.beansbinding.Converter;
 public class CommaSeparatedListConverter extends Converter<Collection<String>, String>
   {
     @Override
-    public String convertForward (final Collection<String> collection) 
+    public String convertForward (final Collection<String> collection)
       {
         if (collection == null)
           {
             return null;
           }
-        
+
         final StringBuilder builder = new StringBuilder();
-        
+
         for (final String s : collection)
           {
             if (builder.length() > 0)
               {
-                builder.append(", ");  
+                builder.append(", ");
               }
-            
+
             builder.append(s);
           }
-        
+
         return builder.toString();
       }
 
     @Override
-    public Collection<String> convertReverse (final String string) 
+    public Collection<String> convertReverse (final String string)
       {
         if (string == null)
           {
             return null;
           }
-        
+
         if (string.trim().equals(""))
           {
-            return Collections.<String>emptyList();  
+            return Collections.<String>emptyList();
           }
-        
+
         final List<String> result = new ArrayList<String>();
         final String[] split = string.split(",");
-        
+
         for (final String s : split)
           {
             result.add(s.trim());
-          } 
-        
+          }
+
         return result;
       }
   }
