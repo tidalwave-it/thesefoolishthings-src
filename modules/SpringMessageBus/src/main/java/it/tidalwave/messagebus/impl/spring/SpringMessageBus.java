@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 /***********************************************************************************************************************
  *
  * A simple implementation of {@link EventBus} based on Spring.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -44,13 +44,9 @@ public class SpringMessageBus extends MessageBusSupport
   {
     @Getter @Setter @Nonnull
     private TaskExecutor taskExecutor;
-    
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
+
     @Override @Nonnull
-    protected Executor getExecutor() 
+    protected Executor getExecutor()
       {
         return taskExecutor;
       }
