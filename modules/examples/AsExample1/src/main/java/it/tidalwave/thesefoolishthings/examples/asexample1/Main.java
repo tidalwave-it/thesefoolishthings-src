@@ -20,35 +20,24 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.asexample1;
 
 import javax.annotation.Nonnull;
-import java.io.IOException;
-import java.io.OutputStream;
-import it.tidalwave.role.Marshallable;
-import it.tidalwave.dci.annotation.DciRole;
-import com.thoughtworks.xstream.XStream;
-import lombok.RequiredArgsConstructor;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.BeanFactory;
 
 /***********************************************************************************************************************
  *
- * @author  fritz
+ * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = DefaultPersonRegistry.class, context = XStreamContext.class) @RequiredArgsConstructor
-public class DefaultPersonRegistryXStreamMarshallable implements Marshallable
+public class Main
   {
-    @Nonnull
-    private final DefaultPersonRegistry datum;
-    
-    @Nonnull
-    private final XStreamContext xStreamContext;
-            
-    @Override
-    public void marshal (final @Nonnull OutputStream os) 
-      throws IOException 
+    public static void main (final @Nonnull String ... args)
+      throws Exception
       {
-        xStreamContext.getXStream().toXML(datum.persons, os);
+        final BeanFactory context = new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
+        context.getBean(AsExample1.class).run();
       }
   }

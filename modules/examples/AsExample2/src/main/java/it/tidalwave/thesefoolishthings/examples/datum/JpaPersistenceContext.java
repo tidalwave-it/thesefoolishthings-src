@@ -23,6 +23,7 @@
 package it.tidalwave.thesefoolishthings.examples.datum;
 
 import javax.annotation.Nonnull;
+import it.tidalwave.dci.annotation.DciContext;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
@@ -31,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
  * @version $Id$
  *
  **********************************************************************************************************************/
+@DciContext
 @Slf4j
 public class JpaPersistenceContext
   {

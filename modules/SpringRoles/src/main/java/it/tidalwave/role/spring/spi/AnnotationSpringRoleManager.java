@@ -36,7 +36,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Configurable;
 import it.tidalwave.util.spring.ClassScanner;
-import it.tidalwave.role.annotation.RoleFor;
+import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.role.spi.RoleManager;
 import it.tidalwave.util.NotFoundException;
 import lombok.EqualsAndHashCode;
@@ -111,7 +111,7 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : findRoleI
             for (final Constructor<?> constructor : roleImplementationClass.getDeclaredConstructors())
               {
                 final Class<?>[] parameterTypes = constructor.getParameterTypes();
-                final Class<?> contextClass = roleImplementationClass.getAnnotation(RoleFor.class).context();
+                final Class<?> contextClass = roleImplementationClass.getAnnotation(DciRole.class).context();
                 
                 if (parameterTypes.length > 0)
                   {
@@ -205,11 +205,11 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : findRoleI
     @PostConstruct
     /* package */ void initialize()
       {
-        final ClassScanner classScanner = new ClassScanner().withAnnotationFilter(RoleFor.class);
+        final ClassScanner classScanner = new ClassScanner().withAnnotationFilter(DciRole.class);
         
         for (final Class<?> roleImplementationClass : classScanner.findClasses())
           {
-            final RoleFor role = roleImplementationClass.getAnnotation(RoleFor.class);
+            final DciRole role = roleImplementationClass.getAnnotation(DciRole.class);
             final Class<?> datumClass = role.datum();
             final Class<?> contextClass = role.context();
             

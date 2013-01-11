@@ -30,7 +30,7 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import it.tidalwave.role.Persistable;
 import it.tidalwave.role.Removable;
-import it.tidalwave.role.annotation.RoleFor;
+import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.thesefoolishthings.examples.datum.JpaPersistenceContext;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -43,7 +43,7 @@ import lombok.Setter;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RoleFor(datum = Person.class, context = JpaPersistenceContext.class)
+@DciRole(datum = Person.class, context = JpaPersistenceContext.class)
 @Entity @NoArgsConstructor @Getter @Setter @ToString(exclude = "context")
 public class PersonJpaPersistable implements Serializable, Persistable, Removable
   {

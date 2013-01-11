@@ -20,35 +20,37 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.dci.annotation;
 
 import javax.annotation.Nonnull;
-import java.io.IOException;
-import java.io.OutputStream;
-import it.tidalwave.role.Marshallable;
-import it.tidalwave.dci.annotation.DciRole;
-import com.thoughtworks.xstream.XStream;
-import lombok.RequiredArgsConstructor;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * @author  fritz
+ * Designates a DCI role implementation for a given owner object.
+ * 
+ * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = DefaultPersonRegistry.class, context = XStreamContext.class) @RequiredArgsConstructor
-public class DefaultPersonRegistryXStreamMarshallable implements Marshallable
+@Target(ElementType.TYPE)
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+public @interface DciRole 
   {
-    @Nonnull
-    private final DefaultPersonRegistry datum;
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static final class NoContext
+      {
+      }
     
     @Nonnull
-    private final XStreamContext xStreamContext;
-            
-    @Override
-    public void marshal (final @Nonnull OutputStream os) 
-      throws IOException 
-      {
-        xStreamContext.getXStream().toXML(datum.persons, os);
-      }
+    public Class<?> datum();
+    
+    public Class<?> context() default NoContext.class;
   }

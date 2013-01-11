@@ -25,6 +25,7 @@ package it.tidalwave.thesefoolishthings.examples.person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.SingleValueConverter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
+import it.tidalwave.dci.annotation.DciContext;
 import it.tidalwave.util.Id;
 import lombok.Getter;
 
@@ -36,6 +37,7 @@ import lombok.Getter;
  * @version $Id$
  *
  **********************************************************************************************************************/
+@DciContext
 public class XStreamContext
   {
     @Getter

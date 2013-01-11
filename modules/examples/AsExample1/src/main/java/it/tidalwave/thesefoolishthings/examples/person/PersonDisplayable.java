@@ -24,7 +24,7 @@ package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.role.Displayable;
-import it.tidalwave.role.annotation.RoleFor;
+import it.tidalwave.dci.annotation.DciRole;
 import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
@@ -35,7 +35,7 @@ import lombok.RequiredArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RoleFor(datum = Person.class) @RequiredArgsConstructor
+@DciRole(datum = Person.class) @RequiredArgsConstructor
 public final class PersonDisplayable implements Displayable
   {
     @Nonnull

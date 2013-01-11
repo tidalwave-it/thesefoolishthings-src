@@ -22,10 +22,8 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.asexample1;
 
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.io.ByteArrayOutputStream;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import it.tidalwave.util.Id;
 import it.tidalwave.role.AsExtensions;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
@@ -47,12 +45,9 @@ import static it.tidalwave.role.ContextManager.*;
 @ExtensionMethod(AsExtensions.class) @Slf4j
 public class AsExample1
   {
-    private static Object context;
-
-    public static void main (final @Nonnull String ... args)
+    public void run()
       throws Exception
       {
-        context = new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
         final Person luke = new Person(new Id("2"), "Luke", "Skywalker");
         log.info("******** (joe as Displayable).displayName: {}", joe.as(Displayable).getDisplayName());

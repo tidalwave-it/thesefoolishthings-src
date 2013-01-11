@@ -20,20 +20,17 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.role.annotation;
+package it.tidalwave.dci.annotation;
 
-import javax.annotation.Nonnull;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * Designates a role implementation for a given owner object.
+ * An annotation for DCI Contexts.
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -42,15 +39,6 @@ import lombok.NoArgsConstructor;
 @Target(ElementType.TYPE)
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RoleFor 
+public @interface DciContext 
   {
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static final class NoContext
-      {
-      }
-    
-    @Nonnull
-    public Class<?> datum();
-    
-    public Class<?> context() default NoContext.class;
   }
