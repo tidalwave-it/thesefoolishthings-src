@@ -37,7 +37,8 @@ public class Main
     public static void main (final @Nonnull String ... args)
       throws Exception
       {
-        final BeanFactory context = new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
+        final String beans = "it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml";
+        final BeanFactory context = new ClassPathXmlApplicationContext(beans);
         context.getBean(AsExample1.class).run();
       }
   }
