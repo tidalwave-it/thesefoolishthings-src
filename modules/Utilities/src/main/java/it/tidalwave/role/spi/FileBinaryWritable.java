@@ -31,9 +31,9 @@ import java.io.OutputStream;
 import it.tidalwave.role.BinaryWritable;
 
 /***********************************************************************************************************************
- * 
+ *
  * An implementation of {@link BinaryWritable} which delegates to a {@link File}.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -48,11 +48,11 @@ public class FileBinaryWritable implements BinaryWritable
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public OutputStream openStream() 
-      throws IOException 
+    public OutputStream openStream()
+      throws IOException
       {
         return new FileOutputStream(file);
       }

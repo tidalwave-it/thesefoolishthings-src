@@ -26,9 +26,9 @@ import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
  *
- * Notifies that the current operation failed because it would create an illegal duplication (of objects, of ids, 
+ * Notifies that the current operation failed because it would create an illegal duplication (of objects, of ids,
  * etc...)
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable

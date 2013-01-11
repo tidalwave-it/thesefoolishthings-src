@@ -31,9 +31,9 @@ import java.io.InputStream;
 import it.tidalwave.role.BinaryReadable;
 
 /***********************************************************************************************************************
- * 
+ *
  * An implementation of {@link BinaryReadable} which delegates to a {@link File}.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -48,11 +48,11 @@ public class FileBinaryReadable implements BinaryReadable
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public InputStream openStream() 
-      throws IOException 
+    public InputStream openStream()
+      throws IOException
       {
         return new FileInputStream(file);
       }

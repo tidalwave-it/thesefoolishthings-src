@@ -29,9 +29,9 @@ import java.io.OutputStream;
 /***********************************************************************************************************************
  *
  * The role of an object that can be marshalled.
- * 
+ *
  * @stereotype Role
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -39,11 +39,11 @@ import java.io.OutputStream;
 public interface Marshallable
   {
     public static final Class<Marshallable> Marshallable = Marshallable.class;
-            
+
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    public void marshal (@Nonnull OutputStream os) 
+    public void marshal (@Nonnull OutputStream os)
       throws IOException;
   }

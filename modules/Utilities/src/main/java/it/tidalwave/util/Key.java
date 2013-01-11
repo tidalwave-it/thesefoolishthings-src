@@ -92,7 +92,7 @@ public final class Key<T> implements StringValue, Comparable<Key<T>>, Serializab
      *
      ******************************************************************************************************************/
     @Override
-    public int hashCode() 
+    public int hashCode()
       {
         return name.hashCode();
       }

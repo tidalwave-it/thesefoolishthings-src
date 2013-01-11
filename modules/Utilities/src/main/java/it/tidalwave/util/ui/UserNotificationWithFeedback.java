@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import lombok.Getter;
 import lombok.ToString;
-import org.openide.util.NbBundle;
+import static org.openide.util.NbBundle.*;
 
 /***********************************************************************************************************************
  *
@@ -34,25 +34,25 @@ import org.openide.util.NbBundle;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Immutable @ToString(callSuper=true)
+@Immutable @ToString(callSuper = true)
 public class UserNotificationWithFeedback extends UserNotification
   {
     public static class Feedback
       {
         public void onConfirm()
           throws Exception
-          {  
+          {
           }
 
         public void onCancel()
           throws Exception
-          {        
+          {
           }
       }
 
     @Getter
     protected final Feedback feedback;
-    
+
     protected UserNotificationWithFeedback (final @Nonnull String text,
                                             final @Nonnull String caption,
                                             final @Nonnull Feedback feedback)
@@ -60,56 +60,56 @@ public class UserNotificationWithFeedback extends UserNotification
         super(text, caption);
         this.feedback = feedback;
       }
-    
+
     @Nonnull
     public static UserNotificationWithFeedback notificationWithFeedback()
       {
         return new UserNotificationWithFeedback("", "", new Feedback());
       }
-    
+
     @Override @Nonnull
     public UserNotificationWithFeedback withCaption (final @Nonnull String caption)
       {
         return new UserNotificationWithFeedback(text, caption, feedback);
       }
-            
+
     @Override @Nonnull
     public UserNotificationWithFeedback withText (final @Nonnull String text)
       {
         return new UserNotificationWithFeedback(text, caption, feedback);
       }
-    
+
     @Override @Nonnull
-    public UserNotificationWithFeedback withCaption (final @Nonnull Class<?> bundleClass, 
+    public UserNotificationWithFeedback withCaption (final @Nonnull Class<?> bundleClass,
                                                      final @Nonnull String resourceName,
                                                      final @Nonnull Object ... params)
       {
-        return new UserNotificationWithFeedback(text, NbBundle.getMessage(bundleClass, resourceName, params), feedback);
+        return new UserNotificationWithFeedback(text, getMessage(bundleClass, resourceName, params), feedback);
       }
-            
+
     @Override @Nonnull
-    public UserNotificationWithFeedback withText (final @Nonnull Class<?> bundleClass, 
+    public UserNotificationWithFeedback withText (final @Nonnull Class<?> bundleClass,
                                                   final @Nonnull String resourceName,
                                                   final @Nonnull Object ... params)
       {
-        return new UserNotificationWithFeedback(NbBundle.getMessage(bundleClass, resourceName, params), caption, feedback);
+        return new UserNotificationWithFeedback(getMessage(bundleClass, resourceName, params), caption, feedback);
       }
-    
+
     @Nonnull
     public UserNotificationWithFeedback withFeedback (final @Nonnull Feedback feedback)
       {
         return new UserNotificationWithFeedback(text, caption, feedback);
       }
-    
+
     public void confirm()
       throws Exception
       {
-        feedback.onConfirm();  
+        feedback.onConfirm();
       }
-    
+
     public void cancel()
       throws Exception
       {
-        feedback.onCancel();  
+        feedback.onCancel();
       }
-  } 
+  }

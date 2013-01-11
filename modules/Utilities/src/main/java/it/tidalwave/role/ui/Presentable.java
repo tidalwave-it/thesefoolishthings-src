@@ -25,19 +25,19 @@ package it.tidalwave.role.ui;
 import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
- * 
+ *
  * The role of an object that can be presented on a UI, thus is capable of creating a {@link PresentationModel}.
- * 
+ *
  * @stereotype Role
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface Presentable 
+public interface Presentable
   {
     public final static Class<Presentable> Presentable = Presentable.class;
-    
+
     @Nonnull
     public PresentationModel createPresentationModel (@Nonnull Object... instanceCapabilities);
   }

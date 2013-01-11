@@ -37,7 +37,7 @@ import it.tidalwave.util.thread.ThreadType;
  *
  **********************************************************************************************************************/
 @Retention(RetentionPolicy.SOURCE)
-@Target({ElementType.CONSTRUCTOR, ElementType.METHOD})
+@Target({ ElementType.CONSTRUCTOR, ElementType.METHOD })
 @Inherited
 @Documented
 public @interface ThreadConfined

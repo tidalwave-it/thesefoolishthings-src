@@ -28,7 +28,7 @@ import it.tidalwave.util.Id;
 /***********************************************************************************************************************
  *
  * A factory for creating new, unique {@code Id} for an object.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -37,37 +37,37 @@ import it.tidalwave.util.Id;
 public interface IdFactory
   {
     public final static Class<IdFactory> IdFactory = IdFactory.class;
-    
+
     /*******************************************************************************************************************
      *
      * Creates a new id.
-     * 
+     *
      * @return  the new id
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public Id createId();
-    
+
     /*******************************************************************************************************************
      *
      * Created a new id for an object of the given class.
-     * 
+     *
      * @param   objectClass  the class of the object for which the {@code Id} is created
      * @return               the new id
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public Id createId (@Nonnull Class<?> objectClass);
-    
+
     /*******************************************************************************************************************
      *
      * Created a new id for the given object of the given class. This method allows to explicitly pass a {@code Class}
      * for cases in which the {@code object} implements multiple interfaces and one wants to specify the referenced one.
-     * 
+     *
      * @param   object       the object for which the {@code Id}
      * @param   objectClass  the class of the object for which the {@code Id} is created
      * @return               the new id
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public Id createId (@Nonnull Class<?> objectClass, @Nonnull Object object);

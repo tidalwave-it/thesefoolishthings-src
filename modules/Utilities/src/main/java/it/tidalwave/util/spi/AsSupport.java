@@ -35,7 +35,7 @@ public class AsSupport implements As
   {
     @Nonnull
     private final AsDelegate delegate;
-    
+
     protected AsSupport()
       {
         delegate = AsDelegateProvider.Locator.find().createAsDelegate(this);
@@ -47,13 +47,13 @@ public class AsSupport implements As
       }
 
     @Nonnull
-    public <T> T as (final @Nonnull Class<T> type) 
+    public <T> T as (final @Nonnull Class<T> type)
       {
         return as(type, As.Defaults.throwAsException(type));
       }
 
     @Nonnull
-    public <T> T as (final @Nonnull Class<T> type, final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour) 
+    public <T> T as (final @Nonnull Class<T> type, final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour)
       {
         return delegate.as(type, notFoundBehaviour);
       }

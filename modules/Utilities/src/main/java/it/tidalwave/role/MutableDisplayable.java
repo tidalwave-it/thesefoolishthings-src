@@ -30,7 +30,7 @@ import java.util.Map;
 /***********************************************************************************************************************
  *
  * A specialized {@link Displayable} which is mutable and fires {@code PropertyChangeEvent}s.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -40,13 +40,13 @@ public interface MutableDisplayable extends Displayable
   {
     public final static String PROP_DISPLAY_NAME = "displayName";
     public final static String PROP_DISPLAY_NAMES = "displayNames";
-    
+
     public final static Class<MutableDisplayable> MutableDisplayable = MutableDisplayable.class;
-    
+
     /*******************************************************************************************************************
      *
      * Sets the display name in {@code Locale.ENGLISH}.
-     * 
+     *
      * @param  displayName  the display name
      *
      ******************************************************************************************************************/
@@ -55,7 +55,7 @@ public interface MutableDisplayable extends Displayable
     /*******************************************************************************************************************
      *
      * Sets the display name in the given {@code Locale}.
-     * 
+     *
      * @param  displayName  the display name
      * @param  locale       the locale
      *
@@ -65,7 +65,7 @@ public interface MutableDisplayable extends Displayable
     /*******************************************************************************************************************
      *
      * Sets a bag of display names for a number of {@code Locale}s.
-     * 
+     *
      * @param  displayNames  the display names
      *
      ******************************************************************************************************************/
@@ -74,7 +74,7 @@ public interface MutableDisplayable extends Displayable
     /*******************************************************************************************************************
      *
      * Registers a {@link PropertyChangeListener}.
-     * 
+     *
      * @param  listener   the listener
      *
      ******************************************************************************************************************/
@@ -83,7 +83,7 @@ public interface MutableDisplayable extends Displayable
     /*******************************************************************************************************************
      *
      * Unregisters a {@link PropertyChangeListener}.
-     * 
+     *
      * @param  listener   the listener
      *
      ******************************************************************************************************************/

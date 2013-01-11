@@ -72,8 +72,8 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
     @Nonnull @SuppressWarnings("unchecked")
     public <T> Collection<T> get (final @Nonnull Key<T> key)
       {
-        return containsKey(key) ? Collections.unmodifiableCollection((Collection<T>)map.get(key)) :
-                                  Collections.<T>emptyList();
+        return containsKey(key) ? Collections.unmodifiableCollection((Collection<T>)map.get(key))
+                                : Collections.<T>emptyList();
       }
 
     /*******************************************************************************************************************
@@ -114,7 +114,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Iterator <Collection<?>> iterator()
+    public Iterator<Collection<?>> iterator()
       {
         return Collections.unmodifiableCollection(map.values()).iterator();
       }

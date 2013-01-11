@@ -32,13 +32,13 @@ import it.tidalwave.role.Identifiable;
 /***********************************************************************************************************************
  *
  * A default implementation of {@link Identifiable} which wraps a given id.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-@Immutable @RequiredArgsConstructor 
+@Immutable @RequiredArgsConstructor
 public class DefaultIdentifiable implements Identifiable, Serializable
   {
     private static final long serialVersionUID = 45654634423793043L;

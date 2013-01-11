@@ -35,12 +35,12 @@ public abstract class StringRenderableSupport
   {
     @Nonnull
     public abstract String render (@Nonnull Object ... args);
-    
+
     public void renderTo (final @Nonnull StringBuilder stringBuilder, final @Nonnull Object ... args)
       {
         stringBuilder.append(render(args));
       }
-    
+
     public void renderTo (final @Nonnull PrintWriter printWriter, final @Nonnull Object ... args)
       {
         printWriter.print(render(args));

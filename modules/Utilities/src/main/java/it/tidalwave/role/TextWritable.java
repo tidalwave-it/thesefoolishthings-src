@@ -27,42 +27,42 @@ import java.io.IOException;
 import java.io.Writer;
 
 /***********************************************************************************************************************
- * 
+ *
  * The role of an object that can be written as a stream of characters.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public interface TextWritable 
+public interface TextWritable
   {
     //@bluebook-begin other
     public final static Class<TextWritable> TextWritable = TextWritable.class;
-    
+
     /*******************************************************************************************************************
      *
      * A default implementation which throws {@link IOException} when opening the stream.
-     * 
+     *
      ******************************************************************************************************************/
-    public final static TextWritable DEFAULT = new TextWritable() 
+    public final static TextWritable DEFAULT = new TextWritable()
       {
         @Override @Nonnull
-        public Writer openWriter() 
-          throws IOException 
+        public Writer openWriter()
+          throws IOException
           {
             throw new IOException("Operation not supported");
           }
       };
-    
+
     //@bluebook-end other
     /*******************************************************************************************************************
      *
      * Returns a {@link Writer} to write into the object.
-     * 
+     *
      * @return               the {@code Writer}
      * @throws  IOException  if the operation can't be performed
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public Writer openWriter()

@@ -31,9 +31,9 @@ import java.io.Reader;
 import it.tidalwave.role.TextReadable;
 
 /***********************************************************************************************************************
- * 
+ *
  * An implementation of {@link TextReadable} which delegates to a {@link File}.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -48,11 +48,11 @@ public class FileTextReadable implements TextReadable
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Reader openReader() 
-      throws IOException 
+    public Reader openReader()
+      throws IOException
       {
         return new FileReader(file);
       }

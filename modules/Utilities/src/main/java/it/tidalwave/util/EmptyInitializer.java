@@ -36,7 +36,7 @@ public final class EmptyInitializer<K> implements Initializer<K>, Serializable
   {
     public static <K> Initializer<K> instance()
       {
-        return new EmptyInitializer<K>();   
+        return new EmptyInitializer<K>();
       }
 
     @Nonnull // @Override

@@ -39,43 +39,43 @@ import static org.mockito.Mockito.*;
  *
  **********************************************************************************************************************/
 @ExtensionMethod(AsExtensions.class)
-public class AsTest 
+public class AsTest
   {
     private RenderingContext terminal;
-    
+
     @BeforeMethod
     public void setupTerminal()
       {
-        terminal = mock(RenderingContext.class);  
+        terminal = mock(RenderingContext.class);
       }
-    
+
     @Test
     public void test1()
       {
         final Datum1 datum = new Datum1("foo");
-        
+
         datum.as(Renderable).renderTo(terminal);
-        
+
         verify(terminal).render(eq("foo"));
       }
-    
+
     @Test
     public void test2()
       {
         final Datum2 datum = new Datum2("bar");
-        
+
         datum.as(Renderable).renderTo(terminal);
-        
+
         verify(terminal).render(eq("bar"));
       }
-    
+
     @Test
     public void test3()
       {
         final String string = "foobar";
-        
+
         string.as(Renderable).renderTo(terminal);
-        
+
         verify(terminal).render(eq("foobar"));
       }
   }

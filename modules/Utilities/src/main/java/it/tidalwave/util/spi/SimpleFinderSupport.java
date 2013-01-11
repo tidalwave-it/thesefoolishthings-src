@@ -32,14 +32,14 @@ import it.tidalwave.util.Finder;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public abstract class SimpleFinderSupport<Type> extends FinderSupport<Type, Finder<Type>> 
+public abstract class SimpleFinderSupport<Type> extends FinderSupport<Type, Finder<Type>>
   {
     protected SimpleFinderSupport()
       {
-        super();   
+        super();
       }
-    
-    protected SimpleFinderSupport (final @Nonnull String name) 
+
+    protected SimpleFinderSupport (final @Nonnull String name)
       {
         super(name);
       }

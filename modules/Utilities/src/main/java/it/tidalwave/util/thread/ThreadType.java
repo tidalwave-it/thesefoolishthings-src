@@ -29,7 +29,7 @@ package it.tidalwave.util.thread;
  *
  **********************************************************************************************************************/
 
-public enum ThreadType 
+public enum ThreadType
   {
-    ANY, UI, NOT_UI  
+    ANY, UI, NOT_UI
   }

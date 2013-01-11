@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * @it.tidalwave.javadoc.draft 
+ * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
 public interface Initializer<T>

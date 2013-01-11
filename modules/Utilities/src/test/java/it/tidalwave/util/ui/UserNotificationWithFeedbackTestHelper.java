@@ -26,7 +26,6 @@ import javax.annotation.Nonnull;
 import java.awt.EventQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import it.tidalwave.util.ui.UserNotificationWithFeedback;
 import lombok.NoArgsConstructor;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -38,14 +37,14 @@ import static lombok.AccessLevel.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@NoArgsConstructor(access=PRIVATE)
+@NoArgsConstructor(access = PRIVATE)
 public final class UserNotificationWithFeedbackTestHelper
   {
     private static final Logger log = LoggerFactory.getLogger(UserNotificationWithFeedbackTestHelper.class);
-    
+
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -53,40 +52,42 @@ public final class UserNotificationWithFeedbackTestHelper
       {
         return new UserNotificationMatcher(caption, text);
       }
-    
+
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static UserNotificationWithFeedbackMatcher notificationWithFeedback (final @Nonnull String caption, final @Nonnull String text)
+    public static UserNotificationWithFeedbackMatcher notificationWithFeedback (final @Nonnull String caption,
+                                                                                final @Nonnull String text)
       {
         return new UserNotificationWithFeedbackMatcher(caption, text);
       }
-    
+
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
-    public static final Answer<Void> CONFIRM = new Answer<Void>() 
+    public static final Answer<Void> CONFIRM = new Answer<Void>()
       {
         public Void answer (final @Nonnull InvocationOnMock invocation)
           throws Exception
           {
-            EventQueue.invokeAndWait(new Runnable() 
+            EventQueue.invokeAndWait(new Runnable()
               {
                 @Override
-                public void run() 
+                public void run()
                   {
-                    try 
+                    try
                       {
-                        final UserNotificationWithFeedback notification = (UserNotificationWithFeedback)invocation.getArguments()[0];
+                        final UserNotificationWithFeedback notification =
+                                (UserNotificationWithFeedback)invocation.getArguments()[0];
                         log.info(">>>> mock UI confirming {}...", notification);
                         notification.confirm();
                       }
-                    catch (Exception e) 
+                    catch (Exception e)
                       {
                         log.debug("", e);
                       }
@@ -94,30 +95,31 @@ public final class UserNotificationWithFeedbackTestHelper
               });
             return null;
           }
-      };        
-    
+      };
+
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
-    public static final Answer<Void> CANCEL = new Answer<Void>() 
+    public static final Answer<Void> CANCEL = new Answer<Void>()
       {
         public Void answer (final @Nonnull InvocationOnMock invocation)
           throws Exception
           {
-            EventQueue.invokeAndWait(new Runnable() 
+            EventQueue.invokeAndWait(new Runnable()
               {
                 @Override
-                public void run() 
+                public void run()
                   {
-                    try 
+                    try
                       {
-                        final UserNotificationWithFeedback notification = (UserNotificationWithFeedback)invocation.getArguments()[0];
+                        final UserNotificationWithFeedback notification =
+                                (UserNotificationWithFeedback)invocation.getArguments()[0];
                         log.info(">>>> mock UI cancelling {}...", notification);
                         notification.cancel();
                       }
-                    catch (Exception e) 
+                    catch (Exception e)
                       {
                         log.debug("", e);
                       }
@@ -125,5 +127,5 @@ public final class UserNotificationWithFeedbackTestHelper
               });
             return null;
           }
-      };        
-  }  
+      };
+  }

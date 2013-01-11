@@ -36,8 +36,8 @@ class Datum1RenderableRole implements Renderable
   {
     @Nonnull
     private final Datum1 owner;
-    
-    public void renderTo (final @Nonnull RenderingContext renderingContext) 
+
+    public void renderTo (final @Nonnull RenderingContext renderingContext)
       {
         renderingContext.render(owner.status);
       }

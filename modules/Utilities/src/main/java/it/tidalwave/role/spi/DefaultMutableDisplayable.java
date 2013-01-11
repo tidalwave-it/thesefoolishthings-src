@@ -35,9 +35,9 @@ import it.tidalwave.role.MutableLocalizedDisplayable;
 
 /***********************************************************************************************************************
  *
- * A default implementation of {@link MutableLocalizedDisplayable} starting which a single display name in 
+ * A default implementation of {@link MutableLocalizedDisplayable} starting which a single display name in
  * {@code Locale.ENGLISH} language.
- * 
+ *
  * @author Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -60,7 +60,7 @@ public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
     /*******************************************************************************************************************
      *
      * Creates an instance with an initial given display name in {@code Locale.ENGLISH}.
-     * 
+     *
      * @param  displayName   the display name
      *
      ******************************************************************************************************************/
@@ -68,12 +68,12 @@ public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
       {
         this(displayName, "???");
       }
-    
+
     /*******************************************************************************************************************
      *
-     * Creates an instance with an initial given display name in {@code Locale.ENGLISH} and an explicit identifier for 
+     * Creates an instance with an initial given display name in {@code Locale.ENGLISH} and an explicit identifier for
      * {@code toString()}.
-     * 
+     *
      * @param  displayName   the display name
      * @param  toStringName  the name to be rendered when {@code toString()} is called
      *

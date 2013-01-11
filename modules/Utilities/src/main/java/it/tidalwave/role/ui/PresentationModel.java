@@ -30,9 +30,9 @@ import it.tidalwave.util.As;
  *
  * TODO: As the NetBeans Node, it should allow children, have event listeners for children added/removed/changed.
  * This class so becomes the true M in MVC.
- * 
+ *
  * @stereotype Role
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -40,45 +40,45 @@ import it.tidalwave.util.As;
 public interface PresentationModel extends As
   {
     public static Class<PresentationModel> PresentationModel = PresentationModel.class;
-    
+
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
     public void addPropertyChangeListener (@Nonnull PropertyChangeListener listener);
-        
+
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
     public void addPropertyChangeListener (@Nonnull String propertyName, @Nonnull PropertyChangeListener listener);
 
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
     public void removePropertyChangeListener (@Nonnull PropertyChangeListener listener);
 
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
     public void removePropertyChangeListener (@Nonnull String propertyName, @Nonnull PropertyChangeListener listener);
 
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
     public boolean hasListeners (@Nonnull String propertyName);
 
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -86,7 +86,7 @@ public interface PresentationModel extends As
 
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
     @Nonnull

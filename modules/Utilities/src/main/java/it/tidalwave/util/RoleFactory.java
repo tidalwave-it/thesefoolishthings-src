@@ -33,5 +33,5 @@ import javax.annotation.Nonnull;
 public interface RoleFactory<T>
   {
     @Nonnull
-    public Object createRoleFor (@Nonnull T owner);  
+    public Object createRoleFor (@Nonnull T owner);
   }

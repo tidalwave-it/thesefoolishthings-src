@@ -34,35 +34,36 @@ import lombok.NoArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface AsDelegateProvider 
+public interface AsDelegateProvider
   {
     public static final Class<AsDelegateProvider> AsDelegateProvider = AsDelegateProvider.class;
-    
-    @NoArgsConstructor(access=AccessLevel.PRIVATE)
+
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Locator
       {
         private static AsDelegateProvider asSpiProvider;
-        
+
         @Nonnull
         public static synchronized AsDelegateProvider find()
           {
             if (asSpiProvider == null)
               {
                 final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                final Iterator<AsDelegateProvider> i = ServiceLoader.load(AsDelegateProvider.class, classLoader).iterator();
+                final Iterator<AsDelegateProvider> i =
+                        ServiceLoader.load(AsDelegateProvider.class, classLoader).iterator();
 
                 if (!i.hasNext())
                   {
-                    throw new RuntimeException("No ServiceProvider for AsDelegateProvider");  
+                    throw new RuntimeException("No ServiceProvider for AsDelegateProvider");
                   }
 
                 asSpiProvider = i.next();
               }
-            
+
             return asSpiProvider;
           }
       }
-    
+
     /*******************************************************************************************************************
      *
      *

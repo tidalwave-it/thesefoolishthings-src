@@ -38,14 +38,14 @@ public interface Displayable
   {
     //@bluebook-begin other
     public final static Class<Displayable> Displayable = Displayable.class;
-    
+
     /*******************************************************************************************************************
      *
      * A default {@code Displayable} with a empty display name.
-     * 
+     *
      ******************************************************************************************************************/
-    public final static Displayable DEFAULT = new DefaultDisplayable("", "DEFAULT"); 
-    
+    public final static Displayable DEFAULT = new DefaultDisplayable("", "DEFAULT");
+
     //@bluebook-end other
     /*******************************************************************************************************************
      *

@@ -22,7 +22,6 @@
  **********************************************************************************************************************/
 package it.tidalwave.util.ui;
 
-import it.tidalwave.util.ui.UserNotification;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.regex.Pattern;
@@ -30,7 +29,6 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import it.tidalwave.util.ui.UserNotificationWithFeedback;
 
 /***********************************************************************************************************************
  *
@@ -40,22 +38,22 @@ import it.tidalwave.util.ui.UserNotificationWithFeedback;
  **********************************************************************************************************************/
 // FIXME: merge with the one in blueBill Core
 public class UserNotificationWithFeedbackMatcher extends BaseMatcher<UserNotificationWithFeedback>
-  {    
+  {
     private static final Logger log = LoggerFactory.getLogger(UserNotificationWithFeedbackMatcher.class);
-    
+
     @Nonnull
     private final String caption;
 
     @Nonnull
     private final String text;
-    
+
     private String d = "UserNotificationWithFeedback ?";
 
     private UserNotificationWithFeedback notification;
-    
+
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
     /* package */ UserNotificationWithFeedbackMatcher (final @Nonnull String caption, final @Nonnull String text)
@@ -79,14 +77,14 @@ public class UserNotificationWithFeedbackMatcher extends BaseMatcher<UserNotific
 
         notification = (UserNotificationWithFeedback)item;
 
-        final boolean b = Pattern.matches(caption, notification.getCaption()) &&
-                          Pattern.matches(text, notification.getText());
-        
+        final boolean b = Pattern.matches(caption, notification.getCaption())
+                       && Pattern.matches(text, notification.getText());
+
         if (!b)
           {
             d = String.format("%s (instead is %s)", d, item);
           }
-        
+
         return b;
       }
 

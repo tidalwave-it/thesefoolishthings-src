@@ -25,7 +25,7 @@ package it.tidalwave.role;
 /***********************************************************************************************************************
  *
  * The role of an object that can be removed (e.g. deleted).
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -34,25 +34,25 @@ package it.tidalwave.role;
 public interface Removable
   {
     public final static Class<Removable> Removable = Removable.class;
-    
+
     /*******************************************************************************************************************
      *
      * A default {@code Removable} which does nothing (useful for implementing the NullObject pattern).
-     * 
+     *
      ******************************************************************************************************************/
-    public final static Removable DEFAULT = new Removable() 
+    public final static Removable DEFAULT = new Removable()
       {
-        public void remove() 
+        public void remove()
           {
           }
       };
-    
+
     /*******************************************************************************************************************
      *
      * Removes the object.
-     * 
+     *
      * @throws  Exception   if the operation fails
-     * 
+     *
      ******************************************************************************************************************/
     public void remove()
       throws Exception;

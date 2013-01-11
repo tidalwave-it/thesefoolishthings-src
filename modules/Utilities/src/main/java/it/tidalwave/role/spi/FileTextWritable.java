@@ -31,9 +31,9 @@ import java.io.Writer;
 import it.tidalwave.role.TextWritable;
 
 /***********************************************************************************************************************
- * 
+ *
  * An implementation of {@link TextWritable} which delegates to a {@link File}.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -48,11 +48,11 @@ public class FileTextWritable implements TextWritable
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Writer openWriter() 
-      throws IOException 
+    public Writer openWriter()
+      throws IOException
       {
         return new FileWriter(file);
       }

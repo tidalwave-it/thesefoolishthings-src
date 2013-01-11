@@ -27,26 +27,26 @@ import javax.annotation.Nonnull;
 /***********************************************************************************************************************
  *
  * A partial contract for a View that can be locked with a "Please wait..." notification.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface LockableView 
+public interface LockableView
   {
     /*******************************************************************************************************************
      *
      * Shows a "Please wait..." notification and locks the UI.
-     * 
+     *
      * @param  notification  the notification
      *
      ******************************************************************************************************************/
     public void lock (@Nonnull UserNotification notification);
-    
+
     /*******************************************************************************************************************
      *
      * Dismisses the waiting notification and unlocks the UI.
-     * 
+     *
      ******************************************************************************************************************/
-    public void unlock(); 
+    public void unlock();
   }

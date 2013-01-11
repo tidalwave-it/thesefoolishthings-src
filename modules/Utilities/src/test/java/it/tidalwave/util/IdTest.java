@@ -32,14 +32,14 @@ import static org.testng.AssertJUnit.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class IdTest 
+public class IdTest
   {
     private Id id1;
     private Id id2;
     private Id id1a;
-    
+
     @BeforeMethod
-    public void setUp() 
+    public void setUp()
       {
         id1 = new Id("id1");
         id2 = new Id("id2");
@@ -47,7 +47,7 @@ public class IdTest
       }
 
     @Test
-    public void testStringValue() 
+    public void testStringValue()
       {
         assertEquals("id1", id1.stringValue());
         assertEquals("id2", id2.stringValue());
@@ -55,7 +55,7 @@ public class IdTest
       }
 
     @Test
-    public void testEquals() 
+    public void testEquals()
       {
         assertTrue(id1.equals(id1a));
         assertTrue(id1a.equals(id1));
@@ -64,7 +64,7 @@ public class IdTest
       }
 
     @Test
-    public void testHashCode() 
+    public void testHashCode()
       {
         assertEquals(104054L, id1.hashCode());
         assertEquals(104055L, id2.hashCode());
@@ -72,7 +72,7 @@ public class IdTest
       }
 
     @Test
-    public void testCompareTo() 
+    public void testCompareTo()
       {
         assertEquals(0, id1.compareTo(id1a));
         assertEquals(0, id1a.compareTo(id1));
@@ -81,7 +81,7 @@ public class IdTest
       }
 
     @Test
-    public void testToString() 
+    public void testToString()
       {
         assertEquals("id1", id1.toString());
         assertEquals("id1", id1a.toString());

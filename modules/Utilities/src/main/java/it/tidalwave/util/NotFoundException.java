@@ -29,8 +29,8 @@ import java.util.Collection;
 /***********************************************************************************************************************
  *
  * Notifies that a searched object couldn't be found.
- * 
- * 
+ *
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -77,9 +77,9 @@ public class NotFoundException extends Exception
      *
      * Throws the {@code NotFoundException} when the passed object is {@code null}. The method returns the object
      * itself and thus it can be used with fluent interfaces.
-     * 
+     *
      * @param  object             the object to be tested
-     * @param  message            the error message to be thrown 
+     * @param  message            the error message to be thrown
      * @return                    the object
      * @throws NotFoundException  if the object is null
      *
@@ -101,7 +101,7 @@ public class NotFoundException extends Exception
      *
      * Throws the {@code NotFoundException} when the passed object is {@code null}. The method returns the object
      * itself and thus it can be used with fluent interfaces.
-     * 
+     *
      * @param  object             the object to be tested
      * @param  message            the error message to be thrown (formatted as in {@link String#format}
      * @param  args               the arguments to format the error message
@@ -125,9 +125,9 @@ public class NotFoundException extends Exception
 
     /*******************************************************************************************************************
      *
-     * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the 
+     * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the
      * collection itself and thus it can be used with fluent interfaces.
-     * 
+     *
      * @param  object             the collection to be tested
      * @param  message            the error message to be thrown
      * @return                    the collection
@@ -149,9 +149,9 @@ public class NotFoundException extends Exception
 
     /*******************************************************************************************************************
      *
-     * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the 
+     * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the
      * collection itself and thus it can be used with fluent interfaces.
-     * 
+     *
      * @param  object             the collection to be tested
      * @param  message            the error message to be thrown (formatted as in {@link String#format}
      * @param  args               the arguments to format the error message

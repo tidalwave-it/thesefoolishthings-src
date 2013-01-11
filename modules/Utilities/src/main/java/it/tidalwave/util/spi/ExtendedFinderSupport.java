@@ -30,16 +30,16 @@ import it.tidalwave.util.Finder;
  *
  * A utility interface for creating extended {@link Finder}s, it provides automatic covariant return types. MAke your
  * extended {@code Finder} interface to extend from this. For instance, a custom {@code Date} finder can be declared as:
- * 
+ *
  * <pre>
  * public class DateFinder extends ExtendedFinderSupport<Date, DateFinder>
  *   {
  *     public DateFinder before (Date date);
- * 
+ *
  *     public DateFinder after (Date date);
  *   }
  * </pre>
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.draft
@@ -50,7 +50,7 @@ public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override @Nonnull
     public ExtendedFinder from (@Nonnegative int firstResult);
@@ -58,7 +58,7 @@ public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override @Nonnull
     public ExtendedFinder max (@Nonnegative int maxResults);
@@ -66,7 +66,7 @@ public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override @Nonnull
     public ExtendedFinder sort (@Nonnull SortCriterion criterion);
@@ -74,7 +74,7 @@ public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override @Nonnull
     public ExtendedFinder sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);

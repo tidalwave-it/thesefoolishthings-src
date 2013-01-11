@@ -28,21 +28,21 @@ import javax.swing.Action;
 import it.tidalwave.util.NotFoundException;
 
 /***********************************************************************************************************************
- * 
+ *
  * @stereotype Role
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
 // FIXME: merge with the one in OpenBlueSky
-public interface ActionProvider 
+public interface ActionProvider
   {
     public final static Class<ActionProvider> ActionProvider = ActionProvider.class;
-    
+
     @Nonnull
     public Collection<? extends Action> getActions();
-    
+
     @Nonnull
     public Action getDefaultAction()
       throws NotFoundException;

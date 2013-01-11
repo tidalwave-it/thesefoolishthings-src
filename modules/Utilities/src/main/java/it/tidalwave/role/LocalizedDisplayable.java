@@ -40,7 +40,7 @@ public interface LocalizedDisplayable extends Displayable
   {
     //@bluebook-begin other
     public final static Class<LocalizedDisplayable> LocalizedDisplayable = LocalizedDisplayable.class;
-    
+
     //@bluebook-end other
     /*******************************************************************************************************************
      *
@@ -56,7 +56,7 @@ public interface LocalizedDisplayable extends Displayable
     /*******************************************************************************************************************
      *
      * Returns all the display names in {@link Map} where they are indexed by {@code Locale}.
-     * 
+     *
      * @return   the display names
      *
      ******************************************************************************************************************/

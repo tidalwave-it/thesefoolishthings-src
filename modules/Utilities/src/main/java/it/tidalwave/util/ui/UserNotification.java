@@ -36,43 +36,44 @@ import static lombok.AccessLevel.PROTECTED;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Immutable @RequiredArgsConstructor(access=PROTECTED) @ToString
+@Immutable
+@RequiredArgsConstructor(access = PROTECTED) @ToString
 public class UserNotification
   {
     @Getter
     protected final String text;
-    
+
     @Getter
     protected final String caption;
 
     @Nonnull
     public static UserNotification notification()
       {
-        return new UserNotification("", "");  
+        return new UserNotification("", "");
       }
-    
+
     @Nonnull
     public UserNotification withCaption (final @Nonnull String caption)
       {
         return new UserNotification(text, caption);
       }
-            
+
     @Nonnull
     public UserNotification withText (final @Nonnull String text)
       {
         return new UserNotification(text, caption);
       }
-    
+
     @Nonnull
-    public UserNotification withCaption (final @Nonnull Class<?> bundleClass, 
+    public UserNotification withCaption (final @Nonnull Class<?> bundleClass,
                                          final @Nonnull String resourceName,
                                          final @Nonnull Object ... params)
       {
         return new UserNotification(text, NbBundle.getMessage(bundleClass, resourceName, params));
       }
-            
+
     @Nonnull
-    public UserNotification withText (final @Nonnull Class<?> bundleClass, 
+    public UserNotification withText (final @Nonnull Class<?> bundleClass,
                                       final @Nonnull String resourceName,
                                       final @Nonnull Object ... params)
       {

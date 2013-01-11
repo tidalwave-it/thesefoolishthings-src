@@ -30,28 +30,28 @@ import javax.annotation.Nonnull;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public final class ThreadAssertions 
+public final class ThreadAssertions
   {
     private ThreadAssertions()
-      {        
+      {
       }
-    
+
     public static void assertThread (final @Nonnull ThreadType threadType)
       {
         assert doAssertThread(threadType); // trick so we skip everything if assertions are disabled
       }
-    
+
     private static boolean doAssertThread (final @Nonnull ThreadType threadType)
       {
-        switch (threadType) 
+        switch (threadType)
           {
             case UI:
                 // FIXME
-                
+
             case NOT_UI:
                 // FIXME
           }
-        
+
         return true;
       }
   }

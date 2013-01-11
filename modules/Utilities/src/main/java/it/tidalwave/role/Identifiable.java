@@ -28,7 +28,7 @@ import it.tidalwave.util.Id;
 /***********************************************************************************************************************
  *
  * The role of an object that owns an unique identifier.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -37,7 +37,7 @@ import it.tidalwave.util.Id;
 public interface Identifiable
   {
     public final static Class<Identifiable> Identifiable = Identifiable.class;
-    
+
     @Nonnull
     public Id getId();
   }

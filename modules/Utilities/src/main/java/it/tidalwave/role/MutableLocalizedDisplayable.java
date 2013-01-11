@@ -25,7 +25,7 @@ package it.tidalwave.role;
 /***********************************************************************************************************************
  *
  * A specialized {@link LocalizedDisplayable} which is mutable.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -33,5 +33,6 @@ package it.tidalwave.role;
  **********************************************************************************************************************/
 public interface MutableLocalizedDisplayable extends MutableDisplayable, LocalizedDisplayable
   {
-    public final static Class<MutableLocalizedDisplayable> MutableLocalizedDisplayable = MutableLocalizedDisplayable.class;
+    public final static Class<MutableLocalizedDisplayable> MutableLocalizedDisplayable =
+            MutableLocalizedDisplayable.class;
   }

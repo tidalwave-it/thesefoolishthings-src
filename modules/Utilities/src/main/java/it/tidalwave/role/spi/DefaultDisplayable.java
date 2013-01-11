@@ -34,15 +34,15 @@ import it.tidalwave.role.LocalizedDisplayable;
 
 /***********************************************************************************************************************
  *
- * A default implementation of {@link LocalizedDisplayable} which a single, immutable display name in 
+ * A default implementation of {@link LocalizedDisplayable} which a single, immutable display name in
  * {@code Locale.ENGLISH} language.
- * 
+ *
  * @author Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public class DefaultDisplayable implements LocalizedDisplayable, Serializable 
+public class DefaultDisplayable implements LocalizedDisplayable, Serializable
   {
     private static final long serialVersionUID = 45345436345634734L;
 
@@ -60,7 +60,7 @@ public class DefaultDisplayable implements LocalizedDisplayable, Serializable
     /*******************************************************************************************************************
      *
      * Creates an instance with a given display name.
-     * 
+     *
      * @param  displayName   the display name
      *
      ******************************************************************************************************************/
@@ -68,12 +68,12 @@ public class DefaultDisplayable implements LocalizedDisplayable, Serializable
       {
         this(displayName, "???");
       }
-    
+
     /*******************************************************************************************************************
      *
-     * Creates an instance with a given display name in {@code Locale.ENGLISH} and an explicit identifier for 
+     * Creates an instance with a given display name in {@code Locale.ENGLISH} and an explicit identifier for
      * {@code toString()}.
-     * 
+     *
      * @param  displayName   the display name
      * @param  toStringName  the name to be rendered when {@code toString()} is called
      *

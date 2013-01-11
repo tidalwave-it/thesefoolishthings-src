@@ -39,19 +39,20 @@ public class AsExtensions
         return as(datum, roleClass, As.Defaults.throwAsException(roleClass));
       }
 
-    public static <T> T as (final @Nonnull Object datum, 
+    public static <T> T as (final @Nonnull Object datum,
                             final @Nonnull Class<T> roleClass,
-                            final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour) 
+                            final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour)
       {
-        try 
+        try
           {
             final Class<? extends Object> datumClass = datum.getClass();
-            final String roleClassName = "it.tidalwave.util.asexamples." + datumClass.getSimpleName() + roleClass.getSimpleName() + "Role";
+            final String roleClassName = "it.tidalwave.util.asexamples."
+                    + datumClass.getSimpleName() + roleClass.getSimpleName() + "Role";
             return (T)Class.forName(roleClassName).getConstructor(datumClass).newInstance(datum);
           }
-        catch (Exception e) 
+        catch (Exception e)
           {
             return notFoundBehaviour.run(e);
           }
-      }    
+      }
   }

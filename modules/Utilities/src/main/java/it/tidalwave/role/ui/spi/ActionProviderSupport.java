@@ -30,9 +30,9 @@ import it.tidalwave.util.NotFoundException;
 import it.tidalwave.role.ui.ActionProvider;
 
 /***********************************************************************************************************************
- * 
+ *
  * @stereotype Role
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -40,13 +40,13 @@ import it.tidalwave.role.ui.ActionProvider;
 public class ActionProviderSupport implements ActionProvider
   {
     @Nonnull
-    public Collection<? extends Action> getActions() 
+    public Collection<? extends Action> getActions()
       {
         return Collections.<Action>emptyList();
       }
-    
+
     @Nonnull
-    public Action getDefaultAction() 
+    public Action getDefaultAction()
       throws NotFoundException
       {
         throw new NotFoundException("No default action");

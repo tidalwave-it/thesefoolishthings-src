@@ -35,13 +35,13 @@ import it.tidalwave.util.Finder;
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor
-public class DefaultSimpleComposite<Type> implements SimpleComposite<Type> 
+public class DefaultSimpleComposite<Type> implements SimpleComposite<Type>
   {
     @Nonnull
     private final Finder<Type> finder;
-    
+
     @Nonnull
-    public final Finder<Type> findChildren() 
+    public final Finder<Type> findChildren()
       {
         return finder;
       }

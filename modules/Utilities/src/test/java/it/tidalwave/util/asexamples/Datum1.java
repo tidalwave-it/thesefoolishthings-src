@@ -35,14 +35,14 @@ import lombok.RequiredArgsConstructor;
 public class Datum1 implements As
   {
     final String status;
-    
-    public <T> T as (Class<T> clazz)
+
+    public <T> T as (final Class<T> clazz)
       {
         return AsExtensions.as(this, clazz);
       }
 
-    public <T> T as(Class<T> clazz, As.NotFoundBehaviour<T> notFoundBehaviour) 
+    public <T> T as (final Class<T> clazz, final As.NotFoundBehaviour<T> notFoundBehaviour)
       {
         return AsExtensions.as(this, clazz, notFoundBehaviour);
-      }    
+      }
   }

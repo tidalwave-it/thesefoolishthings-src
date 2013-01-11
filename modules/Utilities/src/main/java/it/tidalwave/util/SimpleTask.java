@@ -25,12 +25,12 @@ package it.tidalwave.util;
 /***********************************************************************************************************************
  *
  * A simple {@link Task} returning {@code Void} and only throwing {@code RuntimeException}s.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
 public abstract class SimpleTask extends Task<Void, RuntimeException>
-  {       
+  {
   }
-   
+

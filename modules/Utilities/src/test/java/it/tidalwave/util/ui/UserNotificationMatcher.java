@@ -22,7 +22,6 @@
  **********************************************************************************************************************/
 package it.tidalwave.util.ui;
 
-import it.tidalwave.util.ui.UserNotification;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.regex.Pattern;
@@ -39,22 +38,22 @@ import org.slf4j.LoggerFactory;
  **********************************************************************************************************************/
 // FIXME: merge with the one in blueBill Core
 public class UserNotificationMatcher extends BaseMatcher<UserNotification>
-  {    
+  {
     private static final Logger log = LoggerFactory.getLogger(UserNotificationMatcher.class);
-    
+
     @Nonnull
     private final String caption;
 
     @Nonnull
     private final String text;
-    
+
     private String d = "UserNotification ?";
 
     private UserNotification notification;
-    
+
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
     /* package */ UserNotificationMatcher (final @Nonnull String caption, final @Nonnull String text)
@@ -78,14 +77,14 @@ public class UserNotificationMatcher extends BaseMatcher<UserNotification>
 
         notification = (UserNotification)item;
 
-        final boolean b = Pattern.matches(caption, notification.getCaption()) &&
-                          Pattern.matches(text, notification.getText());
-        
+        final boolean b = Pattern.matches(caption, notification.getCaption())
+                       && Pattern.matches(text, notification.getText());
+
         if (!b)
           {
             d = String.format("%s (instead is %s)", d, item);
           }
-        
+
         return b;
       }
 

@@ -41,7 +41,7 @@ import java.io.Serializable;
 public class Id implements Serializable, Comparable<Id>, StringValue
   {
     private static final long serialVersionUID = 3309234234279593043L;
-    
+
     @Nonnull
     private final Object value;
 
@@ -86,7 +86,7 @@ public class Id implements Serializable, Comparable<Id>, StringValue
      *
      ******************************************************************************************************************/
     @Override
-    public int hashCode() 
+    public int hashCode()
       {
         return value.hashCode();
       }

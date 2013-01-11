@@ -29,9 +29,9 @@ import java.io.IOException;
 /***********************************************************************************************************************
  *
  * The role of an object that can be unmarshalled.
- * 
+ *
  * @stereotype Role
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -39,12 +39,12 @@ import java.io.IOException;
 public interface Unmarshallable
   {
     public static final Class<Unmarshallable> Unmarshallable = Unmarshallable.class;
-    
+
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <Type> Type unmarshal (@Nonnull InputStream is) 
+    public <Type> Type unmarshal (@Nonnull InputStream is)
       throws IOException;
   }

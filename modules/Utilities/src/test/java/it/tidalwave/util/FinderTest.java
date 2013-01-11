@@ -29,44 +29,44 @@ import java.util.List;
 import it.tidalwave.role.Composite;
 import it.tidalwave.util.spi.FinderSupport;
 import it.tidalwave.util.spi.ExtendedFinderSupport;
-        
+
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class FinderTest 
-  {    
+public class FinderTest
+  {
     private final static List<String> ALL_NAMES = Arrays.asList("");
 
     static interface NameFinder extends ExtendedFinderSupport<String, NameFinder>
       {
         @Nonnull
-        public NameFinder startingWith (@Nonnull String prefix);  
+        public NameFinder startingWith (@Nonnull String prefix);
       }
-    
+
     static class NameFinderImplementation extends FinderSupport<String, NameFinderImplementation> implements NameFinder
       {
         private String prefix = "";
-        
-        public NameFinderImplementation() 
+
+        public NameFinderImplementation()
           {
           }
-        
+
         @Override @Nonnull
-        protected List<? extends String> computeResults() 
+        protected List<? extends String> computeResults()
           {
             final List<String> results = new ArrayList<String>();
-            
+
             for (final String name : ALL_NAMES)
               {
                 if (name.startsWith(prefix))
                   {
-                    results.add(name);  
+                    results.add(name);
                   }
               }
-            
+
             return results;
           }
 
@@ -77,14 +77,14 @@ public class FinderTest
             return this;
           }
       }
-    
+
     public void test1() // just to see the syntax
       {
         Composite<String, Finder<String>> composite = null;
         List<? extends String> results1 = composite.findChildren().max(10).results();
         List<? extends Integer> results2 = composite.findChildren().ofType(Integer.class).results();
       }
-    
+
     public void test2() // just to see the syntax
       {
         Composite<String, NameFinder> composite = null;

@@ -33,47 +33,47 @@ import it.tidalwave.util.Finder.SortDirection;
  *
  * A default implementation of {@link Finder.FilterSortCriterion} which relies on sorting capabilities of the Java
  * runtime library and only needs a {@link Comparator} to be specified.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public class DefaultFilterSortCriterion<Type> implements Finder.FilterSortCriterion<Type>, Serializable 
+public class DefaultFilterSortCriterion<Type> implements Finder.FilterSortCriterion<Type>, Serializable
   {
     @Nonnull
     private final Comparator<? super Type> comparator;
 
     @Nonnull
     private final String name;
-    
+
     /*******************************************************************************************************************
      *
      * Creates an instance that will use the given {@link Comparator}, with the given name (used for diagnostics).
-     * 
+     *
      * @param  comparator   the comparator
      * @param  name         a name used for diagnostics
      *
      ******************************************************************************************************************/
-    public DefaultFilterSortCriterion (final @Nonnull Comparator<? super Type> comparator, final @Nonnull String name) 
+    public DefaultFilterSortCriterion (final @Nonnull Comparator<? super Type> comparator, final @Nonnull String name)
       {
         this.comparator = comparator;
         this.name = name;
       }
-    
+
     /*******************************************************************************************************************
      *
      * Creates an instance that will use the given {@link Comparator}.
-     * 
+     *
      * @param  comparator   the comparator
      *
      ******************************************************************************************************************/
-    protected DefaultFilterSortCriterion (final @Nonnull Comparator<? super Type> comparator) 
+    protected DefaultFilterSortCriterion (final @Nonnull Comparator<? super Type> comparator)
       {
         this.comparator = comparator;
         this.name = getClass().getSimpleName();
       }
-    
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -85,7 +85,7 @@ public class DefaultFilterSortCriterion<Type> implements Finder.FilterSortCriter
       {
         Collections.sort(results, new Comparator<Type>()
           {
-            public int compare (final @Nonnull Type o1, final @Nonnull Type o2) 
+            public int compare (final @Nonnull Type o1, final @Nonnull Type o2)
               {
                 return comparator.compare(o1, o2) * sortDirection.intValue();
               }
@@ -98,7 +98,7 @@ public class DefaultFilterSortCriterion<Type> implements Finder.FilterSortCriter
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public String toString() 
+    public String toString()
       {
         return name;
       }

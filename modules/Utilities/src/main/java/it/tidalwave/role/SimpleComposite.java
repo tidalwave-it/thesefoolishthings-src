@@ -25,7 +25,7 @@ package it.tidalwave.role;
 import it.tidalwave.util.Finder;
 
 /***********************************************************************************************************************
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable

@@ -30,9 +30,9 @@ import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.spi.FinderSupport;
 
 /***********************************************************************************************************************
- * 
+ *
  * The role of a composite object, that is an object which contains children.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -46,33 +46,33 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type>>
     static class EmptyFinder extends FinderSupport<Object, EmptyFinder>
       {
         @Override @Nonnull
-        protected List<? extends Object> computeResults() 
+        protected List<? extends Object> computeResults()
           {
             return Collections.emptyList();
           }
       }
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * A default <code>Composite</code> with no children.
      *
      ******************************************************************************************************************/
-    public final static Composite<Object, Finder<Object>> DEFAULT = new Composite<Object, Finder<Object>>() 
+    public final static Composite<Object, Finder<Object>> DEFAULT = new Composite<Object, Finder<Object>>()
       {
         private final Finder<Object> EMPTY_FINDER = new EmptyFinder(); // TODO: move to Finder
-        
+
         @Override @Nonnull
-        public Finder<Object> findChildren() 
+        public Finder<Object> findChildren()
           {
             return EMPTY_FINDER;
           }
       };
-    
+
     //@bluebook-end other
     /*******************************************************************************************************************
-     * 
+     *
      * Returns the children of this object.
-     * 
+     *
      * @return  the children
      *
      ******************************************************************************************************************/
@@ -80,83 +80,83 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type>>
     public SpecializedFinder findChildren();
     //@bluebook-begin other
     //@bluebook-begin visitor
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      *
      ******************************************************************************************************************/
-    public static interface Visitor<T, R> 
+    public static interface Visitor<T, R>
       {
         /***************************************************************************************************************
-         * 
+         *
          * Visits an object. This method is called before visiting children (pre-order).
-         * 
+         *
          * @param  object  the visited object
          *
          **************************************************************************************************************/
         public void preVisit (@Nonnull T object);
 
         /***************************************************************************************************************
-         * 
+         *
          * Visits an object. This method is actually called just after {@link #preVisit()}, it makes sense to implement
          * it when you don't need to distinguish between pre-order and post-order traversal.
-         * 
+         *
          * @param  object  the visited object
          *
          **************************************************************************************************************/
         public void visit (@Nonnull T object);
 
         /***************************************************************************************************************
-         * 
+         *
          * Visits an object. This method is called after visiting children (post-order).
-         * 
+         *
          * @param  object  the visited object
          *
          **************************************************************************************************************/
         public void postVisit (@Nonnull T object);
 
         /***************************************************************************************************************
-         * 
+         *
          * Returns the value of this visitor.
-         * 
+         *
          * @return                     the value
          * @throws  NotFoundException  when no value has been found
          *
          **************************************************************************************************************/
-        @Nonnull 
+        @Nonnull
         public R getValue()
           throws NotFoundException;
       }
     //@bluebook-end visitor
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * A support class for {@link Visitor} which provides default empty methods.
      *
      ******************************************************************************************************************/
     public static class VisitorSupport<T, R> implements Visitor<T, R>
       {
         /** {@inheritDoc} */
-        public void preVisit (final @Nonnull T object) 
-          {            
+        public void preVisit (final @Nonnull T object)
+          {
           }
 
         /** {@inheritDoc} */
         public void visit (final @Nonnull T object)
-          {            
+          {
           }
 
         /** {@inheritDoc} */
         public void postVisit (final @Nonnull T object)
-          {            
+          {
           }
 
         /** {@inheritDoc} */
-        @Nonnull 
+        @Nonnull
         public R getValue()
           throws NotFoundException
           {
-            throw new NotFoundException("Must be implemented by subclasses");  
+            throw new NotFoundException("Must be implemented by subclasses");
           }
       }
     //@bluebook-end other

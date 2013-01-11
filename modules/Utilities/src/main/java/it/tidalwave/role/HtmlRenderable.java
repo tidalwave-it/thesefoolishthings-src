@@ -25,9 +25,9 @@ package it.tidalwave.role;
 /***********************************************************************************************************************
  *
  * The role of an object that can be rendered into a {@link String} as HTML markup.
- * 
+ *
  * @stereotype Role
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *

@@ -31,6 +31,6 @@ package it.tidalwave.util.asexamples;
 public interface Renderable
   {
     public final static Class<Renderable> Renderable = Renderable.class;
-    
-    public void renderTo (RenderingContext renderingContext); 
+
+    public void renderTo (RenderingContext renderingContext);
   }

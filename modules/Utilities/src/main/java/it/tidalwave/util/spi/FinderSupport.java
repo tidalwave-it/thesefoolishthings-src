@@ -36,13 +36,13 @@ import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
- * A support class for implementing a {@link Finder}. Subclasses only need to implement the {@link #computeResults()} 
- * method where <i>raw</i> results are retrieved (with raw we mean that they shouldn't be filtered or sorted, as  
+ * A support class for implementing a {@link Finder}. Subclasses only need to implement the {@link #computeResults()}
+ * method where <i>raw</i> results are retrieved (with raw we mean that they shouldn't be filtered or sorted, as
  * post-processing will be performed by this class) and a clone constructor.
- * 
- * If you don't need to extend the {@link Finder} with extra methods, please use the simplified 
+ *
+ * If you don't need to extend the {@link Finder} with extra methods, please use the simplified
  * {@link SimpleFinderSupport}.
- * 
+ *
  * @author Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.draft
@@ -53,22 +53,22 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
   {
     static class Sorter<Type>
       {
-        private final FilterSortCriterion<Type> sortCriterion; 
+        private final FilterSortCriterion<Type> sortCriterion;
         private final SortDirection sortDirection;
 
-        public Sorter (final @Nonnull FilterSortCriterion<Type> sortCriterion, 
+        public Sorter (final @Nonnull FilterSortCriterion<Type> sortCriterion,
                        final @Nonnull SortDirection sortDirection)
           {
             this.sortCriterion = sortCriterion;
             this.sortDirection = sortDirection;
           }
-        
-        public void sort (final @Nonnull List<? extends Type> results) 
+
+        public void sort (final @Nonnull List<? extends Type> results)
           {
             sortCriterion.sort(results, sortDirection);
           }
       }
-    
+
     @Nonnull
     private String name;
 
@@ -80,11 +80,11 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
 
     @Nonnull
     protected List<Sorter<Type>> sorters = new ArrayList<Sorter<Type>>();
-    
+
     /*******************************************************************************************************************
      *
      * Creates an instance with the given name (that will be used for diagnostics).
-     * 
+     *
      * @param  name   the name
      *
      ******************************************************************************************************************/
@@ -92,35 +92,35 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
       {
         this.name = name;
       }
-    
+
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
     protected FinderSupport()
       {
-        this.name = getClass().getName(); 
+        this.name = getClass().getName();
       }
 
     /*******************************************************************************************************************
      *
      * Clones this object. This operation is called whenever a parameter-setting method is called in fluent-interface
-     * style. 
-     * 
+     * style.
+     *
      * @return  the cloned object
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public FinderSupport<Type, ExtendedFinder> clone() 
+    public FinderSupport<Type, ExtendedFinder> clone()
       {
-        try 
+        try
           {
             final FinderSupport<Type, ExtendedFinder> clone = (FinderSupport<Type, ExtendedFinder>)super.clone();
             clone.name        = this.name;
             clone.firstResult = this.firstResult;
             clone.maxResults  = this.maxResults;
             clone.sorters     = new ArrayList<Sorter<Type>>(this.sorters);
-        
+
             return clone;
           }
         catch (CloneNotSupportedException e)
@@ -128,7 +128,7 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
             throw new RuntimeException(e);
           }
       }
- 
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -181,10 +181,10 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
             clone.sorters.add(new Sorter<Type>((FilterSortCriterion<Type>)criterion, direction));
             return (ExtendedFinder)clone;
           }
-        
-        final String message = String.format("%s does not implement %s - you need to subclass Finder and override sort()",
-                                             criterion, FilterSortCriterion.class);
-        throw new UnsupportedOperationException(message); 
+
+        final String template = "%s does not implement %s - you need to subclass Finder and override sort()";
+        final String message = String.format(template, criterion, FilterSortCriterion.class);
+        throw new UnsupportedOperationException(message);
       }
 
     /*******************************************************************************************************************
@@ -193,7 +193,7 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public final ExtendedFinder sort (final @Nonnull SortCriterion criterion) 
+    public final ExtendedFinder sort (final @Nonnull SortCriterion criterion)
       {
         return sort(criterion, SortDirection.ASCENDING);
       }
@@ -255,12 +255,12 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
       {
         return computeNeededResults().size();
       }
-    
+
     /*******************************************************************************************************************
      *
      * Subclasses can implement this method where *all* the raw results must be actually retrieved.
-     * 
-     * @return  the unprocessed results  
+     *
+     * @return  the unprocessed results
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -272,8 +272,8 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
     /*******************************************************************************************************************
      *
      * Subclasses can implement this method where *only the requested* raw results must be retrieved.
-     * 
-     * @return  the unprocessed results  
+     *
+     * @return  the unprocessed results
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -281,16 +281,16 @@ public abstract class FinderSupport<Type, ExtendedFinder extends Finder<Type>> i
       {
         log.debug("computeNeededResults() - {}", this);
         List<? extends Type> results = computeResults();
-        
+
         // First sort and then extract the sublist
         for (final Sorter<Type> sorter : sorters)
           {
             log.trace(">>>> sorting with {}...", sorter);
-            sorter.sort(results);                        
+            sorter.sort(results);
           }
-        
+
         results = results.subList(firstResult, Math.min(results.size(), firstResult + maxResults));
-        
+
         return results;
       }
   }

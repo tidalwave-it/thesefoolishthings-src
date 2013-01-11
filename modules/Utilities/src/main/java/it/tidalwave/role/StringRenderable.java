@@ -28,9 +28,9 @@ import java.io.PrintWriter;
 /***********************************************************************************************************************
  *
  * The role of an object that can be rendered into a {@link String} as HTML markup.
- * 
+ *
  * @stereotype Role
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -43,30 +43,30 @@ public interface StringRenderable
      *
      * Renders the attached object into a {@link String}. The method accepts optional parameters that can be used to
      * control the format of the rendering; they are usually specific of the object attached to this role.
-     * 
+     *
      * @param  args  optional rendering parameters
      * @return       the string
      *
      ******************************************************************************************************************/
     @Nonnull
     public String render (@Nonnull Object ... args);
-    
+
     /*******************************************************************************************************************
      *
      * Renders the attached object appending to a {@link StringBuilder}. The method accepts optional parameters that can
      * be used to control the format of the rendering; they are usually specific of the object attached to this role.
-     * 
+     *
      * @param  args  optional rendering parameters
      * @return       the string
      *
      ******************************************************************************************************************/
     public void renderTo (@Nonnull StringBuilder stringBuilder, @Nonnull Object ... args);
-    
+
     /*******************************************************************************************************************
      *
      * Renders the attached object printing to a {@link PrintWriter}. The method accepts optional parameters that can
      * be used to control the format of the rendering; they are usually specific of the object attached to this role.
-     * 
+     *
      * @param  args  optional rendering parameters
      * @return       the string
      *

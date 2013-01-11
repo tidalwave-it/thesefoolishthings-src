@@ -30,5 +30,5 @@ package it.tidalwave.util.asexamples;
  **********************************************************************************************************************/
 public interface RenderingContext
   {
-    public void render (String string); 
+    public void render (String string);
   }
