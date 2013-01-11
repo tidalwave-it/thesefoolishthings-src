@@ -47,7 +47,7 @@ import static org.junit.Assert.*;
 public final class FileComparisonUtils
   {
     private static final Logger log = LoggerFactory.getLogger(FileComparisonUtils.class);
-    
+
     /*******************************************************************************************************************
      *
      *
@@ -58,7 +58,7 @@ public final class FileComparisonUtils
         final String expectedPath = expectedFile.getAbsolutePath();
         final String actualPath = actualFile.getAbsolutePath();
         final String commonPath = commonPrefix(expectedPath, actualPath);
-        log.info("******** Comparing files:"); 
+        log.info("******** Comparing files:");
         log.info(">>>> path is: {}", commonPath);
         log.info(">>>> exp is:  {}", expectedPath.substring(commonPath.length()));
         log.info(">>>> act is:  {}", actualPath.substring(commonPath.length()));
@@ -179,7 +179,7 @@ public final class FileComparisonUtils
 
         return result;
       }
-    
+
     /*******************************************************************************************************************
      *
      *
@@ -188,7 +188,7 @@ public final class FileComparisonUtils
     public static String commonPrefix (final @Nonnull String s1, final @Nonnull String s2)
       {
         final int min = Math.min(s1.length(), s2.length());
-        
+
         for (int i = 0; i < min; i++)
           {
             if (s1.charAt(i) != s2.charAt(i))
@@ -196,7 +196,7 @@ public final class FileComparisonUtils
                 return (i == 0) ? "" : s1.substring(0, i);
               }
           }
-        
+
         return s1.substring(0, min);
       }
   }

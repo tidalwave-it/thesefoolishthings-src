@@ -39,35 +39,36 @@ public class TestLogger extends TestListenerAdapter
   {
     private static final String S = "***********************************************";
     private static final String SEPARATOR = S + S + S + S;
-    
+
     @Override
-    public void onTestStart (final @Nonnull ITestResult result) 
+    public void onTestStart (final @Nonnull ITestResult result)
       {
         String args = "";
-        
+
         final Object[] parameters = result.getParameters();
-        
+
         if ((parameters != null) && parameters.length > 0)
           {
             args = Arrays.toString(parameters);
           }
-        
-        final String separator = SEPARATOR.substring(0, Math.min(Math.max(args.length() + 5, result.getName().length() + 7), SEPARATOR.length()));
+
+        final int max = Math.max(args.length() + 5, result.getName().length() + 7);
+        final String separator = SEPARATOR.substring(0, Math.min(max, SEPARATOR.length()));
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
-    
+
         log.info(separator);
         log.info("TEST \"{}\"", result.getName().replace('_', ' '));
-        
+
         if (!"".equals(args))
           {
             log.info("ARGS {}", args);
           }
-        
+
         log.info(separator);
       }
 
     @Override
-    public void onTestFailure (final @Nonnull ITestResult result) 
+    public void onTestFailure (final @Nonnull ITestResult result)
       {
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
         log.info("TEST FAILED in {} msec - {}", result.getEndMillis() - result.getStartMillis(), result.getThrowable());
@@ -75,7 +76,7 @@ public class TestLogger extends TestListenerAdapter
       }
 
     @Override
-    public void onTestSkipped (final @Nonnull ITestResult result) 
+    public void onTestSkipped (final @Nonnull ITestResult result)
       {
         onTestStart(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
@@ -90,4 +91,4 @@ public class TestLogger extends TestListenerAdapter
         log.info("TEST PASSED in {} msec", result.getEndMillis() - result.getStartMillis());
         log.info("");
       }
-  } 
+  }
