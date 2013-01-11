@@ -38,16 +38,16 @@ import lombok.extern.slf4j.Slf4j;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@NoArgsConstructor(access=AccessLevel.PRIVATE) @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE) @Slf4j
 public class PlatformXEventBusAdapter implements MessageBusHelper.Adapter
   {
     public static final MessageBusHelper.Adapter INSTANCE = new PlatformXEventBusAdapter();
     public static final MessageBusHelper.Adapter PLATFORMX_EVENTBUS_ADAPTER = INSTANCE;
 
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     class EventBusListenerAdapter<Topic> implements MethodAdapter<Topic>, EventBusListener<Topic>
       {
@@ -56,22 +56,22 @@ public class PlatformXEventBusAdapter implements MessageBusHelper.Adapter
 
         @Nonnull
         private final Method method;
-        
+
         @Nonnull
         private final Class<Topic> topic;
-        
-        public EventBusListenerAdapter (final @Nonnull Object owner, 
+
+        public EventBusListenerAdapter (final @Nonnull Object owner,
                                         final @Nonnull Method method,
-                                        final @Nonnull Class<Topic> topic) 
+                                        final @Nonnull Class<Topic> topic)
           {
             this.owner  = owner;
             this.method = method;
             this.topic  = topic;
             method.setAccessible(true);
           }
-        
+
         @Override
-        public void notify (final @Nonnull Topic message) 
+        public void notify (final @Nonnull Topic message)
           {
             log.trace("notify({})", message);
 
@@ -82,69 +82,70 @@ public class PlatformXEventBusAdapter implements MessageBusHelper.Adapter
             catch (Throwable t)
               {
                 log.error("Error calling {} with {}", method, message.getClass());
-                log.error("", t); 
+                log.error("", t);
               }
           }
 
         @Override
-        public void subscribe() 
+        public void subscribe()
           {
             getEventBus().subscribe(topic, this);
           }
 
         @Override
-        public void unsubscribe() 
+        public void unsubscribe()
           {
-            getEventBus().unsubscribe(topic, this);  
+            getEventBus().unsubscribe(topic, this);
           }
       }
-    
+
     private EventBus eventBus;
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override @Nonnull
     public <Topic> MethodAdapter<Topic> createMethodAdapter (final @Nonnull Object object,
                                                              final @Nonnull Method method,
-                                                             final @Nonnull Class<Topic> topic) 
+                                                             final @Nonnull Class<Topic> topic)
       {
         return new EventBusListenerAdapter<Topic>(object, method, topic);
       }
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override
-    public void publish (final @Nonnull Object message) 
+    public void publish (final @Nonnull Object message)
       {
         getEventBus().publish(message);
       }
 
     /*******************************************************************************************************************
-     * 
+     *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void publish (final @Nonnull Class<Topic> topic, final @Nonnull Topic message) 
+    public <Topic> void publish (final @Nonnull Class<Topic> topic, final @Nonnull Topic message)
       {
         if (!message.getClass().equals(topic))
           {
-            throw new IllegalArgumentException("EventBus doesn't support publishing with a different class than the topic");
+            final String m = "EventBus doesn't support publishing with a different class than the topic";
+            throw new IllegalArgumentException(m);
           }
-        
+
         getEventBus().publish(message);
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
-     * 
+     *
+     *
+     *
      ******************************************************************************************************************/
     @Nonnull
     private synchronized EventBus getEventBus() // cannot use OpenBlueSky Locator because of circular dependencies
@@ -153,7 +154,7 @@ public class PlatformXEventBusAdapter implements MessageBusHelper.Adapter
           {
             eventBus = EventBus.getDefault();
           }
-        
+
         return eventBus;
       }
   }

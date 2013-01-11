@@ -37,13 +37,13 @@ import static it.tidalwave.messagebus.netbeans.platformx.eventbus.PlatformXEvent
 public class EventBusAdapterTest extends EventBusAdapterTestSupport
   {
     @Override
-    protected void publish (final @Nonnull Object message) 
+    protected void publish (final @Nonnull Object message)
       {
         EventBus.getDefault().publish(message);
       }
 
     @Override @Nonnull
-    protected MessageBusHelper.Adapter getAdapterFactory() 
+    protected MessageBusHelper.Adapter getAdapterFactory()
       {
         return PLATFORMX_EVENTBUS_ADAPTER;
       }
