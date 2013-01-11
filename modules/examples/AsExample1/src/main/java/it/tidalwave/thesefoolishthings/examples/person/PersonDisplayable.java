@@ -29,6 +29,8 @@ import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
+ * A Displayable Role for Person.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  *
