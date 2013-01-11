@@ -39,93 +39,93 @@ public class StopWatchStats implements Comparable<StopWatchStats>
   {
     private final static String CLASS = StopWatchStats.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
-            
+
     private final static Map<String, StopWatchStats> stopWatchStatsMapByName = new HashMap<String, StopWatchStats>();
-    
+
     private final String name;
-    
+
     private long accumulatedTime;
-    
+
     private long minAccumulatedTime = Long.MAX_VALUE;
-    
+
     private long maxAccumulatedTime = Long.MIN_VALUE;
-    
+
     private long elapsedTime;
-    
+
     private long minElapsedTime = Long.MAX_VALUE;
-    
+
     private long maxElapsedTime = Long.MIN_VALUE;
-    
+
     private int sampleCount;
 
     public synchronized static StopWatchStats find (final String name)
       {
         StopWatchStats stopWatchStats = stopWatchStatsMapByName.get(name);
-        
+
         if (stopWatchStats == null)
           {
             stopWatchStats = new StopWatchStats(name);
             stopWatchStatsMapByName.put(name, stopWatchStats);
           }
-        
+
         return stopWatchStats;
       }
 
-    public long getAccumulatedTime() 
+    public long getAccumulatedTime()
       {
         return accumulatedTime;
       }
-    
+
     public double getAvgAccumulatedTime()
       {
-        return (double)accumulatedTime / sampleCount;  
+        return (double)accumulatedTime / sampleCount;
       }
 
-    public long getElapsedTime() 
+    public long getElapsedTime()
       {
         return elapsedTime;
       }
 
-    public long getMaxAccumulatedTime() 
+    public long getMaxAccumulatedTime()
       {
         return maxAccumulatedTime;
       }
 
-    public long getMaxElapsedTime() 
+    public long getMaxElapsedTime()
       {
         return maxElapsedTime;
       }
 
-    public long getMinAccumulatedTime() 
+    public long getMinAccumulatedTime()
       {
         return minAccumulatedTime;
       }
 
-    public long getMinElapsedTime()  
+    public long getMinElapsedTime()
       {
         return minElapsedTime;
       }
-  
+
     public double getAvgElapsedTime()
       {
-        return (double)elapsedTime / sampleCount;  
+        return (double)elapsedTime / sampleCount;
       }
 
-    public String getName() 
+    public String getName()
       {
         return name;
       }
 
-    public int getSampleCount() 
+    public int getSampleCount()
       {
         return sampleCount;
-      } 
+      }
 
-    protected StopWatchStats (final String name) 
+    protected StopWatchStats (final String name)
       {
         this.name = name;
       }
-    
+
     protected synchronized  void addTimeSample (final long accumulatedTimeSample, final long elapsedTimeSample)
       {
         accumulatedTime += accumulatedTimeSample;
@@ -134,10 +134,10 @@ public class StopWatchStats implements Comparable<StopWatchStats>
         elapsedTime += elapsedTimeSample;
         minElapsedTime = Math.min(minElapsedTime, elapsedTimeSample);
         maxElapsedTime = Math.max(maxElapsedTime, elapsedTimeSample);
-       
+
         sampleCount++;
       }
-    
+
     public static SortedSet<StopWatchStats> findAllStats()
       {
         final TreeSet<StopWatchStats> result = new TreeSet<StopWatchStats>();
@@ -148,12 +148,14 @@ public class StopWatchStats implements Comparable<StopWatchStats>
     public static void dump()
       {
         final double scale = 1000000;
-        
+
         for (final StopWatchStats stats : findAllStats())
           {
-            logger.info(String.format("STATS: %-120s [%4d samples]: acc: %9.2f/%7.2f/%7.2f/%7.2f msec, ela: %9.2f/%7.2f/%7.2f/%7.2f msec (val/min/max/avg)", 
-                                      stats.getName(), 
-                                      stats.getSampleCount(), 
+            final String template = "STATS: %-120s [%4d samples]: acc: %9.2f/%7.2f/%7.2f/%7.2f msec, "
+                                                               + "ela: %9.2f/%7.2f/%7.2f/%7.2f msec (val/min/max/avg)";
+            logger.info(String.format(template,
+                                      stats.getName(),
+                                      stats.getSampleCount(),
                                       stats.getAccumulatedTime() / scale,
                                       stats.getMinAccumulatedTime() / scale,
                                       stats.getMaxAccumulatedTime() / scale,
@@ -164,43 +166,43 @@ public class StopWatchStats implements Comparable<StopWatchStats>
                                       stats.getAvgElapsedTime() / scale));
           }
       }
-             
+
     @Override
-    public boolean equals (final Object obj) 
+    public boolean equals (final Object obj)
       {
-        if (obj == null) 
+        if (obj == null)
           {
             return false;
           }
-        
-        if (getClass() != obj.getClass()) 
+
+        if (getClass() != obj.getClass())
           {
             return false;
           }
-        
+
         final StopWatchStats other = (StopWatchStats) obj;
-        
+
         if (!this.name.equals(other.name))
           {
             return false;
           }
-        
+
         return true;
       }
 
     @Override
-    public int hashCode() 
+    public int hashCode()
       {
         int hash = 7;
         hash = 53 * hash + this.name.hashCode();
         return hash;
       }
-    
+
     public int compareTo (final StopWatchStats other)
       {
         return this.name.compareTo(other.name);
-      } 
-    
+      }
+
     @Override
     public String toString()
       {

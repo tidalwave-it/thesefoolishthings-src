@@ -37,79 +37,79 @@ public class StopWatch
     private long startTime;
     private long partialStartTime;
     private long accumulated;
-    
+
     private final static ThreadLocal<Stack<StopWatch>> stack = new ThreadLocal<Stack<StopWatch>>()
       {
         @Override
-        protected Stack<StopWatch> initialValue() 
+        protected Stack<StopWatch> initialValue()
           {
             return new Stack<StopWatch>();
           }
       };
-    
+
     public static final StopWatch DUMMY_STOPWATCH = new StopWatch()
       {
         @Override
-        public void cancel() 
+        public void cancel()
           {
           }
 
         @Override
-        public void stop() 
+        public void stop()
           {
           }
       };
-    
+
     public static StopWatch create (final Class<?> clazz, final String name)
       {
         return new StopWatch(clazz, name);
       }
-    
+
     protected StopWatch()
       {
-        partialStartTime = 0;  
+        partialStartTime = 0;
       }
-    
+
     protected StopWatch (final Class<?> clazz, final String name)
       {
         final String baseName = clazz.getName().replace('.', '/') + "/" + name;
         // Create here the reference to stats, in order to avoid overhead in stop()
         stats = StopWatchStats.find(baseName);
         final Stack<StopWatch> currentStack = stack.get();
-        
+
         if (!currentStack.isEmpty())
           {
             currentStack.peek().suspend();
           }
-        
+
         currentStack.push(this);
         startTime = partialStartTime = System.nanoTime();
       }
-    
+
     public void stop()
       {
         final long now = System.nanoTime();
         stats.addTimeSample(now - partialStartTime + accumulated, now - startTime);
         cancel();
       }
-    
+
     public void cancel()
       {
-        stats = null;  
+        stats = null;
         final Stack<StopWatch> currentStack = stack.get();
         currentStack.pop();
-        
+
         if (!currentStack.isEmpty())
           {
             currentStack.peek().resume();
           }
       }
-    
+
     protected void suspend()
       {
         accumulated += System.nanoTime() - partialStartTime;
       }
-    
+
     protected void resume()
       {
         partialStartTime = System.nanoTime();
