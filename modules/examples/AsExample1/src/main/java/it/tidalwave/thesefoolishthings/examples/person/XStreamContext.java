@@ -30,7 +30,9 @@ import lombok.Getter;
 
 /***********************************************************************************************************************
  *
- * @author  fritz
+ * A DCI local Context that provides an {@link XStream} for a few datum classes.
+ * 
+ * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
@@ -38,7 +40,7 @@ public class XStreamContext
   {
     @Getter
     private final XStream xStream = new XStream(new StaxDriver());
-    
+
     public XStreamContext()
       {
         xStream.aliasField("first-name", Person.class, "firstName");
@@ -46,24 +48,24 @@ public class XStreamContext
         xStream.alias("person", Person.class);
         xStream.alias("persons", ListOfPersons.class);
         xStream.addImplicitCollection(ListOfPersons.class, "persons");
-        
+
         xStream.useAttributeFor(Person.class, "id");
-        xStream.registerConverter(new SingleValueConverter() 
+        xStream.registerConverter(new SingleValueConverter()
           {
             @Override
-            public String toString (final Object object) 
+            public String toString (final Object object)
               {
                 return ((Id)object).stringValue();
               }
 
             @Override
-            public Object fromString (final String string) 
+            public Object fromString (final String string)
               {
                 return new Id(string);
               }
 
             @Override
-            public boolean canConvert (Class type) 
+            public boolean canConvert (Class type)
               {
                 return type.equals(Id.class);
               }
