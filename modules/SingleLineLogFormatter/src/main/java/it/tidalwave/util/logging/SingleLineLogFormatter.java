@@ -40,17 +40,17 @@ public class SingleLineLogFormatter extends Formatter
  {
    //%d{} [%-16t] %-5p %-21c{1} - %m%n
    private static final String PADDER = "                                                                          ";
-   
+
    private Date now = new Date();
-   
+
    private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
 
    // Line separator string.  This is the value of the line.separator
    // property at the moment that the SimpleFormatter was created.
    private String lineSeparator = "\n";
-//       (String)java.security.AccessController.doPrivileged(new sun.security.action.GetPropertyAction("line.separator"));
+//    (String)java.security.AccessController.doPrivileged(new sun.security.action.GetPropertyAction("line.separator"));
 
-   private static String padded (String s, int width)
+   private static String padded (String s, final int width)
      {
        s = (s == null) ? "" : s;
        int i = s.length() - Math.abs(width);
@@ -68,7 +68,7 @@ public class SingleLineLogFormatter extends Formatter
     * @param record the log record to be formatted.
     * @return a formatted log record
     */
-   public synchronized String format (LogRecord record)
+   public synchronized String format (final LogRecord record)
      {
        final StringBuilder buffer1 = new StringBuilder();
        // Minimize memory allocations here.
@@ -112,6 +112,7 @@ public class SingleLineLogFormatter extends Formatter
              }
            catch (Exception e)
              {
+               ignoreIt();
              }
          }
 
@@ -125,5 +126,9 @@ public class SingleLineLogFormatter extends Formatter
          }
 
        return buffer3.toString();
+     }
+
+   private void ignoreIt()
+     {
      }
    }
