@@ -29,9 +29,9 @@ import com.vaadin.data.Container;
 
 /***********************************************************************************************************************
  *
- * This class extends {@link Container} to provide all the required data to populate a {@link Table}, such as the 
+ * This class extends {@link Container} to provide all the required data to populate a {@link Table}, such as the
  * header labels and so on.
- * 
+ *
  * @stereotype  Model
  *
  * @author  Fabrizio Giudici
@@ -42,14 +42,14 @@ public interface TableModel extends Container
   {
     /*******************************************************************************************************************
      *
-     * Returns the labels for the table headers. For a convenient implementation, delegate to 
+     * Returns the labels for the table headers. For a convenient implementation, delegate to
      * {@link HeaderLabelProvider}.
-     * 
+     *
      * @return                     the labels
-     * @throws  NotFoundException  if the {@code Table} must not have header labels 
+     * @throws  NotFoundException  if the {@code Table} must not have header labels
      *
      ******************************************************************************************************************/
     @Nonnull
     public List<String> getHeaderLabels()
-      throws NotFoundException; 
+      throws NotFoundException;
   }

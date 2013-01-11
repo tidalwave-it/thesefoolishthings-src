@@ -33,29 +33,29 @@ import it.tidalwave.util.Finder;
 import it.tidalwave.util.spi.SimpleFinderSupport;
 import it.tidalwave.role.Composite;
 import it.tidalwave.role.ui.PresentationModel;
-import com.vaadin.data.Container;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
- * An adapter between {@link PresentationModel} and {@link Container}.
- * 
+ * An adapter between {@link PresentationModel} and {@link com.vaadin.data.Container}.
+ *
  * @stereotype Adapter
- * 
+ *
  * @author  Fabrizio Giudici
  * @author based on LazyQyeryFinder by Tommi S.E. Laukkanen
  * @version $Id$
  *
  **********************************************************************************************************************/
 @Slf4j
-public class ReadOnlyPresentationModelContainer extends IndexedContainerSupport 
+public class ReadOnlyPresentationModelContainer extends IndexedContainerSupport
   {
     private static final long serialVersionUID = 345346356345349283L;
-    
+
     // TODO: move to Finder
-    private static final Finder<PresentationModel> EMPTY_FINDER = new SimpleFinderSupport<PresentationModel>("EMPTY_FINDER") 
+    private static final Finder<PresentationModel> EMPTY_FINDER =
+            new SimpleFinderSupport<PresentationModel>("EMPTY_FINDER")
       {
         @Override  @Nonnull
         protected List<? extends PresentationModel> computeResults()
@@ -63,18 +63,18 @@ public class ReadOnlyPresentationModelContainer extends IndexedContainerSupport
             return Collections.emptyList();
           }
       };
-    
+
     @Nonnull
     private final Finder<PresentationModel> finder;
-    
+
     private final int batchSize = 20;
 
-    private final Map<Object, Format> formatMapByPropertyId = new HashMap<Object, Format>();    
-    
+    private final Map<Object, Format> formatMapByPropertyId = new HashMap<Object, Format>();
+
     /*******************************************************************************************************************
      *
      * Creates an empty instance for the given datum type.
-     * 
+     *
      * @param  datumType   the datum type
      *
      ******************************************************************************************************************/
@@ -87,13 +87,13 @@ public class ReadOnlyPresentationModelContainer extends IndexedContainerSupport
     /*******************************************************************************************************************
      *
      * Creates an instance for the given {@link PresentationModel} and datum type.
-     * 
+     *
      * @param  presentationModel   the {@code PresentationModel}
      * @param  datumType           the datum type
      *
      ******************************************************************************************************************/
     public ReadOnlyPresentationModelContainer (final @Nonnull PresentationModel presentationModel,
-                                               final @Nonnull Class<?> datumType) 
+                                               final @Nonnull Class<?> datumType)
       {
         super(datumType);
         this.finder = presentationModel.as(Composite.class).findChildren();
@@ -105,7 +105,7 @@ public class ReadOnlyPresentationModelContainer extends IndexedContainerSupport
      *
      ******************************************************************************************************************/
     @Override @Nonnegative
-    public final int size() 
+    public final int size()
       {
         return finder.count();
       }
@@ -124,9 +124,9 @@ public class ReadOnlyPresentationModelContainer extends IndexedContainerSupport
         final Object object = pm.as(datumType);
         return new FormattedItemDecorator(pm, new BeanItem<Object>(object), formatMapByPropertyId);
       }
-    
+
     public void registerPropertyFormat (final @Nonnull Object propertyId, final @Nonnull Format format)
       {
-        formatMapByPropertyId.put(propertyId, format);      
+        formatMapByPropertyId.put(propertyId, format);
       }
   }

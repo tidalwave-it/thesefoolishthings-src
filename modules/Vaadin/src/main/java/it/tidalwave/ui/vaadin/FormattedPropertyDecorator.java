@@ -30,7 +30,7 @@ import lombok.Delegate;
 import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -38,22 +38,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FormattedPropertyDecorator implements Property
   {
-    @Delegate(types=Property.class) @Nonnull
+    @Delegate(types = Property.class) @Nonnull
     private final Property delegate;
-    
-    @Nullable 
+
+    @Nullable
     private final Format format;
- 
+
     @Override @Nonnull
-    public String toString() 
+    public String toString()
       {
-        if (delegate == null) 
+        if (delegate == null)
           {
             return "null property";
           }
 
         final Object value = delegate.getValue();
-        
+
         return (format != null) ? format.format(value) : (value != null) ? value.toString() : "";
       }
   }

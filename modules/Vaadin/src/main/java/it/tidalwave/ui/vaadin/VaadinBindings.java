@@ -34,8 +34,8 @@ import static lombok.AccessLevel.PRIVATE;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@NoArgsConstructor(access=PRIVATE)
-public final class VaadinBindings 
+@NoArgsConstructor(access = PRIVATE)
+public final class VaadinBindings
   {
     /*******************************************************************************************************************
      *
@@ -44,12 +44,12 @@ public final class VaadinBindings
     public static void bind (final @Nonnull Table table, final @Nonnull TableModel tableModel)
       {
         table.setContainerDataSource(tableModel);
-        
-        try 
+
+        try
           {
             table.setColumnHeaders(tableModel.getHeaderLabels().toArray(new String[0]));
-          } 
-        catch (NotFoundException e) 
+          }
+        catch (NotFoundException e)
           {
              table.setColumnHeaderMode(Table.COLUMN_HEADER_MODE_HIDDEN);
           }

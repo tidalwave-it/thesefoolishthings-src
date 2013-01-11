@@ -25,14 +25,14 @@ package it.tidalwave.ui.vaadin;
 import com.vaadin.data.Property;
 
 /***********************************************************************************************************************
- * 
+ *
  * @stereotype Role
- * 
+ *
  * @author Gabriele Cuccu <gabriele.cuccu@gmail.com>
  * @version $Id$
  *
  **********************************************************************************************************************/
 public interface DerivedPropertyFactory
   {
-    public Property getProperty(Object propertyId);  
+    public Property getProperty(Object propertyId);
   }

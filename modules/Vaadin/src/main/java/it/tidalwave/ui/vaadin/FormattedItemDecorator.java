@@ -34,12 +34,12 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.ObjectProperty;
 
 /***********************************************************************************************************************
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class FormattedItemDecorator implements Item 
+public class FormattedItemDecorator implements Item
   {
 //    @Delegate(types=Item.class) @Nonnull
 
@@ -49,7 +49,7 @@ public class FormattedItemDecorator implements Item
 
     public FormattedItemDecorator (final @Nonnull PresentationModel pm,
                                    final @Nonnull Item delegate,
-                                   final @Nonnull Map<Object, Format> formatMapByPropertyId) 
+                                   final @Nonnull Map<Object, Format> formatMapByPropertyId)
       {
         this.pm = pm;
         this.delegate = delegate;
@@ -60,8 +60,8 @@ public class FormattedItemDecorator implements Item
     public Property getItemProperty (final @Nonnull Object propertyId)
       {
         Property delegateProperty = delegate.getItemProperty(propertyId);
-        
-        if (delegateProperty != null) 
+
+        if (delegateProperty != null)
           {
             return new FormattedPropertyDecorator(delegateProperty, formatMapByPropertyId.get(propertyId));
           }
@@ -76,7 +76,7 @@ public class FormattedItemDecorator implements Item
           }
       }
 
-    public boolean removeItemProperty(Object id) 
+    public boolean removeItemProperty (final Object id)
       {
         return delegate.removeItemProperty(id);
       }
@@ -86,7 +86,7 @@ public class FormattedItemDecorator implements Item
         return delegate.getItemPropertyIds();
       }
 
-    public boolean addItemProperty(Object id, Property property) 
+    public boolean addItemProperty (final Object id, final Property property)
       {
         return delegate.addItemProperty(id, property);
       }

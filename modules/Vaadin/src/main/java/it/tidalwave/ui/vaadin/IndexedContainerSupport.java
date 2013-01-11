@@ -37,9 +37,9 @@ import com.vaadin.data.Property;
 /***********************************************************************************************************************
  *
  * A support, partial implementation of an {@link Indexed} {@link Container}.
- * 
+ *
  * @stereotype Adapter
- * 
+ *
  * @author  Fabrizio Giudici
  * @author  based on LazyQyeryFinder by Tommi S.E. Laukkanen
  * @version $Id$
@@ -48,12 +48,12 @@ import com.vaadin.data.Property;
 public abstract class IndexedContainerSupport implements Container, Indexed
   {
     private static final long serialVersionUID = 65363534234233L;
-    
+
     @Nonnull
     protected final Class<?> datumType;
-    
+
     private final List<Object> propertyIds = new ArrayList<Object>();
-            
+
     private final Map<Object, Class> propertyTypeMap = new HashMap<Object, Class>();
 
     /*******************************************************************************************************************
@@ -64,14 +64,14 @@ public abstract class IndexedContainerSupport implements Container, Indexed
       {
         this.datumType = datumType;
       }
-    
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override
-    public boolean addContainerProperty(Object propertyId, Class<?> type, Object defaultValue)
+    public boolean addContainerProperty (final Object propertyId, final Class<?> type, final Object defaultValue)
       {
         propertyIds.add(propertyId);
         propertyTypeMap.put(propertyId, type);
@@ -84,20 +84,20 @@ public abstract class IndexedContainerSupport implements Container, Indexed
      *
      ******************************************************************************************************************/
     @Override
-    public boolean removeContainerProperty (final @Nonnull Object propertyId) 
+    public boolean removeContainerProperty (final @Nonnull Object propertyId)
       {
         propertyIds.remove(propertyId);
         propertyTypeMap.remove(propertyId);
         return false; // TODO
       }
-    
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override
-    public final Collection<?> getContainerPropertyIds() 
+    public final Collection<?> getContainerPropertyIds()
       {
         return new CopyOnWriteArrayList<Object>(propertyIds);
       }
@@ -108,10 +108,10 @@ public abstract class IndexedContainerSupport implements Container, Indexed
      *
      ******************************************************************************************************************/
     @Override
-    public final Class<?> getType (final @Nonnull Object propertyId) 
+    public final Class<?> getType (final @Nonnull Object propertyId)
       {
         return propertyTypeMap.get(propertyId);
-      } 
+      }
 
     /*******************************************************************************************************************
      *
@@ -119,16 +119,16 @@ public abstract class IndexedContainerSupport implements Container, Indexed
      *
      ******************************************************************************************************************/
     @Override
-    public final Collection<?> getItemIds() 
+    public final Collection<?> getItemIds()
       {
         final List<Object> result = new ArrayList<Object>();
         final int count = size() - 1;
-        
+
         for (int i = 0; i < count; i++)
           {
             result.add(i);
           }
-        
+
         return result;
       }
 
@@ -149,7 +149,7 @@ public abstract class IndexedContainerSupport implements Container, Indexed
      *
      ******************************************************************************************************************/
     @Override
-    public final Object getIdByIndex (final int index) 
+    public final Object getIdByIndex (final int index)
       {
         return index;
       }
@@ -160,7 +160,7 @@ public abstract class IndexedContainerSupport implements Container, Indexed
      *
      ******************************************************************************************************************/
     @Override
-    public final int indexOfId (final Object itemId) 
+    public final int indexOfId (final Object itemId)
       {
         return (Integer) itemId;
       }
@@ -173,12 +173,12 @@ public abstract class IndexedContainerSupport implements Container, Indexed
     @Override
     public final boolean containsId (final Object itemId)
       {
-        if (itemId.getClass() == Integer.class) 
+        if (itemId.getClass() == Integer.class)
           {
             final int index = (Integer)itemId;
             return (index >= 0) && (index < size());
           }
-        else 
+        else
           {
             return false;
           }
@@ -190,16 +190,16 @@ public abstract class IndexedContainerSupport implements Container, Indexed
      *
      ******************************************************************************************************************/
     @Override
-    public final boolean isFirstId (final Object itemId) 
+    public final boolean isFirstId (final Object itemId)
       {
-        if (itemId.getClass() == Integer.class) 
+        if (itemId.getClass() == Integer.class)
           {
             return (Integer) itemId == 0;
           }
         else
           {
             return false;
-          }          
+          }
       }
 
     /*******************************************************************************************************************
@@ -210,14 +210,14 @@ public abstract class IndexedContainerSupport implements Container, Indexed
     @Override
     public final boolean isLastId (final Object itemId)
       {
-        if (itemId.getClass() == Integer.class) 
+        if (itemId.getClass() == Integer.class)
           {
             return (Integer) itemId == size() - 1;
           }
-        else 
+        else
           {
             return false;
-          }        
+          }
       }
 
     /*******************************************************************************************************************
@@ -226,7 +226,7 @@ public abstract class IndexedContainerSupport implements Container, Indexed
      *
      ******************************************************************************************************************/
     @Override
-    public final Object firstItemId() 
+    public final Object firstItemId()
       {
         return 0;
       }
@@ -237,7 +237,7 @@ public abstract class IndexedContainerSupport implements Container, Indexed
      *
      ******************************************************************************************************************/
     @Override
-    public final Object lastItemId() 
+    public final Object lastItemId()
       {
         return size() - 1;
       }
@@ -270,7 +270,7 @@ public abstract class IndexedContainerSupport implements Container, Indexed
      *
      ******************************************************************************************************************/
     @Override
-    public final Object addItemAt (final int index) 
+    public final Object addItemAt (final int index)
       {
         throw new UnsupportedOperationException();
       }
@@ -292,7 +292,7 @@ public abstract class IndexedContainerSupport implements Container, Indexed
      *
      ******************************************************************************************************************/
     @Override
-    public final Item addItemAt (final int index, final Object newItemId) 
+    public final Item addItemAt (final int index, final Object newItemId)
       {
         throw new UnsupportedOperationException();
       }
@@ -303,7 +303,7 @@ public abstract class IndexedContainerSupport implements Container, Indexed
      *
      ******************************************************************************************************************/
     @Override
-    public final Item addItemAfter (final Object previousItemId, final Object newItemId) 
+    public final Item addItemAfter (final Object previousItemId, final Object newItemId)
       {
         throw new UnsupportedOperationException();
       }
@@ -314,7 +314,7 @@ public abstract class IndexedContainerSupport implements Container, Indexed
      *
      ******************************************************************************************************************/
     @Override
-    public final Item addItem (final Object itemId) 
+    public final Item addItem (final Object itemId)
       {
         throw new UnsupportedOperationException();
       }
@@ -325,7 +325,7 @@ public abstract class IndexedContainerSupport implements Container, Indexed
      *
      ******************************************************************************************************************/
     @Override
-    public final Object addItem() 
+    public final Object addItem()
       {
         throw new UnsupportedOperationException();
       }

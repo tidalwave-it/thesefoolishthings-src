@@ -27,18 +27,18 @@ import com.vaadin.ui.Window;
 import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
- * 
+ *
  * @author Gabriele Cuccu <gabriele.cuccu@gmail.com>
  * @version $Id$
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor
-public class CloseWindowButtonListener implements  Button.ClickListener 
+public class CloseWindowButtonListener implements Button.ClickListener
   {
     private final Window window;
 
     @Override
-    public void buttonClick(Button.ClickEvent event) 
+    public void buttonClick (final Button.ClickEvent event)
       {
         final Button button = event.getButton();
         button.removeListener(this);

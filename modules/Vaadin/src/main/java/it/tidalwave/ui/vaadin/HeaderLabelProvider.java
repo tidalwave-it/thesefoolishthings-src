@@ -34,46 +34,46 @@ import lombok.extern.slf4j.Slf4j;
 /***********************************************************************************************************************
  *
  * A provider of table header labels based on resource bundles. It asks a delegate {@link Container} the property ids
- * and looks them up in the bundleLabel, prefixed by {@code header.}. For instance, if the {@code Container} return the ids
- * {@code firstName}, {@code lastName}, the bundle must contain:
- * 
+ * and looks them up in the bundleLabel, prefixed by {@code header.}. For instance, if the {@code Container} return the
+ * ids {@code firstName}, {@code lastName}, the bundle must contain:
+ *
  * <pre>
  * headerLabel.firstName: First name
  * headerLabel.lastName:  Last name
  * </pre>
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor @Slf4j 
+@RequiredArgsConstructor @Slf4j
 public class HeaderLabelProvider
   {
     private static final String PREFIX = "headerLabel.";
-    
+
     @Nonnull
-    private final Container container;  
-    
+    private final Container container;
+
     @Nonnull
     private final Class<?> bundleClass;
-    
+
     /*******************************************************************************************************************
      *
      * Returns the labels for the table headers.
-     * 
+     *
      * @return  the labels
      *
      ******************************************************************************************************************/
     @Nonnull
-    public List<String> getHeaderLabels() 
+    public List<String> getHeaderLabels()
       {
         final List<String> headerLabels = new ArrayList<String>();
-        
+
         for (final Object propertyId : container.getContainerPropertyIds())
           {
             final String bundleId = PREFIX + propertyId;
             String label = propertyId.toString();
-                    
+
             try
               {
                 label = NbBundle.getMessage(bundleClass, bundleId);
@@ -82,10 +82,10 @@ public class HeaderLabelProvider
               {
                 log.warn("Can't find bundle for {} in class {}", bundleId, bundleClass);
               }
-            
+
             headerLabels.add(label);
           }
-        
+
         return headerLabels;
       }
-  }  
+  }

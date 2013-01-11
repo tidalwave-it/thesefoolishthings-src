@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor @Slf4j
-public class RefresherQueue 
+public class RefresherQueue
   {
     @Nonnull
     private final Refresher refresher;
@@ -47,11 +47,11 @@ public class RefresherQueue
       {
 
         @Override
-        public void refresh (final @Nonnull Refresher source) 
+        public void refresh (final @Nonnull Refresher source)
           {
             log.debug("executing pending jobs...");
 
-            for (;;) 
+            for (;;)
               {
                 Runnable job = pendingJobs.poll();
 
@@ -67,13 +67,13 @@ public class RefresherQueue
           }
       };
 
-    public void start() 
+    public void start()
       {
         log.debug("start()");
         refresher.addListener(listener);
       }
 
-    public void stop() 
+    public void stop()
       {
         log.debug("stop()");
         refresher.removeListener(listener);
@@ -92,9 +92,9 @@ public class RefresherQueue
         log.debug("invokeLater({})", job);
         pendingJobs.add(job);
 
-        synchronized (this) 
+        synchronized (this)
           {
-            if (!started) 
+            if (!started)
               {
                 log.debug(">>>> started refresher");
                 refresher.setRefreshInterval(500);
@@ -102,7 +102,7 @@ public class RefresherQueue
               }
           }
       }
-    
+
     protected synchronized void internalStop()
       {
         refresher.setRefreshInterval(0);
