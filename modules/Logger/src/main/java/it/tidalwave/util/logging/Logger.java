@@ -35,7 +35,7 @@ import java.util.logging.Level;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public class Logger 
+public class Logger
   {
     @Nonnull
     private final java.util.logging.Logger logger;
@@ -61,7 +61,7 @@ public class Logger
         return logger;
       }
 
-    public void warning (@Nonnull final String string, @Nonnull final Object ... args) 
+    public void warning (@Nonnull final String string, @Nonnull final Object ... args)
       {
         if (logger.isLoggable(Level.WARNING))
           {
@@ -69,7 +69,7 @@ public class Logger
           }
       }
 
-    public void throwing (String arg0, String arg1, Throwable arg2)
+    public void throwing (final String arg0, final String arg1, final Throwable arg2)
       {
         logger.throwing(arg0, arg1, arg2);
       }
@@ -82,7 +82,7 @@ public class Logger
           }
       }
 
-    public void info (@Nonnull final String string, @Nonnull final Object ... args) 
+    public void info (@Nonnull final String string, @Nonnull final Object ... args)
       {
         if (logger.isLoggable(Level.INFO))
           {
@@ -90,14 +90,14 @@ public class Logger
           }
       }
 
-    public void finest (@Nonnull final String string, @Nonnull final Object ... args) 
+    public void finest (@Nonnull final String string, @Nonnull final Object ... args)
       {
         if (logger.isLoggable(Level.FINEST))
           {
             logger.finest(String.format(string, args));
           }
       }
-    
+
     public void finer (@Nonnull final String string, @Nonnull final Object ... args)
       {
         if (logger.isLoggable(Level.FINER))
@@ -106,36 +106,36 @@ public class Logger
           }
       }
 
-    public void fine (@Nonnull final String string, @Nonnull final Object ... args) 
+    public void fine (@Nonnull final String string, @Nonnull final Object ... args)
       {
         if (logger.isLoggable(Level.FINE))
           {
             logger.fine(String.format(string, args));
           }
       }
-    
-    public void setLevel (Level arg0)
+
+    public void setLevel (final Level arg0)
       throws SecurityException
       {
         logger.setLevel(arg0);
       }
 
-    public boolean isLoggable(Level arg0) 
+    public boolean isLoggable(final Level arg0)
       {
         return logger.isLoggable(arg0);
       }
 
-    public String getName() 
+    public String getName()
       {
         return logger.getName();
       }
 
-    public Level getLevel() 
+    public Level getLevel()
       {
         return logger.getLevel();
       }
 
-    public synchronized Handler[] getHandlers() 
+    public synchronized Handler[] getHandlers()
       {
         return logger.getHandlers();
       }
