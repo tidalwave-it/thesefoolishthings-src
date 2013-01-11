@@ -24,6 +24,7 @@ package it.tidalwave.thesefoolishthings.examples.asexample1;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
+import java.io.ByteArrayOutputStream;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import it.tidalwave.util.Id;
 import it.tidalwave.role.AsExtensions;
@@ -31,6 +32,7 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry;
 import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
 import it.tidalwave.thesefoolishthings.examples.person.XStreamContext;
+import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.Displayable.Displayable;
 import static it.tidalwave.role.Marshallable.Marshallable;
@@ -42,7 +44,7 @@ import static it.tidalwave.role.ContextManager.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@ExtensionMethod(AsExtensions.class)
+@ExtensionMethod(AsExtensions.class) @Slf4j
 public class AsExample1
   {
     private static Object context;
@@ -53,26 +55,29 @@ public class AsExample1
         context = new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
         final Person luke = new Person(new Id("2"), "Luke", "Skywalker");
-        System.err.println(joe.as(Displayable).getDisplayName());
+        log.info("******** (joe as Displayable).displayName: {}", joe.as(Displayable).getDisplayName());
 
         final XStreamContext xStreamContext = new XStreamContext();
         addLocalContext(xStreamContext);
 
-        joe.as(Marshallable).marshal(System.err);
-//        as(joe, Marshallable).marshal(System.err);
-        System.err.println("");
+        final ByteArrayOutputStream os1 = new ByteArrayOutputStream();
+        joe.as(Marshallable).marshal(os1);
+//        as(joe, Marshallable).marshal(pw1);
+        log.info("******** (jos as Mashallable) marshalled: {}", new String(os1.toByteArray()));
 
+        final ByteArrayOutputStream os2 = new ByteArrayOutputStream();
         final ListOfPersons listOfPersons = new ListOfPersons(Arrays.asList(joe, luke));
-        listOfPersons.as(Marshallable).marshal(System.err);
-//        as(listOfPersons, Marshallable).marshal(System.err);
-        System.err.println("");
+        listOfPersons.as(Marshallable).marshal(os2);
+//        as(listOfPersons, Marshallable).marshal(pw);
+        log.info("******** (listOfPersons as Mashallable) marshalled: {}", new String(os2.toByteArray()));
 
+        final ByteArrayOutputStream os3 = new ByteArrayOutputStream();
         final DefaultPersonRegistry personRegistry = new DefaultPersonRegistry();
         personRegistry.addPerson(joe);
         personRegistry.addPerson(luke);
-        personRegistry.as(Marshallable).marshal(System.err);
-//        as(personRegistry, Marshallable).marshal(System.err);
-        System.err.println("");
+        personRegistry.as(Marshallable).marshal(os3);
+//        as(personRegistry, Marshallable).marshal(pw);
+        log.info("******** (personRegistry as Mashallable) marshalled: {}", new String(os2.toByteArray()));
         
         removeLocalContext(xStreamContext);
       }
