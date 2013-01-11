@@ -15,7 +15,7 @@
     <name>TheseFoolishThings Examples - As Example 2</name>
 
     <properties>
-        <mainClass>it.tidalwave.thesefoolishthings.examples.asexample2.AsExample2</mainClass>
+        <mainClass>it.tidalwave.thesefoolishthings.examples.asexample2.Main</mainClass>
     </properties>
 
     <dependencies>
@@ -58,6 +58,11 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
         
         <dependency>
