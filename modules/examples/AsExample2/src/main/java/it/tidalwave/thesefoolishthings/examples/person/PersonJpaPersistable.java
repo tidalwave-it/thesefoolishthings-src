@@ -43,8 +43,8 @@ import lombok.Setter;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RoleFor(datum=Person.class, context=JpaPersistenceContext.class)
-@Entity @NoArgsConstructor @Getter @Setter @ToString(exclude="context")
+@RoleFor(datum = Person.class, context = JpaPersistenceContext.class)
+@Entity @NoArgsConstructor @Getter @Setter @ToString(exclude = "context")
 public class PersonJpaPersistable implements Serializable, Persistable, Removable
   {
     @Transient
