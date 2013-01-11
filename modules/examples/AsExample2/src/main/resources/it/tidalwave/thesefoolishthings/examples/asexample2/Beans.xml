@@ -57,6 +57,11 @@
     <bean id="roleManager"
           class="it.tidalwave.role.spring.spi.AnnotationSpringRoleManager" />
 
+    <bean id="contextManager"
+          class="it.tidalwave.role.spring.SpringContextManager" />
+
     <bean class="it.tidalwave.thesefoolishthings.examples.asexample2.AsExample2" />
+    
+    <bean class="it.tidalwave.thesefoolishthings.examples.datum.JpaPersistenceContext" />
     
   </beans>

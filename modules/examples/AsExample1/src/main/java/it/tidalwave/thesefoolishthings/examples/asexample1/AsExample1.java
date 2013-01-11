@@ -22,10 +22,13 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.asexample1;
 
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import java.util.Arrays;
 import java.io.ByteArrayOutputStream;
 import it.tidalwave.util.Id;
 import it.tidalwave.role.AsExtensions;
+import it.tidalwave.role.ContextManager;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry;
 import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
@@ -34,7 +37,6 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.Displayable.Displayable;
 import static it.tidalwave.role.Marshallable.Marshallable;
-import static it.tidalwave.role.ContextManager.*;
 
 /***********************************************************************************************************************
  *
@@ -45,6 +47,9 @@ import static it.tidalwave.role.ContextManager.*;
 @ExtensionMethod(AsExtensions.class) @Slf4j
 public class AsExample1
   {
+    @Inject @Nonnull
+    private ContextManager contextManager;
+    
     public void run()
       throws Exception
       {
@@ -53,7 +58,7 @@ public class AsExample1
         log.info("******** (joe as Displayable).displayName: {}", joe.as(Displayable).getDisplayName());
 
         final XStreamContext xStreamContext = new XStreamContext();
-        addLocalContext(xStreamContext);
+        contextManager.addLocalContext(xStreamContext);
 
         final ByteArrayOutputStream os1 = new ByteArrayOutputStream();
         joe.as(Marshallable).marshal(os1);
@@ -74,6 +79,6 @@ public class AsExample1
 //        as(personRegistry, Marshallable).marshal(pw);
         log.info("******** (personRegistry as Mashallable) marshalled: {}", new String(os2.toByteArray()));
         
-        removeLocalContext(xStreamContext);
+        contextManager.removeLocalContext(xStreamContext);
       }
   }

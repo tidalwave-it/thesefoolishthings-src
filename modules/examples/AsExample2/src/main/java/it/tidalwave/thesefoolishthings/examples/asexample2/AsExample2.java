@@ -22,12 +22,14 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.asexample2;
 
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import it.tidalwave.util.Id;
 import it.tidalwave.role.AsExtensions;
+import it.tidalwave.role.ContextManager;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.datum.JpaPersistenceContext;
 import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.role.ContextManager.*;
 import static it.tidalwave.role.Persistable.*;
 import static it.tidalwave.role.Removable.*;
 
@@ -40,6 +42,12 @@ import static it.tidalwave.role.Removable.*;
 @ExtensionMethod(AsExtensions.class)
 public class AsExample2 
   {
+    @Inject @Nonnull
+    private ContextManager contextManager;
+    
+    @Inject @Nonnull
+    private JpaPersistenceContext jpaContext;
+    
     public void run()
       throws Exception
       {
@@ -47,11 +55,10 @@ public class AsExample2
 ////        System.err.println(as(joe, Displayable).getDisplayName());
 //        System.err.println(joe.as(Displayable).getDisplayName());
         
-        final JpaPersistenceContext jpaContext = new JpaPersistenceContext(); // FIXME: use Spring
-        addLocalContext(jpaContext);
+        contextManager.addLocalContext(jpaContext);
         joe.as(Persistable).persist();
         joe.as(Removable).remove();
-        removeLocalContext(jpaContext);
+        contextManager.removeLocalContext(jpaContext);
         
 //        runWithContext(jpaContext, new SimpleTask()
 //          {

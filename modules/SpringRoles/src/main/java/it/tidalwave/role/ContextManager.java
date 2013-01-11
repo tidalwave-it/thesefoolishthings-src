@@ -23,38 +23,20 @@
 package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Stack;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.Task;
 
 /***********************************************************************************************************************
  *
- * An utility class to register and unregister global and local contexts.
- *
- * FIXME: turn static methods in regular ones
+ * A facility to register and unregister global and local DCI contexts.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ContextManager
+public interface ContextManager
   {
-    /** The list of global contexts, ordered by priority. */
-    private final static List<Object> globalContexts = new ArrayList<Object>();
-
-    /** The list of local contexts, ordered by priority. */
-    private final static ThreadLocal<Stack<Object>> localContexts = new ThreadLocal<Stack<Object>>()
-      {
-        @Override @Nonnull
-        protected Stack<Object> initialValue()
-          {
-            return new Stack<Object>();
-          }
-      };
-
     /*******************************************************************************************************************
      *
      * Returns the list of current contexts, ordered by their priority.
@@ -63,14 +45,7 @@ public class ContextManager
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static List<Object> getContexts()
-      {
-        final List<Object> contexts = new ArrayList<Object>();
-        contexts.addAll(localContexts.get());
-        Collections.reverse(contexts);
-        contexts.addAll(0, globalContexts);
-        return contexts;
-      }
+    public List<Object> getContexts();
 
     /*******************************************************************************************************************
      *
@@ -82,19 +57,8 @@ public class ContextManager
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> T findContext (final @Nonnull Class<T> contextClass)
-      throws NotFoundException
-      {
-        for (final Object context : getContexts())
-          {
-            if (contextClass.isAssignableFrom(context.getClass()))
-              {
-                return contextClass.cast(context);
-              }
-          }
-
-        throw new NotFoundException();
-      }
+    public <T> T findContext (@Nonnull Class<T> contextClass)
+      throws NotFoundException;
 
     /*******************************************************************************************************************
      *
@@ -103,10 +67,7 @@ public class ContextManager
      * @param  context             the new context
      *
      ******************************************************************************************************************/
-    public static void addGlobalContext (final @Nonnull Object context)
-      {
-        globalContexts.add(context);
-      }
+    public void addGlobalContext (@Nonnull Object context);
 
     /*******************************************************************************************************************
      *
@@ -115,10 +76,7 @@ public class ContextManager
      * @param  context             the new context
      *
      ******************************************************************************************************************/
-    public static void addLocalContext (final @Nonnull Object context)
-      {
-        localContexts.get().push(context);
-      }
+    public void addLocalContext (@Nonnull Object context);
 
     /*******************************************************************************************************************
      *
@@ -127,10 +85,7 @@ public class ContextManager
      * @param  context             the context
      *
      ******************************************************************************************************************/
-    public static void removeLocalContext (final @Nonnull Object context)
-      {
-        localContexts.get().remove(context);
-      }
+    public void removeLocalContext (@Nonnull Object context);
 
     /*******************************************************************************************************************
      *
@@ -140,18 +95,7 @@ public class ContextManager
      * @param  task                the task
      *
      ******************************************************************************************************************/
-    public static <V, T extends Throwable> V runWithContext (final @Nonnull Object context,
-                                                             final @Nonnull Task<V, T> task)
-      throws T
-      {
-        try
-          {
-            addLocalContext(context);
-            return task.run();
-          }
-        finally
-          {
-            removeLocalContext(context);
-          }
-      }
+    public <V, T extends Throwable> V runWithContext (@Nonnull Object context,
+                                                      @Nonnull Task<V, T> task)
+      throws T;
   }

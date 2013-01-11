@@ -22,7 +22,6 @@
  **********************************************************************************************************************/
 package it.tidalwave.role.spring.spi;
 
-import it.tidalwave.role.ContextManager;
 import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Constructor;
@@ -35,16 +34,17 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.BeanCreationException;
 import it.tidalwave.util.spring.ClassScanner;
+import it.tidalwave.util.NotFoundException;
 import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.role.spi.RoleManager;
-import it.tidalwave.util.NotFoundException;
+import it.tidalwave.role.ContextManager;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.BeanCreationException;
 
 /***********************************************************************************************************************
  *
@@ -57,7 +57,10 @@ public class AnnotationSpringRoleManager implements RoleManager
   {
     @Inject @Nonnull
     private BeanFactory beanFactory;
-    
+
+    @Inject @Nonnull
+    private ContextManager contextManager;
+
     /*******************************************************************************************************************
      *
      *
@@ -67,32 +70,32 @@ public class AnnotationSpringRoleManager implements RoleManager
       {
         @Nonnull
         private final Class<?> ownerClass;
-        
+
         @Nonnull
         private final Class<?> roleClass;
-        
+
         @Nonnull
         public List<ClassAndRole> getSuper()
           {
             final List<ClassAndRole> result = new ArrayList<ClassAndRole>();
             result.add(this);
-            
+
             if (ownerClass.getSuperclass() != null)
               {
                 result.addAll(new ClassAndRole(ownerClass.getSuperclass(), roleClass).getSuper());
               }
-            
+
             for (final Class<?> interfaceClass : ownerClass.getInterfaces())
               {
                 result.addAll(new ClassAndRole(interfaceClass, roleClass).getSuper());
               }
-            
+
             return result;
           }
       }
-    
+
     private MultiValueMap<ClassAndRole, Class<?>> roleMapByOwnerClass = new LinkedMultiValueMap<ClassAndRole, Class<?>>();
-   
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -102,34 +105,34 @@ public class AnnotationSpringRoleManager implements RoleManager
     public <RoleType> List<? extends RoleType> findRoles (final @Nonnull Object owner, final @Nonnull Class<RoleType> roleClass)
       {
         log.trace("findRoles({}, {})", owner, roleClass);
-        
+
         final Class<?> ownerClass = owner.getClass();
         final List<RoleType> roles = new ArrayList<RoleType>();
-        
+
 outer:  for (final Class<? extends RoleType> roleImplementationClass : findRoleImplementationsFor(ownerClass, roleClass))
           {
             for (final Constructor<?> constructor : roleImplementationClass.getDeclaredConstructors())
               {
                 final Class<?>[] parameterTypes = constructor.getParameterTypes();
                 final Class<?> contextClass = roleImplementationClass.getAnnotation(DciRole.class).context();
-                
+
                 if (parameterTypes.length > 0)
                   {
-                    try 
+                    try
                       {
                         final List<Object> parameters = new ArrayList<Object>();
-                        
+
                         for (Class<?> parameterType : parameterTypes)
                           {
-                            if (parameterType.isAssignableFrom(ownerClass))    
+                            if (parameterType.isAssignableFrom(ownerClass))
                               {
-                                parameters.add(owner);  
+                                parameters.add(owner);
                               }
                             else if (parameterType.equals(contextClass))
                               {
                                 try
                                   {
-                                    parameters.add(ContextManager.findContext(parameterType));
+                                    parameters.add(contextManager.findContext(parameterType));
                                   }
                                 catch (NotFoundException e)
                                   {
@@ -149,19 +152,19 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : findRoleI
                                 parameters.add(beanFactory.getBean(parameterType));
                               }
                           }
-                        
+
                         roles.add((RoleType)constructor.newInstance(parameters.toArray()));
                       }
-                    catch (Exception e) 
+                    catch (Exception e)
                       {
                         log.error("", e);
                       }
                   }
               }
           }
-        
+
         log.trace(">>>> returning: {}", roles);
-        
+
         return roles;
       }
 
@@ -174,12 +177,12 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : findRoleI
       {
         final ClassAndRole classAndRole = new ClassAndRole(ownerClass, roleClass);
         final List<Class<?>> implementations = roleMapByOwnerClass.get(classAndRole);
-        
+
         if (implementations != null)
           {
             return (List)implementations;
           }
-        
+
         for (final ClassAndRole classAndRole1 : classAndRole.getSuper())
           {
             final List<Class<?>> implementations2 = roleMapByOwnerClass.get(classAndRole1);
@@ -190,14 +193,14 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : findRoleI
                   {
                     roleMapByOwnerClass.add(classAndRole, implementation);
                   }
-                
+
                 return (List)implementations2;
               }
           }
-        
+
         return Collections.emptyList();
       }
-    
+
     /*******************************************************************************************************************
      *
      *
@@ -206,22 +209,22 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : findRoleI
     /* package */ void initialize()
       {
         final ClassScanner classScanner = new ClassScanner().withAnnotationFilter(DciRole.class);
-        
+
         for (final Class<?> roleImplementationClass : classScanner.findClasses())
           {
             final DciRole role = roleImplementationClass.getAnnotation(DciRole.class);
             final Class<?> datumClass = role.datum();
             final Class<?> contextClass = role.context();
-            
+
             for (final Class<?> roleClass : roleImplementationClass.getInterfaces())
               {
                 roleMapByOwnerClass.add(new ClassAndRole(datumClass, roleClass), roleImplementationClass);
               }
           }
-        
+
         logRoles();
       }
-        
+
     /*******************************************************************************************************************
      *
      *
@@ -229,7 +232,7 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : findRoleI
     public void logRoles()
       {
         log.debug("Configured roles:");
-        
+
         for (final Entry<ClassAndRole, List<Class<?>>> entry : roleMapByOwnerClass.entrySet())
           {
             log.debug(">>>> {} -> {}", entry.getKey(), entry.getValue());
