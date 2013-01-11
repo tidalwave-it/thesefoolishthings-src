@@ -22,7 +22,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.role.spring.spi;
 
-import it.tidalwave.role.ContextRunner;
+import it.tidalwave.role.ContextManager;
 import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Constructor;
@@ -129,7 +129,7 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : findRoleI
                               {
                                 try
                                   {
-                                    parameters.add(ContextRunner.findContext(parameterType));
+                                    parameters.add(ContextManager.findContext(parameterType));
                                   }
                                 catch (NotFoundException e)
                                   {

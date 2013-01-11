@@ -30,8 +30,11 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.datum.JpaPersistenceContext;
 import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.Displayable.Displayable;
-import static it.tidalwave.role.ContextRunner.*;
+import static it.tidalwave.role.ContextManager.*;
 import static it.tidalwave.role.AsExtensions.*;
+import static it.tidalwave.role.Persistable.*;
+import static it.tidalwave.role.Removable.*;
+import it.tidalwave.util.SimpleTask;
 
 /***********************************************************************************************************************
  *
@@ -45,20 +48,25 @@ public class AsExample2
     public static void main (final @Nonnull String ... args)
       throws Exception
       {
-        new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
+        new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample2/Beans.xml");
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
-        System.err.println(as(joe, Displayable).getDisplayName());
-//        System.err.println(joe.as(Displayable).getDisplayName());
+//        System.err.println(as(joe, Displayable).getDisplayName());
+        System.err.println(joe.as(Displayable).getDisplayName());
         
         final JpaPersistenceContext jpaContext = new JpaPersistenceContext(); // FIXME: use Spring
-        runInContext(jpaContext, new SimpleCallable()
-          {
-            public Void run() 
-              {
-//                joe.as(Persistable).persist();
-//                joe.as(Removable).remove();
-                return null;
-              }
-          });
+        addLocalContext(jpaContext);
+        joe.as(Persistable).persist();
+        joe.as(Removable).remove();
+        removeLocalContext(jpaContext);
+        
+//        runWithContext(jpaContext, new SimpleTask()
+//          {
+//            public Void run() 
+//              {
+////                joe.as(Persistable).persist();
+////                joe.as(Removable).remove();
+//                return null;
+//              }
+//          });
       } 
   }

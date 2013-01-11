@@ -24,18 +24,17 @@ package it.tidalwave.thesefoolishthings.examples.asexample1;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
-import java.io.IOException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import it.tidalwave.util.Id;
+import it.tidalwave.role.AsExtensions;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry;
 import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
 import it.tidalwave.thesefoolishthings.examples.person.XStreamContext;
+import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.Displayable.Displayable;
 import static it.tidalwave.role.Marshallable.Marshallable;
-import static it.tidalwave.role.ContextRunner.*;
-import static it.tidalwave.role.AsExtensions.*;
-import it.tidalwave.util.Task;
+import static it.tidalwave.role.ContextManager.*;
 
 /***********************************************************************************************************************
  *
@@ -43,7 +42,7 @@ import it.tidalwave.util.Task;
  * @version $Id$
  *
  **********************************************************************************************************************/
-//@ExtensionMethod(AsExtensions.class)
+@ExtensionMethod(AsExtensions.class)
 public class AsExample1
   {
     private static Object context;
@@ -54,33 +53,27 @@ public class AsExample1
         context = new ClassPathXmlApplicationContext("it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml");
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
         final Person luke = new Person(new Id("2"), "Luke", "Skywalker");
-//        System.err.println(joe.as(Displayable).getDisplayName());
-        System.err.println(as(joe, Displayable).getDisplayName());
+        System.err.println(joe.as(Displayable).getDisplayName());
 
-        final XStreamContext ctx = new XStreamContext();
-        runInContext(ctx, new Task<Void, IOException>()
-          {
-            public Void run()
-              throws IOException
-              {
-//                joe.as(Marshallable).marshal(System.err);
-                as(joe, Marshallable).marshal(System.err);
-                System.err.println("");
+        final XStreamContext xStreamContext = new XStreamContext();
+        addLocalContext(xStreamContext);
 
-                final ListOfPersons listOfPersons = new ListOfPersons(Arrays.asList(joe, luke));
-//                listOfPersons.as(Marshallable).marshal(System.err);
-                as(listOfPersons, Marshallable).marshal(System.err);
-                System.err.println("");
+        joe.as(Marshallable).marshal(System.err);
+//        as(joe, Marshallable).marshal(System.err);
+        System.err.println("");
 
-                final DefaultPersonRegistry personRegistry = new DefaultPersonRegistry();
-                personRegistry.addPerson(joe);
-                personRegistry.addPerson(luke);
-//                personRegistry.as(Marshallable).marshal(System.err);
-                as(personRegistry, Marshallable).marshal(System.err);
-                System.err.println("");
+        final ListOfPersons listOfPersons = new ListOfPersons(Arrays.asList(joe, luke));
+        listOfPersons.as(Marshallable).marshal(System.err);
+//        as(listOfPersons, Marshallable).marshal(System.err);
+        System.err.println("");
 
-                return null;
-              }
-          });
+        final DefaultPersonRegistry personRegistry = new DefaultPersonRegistry();
+        personRegistry.addPerson(joe);
+        personRegistry.addPerson(luke);
+        personRegistry.as(Marshallable).marshal(System.err);
+//        as(personRegistry, Marshallable).marshal(System.err);
+        System.err.println("");
+        
+        removeLocalContext(xStreamContext);
       }
   }
