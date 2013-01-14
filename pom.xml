@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>superpom</artifactId>
-        <version>2.1</version>
+        <version>2.2</version>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -203,7 +203,7 @@
     </dependencyManagement>
 
     <build>
-        <plugins>
+        <plugins>                       
             <!-- Needed for setting that inherited = false -->
             <plugin>
                 <groupId>com.mycila.maven-license-plugin</groupId>
