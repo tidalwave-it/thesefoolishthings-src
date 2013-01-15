@@ -39,18 +39,18 @@ import it.tidalwave.util.spi.SimpleFinderSupport;
 /* package */ class DefaultPersonFinder1 extends SimpleFinderSupport<Person> implements Finder<Person>
   {
     private List<Person> persons;
-    
+
     @Override @Nonnull
     public DefaultPersonFinder1 clone()
       {
         final DefaultPersonFinder1 clone = (DefaultPersonFinder1)super.clone();
         clone.persons = this.persons;
-        
+
         return clone;
       }
 
     @Override @Nonnull
-    protected List<? extends Person> computeResults() 
+    protected List<? extends Person> computeResults()
       {
         return new ArrayList<Person>(persons); // don't expose internal status
       }

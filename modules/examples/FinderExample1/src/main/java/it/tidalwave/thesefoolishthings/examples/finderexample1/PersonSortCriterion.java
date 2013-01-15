@@ -33,21 +33,21 @@ import it.tidalwave.util.DefaultFilterSortCriterion;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public final class PersonSortCriterion 
+public final class PersonSortCriterion
   {
     public final static SortCriterion BY_FIRST_NAME = new DefaultFilterSortCriterion<Person>(
-        new Comparator<Person>() 
+        new Comparator<Person>()
           {
-            public int compare (final @Nonnull Person p1, final @Nonnull Person p2) 
+            public int compare (final @Nonnull Person p1, final @Nonnull Person p2)
               {
                 return p1.getFirstName().compareTo(p2.getFirstName());
               }
           }, "BY_FIRST_NAME");
-    
+
     public final static SortCriterion BY_LAST_NAME = new DefaultFilterSortCriterion<Person>(
-        new Comparator<Person>() 
+        new Comparator<Person>()
           {
-            public int compare (final @Nonnull Person p1, final @Nonnull Person p2) 
+            public int compare (final @Nonnull Person p1, final @Nonnull Person p2)
               {
                 return p1.getLastName().compareTo(p2.getLastName());
               }

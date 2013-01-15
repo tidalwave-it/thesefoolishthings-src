@@ -36,7 +36,7 @@ import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSort
 public class FinderExample1
   {
     public static void main (final @Nonnull String ... args)
-      throws NotFoundException 
+      throws NotFoundException
       {
         final PersonRegistry1 registry = new DefaultPersonRegistry1();
 
@@ -47,18 +47,18 @@ public class FinderExample1
         registry.add(new Person("Bill", "Clinton"));
         registry.add(new Person("George Walker", "Bush"));
         registry.add(new Person("Barack", "Obama"));
-        
+
         //@bluebook-begin example
-        System.out.println("All: " 
+        System.out.println("All: "
                            + registry.findPersons().results());
-        
-        System.out.println("All, sorted by first name: " 
+
+        System.out.println("All, sorted by first name: "
                            + registry.findPersons().sort(BY_FIRST_NAME).results());
-        
-        System.out.println("All, sorted by last name, descending: " 
+
+        System.out.println("All, sorted by last name, descending: "
                            + registry.findPersons().sort(BY_LAST_NAME, DESCENDING).results());
-        
-        System.out.println("Two persons from the 3rd position: " 
+
+        System.out.println("Two persons from the 3rd position: "
                            + registry.findPersons().from(3).max(2).results());
       }
   }

@@ -32,11 +32,11 @@ import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface PersonFinder extends ExtendedFinderSupport<Person, PersonFinder> 
+public interface PersonFinder extends ExtendedFinderSupport<Person, PersonFinder>
   {
     @Nonnull
     public PersonFinder withFirstName (@Nonnull String firstName);
-    
+
     @Nonnull
     public PersonFinder withLastName (@Nonnull String firstName);
   }

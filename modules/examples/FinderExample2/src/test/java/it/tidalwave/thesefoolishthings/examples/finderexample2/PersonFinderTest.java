@@ -37,12 +37,12 @@ import static org.hamcrest.MatcherAssert.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class PersonFinderTest 
+public class PersonFinderTest
   {
     private PersonFinder finder;
-    
+
     @BeforeMethod
-    public void setupFixture() 
+    public void setupFixture()
       {
         final PersonRegistry2 registry = new DefaultPersonRegistry2();
 
@@ -53,7 +53,7 @@ public class PersonFinderTest
         registry.add(new Person("Bill", "Clinton"));
         registry.add(new Person("George Walker", "Bush"));
         registry.add(new Person("Barack", "Obama"));
-        
+
         finder = registry.findPersons();
       }
 
@@ -64,8 +64,8 @@ public class PersonFinderTest
                    is("[Richard Nixon, Jimmy Carter, Ronald Reagan, George Bush, "
                     + "Bill Clinton, George Walker Bush, Barack Obama]"));
       }
-    
-    
+
+
     @Test
     public void testAllPersonsSortedByFirstName()
       {
@@ -73,7 +73,7 @@ public class PersonFinderTest
                    is("[Barack Obama, Bill Clinton, George Bush, George Walker Bush, "
                     + "Jimmy Carter, Richard Nixon, Ronald Reagan]"));
       }
-    
+
     @Test
     public void testAllPersonsSortedByLastNameDescending()
       {
@@ -81,30 +81,30 @@ public class PersonFinderTest
                    is("[Ronald Reagan, Barack Obama, Richard Nixon, Bill Clinton, "
                     + "Jimmy Carter, George Bush, George Walker Bush]"));
       }
-    
+
     @Test
     public void testPersonRange()
       {
         assertThat(finder.from(3).max(2).results().toString(),
                    is("[George Bush, Bill Clinton]"));
       }
-    
+
     @Test
     public void testFirstNameStartingWithB()
       {
         assertThat(finder.withFirstName("B.*").results().toString(),
                    is("[Bill Clinton, Barack Obama]"));
       }
-    
+
     @Test
     public void testFirstNameStartingWithBSortedByFirstName()
       {
         assertThat(finder.withFirstName("B.*").sort(BY_FIRST_NAME).results().toString(),
                    is("[Barack Obama, Bill Clinton]"));
       }
-    
+
     @Test
-    public void testLastNameIsBushFirstResult() 
+    public void testLastNameIsBushFirstResult()
       throws NotFoundException
       {
         assertThat(finder.withLastName("Bush").firstResult().toString(),

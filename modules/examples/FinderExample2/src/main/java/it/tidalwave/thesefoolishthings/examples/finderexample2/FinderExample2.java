@@ -37,7 +37,7 @@ import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSort
 public class FinderExample2
   {
     public static void main (final @Nonnull String ... args)
-      throws NotFoundException 
+      throws NotFoundException
       {
         final PersonRegistry2 registry = new DefaultPersonRegistry2();
 
@@ -48,28 +48,28 @@ public class FinderExample2
         registry.add(new Person("Bill", "Clinton"));
         registry.add(new Person("George Walker", "Bush"));
         registry.add(new Person("Barack", "Obama"));
-        
+
         //@bluebook-begin example
-        System.out.println("All: " 
+        System.out.println("All: "
                            + registry.findPersons().results());
-        
-        System.out.println("All, sorted by first name: " 
+
+        System.out.println("All, sorted by first name: "
                            + registry.findPersons().sort(BY_FIRST_NAME).results());
-        
-        System.out.println("All, sorted by last name, descending: " 
+
+        System.out.println("All, sorted by last name, descending: "
                            + registry.findPersons().sort(BY_LAST_NAME, DESCENDING).results());
-        
-        System.out.println("Two persons from the 3rd position: " 
+
+        System.out.println("Two persons from the 3rd position: "
                            + registry.findPersons().from(3).max(2).results());
-        
+
         final PersonFinder withFirstNameStartingWithB = registry.findPersons().withFirstName("B.*");
-        
-        System.out.println("Whose first name starts with B: " 
+
+        System.out.println("Whose first name starts with B: "
                            + withFirstNameStartingWithB.results());
-        
-        System.out.println("Whose first name starts with B, sorted by first name: " 
+
+        System.out.println("Whose first name starts with B, sorted by first name: "
                            + withFirstNameStartingWithB.sort(BY_FIRST_NAME).results());
-        
+
         System.out.println("The first found whose last name is Bush: "
                            + registry.findPersons().withLastName("Bush").firstResult());
         //@bluebook-end example

@@ -33,16 +33,16 @@ import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DefaultPersonRegistry2 implements PersonRegistry2 
+public class DefaultPersonRegistry2 implements PersonRegistry2
   {
     private final List<Person> persons = new ArrayList<Person>();
-    
+
     @Override
     public void add (final @Nonnull Person person)
       {
-        persons.add(person);    
+        persons.add(person);
       }
-    
+
     @Override @Nonnull
     public PersonFinder findPersons()
       {

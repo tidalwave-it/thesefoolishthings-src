@@ -33,16 +33,16 @@ import it.tidalwave.util.Finder;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DefaultPersonRegistry1 implements PersonRegistry1 
+public class DefaultPersonRegistry1 implements PersonRegistry1
   {
     private final List<Person> persons = new ArrayList<Person>();
-    
+
     @Override
     public void add (final @Nonnull Person person)
       {
-        persons.add(person);    
+        persons.add(person);
       }
-    
+
     @Override @Nonnull
     public Finder<Person> findPersons()
       {

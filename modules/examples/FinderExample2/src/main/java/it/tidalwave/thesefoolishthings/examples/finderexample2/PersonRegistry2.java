@@ -31,7 +31,7 @@ import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface PersonRegistry2 
+public interface PersonRegistry2
   {
     public void add (@Nonnull Person person);
 

@@ -36,12 +36,12 @@ import static org.hamcrest.MatcherAssert.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class PersonFinderTest 
+public class PersonFinderTest
   {
     private Finder<Person> finder;
-    
+
     @BeforeMethod
-    public void setupFixture() 
+    public void setupFixture()
       {
         final PersonRegistry1 registry = new DefaultPersonRegistry1();
 
@@ -52,7 +52,7 @@ public class PersonFinderTest
         registry.add(new Person("Bill", "Clinton"));
         registry.add(new Person("George Walker", "Bush"));
         registry.add(new Person("Barack", "Obama"));
-        
+
         finder = registry.findPersons();
       }
 
@@ -63,7 +63,7 @@ public class PersonFinderTest
                    is("[Richard Nixon, Jimmy Carter, Ronald Reagan, George Bush, "
                     + "Bill Clinton, George Walker Bush, Barack Obama]"));
       }
-    
+
     @Test
     public void testAllPersonsSortedByFirstName()
       {
@@ -71,7 +71,7 @@ public class PersonFinderTest
                    is("[Barack Obama, Bill Clinton, George Bush, George Walker Bush, "
                     + "Jimmy Carter, Richard Nixon, Ronald Reagan]"));
       }
-    
+
     @Test
     public void testAllPersonsSortedByLastNameDescending()
       {
@@ -79,7 +79,7 @@ public class PersonFinderTest
                    is("[Ronald Reagan, Barack Obama, Richard Nixon, Bill Clinton, "
                     + "Jimmy Carter, George Bush, George Walker Bush]"));
       }
-    
+
     @Test
     public void testPersonRange()
       {

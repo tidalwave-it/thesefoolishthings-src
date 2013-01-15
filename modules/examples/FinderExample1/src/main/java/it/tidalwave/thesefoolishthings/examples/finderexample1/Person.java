@@ -33,14 +33,14 @@ import lombok.RequiredArgsConstructor;
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor
-public class Person 
+public class Person
   {
     @Getter
     private final String firstName;
 
     @Getter
     private final String lastName;
-    
+
     @Override @Nonnull
     public String toString()
       {

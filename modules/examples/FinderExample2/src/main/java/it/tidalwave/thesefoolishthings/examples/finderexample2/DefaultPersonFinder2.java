@@ -38,16 +38,16 @@ import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
 /* package */ class DefaultPersonFinder2 extends FinderSupport<Person, PersonFinder> implements PersonFinder
   {
     private List<Person> persons;
-    
+
     private String firstName = ".*";
-    
+
     private String lastName = ".*";
-    
-    public DefaultPersonFinder2 (final @Nonnull List<Person> persons) 
+
+    public DefaultPersonFinder2 (final @Nonnull List<Person> persons)
       {
         this.persons = persons;
       }
-    
+
     @Override @Nonnull
     public DefaultPersonFinder2 clone()
       {
@@ -55,12 +55,12 @@ import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
         clone.persons   = this.persons;
         clone.firstName = this.firstName;
         clone.lastName  = this.lastName;
-        
+
         return clone;
       }
 
     @Override @Nonnull
-    public PersonFinder withFirstName (final @Nonnull String firstName) 
+    public PersonFinder withFirstName (final @Nonnull String firstName)
       {
         final DefaultPersonFinder2 clone = clone();
         clone.firstName = firstName;
@@ -68,7 +68,7 @@ import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
       }
 
     @Override @Nonnull
-    public PersonFinder withLastName (final @Nonnull String lastName) 
+    public PersonFinder withLastName (final @Nonnull String lastName)
       {
         final DefaultPersonFinder2 clone = clone();
         clone.lastName = lastName;
@@ -76,7 +76,7 @@ import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
       }
 
     @Override @Nonnull
-    protected List<? extends Person> computeResults() 
+    protected List<? extends Person> computeResults()
       {
         final List<Person> result = new ArrayList<Person>();
         final Pattern firstNameRegEx = Pattern.compile(firstName);
@@ -84,10 +84,10 @@ import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
 
         for (final Person person : persons)
           {
-            if (firstNameRegEx.matcher(person.getFirstName()).matches() 
+            if (firstNameRegEx.matcher(person.getFirstName()).matches()
                 && lastNameRegEx.matcher(person.getLastName()).matches())
               {
-                result.add(person);  
+                result.add(person);
               }
           }
 

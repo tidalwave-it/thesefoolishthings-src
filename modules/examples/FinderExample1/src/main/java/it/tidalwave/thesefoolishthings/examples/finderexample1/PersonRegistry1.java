@@ -31,7 +31,7 @@ import it.tidalwave.util.Finder;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface PersonRegistry1 
+public interface PersonRegistry1
   {
     public void add (@Nonnull Person person);
 
