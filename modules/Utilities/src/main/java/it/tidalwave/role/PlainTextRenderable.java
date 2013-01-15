@@ -24,7 +24,9 @@ package it.tidalwave.role;
 
 /***********************************************************************************************************************
  *
- * The role of an object that can be rendered into a {@link String} as plain text.
+ * The role of an object that can be rendered into a {@link String} as plain text. Note that while it has a method
+ * with the same signature as {@link StringRenderable}, it has modified semantics since it guarantees that the returned
+ * string is a plain text.
  *
  * @stereotype Role
  *

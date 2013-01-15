@@ -26,6 +26,8 @@ package it.tidalwave.role;
  *
  * A specialized {@link LocalizedDisplayable} which is mutable.
  *
+ * @stereotype Role
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable

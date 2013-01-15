@@ -30,6 +30,8 @@ import javax.swing.Icon;
  *
  * A specialized {@link IconProvider} which is mutable and fires {@code PropertyChangeEvent}s.
  *
+ * @stereotype Role
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.draft
@@ -39,6 +41,7 @@ public interface MutableIconProvider extends IconProvider
   {
     public static final Class<MutableIconProvider> MutableIconProvider = MutableIconProvider.class;
 
+    /** The property name for icon. */
     public final static String PROP_ICON = "icon";
 
     /*******************************************************************************************************************

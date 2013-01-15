@@ -27,7 +27,9 @@ import it.tidalwave.util.Id;
 
 /***********************************************************************************************************************
  *
- * A factory for creating new, unique {@code Id} for an object.
+ * A factory for creating a new, unique {@code Id} for an object.
+ *
+ * @stereotype Role
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -50,7 +52,7 @@ public interface IdFactory
 
     /*******************************************************************************************************************
      *
-     * Created a new id for an object of the given class.
+     * Creates a new id for an object of the given class.
      *
      * @param   objectClass  the class of the object for which the {@code Id} is created
      * @return               the new id
@@ -61,7 +63,7 @@ public interface IdFactory
 
     /*******************************************************************************************************************
      *
-     * Created a new id for the given object of the given class. This method allows to explicitly pass a {@code Class}
+     * Creates a new id for the given object of the given class. This method allows to explicitly pass a {@code Class}
      * for cases in which the {@code object} implements multiple interfaces and one wants to specify the referenced one.
      *
      * @param   object       the object for which the {@code Id}

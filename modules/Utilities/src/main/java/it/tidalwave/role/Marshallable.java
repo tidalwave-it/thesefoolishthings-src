@@ -42,6 +42,10 @@ public interface Marshallable
 
     /*******************************************************************************************************************
      *
+     * Marshals this object to an {@link OutputStream}.
+     * 
+     * @param    os           the {@code OutputStream}
+     * @throws   IOException  in case of errors
      *
      ******************************************************************************************************************/
     public void marshal (@Nonnull OutputStream os)

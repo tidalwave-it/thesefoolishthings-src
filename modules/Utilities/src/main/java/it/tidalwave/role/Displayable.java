@@ -29,6 +29,8 @@ import javax.annotation.Nonnull;
  *
  * The role of an object which can provide its own display name.
  *
+ * @stereotype Role
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -41,7 +43,7 @@ public interface Displayable
 
     /*******************************************************************************************************************
      *
-     * A default {@code Displayable} with a empty display name.
+     * A default {@code Displayable} with an empty display name.
      *
      ******************************************************************************************************************/
     public final static Displayable DEFAULT = new DefaultDisplayable("", "DEFAULT");
@@ -51,7 +53,7 @@ public interface Displayable
      *
      * Returns the display name in the current {@link Locale}.
      *
-     * @returns  the display name
+     * @return  the display name
      *
      ******************************************************************************************************************/
     @Nonnull

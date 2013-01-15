@@ -32,6 +32,8 @@ import javax.swing.ImageIcon;
  *
  * The role of an object that can provide an icon for rendering.
  *
+ * @stereotype Role
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.draft

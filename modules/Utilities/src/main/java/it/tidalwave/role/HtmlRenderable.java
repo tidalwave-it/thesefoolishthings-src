@@ -24,7 +24,9 @@ package it.tidalwave.role;
 
 /***********************************************************************************************************************
  *
- * The role of an object that can be rendered into a {@link String} as HTML markup.
+ * The role of an object that can be rendered into a {@link String} as HTML markup. While this class has the same
+ * method signature as {@link StringRenderable}, its semantics are different, as it is expectedt to return an HTML
+ * fragment.
  *
  * @stereotype Role
  *

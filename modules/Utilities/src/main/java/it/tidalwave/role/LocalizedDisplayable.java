@@ -31,6 +31,8 @@ import java.util.SortedSet;
  *
  * A specialized {@link Displayable} which can manage names in multiple {@link Locale}s.
  *
+ * @stereotype Role
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable

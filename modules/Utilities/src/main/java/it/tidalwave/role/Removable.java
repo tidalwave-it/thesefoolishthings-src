@@ -26,6 +26,8 @@ package it.tidalwave.role;
  *
  * The role of an object that can be removed (e.g. deleted).
  *
+ * @stereotype Role
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -49,7 +51,7 @@ public interface Removable
 
     /*******************************************************************************************************************
      *
-     * Removes the object.
+     * Removes this object from some implicit, or context-provided container (e.g. a persistnce facility, etc...).
      *
      * @throws  Exception   if the operation fails
      *

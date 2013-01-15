@@ -31,7 +31,10 @@ import it.tidalwave.util.spi.FinderSupport;
 
 /***********************************************************************************************************************
  *
- * The role of a composite object, that is an object which contains children.
+ * The role of a composite object, that is an object which contains children. They are exposed by means of a
+ * {@link Finder}.
+ *
+ * @stereotype Role
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -43,7 +46,7 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type>>
     //@bluebook-begin other
     public static final Class<Composite> Composite = Composite.class;
 
-    static class EmptyFinder extends FinderSupport<Object, EmptyFinder>
+    static final class EmptyFinder extends FinderSupport<Object, EmptyFinder> // TODO: move to Finder, make it public
       {
         @Override @Nonnull
         protected List<? extends Object> computeResults()
@@ -59,7 +62,7 @@ public interface Composite<Type, SpecializedFinder extends Finder<Type>>
      ******************************************************************************************************************/
     public final static Composite<Object, Finder<Object>> DEFAULT = new Composite<Object, Finder<Object>>()
       {
-        private final Finder<Object> EMPTY_FINDER = new EmptyFinder(); // TODO: move to Finder
+        private final Finder<Object> EMPTY_FINDER = new EmptyFinder();
 
         @Override @Nonnull
         public Finder<Object> findChildren()

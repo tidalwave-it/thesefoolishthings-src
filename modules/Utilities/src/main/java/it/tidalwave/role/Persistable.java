@@ -26,6 +26,8 @@ package it.tidalwave.role;
  *
  * The role of an object that can be persisted.
  *
+ * @stereotype Role
+ *
  * @author  Fabrizio Giudici
  * @it.tidalwave.javadoc.draft
  * @version $Id$
@@ -35,5 +37,10 @@ public interface Persistable
   {
     public static final Class<Persistable> Persistable = Persistable.class;
 
+    /*******************************************************************************************************************
+     *
+     * Persists this object to some implicit, or context-provided persistence facility.
+     *
+     ******************************************************************************************************************/
     public void persist();
   }

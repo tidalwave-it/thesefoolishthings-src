@@ -30,6 +30,8 @@ import java.io.InputStream;
  *
  * The role of an object that can be read as a stream of bytes.
  *
+ * @stereotype Role
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable

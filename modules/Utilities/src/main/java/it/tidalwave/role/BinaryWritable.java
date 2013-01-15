@@ -30,6 +30,8 @@ import java.io.OutputStream;
  *
  * The role of an object that can be written as a stream of bytes.
  *
+ * @stereotype Role
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable

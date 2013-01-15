@@ -27,7 +27,9 @@ import it.tidalwave.util.Id;
 
 /***********************************************************************************************************************
  *
- * The role of an object that owns an unique identifier.
+ * The role of an object that can expose an unique identifier.
+ *
+ * @stereotype Role
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -38,6 +40,13 @@ public interface Identifiable
   {
     public final static Class<Identifiable> Identifiable = Identifiable.class;
 
+    /*******************************************************************************************************************
+     *
+     * Returns the identifier.
+     *
+     * @return               the id
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public Id getId();
   }

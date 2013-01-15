@@ -29,7 +29,10 @@ import java.util.Map;
 
 /***********************************************************************************************************************
  *
- * A specialized {@link Displayable} which is mutable and fires {@code PropertyChangeEvent}s.
+ * A specialized {@link Displayable} which is mutable (that is, its display name can be changed) and fires
+ * {@code PropertyChangeEvent}s.
+ *
+ * @stereotype Role
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -38,10 +41,13 @@ import java.util.Map;
  **********************************************************************************************************************/
 public interface MutableDisplayable extends Displayable
   {
-    public final static String PROP_DISPLAY_NAME = "displayName";
-    public final static String PROP_DISPLAY_NAMES = "displayNames";
-
     public final static Class<MutableDisplayable> MutableDisplayable = MutableDisplayable.class;
+
+    /** The property name for displayName */
+    public final static String PROP_DISPLAY_NAME = "displayName";
+
+    /** The property name for displayNames */
+    public final static String PROP_DISPLAY_NAMES = "displayNames";
 
     /*******************************************************************************************************************
      *
