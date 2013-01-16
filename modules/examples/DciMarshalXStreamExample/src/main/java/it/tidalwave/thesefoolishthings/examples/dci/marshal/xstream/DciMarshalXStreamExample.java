@@ -20,17 +20,22 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.asexample1;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.io.ByteArrayOutputStream;
 import it.tidalwave.util.Id;
 import it.tidalwave.role.AsExtensions;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
+import it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry;
+import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
+import it.tidalwave.thesefoolishthings.examples.person.XStreamContext;
 import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.role.Displayable.Displayable;
+import static it.tidalwave.role.Marshallable.Marshallable;
 
 /***********************************************************************************************************************
  *
@@ -39,7 +44,7 @@ import static it.tidalwave.role.Displayable.Displayable;
  *
  **********************************************************************************************************************/
 @ExtensionMethod(AsExtensions.class) @Slf4j
-public class AsExample1
+public class DciMarshalXStreamExample
   {
     @Inject @Nonnull
     private ContextManager contextManager;
@@ -49,8 +54,26 @@ public class AsExample1
       {
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
         final Person luke = new Person(new Id("2"), "Luke", "Skywalker");
+
+        final XStreamContext xStreamContext = new XStreamContext();
+        contextManager.addLocalContext(xStreamContext);
+
+        final ByteArrayOutputStream os1 = new ByteArrayOutputStream();
+        joe.as(Marshallable).marshal(os1);
+        log.info("******** (jos as Mashallable) marshalled: {}", new String(os1.toByteArray()));
+
+        final ByteArrayOutputStream os2 = new ByteArrayOutputStream();
+        final ListOfPersons listOfPersons = new ListOfPersons(Arrays.asList(joe, luke));
+        listOfPersons.as(Marshallable).marshal(os2);
+        log.info("******** (listOfPersons as Mashallable) marshalled: {}", new String(os2.toByteArray()));
+
+        final ByteArrayOutputStream os3 = new ByteArrayOutputStream();
+        final DefaultPersonRegistry personRegistry = new DefaultPersonRegistry();
+        personRegistry.addPerson(joe);
+        personRegistry.addPerson(luke);
+        personRegistry.as(Marshallable).marshal(os3);
+        log.info("******** (personRegistry as Mashallable) marshalled: {}", new String(os2.toByteArray()));
         
-        log.info("******** (joe as Displayable).displayName: {}", joe.as(Displayable).getDisplayName());
-        log.info("******** (luke as Displayable).displayName: {}", luke.as(Displayable).getDisplayName());
+        contextManager.removeLocalContext(xStreamContext);
       }
   }

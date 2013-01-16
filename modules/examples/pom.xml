@@ -40,6 +40,7 @@
 
     <modules>
         <module>AsExample1</module>
+        <module>DciMarshalXStreamExample</module>
         <!-- module>AsExample2</module -->
         <module>Data</module>
         <module>FinderExample1</module>
