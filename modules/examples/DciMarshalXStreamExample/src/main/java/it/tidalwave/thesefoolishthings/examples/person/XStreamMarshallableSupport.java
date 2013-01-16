@@ -23,20 +23,40 @@
 package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.dci.annotation.DciRole;
+import java.io.IOException;
+import java.io.OutputStream;
+import it.tidalwave.role.Marshallable;
 import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.XStreamContext;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
+ * A facility class for implementing a {@link Marshallable} using XStream. Subclass properly and eventually override
+ * {@link #getMarshallingObject(java.lang.Object)} when only a part of the datum must be considered by XStream.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = Person.class, context = XStreamContext.class)
-public final class PersonXStreamMarshallable extends XStreamMarshallableSupport<Person>
+@RequiredArgsConstructor
+public abstract class XStreamMarshallableSupport<D> implements Marshallable
   {
-    public PersonXStreamMarshallable (final @Nonnull Person datum, final @Nonnull XStreamContext context)
+    @Nonnull
+    private final D datum;
+
+    @Nonnull
+    private final XStreamContext xStreamContext;
+
+    @Override
+    public final void marshal (final @Nonnull OutputStream os)
+      throws IOException
       {
-        super(datum, context);
+        xStreamContext.getXStream().toXML(getMarshallingObject(datum), os);
+      }
+
+    @Nonnull
+    protected Object getMarshallingObject (final @Nonnull D datum)
+      {
+        return datum;
       }
   }

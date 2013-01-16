@@ -23,12 +23,8 @@
 package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
-import java.io.IOException;
-import java.io.OutputStream;
-import it.tidalwave.role.Marshallable;
 import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.XStreamContext;
-import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
@@ -36,20 +32,11 @@ import lombok.RequiredArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = ListOfPersons.class, context = XStreamContext.class) 
-@RequiredArgsConstructor
-public class ListOfPersonsXStreamMarshallable implements Marshallable
+@DciRole(datum = ListOfPersons.class, context = XStreamContext.class)
+public class ListOfPersonsXStreamMarshallable extends XStreamMarshallableSupport<ListOfPersons>
   {
-    @Nonnull
-    private final ListOfPersons datum;
-
-    @Nonnull
-    private final XStreamContext xStreamContext;
-            
-    @Override
-    public void marshal (final @Nonnull OutputStream os) 
-      throws IOException 
+    public ListOfPersonsXStreamMarshallable (final @Nonnull ListOfPersons datum, final @Nonnull XStreamContext context)
       {
-        xStreamContext.getXStream().toXML(datum, os);
+        super(datum, context);
       }
   }
