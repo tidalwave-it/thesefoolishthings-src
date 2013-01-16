@@ -23,24 +23,36 @@
 package it.tidalwave.util.thread;
 
 import javax.annotation.Nonnull;
+import lombok.NoArgsConstructor;
+import static lombok.AccessLevel.*;
 
 /***********************************************************************************************************************
+ *
+ * Facility class for asserting that the current thread is of some kind.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
+@NoArgsConstructor(access = PRIVATE)
 public final class ThreadAssertions
   {
-    private ThreadAssertions()
-      {
-      }
-
+    /*******************************************************************************************************************
+     *
+     * Asserts that the current thread is of the specified type.
+     *
+     * @param  threadType    the thread type
+     *
+     ******************************************************************************************************************/
     public static void assertThread (final @Nonnull ThreadType threadType)
       {
         assert doAssertThread(threadType); // trick so we skip everything if assertions are disabled
       }
 
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     private static boolean doAssertThread (final @Nonnull ThreadType threadType)
       {
         switch (threadType)

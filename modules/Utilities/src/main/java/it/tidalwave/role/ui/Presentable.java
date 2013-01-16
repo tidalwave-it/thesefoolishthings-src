@@ -38,6 +38,14 @@ public interface Presentable
   {
     public final static Class<Presentable> Presentable = Presentable.class;
 
+    /*******************************************************************************************************************
+     *
+     * Creates a {@link PresentationModel} with some optional roles.
+     *
+     * @param  instanceRoles    the optional roles
+     * @return                  the {@code PresentationModel}
+     *
+     ******************************************************************************************************************/
     @Nonnull
-    public PresentationModel createPresentationModel (@Nonnull Object... instanceCapabilities);
+    public PresentationModel createPresentationModel (@Nonnull Object... instanceRoles);
   }

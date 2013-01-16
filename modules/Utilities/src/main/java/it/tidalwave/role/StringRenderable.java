@@ -56,8 +56,8 @@ public interface StringRenderable
      * Renders the attached object appending to a {@link StringBuilder}. The method accepts optional parameters that can
      * be used to control the format of the rendering; they are usually specific of the object attached to this role.
      *
-     * @param  args  optional rendering parameters
-     * @return       the string
+     * @param  stringBuilder   the {@code StringBuilder} to append to
+     * @param  args            optional rendering parameters
      *
      ******************************************************************************************************************/
     public void renderTo (@Nonnull StringBuilder stringBuilder, @Nonnull Object ... args);
@@ -67,8 +67,8 @@ public interface StringRenderable
      * Renders the attached object printing to a {@link PrintWriter}. The method accepts optional parameters that can
      * be used to control the format of the rendering; they are usually specific of the object attached to this role.
      *
+     * @param  printWriter   the {@code PrintWriter} to print to
      * @param  args  optional rendering parameters
-     * @return       the string
      *
      ******************************************************************************************************************/
     public void renderTo (@Nonnull PrintWriter printWriter, @Nonnull Object ... args);

@@ -106,7 +106,7 @@ public interface Finder<Type> extends Cloneable, Serializable
             this.intValue = intValue;
           }
 
-        /** Returns +1 for ascending direction, -1 for descending */
+        /** @return  +1 for ascending direction, -1 for descending */
         public int intValue()
           {
             return intValue;
@@ -118,7 +118,8 @@ public interface Finder<Type> extends Cloneable, Serializable
      *
      * Tells the {@code Finder} that only a subset of found items will be returned, starting from the given position.
      *
-     * @return            the {@code Finder}
+     * @param   firstResult    the index of the first result to return
+     * @return                 the {@code Finder}
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -128,7 +129,8 @@ public interface Finder<Type> extends Cloneable, Serializable
      *
      * Tells the {@code Finder} that only a maximum number of found items will be returned.
      *
-     * @return            the {@code Finder}
+     * @param   maxResults    the max number of results to return
+     * @return                the {@code Finder}
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -136,6 +138,9 @@ public interface Finder<Type> extends Cloneable, Serializable
 
     /*******************************************************************************************************************
      *
+     * Tells the {@code Finder} that the specified type of results is expected.
+     *
+     * @param   type      the expected type of results
      * @return            the {@code Finder}
      *
      ******************************************************************************************************************/
@@ -177,7 +182,7 @@ public interface Finder<Type> extends Cloneable, Serializable
      ******************************************************************************************************************/
     @Nonnull
     public Type result()
-      throws NotFoundException;
+      throws NotFoundException, RuntimeException;
 
     /*******************************************************************************************************************
      *

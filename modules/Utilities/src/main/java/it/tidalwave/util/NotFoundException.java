@@ -30,7 +30,6 @@ import java.util.Collection;
  *
  * Notifies that a searched object couldn't be found.
  *
- *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -40,6 +39,7 @@ public class NotFoundException extends Exception
   {
     /*******************************************************************************************************************
      *
+     * Creates an empty exception.
      *
      ******************************************************************************************************************/
     public NotFoundException()
@@ -48,6 +48,9 @@ public class NotFoundException extends Exception
 
     /*******************************************************************************************************************
      *
+     * Creates an exception with a message.
+     *
+     * @param  message    the message
      *
      ******************************************************************************************************************/
     public NotFoundException (final @Nonnull String message)
@@ -57,20 +60,27 @@ public class NotFoundException extends Exception
 
     /*******************************************************************************************************************
      *
+     * Creates an exception with a cause.
+     *
+     * @param  cause    the cause
      *
      ******************************************************************************************************************/
-    public NotFoundException (final @Nonnull Throwable throwable)
+    public NotFoundException (final @Nonnull Throwable cause)
       {
-        super(throwable);
+        super(cause);
       }
 
     /*******************************************************************************************************************
      *
+     * Creates an exception with a message and a cause.
+     *
+     * @param  message    the message
+     * @param  cause    the cause
      *
      ******************************************************************************************************************/
-    public NotFoundException (final @Nonnull String message, final @Nonnull Throwable throwable)
+    public NotFoundException (final @Nonnull String message, final @Nonnull Throwable cause)
       {
-        super(message, throwable);
+        super(message, cause);
       }
 
     /*******************************************************************************************************************
@@ -128,7 +138,7 @@ public class NotFoundException extends Exception
      * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the
      * collection itself and thus it can be used with fluent interfaces.
      *
-     * @param  object             the collection to be tested
+     * @param  collection         the collection to be tested
      * @param  message            the error message to be thrown
      * @return                    the collection
      * @throws NotFoundException  if the collection is null or empty
@@ -152,7 +162,7 @@ public class NotFoundException extends Exception
      * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the
      * collection itself and thus it can be used with fluent interfaces.
      *
-     * @param  object             the collection to be tested
+     * @param  collection         the collection to be tested
      * @param  message            the error message to be thrown (formatted as in {@link String#format}
      * @param  args               the arguments to format the error message
      * @return                    the collection

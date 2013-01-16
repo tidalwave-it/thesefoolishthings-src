@@ -46,24 +46,43 @@ public class UserNotification
     @Getter
     protected final String caption;
 
+    /*******************************************************************************************************************
+     *
+     * Creates a notification with empty caption and text.
+     *
+     * @return               the notification
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public static UserNotification notification()
       {
         return new UserNotification("", "");
       }
 
+    /*******************************************************************************************************************
+     *
+     * Associates a caption to the notification.
+     *
+     * @param  caption       the caption
+     * @return               the notification
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public UserNotification withCaption (final @Nonnull String caption)
       {
         return new UserNotification(text, caption);
       }
 
-    @Nonnull
-    public UserNotification withText (final @Nonnull String text)
-      {
-        return new UserNotification(text, caption);
-      }
-
+    /*******************************************************************************************************************
+     *
+     * Associates a caption to the notification, retrieved from a resource bundle.
+     *
+     * @param  bundleClass   the class where to search the resource bundle from
+     * @param  resourceName  the resource name of the caption in the bundle
+     * @param  params        some (optional) parameters to the resource
+     * @return               the notification
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public UserNotification withCaption (final @Nonnull Class<?> bundleClass,
                                          final @Nonnull String resourceName,
@@ -72,6 +91,30 @@ public class UserNotification
         return new UserNotification(text, NbBundle.getMessage(bundleClass, resourceName, params));
       }
 
+    /*******************************************************************************************************************
+     *
+     * Associates a text to the notification.
+     *
+     * @param  text          the text
+     * @return               the notification
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public UserNotification withText (final @Nonnull String text)
+      {
+        return new UserNotification(text, caption);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Associates a text to the notification, retrieved from a resource bundle.
+     *
+     * @param  bundleClass   the class where to search the resource bundle from
+     * @param  resourceName  the resource name of the text in the bundle
+     * @param  params        some (optional) parameters to the resource
+     * @return               the notification
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public UserNotification withText (final @Nonnull Class<?> bundleClass,
                                       final @Nonnull String resourceName,

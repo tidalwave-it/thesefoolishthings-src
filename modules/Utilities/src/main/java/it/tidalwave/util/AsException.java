@@ -26,6 +26,9 @@ import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
  *
+ * This exception is thrown by an {@code as(...)} method that is expected to retrieve a role for a given datum, when the
+ * role is not found.
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -33,9 +36,16 @@ import javax.annotation.Nonnull;
  **********************************************************************************************************************/
 public class AsException extends RuntimeException
   {
-    public AsException (@Nonnull final Class<?> clazz)
+    /*******************************************************************************************************************
+     *
+     * Creates an exception.
+     *
+     * @param  roleType    the type of the role that was searched and not found
+     *
+     ******************************************************************************************************************/
+    public AsException (@Nonnull final Class<?> roleType)
       {
-        super(clazz.getName());
+        super(roleType.getName());
       }
 
 //    public AsException (@Nonnull final Throwable t)
@@ -43,8 +53,16 @@ public class AsException extends RuntimeException
 //        super(t);
 //      }
 
-    public AsException (@Nonnull final Class<?> clazz, @Nonnull final Throwable t)
+    /*******************************************************************************************************************
+     *
+     * Creates an exception with a cause.
+     *
+     * @param  roleType    the type of the role that was searched and not found
+     * @param  cause       the cause for not having found the role
+     *
+     ******************************************************************************************************************/
+    public AsException (@Nonnull final Class<?> clazz, @Nonnull final Throwable cause)
       {
-        super(clazz.getName(), t);
+        super(clazz.getName(), cause);
       }
   }

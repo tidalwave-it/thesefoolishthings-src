@@ -27,7 +27,7 @@ import it.tidalwave.util.Finder;
 /***********************************************************************************************************************
  *
  * A simple {@link Composite} that uses the default {@link Finder}.
- * 
+ *
  * @stereotype Role
  *
  * @author  Fabrizio Giudici
