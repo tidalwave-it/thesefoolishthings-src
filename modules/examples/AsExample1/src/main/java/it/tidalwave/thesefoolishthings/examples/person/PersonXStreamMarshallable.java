@@ -31,11 +31,12 @@ import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * @author  fritz
+ * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = Person.class, context = XStreamContext.class) @RequiredArgsConstructor
+@DciRole(datum = Person.class, context = XStreamContext.class)
+@RequiredArgsConstructor
 public final class PersonXStreamMarshallable implements Marshallable
   {
     @Nonnull
