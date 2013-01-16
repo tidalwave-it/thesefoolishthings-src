@@ -36,7 +36,7 @@ import static it.tidalwave.messagebus.spi.ReflectionUtils.*;
 
 /***********************************************************************************************************************
  *
- * @stereotype Actor
+ * This class is used to activate and deactivate an actor.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -62,7 +62,10 @@ public class ActorActivator
 
     /*******************************************************************************************************************
      *
+     * Creates an instance for the given actor class.
      *
+     * @param  actorClass   the actor class
+     * @return              the instance
      *
      ******************************************************************************************************************/
     public static ActorActivator activatorFor (final @Nonnull Class<?> actorClass)
@@ -72,7 +75,10 @@ public class ActorActivator
 
     /*******************************************************************************************************************
      *
+     * Specifies the pool size for this activator.
      *
+     * @param  poolSize    the pool size
+     * @return             the activator
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -94,7 +100,7 @@ public class ActorActivator
 
     /*******************************************************************************************************************
      *
-     *
+     * Activates the managed actor.
      *
      ******************************************************************************************************************/
     public void initialize()
@@ -124,7 +130,7 @@ public class ActorActivator
 
     /*******************************************************************************************************************
      *
-     *
+     * Deactivates the managed actor and releases resources.
      *
      ******************************************************************************************************************/
     public void dispose()

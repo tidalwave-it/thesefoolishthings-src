@@ -60,7 +60,7 @@ public class CollaborationAwareMessageBusAdapter implements ReflectionUtils.Meth
 
     private final List<MessageBus.Listener<?>> messageBusListeners = new ArrayList<MessageBus.Listener<?>>();
 
-    private final Provider<CollaborationAwareMessageBus> messageBus = 
+    private final Provider<CollaborationAwareMessageBus> messageBus =
             Locator.createProviderFor(CollaborationAwareMessageBus.class);
 
     /*******************************************************************************************************************

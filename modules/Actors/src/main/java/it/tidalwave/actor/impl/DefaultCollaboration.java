@@ -47,7 +47,7 @@ import static lombok.AccessLevel.PRIVATE;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor(access=PRIVATE) @EqualsAndHashCode(of="id") @Slf4j @ToString(of={"id"})
+@RequiredArgsConstructor(access = PRIVATE) @EqualsAndHashCode(of = "id") @Slf4j @ToString(of = "id")
 public class DefaultCollaboration implements Serializable, Collaboration
   {
     /*******************************************************************************************************************
@@ -128,7 +128,11 @@ public class DefaultCollaboration implements Serializable, Collaboration
 
     /*******************************************************************************************************************
      *
+     * Factory method to retrieve a {@link Collaboration}. This method accepts any object; if it is an implementation
+     * of {@link Provider}, the object is queried; otherwise {@link #NULL_DEFAULT_COLLABORATION} is returned.
      *
+     * @param   object    the object associated to the {@code Collaboration}
+     * @return            the {@code Collaboration}
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -142,17 +146,19 @@ public class DefaultCollaboration implements Serializable, Collaboration
      *
      * Gets the {@link Collaboration} bound to the current thread or creates a new one.
      *
-     * @return  the {@code Collaboration}
+     * @param   originator    the object that will be considered the originator of the {@code Collaboration} in case it
+     *                        is created
+     * @return                the {@code Collaboration}
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static DefaultCollaboration getOrCreateCollaboration (final @Nonnull Object source)
+    public static DefaultCollaboration getOrCreateCollaboration (final @Nonnull Object originator)
       {
         DefaultCollaboration collaboration = THREAD_LOCAL.get();
 
         if (collaboration == null)
           {
-            collaboration = new DefaultCollaboration(source);
+            collaboration = new DefaultCollaboration(originator);
           }
 
         return collaboration;
@@ -320,7 +326,9 @@ public class DefaultCollaboration implements Serializable, Collaboration
 
     /*******************************************************************************************************************
      *
+     * Registers that the given {@link Message} is being delivered.
      *
+     * @param  message  the {@code Message}
      *
      ******************************************************************************************************************/
     public synchronized void registerDeliveringMessage (final @Nonnull Object message)
@@ -352,7 +360,9 @@ public class DefaultCollaboration implements Serializable, Collaboration
 
     /*******************************************************************************************************************
      *
+     * Registers that the given {@link Message} is no more being delivered.
      *
+     * @param  message  the {@code Message}
      *
      ******************************************************************************************************************/
     public synchronized void unregisterDeliveringMessage (final @Nonnull Object message)
@@ -370,7 +380,10 @@ public class DefaultCollaboration implements Serializable, Collaboration
 
     /*******************************************************************************************************************
      *
+     * Registers that the given {@link Message} is pending - this means it is in the recipient's queue, waiting to be
+     * consumed.
      *
+     * @param  message  the {@code Message}
      *
      ******************************************************************************************************************/
     public synchronized void registerPendingMessage (final @Nonnull Object message)
@@ -387,7 +400,9 @@ public class DefaultCollaboration implements Serializable, Collaboration
 
     /*******************************************************************************************************************
      *
+     * Registers that the given {@link Message} is no more pending.
      *
+     * @param  message  the {@code Message}
      *
      ******************************************************************************************************************/
     public synchronized void unregisterPendingMessage (final @Nonnull Object message)
@@ -405,10 +420,13 @@ public class DefaultCollaboration implements Serializable, Collaboration
 
     /*******************************************************************************************************************
      *
+     * If this {@link Collaboration} has been completed (that is, there are no more messages around for it), sends a
+     * {@link CollaborationCompletedMessage}.
      *
+     * @param  message  the {@code Message} - FIXME: seems to be useless
      *
      ******************************************************************************************************************/
-    private void eventuallySendCompletionMessage (final @Nonnull Object message)
+    private void eventuallySendCompletionMessage (final Object message)
       {
         final int enqueuedMessageCount = deliveringMessages.size()
                                        + pendingMessages.size()

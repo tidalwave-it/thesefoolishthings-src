@@ -30,6 +30,8 @@ import java.lang.annotation.Target;
 
 /***********************************************************************************************************************
  *
+ * An annotation for actors.
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -39,8 +41,18 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Actor
   {
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
     // Too bad @ThreadSafe doesn't have runtime retention
     public boolean threadSafe() default true;
 
+    /*******************************************************************************************************************
+     *
+     * The initial priority for the threads that will execute the code of the annotated actor.
+     *
+     ******************************************************************************************************************/
     public int initialPriority() default Thread.NORM_PRIORITY;
   }

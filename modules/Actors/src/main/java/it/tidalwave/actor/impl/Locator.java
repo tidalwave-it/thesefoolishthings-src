@@ -38,12 +38,12 @@ public class Locator
   {
     public static class NotFoundException extends RuntimeException
       {
-        public NotFoundException (final @Nonnull Class<?> serviceClass)
+        NotFoundException (final @Nonnull Class<?> serviceClass)
           {
             super("Not found: " + serviceClass);
           }
 
-        public NotFoundException (final @Nonnull String name)
+        NotFoundException (final @Nonnull String name)
           {
             super("Not found: " + name);
           }

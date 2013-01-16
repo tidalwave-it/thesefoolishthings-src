@@ -29,9 +29,9 @@ import it.tidalwave.actor.impl.Locator;
 import it.tidalwave.messagebus.MessageBus;
 import it.tidalwave.messagebus.MessageBusHelper;
 import it.tidalwave.messagebus.MessageBusHelper.MethodAdapter;
-import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import static lombok.AccessLevel.*;
 
 /***********************************************************************************************************************
  *
@@ -41,7 +41,7 @@ import lombok.extern.slf4j.Slf4j;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@NoArgsConstructor(access=AccessLevel.PRIVATE) @Slf4j
+@NoArgsConstructor(access = PRIVATE) @Slf4j
 public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
   {
     public static final MessageBusHelper.Adapter INSTANCE = new MessageBusAdapterFactory();

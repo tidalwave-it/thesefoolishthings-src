@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@ServiceProvider(service=MessageBus.class)
+@ServiceProvider(service = MessageBus.class)
 @ThreadSafe @Slf4j
 public class NetBeansPlatformMessageBus extends MessageBusSupport
   {

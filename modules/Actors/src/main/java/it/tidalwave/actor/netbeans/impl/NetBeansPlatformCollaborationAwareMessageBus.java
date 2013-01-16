@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
  **********************************************************************************************************************/
 @ServiceProvider(service = CollaborationAwareMessageBus.class)
 @ThreadSafe @Slf4j
-public class NetBeansPlatformCollaborationAwareMessageBus extends NetBeansPlatformMessageBus 
+public class NetBeansPlatformCollaborationAwareMessageBus extends NetBeansPlatformMessageBus
                                                           implements CollaborationAwareMessageBus
   {
     /*******************************************************************************************************************

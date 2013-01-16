@@ -31,12 +31,14 @@ import org.joda.time.DateTime;
 
 /***********************************************************************************************************************
  *
+ * This message notifies that a new {@link Collaboration} has been started.
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
 @Message @Immutable
-@EqualsAndHashCode(callSuper=true) @ToString(callSuper=false)
+@EqualsAndHashCode(callSuper = true) @ToString(callSuper = false)
 public class CollaborationStartedMessage extends MessageSupport
   {
     /*******************************************************************************************************************
@@ -51,7 +53,10 @@ public class CollaborationStartedMessage extends MessageSupport
 
     /*******************************************************************************************************************
      *
+     * Creates a new instance for the given {@link Collaboration}.
      *
+     * @param  collaboration    the {@code Collaboration}
+     * @return                  the new instance
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -62,7 +67,9 @@ public class CollaborationStartedMessage extends MessageSupport
 
     /*******************************************************************************************************************
      *
-     * Returns the time when this unit of work has been created.
+     * Returns the time when the {@link Collaboration} has been started.
+     *
+     * @return    the start time
      *
      ******************************************************************************************************************/
     @Nonnull

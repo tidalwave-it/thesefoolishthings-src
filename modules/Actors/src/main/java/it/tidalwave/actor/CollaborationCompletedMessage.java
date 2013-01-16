@@ -32,12 +32,14 @@ import org.joda.time.Duration;
 
 /***********************************************************************************************************************
  *
+ * This message notifies that a {@link Collaboration} has been completed.
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
 @Message @Immutable
-@EqualsAndHashCode @ToString(callSuper=false)
+@EqualsAndHashCode @ToString(callSuper = false)
 public class CollaborationCompletedMessage extends MessageSupport
   {
     private final long endTime = System.currentTimeMillis();
@@ -54,7 +56,10 @@ public class CollaborationCompletedMessage extends MessageSupport
 
     /*******************************************************************************************************************
      *
+     * Creates a new instance for the given {@link Collaboration}.
      *
+     * @param  collaboration    the {@code Collaboration}
+     * @return                  the new instance
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -65,7 +70,9 @@ public class CollaborationCompletedMessage extends MessageSupport
 
     /*******************************************************************************************************************
      *
-     * Returns the time when this unit of work has been created.
+     * Returns the time when the {@link Collaboration} has been started.
+     *
+     * @return    the start time
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -76,7 +83,9 @@ public class CollaborationCompletedMessage extends MessageSupport
 
     /*******************************************************************************************************************
      *
-     * Returns the time when this unit of work has been completed.
+     * Returns the time when the {@link Collaboration} has been completed.
+     *
+     * @return    the end time
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -87,7 +96,9 @@ public class CollaborationCompletedMessage extends MessageSupport
 
     /*******************************************************************************************************************
      *
-     * Returns the time this unit of work took to complete.
+     * Returns the time this {@link Collaboration} took to complete.
+     *
+     * @return    the duration
      *
      ******************************************************************************************************************/
     @Nonnull

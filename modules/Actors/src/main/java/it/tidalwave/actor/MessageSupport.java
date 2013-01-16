@@ -43,15 +43,15 @@ import static it.tidalwave.actor.MessageDecorator.MessageDecorator;
 
 /***********************************************************************************************************************
  *
- * @stereotype Message
- *
  * A support class for implementing messages.
+ *
+ * @stereotype Message
  *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Slf4j @EqualsAndHashCode(of="collaboration")
+@Slf4j @EqualsAndHashCode(of = "collaboration")
 public abstract class MessageSupport implements Collaboration.Provider, As, Serializable
   {
     // TODO: @Inject

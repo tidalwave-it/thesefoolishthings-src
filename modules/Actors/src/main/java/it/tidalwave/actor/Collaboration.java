@@ -123,6 +123,13 @@ public interface Collaboration
      ******************************************************************************************************************/
     public static interface Provider
       {
+        /***************************************************************************************************************
+         *
+         * Returns the {@link Collaboration}.
+         *
+         * @return   the {@code Collaboration}
+         *
+         **************************************************************************************************************/
         @Nonnull
         public Collaboration getCollaboration();
       }
@@ -141,12 +148,16 @@ public interface Collaboration
      *
      * Returns {@code true} if the {@code Collaboration} has been completed.
      *
+     * @return  {@code true} if the {@code Collaboration} has been completed
+     *
      ******************************************************************************************************************/
     public boolean isCompleted();
 
     /*******************************************************************************************************************
      *
      * Waits for the completion of this {@code Collaboration}.
+     *
+     * @throws  InterruptedException  if the wait is interrupted
      *
      ******************************************************************************************************************/
     public void waitForCompletion()
@@ -156,6 +167,8 @@ public interface Collaboration
      *
      * Return the time when this {@code Collaboration} has been created.
      *
+     * @return  the creation time
+     *
      ******************************************************************************************************************/
     @Nonnull
     public DateTime getStartTime();
@@ -163,6 +176,8 @@ public interface Collaboration
     /*******************************************************************************************************************
      *
      * Return the duration of this {@code Collaboration}.
+     *
+     * @return  the duration
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -174,7 +189,7 @@ public interface Collaboration
      * event that cannot be modeled with agents. For instance, a user intervention (e.g. by clicking a button) or an
      * external piece of software that is not part of the {@code Collaboration} model. In this case, it can be marked
      * as 'suspended' and in this case it won't be considered completed, even though there are no related pending
-     * messages or working threads. When the external event occurs, call 
+     * messages or working threads. When the external event occurs, call
      * {@link #resume(java.lang.Object, java.lang.Runnable)).
      *
      * In order to support multiple reasons for suspension, a token is generated and returned. It must be passed to
@@ -234,6 +249,8 @@ public interface Collaboration
      *
      * Returns the number of messages related to this {@code Collaboration} not yet delivered.
      *
+     * @return  the number of messages not yet delivered
+     *
      ******************************************************************************************************************/
     @Nonnegative
     public int getDeliveringMessagesCount();
@@ -242,6 +259,8 @@ public interface Collaboration
      *
      * Returns the number of messages related to this {@code Collaboration} not yet consumed.
      *
+     * @return  the number of messages not yet consumed
+     *
      ******************************************************************************************************************/
     @Nonnegative
     public int getPendingMessagesCount();
@@ -249,6 +268,8 @@ public interface Collaboration
     /*******************************************************************************************************************
      *
      * Returns the number of running threads assigned to this {@code Collaboration}.
+     *
+     * @return  the number of threads
      *
      ******************************************************************************************************************/
     @Nonnegative
