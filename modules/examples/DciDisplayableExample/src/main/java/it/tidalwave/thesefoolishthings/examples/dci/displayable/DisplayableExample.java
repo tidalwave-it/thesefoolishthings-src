@@ -20,11 +20,17 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.asexample1;
+package it.tidalwave.thesefoolishthings.examples.dci.displayable;
 
 import javax.annotation.Nonnull;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.beans.factory.BeanFactory;
+import javax.inject.Inject;
+import it.tidalwave.util.Id;
+import it.tidalwave.role.AsExtensions;
+import it.tidalwave.role.ContextManager;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
+import lombok.extern.slf4j.Slf4j;
+import lombok.experimental.ExtensionMethod;
+import static it.tidalwave.role.Displayable.Displayable;
 
 /***********************************************************************************************************************
  *
@@ -32,13 +38,19 @@ import org.springframework.beans.factory.BeanFactory;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class Main
+@ExtensionMethod(AsExtensions.class) @Slf4j
+public class DisplayableExample
   {
-    public static void main (final @Nonnull String ... args)
+    @Inject @Nonnull
+    private ContextManager contextManager;
+    
+    public void run()
       throws Exception
       {
-        final String beans = "it/tidalwave/thesefoolishthings/examples/asexample1/Beans.xml";
-        final BeanFactory context = new ClassPathXmlApplicationContext(beans);
-        context.getBean(AsExample1.class).run();
+        final Person joe = new Person(new Id("1"), "Joe", "Smith");
+        final Person luke = new Person(new Id("2"), "Luke", "Skywalker");
+        
+        log.info("******** (joe as Displayable).displayName: {}", joe.as(Displayable).getDisplayName());
+        log.info("******** (luke as Displayable).displayName: {}", luke.as(Displayable).getDisplayName());
       }
   }

@@ -10,12 +10,12 @@
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
-    <artifactId>it-tidalwave-thesefoolishthings-examples-asexample1</artifactId>
+    <artifactId>it-tidalwave-thesefoolishthings-examples-dci-displayable</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>TheseFoolishThings Examples - As Example 1</name>
+    <name>TheseFoolishThings Examples - DCI Displayable</name>
 
     <properties>
-        <mainClass>it.tidalwave.thesefoolishthings.examples.asexample1.Main</mainClass>
+        <mainClass>it.tidalwave.thesefoolishthings.examples.dci.displayable.Main</mainClass>
     </properties>
 
     <dependencies>

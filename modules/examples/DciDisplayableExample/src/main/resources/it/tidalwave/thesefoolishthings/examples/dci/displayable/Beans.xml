@@ -60,6 +60,6 @@
     <bean id="contextManager"
           class="it.tidalwave.role.spring.SpringContextManager" />
 
-    <bean class="it.tidalwave.thesefoolishthings.examples.asexample1.AsExample1" />
+    <bean class="it.tidalwave.thesefoolishthings.examples.dci.displayable.DisplayableExample" />
     
   </beans>

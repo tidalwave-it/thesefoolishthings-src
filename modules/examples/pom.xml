@@ -39,7 +39,7 @@
     </build>
 
     <modules>
-        <module>AsExample1</module>
+        <module>DciDisplayableExample</module>
         <module>DciMarshalXStreamExample</module>
         <!-- module>AsExample2</module -->
         <module>Data</module>

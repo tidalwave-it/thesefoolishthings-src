@@ -20,17 +20,11 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.asexample1;
+package it.tidalwave.thesefoolishthings.examples.dci.displayable;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
-import it.tidalwave.util.Id;
-import it.tidalwave.role.AsExtensions;
-import it.tidalwave.role.ContextManager;
-import it.tidalwave.thesefoolishthings.examples.person.Person;
-import lombok.extern.slf4j.Slf4j;
-import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.role.Displayable.Displayable;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.BeanFactory;
 
 /***********************************************************************************************************************
  *
@@ -38,19 +32,13 @@ import static it.tidalwave.role.Displayable.Displayable;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@ExtensionMethod(AsExtensions.class) @Slf4j
-public class AsExample1
+public class Main
   {
-    @Inject @Nonnull
-    private ContextManager contextManager;
-    
-    public void run()
+    public static void main (final @Nonnull String ... args)
       throws Exception
       {
-        final Person joe = new Person(new Id("1"), "Joe", "Smith");
-        final Person luke = new Person(new Id("2"), "Luke", "Skywalker");
-        
-        log.info("******** (joe as Displayable).displayName: {}", joe.as(Displayable).getDisplayName());
-        log.info("******** (luke as Displayable).displayName: {}", luke.as(Displayable).getDisplayName());
+        final String beans = "it/tidalwave/thesefoolishthings/examples/dci/displayable/Beans.xml";
+        final BeanFactory context = new ClassPathXmlApplicationContext(beans);
+        context.getBean(DisplayableExample.class).run();
       }
   }
