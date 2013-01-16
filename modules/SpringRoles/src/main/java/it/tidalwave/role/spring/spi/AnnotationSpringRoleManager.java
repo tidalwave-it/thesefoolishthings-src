@@ -40,6 +40,10 @@ import it.tidalwave.util.NotFoundException;
 import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.role.spi.RoleManager;
 import it.tidalwave.role.ContextManager;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -60,6 +64,15 @@ public class AnnotationSpringRoleManager implements RoleManager
 
     @Inject @Nonnull
     private ContextManager contextManager;
+    
+    private final static Comparator<Class<?>> CLASS_COMPARATOR = new Comparator<Class<?>>()
+      {
+        @Override
+        public int compare (final @Nonnull Class<?> class1, final @Nonnull Class<?> class2)
+          {
+            return class1.getName().compareTo(class2.getName());
+          }
+      };
 
     /*******************************************************************************************************************
      *
@@ -218,15 +231,36 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
           {
             final DciRole role = roleImplementationClass.getAnnotation(DciRole.class);
             final Class<?> datumClass = role.datum();
-            final Class<?> contextClass = role.context();
 
-            for (final Class<?> roleClass : roleImplementationClass.getInterfaces())
+            for (final Class<?> roleClass : findAllImplemetedInterfacesOf(roleImplementationClass))
               {
                 roleMapByOwnerClass.add(new ClassAndRole(datumClass, roleClass), roleImplementationClass);
               }
           }
 
         logRoles();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Finds all the interfaces implemented by a given class, including those eventually implemented by superclasses.
+     *
+     * @param  clazz    the class to inspect
+     * @return          the implemented interfaces
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    private static SortedSet<Class<?>> findAllImplemetedInterfacesOf (final @Nonnull Class<?> clazz)
+      {
+        final SortedSet<Class<?>> interfaces = new TreeSet<Class<?>>(CLASS_COMPARATOR);
+        interfaces.addAll(Arrays.asList(clazz.getInterfaces()));
+
+        if (clazz.getSuperclass() != null)
+          {
+            interfaces.addAll(findAllImplemetedInterfacesOf(clazz.getSuperclass()));
+          }
+
+        return interfaces;
       }
 
     /*******************************************************************************************************************
