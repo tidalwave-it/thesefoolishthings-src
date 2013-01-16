@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import it.tidalwave.role.Marshallable;
 import it.tidalwave.dci.annotation.DciRole;
+import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.XStreamContext;
 import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************

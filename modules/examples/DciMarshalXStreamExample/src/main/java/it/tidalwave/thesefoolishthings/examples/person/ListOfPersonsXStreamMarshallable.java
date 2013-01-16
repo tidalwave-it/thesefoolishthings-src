@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import it.tidalwave.role.Marshallable;
 import it.tidalwave.dci.annotation.DciRole;
+import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.XStreamContext;
 import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
@@ -35,7 +36,8 @@ import lombok.RequiredArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = ListOfPersons.class, context = XStreamContext.class) @RequiredArgsConstructor
+@DciRole(datum = ListOfPersons.class, context = XStreamContext.class) 
+@RequiredArgsConstructor
 public class ListOfPersonsXStreamMarshallable implements Marshallable
   {
     @Nonnull

@@ -32,7 +32,6 @@ import it.tidalwave.role.ContextManager;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry;
 import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
-import it.tidalwave.thesefoolishthings.examples.person.XStreamContext;
 import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.Marshallable.Marshallable;

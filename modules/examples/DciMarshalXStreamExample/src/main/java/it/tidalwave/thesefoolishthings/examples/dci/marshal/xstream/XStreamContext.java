@@ -20,11 +20,13 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import it.tidalwave.dci.annotation.DciContext;
+import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.Getter;
 
 /***********************************************************************************************************************

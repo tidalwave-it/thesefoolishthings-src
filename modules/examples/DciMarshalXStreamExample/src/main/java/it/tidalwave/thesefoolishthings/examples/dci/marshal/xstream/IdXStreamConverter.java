@@ -20,7 +20,7 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
 
 import it.tidalwave.util.Id;
 import com.thoughtworks.xstream.converters.SingleValueConverter;
