@@ -22,16 +22,15 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.person;
 
-import javax.annotation.Nonnull;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.io.Serializable;
+import javax.persistence.Transient;
+import it.tidalwave.role.Persistable;
+import it.tidalwave.role.Removable;
 import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.JpaPersistenceContext;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
@@ -40,30 +39,21 @@ import lombok.Setter;
  *
  **********************************************************************************************************************/
 @DciRole(datum = Person.class, context = JpaPersistenceContext.class)
-@Entity @NoArgsConstructor @Getter @Setter @ToString
-public class PersonJpaPersistable extends JpaPersistableSupport
+@AllArgsConstructor @NoArgsConstructor 
+public abstract class JpaPersistableSupport implements Serializable, Persistable, Removable
   {
-    @Id
-    private String id;
+    @Transient
+    private JpaPersistenceContext context;
 
-    @Column
-    private String firstName;
-
-    @Column
-    private String lastName;
-
-    public PersonJpaPersistable (final @Nonnull Person datum, final @Nonnull JpaPersistenceContext context)
+    @Override
+    public void persist()
       {
-        super(context);
-        this.id = datum.id.stringValue();
-        this.firstName = datum.firstName;
-        this.lastName = datum.lastName;
+        context.persist(this);
       }
 
-//    @Nonnull
-//    public Person toPerson()
-//      {
-//        return new Person(new it.tidalwave.util.Id(id), firstName, lastName);
-//      }
-
+    @Override
+    public void remove()
+      {
+        context.remove(this);
+      }
   }
