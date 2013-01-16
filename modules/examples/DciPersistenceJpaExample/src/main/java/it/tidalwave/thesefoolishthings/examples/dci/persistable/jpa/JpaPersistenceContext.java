@@ -20,66 +20,34 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
 
 import javax.annotation.Nonnull;
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
-import it.tidalwave.role.Persistable;
-import it.tidalwave.role.Removable;
-import it.tidalwave.dci.annotation.DciRole;
-import it.tidalwave.thesefoolishthings.examples.datum.JpaPersistenceContext;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.Getter;
-import lombok.Setter;
+import it.tidalwave.dci.annotation.DciContext;
+import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
- * @author  Fabrizio Giudici
+ * @author  fritz
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = Person.class, context = JpaPersistenceContext.class)
-@Entity @NoArgsConstructor @Getter @Setter @ToString(exclude = "context")
-public class PersonJpaPersistable implements Serializable, Persistable, Removable
+@DciContext
+@Slf4j
+public class JpaPersistenceContext
   {
-    @Transient
-    private JpaPersistenceContext context;
+//    @PersistenceContext
+//    private EntityManager em;
 
-    @Id
-    private String id;
-
-    @Column
-    private String firstName;
-
-    @Column
-    private String lastName;
-
-    public PersonJpaPersistable (final @Nonnull Person datum, final @Nonnull JpaPersistenceContext context)
+    public void persist (final @Nonnull Object object)
       {
-        this.context = context;
-        this.id = datum.id.stringValue();
-        this.firstName = datum.firstName;
-        this.lastName = datum.lastName;
+        log.info("******** PERSIST {}", object);
+//        em.persist(object);
       }
 
-    @Nonnull
-    public Person toPerson()
+    public void remove (final @Nonnull Object object)
       {
-        return new Person(new it.tidalwave.util.Id(id), firstName, lastName);
-      }
-
-    public void persist()
-      {
-        context.persist(this);
-      }
-
-    public void remove()
-      {
-        context.remove(this);
+        log.info("******** REMOVE {}", object);
+//        em.remove(object);
       }
   }

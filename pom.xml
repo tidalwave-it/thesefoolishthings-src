@@ -186,7 +186,7 @@
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
-                <artifactId>it-tidalwave-thesefoolishthings-examples-asexample2</artifactId>
+                <artifactId>it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>

@@ -20,34 +20,25 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.datum;
+package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.dci.annotation.DciContext;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.BeanFactory;
 
 /***********************************************************************************************************************
  *
- * @author  fritz
+ * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciContext
-@Slf4j
-public class JpaPersistenceContext
+public class Main
   {
-//    @PersistenceContext
-//    private EntityManager em;
-
-    public void persist (final @Nonnull Object object)
+    public static void main (final @Nonnull String ... args)
+      throws Exception
       {
-        log.info("******** PERSIST {}", object);
-//        em.persist(object);
-      }
-
-    public void remove (final @Nonnull Object object)
-      {
-        log.info("******** REMOVE {}", object);
-//        em.remove(object);
+        final String beans = "it/tidalwave/thesefoolishthings/examples/dci/persistable/jpa/Beans.xml";
+        final BeanFactory context = new ClassPathXmlApplicationContext(beans);
+        context.getBean(DciPersistenceJpaExample.class).run();
       }
   }

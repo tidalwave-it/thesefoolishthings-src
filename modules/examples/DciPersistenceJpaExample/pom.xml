@@ -10,12 +10,12 @@
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
-    <artifactId>it-tidalwave-thesefoolishthings-examples-asexample2</artifactId>
+    <artifactId>it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>TheseFoolishThings Examples - As Example 2</name>
+    <name>TheseFoolishThings Examples - DCI Persistence JPA</name>
 
     <properties>
-        <mainClass>it.tidalwave.thesefoolishthings.examples.asexample2.Main</mainClass>
+        <mainClass>it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.Main</mainClass>
     </properties>
 
     <dependencies>
@@ -23,8 +23,7 @@
             <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it-tidalwave-thesefoolishthings-examples-data</artifactId>
         </dependency>
-        
-        
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
@@ -64,7 +63,7 @@
             <artifactId>jcl-over-slf4j</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it-tidalwave-util</artifactId>

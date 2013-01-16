@@ -20,11 +20,22 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.asexample2;
+package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.beans.factory.BeanFactory;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import it.tidalwave.role.Persistable;
+import it.tidalwave.role.Removable;
+import it.tidalwave.dci.annotation.DciRole;
+import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.JpaPersistenceContext;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 
 /***********************************************************************************************************************
  *
@@ -32,13 +43,45 @@ import org.springframework.beans.factory.BeanFactory;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class Main
+@DciRole(datum = Person.class, context = JpaPersistenceContext.class)
+@Entity @NoArgsConstructor @Getter @Setter @ToString(exclude = "context")
+public class PersonJpaPersistable implements Serializable, Persistable, Removable
   {
-    public static void main (final @Nonnull String ... args)
-      throws Exception
+    @Transient
+    private JpaPersistenceContext context;
+
+    @Id
+    private String id;
+
+    @Column
+    private String firstName;
+
+    @Column
+    private String lastName;
+
+    public PersonJpaPersistable (final @Nonnull Person datum, final @Nonnull JpaPersistenceContext context)
       {
-        final String beans = "it/tidalwave/thesefoolishthings/examples/asexample2/Beans.xml";
-        final BeanFactory context = new ClassPathXmlApplicationContext(beans);
-        context.getBean(AsExample2.class).run();
+        this.context = context;
+        this.id = datum.id.stringValue();
+        this.firstName = datum.firstName;
+        this.lastName = datum.lastName;
+      }
+
+//    @Nonnull
+//    public Person toPerson()
+//      {
+//        return new Person(new it.tidalwave.util.Id(id), firstName, lastName);
+//      }
+
+    @Override
+    public void persist()
+      {
+        context.persist(this);
+      }
+
+    @Override
+    public void remove()
+      {
+        context.remove(this);
       }
   }

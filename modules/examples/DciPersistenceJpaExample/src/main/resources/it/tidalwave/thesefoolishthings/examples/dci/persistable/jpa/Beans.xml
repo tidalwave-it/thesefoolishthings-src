@@ -60,8 +60,8 @@
     <bean id="contextManager"
           class="it.tidalwave.role.spring.SpringContextManager" />
 
-    <bean class="it.tidalwave.thesefoolishthings.examples.asexample2.AsExample2" />
+    <bean class="it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.DciPersistenceJpaExample" />
     
-    <bean class="it.tidalwave.thesefoolishthings.examples.datum.JpaPersistenceContext" />
+    <bean class="it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.JpaPersistenceContext" />
     
   </beans>

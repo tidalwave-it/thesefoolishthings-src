@@ -20,7 +20,7 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.asexample2;
+package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
 
 import it.tidalwave.util.Id;
 import it.tidalwave.role.AsExtensions;
@@ -36,7 +36,7 @@ import static it.tidalwave.role.Removable.*;
  *
  **********************************************************************************************************************/
 @ExtensionMethod(AsExtensions.class)
-public class AsExample2 
+public class DciPersistenceJpaExample 
   {
     public void run()
       throws Exception
