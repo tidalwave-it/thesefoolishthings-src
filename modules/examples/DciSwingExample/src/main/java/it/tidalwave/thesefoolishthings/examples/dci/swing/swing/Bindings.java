@@ -26,14 +26,20 @@ import javax.annotation.Nonnull;
 import javax.swing.JList;
 import javax.swing.JTable;
 import org.jdesktop.observablecollections.ObservableList;
-import org.jdesktop.swingbinding.SwingBindings;
+import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.BindingGroup;
+import org.jdesktop.swingbinding.JTableBinding;
+import org.jdesktop.swingbinding.SwingBindings;
 import it.tidalwave.role.AsExtensions;
+import it.tidalwave.thesefoolishthings.examples.dci.swing.role.ObservableListProvider;
+import it.tidalwave.thesefoolishthings.examples.dci.swing.role.TableColumnDescriptor;
+import it.tidalwave.thesefoolishthings.examples.dci.swing.role.TableHeaderDescriptor;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.experimental.ExtensionMethod;
 import static org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.*;
 import static it.tidalwave.thesefoolishthings.examples.dci.swing.role.ObservableListProvider.*;
+import static it.tidalwave.thesefoolishthings.examples.dci.swing.role.TableHeaderDescriptor.*;
 
 /***********************************************************************************************************************
  *
@@ -49,7 +55,12 @@ public final class Bindings
   {
     /*******************************************************************************************************************
      *
-     * Binds a source to a {@link JList}.
+     * Binds a source to a {@link JList}. Two roles are used:
+     *
+     * <ol>
+     * <li>{@link ObservableListProvider} to retrieve the list model</li>
+     * <li>{@link HtmlRenderableListCellRenderer} to retrieve rendering for each item</li>
+     * </ol>
      *
      * @param  bindings  the {@link BindingGroup} to add the new binding to
      * @param  datum     the datum
@@ -67,7 +78,12 @@ public final class Bindings
 
     /*******************************************************************************************************************
      *
-     * Binds a source to a {@link JTable}.
+     * Binds a source to a {@link JTable}. Two roles are used:
+     *
+     * <ol>
+     * <li>{@link ObservableListProvider} to retrieve the list model</li>
+     * <li>{@link TableHeaderDescriptor} to retrieve the column definition</li>
+     * </ol>
      *
      * @param  bindings  the {@link BindingGroup} to add the new binding to
      * @param  datum     the datum
@@ -79,6 +95,14 @@ public final class Bindings
                              final @Nonnull JTable jTable)
       {
         final ObservableList<?> ol = datum.as(ObservableListProvider).createObservableList();
-        bindings.addBinding(SwingBindings.createJTableBinding(READ_WRITE, ol, jTable));
+        final JTableBinding tb = SwingBindings.createJTableBinding(READ_WRITE, ol, jTable);
+
+        for (final TableColumnDescriptor columnDescriptor : datum.as(TableHeaderDescriptor).getColumnDescriptors())
+          {
+            final BeanProperty property = BeanProperty.create(columnDescriptor.getPropertyName());
+            tb.addColumnBinding(property).setColumnName(columnDescriptor.getHeaderName());
+          }
+
+        bindings.addBinding(tb);
       }
   }

@@ -162,5 +162,4 @@ public class SwingPersonPresentation extends JPanel implements PersonPresentatio
     private javax.swing.JList liPeople;
     private javax.swing.JTable taPeople;
     // End of variables declaration//GEN-END:variables
-
   }
