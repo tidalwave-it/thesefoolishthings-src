@@ -74,8 +74,14 @@ public class SwingPersonPresentation extends JPanel implements PersonPresentatio
     @Override
     public void dispose()
       {
-        bindings.unbind();
-        ((JFrame)(SwingUtilities.getAncestorOfClass(JFrame.class, this))).dispose();
+        EventQueue.invokeLater(new Runnable()
+          {
+            public void run()
+              {
+                bindings.unbind();
+                ((JFrame)(SwingUtilities.getAncestorOfClass(JFrame.class, SwingPersonPresentation.this))).dispose();
+              }
+          });
       }
 
     /*******************************************************************************************************************
