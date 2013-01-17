@@ -12,7 +12,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample2</artifactId>
     <version>1.0.19-SNAPSHOT</version>
-    <name>TheseFoolishThings Examples - FinderExample2</name>
+    <name>TheseFoolishThings Examples - Finder Example 2</name>
 
     <dependencies>
         <dependency>
