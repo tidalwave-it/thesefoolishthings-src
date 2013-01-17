@@ -23,12 +23,11 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample2;
 
 import javax.annotation.Nonnull;
+import it.tidalwave.util.Id;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import static it.tidalwave.util.Finder.SortDirection.*;
 import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
-import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
-import it.tidalwave.util.Id;
 
 /***********************************************************************************************************************
  *
