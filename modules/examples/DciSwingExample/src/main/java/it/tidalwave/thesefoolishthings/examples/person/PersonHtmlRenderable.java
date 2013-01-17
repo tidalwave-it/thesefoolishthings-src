@@ -30,6 +30,10 @@ import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
+ * The implementation of the {@link HtmlRenderable} role for {@link Person}.
+ *
+ * @stereotype Role
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -40,7 +44,7 @@ public class PersonHtmlRenderable extends StringRenderableSupport implements Htm
   {
     @Nonnull
     private final Person datum;
-    
+
     @Override @Nonnull
     public String render (final @Nonnull Object... args)
       {

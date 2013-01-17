@@ -23,8 +23,8 @@
 package it.tidalwave.thesefoolishthings.examples.dci.swing;
 
 import javax.swing.JFrame;
-import it.tidalwave.thesefoolishthings.examples.dci.swing.swing.SwingPersonPresentation;
 import it.tidalwave.role.AsExtensions;
+import it.tidalwave.thesefoolishthings.examples.dci.swing.swing.SwingPersonPresentation;
 import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.ExtensionMethod;
 
@@ -46,6 +46,6 @@ public class SwingDciExample
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(personPresentation);
         frame.setSize(800, 600);
-        frame.setVisible(true);        
+        frame.setVisible(true);
       }
   }

@@ -26,8 +26,13 @@ import javax.annotation.Nonnull;
 import it.tidalwave.util.Id;
 import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 /***********************************************************************************************************************
+ *
+ * The default control for the presentation.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -38,22 +43,25 @@ public class DefaultPersonPresentationControl implements PersonPresentationContr
     @Nonnull
     private final PersonPresentation presentation;
 
+    private final Action okAction = new AbstractAction("Ok")
+      {
+        public void actionPerformed (final @Nonnull ActionEvent event)
+          {
+            presentation.dispose();
+          }
+      };
+
     public DefaultPersonPresentationControl (final @Nonnull PersonPresentation presentation)
       {
         this.presentation = presentation;
         final ListOfPersons persons = new ListOfPersons();
-        
+
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
         final Person luke = new Person(new Id("2"), "Luke", "Skywalker");
-        
+
         persons.add(joe);
         persons.add(luke);
-        
-        presentation.bind(this, persons);        
-      }
 
-    public void okButtonPressed() 
-      {
-        presentation.dispose();
+        presentation.bind(okAction, persons);
       }
   }

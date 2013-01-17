@@ -37,28 +37,48 @@ import static it.tidalwave.thesefoolishthings.examples.dci.swing.role.Observable
 
 /***********************************************************************************************************************
  *
+ * A facility to bind some Swing components to data.
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
 @ExtensionMethod(AsExtensions.class)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class Bindings 
+public final class Bindings
   {
+    /*******************************************************************************************************************
+     *
+     * Binds a source to a {@link JList}.
+     *
+     * @param  bindings  the {@link BindingGroup} to add the new binding to
+     * @param  datum     the datum
+     * @param  jList     the {@code JList}
+     *
+     ******************************************************************************************************************/
     public static void bind (final @Nonnull BindingGroup bindings,
-                             final @Nonnull Object source, 
-                             final @Nonnull JList jList) 
+                             final @Nonnull Object datum,
+                             final @Nonnull JList jList)
       {
-        final ObservableList<?> ol = source.as(ObservableListProvider).createObservableList();
+        final ObservableList<?> ol = datum.as(ObservableListProvider).createObservableList();
         bindings.addBinding(SwingBindings.createJListBinding(READ, ol, jList));
         jList.setCellRenderer(new HtmlRenderableListCellRenderer());
       }
-    
+
+    /*******************************************************************************************************************
+     *
+     * Binds a source to a {@link JTable}.
+     *
+     * @param  bindings  the {@link BindingGroup} to add the new binding to
+     * @param  datum     the datum
+     * @param  jTable    the {@code JTable}
+     *
+     ******************************************************************************************************************/
     public static void bind (final @Nonnull BindingGroup bindings,
-                             final @Nonnull Object source, 
-                             final @Nonnull JTable jTable) 
+                             final @Nonnull Object datum,
+                             final @Nonnull JTable jTable)
       {
-        final ObservableList<?> ol = source.as(ObservableListProvider).createObservableList();
+        final ObservableList<?> ol = datum.as(ObservableListProvider).createObservableList();
         bindings.addBinding(SwingBindings.createJTableBinding(READ_WRITE, ol, jTable));
       }
   }

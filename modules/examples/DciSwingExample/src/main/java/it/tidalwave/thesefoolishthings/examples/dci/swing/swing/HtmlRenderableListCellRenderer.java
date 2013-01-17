@@ -22,17 +22,21 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.dci.swing.swing;
 
-import java.awt.Component;
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
-import it.tidalwave.role.AsExtensions;
 import it.tidalwave.util.AsException;
+import it.tidalwave.role.AsExtensions;
+import it.tidalwave.role.HtmlRenderable;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.HtmlRenderable.*;
 
 /***********************************************************************************************************************
+ *
+ * A specialization of {@link javax.swing.DefaultListCellRenderer} that uses {@link HtmlRenderable} for rendering items.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -43,15 +47,15 @@ import static it.tidalwave.role.HtmlRenderable.*;
 public class HtmlRenderableListCellRenderer extends DefaultListCellRenderer
   {
     @Override @Nonnull
-    public Component getListCellRendererComponent (final @Nonnull JList list, 
+    public Component getListCellRendererComponent (final @Nonnull JList list,
                                                    final @Nonnull Object value,
-                                                   final @Nonnull int index, 
-                                                   final @Nonnull boolean isSelected,
-                                                   final @Nonnull boolean cellHasFocus)
+                                                   final @Nonnegative int index,
+                                                   final boolean isSelected,
+                                                   final boolean cellHasFocus)
       {
-        return super.getListCellRendererComponent(list, getRenderableString(value), index, isSelected, cellHasFocus); 
+        return super.getListCellRendererComponent(list, getRenderableString(value), index, isSelected, cellHasFocus);
       }
-    
+
     @Nonnull
     private static String getRenderableString (final @Nonnull Object value)
       {
@@ -64,6 +68,6 @@ public class HtmlRenderableListCellRenderer extends DefaultListCellRenderer
         catch (AsException e)
           {
             return value.toString();
-          }        
+          }
       }
   }

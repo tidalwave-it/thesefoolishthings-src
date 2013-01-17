@@ -27,14 +27,25 @@ import org.jdesktop.observablecollections.ObservableList;
 
 /***********************************************************************************************************************
  *
+ * A role which creates an {@link ObservableList} bound to the datum.
+ *
+ * @sterotype Role
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface ObservableListProvider 
+public interface ObservableListProvider
   {
     public static final Class<ObservableListProvider> ObservableListProvider = ObservableListProvider.class;
-    
+
+    /*******************************************************************************************************************
+     *
+     * Creates a new {@link ObservableList} for the associated datum.
+     *
+     * @return  the {@code ObservableList}
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public ObservableList<?> createObservableList();
   }

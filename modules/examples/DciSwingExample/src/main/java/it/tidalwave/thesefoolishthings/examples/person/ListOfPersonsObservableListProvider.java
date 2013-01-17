@@ -31,6 +31,10 @@ import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
+ * The implementation of the {@link ObservableListProvider} role for {@link ListOfPersons}.
+ *
+ * @stereotype Role
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -43,7 +47,7 @@ public class ListOfPersonsObservableListProvider implements ObservableListProvid
     private final ListOfPersons datum;
 
     @Override @Nonnull
-    public ObservableList<?> createObservableList() 
+    public ObservableList<?> createObservableList()
       {
         return ObservableCollections.observableList(datum);
       }
