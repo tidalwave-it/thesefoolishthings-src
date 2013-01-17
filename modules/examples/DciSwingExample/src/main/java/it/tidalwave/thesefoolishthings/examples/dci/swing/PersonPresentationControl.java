@@ -28,7 +28,7 @@ package it.tidalwave.thesefoolishthings.examples.dci.swing;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface PersonPresentationControl 
+public interface PersonPresentationControl
   {
     public static final Class<PersonPresentationControl> PersonPresentationController = PersonPresentationControl.class;
   }

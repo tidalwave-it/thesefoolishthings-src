@@ -24,13 +24,13 @@ package it.tidalwave.thesefoolishthings.examples.dci.swing.swing;
 
 import javax.annotation.Nonnull;
 import java.awt.EventQueue;
+import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import org.jdesktop.beansbinding.BindingGroup;
 import it.tidalwave.thesefoolishthings.examples.dci.swing.PersonPresentation;
 import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
-import javax.swing.Action;
 
 /***********************************************************************************************************************
  *

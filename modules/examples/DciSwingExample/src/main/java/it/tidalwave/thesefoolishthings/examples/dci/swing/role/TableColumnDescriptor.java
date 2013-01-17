@@ -30,7 +30,7 @@ import lombok.ToString;
 /***********************************************************************************************************************
  *
  * A descriptor for a column in a table.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
