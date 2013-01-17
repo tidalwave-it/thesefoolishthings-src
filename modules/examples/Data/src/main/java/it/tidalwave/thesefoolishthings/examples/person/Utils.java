@@ -20,43 +20,30 @@
  * SCM: https://bitbucket.org/tidalwave/thesefoolishthings-src
  *
  **********************************************************************************************************************/
-package it.tidalwave.thesefoolishthings.examples.dci.swing;
+package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
-import java.awt.event.ActionEvent;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry;
-import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
-import it.tidalwave.thesefoolishthings.examples.person.Utils;
+import it.tidalwave.util.Id;
+import lombok.NoArgsConstructor;
+import static lombok.AccessLevel.*;
 
 /***********************************************************************************************************************
- *
- * The default control for the presentation.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DefaultPersonPresentationControl implements PersonPresentationControl
+@NoArgsConstructor(access = PRIVATE)
+public final class Utils
   {
-    @Nonnull
-    private final PersonPresentation presentation;
-
-    private final Action okAction = new AbstractAction("Ok")
+    public static void populatePresidents (final @Nonnull PersonRegistry registry)
       {
-        public void actionPerformed (final @Nonnull ActionEvent event)
-          {
-            presentation.dispose();
-          }
-      };
-
-    public DefaultPersonPresentationControl (final @Nonnull PersonPresentation presentation)
-      {
-        this.presentation = presentation;
-        final PersonRegistry personRegistry = new DefaultPersonRegistry();
-        Utils.populatePresidents(personRegistry);
-
-        presentation.bind(okAction, personRegistry);
+        registry.add(new Person(new Id("1"), "Richard", "Nixon"));
+        registry.add(new Person(new Id("2"), "Jimmy", "Carter"));
+        registry.add(new Person(new Id("3"), "Ronald", "Reagan"));
+        registry.add(new Person(new Id("4"), "George", "Bush"));
+        registry.add(new Person(new Id("5"), "Bill", "Clinton"));
+        registry.add(new Person(new Id("6"), "George Walker", "Bush"));
+        registry.add(new Person(new Id("7"), "Barack", "Obama"));
       }
   }

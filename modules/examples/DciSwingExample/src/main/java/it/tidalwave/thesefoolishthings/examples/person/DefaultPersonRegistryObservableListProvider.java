@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * The implementation of the {@link ObservableListProvider} role for {@link ListOfPersons}.
+ * The implementation of the {@link ObservableListProvider} role for {@link DefaultPersonRegistry}.
  *
  * @stereotype Role
  *
@@ -39,16 +39,16 @@ import lombok.RequiredArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = ListOfPersons.class)
+@DciRole(datum = DefaultPersonRegistry.class)
 @RequiredArgsConstructor
-public class ListOfPersonsObservableListProvider implements ObservableListProvider
+public class DefaultPersonRegistryObservableListProvider implements ObservableListProvider
   {
     @Nonnull
-    private final ListOfPersons datum;
+    private final DefaultPersonRegistry datum;
 
     @Override @Nonnull
     public ObservableList<?> createObservableList()
       {
-        return ObservableCollections.observableList(datum);
+        return ObservableCollections.observableList(datum.persons);
       }
   }

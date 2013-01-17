@@ -23,12 +23,11 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.Id;
 import it.tidalwave.util.NotFoundException;
-import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 import static it.tidalwave.util.Finder.SortDirection.*;
 import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
+import it.tidalwave.thesefoolishthings.examples.person.Utils;
 
 /***********************************************************************************************************************
  *
@@ -42,14 +41,7 @@ public class FinderExample1
       throws NotFoundException
       {
         final PersonRegistry registry = new DefaultPersonRegistry1();
-
-        registry.add(new Person(new Id("1"), "Richard", "Nixon"));
-        registry.add(new Person(new Id("2"), "Jimmy", "Carter"));
-        registry.add(new Person(new Id("3"), "Ronald", "Reagan"));
-        registry.add(new Person(new Id("4"), "George", "Bush"));
-        registry.add(new Person(new Id("5"), "Bill", "Clinton"));
-        registry.add(new Person(new Id("6"), "George Walker", "Bush"));
-        registry.add(new Person(new Id("7"), "Barack", "Obama"));
+        Utils.populatePresidents(registry);
 
         //@bluebook-begin example
         System.out.println("All: "

@@ -30,7 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import org.jdesktop.beansbinding.BindingGroup;
 import it.tidalwave.thesefoolishthings.examples.dci.swing.PersonPresentation;
-import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 
 /***********************************************************************************************************************
  *
@@ -54,15 +54,14 @@ public class SwingPersonPresentation extends JPanel implements PersonPresentatio
      *
      ******************************************************************************************************************/
     @Override
-    public void bind (final @Nonnull Action okAction,
-                      final @Nonnull ListOfPersons persons)
+    public void bind (final @Nonnull Action okAction, final @Nonnull PersonRegistry personRegistry)
       {
         EventQueue.invokeLater(new Runnable()
           {
             public void run()
               {
-                Bindings.bind(bindings, persons, liPeople);
-                Bindings.bind(bindings, persons, taPeople);
+                Bindings.bind(bindings, personRegistry, liPeople);
+                Bindings.bind(bindings, personRegistry, taPeople);
                 bindings.bind();
                 btOk.setAction(okAction);
               }

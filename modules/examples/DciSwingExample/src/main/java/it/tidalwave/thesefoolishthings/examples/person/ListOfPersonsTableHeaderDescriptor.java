@@ -36,12 +36,12 @@ import lombok.RequiredArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = ListOfPersons.class)
+@DciRole(datum = PersonRegistry.class)
 @RequiredArgsConstructor
 public class ListOfPersonsTableHeaderDescriptor implements TableHeaderDescriptor
   {
     @Nonnull
-    private final ListOfPersons datum;
+    private final PersonRegistry datum;
 
     @Override @Nonnull
     public List<TableColumnDescriptor> getColumnDescriptors()

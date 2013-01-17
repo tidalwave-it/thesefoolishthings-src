@@ -24,7 +24,7 @@ package it.tidalwave.thesefoolishthings.examples.dci.swing;
 
 import javax.annotation.Nonnull;
 import javax.swing.Action;
-import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 
 /***********************************************************************************************************************
  *
@@ -40,11 +40,11 @@ public interface PersonPresentation
      *
      * Initialize the presentation and bind it to some data and callbacks.
      *
-     * @param  okAction  the callback for the Ok button
-     * @param  persons   the persons
+     * @param  okAction         the callback for the Ok button
+     * @param  personRegistry   the persons
      *
      ******************************************************************************************************************/
-    public void bind (@Nonnull Action okAction, @Nonnull ListOfPersons persons);
+    public void bind (@Nonnull Action okAction, @Nonnull PersonRegistry personRegistry);
 
     /*******************************************************************************************************************
      *
