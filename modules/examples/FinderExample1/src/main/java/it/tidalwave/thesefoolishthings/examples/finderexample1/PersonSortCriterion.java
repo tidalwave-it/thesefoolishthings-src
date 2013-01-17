@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 import java.util.Comparator;
 import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.DefaultFilterSortCriterion;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 
 /***********************************************************************************************************************
  *

@@ -68,8 +68,8 @@ public class DciMarshalXStreamExample
 
         final ByteArrayOutputStream os3 = new ByteArrayOutputStream();
         final DefaultPersonRegistry personRegistry = new DefaultPersonRegistry();
-        personRegistry.addPerson(joe);
-        personRegistry.addPerson(luke);
+        personRegistry.add(joe);
+        personRegistry.add(luke);
         personRegistry.as(Marshallable).marshal(os3);
         log.info("******** (personRegistry as Mashallable) marshalled: {}", new String(os2.toByteArray()));
         

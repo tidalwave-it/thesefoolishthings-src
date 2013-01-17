@@ -24,6 +24,9 @@ package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.util.Id;
+import javax.annotation.concurrent.Immutable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.ToString;
 
 /***********************************************************************************************************************
@@ -32,7 +35,8 @@ import lombok.ToString;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@ToString
+@Immutable
+@AllArgsConstructor @Getter
 public class Person 
   {
     final Id id;
@@ -43,12 +47,9 @@ public class Person
     @Nonnull
     final String lastName;
 
-    public Person (final @Nonnull Id id, 
-                   final @Nonnull String firstName, 
-                   final @Nonnull String lastName)
+    @Override @Nonnull
+    public String toString() 
       {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        return firstName + " " + lastName;
       }
   }

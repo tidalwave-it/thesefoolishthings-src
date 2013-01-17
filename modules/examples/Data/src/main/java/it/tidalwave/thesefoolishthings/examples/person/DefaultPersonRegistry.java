@@ -54,7 +54,7 @@ public class DefaultPersonRegistry implements PersonRegistry
       }
 
     @Override @Nonnull
-    public void addPerson (final @Nonnull Person person) 
+    public void add (final @Nonnull Person person) 
       {
         persons.add(person);
       }  

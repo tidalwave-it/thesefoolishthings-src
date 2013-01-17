@@ -23,7 +23,10 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
+import it.tidalwave.util.Id;
 import it.tidalwave.util.NotFoundException;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 import static it.tidalwave.util.Finder.SortDirection.*;
 import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
 
@@ -38,27 +41,27 @@ public class FinderExample1
     public static void main (final @Nonnull String ... args)
       throws NotFoundException
       {
-        final PersonRegistry1 registry = new DefaultPersonRegistry1();
+        final PersonRegistry registry = new DefaultPersonRegistry1();
 
-        registry.add(new Person("Richard", "Nixon"));
-        registry.add(new Person("Jimmy", "Carter"));
-        registry.add(new Person("Ronald", "Reagan"));
-        registry.add(new Person("George", "Bush"));
-        registry.add(new Person("Bill", "Clinton"));
-        registry.add(new Person("George Walker", "Bush"));
-        registry.add(new Person("Barack", "Obama"));
+        registry.add(new Person(new Id("1"), "Richard", "Nixon"));
+        registry.add(new Person(new Id("2"), "Jimmy", "Carter"));
+        registry.add(new Person(new Id("3"), "Ronald", "Reagan"));
+        registry.add(new Person(new Id("4"), "George", "Bush"));
+        registry.add(new Person(new Id("5"), "Bill", "Clinton"));
+        registry.add(new Person(new Id("6"), "George Walker", "Bush"));
+        registry.add(new Person(new Id("7"), "Barack", "Obama"));
 
         //@bluebook-begin example
         System.out.println("All: "
-                           + registry.findPersons().results());
+                           + registry.findPerson().results());
 
         System.out.println("All, sorted by first name: "
-                           + registry.findPersons().sort(BY_FIRST_NAME).results());
+                           + registry.findPerson().sort(BY_FIRST_NAME).results());
 
         System.out.println("All, sorted by last name, descending: "
-                           + registry.findPersons().sort(BY_LAST_NAME, DESCENDING).results());
+                           + registry.findPerson().sort(BY_LAST_NAME, DESCENDING).results());
 
         System.out.println("Two persons from the 3rd position: "
-                           + registry.findPersons().from(3).max(2).results());
+                           + registry.findPerson().from(3).max(2).results());
       }
   }

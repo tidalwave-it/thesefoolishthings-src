@@ -26,6 +26,8 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import it.tidalwave.util.Finder;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 
 /***********************************************************************************************************************
  *
@@ -33,7 +35,7 @@ import it.tidalwave.util.Finder;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DefaultPersonRegistry1 implements PersonRegistry1
+public class DefaultPersonRegistry1 implements PersonRegistry
   {
     private final List<Person> persons = new ArrayList<Person>();
 
@@ -44,7 +46,7 @@ public class DefaultPersonRegistry1 implements PersonRegistry1
       }
 
     @Override @Nonnull
-    public Finder<Person> findPersons()
+    public Finder<Person> findPerson()
       {
         return new DefaultPersonFinder1(persons);
       }

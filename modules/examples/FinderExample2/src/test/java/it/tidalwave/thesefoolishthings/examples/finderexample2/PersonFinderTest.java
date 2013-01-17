@@ -22,8 +22,9 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.finderexample2;
 
+import it.tidalwave.util.Id;
 import it.tidalwave.util.NotFoundException;
-import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import static it.tidalwave.util.Finder.SortDirection.*;
@@ -46,15 +47,15 @@ public class PersonFinderTest
       {
         final PersonRegistry2 registry = new DefaultPersonRegistry2();
 
-        registry.add(new Person("Richard", "Nixon"));
-        registry.add(new Person("Jimmy", "Carter"));
-        registry.add(new Person("Ronald", "Reagan"));
-        registry.add(new Person("George", "Bush"));
-        registry.add(new Person("Bill", "Clinton"));
-        registry.add(new Person("George Walker", "Bush"));
-        registry.add(new Person("Barack", "Obama"));
+        registry.add(new Person(new Id("1"), "Richard", "Nixon"));
+        registry.add(new Person(new Id("2"), "Jimmy", "Carter"));
+        registry.add(new Person(new Id("3"), "Ronald", "Reagan"));
+        registry.add(new Person(new Id("4"), "George", "Bush"));
+        registry.add(new Person(new Id("5"), "Bill", "Clinton"));
+        registry.add(new Person(new Id("6"), "George Walker", "Bush"));
+        registry.add(new Person(new Id("7"), "Barack", "Obama"));
 
-        finder = registry.findPersons();
+        finder = registry.findPerson();
       }
 
     @Test

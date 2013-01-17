@@ -22,6 +22,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 import javax.annotation.Nonnull;
 import lombok.AllArgsConstructor;
 import java.util.ArrayList;

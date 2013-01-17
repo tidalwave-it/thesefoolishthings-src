@@ -23,7 +23,7 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample2;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 
 /***********************************************************************************************************************
  *
@@ -31,10 +31,8 @@ import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface PersonRegistry2
+public interface PersonRegistry2 extends PersonRegistry
   {
-    public void add (@Nonnull Person person);
-
-    @Nonnull
-    public PersonFinder findPersons();
+    @Override @Nonnull
+    public PersonFinder findPerson();    
   }

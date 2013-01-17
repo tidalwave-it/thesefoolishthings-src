@@ -38,5 +38,5 @@ public interface PersonRegistry
     @Nonnull
     public Finder<Person> findPerson();
     
-    public void addPerson (@Nonnull Person person);
+    public void add (@Nonnull Person person);
   }

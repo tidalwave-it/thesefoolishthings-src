@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import it.tidalwave.util.spi.FinderSupport;
-import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 
 /***********************************************************************************************************************
  *

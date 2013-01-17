@@ -25,7 +25,8 @@ package it.tidalwave.thesefoolishthings.examples.finderexample2;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 
 /***********************************************************************************************************************
  *
@@ -44,7 +45,7 @@ public class DefaultPersonRegistry2 implements PersonRegistry2
       }
 
     @Override @Nonnull
-    public PersonFinder findPersons()
+    public PersonFinder findPerson()
       {
         return new DefaultPersonFinder2(persons);
       }
