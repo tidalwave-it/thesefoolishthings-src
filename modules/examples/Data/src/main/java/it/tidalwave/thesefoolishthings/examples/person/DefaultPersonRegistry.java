@@ -34,17 +34,17 @@ import it.tidalwave.util.spi.SimpleFinderSupport;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DefaultPersonRegistry implements PersonRegistry 
+public class DefaultPersonRegistry implements PersonRegistry
   {
     final ListOfPersons persons = new ListOfPersons();
-    
+
     @Override @Nonnull
-    public Finder<Person> findPerson() 
+    public Finder<Person> findPerson()
       {
-        return new SimpleFinderSupport<Person>() 
+        return new SimpleFinderSupport<Person>()
           {
             @Override @Nonnull
-            protected List<? extends Person> computeResults() 
+            protected List<? extends Person> computeResults()
               {
                 final List<Person> results = new ArrayList<Person>();
                 results.addAll(persons);
@@ -54,8 +54,8 @@ public class DefaultPersonRegistry implements PersonRegistry
       }
 
     @Override @Nonnull
-    public void add (final @Nonnull Person person) 
+    public void add (final @Nonnull Person person)
       {
         persons.add(person);
-      }  
+      }
   }

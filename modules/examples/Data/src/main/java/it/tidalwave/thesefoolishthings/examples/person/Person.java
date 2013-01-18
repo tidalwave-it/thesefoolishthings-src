@@ -27,7 +27,6 @@ import it.tidalwave.util.Id;
 import javax.annotation.concurrent.Immutable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
 /***********************************************************************************************************************
  *
@@ -37,10 +36,10 @@ import lombok.ToString;
  **********************************************************************************************************************/
 @Immutable
 @AllArgsConstructor @Getter
-public class Person 
+public class Person
   {
     final Id id;
-    
+
     @Nonnull
     final String firstName;
 
@@ -48,7 +47,7 @@ public class Person
     final String lastName;
 
     @Override @Nonnull
-    public String toString() 
+    public String toString()
       {
         return firstName + " " + lastName;
       }

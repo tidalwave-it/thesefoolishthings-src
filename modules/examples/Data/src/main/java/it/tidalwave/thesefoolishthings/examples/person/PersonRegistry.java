@@ -31,12 +31,12 @@ import javax.annotation.Nonnull;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface PersonRegistry 
+public interface PersonRegistry
   {
     public static final Class<PersonRegistry> PersonRegistry = PersonRegistry.class;
-    
+
     @Nonnull
     public Finder<Person> findPerson();
-    
+
     public void add (@Nonnull Person person);
   }
