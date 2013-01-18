@@ -39,16 +39,16 @@ import lombok.RequiredArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = DefaultPersonRegistry.class)
+@DciRole(datum = PersonRegistry.class)
 @RequiredArgsConstructor
-public class DefaultPersonRegistryObservableListProvider implements ObservableListProvider
+public class PersonRegistryObservableListProvider implements ObservableListProvider
   {
     @Nonnull
-    private final DefaultPersonRegistry datum;
+    private final PersonRegistry datum;
 
     @Override @Nonnull
     public ObservableList<?> createObservableList()
       {
-        return ObservableCollections.observableList(datum.persons);
+        return ObservableCollections.observableList(datum.findPerson().results()); // FIXME: sort
       }
   }
