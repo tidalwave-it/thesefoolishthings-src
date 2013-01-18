@@ -38,7 +38,7 @@ import lombok.RequiredArgsConstructor;
  **********************************************************************************************************************/
 @DciRole(datum = PersonRegistry.class)
 @RequiredArgsConstructor
-public class ListOfPersonsTableHeaderDescriptor implements TableHeaderDescriptor
+public class PersonRegistryTableHeaderDescriptor implements TableHeaderDescriptor
   {
     @Nonnull
     private final PersonRegistry datum;
