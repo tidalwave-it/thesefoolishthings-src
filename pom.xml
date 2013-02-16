@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>superpom</artifactId>
-        <version>2.2</version>
+        <version>2.3-SNAPSHOT</version>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -24,7 +24,7 @@
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
     </properties>
-    
+
     <issueManagement>
         <system>Jira</system>
         <url>http://kenai.com/jira/browse/THESEFOOLISHTHINGS</url>
@@ -213,8 +213,8 @@
     </dependencyManagement>
 
     <build>
-        <plugins>                       
-            <!-- Needed for setting that inherited = false -->
+        <plugins>
+
             <plugin>
                 <groupId>com.mycila.maven-license-plugin</groupId>
                 <artifactId>maven-license-plugin</artifactId>
@@ -228,6 +228,7 @@
                         <exclude>.hgtags</exclude>
                         <exclude>.hgignore</exclude>
                         <exclude>**/archetypes/**</exclude>
+                        <exclude>**/*-profile</exclude>
                     </excludes>
                 </configuration>
             </plugin>
