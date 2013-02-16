@@ -1,0 +1,52 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.thesefoolishthings</groupId>
+        <artifactId>modules</artifactId>
+        <version>1.28-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <groupId>it.tidalwave.thesefoolishthings</groupId>
+    <artifactId>thesefoolishthings-examples</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.19-SNAPSHOT</version>
+    <name>TheseFoolishThings Examples (master)</name>
+
+    <dependencies>
+        <!-- Needed in compilation, because of the annotation processor -->
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-util-lookup</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+        
+    <build>
+        <defaultGoal>clean install exec:java</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>${mainClass}</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <modules>
+        <module>Data</module>
+        <module>DciDisplayableExample</module>
+        <module>DciMarshalXStreamExample</module>
+        <module>DciPersistenceJpaExample</module>
+        <module>DciSwingExample</module>
+        <module>FinderExample1</module>
+        <module>FinderExample2</module>
+        <module>FinderExample3</module>
+    </modules>
+
+</project>

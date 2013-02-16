@@ -1,0 +1,14 @@
+#set( $dollar = '$' )
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<additionalHeaders>
+    <xml_style>
+        <firstLine><![CDATA[<!--********************************************************************************************************************]]></firstLine>
+        <beforeEachLine> *</beforeEachLine>
+        <endLine><![CDATA[ ********************************************************************************************************************-->]]></endLine>
+        <skipLine><![CDATA[^<\?xml.*>$dollar]]></skipLine>
+        <firstLineDetectionPattern><![CDATA[(\s|\t)*<!--.*$dollar]]></firstLineDetectionPattern>
+        <lastLineDetectionPattern><![CDATA[.*-->(\s|\t)*$dollar]]></lastLineDetectionPattern>
+        <allowBlankLines>false</allowBlankLines>
+        <isMultiline>true</isMultiline>
+    </xml_style>
+</additionalHeaders>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor name="it-tidalwave-thesefoolishthings-project-archetype">
+
+    <requiredProperties>
+        <requiredProperty key="projectName" />  
+        <requiredProperty key="organizationName" />  
+        <requiredProperty key="organizationUrl" />  
+        <requiredProperty key="forgeName">
+            <defaultValue>java.net</defaultValue>
+        </requiredProperty>  
+    </requiredProperties>
+
+    <fileSets>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>src</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory></directory>
+            <includes>
+                <include>LICENSE.txt</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory></directory>
+            <includes>
+                <include>.hgignore</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+    <modules>
+        <module filtered="true" id="${rootArtifactId}-modules" name="${projectName} (modules)" dir="modules">
+            <modules>
+                <module id="${rootArtifactId}-module1" name="${projectName} - Module 1" dir="Module1">
+                    <fileSets>
+                        <fileSet filtered="true" encoding="UTF-8">
+                            <directory>src</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </fileSet>
+                    </fileSets>
+                </module>
+            </modules>
+        </module>
+    </modules>
+</archetype-descriptor>
+
