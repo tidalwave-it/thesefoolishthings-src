@@ -2,7 +2,8 @@
  * #%L
  * *********************************************************************************************************************
  * 
- * TheseFoolishThings Examples - DCI Swing
+ * These Foolish Things - Miscellaneous utilities
+ * http://thesefoolishthings.java.net - hg clone https://bitbucket.org/tidalwave/thesefoolishthings-src
  * %%
  * Copyright (C) 2009 - 2013 Tidalwave s.a.s. (http://tidalwave.it)
  * %%

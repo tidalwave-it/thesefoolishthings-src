@@ -15,11 +15,12 @@
     <version>1.28-SNAPSHOT</version>
     <name>TheseFoolishThings (master)</name>
 
-    <url>http://thesefoolishthings.java.net</url>
-    <description>These Foolish Things - Miscellaneous utilities</description>
     <inceptionYear>2009</inceptionYear>
 
     <properties>
+        <tft.project.description>These Foolish Things - Miscellaneous utilities</tft.project.description>
+        <tft.project.url>http://thesefoolishthings.java.net</tft.project.url>
+        
         <scm.repo.url>ssh://hg@bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
