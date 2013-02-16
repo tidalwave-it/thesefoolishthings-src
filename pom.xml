@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>superpom</artifactId>
-        <version>2.3-SNAPSHOT</version>
+        <version>2.4</version>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -212,29 +212,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-
-            <plugin>
-                <groupId>com.mycila.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <inherited>false</inherited>
-                <configuration>
-                    <excludes>
-                        <exclude>LICENSE.txt</exclude>
-                        <exclude>**/*.form</exclude>
-                        <exclude>**/*.mf</exclude>
-                        <exclude>**/.description</exclude>
-                        <exclude>.hgtags</exclude>
-                        <exclude>.hgignore</exclude>
-                        <exclude>**/archetypes/**</exclude>
-                        <exclude>**/*-profile</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <reporting>
         <plugins>
