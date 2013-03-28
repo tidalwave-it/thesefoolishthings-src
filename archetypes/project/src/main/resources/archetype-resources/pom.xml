@@ -36,7 +36,7 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>superpom</artifactId>
-        <version>1.0.24</version>
+        <version>2.5</version>
     </parent>
 
     <groupId>${groupId}</groupId>
@@ -44,25 +44,25 @@
     <version>${version}</version>
     <packaging>pom</packaging>
     <name>${projectName} (master)</name>
-    <description>${projectName} (master)</description>
+    <inceptionYear>2011</inceptionYear>
 
     <properties>
+        <tft.project.url>http://${rootArtifactId}.${forgeName}</tft.project.url>
+        <tft.project.description>TODO: project description</tft.project.description>
+
         <scm.repo.url>https://${forgeName}/hg/${rootArtifactId}~src</scm.repo.url>
         <scm.repo.readonly.url>http://${forgeName}/hg/${rootArtifactId}~src</scm.repo.readonly.url>
         <scm.repo.browse.url>http://${forgeName}/projects/${rootArtifactId}/sources/src/show</scm.repo.browse.url>
 
-        <thesefoolishthings.version>1.18</thesefoolishthings.version>
-        <netbeans.version>RELEASE70</netbeans.version>
-        <slf4j.version>1.6.1</slf4j.version>
-        <logback.version>0.9.28</logback.version>
-        <tft.lombok.version>0.10.1</tft.lombok.version>
-
+        <tft.maven.requiredJdk>[1.7.0,)</tft.maven.requiredJdk>
+        <tft.javac.source>1.7</tft.javac.source>
+        <tft.javac.target>1.7</tft.javac.target>
 <!-- E.g. for Android
         <tft.javac.source>1.5</tft.javac.source>
         <tft.javac.target>1.5</tft.javac.target>
 -->
+                
 <!--
-        <tft.mockito.version>1.8.5</tft.mockito.version>
         <tft.test.maxMemory>1024M</tft.test.maxMemory>
         <tft.test.listeners>it.tidalwave.util.test.TestLogger</tft.test.listeners>
 
@@ -71,9 +71,6 @@
 -->
 
     </properties>
-
-    <url>http://${rootArtifactId}.${forgeName}</url>
-    <inceptionYear>2011</inceptionYear>
 
     <issueManagement>
         <system>Jira</system>
@@ -127,7 +124,7 @@
                 <version>${version}</version>
             </dependency>
 
-            <!-- TODO: ADD YOUR DEPENDENCIES HERE -->
+            <!-- TODO: DECLARE YOUR PROJECT MODULES HERE -->
         </dependencies>
     </dependencyManagement>
 
@@ -150,22 +147,6 @@
                             <value>${tft.test.listeners}</value>
                         </property>
                     </properties>
-                </configuration>
-            </plugin>
-
-            <!-- Needed for setting that inherited = false -->
-            <plugin>
-                <groupId>com.mycila.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <inherited>false</inherited>
-                <configuration>
-                    <excludes>
-                        <exclude>LICENSE.txt</exclude>
-                        <exclude>**/*.mf</exclude>
-                        <exclude>**/.revision</exclude>
-                        <exclude>.hgtags</exclude>
-                        <exclude>.hgignore</exclude>
-                    </excludes>
                 </configuration>
             </plugin>
         </plugins>

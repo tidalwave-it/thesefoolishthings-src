@@ -22,9 +22,9 @@
   
   $Id$
   
-  *********************************************************************************************************************
-  #L%
-  -->
+*********************************************************************************************************************
+#L%
+-->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -45,6 +45,16 @@
     <packaging>pom</packaging>
     <name>${projectName} (modules)</name>
     <description>${projectName} (modules)</description>
+    
+    <properties>        
+        <thesefoolishthings.version>1.28</thesefoolishthings.version>
+        <netbeans.version>RELEASE72</netbeans.version>
+        <slf4j.version>1.6.1</slf4j.version>
+        <logback.version>1.0.6</logback.version>
+        <tft.jsr305.version>2.0.1</tft.jsr305.version>
+        <tft.lombok.version>0.11.6</tft.lombok.version>
+        <tft.mockito.version>1.8.5</tft.mockito.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -59,8 +69,7 @@
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
-                <version>1.3.7</version>
-                <!-- WARNING: don't use 1.3.8, it has got a broken pom which brings is tons of useless stuff! -->
+                <version>${tft.jsr305.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.inject</groupId>
@@ -87,12 +96,12 @@
     </dependencyManagement>
 
     <dependencies>
-<!--
-        <dependency>
-            <groupId>com.kenai.nbpwr</groupId>
-            <artifactId>javax-annotation</artifactId>
-        </dependency>
--->
+        <!--
+                <dependency>
+                    <groupId>com.kenai.nbpwr</groupId>
+                    <artifactId>javax-annotation</artifactId>
+                </dependency>
+        -->
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>

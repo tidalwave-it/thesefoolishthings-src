@@ -44,6 +44,5 @@
     <packaging>jar</packaging>
     <version>${version}</version>
     <name>${projectName} - Module 1</name>
-    <description>${projectName} - Module 1</description>
 
 </project>
