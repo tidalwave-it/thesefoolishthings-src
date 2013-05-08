@@ -27,7 +27,7 @@
   #L%
   -->
 
-<configuration debug="true"> 
+<configuration debug="false"> 
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>target/test.log</file>
