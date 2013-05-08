@@ -47,10 +47,10 @@
     <description>${projectName} (modules)</description>
     
     <properties>        
-        <thesefoolishthings.version>1.28</thesefoolishthings.version>
-        <netbeans.version>RELEASE72</netbeans.version>
-        <slf4j.version>1.6.1</slf4j.version>
-        <logback.version>1.0.6</logback.version>
+        <!-- thesefoolishthings.version>1.28</thesefoolishthings.version -->
+        <!-- netbeans.version>RELEASE72</netbeans.version -->
+        <slf4j.version>1.7.5</slf4j.version>
+        <logback.version>1.0.12</logback.version>
         <tft.jsr305.version>2.0.1</tft.jsr305.version>
         <tft.lombok.version>0.11.6</tft.lombok.version>
         <tft.mockito.version>1.8.5</tft.mockito.version>
