@@ -58,7 +58,8 @@
         </fileSet>
     </fileSets>
     <modules>
-        <module filtered="true" id="${rootArtifactId}-modules" name="${projectName} (modules)" dir="modules">
+        <!--<module filtered="true" id="${rootArtifactId}-modules" name="${projectName} (modules)" dir="modules">-->
+        <module id="${rootArtifactId}-modules" name="${projectName} (modules)" dir="modules">
             <modules>
                 <module id="${rootArtifactId}-module1" name="${projectName} - Module 1" dir="Module1">
                     <fileSets>

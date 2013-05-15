@@ -25,7 +25,16 @@
 
 set -e -x
 
-mvn archetype:generate \
+rm -rfv archetype-test
+
+mvn archetype:generate -B \
     -DarchetypeCatalog=local \
+    -DarchetypeVersion=1.0.15-SNAPSHOT \
     -DarchetypeGroupId=it.tidalwave.thesefoolishthings \
-    -DarchetypeArtifactId=project-archetype 
+    -DarchetypeArtifactId=project-archetype \
+    -DgroupId=com.acme \
+    -DartifactId=archetype-test \
+    -DorganizationName=Acme \
+    -DorganizationUrl=http://acme.com \
+    -DprojectName=ArchiTest
+

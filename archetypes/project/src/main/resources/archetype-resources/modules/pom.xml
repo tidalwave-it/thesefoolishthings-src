@@ -46,16 +46,31 @@
     <name>${projectName} (modules)</name>
     <description>${projectName} (modules)</description>
     
+    <!-- 
+        Here you declare some properties defining the version of dependencies used by this project. All dependencies
+        for all modules must be enumerated, and specified below in the <dependencyManagement> section.
+    -->
     <properties>        
+        
         <!-- thesefoolishthings.version>1.28</thesefoolishthings.version -->
         <!-- netbeans.version>RELEASE72</netbeans.version -->
         <slf4j.version>1.7.5</slf4j.version>
         <logback.version>1.0.12</logback.version>
         <tft.jsr305.version>2.0.1</tft.jsr305.version>
+        <tft.jsr330.version>1</tft.jsr330.version>
         <tft.lombok.version>0.11.6</tft.lombok.version>
         <tft.mockito.version>1.8.5</tft.mockito.version>
     </properties>
 
+    <!--
+        Here you declare the dependencies for all the modules in the project. This section only instructs Maven to 
+        remember the version of each dependency, while actual dependencies will be enumerated in each module requiring
+        them. This section is a fundamental part of Maven best practices, as it ensures that dependency convergence is
+        preserved: that is the same dependency is not listed in different places with different versions.
+        For the sake of readability, don't inline version numbers here, but use properties specified in the 
+        <properties> section above.
+        Keep dependencies for tests separated for better readability.
+    -->
     <dependencyManagement>
         <dependencies>
             <!--
@@ -76,7 +91,7 @@
             <dependency>
                 <groupId>javax.inject</groupId>
                 <artifactId>javax.inject</artifactId>
-                <version>1</version>
+                <version>${tft.jsr330.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -97,13 +112,14 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- 
+        Here you declare some actual dependencies that are shared by all the modules in this project. This usually 
+        includes common stuff such as annotations, annotation processors, and the libraries for testing. This section
+        might be empty.
+        Don't specify versions here - they should be listed in the <dependencyManagement> section above.
+        Keep dependencies for tests separated for better readability.
+    -->
     <dependencies>
-        <!--
-                <dependency>
-                    <groupId>com.kenai.nbpwr</groupId>
-                    <artifactId>javax-annotation</artifactId>
-                </dependency>
-        -->
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
@@ -135,13 +151,19 @@
             <artifactId>hamcrest-all</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--        
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it-tidalwave-util-test</artifactId>
             <scope>test</scope>
         </dependency>
+        -->
     </dependencies>
 
+    <!--
+        Inclusion of modules participating in this project. Remember to list all the modules as soon as you add them
+        to the project.
+    -->
     <modules>
         <module>Module1</module>
     </modules>
