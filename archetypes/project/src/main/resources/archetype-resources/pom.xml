@@ -44,7 +44,7 @@
     <version>${version}</version>
     <packaging>pom</packaging>
     <name>${projectName} (master)</name>
-    <inceptionYear>2011</inceptionYear>
+    <inceptionYear>2013</inceptionYear>
 
     <properties>
         <tft.project.url>http://${rootArtifactId}.${forgeName}</tft.project.url>
