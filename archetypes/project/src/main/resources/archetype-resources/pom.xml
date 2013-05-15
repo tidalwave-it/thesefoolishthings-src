@@ -23,9 +23,9 @@
   
   $Id$
   
-  *********************************************************************************************************************
-  #L%
-  -->
+*********************************************************************************************************************
+#L%
+-->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -39,6 +39,14 @@
         <version>2.7</version>
     </parent>
 
+    <!--
+        This is the "Master POM" of the project. It contains all the metadata of the project, the global compilation
+        and test settings, and a <dependencyManagement> section describing the versions of all the modules of this
+        project (or the modules that are "exported", that is made available to others. This setup allows other projects
+        to import all the modules in this project by means of reusing this POM with the "import scope" - see
+        http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Importing_Dependencies 
+    -->
+    
     <groupId>${groupId}</groupId>
     <artifactId>${rootArtifactId}</artifactId>
     <version>${version}</version>
