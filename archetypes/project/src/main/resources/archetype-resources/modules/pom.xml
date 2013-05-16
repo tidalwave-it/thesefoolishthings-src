@@ -58,8 +58,9 @@
     
         Here you declare some properties defining the version of dependencies used by this project. All dependencies
         for all modules must be enumerated, and specified below in the <dependencyManagement> section.
-    -->
-    <properties>        
+         
+    ================================================================================================================ -->
+   <properties>        
         
         <!-- thesefoolishthings.version>1.28</thesefoolishthings.version -->
         <!-- netbeans.version>RELEASE72</netbeans.version -->
