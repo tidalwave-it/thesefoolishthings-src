@@ -52,7 +52,7 @@
     <version>${version}</version>
     <packaging>pom</packaging>
     <name>${projectName} (modules)</name>
-    <description>${projectName} (modules)</description>
+    <description>The parent POM of all modules.</description>
     
     <!-- ===============================================================================================================
     
