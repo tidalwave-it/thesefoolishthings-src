@@ -39,13 +39,15 @@
         <version>2.7</version>
     </parent>
 
-    <!--
+    <!-- ===============================================================================================================
+    
         This is the "Master POM" of the project. It contains all the metadata of the project, the global compilation
         and test settings, and a <dependencyManagement> section describing the versions of all the modules of this
         project (or the modules that are "exported", that is made available to others. This setup allows other projects
         to import all the modules in this project by means of reusing this POM with the "import scope" - see
         http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Importing_Dependencies 
-    -->
+        
+    ================================================================================================================ -->
     
     <groupId>${groupId}</groupId>
     <artifactId>${rootArtifactId}</artifactId>
@@ -54,11 +56,13 @@
     <name>${projectName} (master)</name>
     <inceptionYear>2013</inceptionYear>
 
-    <!--
+    <!-- ===============================================================================================================
+
         TODO: review settings after the generation of the archetype and delete unwanted stuff. Delete this comment too.
         Some sections are alternate settings for different corporates / forge. Just keep the one you need and eventually
         add more.
-    -->
+        
+    ================================================================================================================ -->
     <properties>
         <!-- Java.net
         <tft.project.url>http://${projectName.toLowerCase()}.${forgeName}</tft.project.url>
@@ -105,6 +109,11 @@
         -->
     </properties>
 
+    <!-- ===============================================================================================================
+
+        Here you tell the world where your issue tracker, CI server and other stuff are.
+        
+    ================================================================================================================ -->
     <issueManagement>
         <!-- Java.Net with Jira
         <system>Jira</system>
@@ -143,6 +152,15 @@
         </mailingList>
     </mailingLists>
 
+    <!-- ===============================================================================================================
+
+        The Sonatype Releases repository is useful as you're likely to use it as a stage repository towards Maven 
+        Central. If you're depending on recently released stuff, you might find it there with a few hours of advance
+        in respect of Maven Central.
+        The Sonatype Snapshots repository is useful as you're likeky to use it to deploy your snaphots, and you might
+        depend on some snapshot.
+        
+    ================================================================================================================ -->
     <repositories>
         <repository>
             <id>releases-oss.sonatype.org</id>
@@ -162,10 +180,12 @@
         </repository>
     </repositories>
 
-    <!--
+    <!-- ===============================================================================================================
+
         Here you declare the versions for all the modules in your project. Don't declare here the versions for 
         external dependencies, as they should go in the "modules POM" specific <dependencyManagement>
-    -->
+        
+    ================================================================================================================ -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -185,6 +205,12 @@
         <url>${scm.repo.browse.url}</url>
     </scm>
 
+    <!-- ===============================================================================================================
+
+         Here you customize your build workflow.
+        
+    ================================================================================================================ -->
+    <!--
     <build>
         <plugins>
             <plugin>
@@ -201,5 +227,6 @@
             </plugin>
         </plugins>
     </build>
+    -->
 
 </project>
