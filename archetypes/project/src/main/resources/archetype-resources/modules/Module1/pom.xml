@@ -50,7 +50,7 @@
         Here you declare some actual dependencies specific to this module only.
         Don't specify versions here - they should be listed in the <dependencyManagement> section in the "modules POM".
         Your IDE will typically assist you in adding parts to this section, but will also inline a version number. When
-        this happen, please remove it and eventually declare in the <dependencyManagement> section.
+        this happen, please remove it and, if not already present, declare it in the <dependencyManagement> section.
         Keep dependencies for tests separated for better readability.
         
     ================================================================================================================ -->
