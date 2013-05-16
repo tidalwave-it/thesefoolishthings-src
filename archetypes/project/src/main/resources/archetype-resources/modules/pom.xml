@@ -60,7 +60,7 @@
         for all modules must be enumerated, and specified below in the <dependencyManagement> section.
          
     ================================================================================================================ -->
-   <properties>        
+    <properties>        
         
         <!-- thesefoolishthings.version>1.28</thesefoolishthings.version -->
         <!-- netbeans.version>RELEASE72</netbeans.version -->
