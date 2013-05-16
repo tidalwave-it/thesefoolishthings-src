@@ -83,6 +83,10 @@
         <scm.repo.browse.url>http://${forgeName}/projects/${rootArtifactId}/sources/src/show</scm.repo.browse.url>
         -->
         
+        <!-- For Git 
+        <tft.scm>git</tft.scm>
+        -->
+        
         <!-- BitBucket.org Mercurial setting  
         <scm.repo.url>ssh//hg@bitbucket.org/${organizationName.toLowerCase()}/${rootArtifactId}-src</scm.repo.url>
         <scm.repo.readonly.url>http://bitbucket.org/${organizationName.toLowerCase()}/${rootArtifactId}-src</scm.repo.readonly.url>
