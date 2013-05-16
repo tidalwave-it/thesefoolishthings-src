@@ -88,7 +88,7 @@
         -->
         
         <!-- BitBucket.org Mercurial setting  
-        <scm.repo.url>ssh//hg@bitbucket.org/${organizationName.toLowerCase()}/${rootArtifactId}-src</scm.repo.url>
+        <scm.repo.url>ssh://hg@bitbucket.org/${organizationName.toLowerCase()}/${rootArtifactId}-src</scm.repo.url>
         <scm.repo.readonly.url>http://bitbucket.org/${organizationName.toLowerCase()}/${rootArtifactId}-src</scm.repo.readonly.url>
         <scm.repo.browse.url>http://bitbucket.org/${organizationName.toLowerCase()}/${rootArtifactId}/src</scm.repo.browse.url>
         -->
@@ -204,8 +204,8 @@
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
     <scm>
-        <connection>scm:hg:${scm.repo.readonly.url}</connection>
-        <developerConnection>scm:hg:${scm.repo.effective.url}</developerConnection>
+        <connection>scm:${tft.scm}:${scm.repo.readonly.url}</connection>
+        <developerConnection>scm:${tft.scm}:${scm.repo.effective.url}</developerConnection>
         <url>${scm.repo.browse.url}</url>
     </scm>
 
