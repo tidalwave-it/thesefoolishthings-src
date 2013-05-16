@@ -1,10 +1,12 @@
 target
+release\.properties
+.idea
+.*\.iml
 \.repository
 \.description
 \.classpath
 \.project
 \.settings
-release\.properties
 \.orig\..*$
 \.orig$
 \.chg\..*$
