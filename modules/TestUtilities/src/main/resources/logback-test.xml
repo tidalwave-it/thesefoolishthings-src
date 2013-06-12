@@ -47,4 +47,9 @@
         <appender-ref ref="STDERR" />
         <appender-ref ref="FILE" />
     </root>
+
+    <logger name="org.springframework" level="INFO"/>
+
+    <include file="\${tft.test.logConfig}" optional="true" />
+
 </configuration>
