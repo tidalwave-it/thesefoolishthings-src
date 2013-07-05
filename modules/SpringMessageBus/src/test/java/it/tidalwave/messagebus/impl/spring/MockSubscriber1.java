@@ -38,7 +38,7 @@ import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
  *
  **********************************************************************************************************************/
 @SimpleMessageSubscriber
-public class MockSubscriber
+public class MockSubscriber1
   {
     void onMockEvent1 (final @Nonnull @ListensTo MockEvent1 event)
       {

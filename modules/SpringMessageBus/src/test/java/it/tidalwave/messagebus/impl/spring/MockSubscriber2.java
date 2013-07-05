@@ -28,12 +28,8 @@
 package it.tidalwave.messagebus.impl.spring;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
-import org.springframework.beans.factory.annotation.Configurable;
-import it.tidalwave.messagebus.MessageBusHelper;
-import it.tidalwave.messagebus.MessageBus;
+import it.tidalwave.messagebus.annotation.ListensTo;
 import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
-import org.springframework.beans.factory.BeanFactory;
 
 /***********************************************************************************************************************
  *
@@ -41,28 +37,14 @@ import org.springframework.beans.factory.BeanFactory;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Configurable(preConstruction = true)
-public class SpringSimpleMessageSubscriberSupport
+@SimpleMessageSubscriber(source = "otherMessageBus")
+public class MockSubscriber2
   {
-    @Inject @Nonnull
-    private BeanFactory beanFactory;
-
-    private final MessageBusHelper busHelper;
-
-    public SpringSimpleMessageSubscriberSupport (final @Nonnull Object bean)
+    void onMockEvent1 (final @Nonnull @ListensTo MockEvent1 event)
       {
-        final String source = bean.getClass().getAnnotation(SimpleMessageSubscriber.class).source();
-        final MessageBus messageBus = beanFactory.getBean(source, MessageBus.class);
-        busHelper = new MessageBusHelper(bean, new MessageBusAdapterFactory(messageBus));
       }
 
-    public void subscribeAll()
+    void onMockEvent2 (final @Nonnull @ListensTo MockEvent2 event)
       {
-        busHelper.subscribeAll();
-      }
-
-    public void unsubscribeAll()
-      {
-        busHelper.unsubscribeAll();
       }
   }

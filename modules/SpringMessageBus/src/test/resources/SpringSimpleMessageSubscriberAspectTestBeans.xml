@@ -43,12 +43,21 @@
     <!-- Enables AOP-based injection of classes that are instantiated outside of the Spring bean factory -->
     <context:spring-configured />
 
-    <bean id="fixture"
-          class="it.tidalwave.messagebus.impl.spring.MockSubscriber"
+    <bean id="subscriber1"
+          class="it.tidalwave.messagebus.impl.spring.MockSubscriber1"
+          lazy-init="true">
+    </bean>
+
+    <bean id="subscriber2"
+          class="it.tidalwave.messagebus.impl.spring.MockSubscriber2"
           lazy-init="true">
     </bean>
 
     <bean id="applicationMessageBus" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="it.tidalwave.messagebus.MessageBus" />
+    </bean>
+
+    <bean id="otherMessageBus" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="it.tidalwave.messagebus.MessageBus" />
     </bean>
 
