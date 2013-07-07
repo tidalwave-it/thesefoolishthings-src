@@ -16,7 +16,13 @@
     <packaging>jar</packaging>
     <name>TheseFoolishThings - Roles (Spring)</name>
     <description>Specific Spring support for DCI roles</description>
-    
+
+    <properties>
+        <!-- FIXME: push up -->
+        <tft.test.listeners>it.tidalwave.util.test.TestLogger</tft.test.listeners>
+        <!--<tft.test.logConfig></tft.test.logConfig>-->
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -71,5 +77,35 @@
             <groupId>org.netbeans.api</groupId>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it-tidalwave-util-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
+    <!-- FIXME: push up -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>${tft.test.listeners}</value>
+                        </property>
+                    </properties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

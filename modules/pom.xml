@@ -33,7 +33,7 @@
         <vaadin.version>6.6.1</vaadin.version>
 
         <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide java.*|javax.*</tft.UmlGraphDoc.additionalParam>
-       
+
         <tft.javac.source>1.5</tft.javac.source> <!-- For Android compatibility -->
         <tft.javac.target>1.5</tft.javac.target>
     </properties>
@@ -72,6 +72,11 @@
                 <version>${slf4jk.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.kenai.nbpwr</groupId>
                 <artifactId>com-eaio-uuid</artifactId>
                 <version>${uuid.version}</version>
@@ -95,7 +100,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-           
+
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-beans</artifactId>
@@ -116,7 +121,7 @@
                 <artifactId>spring-core</artifactId>
                 <version>${org.springframework.version}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjrt</artifactId>
@@ -127,7 +132,7 @@
                 <artifactId>aspectjweaver</artifactId>
                 <version>${tft.aspectjrt.version}</version>
             </dependency>
- 
+
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -138,7 +143,7 @@
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.incava</groupId>
                 <artifactId>org.incava.util.diff</artifactId>
@@ -146,7 +151,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
@@ -163,7 +168,7 @@
             <artifactId>mockito-all</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
         <!-- TEST DEPENDENCIES -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
