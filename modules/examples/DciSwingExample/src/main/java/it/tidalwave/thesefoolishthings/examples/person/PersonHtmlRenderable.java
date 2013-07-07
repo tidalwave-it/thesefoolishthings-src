@@ -43,7 +43,7 @@ import lombok.RequiredArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = Person.class)
+@DciRole(datumType = Person.class)
 @RequiredArgsConstructor
 public class PersonHtmlRenderable extends StringRenderableSupport implements HtmlRenderable
   {

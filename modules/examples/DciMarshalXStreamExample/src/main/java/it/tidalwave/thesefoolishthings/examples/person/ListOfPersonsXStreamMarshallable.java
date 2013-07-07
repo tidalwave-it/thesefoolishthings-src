@@ -37,7 +37,7 @@ import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.XStreamConte
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = ListOfPersons.class, context = XStreamContext.class)
+@DciRole(datumType = ListOfPersons.class, context = XStreamContext.class)
 public class ListOfPersonsXStreamMarshallable extends XStreamMarshallableSupport<ListOfPersons>
   {
     public ListOfPersonsXStreamMarshallable (final @Nonnull ListOfPersons datum, final @Nonnull XStreamContext context)

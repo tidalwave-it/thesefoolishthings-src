@@ -40,7 +40,7 @@ import lombok.RequiredArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = Person.class) @RequiredArgsConstructor
+@DciRole(datumType = Person.class) @RequiredArgsConstructor
 public final class PersonDisplayable implements Displayable
   {
     @Nonnull

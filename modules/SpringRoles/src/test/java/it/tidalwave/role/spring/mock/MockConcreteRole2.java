@@ -38,7 +38,7 @@ import lombok.RequiredArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = { MockDatum1.class, MockDatum2.class })
+@DciRole(datumType = { MockDatum1.class, MockDatum2.class })
 @RequiredArgsConstructor @Getter
 public class MockConcreteRole2 implements MockRole2
   {

@@ -43,7 +43,7 @@ import lombok.RequiredArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = Person.class, context = JpaPersistenceContext.class)
+@DciRole(datumType = Person.class, context = JpaPersistenceContext.class)
 @AllArgsConstructor @NoArgsConstructor 
 public abstract class JpaPersistableSupport implements Serializable, Persistable, Removable
   {

@@ -44,7 +44,7 @@ import lombok.Setter;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = Person.class, context = JpaPersistenceContext.class)
+@DciRole(datumType = Person.class, context = JpaPersistenceContext.class)
 @Entity @NoArgsConstructor @Getter @Setter @ToString
 public class PersonJpaPersistable extends JpaPersistableSupport
   {

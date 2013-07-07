@@ -236,7 +236,7 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
           {
             final DciRole role = roleImplementationClass.getAnnotation(DciRole.class);
 
-            for (final Class<?> datumClass : role.datum())
+            for (final Class<?> datumClass : role.datumType())
               {
                 for (final Class<?> roleClass : findAllImplemetedInterfacesOf(roleImplementationClass))
                   {

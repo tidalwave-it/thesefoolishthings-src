@@ -44,7 +44,7 @@ import lombok.RequiredArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@DciRole(datum = PersonRegistry.class)
+@DciRole(datumType = PersonRegistry.class)
 @RequiredArgsConstructor
 public class PersonRegistryObservableListProvider implements ObservableListProvider
   {
