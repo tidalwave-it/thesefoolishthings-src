@@ -27,7 +27,6 @@
  */
 package it.tidalwave.role.spring;
 
-import it.tidalwave.role.*;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,6 +34,7 @@ import java.util.List;
 import java.util.Stack;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.Task;
+import it.tidalwave.role.ContextManager;
 
 /***********************************************************************************************************************
  *
