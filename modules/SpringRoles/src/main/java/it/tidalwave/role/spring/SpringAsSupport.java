@@ -93,6 +93,11 @@ public class SpringAsSupport implements As
     @Override @Nonnull
     public <T> T as (final @Nonnull Class<T> roleType, final @Nonnull NotFoundBehaviour<T> notFoundBehaviour)
       {
+        if (roleType.isAssignableFrom(owner.getClass()))
+          {
+            return roleType.cast(owner);
+          }
+
         final List<? extends T> roles = roleManager.findRoles(owner, roleType);
 
         if (roles.isEmpty())
