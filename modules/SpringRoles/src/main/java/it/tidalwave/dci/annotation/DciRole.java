@@ -56,11 +56,11 @@ public @interface DciRole
 
     /*******************************************************************************************************************
      *
-     * The datum type to which this role can be associated. 
+     * The datum type to which this role can be associated. Multiple data types can be specified.
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Class<?> datum();
+    public Class<?>[] datum();
 
     /*******************************************************************************************************************
      *
