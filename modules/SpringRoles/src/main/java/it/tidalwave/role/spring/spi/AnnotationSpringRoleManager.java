@@ -174,7 +174,7 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
                               }
                           }
 
-                        roles.add((RoleType)constructor.newInstance(parameters.toArray()));
+                        roles.add(roleClass.cast(constructor.newInstance(parameters.toArray())));
                       }
                     catch (Exception e)
                       {
