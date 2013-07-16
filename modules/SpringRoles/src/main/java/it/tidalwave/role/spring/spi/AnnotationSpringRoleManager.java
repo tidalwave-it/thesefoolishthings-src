@@ -149,6 +149,7 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
                               {
                                 parameters.add(owner);
                               }
+                            // TODO: strict equals or isAssignableFrom?
                             else if (parameterType.equals(contextClass))
                               {
                                 try
@@ -163,7 +164,7 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
                                       }
                                     catch (BeanCreationException e2) // couldn't satisfy the context
                                       {
-                                        log.debug("Role discarded", e2);
+                                        log.debug("Role discarded, can't find context: " + contextClass, e2);
                                         continue outer;
                                       }
                                   }
