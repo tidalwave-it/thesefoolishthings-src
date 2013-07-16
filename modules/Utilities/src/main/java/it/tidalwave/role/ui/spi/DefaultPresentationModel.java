@@ -29,13 +29,8 @@ package it.tidalwave.role.ui.spi;
 
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import it.tidalwave.util.As;
-import it.tidalwave.util.AsException;
-import it.tidalwave.util.RoleFactory;
 import it.tidalwave.role.ui.PresentationModel;
+import it.tidalwave.util.spi.AsSupport;
 import lombok.Delegate;
 import lombok.ToString;
 
@@ -50,14 +45,11 @@ import lombok.ToString;
 @ToString
 public class DefaultPresentationModel implements PresentationModel
   {
-    @Nonnull
-    private final Object datum;
-
-    @Nonnull
-    private final List<Object> roles;
-
     @Delegate
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+    @Delegate
+    private final AsSupport asDelegate;
 
     /*******************************************************************************************************************
      *
@@ -67,72 +59,6 @@ public class DefaultPresentationModel implements PresentationModel
     public DefaultPresentationModel (final @Nonnull Object datum,
                                      final @Nonnull Object ... rolesOrFactories)
       {
-        this.datum = datum;
-        this.roles = resolveRoles(Arrays.asList(rolesOrFactories));
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override
-    public <T> T as (final @Nonnull Class<T> type)
-      {
-        return as(type, As.Defaults.throwAsException(type));
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override
-    public <T> T as (final @Nonnull Class<T> type, NotFoundBehaviour<T> notFoundBehaviour)
-      {
-        for (final Object role : roles)
-          {
-            if (type.isAssignableFrom(role.getClass()))
-              {
-                return type.cast(role);
-              }
-          }
-
-        if (datum instanceof As)
-          {
-            final T as = ((As)datum).as(type);
-
-            if (as != null) // do check it for improper implementations or partial mocks
-              {
-                return as;
-              }
-          }
-
-        return notFoundBehaviour.run(new AsException(type));
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    private List<Object> resolveRoles (final @Nonnull List<Object> rolesOrFactories)
-      {
-        final List<Object> roles = new ArrayList<Object>();
-
-        for (final Object roleOrFactory : rolesOrFactories)
-          {
-            if (roleOrFactory instanceof RoleFactory)
-              {
-                roles.add(((RoleFactory<Object>)roleOrFactory).createRoleFor(datum));
-              }
-            else
-              {
-                roles.add(roleOrFactory);
-              }
-          }
-
-        return roles;
+        asDelegate = new AsSupport(datum, rolesOrFactories);
       }
   }
