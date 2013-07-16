@@ -35,6 +35,8 @@ import it.tidalwave.role.spring.SpringAsSupport;
 
 /***********************************************************************************************************************
  *
+ * An implementation of {@link AsDelegateProvider} for a Spring context.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  *
