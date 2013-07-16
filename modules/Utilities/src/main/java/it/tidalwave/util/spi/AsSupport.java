@@ -28,7 +28,11 @@
 package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import it.tidalwave.util.As;
+import it.tidalwave.util.RoleFactory;
 
 /***********************************************************************************************************************
  *
@@ -41,6 +45,12 @@ public class AsSupport implements As
     @Nonnull
     private final AsDelegate delegate;
 
+    @Nonnull
+    private final Object owner;
+
+    @Nonnull
+    private final List<Object> roles = new ArrayList<Object>();
+
     /*******************************************************************************************************************
      *
      * Constructor for use in subclassing.
@@ -49,16 +59,23 @@ public class AsSupport implements As
     protected AsSupport()
       {
         delegate = AsDelegateProvider.Locator.find().createAsDelegate(this);
+        owner = this;
       }
 
     /*******************************************************************************************************************
      *
-     * Constructor for use in composition.
+     * Constructor for use in composition. In addition to the mandatory owner, it's possible to pass a collection of
+     * pre-instantiated roles, or instances of {@link RoleFactory} that will be invoked to create additional roles.
+     *
+     * @param  owner             the owner
+     * @param  rolesOrFactories  a collection of roles or factories for roles
      *
      ******************************************************************************************************************/
-    public AsSupport (final @Nonnull Object owner)
+    public AsSupport (final @Nonnull Object owner, final @Nonnull Object ... rolesOrFactories)
       {
         delegate = AsDelegateProvider.Locator.find().createAsDelegate(owner);
+        this.owner = owner;
+        roles.addAll(resolveFactories(Arrays.asList(rolesOrFactories)));
       }
 
     /*******************************************************************************************************************
@@ -76,10 +93,59 @@ public class AsSupport implements As
      *
      * {@inheritDoc}
      *
+     * First, local roles are probed; then the owner, in case it directly implements the required role; at last,
+     * the delegate is invoked.
+     *
      ******************************************************************************************************************/
     @Nonnull
     public <T> T as (final @Nonnull Class<T> type, final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour)
       {
+        for (final Object role : roles)
+          {
+            if (type.isAssignableFrom(role.getClass()))
+              {
+                return type.cast(role);
+              }
+          }
+
+        if (owner instanceof As)
+          {
+            final T as = ((As)owner).as(type);
+
+            if (as != null) // do check it for improper implementations or partial mocks
+              {
+                return as;
+              }
+          }
+
         return delegate.as(type, notFoundBehaviour);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Resolve the factories: if found, they are invoked and the produced role is added to the list.
+     *
+     * @param  rolesOrFactories  the list of roles or factory roles
+     * @return                   a list of roles
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    private List<Object> resolveFactories (final @Nonnull List<Object> rolesOrFactories)
+      {
+        final List<Object> result = new ArrayList<Object>();
+
+        for (final Object roleOrFactory : rolesOrFactories)
+          {
+            if (roleOrFactory instanceof RoleFactory)
+              {
+                result.add(((RoleFactory<Object>)roleOrFactory).createRoleFor(owner));
+              }
+            else
+              {
+                result.add(roleOrFactory);
+              }
+          }
+
+        return result;
       }
   }
