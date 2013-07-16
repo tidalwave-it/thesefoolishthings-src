@@ -25,104 +25,63 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spring;
+package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Configurable;
-import it.tidalwave.util.As;
-import it.tidalwave.util.NotFoundException;
+import java.util.concurrent.CopyOnWriteArrayList;
 import it.tidalwave.util.Task;
-import it.tidalwave.util.spi.AsDelegate;
-import it.tidalwave.role.spi.RoleManager;
-import it.tidalwave.role.spi.ContextSampler;
+import it.tidalwave.role.ContextManager;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
- * An implementation for {@link As} based on Spring.
- *
- * FIXME: this class should be declared package protected, since AsSupport should be used instead.
+ * A facility that samples the current contexts at creation time and make them available later.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Configurable(preConstruction = true) @Slf4j
-public class SpringAsSupport implements As, AsDelegate
+@Slf4j
+public class ContextSampler
   {
-    @Inject @Nonnull
-    private RoleManager roleManager;
+    // TODO: should be weak references? Should a context be alive as soon as all the objects created with it are
+    // alive?
+    private final List<Object> contexts;
 
+    // No @Inject here, we don't want to depend on a DI framework
+    private final ContextManager contextManager = ContextManager.Locator.find();
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public ContextSampler()
+      {
+        contexts = contextManager.getContexts();
+        log.trace(">>>> contexts at construction time: {}", contexts);
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     @Nonnull
-    private final Object owner;
-
-    private final ContextSampler contextSampler = new ContextSampler();
-
-    /*******************************************************************************************************************
-     *
-     * Constructor for use with subclassing.
-     *
-     ******************************************************************************************************************/
-    public SpringAsSupport()
+    public List<Object> getContexts()
       {
-        this.owner = this;
+        return new CopyOnWriteArrayList<Object>(contexts);
       }
 
     /*******************************************************************************************************************
      *
-     * Constructor for use with composition.
+     * Runs a {@link Task} associated with a the samples contexts.
      *
-     * @param  owner  the owner object
-     *
-     ******************************************************************************************************************/
-    public SpringAsSupport (final @Nonnull Object owner)
-      {
-        this.owner = owner;
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
+     * @param  task                the task
      *
      ******************************************************************************************************************/
-    @Override @Nonnull
-    public <T> T as (final @Nonnull Class<T> roleType)
+    public <V, T extends Throwable> V runWithContexts (@Nonnull Task<V, T> task)
+      throws T
       {
-        return as(roleType, As.Defaults.throwAsException(roleType));
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public <T> T as (final @Nonnull Class<T> roleType, final @Nonnull NotFoundBehaviour<T> notFoundBehaviour)
-      {
-        log.trace("as({}, {})", roleType, notFoundBehaviour);
-        log.trace(">>>> contexts: {}", contextSampler.getContexts());
-
-        final List<? extends T> roles = contextSampler.runWithContexts(new Task<List<? extends T>, RuntimeException>()
-          {
-            @Override @Nonnull
-            public List<? extends T> run()
-              {
-                return roleManager.findRoles(owner, roleType);
-              }
-          });
-
-        if (!roles.isEmpty())
-          {
-            return roles.get(0);
-          }
-
-        if (roleType.isAssignableFrom(owner.getClass()))
-          {
-            return roleType.cast(owner);
-          }
-
-        return notFoundBehaviour.run(new NotFoundException("No " + roleType.getName() + " in " + owner));
+        return contextManager.runWithContexts(contexts, task);
       }
   }

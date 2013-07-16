@@ -35,12 +35,14 @@ import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.RoleFactory;
+import it.tidalwave.util.Task;
 import it.tidalwave.util.spi.SimpleFinderSupport;
 import it.tidalwave.role.SimpleComposite;
+import it.tidalwave.role.ui.Presentable;
 import it.tidalwave.role.ui.PresentationModel;
 import it.tidalwave.role.ui.PresentationModelFactory;
+import it.tidalwave.role.spi.ContextSampler;
 import it.tidalwave.role.spi.DefaultSimpleComposite;
-import it.tidalwave.role.ui.Presentable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -65,6 +67,8 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
     // This is not @Injected to avoid a dependency on Spring AOP
     @Nonnull
     private final PresentationModelFactory defaultPresentationModelFactory;
+
+    private final ContextSampler contextSampler = new ContextSampler();
 
     /*******************************************************************************************************************
      *
@@ -101,32 +105,46 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
             @Override @Nonnull
             protected List<? extends PresentationModel> computeResults()
               {
-                final List<PresentationModel> results = new ArrayList<PresentationModel>();
-
-                try
+                return contextSampler.runWithContexts(new Task<List<? extends PresentationModel>, RuntimeException>()
                   {
-                    @SuppressWarnings("unchecked")
-                    final SimpleComposite<T> composite = datum.as(SimpleComposite.class);
-
-                    for (final T child : composite.findChildren().results())
+                    @Override
+                    public List<? extends PresentationModel> run()
                       {
-                        results.add(internalCreatePresentationModel(child, rolesOrFactories));
-                      }
-                  }
-                catch (AsException e)
-                  {
-                    // ok, no Composite role
-                  }
+                        final List<PresentationModel> results = new ArrayList<PresentationModel>();
 
-                return results;
+                        try
+                          {
+                            @SuppressWarnings("unchecked")
+                            final SimpleComposite<T> composite = datum.as(SimpleComposite.class);
+
+                            for (final T child : composite.findChildren().results())
+                              {
+                                results.add(internalCreatePresentationModel(child, rolesOrFactories));
+                              }
+                          }
+                        catch (AsException e)
+                          {
+                            // ok, no Composite role
+                          }
+
+                        return results;
+                      }
+                  });
               }
           };
 
-        final List<Object> roles = resolveRoles(datum, rolesOrFactories);
-        roles.add(new DefaultSimpleComposite<PresentationModel>(pmFinder));
-        log.trace(">>>> roles for {}: {}", datum, roles);
+        return contextSampler.runWithContexts(new Task<PresentationModel, RuntimeException>()
+          {
+            @Override
+            public PresentationModel run()
+              {
+                final List<Object> roles = resolveRoles(datum, rolesOrFactories);
+                roles.add(new DefaultSimpleComposite<PresentationModel>(pmFinder));
+                log.trace(">>>> roles for {}: {}", datum, roles);
 
-        return defaultPresentationModelFactory.createPresentationModel(datum, roles.toArray());
+                return defaultPresentationModelFactory.createPresentationModel(datum, roles.toArray());
+              }
+          });
       }
 
     /*******************************************************************************************************************
