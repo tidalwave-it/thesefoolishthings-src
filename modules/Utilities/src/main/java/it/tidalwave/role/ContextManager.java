@@ -27,10 +27,16 @@
  */
 package it.tidalwave.role;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ServiceLoader;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.Task;
+import it.tidalwave.role.spi.ContextManagerProvider;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /***********************************************************************************************************************
  *
@@ -42,6 +48,45 @@ import it.tidalwave.util.Task;
  **********************************************************************************************************************/
 public interface ContextManager
   {
+    /*******************************************************************************************************************
+     *
+     * A locator for the {@link ContextManager} which uses the {@link ServiceProvider} facility to be independent of
+     * any DI framework.
+     *
+     ******************************************************************************************************************/
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static final class Locator
+      {
+        @CheckForNull
+        private static ContextManager contextManager;
+
+        @Nonnull
+        public static synchronized ContextManager find()
+          {
+            if (contextManager == null)
+              {
+                final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                final Iterator<ContextManagerProvider> i =
+                        ServiceLoader.load(ContextManagerProvider.class, classLoader).iterator();
+
+                if (!i.hasNext())
+                  {
+                    throw new RuntimeException("No ServiceProvider for ContextManagerProvider");
+                  }
+
+                final ContextManagerProvider contextManagerProvider = i.next();
+                contextManager = contextManagerProvider.getContextManager();
+
+                if (contextManager == null)
+                  {
+                    throw new RuntimeException("Cannot find ContextManager");
+                  }
+              }
+
+            return contextManager;
+          }
+      }
+
     /*******************************************************************************************************************
      *
      * Returns the list of current contexts, ordered by their priority.
