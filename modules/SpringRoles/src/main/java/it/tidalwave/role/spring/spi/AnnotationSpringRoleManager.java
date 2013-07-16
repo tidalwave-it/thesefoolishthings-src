@@ -29,26 +29,25 @@ package it.tidalwave.role.spring.spi;
 
 import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
-import javax.inject.Inject;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.beans.factory.BeanCreationException;
 import it.tidalwave.util.spring.ClassScanner;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.role.spi.RoleManager;
 import it.tidalwave.role.ContextManager;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -132,10 +131,28 @@ public class AnnotationSpringRoleManager implements RoleManager
 
 outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImplementations)
           {
+            // FIXME: why enumerating all constructors?
             for (final Constructor<?> constructor : roleImplementationClass.getDeclaredConstructors())
               {
                 final Class<?>[] parameterTypes = constructor.getParameterTypes();
                 final Class<?> contextClass = roleImplementationClass.getAnnotation(DciRole.class).context();
+
+                Object context = null;
+
+                if (contextClass != DciRole.NoContext.class)
+                  {
+                    log.trace(">>>> contexts: {}", contextManager.getContexts());
+
+                    try
+                      {
+                        context = contextManager.findContext(contextClass);
+                      }
+                    catch (NotFoundException e)
+                      {
+                        log.trace(">>>> role {} discarded, can't find context: {}", roleImplementationClass, contextClass);
+                        continue outer;
+                      }
+                  }
 
                 if (parameterTypes.length > 0)
                   {
@@ -152,24 +169,9 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
                             // TODO: strict equals or isAssignableFrom?
                             else if (parameterType.equals(contextClass))
                               {
-                                try
-                                  {
-                                    parameters.add(contextManager.findContext(parameterType));
-                                  }
-                                catch (NotFoundException e)
-                                  {
-                                    try
-                                      {
-                                        parameters.add(beanFactory.getBean(parameterType));
-                                      }
-                                    catch (BeanCreationException e2) // couldn't satisfy the context
-                                      {
-                                        log.debug("Role discarded, can't find context: " + contextClass, e2);
-                                        continue outer;
-                                      }
-                                  }
+                                parameters.add(context);
                               }
-                            else
+                            else // standard injection
                               {
                                 parameters.add(beanFactory.getBean(parameterType));
                               }
