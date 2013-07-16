@@ -35,6 +35,7 @@ import java.util.Stack;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.Task;
 import it.tidalwave.role.ContextManager;
+import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
@@ -42,6 +43,7 @@ import it.tidalwave.role.ContextManager;
  * @version $Id$
  *
  **********************************************************************************************************************/
+@Slf4j
 public class SpringContextManager implements ContextManager
   {
     /** The list of global contexts, ordered by priority. */
@@ -150,11 +152,13 @@ public class SpringContextManager implements ContextManager
       {
         try
           {
+            log.trace("runWithContexts({}, {})", contexts, task);
+
             for (final Object context : contexts)
               {
                 addLocalContext(context);
               }
-            
+
             return task.run();
           }
         finally
