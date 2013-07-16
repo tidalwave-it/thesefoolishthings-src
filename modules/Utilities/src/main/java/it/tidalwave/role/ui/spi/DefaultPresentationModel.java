@@ -42,7 +42,7 @@ import lombok.ToString;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@ToString
+@ToString(exclude = {"asDelegate", "pcs"})
 public class DefaultPresentationModel implements PresentationModel
   {
     @Delegate
