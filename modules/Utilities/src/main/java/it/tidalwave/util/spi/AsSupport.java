@@ -58,8 +58,8 @@ public class AsSupport implements As
      ******************************************************************************************************************/
     protected AsSupport()
       {
-        delegate = AsDelegateProvider.Locator.find().createAsDelegate(this);
         owner = this;
+        delegate = AsDelegateProvider.Locator.find().createAsDelegate(this);
       }
 
     /*******************************************************************************************************************
