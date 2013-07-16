@@ -61,12 +61,22 @@ public class AsSupport implements As
         delegate = AsDelegateProvider.Locator.find().createAsDelegate(datum);
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public <T> T as (final @Nonnull Class<T> type)
       {
         return as(type, As.Defaults.throwAsException(type));
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public <T> T as (final @Nonnull Class<T> type, final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour)
       {
