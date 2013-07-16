@@ -56,7 +56,7 @@ public class AsSupport implements As
      * Constructor for use in composition.
      *
      ******************************************************************************************************************/
-    protected AsSupport (final @Nonnull Object owner)
+    public AsSupport (final @Nonnull Object owner)
       {
         delegate = AsDelegateProvider.Locator.find().createAsDelegate(owner);
       }
