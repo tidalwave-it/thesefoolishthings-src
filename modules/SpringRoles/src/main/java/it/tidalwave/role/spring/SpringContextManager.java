@@ -135,14 +135,34 @@ public class SpringContextManager implements ContextManager
                                                       final @Nonnull Task<V, T> task)
       throws T
       {
+        return runWithContexts(Collections.singletonList(context), task);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public <V, T extends Throwable> V runWithContexts (final @Nonnull List<Object> contexts,
+                                                       final @Nonnull Task<V, T> task)
+      throws T
+      {
         try
           {
-            addLocalContext(context);
+            for (final Object context : contexts)
+              {
+                addLocalContext(context);
+              }
+            
             return task.run();
           }
         finally
           {
-            removeLocalContext(context);
+            for (final Object context : contexts)
+              {
+                removeLocalContext(context);
+              }
           }
       }
   }
