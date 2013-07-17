@@ -25,11 +25,9 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.util.mock;
+package it.tidalwave.role.spi;
 
 import it.tidalwave.role.ContextManager;
-import it.tidalwave.role.spi.ContextManagerProvider;
-import it.tidalwave.role.spi.DefaultContextManager;
 import lombok.Getter;
 
 /***********************************************************************************************************************

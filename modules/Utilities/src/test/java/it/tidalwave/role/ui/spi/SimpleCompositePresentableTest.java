@@ -42,7 +42,7 @@ import it.tidalwave.role.SimpleComposite;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.ui.PresentationModel;
 import it.tidalwave.role.spi.DefaultSimpleComposite;
-import it.tidalwave.util.mock.DefaultContextManagerProvider;
+import it.tidalwave.role.spi.DefaultContextManagerProvider;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
