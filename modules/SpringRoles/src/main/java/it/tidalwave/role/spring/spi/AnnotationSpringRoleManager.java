@@ -34,6 +34,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Configurable;
 import it.tidalwave.util.spring.ClassScanner;
 import it.tidalwave.dci.annotation.DciRole;
+import it.tidalwave.role.spi.AnnotationRoleManagerSupport;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************

@@ -25,25 +25,23 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spring.spi;
+package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.dci.annotation.DciRole;
-import it.tidalwave.role.spi.RoleManager;
 import it.tidalwave.role.ContextManager;
-import java.util.Collection;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -51,8 +49,6 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
- *
- * FIXME: drop dependencies on Spring, move to Utilities
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -105,8 +101,27 @@ public abstract class AnnotationRoleManagerSupport implements RoleManager
           }
       }
 
-    private MultiValueMap<ClassAndRole, Class<?>> roleMapByOwnerClass =
-            new LinkedMultiValueMap<ClassAndRole, Class<?>>();
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    static class MultiMap<K, V> extends HashMap<K, List<V>>
+      {
+        public void add (final @Nonnull K key, final @Nonnull V value)
+          {
+            List<V> values = get(key);
+
+            if (values == null)
+              {
+                values = new ArrayList<V>();
+                put(key, values);
+              }
+
+            values.add(value);
+          }
+      }
+
+    private final MultiMap<ClassAndRole, Class<?>> roleMapByOwnerClass = new MultiMap<ClassAndRole, Class<?>>();
 
     /*******************************************************************************************************************
      *
