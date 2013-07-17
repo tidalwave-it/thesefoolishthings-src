@@ -32,32 +32,77 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Configurable;
+import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.spring.ClassScanner;
+import it.tidalwave.role.spi.RoleManagerSupport;
+import it.tidalwave.dci.annotation.DciContext;
 import it.tidalwave.dci.annotation.DciRole;
-import it.tidalwave.role.spi.AnnotationRoleManagerSupport;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
+ *
+ * A specialization of {@link RoleManagerSupport} for a Spring context that uses annotations ({@link DciRole} and
+ * {@link DciContext}) for retrieving role metadata and is capable to inject Spring beans into created roles.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
 @Configurable @Slf4j
-public class AnnotationSpringRoleManager extends AnnotationRoleManagerSupport
+public class AnnotationSpringRoleManager extends RoleManagerSupport
   {
     @Inject @Nonnull
     private BeanFactory beanFactory;
 
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
     @PostConstruct
     /* package */ void initialize()
       {
         scan(new ClassScanner().withAnnotationFilter(DciRole.class).findClasses());
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
     @Override @Nonnull
     protected <T> T getBean (final @Nonnull Class<T> beanType)
       {
         return beanFactory.getBean(beanType);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    protected Class<?> findContextForRole (final @Nonnull Class<?> roleImplementationClass)
+      throws NotFoundException
+      {
+        final Class<?> contextClass = roleImplementationClass.getAnnotation(DciRole.class).context();
+
+        if (contextClass == DciRole.NoContext.class)
+          {
+            throw new NotFoundException("No context");
+          }
+
+        return contextClass;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    protected Class<?>[] findDatumTypesForRole (final @Nonnull Class<?> roleImplementationClass)
+      {
+        return roleImplementationClass.getAnnotation(DciRole.class).datumType();
       }
   }
