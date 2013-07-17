@@ -111,6 +111,17 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override
+    public void removeGlobalContext (final @Nonnull Object context)
+      {
+        globalContexts.remove(context);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
     public void addLocalContext (final @Nonnull Object context)
       {
         localContexts.get().push(context);
