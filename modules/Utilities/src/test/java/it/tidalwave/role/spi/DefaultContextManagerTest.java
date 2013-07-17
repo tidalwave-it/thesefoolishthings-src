@@ -164,6 +164,23 @@ public class DefaultContextManagerTest
      *
      ******************************************************************************************************************/
     @Test
+    public void must_prioritize_global_contexts()
+      {
+        fixture.addLocalContext(localContext1);
+        fixture.addLocalContext(localContext2);
+        fixture.addGlobalContext(globalContext1);
+        fixture.addLocalContext(localContext3);
+        fixture.addGlobalContext(globalContext2);
+        fixture.addGlobalContext(globalContext3);
+
+        assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext2, globalContext3,
+                                                           localContext3, localContext2, localContext1)));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
     public void must_confine_local_contexts_in_their_thread()
       throws InterruptedException
       {
