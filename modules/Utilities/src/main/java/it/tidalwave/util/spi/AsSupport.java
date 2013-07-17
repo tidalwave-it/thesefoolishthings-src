@@ -108,16 +108,6 @@ public class AsSupport implements As
               }
           }
 
-        if (owner instanceof As)
-          {
-            final T as = ((As)owner).as(type);
-
-            if (as != null) // do check it for improper implementations or partial mocks
-              {
-                return as;
-              }
-          }
-
         return delegate.as(type, notFoundBehaviour);
       }
 

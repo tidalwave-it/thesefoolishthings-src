@@ -29,8 +29,9 @@ package it.tidalwave.role.ui.spi;
 
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeSupport;
-import it.tidalwave.role.ui.PresentationModel;
+import it.tidalwave.util.As;
 import it.tidalwave.util.spi.AsSupport;
+import it.tidalwave.role.ui.PresentationModel;
 import lombok.Delegate;
 import lombok.ToString;
 
@@ -45,10 +46,12 @@ import lombok.ToString;
 @ToString(exclude = {"asDelegate", "pcs"})
 public class DefaultPresentationModel implements PresentationModel
   {
+    @Nonnull
+    private final Object owner;
+
     @Delegate
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-    @Delegate
     private final AsSupport asDelegate;
 
     /*******************************************************************************************************************
@@ -56,9 +59,49 @@ public class DefaultPresentationModel implements PresentationModel
      *
      *
      ******************************************************************************************************************/
-    public DefaultPresentationModel (final @Nonnull Object datum,
+    public DefaultPresentationModel (final @Nonnull Object owner,
                                      final @Nonnull Object ... rolesOrFactories)
       {
-        asDelegate = new AsSupport(datum, rolesOrFactories);
+        this.owner = owner;
+        asDelegate = new AsSupport(owner, rolesOrFactories);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public <T> T as (final @Nonnull Class<T> roleType)
+      {
+        return as(roleType, As.Defaults.throwAsException(roleType));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public <T> T as (final @Nonnull Class<T> roleType, final @Nonnull NotFoundBehaviour<T> notFoundBehaviour)
+      {
+        return asDelegate.as(roleType, new NotFoundBehaviour<T>()
+          {
+            @Nonnull
+            public T run (final Throwable t)
+              {
+                if (owner instanceof As)
+                  {
+                    final T as = ((As)owner).as(roleType);
+
+                    if (as != null) // do check it for improper implementations or partial mocks
+                      {
+                        return as;
+                      }
+                  }
+
+                return notFoundBehaviour.run(t);
+              }
+          });
       }
   }
