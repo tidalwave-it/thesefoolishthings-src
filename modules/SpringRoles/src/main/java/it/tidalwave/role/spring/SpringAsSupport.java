@@ -43,7 +43,8 @@ import lombok.extern.slf4j.Slf4j;
  *
  * An implementation for {@link As} based on Spring.
  *
- * FIXME: this class should be declared package protected, since AsSupport should be used instead.
+ * FIXME: this class should be declared package protected and only implement AsDelegate, since AsSupport should be used
+ * instead.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
