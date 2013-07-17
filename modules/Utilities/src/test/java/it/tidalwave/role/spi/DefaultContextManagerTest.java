@@ -29,6 +29,9 @@ package it.tidalwave.role.spi;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;
@@ -157,4 +160,48 @@ public class DefaultContextManagerTest
         assertThat(fixture.getContexts(), is(Arrays.asList(localContext3, localContext1)));
       }
 
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_confine_local_contexts_in_their_thread()
+      throws InterruptedException
+      {
+        final ExecutorService executorService = Executors.newSingleThreadExecutor();
+        final CountDownLatch latch = new CountDownLatch(3);
+
+        executorService.submit(new Runnable()
+          {
+            public void run()
+              {
+                fixture.addGlobalContext(globalContext1);
+                fixture.addLocalContext(localContext1);
+                latch.countDown();
+              }
+          });
+
+        executorService.submit(new Runnable()
+          {
+            public void run()
+              {
+                fixture.addGlobalContext(globalContext2);
+                fixture.addLocalContext(localContext2);
+                latch.countDown();
+              }
+          });
+
+        executorService.submit(new Runnable()
+          {
+            public void run()
+              {
+                fixture.addGlobalContext(globalContext3);
+                fixture.addLocalContext(localContext3);
+                latch.countDown();
+              }
+          });
+
+        latch.await();
+
+        assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext2, globalContext3)));
+      }
   }
