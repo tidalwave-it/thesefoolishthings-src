@@ -124,8 +124,7 @@ public class AnnotationSpringRoleManager implements RoleManager
                                                           final @Nonnull Class<RoleType> roleClass)
       {
         log.trace("findRoles({}, {})", owner, roleClass);
-
-        final Class<?> ownerClass = owner.getClass();
+        final Class<?> ownerClass = findClass(owner);
         final List<RoleType> roles = new ArrayList<RoleType>();
         final List<Class<? extends RoleType>> roleImplementations = findRoleImplementationsFor(ownerClass, roleClass);
 
@@ -285,5 +284,29 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
           {
             log.debug(">>>> {} -> {}", entry.getKey(), entry.getValue());
           }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns the class of an object, taking care of mocks created by Mockito, for which the original class is
+     * returned.
+     *
+     * @param  owner    the owner
+     * @return          the owner class
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    private Class<?> findClass (final @Nonnull Object owner)
+      {
+        Class<?> ownerClass = owner.getClass();
+
+        if (ownerClass.toString().contains("EnhancerByMockito"))
+          {
+            log.trace(">>>> owner is a mock {} implementing {}", ownerClass, ownerClass.getInterfaces());
+            ownerClass = ownerClass.getInterfaces()[0]; // 1st is the original class, 2nd is CGLIB proxy
+            log.trace(">>>> owner class replaced with {}", ownerClass);
+          }
+
+        return ownerClass;
       }
   }
