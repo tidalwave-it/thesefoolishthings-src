@@ -25,6 +25,8 @@
         <scm.repo.url>ssh://hg@bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
+
+        <netbeans.compile.on.save>all</netbeans.compile.on.save>
     </properties>
 
     <issueManagement>
