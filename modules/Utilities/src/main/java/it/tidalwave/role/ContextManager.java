@@ -64,21 +64,28 @@ public interface ContextManager
         @CheckForNull
         private static ContextManager contextManager;
 
+        @CheckForNull
+        private static ContextManagerProvider contextManagerProvider;
+
         @Nonnull
         public static synchronized ContextManager find()
           {
             if (contextManager == null)
               {
-                final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                final Iterator<ContextManagerProvider> i =
-                        ServiceLoader.load(ContextManagerProvider.class, classLoader).iterator();
-
-                if (!i.hasNext())
+                if (contextManagerProvider == null)
                   {
-                    throw new RuntimeException("No ServiceProvider for ContextManagerProvider");
+                    final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                    final Iterator<ContextManagerProvider> i =
+                            ServiceLoader.load(ContextManagerProvider.class, classLoader).iterator();
+
+                    if (!i.hasNext())
+                      {
+                        throw new RuntimeException("No ServiceProvider for ContextManagerProvider");
+                      }
+
+                    contextManagerProvider = i.next();
                   }
 
-                final ContextManagerProvider contextManagerProvider = i.next();
                 contextManager = contextManagerProvider.getContextManager();
 
                 if (contextManager == null)
@@ -94,6 +101,12 @@ public interface ContextManager
         public static void reset()
           {
             contextManager = null;
+          }
+
+        public static void set (final @Nonnull ContextManagerProvider provider)
+          {
+            contextManager = null;
+            contextManagerProvider = provider;
           }
       }
 

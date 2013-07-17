@@ -27,13 +27,11 @@
  */
 package it.tidalwave.role.ui.spi;
 
-import javax.annotation.Nonnull;
-import org.openide.util.lookup.ServiceProvider;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.MockAs;
-import it.tidalwave.util.spi.AsDelegate;
 import it.tidalwave.util.spi.AsDelegateProvider;
+import it.tidalwave.util.mock.VoidAsDelegateProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.mockito.Mockito.*;
@@ -48,24 +46,6 @@ import static org.hamcrest.MatcherAssert.*;
  **********************************************************************************************************************/
 public class DefaultPresentationModelTest
   {
-    // Not called by tests, we only need it's there
-    @ServiceProvider(service = AsDelegateProvider.class)
-    public static class MockAsDelegateProvider implements AsDelegateProvider
-      {
-        @Nonnull
-        public AsDelegate createAsDelegate (final @Nonnull Object owner)
-          {
-            return new AsDelegate()
-              {
-                @Nonnull
-                public <T> T as(Class<T> roleType, As.NotFoundBehaviour<T> notFoundBehaviour)
-                  {
-                    return notFoundBehaviour.run(new AsException(roleType));
-                  }
-              };
-          }
-      }
-
     public static interface Role1
       {
       }
@@ -87,6 +67,9 @@ public class DefaultPresentationModelTest
     @BeforeMethod
     public void setup()
       {
+        // Not called by tests, we only need it's there
+        AsDelegateProvider.Locator.set(new VoidAsDelegateProvider());
+
         localRole1 = mock(Role1.class);
         localRole2 = mock(Role2.class);
         role2InOwner = mock(Role2.class);

@@ -36,13 +36,18 @@ import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.RoleFactory;
 import it.tidalwave.util.spi.SimpleFinderSupport;
+import it.tidalwave.util.spi.AsDelegateProvider;
+import it.tidalwave.util.mock.VoidAsDelegateProvider;
 import it.tidalwave.role.SimpleComposite;
-import it.tidalwave.role.spi.DefaultSimpleComposite;
+import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.ui.PresentationModel;
+import it.tidalwave.role.spi.DefaultSimpleComposite;
+import it.tidalwave.util.mock.DefaultContextManagerProvider;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -54,6 +59,17 @@ import static org.hamcrest.CoreMatchers.*;
  **********************************************************************************************************************/
 public class SimpleCompositePresentableTest
   {
+//    // Not called by tests, we only need it's there
+//    @ServiceProvider(service = AsDelegateProvider.class)
+//    public static class MockAsDelegateProvider extends VoidAsDelegateProvider
+//      {
+//      }
+//
+//    @ServiceProvider(service = ContextManagerProvider.class)
+//    public static class MockContextManagerProvider extends VoidContextManagerProvider
+//      {
+//      }
+//
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
@@ -136,6 +152,13 @@ public class SimpleCompositePresentableTest
           {
             return new MockRole2(datum);
           }
+      }
+
+    @BeforeMethod
+    public void setup()
+      {
+        AsDelegateProvider.Locator.set(new VoidAsDelegateProvider());
+        ContextManager.Locator.set(new DefaultContextManagerProvider());
       }
 
     /*******************************************************************************************************************

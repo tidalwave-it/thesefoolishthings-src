@@ -25,13 +25,13 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.util.spi;
+package it.tidalwave.util.mock;
 
 import javax.annotation.Nonnull;
-import java.util.Iterator;
-import java.util.ServiceLoader;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import it.tidalwave.util.As;
+import it.tidalwave.util.AsException;
+import it.tidalwave.util.spi.AsDelegate;
+import it.tidalwave.util.spi.AsDelegateProvider;
 
 /***********************************************************************************************************************
  *
@@ -39,46 +39,18 @@ import lombok.NoArgsConstructor;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface AsDelegateProvider
+public class VoidAsDelegateProvider implements AsDelegateProvider
   {
-    public static final Class<AsDelegateProvider> AsDelegateProvider = AsDelegateProvider.class;
-
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static final class Locator
-      {
-        private static AsDelegateProvider asSpiProvider;
-
-        @Nonnull
-        public static synchronized AsDelegateProvider find()
-          {
-            if (asSpiProvider == null)
-              {
-                final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                final Iterator<AsDelegateProvider> i =
-                        ServiceLoader.load(AsDelegateProvider.class, classLoader).iterator();
-
-                if (!i.hasNext())
-                  {
-                    throw new RuntimeException("No ServiceProvider for AsDelegateProvider");
-                  }
-
-                asSpiProvider = i.next();
-              }
-
-            return asSpiProvider;
-          }
-
-        /** For testing */
-        public static void set (final @Nonnull AsDelegateProvider provider)
-          {
-            asSpiProvider = provider;
-          }
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
     @Nonnull
-    public AsDelegate createAsDelegate (@Nonnull Object datum);
+    public AsDelegate createAsDelegate (final @Nonnull Object owner)
+      {
+        return new AsDelegate()
+          {
+            @Nonnull
+            public <T> T as(Class<T> roleType, As.NotFoundBehaviour<T> notFoundBehaviour)
+              {
+                return notFoundBehaviour.run(new AsException(roleType));
+              }
+          };
+      }
   }

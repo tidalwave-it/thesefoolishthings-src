@@ -31,9 +31,10 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.openide.util.lookup.ServiceProvider;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.util.Task;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.annotations.AfterMethod;
@@ -50,18 +51,16 @@ import static org.hamcrest.MatcherAssert.*;
  **********************************************************************************************************************/
 public class ContextSamplerTest
   {
-    @ServiceProvider(service = ContextManagerProvider.class)
-    public static class MockContextManagerProvider implements ContextManagerProvider
+    @RequiredArgsConstructor @Getter
+    class MockContextManagerProvider implements ContextManagerProvider
       {
-        public ContextManager getContextManager()
-          {
-            return contextManager;
-          }
+        @Nonnull
+        private final ContextManager contextManager;
       }
 
     private ContextSampler fixture;
 
-    private static ContextManager contextManager;
+    private ContextManager contextManager;
 
     /*******************************************************************************************************************
      *
@@ -70,6 +69,7 @@ public class ContextSamplerTest
     public void setupFixture()
       {
         contextManager = mock(ContextManager.class);
+        ContextManager.Locator.set(new MockContextManagerProvider(contextManager));
       }
 
     /*******************************************************************************************************************
