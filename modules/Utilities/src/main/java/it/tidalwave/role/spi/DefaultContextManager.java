@@ -25,7 +25,7 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spring;
+package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  **********************************************************************************************************************/
 @Slf4j
-public class SpringContextManager implements ContextManager
+public class DefaultContextManager implements ContextManager
   {
     /** The list of global contexts, ordered by priority. */
     private final List<Object> globalContexts = new ArrayList<Object>();
