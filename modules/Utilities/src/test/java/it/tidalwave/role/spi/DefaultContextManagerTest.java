@@ -27,11 +27,13 @@
  */
 package it.tidalwave.role.spi;
 
+import it.tidalwave.util.Task;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import javax.annotation.Nonnull;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;
@@ -220,5 +222,39 @@ public class DefaultContextManagerTest
         latch.await();
 
         assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext2, globalContext3)));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    // TODO: test findContext()
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void runWithContexts_must_temporarily_associate_local_contexts()
+      throws InterruptedException
+      {
+        fixture.addGlobalContext(globalContext1);
+        fixture.addGlobalContext(globalContext2);
+        fixture.addGlobalContext(globalContext3);
+
+        assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext2, globalContext3)));
+
+        final String result = fixture.runWithContexts(Arrays.asList(localContext1, localContext2, localContext3),
+                new Task<String, RuntimeException>()
+          {
+            @Override @Nonnull
+            public String run()
+              {
+                assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext2, globalContext3,
+                                                                   localContext3, localContext2, localContext1)));
+                return "result";
+              }
+          });
+
+        assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext2, globalContext3)));
+        assertThat(result, is("result"));
       }
   }
