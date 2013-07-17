@@ -56,7 +56,7 @@ public class AnnotationSpringRoleManager extends AnnotationRoleManagerSupport
       }
 
     @Override @Nonnull
-    protected <T> T getBean(Class<T> beanType)
+    protected <T> T getBean (final @Nonnull Class<T> beanType)
       {
         return beanFactory.getBean(beanType);
       }
