@@ -47,7 +47,7 @@ import org.hamcrest.Matcher;
 @NotThreadSafe
 public class PresentationModelMatcher extends BaseMatcher<PresentationModel>
   {
-    private final StringBuilder description = new StringBuilder("PresentationModel ");
+    private final StringBuilder pmDescription = new StringBuilder("PresentationModel");
 
     private String separator = "";
 
@@ -63,7 +63,7 @@ public class PresentationModelMatcher extends BaseMatcher<PresentationModel>
     public PresentationModelMatcher withRole (final @Nonnull Class<?> roleType)
       {
         expectedRoleTypes.add(roleType);
-        description.append(separator).append(" with role ").append(roleType.getName());
+        pmDescription.append(separator).append(" with role ").append(roleType.getName());
         separator = ", ";
         return this;
       }
@@ -96,6 +96,6 @@ public class PresentationModelMatcher extends BaseMatcher<PresentationModel>
     @Override
     public void describeTo (final @Nonnull Description description)
       {
-        description.appendText(description.toString());
+        description.appendText(pmDescription.toString());
       }
   }
