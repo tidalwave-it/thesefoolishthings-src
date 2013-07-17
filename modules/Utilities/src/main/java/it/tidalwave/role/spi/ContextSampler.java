@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import it.tidalwave.util.Task;
 import it.tidalwave.role.ContextManager;
+import java.util.Collections;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
@@ -58,7 +59,7 @@ public class ContextSampler
      ******************************************************************************************************************/
     public ContextSampler()
       {
-        contexts = contextManager.getContexts();
+        contexts = Collections.unmodifiableList(contextManager.getContexts());
         log.trace(">>>> contexts at construction time: {}", contexts);
       }
 
