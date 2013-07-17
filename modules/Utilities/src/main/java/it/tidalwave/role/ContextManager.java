@@ -53,6 +53,10 @@ public interface ContextManager
      * A locator for the {@link ContextManager} which uses the {@link ServiceProvider} facility to be independent of
      * any DI framework.
      *
+     * This locator caches the internal reference and this is ok for production use; during tests, since multiple
+     * contexts are typically created and destroyed for each test, you should call {@link #reset()} after each test
+     * has been completed.
+     *
      ******************************************************************************************************************/
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Locator
@@ -84,6 +88,12 @@ public interface ContextManager
               }
 
             return contextManager;
+          }
+
+        // TODO: possibly get rid of this
+        public static void reset()
+          {
+            contextManager = null;
           }
       }
 
