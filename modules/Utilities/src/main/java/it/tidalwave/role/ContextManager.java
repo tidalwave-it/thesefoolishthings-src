@@ -97,12 +97,7 @@ public interface ContextManager
             return contextManager;
           }
 
-        // TODO: possibly get rid of this
-        public static void reset()
-          {
-            contextManager = null;
-          }
-
+        /** For testing. */
         public static void set (final @Nonnull ContextManagerProvider provider)
           {
             contextManager = null;
