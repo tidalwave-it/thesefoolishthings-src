@@ -1,0 +1,15 @@
+target
+release\.properties
+.idea
+.*\.iml
+\.repository
+\.description
+\.classpath
+\.project
+\.settings
+\.orig\..*$
+\.orig$
+\.chg\..*$
+\.rej$
+\.conflict\~$
+\.DS_Store$
