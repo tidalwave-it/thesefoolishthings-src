@@ -40,7 +40,6 @@ import java.util.Map.Entry;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import it.tidalwave.util.NotFoundException;
-import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.role.ContextManager;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -50,12 +49,23 @@ import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
+ * A basic implementation of a {@link RoleManager}. This class must be specialized to:
+ *
+ * <ol>
+ * <li>discover roles (see {@link #scan(java.util.Collection)}</li>
+ * <li>associate roles to a datum (see {@link #findDatumTypesForRole(java.lang.Class)}</li>
+ * <li>associate roles to contexts (see {@link #findContextForRole(java.lang.Class)}</li>
+ * <li>eventually retrieve beans to inject in created roles (see {@link #getBean(java.lang.Class)}</li>
+ * </ol>
+ *
+ * Specializations might use annotations or configuration files to accomplish these tasks.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
 @Slf4j
-public abstract class AnnotationRoleManagerSupport implements RoleManager
+public abstract class RoleManagerSupport implements RoleManager
   {
     private final ContextManager contextManager = ContextManager.Locator.find();
 
@@ -143,12 +153,12 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
             for (final Constructor<?> constructor : roleImplementationClass.getDeclaredConstructors())
               {
                 final Class<?>[] parameterTypes = constructor.getParameterTypes();
-                final Class<?> contextClass = roleImplementationClass.getAnnotation(DciRole.class).context();
-
+                Class<?> contextClass = null;
                 Object context = null;
 
-                if (contextClass != DciRole.NoContext.class)
+                try
                   {
+                    contextClass = findContextForRole(roleImplementationClass);
                     log.trace(">>>> contexts: {}", contextManager.getContexts());
 
                     try
@@ -160,6 +170,10 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
                         log.trace(">>>> role {} discarded, can't find context: {}", roleImplementationClass, contextClass);
                         continue outer;
                       }
+                  }
+                catch (NotFoundException e)
+                  {
+                    // ok, no context
                   }
 
                 if (parameterTypes.length > 0)
@@ -242,9 +256,7 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
       {
         for (final Class<?> roleImplementationClass : roleImplementationClasses)
           {
-            final DciRole role = roleImplementationClass.getAnnotation(DciRole.class);
-
-            for (final Class<?> datumClass : role.datumType())
+            for (final Class<?> datumClass : findDatumTypesForRole(roleImplementationClass))
               {
                 for (final Class<?> roleClass : findAllImplemetedInterfacesOf(roleImplementationClass))
                   {
@@ -283,7 +295,22 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected abstract <T> T getBean (final @Nonnull Class<T> beanType);
+    protected abstract <T> T getBean (@Nonnull Class<T> beanType);
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    protected abstract Class<?> findContextForRole (@Nonnull Class<?> roleImplementationClass)
+      throws NotFoundException;
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    protected abstract Class<?>[] findDatumTypesForRole (@Nonnull Class<?> roleImplementationClass);
 
     /*******************************************************************************************************************
      *
