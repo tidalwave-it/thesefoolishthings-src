@@ -167,6 +167,8 @@ public class SpringContextManager implements ContextManager
               {
                 removeLocalContext(context);
               }
+
+            log.trace(">>>> runWithContexts({}, {}) completed", contexts, task);
           }
       }
   }
