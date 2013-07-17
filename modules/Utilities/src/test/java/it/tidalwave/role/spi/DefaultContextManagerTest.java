@@ -27,13 +27,13 @@
  */
 package it.tidalwave.role.spi;
 
-import it.tidalwave.util.Task;
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import javax.annotation.Nonnull;
+import it.tidalwave.util.Task;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;
