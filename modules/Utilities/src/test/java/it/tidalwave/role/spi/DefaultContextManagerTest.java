@@ -27,18 +27,10 @@
  */
 package it.tidalwave.role.spi;
 
-import javax.annotation.Nonnull;
-import it.tidalwave.util.As;
-import it.tidalwave.util.AsException;
-import it.tidalwave.util.RoleFactory;
-import it.tidalwave.util.mock.VoidAsDelegateProvider;
 import java.util.Arrays;
 import java.util.Collections;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -72,12 +64,12 @@ public class DefaultContextManagerTest
       {
         fixture = new DefaultContextManager();
 
-        globalContext1 = new Object();
-        globalContext2 = new Object();
-        globalContext3 = new Object();
-        localContext1 = new Object();
-        localContext2 = new Object();
-        localContext3 = new Object();
+        globalContext1 = "globalContext1";
+        globalContext2 = "globalContext2";
+        globalContext3 = "globalContext3";
+        localContext1 = "localContext1";
+        localContext2 = "localContext2";
+        localContext3 = "localContext3";
       }
 
     /*******************************************************************************************************************
@@ -125,6 +117,44 @@ public class DefaultContextManagerTest
         fixture.removeGlobalContext(globalContext2);
 
         assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext3)));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_properly_add_and_retrieve_local_contexts()
+      {
+        fixture.addLocalContext(localContext1);
+
+        assertThat(fixture.getContexts(), is(Arrays.asList(localContext1)));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_properly_add_and_retrieve_local_contexts_in_order()
+      {
+        fixture.addLocalContext(localContext1);
+        fixture.addLocalContext(localContext2);
+        fixture.addLocalContext(localContext3);
+
+        assertThat(fixture.getContexts(), is(Arrays.asList(localContext3, localContext2, localContext1)));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_properly_remove_and_retrieve_local_contexts()
+      {
+        fixture.addLocalContext(localContext1);
+        fixture.addLocalContext(localContext2);
+        fixture.addLocalContext(localContext3);
+        fixture.removeLocalContext(localContext2);
+
+        assertThat(fixture.getContexts(), is(Arrays.asList(localContext3, localContext1)));
       }
 
   }
