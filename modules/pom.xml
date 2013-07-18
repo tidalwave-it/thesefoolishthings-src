@@ -184,6 +184,7 @@
         <module>MessageBus</module>
         <module>NetBeansEventBusAdapter</module>
         <module>Logger</module>
+        <module>Roles</module>
         <module>SingleLineLogFormatter</module>
         <module>SpringMessageBus</module>
         <module>SpringRoles</module>

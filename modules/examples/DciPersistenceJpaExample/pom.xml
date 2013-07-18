@@ -61,7 +61,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
 
         <dependency>
@@ -86,6 +85,10 @@
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it-tidalwave-role-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it-tidalwave-role</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.persistence</groupId>

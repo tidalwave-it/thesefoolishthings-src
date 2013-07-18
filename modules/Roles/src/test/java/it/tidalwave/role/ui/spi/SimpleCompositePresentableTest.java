@@ -59,17 +59,6 @@ import static org.hamcrest.CoreMatchers.*;
  **********************************************************************************************************************/
 public class SimpleCompositePresentableTest
   {
-//    // Not called by tests, we only need it's there
-//    @ServiceProvider(service = AsDelegateProvider.class)
-//    public static class MockAsDelegateProvider extends VoidAsDelegateProvider
-//      {
-//      }
-//
-//    @ServiceProvider(service = ContextManagerProvider.class)
-//    public static class MockContextManagerProvider extends VoidContextManagerProvider
-//      {
-//      }
-//
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/

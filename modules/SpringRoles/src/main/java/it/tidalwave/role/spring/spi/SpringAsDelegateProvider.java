@@ -28,7 +28,6 @@
 package it.tidalwave.role.spring.spi;
 
 import javax.annotation.Nonnull;
-import org.openide.util.lookup.ServiceProvider;
 import it.tidalwave.util.spi.AsDelegate;
 import it.tidalwave.util.spi.AsDelegateProvider;
 import it.tidalwave.role.spring.SpringAsSupport;
@@ -36,12 +35,12 @@ import it.tidalwave.role.spring.SpringAsSupport;
 /***********************************************************************************************************************
  *
  * An implementation of {@link AsDelegateProvider} for a Spring context.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@ServiceProvider(service = AsDelegateProvider.class)
+// Registered in META-INF/services
 public class SpringAsDelegateProvider implements AsDelegateProvider
   {
     @Override @Nonnull

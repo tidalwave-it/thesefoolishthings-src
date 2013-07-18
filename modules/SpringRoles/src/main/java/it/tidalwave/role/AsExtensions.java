@@ -34,7 +34,7 @@ import it.tidalwave.util.As;
  *
  * An extension to be used with Lombok in order to provide "as" support to classes that don't implement the {@link As}
  * interface. The typical usage is to retrofit legacy code.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *

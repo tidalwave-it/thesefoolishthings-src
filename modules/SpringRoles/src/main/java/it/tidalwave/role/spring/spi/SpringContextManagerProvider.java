@@ -29,7 +29,6 @@ package it.tidalwave.role.spring.spi;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import org.openide.util.lookup.ServiceProvider;
 import org.springframework.beans.factory.annotation.Configurable;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.ContextManagerProvider;
@@ -41,7 +40,7 @@ import lombok.Getter;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@ServiceProvider(service = ContextManagerProvider.class)
+// Registered in META-INF/services
 @Configurable
 public class SpringContextManagerProvider implements ContextManagerProvider
   {
