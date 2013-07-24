@@ -28,6 +28,7 @@
 package it.tidalwave.role.ui.spi;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import java.beans.PropertyChangeSupport;
 import it.tidalwave.util.As;
 import it.tidalwave.util.spi.AsSupport;
@@ -43,7 +44,7 @@ import lombok.ToString;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@ToString(exclude = {"asDelegate", "pcs"})
+@ToString(exclude = {"asSupport", "pcs"})
 public class DefaultPresentationModel implements PresentationModel
   {
     @Nonnull
@@ -52,7 +53,7 @@ public class DefaultPresentationModel implements PresentationModel
     @Delegate
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-    private final AsSupport asDelegate;
+    private final AsSupport asSupport;
 
     /*******************************************************************************************************************
      *
@@ -63,7 +64,7 @@ public class DefaultPresentationModel implements PresentationModel
                                      final @Nonnull Object ... rolesOrFactories)
       {
         this.owner = owner;
-        asDelegate = new AsSupport(owner, rolesOrFactories);
+        asSupport = new AsSupport(owner, rolesOrFactories);
       }
 
     /*******************************************************************************************************************
@@ -85,23 +86,46 @@ public class DefaultPresentationModel implements PresentationModel
     @Override @Nonnull
     public <T> T as (final @Nonnull Class<T> roleType, final @Nonnull NotFoundBehaviour<T> notFoundBehaviour)
       {
-        return asDelegate.as(roleType, new NotFoundBehaviour<T>()
+        return asSupport.as(roleType, new NotFoundBehaviour<T>()
           {
             @Nonnull
             public T run (final Throwable t)
               {
                 if (owner instanceof As)
                   {
-                    final T as = ((As)owner).as(roleType);
+                    final T role = ((As)owner).as(roleType);
 
-                    if (as != null) // do check it for improper implementations or partial mocks
+                    if (role != null) // do check it for improper implementations or partial mocks
                       {
-                        return as;
+                        return role;
                       }
                   }
 
                 return notFoundBehaviour.run(t);
               }
           });
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public <T> Collection<T> asMany (final @Nonnull Class<T> roleType)
+      {
+        final Collection<T> result = asSupport.asMany(roleType);
+
+        if (owner instanceof As)
+          {
+            final T role = ((As)owner).as(roleType);
+
+            if (role != null) // do check it for improper implementations or partial mocks
+              {
+                result.add(roleType.cast(role));
+              }
+          }
+
+        return result;
       }
   }

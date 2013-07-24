@@ -102,67 +102,47 @@ public class AsSupport implements As
     @Nonnull
     public <T> T as (final @Nonnull Class<T> type, final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour)
       {
-        Collection<Object> multipleResults = null;
-        Class<T> actualType = type;
-
-        if (ArrayList.class.isAssignableFrom(type))
+        for (final Object role : roles)
           {
-            actualType = (Class<T>)ReflectionUtils.getTypeArguments(ArrayList.class,
-                                                                    (Class<? extends ArrayList>)type).get(0);
-
-            try
+            if (type.isAssignableFrom(role.getClass()))
               {
-                multipleResults = (Collection)type.newInstance();
-              }
-            catch (InstantiationException e)
-              {
-                throw new RuntimeException(e);
-              }
-            catch (IllegalAccessException e)
-              {
-                throw new RuntimeException(e);
+                return type.cast(role);
               }
           }
+
+        final Collection<? extends T> r = delegate.as(type);
+
+        if (r.isEmpty())
+          {
+            return notFoundBehaviour.run(new AsException(type));
+          }
+
+        return (T)r.iterator().next();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     * The list contains all the relevant local roles, as well as those retrieved by the delegate, in this order.
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public <T> Collection<T> asMany (final @Nonnull Class<T> type)
+      {
+        Collection<T> results = new ArrayList<T>();
 
         for (final Object role : roles)
           {
-            if (actualType.isAssignableFrom(role.getClass()))
+            if (type.isAssignableFrom(role.getClass()))
               {
-                if (multipleResults == null)
-                  {
-                    return type.cast(role);
-                  }
-                else
-                  {
-                    multipleResults.add(role);
-                  }
+                results.add(type.cast(role));
               }
           }
 
-        if (multipleResults == null)
-          {
-            final Collection<? extends T> r = delegate.as(actualType);
+        results.addAll(delegate.as(type));
 
-            if (r.isEmpty())
-              {
-                return notFoundBehaviour.run(new AsException(actualType));
-              }
-
-            return (T)r.iterator().next();
-          }
-        else
-          {
-            try
-              {
-                multipleResults.addAll(delegate.as(actualType));
-              }
-            catch (AsException e)
-              {
-                // ok
-              }
-
-            return type.cast(multipleResults);
-          }
+        return results;
       }
 
     /*******************************************************************************************************************

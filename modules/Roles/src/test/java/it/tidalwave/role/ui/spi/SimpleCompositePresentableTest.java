@@ -31,6 +31,7 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
@@ -112,6 +113,17 @@ public class SimpleCompositePresentableTest
 
             return notFoundBehaviour.run(new AsException(roleType));
           }
+
+        @Override @Nonnull
+        public <T> Collection<T> asMany (final @Nonnull Class<T> roleType)
+          {
+            if (roleType.equals(SimpleComposite.class) && (composite != null))
+              {
+                return new ArrayList<T>(Arrays.asList(roleType.cast(composite)));
+              }
+
+            return new ArrayList<T>();
+          }
       }
 
     /*******************************************************************************************************************
@@ -143,6 +155,9 @@ public class SimpleCompositePresentableTest
           }
       }
 
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
     @BeforeMethod
     public void setup()
       {

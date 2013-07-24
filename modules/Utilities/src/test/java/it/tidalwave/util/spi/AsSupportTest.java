@@ -108,9 +108,6 @@ public class AsSupportTest
           }
       }
 
-    // FIXME: currently it needs a concrete class - it would be better with an interface
-    public static class MultipleRole2 extends ArrayList<Role2> {}
-
     private Object owner;
     private Role1 localRole1;
     private Role2 localRole2;
@@ -217,7 +214,7 @@ public class AsSupportTest
       {
         final AsSupport fixture = new AsSupport(owner, localRole2, localRole2b);
 
-        final Collection<Role2> roles = fixture.as(MultipleRole2.class);
+        final Collection<Role2> roles = fixture.asMany(Role2.class);
 
         assertThat("" + roles, roles.size(), is(2));
         assertThat("" + roles, roles.contains(localRole2), is(true));
@@ -233,7 +230,7 @@ public class AsSupportTest
         AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(delegateRole2));
         final AsSupport fixture = new AsSupport(owner, localRole2, localRole2b);
 
-        final Collection<Role2> roles = fixture.as(MultipleRole2.class);
+        final Collection<Role2> roles = fixture.asMany(Role2.class);
 
         assertThat("" + roles, roles.size(), is(3));
         assertThat("" + roles, roles.contains(localRole2), is(true));
