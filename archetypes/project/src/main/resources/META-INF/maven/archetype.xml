@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  *********************************************************************************************************************
+  
+  TheseFoolishThings - Project Archetype
+  %%
+  Copyright (C) 2009 - 2013 Tidalwave s.a.s. (http://tidalwave.it)
+  %%
+  *********************************************************************************************************************
+  
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+  the License. You may obtain a copy of the License at
+  
+      http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations under the License.
+  
+  *********************************************************************************************************************
+  
+  $Id$
+  
+  *********************************************************************************************************************
+  #L%
+  -->
+
+<archetype>
+    <id>it-tidalwave-thesefoolishthings-project-archetype</id>
+    <resources>
+        <resource>.hgignore</resource>
+        <resource>pom.xml</resource>
+        <resource>LICENSE.txt</resource>
+        <resource>src/assemble/bin.xml</resource>
+        <resource>src/assemble/project.xml</resource>
+        <resource>modules/pom.xml</resource>
+        <resource>modules/Module1</resource>
+        <resource>modules/Module1/pom.xml</resource>
+        <resource>modules/Module1/src/main/java/Dummy.java</resource>
+        <resource>modules/Module1/src/main/resources/dummy.txt</resource>
+        <resource>modules/Module1/src/test/java/DummyTest.java</resource>
+        <resource>modules/Module1/src/test/resources/dummy.txt</resource>
+    </resources>
+</archetype>
+
