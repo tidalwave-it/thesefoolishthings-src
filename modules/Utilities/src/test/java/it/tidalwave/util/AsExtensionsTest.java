@@ -44,7 +44,7 @@ import static org.mockito.Mockito.*;
  *
  **********************************************************************************************************************/
 @ExtensionMethod(AsExtensions.class)
-public class AsTest
+public class AsExtensionsTest
   {
     private RenderingContext terminal;
 
