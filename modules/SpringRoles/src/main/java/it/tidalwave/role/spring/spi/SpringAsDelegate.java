@@ -25,14 +25,15 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spring;
+package it.tidalwave.role.spring.spi;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Configurable;
 import it.tidalwave.util.As;
-import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.Task;
 import it.tidalwave.util.spi.AsDelegate;
 import it.tidalwave.role.spi.RoleManager;
@@ -51,7 +52,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  **********************************************************************************************************************/
 @Configurable(preConstruction = true) @Slf4j
-public class SpringAsSupport implements As, AsDelegate
+class SpringAsDelegate implements AsDelegate
   {
     @Inject @Nonnull
     private RoleManager roleManager;
@@ -66,7 +67,7 @@ public class SpringAsSupport implements As, AsDelegate
      * Constructor for use with subclassing.
      *
      ******************************************************************************************************************/
-    public SpringAsSupport()
+    public SpringAsDelegate()
       {
         this.owner = this;
       }
@@ -78,7 +79,7 @@ public class SpringAsSupport implements As, AsDelegate
      * @param  owner  the owner object
      *
      ******************************************************************************************************************/
-    public SpringAsSupport (final @Nonnull Object owner)
+    public SpringAsDelegate (final @Nonnull Object owner)
       {
         this.owner = owner;
       }
@@ -89,41 +90,25 @@ public class SpringAsSupport implements As, AsDelegate
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> T as (final @Nonnull Class<T> roleType)
+    public <T> Collection<? extends T> as (final @Nonnull Class<T> roleType)
       {
-        return as(roleType, As.Defaults.throwAsException(roleType));
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public <T> T as (final @Nonnull Class<T> roleType, final @Nonnull NotFoundBehaviour<T> notFoundBehaviour)
-      {
-        log.trace("as({}, {})", roleType, notFoundBehaviour);
+        log.trace("as({})", roleType);
         log.trace(">>>> contexts: {}", contextSampler.getContexts());
 
-        final List<? extends T> roles = contextSampler.runWithContexts(new Task<List<? extends T>, RuntimeException>()
+        final List<T> roles = new ArrayList<T>(contextSampler.runWithContexts(new Task<List<? extends T>, RuntimeException>()
           {
             @Override @Nonnull
             public List<? extends T> run()
               {
                 return roleManager.findRoles(owner, roleType);
               }
-          });
-
-        if (!roles.isEmpty())
-          {
-            return roles.get(0);
-          }
+          }));
 
         if (roleType.isAssignableFrom(owner.getClass()))
           {
-            return roleType.cast(owner);
+            roles.add(roleType.cast(owner));
           }
 
-        return notFoundBehaviour.run(new NotFoundException("No " + roleType.getName() + " in " + owner));
+        return roles;
       }
   }

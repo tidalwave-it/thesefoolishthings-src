@@ -30,7 +30,6 @@ package it.tidalwave.role.spring.spi;
 import javax.annotation.Nonnull;
 import it.tidalwave.util.spi.AsDelegate;
 import it.tidalwave.util.spi.AsDelegateProvider;
-import it.tidalwave.role.spring.SpringAsSupport;
 
 /***********************************************************************************************************************
  *
@@ -46,6 +45,6 @@ public class SpringAsDelegateProvider implements AsDelegateProvider
     @Override @Nonnull
     public AsDelegate createAsDelegate (final @Nonnull Object datum)
       {
-        return new SpringAsSupport(datum);
+        return new SpringAsDelegate(datum);
       }
   }

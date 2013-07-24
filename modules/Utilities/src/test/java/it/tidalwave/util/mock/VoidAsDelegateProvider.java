@@ -28,8 +28,8 @@
 package it.tidalwave.util.mock;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.As;
-import it.tidalwave.util.AsException;
+import java.util.ArrayList;
+import java.util.Collection;
 import it.tidalwave.util.spi.AsDelegate;
 import it.tidalwave.util.spi.AsDelegateProvider;
 
@@ -46,10 +46,10 @@ public class VoidAsDelegateProvider implements AsDelegateProvider
       {
         return new AsDelegate()
           {
-            @Nonnull
-            public <T> T as(Class<T> roleType, As.NotFoundBehaviour<T> notFoundBehaviour)
+            @Override @Nonnull
+            public <T> Collection<? extends T> as (final @Nonnull Class<T> roleType)
               {
-                return notFoundBehaviour.run(new AsException(roleType));
+                return new ArrayList<T>(); // must be mutable by client, don't use Collections.emptyList();
               }
           };
       }

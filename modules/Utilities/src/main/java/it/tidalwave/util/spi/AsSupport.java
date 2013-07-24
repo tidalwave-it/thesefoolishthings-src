@@ -32,7 +32,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import it.tidalwave.util.As;
+import it.tidalwave.util.AsException;
 import it.tidalwave.util.RoleFactory;
+import java.util.Collection;
 
 /***********************************************************************************************************************
  *
@@ -100,15 +102,67 @@ public class AsSupport implements As
     @Nonnull
     public <T> T as (final @Nonnull Class<T> type, final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour)
       {
-        for (final Object role : roles)
+        Collection<Object> multipleResults = null;
+        Class<T> actualType = type;
+
+        if (ArrayList.class.isAssignableFrom(type))
           {
-            if (type.isAssignableFrom(role.getClass()))
+            actualType = (Class<T>)ReflectionUtils.getTypeArguments(ArrayList.class,
+                                                                    (Class<? extends ArrayList>)type).get(0);
+
+            try
               {
-                return type.cast(role);
+                multipleResults = (Collection)type.newInstance();
+              }
+            catch (InstantiationException e)
+              {
+                throw new RuntimeException(e);
+              }
+            catch (IllegalAccessException e)
+              {
+                throw new RuntimeException(e);
               }
           }
 
-        return delegate.as(type, notFoundBehaviour);
+        for (final Object role : roles)
+          {
+            if (actualType.isAssignableFrom(role.getClass()))
+              {
+                if (multipleResults == null)
+                  {
+                    return type.cast(role);
+                  }
+                else
+                  {
+                    multipleResults.add(role);
+                  }
+              }
+          }
+
+        if (multipleResults == null)
+          {
+            final Collection<? extends T> r = delegate.as(actualType);
+
+            if (r.isEmpty())
+              {
+                return notFoundBehaviour.run(new AsException(actualType));
+              }
+
+            return (T)r.iterator().next();
+          }
+        else
+          {
+            try
+              {
+                multipleResults.addAll(delegate.as(actualType));
+              }
+            catch (AsException e)
+              {
+                // ok
+              }
+
+            return type.cast(multipleResults);
+          }
       }
 
     /*******************************************************************************************************************

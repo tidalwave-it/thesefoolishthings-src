@@ -36,8 +36,7 @@ import java.util.concurrent.TimeUnit;
 import java.io.Serializable;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
-import it.tidalwave.util.spi.AsDelegate;
-import it.tidalwave.util.spi.AsDelegateProvider;
+import it.tidalwave.util.spi.AsSupport;
 import it.tidalwave.actor.impl.Locator;
 import it.tidalwave.actor.impl.DefaultCollaboration;
 import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
@@ -68,8 +67,16 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
 
     private final MessageDecorator sameMessageDecorator = new MessageDecorator.Same(this);
 
-    @Delegate // FIXME: use AsSupport
-    private AsDelegate asDelegate = AsDelegateProvider.Locator.find().createAsDelegate(this);
+//    @Delegate // FIXME: use AsSupport
+//    private AsDelegate asDelegate = AsDelegateProvider.Locator.find().createAsDelegate(this);
+
+    interface Exclusions
+      {
+        public <T> T as (Class<T> type);
+      }
+
+    @Delegate(excludes = Exclusions.class)
+    private final AsSupport asSupport = new AsSupport(this);
 
     /*******************************************************************************************************************
      *
@@ -168,7 +175,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Override @Nonnull
     public <T> T as (final @Nonnull Class<T> type)
       {
         return as(type, new As.NotFoundBehaviour<T>()

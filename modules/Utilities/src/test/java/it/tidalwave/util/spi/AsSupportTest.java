@@ -28,7 +28,9 @@
 package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.As;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.RoleFactory;
 import it.tidalwave.util.mock.VoidAsDelegateProvider;
@@ -63,18 +65,20 @@ public class AsSupportTest
           {
             return new AsDelegate()
               {
-                public <T> T as (final @Nonnull Class<T> roleType,
-                                 final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour)
+                @Override @Nonnull
+                public <T> Collection<? extends T> as (final @Nonnull Class<T> roleType)
                   {
+                    final List<T> result = new ArrayList<T>();
+
                     for (final Object role : roles)
                       {
                         if (roleType.isAssignableFrom(role.getClass()))
                           {
-                            return roleType.cast(role);
+                            result.add(roleType.cast(role));
                           }
                       }
 
-                    return notFoundBehaviour.run(new AsException(roleType));
+                    return result;
                   }
               };
           }
@@ -104,9 +108,13 @@ public class AsSupportTest
           }
       }
 
+    // FIXME: currently it needs a concrete class - it would be better with an interface
+    public static class MultipleRole2 extends ArrayList<Role2> {}
+
     private Object owner;
     private Role1 localRole1;
     private Role2 localRole2;
+    private Role2 localRole2b;
     private Role2 delegateRole2;
 
     /*******************************************************************************************************************
@@ -115,9 +123,11 @@ public class AsSupportTest
     @BeforeMethod
     public void setup()
       {
+        AsDelegateProvider.Locator.set(new VoidAsDelegateProvider()); // reset
         owner = new Object();
         localRole1 = mock(Role1.class);
         localRole2 = mock(Role2.class);
+        localRole2b = mock(Role2.class);
         delegateRole2 = mock(Role2.class);
       }
 
@@ -197,5 +207,37 @@ public class AsSupportTest
         final AsSupport fixture = new AsSupport(owner, localRole2);
 
         assertThat(fixture.as(Role2.class), is(sameInstance(localRole2)));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_retrieve_multiple_local_roles()
+      {
+        final AsSupport fixture = new AsSupport(owner, localRole2, localRole2b);
+
+        final Collection<Role2> roles = fixture.as(MultipleRole2.class);
+
+        assertThat("" + roles, roles.size(), is(2));
+        assertThat("" + roles, roles.contains(localRole2), is(true));
+        assertThat("" + roles, roles.contains(localRole2b), is(true));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_retrieve_multiple_local_and_global_roles()
+      {
+        AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(delegateRole2));
+        final AsSupport fixture = new AsSupport(owner, localRole2, localRole2b);
+
+        final Collection<Role2> roles = fixture.as(MultipleRole2.class);
+
+        assertThat("" + roles, roles.size(), is(3));
+        assertThat("" + roles, roles.contains(localRole2), is(true));
+        assertThat("" + roles, roles.contains(localRole2b), is(true));
+        assertThat("" + roles, roles.contains(delegateRole2), is(true));
       }
   }
