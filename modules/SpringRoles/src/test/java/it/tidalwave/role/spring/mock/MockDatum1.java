@@ -28,7 +28,7 @@
 package it.tidalwave.role.spring.mock;
 
 import it.tidalwave.util.As;
-import it.tidalwave.role.spring.SpringAsSupport;
+import it.tidalwave.util.spi.AsSupport;
 import lombok.Delegate;
 
 /***********************************************************************************************************************
@@ -40,5 +40,5 @@ import lombok.Delegate;
 public class MockDatum1 implements As
   {
     @Delegate
-    private final SpringAsSupport springAsSupport = new SpringAsSupport(this);
+    private final AsSupport asSupport = new AsSupport(this);
   }
