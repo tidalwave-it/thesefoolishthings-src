@@ -33,6 +33,10 @@ import java.util.Collection;
 
 /***********************************************************************************************************************
  *
+ * Objects implementing this interface can provide am adapter of the required type. The adapter can be found with a
+ * variety of approaches that depend on the implementation. This capability can be used to implement a design based
+ * on the Data, Context and Interaction pattern (DCI).
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -77,7 +81,12 @@ public interface As
 
     /*******************************************************************************************************************
      *
+     * Returns an adapter to this object of the specified type. If the implementation can find multiple compliant
+     * adapters, only one will be returned.
      *
+     * @paramm  type    the type
+     * @return          the adapter
+     * @throws          AsException if no adapter is found
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -85,6 +94,12 @@ public interface As
 
     /*******************************************************************************************************************
      *
+     * Returns an adapter to this object of the specified type. If the implementation can find multiple compliant
+     * adapters, only one will be returned. If no adapter is found, the result provided by the given default
+     * behaviour will be returned.
+     *
+     * @paramm  type                the type
+     * @param   notFoundBehaviour   the behaviour to apply when an adapter is not found
      *
      ******************************************************************************************************************/
     @Nonnull
