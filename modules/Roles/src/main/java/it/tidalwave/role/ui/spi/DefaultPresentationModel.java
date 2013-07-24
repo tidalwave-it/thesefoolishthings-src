@@ -116,15 +116,22 @@ public class DefaultPresentationModel implements PresentationModel
       {
         final Collection<T> result = asSupport.asMany(roleType);
 
-        if (owner instanceof As)
+        // FIXME: THESEFOOLISHTHINGS-127
+        // The problem here is that we want only to add local roles in owner; but calling owner.as() will also
+        // find again the global roles that were discovered by AsSupport.
+        if (roleType.isAssignableFrom(owner.getClass()))
           {
-            final T role = ((As)owner).as(roleType);
-
-            if (role != null) // do check it for improper implementations or partial mocks
-              {
-                result.add(roleType.cast(role));
-              }
+            result.add(roleType.cast(owner));
           }
+//        if (owner instanceof As)
+//          {
+//            final T role = ((As)owner).as(roleType);
+//
+//            if ((role != null) && !contains(result, role)) // do check it for improper implementations or partial mocks
+//              {
+//                result.add(roleType.cast(role));
+//              }
+//          }
 
         return result;
       }
