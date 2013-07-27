@@ -38,12 +38,12 @@ import it.tidalwave.util.AsException;
 import it.tidalwave.util.RoleFactory;
 import it.tidalwave.util.spi.SimpleFinderSupport;
 import it.tidalwave.util.spi.AsDelegateProvider;
-import it.tidalwave.util.mock.VoidAsDelegateProvider;
 import it.tidalwave.role.SimpleComposite;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.ui.PresentationModel;
 import it.tidalwave.role.spi.DefaultSimpleComposite;
 import it.tidalwave.role.spi.DefaultContextManagerProvider;
+import it.tidalwave.util.spi.EmptyAsDelegateProvider;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -161,7 +161,7 @@ public class SimpleCompositePresentableTest
     @BeforeMethod
     public void setup()
       {
-        AsDelegateProvider.Locator.set(new VoidAsDelegateProvider());
+        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider());
         ContextManager.Locator.set(new DefaultContextManagerProvider());
       }
 

@@ -31,7 +31,6 @@ import javax.annotation.Nonnull;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.RoleFactory;
-import it.tidalwave.util.mock.VoidAsDelegateProvider;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.testng.annotations.BeforeMethod;
