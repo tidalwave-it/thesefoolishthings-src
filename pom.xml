@@ -13,7 +13,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings</artifactId>
     <packaging>pom</packaging>
-    <version>1.35-SNAPSHOT</version>
+    <version>1.35</version>
     <name>TheseFoolishThings (master)</name>
 
     <inceptionYear>2009</inceptionYear>
@@ -52,7 +52,7 @@
         <connection>scm:hg:${scm.repo.readonly.url}</connection>
         <developerConnection>scm:hg:${scm.repo.effective.url}</developerConnection>
         <url>${scm.repo.browse.url}</url>
-      <tag>HEAD</tag>
+      <tag>1.35</tag>
   </scm>
 
     <repositories>
@@ -94,54 +94,54 @@
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-actor</artifactId>
-                <version>1.0.18-SNAPSHOT</version>
+                <version>1.0.18</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util</artifactId>
-                <version>1.12.26-SNAPSHOT</version>
+                <version>1.12.26</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util</artifactId>
-                <version>1.12.26-SNAPSHOT</version>
+                <version>1.12.26</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-role</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-role</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>1.0.1</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-beans</artifactId>
-                <version>1.4.49-SNAPSHOT</version>
+                <version>1.4.49</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-swing-beansbinding</artifactId>
-                <version>1.1.48-SNAPSHOT</version>
+                <version>1.1.48</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-logging-singlelinelogformatter</artifactId>
-                <version>1.1.40-SNAPSHOT</version>
+                <version>1.1.40</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-logging</artifactId>
-                <version>1.1.40-SNAPSHOT</version>
+                <version>1.1.40</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-stopwatch</artifactId>
-                <version>1.1.40-SNAPSHOT</version>
+                <version>1.1.40</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -151,79 +151,79 @@
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-test</artifactId>
-                <version>1.0.34-SNAPSHOT</version>
+                <version>1.0.34</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus</artifactId>
-                <version>1.0.19-SNAPSHOT</version>
+                <version>1.0.19</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus</artifactId>
-                <version>1.0.19-SNAPSHOT</version>
+                <version>1.0.19</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus-spring</artifactId>
-                <version>1.0.19-SNAPSHOT</version>
+                <version>1.0.19</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus-platformx-eventbus</artifactId>
-                <version>1.0.9-SNAPSHOT</version>
+                <version>1.0.9</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-ui-vaadin</artifactId>
-                <version>1.0.17-SNAPSHOT</version>
+                <version>1.0.17</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-role-spring</artifactId>
-                <version>1.0.43-SNAPSHOT</version>
+                <version>1.0.43</version>
             </dependency>
 
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-data</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-displayable</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-swing</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.7</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample1</artifactId>
-                <version>1.0.26-SNAPSHOT</version>
+                <version>1.0.26</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample2</artifactId>
-                <version>1.0.26-SNAPSHOT</version>
+                <version>1.0.26</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample3</artifactId>
-                <version>1.0.26-SNAPSHOT</version>
+                <version>1.0.26</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
