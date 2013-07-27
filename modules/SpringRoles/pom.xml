@@ -6,13 +6,13 @@
     <parent>
        <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>1.35</version>
+        <version>1.36-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-role-spring</artifactId>
-    <version>1.0.43</version>
+    <version>1.0.44-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings - Roles (Spring)</name>
     <description>Specific Spring support for DCI roles</description>
