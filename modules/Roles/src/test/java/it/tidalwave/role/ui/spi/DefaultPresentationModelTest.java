@@ -31,7 +31,7 @@ import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.MockAs;
 import it.tidalwave.util.spi.AsDelegateProvider;
-import it.tidalwave.util.mock.VoidAsDelegateProvider;
+import it.tidalwave.util.spi.EmptyAsDelegateProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.mockito.Mockito.*;
@@ -68,7 +68,7 @@ public class DefaultPresentationModelTest
     public void setup()
       {
         // Not called by tests, we only need it's there
-        AsDelegateProvider.Locator.set(new VoidAsDelegateProvider());
+        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider());
 
         localRole1 = mock(Role1.class);
         localRole2 = mock(Role2.class);

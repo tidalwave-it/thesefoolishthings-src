@@ -33,7 +33,6 @@ import java.util.Collection;
 import java.util.List;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.RoleFactory;
-import it.tidalwave.util.mock.VoidAsDelegateProvider;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.testng.annotations.BeforeMethod;
@@ -120,7 +119,7 @@ public class AsSupportTest
     @BeforeMethod
     public void setup()
       {
-        AsDelegateProvider.Locator.set(new VoidAsDelegateProvider()); // reset
+        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider()); // reset
         owner = new Object();
         localRole1 = mock(Role1.class);
         localRole2 = mock(Role2.class);
@@ -134,7 +133,7 @@ public class AsSupportTest
     @Test
     public void must_find_local_roles()
       {
-        AsDelegateProvider.Locator.set(new VoidAsDelegateProvider());
+        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider());
         final AsSupport fixture1 = new AsSupport(owner, localRole1);
         final AsSupport fixture2 = new AsSupport(owner, localRole1, localRole2);
 
@@ -149,7 +148,7 @@ public class AsSupportTest
     @Test
     public void must_create_role_from_factory()
       {
-        AsDelegateProvider.Locator.set(new VoidAsDelegateProvider());
+        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider());
         final AsSupport fixture = new AsSupport(owner, new RoleFactory3());
 
         final Role3 role = fixture.as(Role3.class);
@@ -164,7 +163,7 @@ public class AsSupportTest
     @Test(expectedExceptions = AsException.class)
     public void must_not_find_inexistent_role()
       {
-        AsDelegateProvider.Locator.set(new VoidAsDelegateProvider());
+        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider());
         final AsSupport fixture = new AsSupport(owner, localRole1);
 
         fixture.as(Role2.class);
@@ -176,7 +175,7 @@ public class AsSupportTest
     @Test(expectedExceptions = AsException.class)
     public void must_not_find_inexistent_role_bis()
       {
-        AsDelegateProvider.Locator.set(new VoidAsDelegateProvider());
+        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider());
         final AsSupport fixture = new AsSupport(owner, localRole2);
 
         fixture.as(Role1.class);

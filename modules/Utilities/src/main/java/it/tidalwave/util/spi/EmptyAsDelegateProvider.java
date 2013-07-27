@@ -25,13 +25,11 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.util.mock;
+package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
-import it.tidalwave.util.spi.AsDelegate;
-import it.tidalwave.util.spi.AsDelegateProvider;
 
 /***********************************************************************************************************************
  *
@@ -39,17 +37,17 @@ import it.tidalwave.util.spi.AsDelegateProvider;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class VoidAsDelegateProvider implements AsDelegateProvider
+public class EmptyAsDelegateProvider implements AsDelegateProvider
   {
-    @Nonnull
+    @Override @Nonnull
     public AsDelegate createAsDelegate (final @Nonnull Object owner)
       {
         return new AsDelegate()
           {
             @Override @Nonnull
-            public <T> Collection<? extends T> as (final @Nonnull Class<T> roleType)
+            public <T> Collection<T> as (Class<T> type)
               {
-                return new ArrayList<T>(); // must be mutable by client, don't use Collections.emptyList();
+                return new ArrayList<T>(); // must be mutable
               }
           };
       }
