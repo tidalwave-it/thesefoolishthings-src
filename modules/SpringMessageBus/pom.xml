@@ -81,18 +81,61 @@
                             <artifactId>spring-aspects</artifactId>
                         </dependency>
                     </aspectLibraries>
-                    <sources>
-                        <source>
-                            <basedir>${basedir}/src/main/java</basedir>
-                            <includes>
-                                <include>**/*.aj</include>
-                            </includes>
-                        </source>
-                    </sources>
                     <verbose>true</verbose>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+    
+    <profiles>
+        <!--================================================================================================================
+
+
+        =================================================================================================================-->
+        <profile>
+            <id>it.tidalwave-aspectj-aj-v1</id>
+            <activation>
+                <file>
+                    <exists>src/main/aspect</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>add-aj-sources</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>${basedir}/src/main/aspect</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>aspectj-maven-plugin</artifactId>
+                        <configuration>
+                            <sources>
+                                <source>
+                                    <basedir>${basedir}/src/main/aspect</basedir>
+                                    <includes>
+                                        <include>**/*.aj</include>
+                                    </includes>
+                                </source>
+                            </sources>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
