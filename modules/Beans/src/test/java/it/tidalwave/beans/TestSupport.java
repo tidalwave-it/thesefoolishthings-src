@@ -31,8 +31,8 @@ import java.util.logging.Handler;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.io.InputStream;
-import org.junit.BeforeClass;
 import it.tidalwave.util.logging.SingleLineLogFormatter;
+import org.testng.annotations.BeforeClass;
 
 /*******************************************************************************
  *
