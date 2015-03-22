@@ -181,6 +181,7 @@
         <module>Actors</module>
         <module>Beans</module>
         <module>BeansBinding</module>
+        <module>Java8Supplements</module>
         <module>MessageBus</module>
         <module>NetBeansEventBusAdapter</module>
         <module>Logger</module>
