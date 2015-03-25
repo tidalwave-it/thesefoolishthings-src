@@ -5,13 +5,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings-examples</artifactId>
-        <version>1.0.28-SNAPSHOT</version>
+        <version>1.0.28</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream</artifactId>
-    <version>1.0.9-SNAPSHOT</version>
+    <version>1.0.9</version>
     <name>TheseFoolishThings Examples - DCI Marshal XStream</name>
 
     <properties>
