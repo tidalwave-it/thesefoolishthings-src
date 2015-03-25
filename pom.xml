@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.thesefoolishthings</groupId>
+        <artifactId>superpom</artifactId>
+        <version>2.16</version>
+        <relativePath />
+    </parent>
+
+    <groupId>it.tidalwave.thesefoolishthings</groupId>
+    <artifactId>thesefoolishthings</artifactId>
+    <packaging>pom</packaging>
+    <version>1.38-SNAPSHOT</version>
+    <name>TheseFoolishThings (master)</name>
+
+    <inceptionYear>2009</inceptionYear>
+
+    <properties>
+        <tft.project.description>These Foolish Things - Miscellaneous utilities</tft.project.description>
+        <tft.project.url>http://thesefoolishthings.java.net</tft.project.url>
+
+        <scm.repo.url>ssh://hg@bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.url>
+        <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
+        <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
+
+        <tft.maven.requiredJdk>[1.8.0-0,1.8.0-99)</tft.maven.requiredJdk>
+
+        <netbeans.hint.jdkPlatform>JDK_1.8.0</netbeans.hint.jdkPlatform>
+        <netbeans.compile.on.save>all</netbeans.compile.on.save>
+    </properties>
+
+    <issueManagement>
+        <system>Jira</system>
+        <url>http://kenai.com/jira/browse/THESEFOOLISHTHINGS</url>
+    </issueManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>Continuous Integration</name>
+            <post>ci@thesefoolishthings.java.net</post>
+            <archive>http://java.net/projects/thesefoolishthings/lists/ci/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Commits</name>
+            <post>commits@thesefoolishthings.java.net</post>
+            <archive>http://java.net/projects/thesefoolishthings/lists/commits/archive</archive>
+        </mailingList>
+    </mailingLists>
+
+    <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
+    <scm>
+        <connection>scm:hg:${scm.repo.readonly.url}</connection>
+        <developerConnection>scm:hg:${scm.repo.effective.url}</developerConnection>
+        <url>${scm.repo.browse.url}</url>
+      <tag>HEAD</tag>
+  </scm>
+
+    <repositories>
+        <repository> <!-- Needed for org.incava.util.diff -->
+            <id>maven2-release-repository.tidalwave.it</id>
+            <name>Tidalwave Releases Repository</name>
+            <url>http://services.tidalwave.it/nexus/content/repositories/releases/</url>
+        </repository>
+        <repository>
+            <id>netbeans</id>
+            <name>NetBeans Platform Maven Repository</name>
+            <url>http://bits.netbeans.org/maven2/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>snapshots-oss.sonatype.org</id>
+            <name>Sonatype Snapshots Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <site>
+            <id>website-thesefoolishthings.java.net</id>
+            <url>dav:https://java.net/website/thesefoolishthings/site/${project.version}</url>
+        </site>
+    </distributionManagement>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-actor</artifactId>
+                <version>1.0.21-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util</artifactId>
+                <version>1.12.29-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util</artifactId>
+                <version>1.12.29-SNAPSHOT</version>
+                <classifier>tests</classifier>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-role</artifactId>
+                <version>1.0.4-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-role</artifactId>
+                <version>1.0.4-SNAPSHOT</version>
+                <classifier>tests</classifier>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-beans</artifactId>
+                <version>1.4.52-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-swing-beansbinding</artifactId>
+                <version>1.1.51-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util-logging-singlelinelogformatter</artifactId>
+                <version>1.1.43-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util-logging</artifactId>
+                <version>1.1.43-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-stopwatch</artifactId>
+                <version>1.1.43-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-android-org-openide-util</artifactId>
+                <version>1.0.5-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util-test</artifactId>
+                <version>1.0.37-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-messagebus</artifactId>
+                <version>1.0.22-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-messagebus</artifactId>
+                <version>1.0.22-SNAPSHOT</version>
+                <classifier>tests</classifier>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-messagebus-spring</artifactId>
+                <version>1.0.22-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-messagebus-platformx-eventbus</artifactId>
+                <version>1.0.12-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-ui-vaadin</artifactId>
+                <version>1.0.20-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-role-spring</artifactId>
+                <version>1.0.46-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util-java8supplement</artifactId>
+                <version>1.13-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util-java8supplement</artifactId>
+                <classifier>tests</classifier>
+                <version>1.13-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-thesefoolishthings-examples-data</artifactId>
+                <version>1.0.10-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-thesefoolishthings-examples-dci-displayable</artifactId>
+                <version>1.0.10-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream</artifactId>
+                <version>1.0.10-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa</artifactId>
+                <version>1.0.10-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-thesefoolishthings-examples-dci-swing</artifactId>
+                <version>1.0.10-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample1</artifactId>
+                <version>1.0.29-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample2</artifactId>
+                <version>1.0.29-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample3</artifactId>
+                <version>1.0.29-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <links>
+                        <link href="http://java.sun.com/javase/6/docs/api/" />
+                    </links>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <modules>
+        <module>modules</module>
+        <module>archetypes/project</module>
+    </modules>
+
+</project>
