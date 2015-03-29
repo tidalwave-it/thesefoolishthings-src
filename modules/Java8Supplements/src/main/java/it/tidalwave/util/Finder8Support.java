@@ -46,7 +46,16 @@ public class Finder8Support<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
                                            Finder8<TYPE>
   {
     private static final long serialVersionUID = 1L;
+
+    public Finder8Support() 
+      {
+      }
     
+    public Finder8Support (final @Nonnull String name) 
+      {
+        super(name);
+      }
+
     @Override @Nonnull
     public Optional<TYPE> optionalResult()
       {
