@@ -3,10 +3,10 @@
   #%L
   *********************************************************************************************************************
 
-  NorthernWind - lightweight CMS
-  http://northernwind.tidalwave.it - hg clone https://bitbucket.org/tidalwave/northernwind-src
+  These Foolish Things - Miscellaneous utilities
+  http://thesefoolishthings.java.net - hg clone https://bitbucket.org/tidalwave/thesefoolishthings-src
   %%
-  Copyright (C) 2011 - 2013 Tidalwave s.a.s. (http://tidalwave.it)
+  Copyright (C) 2009 - 2015 Tidalwave s.a.s. (http://tidalwave.it)
   %%
   *********************************************************************************************************************
 
@@ -25,8 +25,7 @@
 
   *********************************************************************************************************************
   #L%
-  -->
-
+-->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
