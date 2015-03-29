@@ -106,7 +106,7 @@ public abstract class MessageBusSupport implements MessageBus
     @Override
     public void unsubscribe (final @Nonnull Listener<?> listener)
       {
-        log.info("unsubscribe({})", listener);
+        log.debug("unsubscribe({})", listener);
 
         for (final List<WeakReference<Listener<?>>> list : listenersMapByTopic.values())
           {
