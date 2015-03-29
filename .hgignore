@@ -1,0 +1,14 @@
+target
+\.repository
+\.description
+\.classpath
+\.project
+\.settings
+release\.properties
+\.externalToolBuilders
+\.orig\..*$
+\.orig$
+\.chg\..*$
+\.rej$
+\.conflict\~$
+
