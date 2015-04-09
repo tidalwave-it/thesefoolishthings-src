@@ -1,0 +1,89 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.thesefoolishthings</groupId>
+        <artifactId>modules</artifactId>
+        <version>1.39-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <groupId>it.tidalwave.thesefoolishthings</groupId>
+    <artifactId>it-tidalwave-util</artifactId>
+    <packaging>nbm</packaging>
+    <version>1.12.30-SNAPSHOT</version>
+    <name>TheseFoolishThings - Utilities</name>
+
+    <properties>
+        <stableAPI>true</stableAPI>
+    </properties>
+
+    <dependencies>
+        <!-- Only for NbBundle -->
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-util</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.netbeans.api</groupId>
+                    <artifactId>org-openide-util-lookup</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.kenai.nbpwr</groupId>
+            <artifactId>org-slf4j-jdk14</artifactId> <!-- FIXME: this should be slf4j alone -->
+        </dependency>
+
+        <!-- Needed in compilation, because of the annotation processor -->
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-util-lookup</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>clirr-maven-plugin</artifactId>
+                <configuration>
+                <!-- workaround, as enum signature is slightly different in Java 5 and 6, so
+                     it fails the check when compiling with Java 5. -->
+                    <excludes>
+                        <exclude>it/tidalwave/util/Finder$SortDirection</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
+                <configuration>
+                    <publicPackages>
+                        <publicPackage>it.tidalwave.util</publicPackage>
+                        <publicPackage>it.tidalwave.util.spi</publicPackage>
+                        <publicPackage>it.tidalwave.util.thread</publicPackage>
+                        <publicPackage>it.tidalwave.util.thread.annotation</publicPackage>
+                        <publicPackage>it.tidalwave.util.ui</publicPackage>
+                    </publicPackages>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
