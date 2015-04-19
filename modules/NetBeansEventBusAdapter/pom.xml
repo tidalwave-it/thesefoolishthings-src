@@ -5,13 +5,13 @@
     <parent>
         <artifactId>modules</artifactId>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
-        <version>1.39-SNAPSHOT</version>
+        <version>1.39</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-messagebus-platformx-eventbus</artifactId>
-    <version>1.0.13-SNAPSHOT</version>
+    <version>1.0.13</version>
     <packaging>nbm</packaging>
     <name>TheseFoolishThings - MessageBus (NetBeans PlatformX EventBus Adapter)</name>
 
