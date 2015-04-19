@@ -225,7 +225,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      ******************************************************************************************************************/
     @Override @Nonnull
     public EXTENDED_FINDER sort (final @Nonnull SortCriterion criterion,
-                                final @Nonnull SortDirection direction)
+                                 final @Nonnull SortDirection direction)
       {
         if (criterion instanceof FilterSortCriterion)
           {
