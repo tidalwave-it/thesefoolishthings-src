@@ -28,7 +28,7 @@
 package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.Finder;
+import it.tidalwave.util.Finder8;
 import it.tidalwave.util.Finder8Support;
 
 /***********************************************************************************************************************
@@ -40,7 +40,7 @@ import it.tidalwave.util.Finder8Support;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public abstract class SimpleFinder8Support<TYPE> extends Finder8Support<TYPE, Finder<TYPE>>
+public abstract class SimpleFinder8Support<TYPE> extends Finder8Support<TYPE, Finder8<TYPE>>
   {
     protected SimpleFinder8Support()
       {
