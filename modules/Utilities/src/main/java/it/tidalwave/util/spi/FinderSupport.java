@@ -128,8 +128,6 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
       {
         log.debug("FinderSupport({}, {})", other, override);
         final FinderSupport<TYPE, EXTENDED_FINDER> source = getSource(FinderSupport.class, other, override);
-//            override.getClass().equals(FinderSupport.class) ? (FinderSupport<Type, ExtendedFinder>) override : other;
-
         this.name = source.name;
         this.firstResult = source.firstResult;
         this.maxResults = source.maxResults;
