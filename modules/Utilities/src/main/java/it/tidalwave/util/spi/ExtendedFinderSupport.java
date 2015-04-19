@@ -50,7 +50,7 @@ import it.tidalwave.util.Finder;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>> extends Finder<Type>
+public interface ExtendedFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> extends Finder<TYPE>
   {
     /*******************************************************************************************************************
      *
@@ -58,7 +58,7 @@ public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public ExtendedFinder from (@Nonnegative int firstResult);
+    public EXTENDED_FINDER from (@Nonnegative int firstResult);
 
     /*******************************************************************************************************************
      *
@@ -66,7 +66,7 @@ public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public ExtendedFinder max (@Nonnegative int maxResults);
+    public EXTENDED_FINDER max (@Nonnegative int maxResults);
 
     /*******************************************************************************************************************
      *
@@ -74,7 +74,7 @@ public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public ExtendedFinder sort (@Nonnull SortCriterion criterion);
+    public EXTENDED_FINDER sort (@Nonnull SortCriterion criterion);
 
     /*******************************************************************************************************************
      *
@@ -82,5 +82,5 @@ public interface ExtendedFinderSupport<Type, ExtendedFinder extends Finder<Type>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public ExtendedFinder sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
+    public EXTENDED_FINDER sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
   }
