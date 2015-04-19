@@ -37,6 +37,7 @@ import it.tidalwave.util.Finder8Support;
  * 
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @since 1.38
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
