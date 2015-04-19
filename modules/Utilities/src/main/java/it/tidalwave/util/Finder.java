@@ -140,6 +140,17 @@ public interface Finder<Type> extends Cloneable, Serializable
      ******************************************************************************************************************/
     @Nonnull
     public Finder<Type> max (@Nonnegative int maxResults);
+    
+    /*******************************************************************************************************************
+     *
+     * Tells the {@code Finder} that results should be created with the given context.
+     *
+     * @param  context    the context
+     * @return            the {@code Finder}
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public Finder<Type> withContext (@Nonnull Object context);
 
     /*******************************************************************************************************************
      *

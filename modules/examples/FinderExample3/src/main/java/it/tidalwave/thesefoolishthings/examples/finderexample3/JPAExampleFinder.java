@@ -94,10 +94,15 @@ public class JPAExampleFinder implements Finder<String>
         return new JPAExampleFinder(em, firstResult, maxResults, sql);
       }
 
+    public Finder<String> withContext(Object context) 
+      {
+        throw new UnsupportedOperationException("Not supported.");
+      }
+    
     @Nonnull
     public <AnotherType> Finder<AnotherType> ofType (final @Nonnull Class<AnotherType> type) 
       {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported.");
       }
 
     @Nonnull

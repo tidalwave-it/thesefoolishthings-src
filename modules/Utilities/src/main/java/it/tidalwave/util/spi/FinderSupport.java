@@ -37,6 +37,8 @@ import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.SortDirection;
 import it.tidalwave.util.NotFoundException;
 import java.lang.reflect.Constructor;
+import java.util.Optional;
+import javax.annotation.CheckForNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
@@ -86,6 +88,9 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Nonnegative
     private final int maxResults;
 
+    @CheckForNull
+    protected final Object context;
+
     @Nonnull
     private final List<Sorter<TYPE>> sorters;
 
@@ -104,6 +109,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
         this.firstResult = 0;
         this.maxResults = DEFAULT_MAX_RESULTS;
         this.sorters = new ArrayList<Sorter<TYPE>>();
+        this.context = null;
       }
 
     /*******************************************************************************************************************
@@ -117,6 +123,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
         this.firstResult = 0;
         this.maxResults = DEFAULT_MAX_RESULTS;
         this.sorters = new ArrayList<Sorter<TYPE>>();
+        this.context = null;
       }
     
     /*******************************************************************************************************************
@@ -132,6 +139,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
         this.firstResult = source.firstResult;
         this.maxResults = source.maxResults;
         this.sorters = source.sorters;
+        this.context = source.context;
       }
     
     protected static <T> T getSource (final Class<T> clazz, final @Nonnull T other, final @Nonnull Object override)
@@ -191,7 +199,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Override @Nonnull
     public EXTENDED_FINDER from (final @Nonnegative int firstResult)
       {
-        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, sorters));
+        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, context, sorters));
       }
 
     /*******************************************************************************************************************
@@ -202,7 +210,18 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Override @Nonnull
     public EXTENDED_FINDER max (final @Nonnegative int maxResults)
       {
-        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, sorters));
+        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, context, sorters));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public EXTENDED_FINDER withContext (final @Nonnull Object context)
+      {
+        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, context, sorters));
       }
 
     /*******************************************************************************************************************
@@ -229,7 +248,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
           {
             final List<Sorter<TYPE>> sorters = new ArrayList<Sorter<TYPE>>();
             sorters.add(new Sorter<TYPE>((FilterSortCriterion<TYPE>)criterion, direction));
-            return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, sorters));
+            return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, context, sorters));
           }
 
         final String template = "%s does not implement %s - you need to subclass Finder and override sort()";
