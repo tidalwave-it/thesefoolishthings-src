@@ -32,6 +32,8 @@
         <dependency>
             <groupId>com.kenai.nbpwr</groupId>
             <artifactId>org-slf4j-jdk14</artifactId>
+            <!-- So we get the dependency info in the NBM, but the jar doesn't depend on the wrapper module -->
+            <optional>true</optional> 
         </dependency>
     </dependencies>
    
