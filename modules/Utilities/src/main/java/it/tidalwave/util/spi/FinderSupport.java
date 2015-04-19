@@ -213,7 +213,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <AnotherType> Finder<AnotherType> ofType (final @Nonnull Class<AnotherType> type)
+    public <ANOTHER_TYPE> Finder<ANOTHER_TYPE> ofType (final @Nonnull Class<ANOTHER_TYPE> type)
       {
         throw new UnsupportedOperationException("Must be eventually implemented by subclasses.");
       }
