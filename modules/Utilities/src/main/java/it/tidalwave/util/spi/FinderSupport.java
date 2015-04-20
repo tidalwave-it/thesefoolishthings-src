@@ -37,7 +37,6 @@ import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.SortDirection;
 import it.tidalwave.util.NotFoundException;
 import java.lang.reflect.Constructor;
-import java.util.Optional;
 import javax.annotation.CheckForNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -149,26 +148,13 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     /*******************************************************************************************************************
      *
-     * Clones this object. This operation is called whenever a parameter-setting method is called in fluent-interface
-     * style.
-     *
-     * @return  the cloned object
-     * 
-     * @deprecated The clone constructor should be used instead
+     * @deprecated
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public FinderSupport<TYPE, EXTENDED_FINDER> clone()
+    public final FinderSupport<TYPE, EXTENDED_FINDER> clone()
       {
-        try
-          {
-            log.warn("FinderSupport.clone() is deprecated");
-            return (FinderSupport<TYPE, EXTENDED_FINDER>)clone(new Object());
-          }
-        catch (Exception e) 
-          {
-            throw new RuntimeException(e);
-          }
+        throw new UnsupportedOperationException("\"FinderSupport.clone() no more supported");
       }
 
     /*******************************************************************************************************************
