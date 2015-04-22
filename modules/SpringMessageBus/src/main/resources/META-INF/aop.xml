@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<!--
+        AspectJ load-time weaving config file.
+-->
+<aspectj>
+
+    <aspects>
+        <aspect name="it.tidalwave.messagebus.impl.spring.SpringSimpleMessageSubscriberAspect"/>
+    </aspects>
+
+</aspectj>

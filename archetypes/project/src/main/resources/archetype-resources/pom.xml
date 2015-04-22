@@ -1,0 +1,237 @@
+#set( $dollar = '$' )
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  *********************************************************************************************************************
+  
+  TheseFoolishThings - Project Archetype
+  %%
+  Copyright (C) 2009 - 2015 Tidalwave s.a.s. (http://tidalwave.it)
+  %%
+  *********************************************************************************************************************
+  
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+  the License. You may obtain a copy of the License at
+  
+      http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations under the License.
+  
+  *********************************************************************************************************************
+  
+  $Id$
+  
+*********************************************************************************************************************
+#L%
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.thesefoolishthings</groupId>
+        <artifactId>superpom</artifactId>
+        <version>2.12</version> 
+        <relativePath/>
+    </parent>
+
+    <!-- ===============================================================================================================
+    
+        This is the "Master POM" of the project. It contains all the metadata of the project, the global compilation
+        and test settings, and a <dependencyManagement> section describing the versions of all the modules of this
+        project (or the modules that are "exported", that is made available to others. This setup allows other projects
+        to import all the modules in this project by means of reusing this POM with the "import scope" - see
+        http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Importing_Dependencies 
+        
+    ================================================================================================================ -->
+    
+    <groupId>${groupId}</groupId>
+    <artifactId>${rootArtifactId}</artifactId>
+    <version>${version}</version>
+    <packaging>pom</packaging>
+    <name>${projectName} (master)</name>
+    <inceptionYear>2013</inceptionYear>
+
+    <!-- ===============================================================================================================
+
+        TODO: review settings after the generation of the archetype and delete unwanted stuff. Delete this comment too.
+        Some sections are alternate settings for different corporates / forge. Just keep the one you need and eventually
+        add more.
+        
+    ================================================================================================================ -->
+    <properties>
+        <!-- Java.net
+        <tft.project.url>http://${projectName.toLowerCase()}.${forgeName}</tft.project.url>
+        -->
+        
+        <!-- BitBucket.org 
+        <tft.project.url>http://bitbucket.org/${organizationName.toLowerCase()}/${rootArtifactId}</tft.project.url>
+        -->
+        
+        <!-- Tidalwave 
+        <tft.project.url>http://${projectName.toLowerCase()}.tidalwave.it</tft.project.url>-->
+        
+        <!--<tft.project.description>TODO: project description</tft.project.description>-->
+
+        <!-- Java.Net Mercurial setting 
+        <scm.repo.url>https://${forgeName.toLowerCase()}/hg/${rootArtifactId}~src</scm.repo.url>
+        <scm.repo.readonly.url>http://${forgeName}/hg/${rootArtifactId}~src</scm.repo.readonly.url>
+        <scm.repo.browse.url>http://${forgeName}/projects/${rootArtifactId}/sources/src/show</scm.repo.browse.url>
+        -->
+        
+        <!-- For Git 
+        <tft.scm>git</tft.scm>
+        -->
+        
+        <!-- BitBucket.org Mercurial setting  
+        <scm.repo.url>ssh://hg@bitbucket.org/${organizationName.toLowerCase()}/${rootArtifactId}-src</scm.repo.url>
+        <scm.repo.readonly.url>http://bitbucket.org/${organizationName.toLowerCase()}/${rootArtifactId}-src</scm.repo.readonly.url>
+        <scm.repo.browse.url>http://bitbucket.org/${organizationName.toLowerCase()}/${rootArtifactId}/src</scm.repo.browse.url>
+        -->
+
+        <tft.maven.requiredJdk>[1.7.0,)</tft.maven.requiredJdk>
+        <tft.javac.source>1.7</tft.javac.source>
+        <tft.javac.target>1.7</tft.javac.target>
+        
+        <!-- E.g. for Android
+        <tft.javac.source>1.5</tft.javac.source>
+        <tft.javac.target>1.5</tft.javac.target>
+        -->
+                
+        <!--
+        <tft.test.maxMemory>1024M</tft.test.maxMemory>
+        <tft.test.listeners>it.tidalwave.util.test.TestLogger</tft.test.listeners>
+        -->
+
+        <!--
+        <tft.UmlGraphDoc.version>5.4</tft.UmlGraphDoc.version>
+        <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferdep -inferrel -inferdepinpackage -hide java.*|javax.*|android.*</tft.UmlGraphDoc.additionalParam>
+        -->
+    </properties>
+
+    <!-- ===============================================================================================================
+
+        Here you tell the world where your issue tracker, CI server and other stuff are.
+        
+    ================================================================================================================ -->
+    <issueManagement>
+        <!-- Java.Net with Jira
+        <system>Jira</system>
+        <url>http://${forgeName}/jira/browse/${projectName.toLowerCase()}</url>-->
+        
+        <!-- Tidalwave 
+        <url>https://services.tidalwave.it/jira/browse/PROJECT-CODE</url> -->
+    </issueManagement>
+
+    <!--
+    <ciManagement>
+        <system>hudson</system>
+        <url>TODO</url>
+    </ciManagement>
+    -->
+
+    <!-- Java.Net
+    <distributionManagement>
+        <site>
+            <id>website-${rootArtifactId}.${forgeName}</id>
+            <url>dav:https://${forgeName}/website/${rootArtifactId}/site/</url>
+        </site>
+    </distributionManagement>
+    -->
+
+    <mailingLists>
+        <mailingList>
+            <name>Continuous Integration</name>
+            <post>ci@${rootArtifactId}.${forgeName}</post>
+            <archive>http://${forgeName}/projects/${projectName.toLowerCase()}/lists/ci/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Developers</name>
+            <post>dev@${rootArtifactId}.${forgeName}</post>
+            <archive>http://${forgeName}/projects/${projectName.toLowerCase()}/lists/dev/archive</archive>
+        </mailingList>
+    </mailingLists>
+
+    <!-- ===============================================================================================================
+
+        The Sonatype Releases repository is useful as you're likely to use it as a stage repository towards Maven 
+        Central. If you're depending on recently released stuff, you might find it there with a few hours of advance
+        in respect of Maven Central.
+        The Sonatype Snapshots repository is useful as you're likeky to use it to deploy your snaphots, and you might
+        depend on some snapshot.
+        
+    ================================================================================================================ -->
+    <repositories>
+        <repository>
+            <id>releases-oss.sonatype.org</id>
+            <name>Sonatype Releases Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+        <repository>
+            <id>snapshots-oss.sonatype.org</id>
+            <name>Sonatype Snapshots Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <!-- ===============================================================================================================
+
+        Here you declare the versions for all the modules in your project. Don't declare here the versions for 
+        external dependencies, as they should go in the "modules POM" specific <dependencyManagement>
+        
+    ================================================================================================================ -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${groupId}.module1</artifactId>
+                <version>${version}</version>
+            </dependency>
+
+            <!-- TODO: ADD YOUR PROJECT MODULES HERE -->
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
+    <scm>
+        <connection>scm:${tft.scm}:${scm.repo.readonly.url}</connection>
+        <developerConnection>scm:${tft.scm}:${scm.repo.effective.url}</developerConnection>
+        <url>${scm.repo.browse.url}</url>
+    </scm>
+
+    <!-- ===============================================================================================================
+
+         Here you customize your build workflow.
+        
+    ================================================================================================================ -->
+    <!--
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>${tft.test.listeners}</value>
+                        </property>
+                    </properties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    -->
+
+</project>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.thesefoolishthings</groupId>
+        <artifactId>thesefoolishthings</artifactId>
+        <version>2.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <groupId>it.tidalwave.thesefoolishthings</groupId>
+    <artifactId>modules</artifactId>
+    <packaging>pom</packaging>
+    <version>2.1-SNAPSHOT</version>
+    <name>TheseFoolishThings (modules)</name>
+
+    <properties>
+        <beansbinding.version>1.2.1-201007271250</beansbinding.version>
+        <cglib.version>2.1.3-201003011305</cglib.version>
+        <incava.version>1.1.0</incava.version>
+        <javax-annotation.version>1.3.7-201002241900</javax-annotation.version>
+        <javax-inject.version>1.0-201002241208</javax-inject.version>
+        <joda-time.version>1.6.2-201110292322</joda-time.version>
+        <jsr305.version>2.0.1</jsr305.version>
+        <logback.version>1.0.7</logback.version>
+        <netbeans.version>RELEASE712-1</netbeans.version>
+        <org.springframework.version>3.1.0.RELEASE</org.springframework.version>
+        <slf4j.version>1.6.1</slf4j.version>
+        <slf4jk.version>${slf4j.version}-201106101300</slf4jk.version>
+        <uuid.version>2.1.5-201007271250</uuid.version>
+        <vaadin.version>6.6.1</vaadin.version>
+
+        <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide java.*|javax.*</tft.UmlGraphDoc.additionalParam>
+
+        <tft.javac.source>1.7</tft.javac.source> <!-- For Android compatibility -->
+        <tft.javac.target>1.7</tft.javac.target>
+        <tft.javadoc.doclint>-Xdoclint:none</tft.javadoc.doclint>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- TODO: depend on BBB! -->
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>org-jdesktop-beansbinding</artifactId>
+                <version>${beansbinding.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin</artifactId>
+                <version>${vaadin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>net-sf-cglib</artifactId>
+                <version>${cglib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>javax-annotation</artifactId>
+                <version>${javax-annotation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>javax-inject</artifactId>
+                <version>${javax-inject.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>org-slf4j-jdk14</artifactId>
+                <version>${slf4jk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>com-eaio-uuid</artifactId>
+                <version>${uuid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kenai.nbpwr</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>${jsr305.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>it.tidalwave.superpom</groupId>
+                <artifactId>platform</artifactId>
+                <version>${netbeans.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${tft.aspectjrt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${tft.aspectjrt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.incava</groupId>
+                <artifactId>org.incava.util.diff</artifactId>
+                <version>${incava.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- TEST DEPENDENCIES -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <modules>
+        <module>Actors</module>
+        <module>Beans</module>
+        <module>BeansBinding</module>
+        <module>Java8Supplements</module>
+        <module>MessageBus</module>
+        <module>NetBeansEventBusAdapter</module>
+        <module>Logger</module>
+        <module>Roles</module>
+        <module>SingleLineLogFormatter</module>
+        <module>SpringMessageBus</module>
+        <module>SpringRoles</module>
+        <module>StopWatch</module>
+        <module>Utilities</module>
+        <module>TestUtilities</module>
+        <module>Vaadin</module>
+        <module>examples</module>
+  </modules>
+
+</project>
