@@ -41,7 +41,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.role.ContextManager;
-import it.tidalwave.role.spi.impl.ClassAndRole;
+import it.tidalwave.role.spi.impl.DatumAndRole;
 import it.tidalwave.role.spi.impl.MultiMap;
 import lombok.extern.slf4j.Slf4j;
 
@@ -76,7 +76,7 @@ public abstract class RoleManagerSupport implements RoleManager
 
     private final ContextManager contextManager = ContextManager.Locator.find();
 
-    private final MultiMap<ClassAndRole, Class<?>> roleMapByOwnerClass = new MultiMap<>();
+    private final MultiMap<DatumAndRole, Class<?>> roleMapByOwnerClass = new MultiMap<>();
 
     /*******************************************************************************************************************
      *
@@ -174,14 +174,14 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
       {
         boolean tableUpdated = false;
         
-        final ClassAndRole classAndRole = new ClassAndRole(ownerClass, roleClass);
+        final DatumAndRole classAndRole = new DatumAndRole(ownerClass, roleClass);
         final List<Class<?>> result = new ArrayList<>();
         result.addAll(roleMapByOwnerClass.getValues(classAndRole));
 
         // FIXME: this is performed each time. Find a way to be aware that the new roles are already in the map
         // Navigate up the hierarchy - must be done now, since in scan() we can't search for subclasses
         // But we update roleMapByOwnerClass so it won't be done multiple times
-        for (final ClassAndRole superClassAndRole : classAndRole.getSuper())
+        for (final DatumAndRole superClassAndRole : classAndRole.getSuper())
           {
             log.trace(">>>> probing {}", superClassAndRole);
             final Set<Class<?>> superImplementations = (Set)roleMapByOwnerClass.getValues(superClassAndRole);
@@ -220,7 +220,7 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
                   {
                     if (!roleClass.getName().equals("org.springframework.beans.factory.aspectj.ConfigurableObject"))
                       {
-                        roleMapByOwnerClass.add(new ClassAndRole(datumClass, roleClass), roleImplementationClass);
+                        roleMapByOwnerClass.add(new DatumAndRole(datumClass, roleClass), roleImplementationClass);
                       }
                   }
               }
@@ -287,12 +287,12 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
       {
         log.debug("Configured roles:");
         
-        final List<Entry<ClassAndRole, Set<Class<?>>>> entries = new ArrayList<>(roleMapByOwnerClass.entrySet());
-        Collections.sort(entries, new Comparator<Entry<ClassAndRole, Set<Class<?>>>>()
+        final List<Entry<DatumAndRole, Set<Class<?>>>> entries = new ArrayList<>(roleMapByOwnerClass.entrySet());
+        Collections.sort(entries, new Comparator<Entry<DatumAndRole, Set<Class<?>>>>()
           {
             @Override
-            public int compare (final @Nonnull Entry<ClassAndRole, Set<Class<?>>> e1,
-                                final @Nonnull Entry<ClassAndRole, Set<Class<?>>> e2) 
+            public int compare (final @Nonnull Entry<DatumAndRole, Set<Class<?>>> e1,
+                                final @Nonnull Entry<DatumAndRole, Set<Class<?>>> e2) 
               {
                 final int s1 = e1.getKey().getOwnerClass().getName().compareTo(
                                e2.getKey().getOwnerClass().getName());
@@ -307,7 +307,7 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
               }
           });
 
-        for (final Entry<ClassAndRole, Set<Class<?>>> entry : entries)
+        for (final Entry<DatumAndRole, Set<Class<?>>> entry : entries)
           {
             log.debug(">>>> {}: {} -> {}", 
                     new Object[] { entry.getKey().getOwnerClass().getName(), 

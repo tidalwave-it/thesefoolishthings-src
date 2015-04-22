@@ -43,7 +43,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor @Getter @ToString @EqualsAndHashCode @Slf4j
-public class ClassAndRole
+public class DatumAndRole
   {
     @Nonnull
     private final Class<?> ownerClass;
@@ -57,19 +57,19 @@ public class ClassAndRole
      *
      **************************************************************************************************************/
     @Nonnull
-    public List<ClassAndRole> getSuper()
+    public List<DatumAndRole> getSuper()
       {
-        final List<ClassAndRole> result = new ArrayList<>();
+        final List<DatumAndRole> result = new ArrayList<>();
         result.add(this);
 
         if (ownerClass.getSuperclass() != null)
           {
-            result.addAll(new ClassAndRole(ownerClass.getSuperclass(), roleClass).getSuper());
+            result.addAll(new DatumAndRole(ownerClass.getSuperclass(), roleClass).getSuper());
           }
 
         for (final Class<?> interfaceClass : ownerClass.getInterfaces())
           {
-            result.addAll(new ClassAndRole(interfaceClass, roleClass).getSuper());
+            result.addAll(new DatumAndRole(interfaceClass, roleClass).getSuper());
           }
 
         return result;

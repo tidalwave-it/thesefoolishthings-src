@@ -59,12 +59,12 @@ interface R1 { }
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ClassAndRoleTest
+public class DatumAndRoleTest
   {
     @Test(dataProvider = "provider")
-    public void testGetSuper (final @Nonnull ClassAndRole underTest, final @Nonnull List<ClassAndRole> expected)
+    public void testGetSuper (final @Nonnull DatumAndRole underTest, final @Nonnull List<DatumAndRole> expected)
       {
-        final List<ClassAndRole> actual = underTest.getSuper();
+        final List<DatumAndRole> actual = underTest.getSuper();
         assertThat(actual, is(expected));
       }
 
@@ -74,38 +74,38 @@ public class ClassAndRoleTest
         return new Object[][]
           {
               {
-                new ClassAndRole(CA1.class, R1.class), asList(new ClassAndRole(CA1.class,    R1.class),
-                                                              new ClassAndRole(Object.class, R1.class))
+                new DatumAndRole(CA1.class, R1.class), asList(new DatumAndRole(CA1.class,    R1.class),
+                                                              new DatumAndRole(Object.class, R1.class))
               },
               {
-                new ClassAndRole(CA2.class, R1.class), asList(new ClassAndRole(CA2.class,    R1.class),
-                                                              new ClassAndRole(Object.class, R1.class),
-                                                              new ClassAndRole(IA2.class,    R1.class))
+                new DatumAndRole(CA2.class, R1.class), asList(new DatumAndRole(CA2.class,    R1.class),
+                                                              new DatumAndRole(Object.class, R1.class),
+                                                              new DatumAndRole(IA2.class,    R1.class))
               },
               {
-                new ClassAndRole(CA3.class, R1.class), asList(new ClassAndRole(CA3.class,    R1.class),
-                                                              new ClassAndRole(Object.class, R1.class),
-                                                              new ClassAndRole(IA3.class,    R1.class))
+                new DatumAndRole(CA3.class, R1.class), asList(new DatumAndRole(CA3.class,    R1.class),
+                                                              new DatumAndRole(Object.class, R1.class),
+                                                              new DatumAndRole(IA3.class,    R1.class))
               },
               {
-                new ClassAndRole(CB1.class, R1.class), asList(new ClassAndRole(CB1.class,    R1.class),
-                                                              new ClassAndRole(Object.class, R1.class),
-                                                              new ClassAndRole(IB2.class,    R1.class),
-                                                              new ClassAndRole(IA2.class,    R1.class),
-                                                              new ClassAndRole(IA3.class,    R1.class))
+                new DatumAndRole(CB1.class, R1.class), asList(new DatumAndRole(CB1.class,    R1.class),
+                                                              new DatumAndRole(Object.class, R1.class),
+                                                              new DatumAndRole(IB2.class,    R1.class),
+                                                              new DatumAndRole(IA2.class,    R1.class),
+                                                              new DatumAndRole(IA3.class,    R1.class))
               },
               {
-                new ClassAndRole(CB2.class, R1.class), asList(new ClassAndRole(CB2.class,    R1.class),
-                                                              new ClassAndRole(CA2.class,    R1.class),
-                                                              new ClassAndRole(Object.class, R1.class),
-                                                              new ClassAndRole(IA2.class,    R1.class),
-                                                              new ClassAndRole(IB1.class,    R1.class),
-                                                              new ClassAndRole(IA1.class,    R1.class))
+                new DatumAndRole(CB2.class, R1.class), asList(new DatumAndRole(CB2.class,    R1.class),
+                                                              new DatumAndRole(CA2.class,    R1.class),
+                                                              new DatumAndRole(Object.class, R1.class),
+                                                              new DatumAndRole(IA2.class,    R1.class),
+                                                              new DatumAndRole(IB1.class,    R1.class),
+                                                              new DatumAndRole(IA1.class,    R1.class))
               },
               {
-                new ClassAndRole(CB3.class, R1.class), asList(new ClassAndRole(CB3.class,    R1.class),
-                                                              new ClassAndRole(CA1.class,    R1.class),
-                                                              new ClassAndRole(Object.class, R1.class))
+                new DatumAndRole(CB3.class, R1.class), asList(new DatumAndRole(CB3.class,    R1.class),
+                                                              new DatumAndRole(CA1.class,    R1.class),
+                                                              new DatumAndRole(Object.class, R1.class))
               }
           };
       }
