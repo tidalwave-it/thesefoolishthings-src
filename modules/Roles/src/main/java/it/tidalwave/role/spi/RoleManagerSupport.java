@@ -84,15 +84,15 @@ public abstract class RoleManagerSupport implements RoleManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <RoleType> List<? extends RoleType> findRoles (final @Nonnull Object owner,
-                                                          final @Nonnull Class<RoleType> roleClass)
+    public <ROLE_TYPE> List<? extends ROLE_TYPE> findRoles (final @Nonnull Object owner,
+                                                            final @Nonnull Class<ROLE_TYPE> roleClass)
       {
         log.trace("findRoles({}, {})", owner, roleClass);
         final Class<?> ownerClass = findClass(owner);
-        final List<RoleType> roles = new ArrayList<>();
-        final List<Class<? extends RoleType>> roleImplementations = findRoleImplementationsFor(ownerClass, roleClass);
+        final List<ROLE_TYPE> roles = new ArrayList<>();
+        final List<Class<? extends ROLE_TYPE>> roleImplementations = findRoleImplementationsFor(ownerClass, roleClass);
 
-outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImplementations)
+outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImplementations)
           {
             // FIXME: why enumerating all constructors?
             for (final Constructor<?> constructor : roleImplementationClass.getDeclaredConstructors())
@@ -125,7 +125,7 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
                   {
                     try
                       {
-                        final List<Object> parameters = new ArrayList<Object>();
+                        final List<Object> parameters = new ArrayList<>();
 
                         for (Class<?> parameterType : parameterTypes)
                           {
