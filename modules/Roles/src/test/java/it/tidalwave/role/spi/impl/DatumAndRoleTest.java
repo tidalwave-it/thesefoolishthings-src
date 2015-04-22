@@ -34,24 +34,7 @@ import org.testng.annotations.Test;
 import static java.util.Arrays.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
-
-interface IA1 { }
-interface IA2 { }
-interface IA3 { }
-
-interface IB1 extends IA1 { }
-interface IB2 extends IA2, IA3 { }
-interface IB3 { }
-
-class CA1 { }
-class CA2 implements IA2 { }
-class CA3 implements IA3 { }
-
-class CB1 implements IB2 { }
-class CB2 extends CA2 implements IB1 { }
-class CB3 extends CA1 { }
-
-interface R1 { }
+import static it.tidalwave.role.spi.impl.Hierarchy1.*;
 
 /***********************************************************************************************************************
  *
