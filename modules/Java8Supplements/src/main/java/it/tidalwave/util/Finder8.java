@@ -29,6 +29,8 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -38,7 +40,7 @@ import java.util.stream.Stream;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface Finder8<TYPE> extends Finder<TYPE>
+public interface Finder8<TYPE> extends Finder<TYPE>, Iterable<TYPE>
   {
     @Nonnull
     public Optional<TYPE> optionalResult();
@@ -48,6 +50,12 @@ public interface Finder8<TYPE> extends Finder<TYPE>
     
     @Nonnull
     public Stream<TYPE> stream();
+    
+    @Override @Nonnull
+    default public Iterator<TYPE> iterator()
+      {
+        return ((List<TYPE>)results()).iterator();
+      }
     
     // TODO: this should come by means of ExtendedFinder
     @Override @Nonnull
