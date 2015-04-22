@@ -35,13 +35,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.role.ContextManager;
-import java.util.Set;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -92,6 +93,11 @@ public abstract class RoleManagerSupport implements RoleManager
         @Nonnull
         private final Class<?> roleClass;
 
+        /***************************************************************************************************************
+         *
+         * Returns pairs (class, role) for each class or interface up in the hierarchy.
+         *
+         **************************************************************************************************************/
         @Nonnull
         public List<ClassAndRole> getSuper()
           {
@@ -116,15 +122,15 @@ public abstract class RoleManagerSupport implements RoleManager
      *
      *
      ******************************************************************************************************************/
-    static class MultiMap<K, V> extends HashMap<K, List<V>>
+    static class MultiMap<K, V> extends HashMap<K, Set<V>>
       {
         public void add (final @Nonnull K key, final @Nonnull V value)
           {
-            List<V> values = get(key);
+            Set<V> values = get(key);
 
             if (values == null)
               {
-                values = new ArrayList<V>();
+                values = new HashSet<V>();
                 put(key, values);
               }
 
@@ -217,51 +223,75 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
 
     /*******************************************************************************************************************
      *
+     * Finds the role implementations for the given owner type and role type. This method might discover new 
+     * implementations that weren't found during the initial scan, since the initial scan can't go down in a
+     * hierarchy; that is, given a Base class or interface with some associated roles, it can't associate those roles
+     * to subclasses (or implementations) of Base. Now we can navigate up the hierarchy and complete the picture.
+     * Each new discovered role is added into the map, so the next time scanning will be faster.
      *
      ******************************************************************************************************************/
     @Nonnull
     private synchronized <RT> List<Class<? extends RT>> findRoleImplementationsFor (final Class<?> ownerClass,
                                                                                     final Class<RT> roleClass)
       {
+        boolean tableUpdated = false;
+        
         final ClassAndRole classAndRole = new ClassAndRole(ownerClass, roleClass);
-        final List<Class<?>> implementations = roleMapByOwnerClass.get(classAndRole);
-
+        final List<Class<? extends RT>> result = new ArrayList<>();
+        final Set<Class<? extends RT>> implementations = (Set)roleMapByOwnerClass.get(classAndRole);
+        
         if (implementations != null)
           {
-            return (List)implementations;
+            result.addAll(implementations);
           }
 
-        for (final ClassAndRole classAndRole1 : classAndRole.getSuper())
+        // Navigate up the hierarchy - must be done now, since in scan() we can't search for subclasses
+        // But we update roleMapByOwnerClass so it won't be done multiple times
+        for (final ClassAndRole superClassAndRole : classAndRole.getSuper())
           {
-            final List<Class<?>> implementations2 = roleMapByOwnerClass.get(classAndRole1);
+            log.trace(">>>> probing {}", superClassAndRole);
+            final Set<Class<? extends RT>> implementations2 = (Set)roleMapByOwnerClass.get(superClassAndRole);
 
             if (implementations2 != null)
               {
-                for (final Class<?> implementation : implementations2)
+                for (final Class<?> implementation : new ArrayList<>(implementations2))
                   {
                     roleMapByOwnerClass.add(classAndRole, implementation);
+                    tableUpdated = true;
                   }
-
-                return (List)implementations2;
+                
+                log.debug(">>>>>>> added implementations: {} -> {}", classAndRole, implementations2);
+                result.addAll(implementations2);
               }
           }
+        
+        if (tableUpdated && log.isTraceEnabled()) // yes, trace level - otherwise it would be too verbose
+          {
+            logRoles();
+          }
 
-        return Collections.emptyList();
+        return result;
       }
 
     /*******************************************************************************************************************
      *
+     * Scans all the given role implementation classes and build a map of roles by owner class.
      *
      ******************************************************************************************************************/
     protected void scan (final @Nonnull Collection<Class<?>> roleImplementationClasses)
       {
+        log.debug("scan({})", roleImplementationClasses);
+        
         for (final Class<?> roleImplementationClass : roleImplementationClasses)
           {
             for (final Class<?> datumClass : findDatumTypesForRole(roleImplementationClass))
               {
-                for (final Class<?> roleClass : findAllImplemetedInterfacesOf(roleImplementationClass))
+                for (final Class<?> roleClass : findAllImplementedInterfacesOf(roleImplementationClass))
                   {
-                    roleMapByOwnerClass.add(new ClassAndRole(datumClass, roleClass), roleImplementationClass);
+                    if (!roleClass.getName().equals("org.springframework.beans.factory.aspectj.ConfigurableObject"))
+                      {
+                        roleMapByOwnerClass.add(new ClassAndRole(datumClass, roleClass), roleImplementationClass);
+                      }
                   }
               }
           }
@@ -271,21 +301,27 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
 
     /*******************************************************************************************************************
      *
-     * Finds all the interfaces implemented by a given class, including those eventually implemented by superclasses.
+     * Finds all the interfaces implemented by a given class, including those eventually implemented by superclasses
+     * and interfaces that are indirectly implemented (e.g. C implements I1, I1 extends I2).
      *
      * @param  clazz    the class to inspect
      * @return          the implemented interfaces
      *
      ******************************************************************************************************************/
     @Nonnull
-    private static SortedSet<Class<?>> findAllImplemetedInterfacesOf (final @Nonnull Class<?> clazz)
+    private static SortedSet<Class<?>> findAllImplementedInterfacesOf (final @Nonnull Class<?> clazz)
       {
         final SortedSet<Class<?>> interfaces = new TreeSet<Class<?>>(CLASS_COMPARATOR);
         interfaces.addAll(Arrays.asList(clazz.getInterfaces()));
+        
+        for (final Class<?> interface_ : interfaces)
+          {
+            interfaces.addAll(findAllImplementedInterfacesOf(interface_));
+          }
 
         if (clazz.getSuperclass() != null)
           {
-            interfaces.addAll(findAllImplemetedInterfacesOf(clazz.getSuperclass()));
+            interfaces.addAll(findAllImplementedInterfacesOf(clazz.getSuperclass()));
           }
 
         return interfaces;
@@ -321,12 +357,12 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
       {
         log.debug("Configured roles:");
         
-        final List<Entry<ClassAndRole, List<Class<?>>>> entries = new ArrayList<>(roleMapByOwnerClass.entrySet());
-        Collections.sort(entries, new Comparator<Entry<ClassAndRole, List<Class<?>>>>()
+        final List<Entry<ClassAndRole, Set<Class<?>>>> entries = new ArrayList<>(roleMapByOwnerClass.entrySet());
+        Collections.sort(entries, new Comparator<Entry<ClassAndRole, Set<Class<?>>>>()
           {
             @Override
-            public int compare (final @Nonnull Entry<ClassAndRole, List<Class<?>>> e1,
-                                final @Nonnull Entry<ClassAndRole, List<Class<?>>> e2) 
+            public int compare (final @Nonnull Entry<ClassAndRole, Set<Class<?>>> e1,
+                                final @Nonnull Entry<ClassAndRole, Set<Class<?>>> e2) 
               {
                 final int s1 = e1.getKey().ownerClass.getName().compareTo(e2.getKey().ownerClass.getName());
                 
@@ -339,7 +375,7 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
               }
           });
 
-        for (final Entry<ClassAndRole, List<Class<?>>> entry : entries)
+        for (final Entry<ClassAndRole, Set<Class<?>>> entry : entries)
           {
             log.debug(">>>> {}: {} -> {}", 
                     new Object[] { entry.getKey().ownerClass.getName(), 
