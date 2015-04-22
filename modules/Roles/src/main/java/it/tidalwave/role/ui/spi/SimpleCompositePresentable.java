@@ -43,7 +43,6 @@ import it.tidalwave.role.ui.PresentationModel;
 import it.tidalwave.role.ui.PresentationModelFactory;
 import it.tidalwave.role.spi.ContextSampler;
 import it.tidalwave.role.spi.DefaultSimpleComposite;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
@@ -56,7 +55,7 @@ import lombok.extern.slf4j.Slf4j;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor @Slf4j
+@Slf4j
 public class SimpleCompositePresentable<T extends As> implements Presentable
   {
     private static final long serialVersionUID = 324646965695684L;
@@ -68,7 +67,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
     @Nonnull
     private final PresentationModelFactory defaultPresentationModelFactory;
 
-    private final ContextSampler contextSampler = new ContextSampler();
+    private final ContextSampler contextSampler;
 
     /*******************************************************************************************************************
      *
@@ -78,6 +77,19 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
     public SimpleCompositePresentable (final @Nonnull T datum)
       {
         this(datum, new DefaultPresentationModelFactory());
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
+    public SimpleCompositePresentable (final @Nonnull T datum, 
+                                       final @Nonnull PresentationModelFactory defaultPresentationModelFactory) 
+      {
+        this.datum = datum;
+        this.defaultPresentationModelFactory = defaultPresentationModelFactory;
+        contextSampler = new ContextSampler(datum);
       }
 
     /*******************************************************************************************************************

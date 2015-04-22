@@ -37,7 +37,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -80,7 +79,7 @@ public class ContextSamplerTest
       {
         when(contextManager.getContexts()).thenReturn(contexts);
 
-        fixture = new ContextSampler();
+        fixture = new ContextSampler(new Object());
 
         assertThat(fixture.getContexts(), is(contexts));
       }
@@ -98,7 +97,7 @@ public class ContextSamplerTest
 //                                                    CoreMatchers.any((taskClass))));
         final Task<String, RuntimeException> task = mock(Task.class);
 
-        fixture = new ContextSampler();
+        fixture = new ContextSampler(new Object());
         reset(contextManager);
         final Object result = fixture.runWithContexts(task);
 

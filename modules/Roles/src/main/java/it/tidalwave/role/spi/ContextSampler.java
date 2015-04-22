@@ -28,11 +28,12 @@
 package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import it.tidalwave.util.Task;
 import it.tidalwave.role.ContextManager;
-import java.util.Collections;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
@@ -43,7 +44,7 @@ import lombok.extern.slf4j.Slf4j;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Slf4j
+@Slf4j @ToString(of = "contexts")
 public class ContextSampler
   {
     // TODO: should be weak references? Should a context be alive as soon as all the objects created with it are
@@ -57,10 +58,14 @@ public class ContextSampler
      *
      *
      ******************************************************************************************************************/
-    public ContextSampler()
+    public ContextSampler (final @Nonnull Object owner)
       {
         contexts = Collections.unmodifiableList(contextManager.getContexts());
-        log.trace(">>>> contexts at construction time: {}", contexts);
+        
+        if (log.isTraceEnabled())
+          {
+            log.trace(">>>> contexts for {} at construction time: {}", System.identityHashCode(owner), contexts);
+          }
       }
 
     /*******************************************************************************************************************
