@@ -192,14 +192,10 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
 
             if (implementations2 != null)
               {
-                for (final Class<?> implementation : new ArrayList<>(implementations2))
-                  {
-                    roleMapByOwnerClass.add(classAndRole, implementation);
-                    tableUpdated = true;
-                  }
-                
-                log.debug(">>>>>>> added implementations: {} -> {}", classAndRole, implementations2);
+                roleMapByOwnerClass.addAll(classAndRole, new ArrayList<>(implementations2));
                 result.addAll(implementations2);
+                tableUpdated = true;
+                log.debug(">>>>>>> added implementations: {} -> {}", classAndRole, implementations2);
               }
           }
         

@@ -28,6 +28,7 @@
 package it.tidalwave.role.spi.impl;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -40,16 +41,27 @@ import java.util.Set;
  **********************************************************************************************************************/
 public class MultiMap<K, V> extends HashMap<K, Set<V>>
   {
-    public void add (final @Nonnull K key, final @Nonnull V value)
+    public synchronized void add (final @Nonnull K key, final @Nonnull V value)
+      {
+        getValues(key).add(value);
+      }
+
+    public synchronized void addAll (final @Nonnull K key, final @Nonnull Collection<? extends V> values)
+      {
+        getValues(key).addAll(values);
+      }
+
+    @Nonnull
+    private Set<V> getValues (final @Nonnull K key)
       {
         Set<V> values = get(key);
-
+        
         if (values == null)
           {
             values = new HashSet<>();
             put(key, values);
           }
-
-        values.add(value);
+        
+        return values;
       }
   }
