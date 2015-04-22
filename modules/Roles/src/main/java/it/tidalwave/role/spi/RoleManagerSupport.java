@@ -34,8 +34,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -43,10 +41,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.role.ContextManager;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import it.tidalwave.role.spi.impl.ClassAndRole;
+import it.tidalwave.role.spi.impl.MultiMap;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
@@ -69,8 +65,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class RoleManagerSupport implements RoleManager
   {
-    private final ContextManager contextManager = ContextManager.Locator.find();
-
     private final static Comparator<Class<?>> CLASS_COMPARATOR = new Comparator<Class<?>>()
       {
         @Override
@@ -80,63 +74,7 @@ public abstract class RoleManagerSupport implements RoleManager
           }
       };
 
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    @RequiredArgsConstructor @Getter @ToString @EqualsAndHashCode @Slf4j
-    static class ClassAndRole
-      {
-        @Nonnull
-        private final Class<?> ownerClass;
-
-        @Nonnull
-        private final Class<?> roleClass;
-
-        /***************************************************************************************************************
-         *
-         * Returns pairs (class, role) for each class or interface up in the hierarchy.
-         *
-         **************************************************************************************************************/
-        @Nonnull
-        public List<ClassAndRole> getSuper()
-          {
-            final List<ClassAndRole> result = new ArrayList<ClassAndRole>();
-            result.add(this);
-
-            if (ownerClass.getSuperclass() != null)
-              {
-                result.addAll(new ClassAndRole(ownerClass.getSuperclass(), roleClass).getSuper());
-              }
-
-            for (final Class<?> interfaceClass : ownerClass.getInterfaces())
-              {
-                result.addAll(new ClassAndRole(interfaceClass, roleClass).getSuper());
-              }
-
-            return result;
-          }
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    static class MultiMap<K, V> extends HashMap<K, Set<V>>
-      {
-        public void add (final @Nonnull K key, final @Nonnull V value)
-          {
-            Set<V> values = get(key);
-
-            if (values == null)
-              {
-                values = new HashSet<V>();
-                put(key, values);
-              }
-
-            values.add(value);
-          }
-      }
+    private final ContextManager contextManager = ContextManager.Locator.find();
 
     private final MultiMap<ClassAndRole, Class<?>> roleMapByOwnerClass = new MultiMap<ClassAndRole, Class<?>>();
 
@@ -364,22 +302,24 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
             public int compare (final @Nonnull Entry<ClassAndRole, Set<Class<?>>> e1,
                                 final @Nonnull Entry<ClassAndRole, Set<Class<?>>> e2) 
               {
-                final int s1 = e1.getKey().ownerClass.getName().compareTo(e2.getKey().ownerClass.getName());
+                final int s1 = e1.getKey().getOwnerClass().getName().compareTo(
+                               e2.getKey().getOwnerClass().getName());
                 
                 if (s1 != 0)
                   {
                     return s1;   
                   }
                 
-                return e1.getKey().roleClass.getName().compareTo(e2.getKey().roleClass.getName());
+                return e1.getKey().getRoleClass().getName().compareTo(
+                       e2.getKey().getRoleClass().getName());
               }
           });
 
         for (final Entry<ClassAndRole, Set<Class<?>>> entry : entries)
           {
             log.debug(">>>> {}: {} -> {}", 
-                    new Object[] { entry.getKey().ownerClass.getName(), 
-                                   entry.getKey().roleClass.getName(),
+                    new Object[] { entry.getKey().getOwnerClass().getName(), 
+                                   entry.getKey().getRoleClass().getName(),
                                    entry.getValue()});
           }
       }
