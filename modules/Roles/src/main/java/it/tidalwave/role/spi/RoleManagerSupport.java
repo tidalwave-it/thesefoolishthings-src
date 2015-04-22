@@ -177,15 +177,12 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
             final @Nonnull Class<?> datumClass,
             final @Nonnull Class<RT> roleClass)
       {
-        boolean tableUpdated = false;
-        
         final DatumAndRole datumAndRole = new DatumAndRole(datumClass, roleClass);
-        final Set<Class<?>> values = roleMapByDatumAndRole.getValues(datumAndRole);
-        final Set<Class<?>> result = new TreeSet<>(CLASS_COMPARATOR);
-        result.addAll(values);
 
         if (!totallyExplored.contains(datumAndRole))
           {
+            boolean tableUpdated = false;
+        
             for (final DatumAndRole superDataAndRole : datumAndRole.getSuper())
               {
                 log.trace(">>>> probing {}", superDataAndRole);
@@ -194,7 +191,6 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
                 if (!superImplementations.isEmpty())
                   {
                     roleMapByDatumAndRole.addAll(datumAndRole, new ArrayList<>(superImplementations));
-                    result.addAll(superImplementations);
                     tableUpdated = true;
                     log.debug(">>>>>>> added implementations: {} -> {}", datumAndRole, superImplementations);
                   }
@@ -208,7 +204,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
               }
           }
 
-        return (Set<Class<? extends RT>>)(Set)result;
+        return (Set<Class<? extends RT>>)(Set)roleMapByDatumAndRole.getValues(datumAndRole);
       }
 
     /*******************************************************************************************************************
