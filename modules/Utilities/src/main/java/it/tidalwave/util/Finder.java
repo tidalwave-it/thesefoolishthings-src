@@ -143,7 +143,8 @@ public interface Finder<TYPE> extends Cloneable, Serializable
     
     /*******************************************************************************************************************
      *
-     * Tells the {@code Finder} that results should be created with the given context.
+     * Tells the {@code Finder} that results should be created with the given context. This method can be called 
+     * multiple times; contexts are accumulated.
      *
      * @param  context    the context
      * @return            the {@code Finder}

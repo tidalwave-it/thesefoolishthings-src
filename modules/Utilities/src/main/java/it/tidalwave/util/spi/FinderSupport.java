@@ -29,17 +29,18 @@ package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.Finder.FilterSortCriterion;
 import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.SortDirection;
 import it.tidalwave.util.NotFoundException;
-import java.lang.reflect.Constructor;
-import javax.annotation.CheckForNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -87,8 +88,8 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Nonnegative
     private final int maxResults;
 
-    @CheckForNull
-    protected final Object context;
+    @Nonnull @Getter(AccessLevel.PROTECTED)
+    private final List<Object> contexts;
 
     @Nonnull
     private final List<Sorter<TYPE>> sorters;
@@ -108,7 +109,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
         this.firstResult = 0;
         this.maxResults = DEFAULT_MAX_RESULTS;
         this.sorters = new ArrayList<Sorter<TYPE>>();
-        this.context = null;
+        this.contexts = Collections.emptyList();
       }
 
     /*******************************************************************************************************************
@@ -122,7 +123,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
         this.firstResult = 0;
         this.maxResults = DEFAULT_MAX_RESULTS;
         this.sorters = new ArrayList<Sorter<TYPE>>();
-        this.context = null;
+        this.contexts = Collections.emptyList();
       }
     
     /*******************************************************************************************************************
@@ -138,9 +139,14 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
         this.firstResult = source.firstResult;
         this.maxResults = source.maxResults;
         this.sorters = source.sorters;
-        this.context = source.context;
+        this.contexts = source.contexts; // it's always unmodifiable
       }
     
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
     protected static <T> T getSource (final Class<T> clazz, final @Nonnull T other, final @Nonnull Object override)
       {
         return override.getClass().equals(clazz) ? (T)override : other;
@@ -185,7 +191,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Override @Nonnull
     public EXTENDED_FINDER from (final @Nonnegative int firstResult)
       {
-        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, context, sorters));
+        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -196,7 +202,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Override @Nonnull
     public EXTENDED_FINDER max (final @Nonnegative int maxResults)
       {
-        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, context, sorters));
+        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -207,7 +213,8 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Override @Nonnull
     public EXTENDED_FINDER withContext (final @Nonnull Object context)
       {
-        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, context, sorters));
+        final List<Object> contexts = concat(this.contexts, context);
+        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -232,16 +239,16 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
       {
         if (criterion instanceof FilterSortCriterion)
           {
-            final List<Sorter<TYPE>> sorters = new ArrayList<Sorter<TYPE>>();
-            sorters.add(new Sorter<TYPE>((FilterSortCriterion<TYPE>)criterion, direction));
-            return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, context, sorters));
+            final List<Sorter<TYPE>> sorters = concat(this.sorters, 
+                    new Sorter<TYPE>((FilterSortCriterion<TYPE>)criterion, direction));
+            return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
           }
 
         final String template = "%s does not implement %s - you need to subclass Finder and override sort()";
         final String message = String.format(template, criterion, FilterSortCriterion.class);
         throw new UnsupportedOperationException(message);
       }
-
+    
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -347,5 +354,17 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
         results = results.subList(firstResult, Math.min(results.size(), firstResult + maxResults));
 
         return results;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    private static <T> List<T> concat (final @Nonnull List<T> list, final @Nonnull T item)
+      {
+        final List<T> result = new ArrayList<T>(list);
+        result.add(item);
+        return Collections.unmodifiableList(result);
       }
   }
