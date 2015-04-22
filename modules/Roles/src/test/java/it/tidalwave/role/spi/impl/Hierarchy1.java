@@ -35,21 +35,21 @@ package it.tidalwave.role.spi.impl;
  **********************************************************************************************************************/
 public class Hierarchy1 
   {
-    static interface IA1 { }
-    static interface IA2 { }
-    static interface IA3 { }
+    public static interface IA1 { }
+    public static interface IA2 { }
+    public static interface IA3 { }
 
-    static interface IB1 extends IA1 { }
-    static interface IB2 extends IA2, IA3 { }
-    static interface IB3 { }
+    public static interface IB1 extends IA1 { }
+    public static interface IB2 extends IA2, IA3 { }
+    public static interface IB3 { }
 
-    static class CA1 { }
-    static class CA2 implements IA2 { }
-    static class CA3 implements IA3 { }
+    public static class CA1 { }
+    public static class CA2 implements IA2 { }
+    public static class CA3 implements IA3 { }
 
-    static class CB1 implements IB2 { }
-    static class CB2 extends CA2 implements IB1 { }
-    static class CB3 extends CA1 { }
+    public static class CB1 implements IB2 { }
+    public static class CB2 extends CA2 implements IB1 { }
+    public static class CB3 extends CA1 { }
 
-    static interface R1 { }
+    public static interface R1 { }
   }
