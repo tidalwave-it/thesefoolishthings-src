@@ -38,11 +38,20 @@ import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
 import static java.util.Arrays.asList;
 import static it.tidalwave.role.spi.impl.Hierarchy1.*;
+import java.util.HashMap;
+import java.util.Map;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
 class UnderTest extends RoleManagerSupport
   {
+    private final Map<Class<?>, Class<?>[]> map = new HashMap<>();
+    
+    public void register (final @Nonnull Class<?> roleClass, final @Nonnull Class<?> ... ownerClasses)
+      {
+        map.put(roleClass, ownerClasses);  
+      }
+    
     @Override
     protected <T> T getBean (Class<T> beanType) 
       {
@@ -59,27 +68,8 @@ class UnderTest extends RoleManagerSupport
     @Override
     protected Class<?>[] findDatumTypesForRole (final Class<?> roleImplementationClass)
       {
-        if (roleImplementationClass == RI1A.class)
-          {
-            return asList(CA1.class, CA2.class).toArray(new Class<?>[0]);
-          }
-        
-        if (roleImplementationClass == RI3A.class)
-          {
-            return asList(CA3.class).toArray(new Class<?>[0]);
-          }
-        
-        if (roleImplementationClass == RI2B.class)
-          {
-            return asList(CB1.class, CB3.class).toArray(new Class<?>[0]);
-          }
-        
-        if (roleImplementationClass == RI2A.class)
-          {
-            return asList(CA1.class, CB3.class).toArray(new Class<?>[0]);
-          }
-        
-        return new Class<?>[0];
+        final Class<?>[] result = map.get(roleImplementationClass);       
+        return (result == null) ? new Class<?>[0] : result;
       }
   }
 
@@ -101,6 +91,11 @@ public class RoleManagerSupportTest
     public void testScan()
       {
         final UnderTest underTest = new UnderTest();
+        
+        underTest.register(RI1A.class, CA1.class, CA2.class);
+        underTest.register(RI3A.class, CA3.class);
+        underTest.register(RI2B.class, CB1.class, CB3.class);
+        underTest.register(RI2A.class, CA1.class, CB3.class);
         
         underTest.scan(asList(RI1A.class, RI1B.class, RI1C.class, 
                               RI2A.class, RI2B.class, RI2C.class, 
