@@ -28,9 +28,6 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 import it.tidalwave.util.spi.FinderSupport;
 import it.tidalwave.util.spi.ExtendedFinder8Support;
 
@@ -75,36 +72,4 @@ public class Finder8Support<TYPE, EXTENDED_FINDER extends Finder8<TYPE>>
       {
         super(other, override);
       }
-
-    @Override @Nonnull
-    public Optional<TYPE> optionalResult()
-      {
-        try 
-          {
-            return Optional.of(result());
-          } 
-        catch (NotFoundException e) 
-          {
-            return Optional.empty();
-          }
-      }
-    
-    @Override @Nonnull
-    public Optional<TYPE> optionalFirstResult()
-      {
-        try 
-          {
-            return Optional.of(firstResult());
-          } 
-        catch (NotFoundException e) 
-          {
-            return Optional.empty();
-          }
-      }
-    
-    @Override @Nonnull
-    public Stream<TYPE> stream() 
-      {
-        return ((List<TYPE>)results()).stream();
-      }    
   }

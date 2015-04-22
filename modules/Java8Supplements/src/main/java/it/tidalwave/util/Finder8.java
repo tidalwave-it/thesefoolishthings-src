@@ -43,13 +43,36 @@ import java.util.stream.Stream;
 public interface Finder8<TYPE> extends Finder<TYPE>, Iterable<TYPE>
   {
     @Nonnull
-    public Optional<TYPE> optionalResult();
+    default public Optional<TYPE> optionalResult()
+      {
+        try 
+          {
+            return Optional.of(result());
+          } 
+        catch (NotFoundException e) 
+          {
+            return Optional.empty();
+          }
+      }
     
     @Nonnull
-    public Optional<TYPE> optionalFirstResult();
+    default public Optional<TYPE> optionalFirstResult()
+      {
+        try 
+          {
+            return Optional.of(firstResult());
+          } 
+        catch (NotFoundException e) 
+          {
+            return Optional.empty();
+          }
+      }
     
     @Nonnull
-    public Stream<TYPE> stream();
+    default public Stream<TYPE> stream() 
+      {
+        return ((List<TYPE>)results()).stream();
+      }    
     
     @Override @Nonnull
     default public Iterator<TYPE> iterator()
