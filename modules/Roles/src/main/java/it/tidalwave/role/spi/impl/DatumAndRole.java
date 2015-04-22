@@ -46,7 +46,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DatumAndRole
   {
     @Nonnull
-    private final Class<?> ownerClass;
+    private final Class<?> datumClass;
 
     @Nonnull
     private final Class<?> roleClass;
@@ -62,12 +62,12 @@ public class DatumAndRole
         final List<DatumAndRole> result = new ArrayList<>();
         result.add(this);
 
-        if (ownerClass.getSuperclass() != null)
+        if (datumClass.getSuperclass() != null)
           {
-            result.addAll(new DatumAndRole(ownerClass.getSuperclass(), roleClass).getSuper());
+            result.addAll(new DatumAndRole(datumClass.getSuperclass(), roleClass).getSuper());
           }
 
-        for (final Class<?> interfaceClass : ownerClass.getInterfaces())
+        for (final Class<?> interfaceClass : datumClass.getInterfaces())
           {
             result.addAll(new DatumAndRole(interfaceClass, roleClass).getSuper());
           }

@@ -106,7 +106,7 @@ public class RoleManagerSupportTest
                               RI2A.class, RI2B.class, RI2C.class, 
                               RI3A.class, RI3B.class, RI3C.class));
         
-        final MultiMap<DatumAndRole, Class<?>> m = underTest.roleMapByOwnerClass;
+        final MultiMap<DatumAndRole, Class<?>> m = underTest.roleMapByDatumAndRole;
         
         assertThat(m.size(), is(8));
         assertThat(m.getValues(new DatumAndRole(IA1.class, R3.class)), is(asSet(RI3C.class)));

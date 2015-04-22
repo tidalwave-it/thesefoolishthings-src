@@ -77,7 +77,7 @@ public abstract class RoleManagerSupport implements RoleManager
 
     private final ContextManager contextManager = ContextManager.Locator.find();
 
-    /* VisibleForTesting */ final MultiMap<DatumAndRole, Class<?>> roleMapByOwnerClass = new MultiMap<>();
+    /* VisibleForTesting */ final MultiMap<DatumAndRole, Class<?>> roleMapByDatumAndRole = new MultiMap<>();
     
     // FIXME: use ConcurrentHashMap
     /* VisibleForTesting */ final Set<DatumAndRole> totallyExplored = new HashSet<>();
@@ -88,13 +88,13 @@ public abstract class RoleManagerSupport implements RoleManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <ROLE_TYPE> List<? extends ROLE_TYPE> findRoles (final @Nonnull Object owner,
+    public <ROLE_TYPE> List<? extends ROLE_TYPE> findRoles (final @Nonnull Object datum,
                                                             final @Nonnull Class<ROLE_TYPE> roleClass)
       {
-        log.trace("findRoles({}, {})", owner, roleClass);
-        final Class<?> ownerClass = findClass(owner);
+        log.trace("findRoles({}, {})", datum, roleClass);
+        final Class<?> datumClass = findClass(datum);
         final List<ROLE_TYPE> roles = new ArrayList<>();
-        final Set<Class<? extends ROLE_TYPE>> roleImplementations = findRoleImplementationsFor(ownerClass, roleClass);
+        final Set<Class<? extends ROLE_TYPE>> roleImplementations = findRoleImplementationsFor(datumClass, roleClass);
 
 outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImplementations)
           {
@@ -133,9 +133,9 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
 
                         for (Class<?> parameterType : parameterTypes)
                           {
-                            if (parameterType.isAssignableFrom(ownerClass))
+                            if (parameterType.isAssignableFrom(datumClass))
                               {
-                                parameters.add(owner);
+                                parameters.add(datum);
                               }
                             // TODO: strict equals or isAssignableFrom?
                             else if (parameterType.equals(contextClass))
@@ -174,33 +174,33 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
      ******************************************************************************************************************/
     @Nonnull
     /* VisibleForTesting */ synchronized <RT> Set<Class<? extends RT>> findRoleImplementationsFor (
-            final @Nonnull Class<?> ownerClass,
+            final @Nonnull Class<?> datumClass,
             final @Nonnull Class<RT> roleClass)
       {
         boolean tableUpdated = false;
         
-        final DatumAndRole classAndRole = new DatumAndRole(ownerClass, roleClass);
-        final Set<Class<?>> values = roleMapByOwnerClass.getValues(classAndRole);
+        final DatumAndRole datumAndRole = new DatumAndRole(datumClass, roleClass);
+        final Set<Class<?>> values = roleMapByDatumAndRole.getValues(datumAndRole);
         final Set<Class<?>> result = new TreeSet<>(CLASS_COMPARATOR);
         result.addAll(values);
 
-        if (!totallyExplored.contains(classAndRole))
+        if (!totallyExplored.contains(datumAndRole))
           {
-            for (final DatumAndRole superClassAndRole : classAndRole.getSuper())
+            for (final DatumAndRole superDataAndRole : datumAndRole.getSuper())
               {
-                log.trace(">>>> probing {}", superClassAndRole);
-                final Set<Class<?>> superImplementations = (Set)roleMapByOwnerClass.getValues(superClassAndRole);
+                log.trace(">>>> probing {}", superDataAndRole);
+                final Set<Class<?>> superImplementations = (Set)roleMapByDatumAndRole.getValues(superDataAndRole);
 
                 if (!superImplementations.isEmpty())
                   {
-                    roleMapByOwnerClass.addAll(classAndRole, new ArrayList<>(superImplementations));
+                    roleMapByDatumAndRole.addAll(datumAndRole, new ArrayList<>(superImplementations));
                     result.addAll(superImplementations);
                     tableUpdated = true;
-                    log.debug(">>>>>>> added implementations: {} -> {}", classAndRole, superImplementations);
+                    log.debug(">>>>>>> added implementations: {} -> {}", datumAndRole, superImplementations);
                   }
               }
 
-            totallyExplored.add(classAndRole);
+            totallyExplored.add(datumAndRole);
 
             if (tableUpdated && log.isTraceEnabled()) // yes, trace level - otherwise it would be too verbose
               {
@@ -228,7 +228,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
                   {
                     if (!roleClass.getName().equals("org.springframework.beans.factory.aspectj.ConfigurableObject"))
                       {
-                        roleMapByOwnerClass.add(new DatumAndRole(datumClass, roleClass), roleImplementationClass);
+                        roleMapByDatumAndRole.add(new DatumAndRole(datumClass, roleClass), roleImplementationClass);
                       }
                   }
               }
@@ -295,15 +295,15 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
       {
         log.debug("Configured roles:");
         
-        final List<Entry<DatumAndRole, Set<Class<?>>>> entries = new ArrayList<>(roleMapByOwnerClass.entrySet());
+        final List<Entry<DatumAndRole, Set<Class<?>>>> entries = new ArrayList<>(roleMapByDatumAndRole.entrySet());
         Collections.sort(entries, new Comparator<Entry<DatumAndRole, Set<Class<?>>>>()
           {
             @Override
             public int compare (final @Nonnull Entry<DatumAndRole, Set<Class<?>>> e1,
                                 final @Nonnull Entry<DatumAndRole, Set<Class<?>>> e2) 
               {
-                final int s1 = e1.getKey().getOwnerClass().getName().compareTo(
-                               e2.getKey().getOwnerClass().getName());
+                final int s1 = e1.getKey().getDatumClass().getName().compareTo(
+                               e2.getKey().getDatumClass().getName());
                 
                 if (s1 != 0)
                   {
@@ -318,7 +318,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
         for (final Entry<DatumAndRole, Set<Class<?>>> entry : entries)
           {
             log.debug(">>>> {}: {} -> {}", 
-                    new Object[] { entry.getKey().getOwnerClass().getName(), 
+                    new Object[] { entry.getKey().getDatumClass().getName(), 
                                    entry.getKey().getRoleClass().getName(),
                                    entry.getValue()});
           }
