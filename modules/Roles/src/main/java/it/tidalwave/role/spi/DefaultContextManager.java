@@ -47,7 +47,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DefaultContextManager implements ContextManager
   {
     /** The list of global contexts, ordered by priority. */
-    private final List<Object> globalContexts = new ArrayList<Object>();
+    private final List<Object> globalContexts = new ArrayList<>();
 
     /** The list of local contexts, ordered by priority. */
     private final ThreadLocal<Stack<Object>> localContexts = new ThreadLocal<Stack<Object>>()
@@ -55,7 +55,7 @@ public class DefaultContextManager implements ContextManager
         @Override @Nonnull
         protected Stack<Object> initialValue()
           {
-            return new Stack<Object>();
+            return new Stack<>();
           }
       };
 
@@ -67,7 +67,7 @@ public class DefaultContextManager implements ContextManager
     @Override @Nonnull
     public List<Object> getContexts()
       {
-        final List<Object> contexts = new ArrayList<Object>();
+        final List<Object> contexts = new ArrayList<>();
         contexts.addAll(localContexts.get());
         Collections.reverse(contexts);
         contexts.addAll(0, globalContexts);
