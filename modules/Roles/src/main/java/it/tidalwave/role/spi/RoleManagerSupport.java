@@ -90,7 +90,7 @@ public abstract class RoleManagerSupport implements RoleManager
         log.trace("findRoles({}, {})", owner, roleClass);
         final Class<?> ownerClass = findClass(owner);
         final List<ROLE_TYPE> roles = new ArrayList<>();
-        final List<Class<? extends ROLE_TYPE>> roleImplementations = findRoleImplementationsFor(ownerClass, roleClass);
+        final Set<Class<? extends ROLE_TYPE>> roleImplementations = findRoleImplementationsFor(ownerClass, roleClass);
 
 outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImplementations)
           {
@@ -169,13 +169,14 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
      *
      ******************************************************************************************************************/
     @Nonnull
-    private synchronized <RT> List<Class<? extends RT>> findRoleImplementationsFor (final Class<?> ownerClass,
-                                                                                    final Class<RT> roleClass)
+    /* VisibleForTesting */ synchronized <RT> Set<Class<? extends RT>> findRoleImplementationsFor (
+            final @Nonnull Class<?> ownerClass,
+            final @Nonnull Class<RT> roleClass)
       {
         boolean tableUpdated = false;
         
         final DatumAndRole classAndRole = new DatumAndRole(ownerClass, roleClass);
-        final List<Class<?>> result = new ArrayList<>();
+        final Set<Class<?>> result = new TreeSet<>(CLASS_COMPARATOR);
         result.addAll(roleMapByOwnerClass.getValues(classAndRole));
 
         // FIXME: this is performed each time. Find a way to be aware that the new roles are already in the map
@@ -200,7 +201,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
             logRoles();
           }
 
-        return (List<Class<? extends RT>>)(List)result;
+        return (Set<Class<? extends RT>>)(Set)result;
       }
 
     /*******************************************************************************************************************
