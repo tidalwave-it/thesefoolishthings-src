@@ -175,27 +175,23 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
         boolean tableUpdated = false;
         
         final ClassAndRole classAndRole = new ClassAndRole(ownerClass, roleClass);
-        final List<Class<? extends RT>> result = new ArrayList<>();
-        final Set<Class<? extends RT>> implementations = (Set)roleMapByOwnerClass.get(classAndRole);
-        
-        if (implementations != null)
-          {
-            result.addAll(implementations);
-          }
+        final List<Class<?>> result = new ArrayList<>();
+        result.addAll(roleMapByOwnerClass.getValues(classAndRole));
 
+        // FIXME: this is performed each time. Find a way to be aware that the new roles are already in the map
         // Navigate up the hierarchy - must be done now, since in scan() we can't search for subclasses
         // But we update roleMapByOwnerClass so it won't be done multiple times
         for (final ClassAndRole superClassAndRole : classAndRole.getSuper())
           {
             log.trace(">>>> probing {}", superClassAndRole);
-            final Set<Class<? extends RT>> implementations2 = (Set)roleMapByOwnerClass.get(superClassAndRole);
+            final Set<Class<?>> superImplementations = (Set)roleMapByOwnerClass.getValues(superClassAndRole);
 
-            if (implementations2 != null)
+            if (!superImplementations.isEmpty())
               {
-                roleMapByOwnerClass.addAll(classAndRole, new ArrayList<>(implementations2));
-                result.addAll(implementations2);
+                roleMapByOwnerClass.addAll(classAndRole, new ArrayList<>(superImplementations));
+                result.addAll(superImplementations);
                 tableUpdated = true;
-                log.debug(">>>>>>> added implementations: {} -> {}", classAndRole, implementations2);
+                log.debug(">>>>>>> added implementations: {} -> {}", classAndRole, superImplementations);
               }
           }
         
@@ -204,7 +200,7 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
             logRoles();
           }
 
-        return result;
+        return (List<Class<? extends RT>>)(List)result;
       }
 
     /*******************************************************************************************************************
