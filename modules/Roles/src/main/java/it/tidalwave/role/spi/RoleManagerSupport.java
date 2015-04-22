@@ -76,7 +76,7 @@ public abstract class RoleManagerSupport implements RoleManager
 
     private final ContextManager contextManager = ContextManager.Locator.find();
 
-    private final MultiMap<DatumAndRole, Class<?>> roleMapByOwnerClass = new MultiMap<>();
+    /* VisibleForTesting */ final MultiMap<DatumAndRole, Class<?>> roleMapByOwnerClass = new MultiMap<>();
 
     /*******************************************************************************************************************
      *

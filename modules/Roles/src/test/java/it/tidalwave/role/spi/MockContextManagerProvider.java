@@ -25,45 +25,23 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spi.impl;
+package it.tidalwave.role.spi;
+
+import it.tidalwave.role.ContextManager;
+import org.openide.util.lookup.ServiceProvider;
 
 /***********************************************************************************************************************
  *
- * @author  Fabrizio Giudici
+ * @author  fritz
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class Hierarchy1 
+@ServiceProvider(service = ContextManagerProvider.class)
+public class MockContextManagerProvider implements ContextManagerProvider
   {
-    public static interface IA1 { }
-    public static interface IA2 { }
-    public static interface IA3 { }
-
-    public static interface IB1 extends IA1 { }
-    public static interface IB2 extends IA2, IA3 { }
-    public static interface IB3 { }
-
-    public static class CA1 { }
-    public static class CA2 implements IA2 { }
-    public static class CA3 implements IA3 { }
-
-    public static class CB1 implements IB2 { }
-    public static class CB2 extends CA2 implements IB1 { }
-    public static class CB3 extends CA1 { }
-
-    public static interface R1 { }
-    public static interface R2 { }
-    public static interface R3 { }
-    
-    public static class RI1A implements R1 {}
-    public static class RI1B implements R1 {}
-    public static class RI1C implements R1 {}
-    
-    public static class RI2A implements R2 {}
-    public static class RI2B implements R2 {}
-    public static class RI2C implements R2 {}
-    
-    public static class RI3A implements R3 {}
-    public static class RI3B implements R3 {}
-    public static class RI3C implements R3 {}
+    @Override
+    public ContextManager getContextManager() 
+      {
+        return new DefaultContextManager();
+      }
   }

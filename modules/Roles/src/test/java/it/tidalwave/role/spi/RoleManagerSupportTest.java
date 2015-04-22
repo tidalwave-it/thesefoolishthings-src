@@ -28,12 +28,18 @@
 package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import it.tidalwave.util.NotFoundException;
+import it.tidalwave.role.spi.impl.DatumAndRole;
+import it.tidalwave.role.spi.impl.MultiMap;
 import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
 import static java.util.Arrays.asList;
 import static it.tidalwave.role.spi.impl.Hierarchy1.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 class UnderTest extends RoleManagerSupport
   {
@@ -51,9 +57,29 @@ class UnderTest extends RoleManagerSupport
       }
 
     @Override
-    protected Class<?>[] findDatumTypesForRole (Class<?> roleImplementationClass)
+    protected Class<?>[] findDatumTypesForRole (final Class<?> roleImplementationClass)
       {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        if (roleImplementationClass == RI1A.class)
+          {
+            return asList(CA1.class, CA2.class).toArray(new Class<?>[0]);
+          }
+        
+        if (roleImplementationClass == RI3A.class)
+          {
+            return asList(CA3.class).toArray(new Class<?>[0]);
+          }
+        
+        if (roleImplementationClass == RI2B.class)
+          {
+            return asList(CB1.class, CB3.class).toArray(new Class<?>[0]);
+          }
+        
+        if (roleImplementationClass == RI2A.class)
+          {
+            return asList(CA1.class, CB3.class).toArray(new Class<?>[0]);
+          }
+        
+        return new Class<?>[0];
       }
   }
 
@@ -69,6 +95,33 @@ public class RoleManagerSupportTest
     public void testFindAllImplementedInterfacesOf (final @Nonnull Class<?> clazz, final @Nonnull List<Class<?>> expected)
       {
         RoleManagerSupport.findAllImplementedInterfacesOf(clazz);
+      }
+    
+    @Test
+    public void testScan()
+      {
+        final UnderTest underTest = new UnderTest();
+        
+        underTest.scan(asList(RI1A.class, RI1B.class, RI1C.class, 
+                              RI2A.class, RI2B.class, RI2C.class, 
+                              RI3A.class, RI3B.class, RI3C.class));
+        
+        final MultiMap<DatumAndRole, Class<?>> m = underTest.roleMapByOwnerClass;
+        assertThat(m.size(), is(6));
+        assertThat(m.getValues(new DatumAndRole(CA1.class, R1.class)), is(asSet(RI1A.class)));
+        assertThat(m.getValues(new DatumAndRole(CA1.class, R2.class)), is(asSet(RI2A.class)));
+        assertThat(m.getValues(new DatumAndRole(CA2.class, R1.class)), is(asSet(RI1A.class)));
+        assertThat(m.getValues(new DatumAndRole(CA3.class, R3.class)), is(asSet(RI3A.class)));
+        assertThat(m.getValues(new DatumAndRole(CB1.class, R2.class)), is(asSet(RI2B.class)));
+        assertThat(m.getValues(new DatumAndRole(CB3.class, R2.class)), is(asSet(RI2A.class, RI2B.class)));
+        
+//        System.err.println(underTest.roleMapByOwnerClass);
+      }
+    
+    @Nonnull
+    private static Set<Class<?>> asSet (final Class<?> ... objects)
+      {
+        return new HashSet<>(asList(objects));
       }
     
     @DataProvider(name = "provider")

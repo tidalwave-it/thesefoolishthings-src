@@ -53,7 +53,7 @@ public class MultiMap<K, V> extends HashMap<K, Set<V>>
       }
     
     @Nonnull
-    public synchronized Set<? extends V> getValues (final @Nonnull K key)
+    public synchronized Set<V> getValues (final @Nonnull K key)
       {
         final Set<V> values = get(key);
         return (values == null) ? Collections.<V>emptySet() : Collections.unmodifiableSet(values);
