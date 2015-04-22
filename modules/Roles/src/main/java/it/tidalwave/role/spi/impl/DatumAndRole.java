@@ -28,13 +28,13 @@
 package it.tidalwave.role.spi.impl;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
@@ -42,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor @Getter @ToString @EqualsAndHashCode @Slf4j
+@Immutable @RequiredArgsConstructor @Getter @EqualsAndHashCode @ToString
 public class DatumAndRole
   {
     @Nonnull
