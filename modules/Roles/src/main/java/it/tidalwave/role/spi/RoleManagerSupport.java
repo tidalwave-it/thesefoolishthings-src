@@ -43,6 +43,7 @@ import it.tidalwave.util.NotFoundException;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.impl.DatumAndRole;
 import it.tidalwave.role.spi.impl.MultiMap;
+import java.util.HashSet;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
@@ -77,6 +78,9 @@ public abstract class RoleManagerSupport implements RoleManager
     private final ContextManager contextManager = ContextManager.Locator.find();
 
     /* VisibleForTesting */ final MultiMap<DatumAndRole, Class<?>> roleMapByOwnerClass = new MultiMap<>();
+    
+    // FIXME: use ConcurrentHashMap
+    /* VisibleForTesting */ final Set<DatumAndRole> totallyExplored = new HashSet<>();
 
     /*******************************************************************************************************************
      *
@@ -176,29 +180,32 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
         boolean tableUpdated = false;
         
         final DatumAndRole classAndRole = new DatumAndRole(ownerClass, roleClass);
+        final Set<Class<?>> values = roleMapByOwnerClass.getValues(classAndRole);
         final Set<Class<?>> result = new TreeSet<>(CLASS_COMPARATOR);
-        result.addAll(roleMapByOwnerClass.getValues(classAndRole));
+        result.addAll(values);
 
-        // FIXME: this is performed each time. Find a way to be aware that the new roles are already in the map
-        // Navigate up the hierarchy - must be done now, since in scan() we can't search for subclasses
-        // But we update roleMapByOwnerClass so it won't be done multiple times
-        for (final DatumAndRole superClassAndRole : classAndRole.getSuper())
+        if (!totallyExplored.contains(classAndRole))
           {
-            log.trace(">>>> probing {}", superClassAndRole);
-            final Set<Class<?>> superImplementations = (Set)roleMapByOwnerClass.getValues(superClassAndRole);
-
-            if (!superImplementations.isEmpty())
+            for (final DatumAndRole superClassAndRole : classAndRole.getSuper())
               {
-                roleMapByOwnerClass.addAll(classAndRole, new ArrayList<>(superImplementations));
-                result.addAll(superImplementations);
-                tableUpdated = true;
-                log.debug(">>>>>>> added implementations: {} -> {}", classAndRole, superImplementations);
+                log.trace(">>>> probing {}", superClassAndRole);
+                final Set<Class<?>> superImplementations = (Set)roleMapByOwnerClass.getValues(superClassAndRole);
+
+                if (!superImplementations.isEmpty())
+                  {
+                    roleMapByOwnerClass.addAll(classAndRole, new ArrayList<>(superImplementations));
+                    result.addAll(superImplementations);
+                    tableUpdated = true;
+                    log.debug(">>>>>>> added implementations: {} -> {}", classAndRole, superImplementations);
+                  }
               }
-          }
-        
-        if (tableUpdated && log.isTraceEnabled()) // yes, trace level - otherwise it would be too verbose
-          {
-            logRoles();
+
+            totallyExplored.add(classAndRole);
+
+            if (tableUpdated && log.isTraceEnabled()) // yes, trace level - otherwise it would be too verbose
+              {
+                logRoles();
+              }
           }
 
         return (Set<Class<? extends RT>>)(Set)result;
