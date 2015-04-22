@@ -40,7 +40,7 @@ import it.tidalwave.util.Finder;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public interface SimpleComposite<TYPE> extends Composite<TYPE, Finder<TYPE>>
+public interface SimpleComposite<TYPE> extends Composite<TYPE, Finder<? extends TYPE>>
   {
     public static final Class<SimpleComposite> SimpleComposite = SimpleComposite.class; 
   }

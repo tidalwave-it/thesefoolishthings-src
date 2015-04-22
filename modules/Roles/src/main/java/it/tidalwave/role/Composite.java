@@ -46,7 +46,7 @@ import it.tidalwave.util.spi.FinderSupport;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<TYPE>>
+public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYPE>>
   {
     //@bluebook-begin other
     public static final Class<Composite> Composite = Composite.class;

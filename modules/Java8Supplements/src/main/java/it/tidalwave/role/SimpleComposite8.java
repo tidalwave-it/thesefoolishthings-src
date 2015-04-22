@@ -37,7 +37,7 @@ import it.tidalwave.util.Finder8;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public interface SimpleComposite8<TYPE> extends Composite<TYPE, Finder8<TYPE>>
+public interface SimpleComposite8<TYPE> extends Composite<TYPE, Finder8<? extends TYPE>>
   {
     public static final Class<SimpleComposite8> SimpleComposite8 = SimpleComposite8.class; 
   }
