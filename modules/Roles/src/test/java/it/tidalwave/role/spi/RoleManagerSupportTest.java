@@ -65,7 +65,7 @@ class UnderTest extends RoleManagerSupport
  **********************************************************************************************************************/
 public class RoleManagerSupportTest
   {
-    @Test
+    @Test(dataProvider = "provider")
     public void testFindAllImplementedInterfacesOf (final @Nonnull Class<?> clazz, final @Nonnull List<Class<?>> expected)
       {
         RoleManagerSupport.findAllImplementedInterfacesOf(clazz);
