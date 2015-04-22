@@ -76,7 +76,7 @@ public abstract class RoleManagerSupport implements RoleManager
 
     private final ContextManager contextManager = ContextManager.Locator.find();
 
-    private final MultiMap<ClassAndRole, Class<?>> roleMapByOwnerClass = new MultiMap<ClassAndRole, Class<?>>();
+    private final MultiMap<ClassAndRole, Class<?>> roleMapByOwnerClass = new MultiMap<>();
 
     /*******************************************************************************************************************
      *
@@ -89,7 +89,7 @@ public abstract class RoleManagerSupport implements RoleManager
       {
         log.trace("findRoles({}, {})", owner, roleClass);
         final Class<?> ownerClass = findClass(owner);
-        final List<RoleType> roles = new ArrayList<RoleType>();
+        final List<RoleType> roles = new ArrayList<>();
         final List<Class<? extends RoleType>> roleImplementations = findRoleImplementationsFor(ownerClass, roleClass);
 
 outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImplementations)
