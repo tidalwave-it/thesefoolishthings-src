@@ -28,16 +28,34 @@
 package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.As;
-import it.tidalwave.util.AsException;
-import it.tidalwave.util.RoleFactory;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.testng.annotations.BeforeMethod;
+import java.util.List;
+import it.tidalwave.util.NotFoundException;
 import org.testng.annotations.Test;
-import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import org.testng.annotations.DataProvider;
+import static java.util.Arrays.asList;
+import static it.tidalwave.role.spi.impl.Hierarchy1.*;
+
+class UnderTest extends RoleManagerSupport
+  {
+    @Override
+    protected <T> T getBean (Class<T> beanType) 
+      {
+        throw new UnsupportedOperationException("Not supported yet."); 
+      }
+
+    @Override
+    protected Class<?> findContextForRole (Class<?> roleImplementationClass) 
+      throws NotFoundException 
+      {
+        throw new UnsupportedOperationException("Not supported yet."); 
+      }
+
+    @Override
+    protected Class<?>[] findDatumTypesForRole (Class<?> roleImplementationClass)
+      {
+        throw new UnsupportedOperationException("Not supported yet."); 
+      }
+  }
 
 /***********************************************************************************************************************
  *
@@ -48,7 +66,34 @@ import static org.hamcrest.MatcherAssert.*;
 public class RoleManagerSupportTest
   {
     @Test
-    public void testSomeMethod()
+    public void testFindAllImplementedInterfacesOf (final @Nonnull Class<?> clazz, final @Nonnull List<Class<?>> expected)
       {
+        RoleManagerSupport.findAllImplementedInterfacesOf(clazz);
+      }
+    
+    @DataProvider(name = "provider")
+    private static Object[][] provider()
+      {
+        return new Object[][]
+          {
+              {
+                CA1.class, asList()
+              },
+              {
+                CA2.class, asList(IA2.class)
+              },
+              {
+                CA3.class, asList(IA3.class)
+              },
+              {
+                CB1.class, asList(IB2.class, IA2.class, IA3.class)
+              },
+              {
+                CB2.class, asList(IA2.class, IB1.class, IA1.class)
+              },
+              {
+                CB3.class, asList()
+              }
+          };
       }
   }

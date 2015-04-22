@@ -239,7 +239,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
      *
      ******************************************************************************************************************/
     @Nonnull
-    private static SortedSet<Class<?>> findAllImplementedInterfacesOf (final @Nonnull Class<?> clazz)
+    /* VisibleForTesting */ static SortedSet<Class<?>> findAllImplementedInterfacesOf (final @Nonnull Class<?> clazz)
       {
         final SortedSet<Class<?>> interfaces = new TreeSet<>(CLASS_COMPARATOR);
         interfaces.addAll(Arrays.asList(clazz.getInterfaces()));
