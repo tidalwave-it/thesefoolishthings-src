@@ -27,6 +27,7 @@
  */
 package it.tidalwave.util;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -47,4 +48,20 @@ public interface Finder8<TYPE> extends Finder<TYPE>
     
     @Nonnull
     public Stream<TYPE> stream();
+    
+    // TODO: this should come by means of ExtendedFinder
+    @Override @Nonnull
+    public Finder8<TYPE> from (@Nonnegative int firstResult);
+
+    @Override @Nonnull
+    public Finder8<TYPE> max (@Nonnegative int maxResults);
+
+    @Override @Nonnull
+    public Finder8<TYPE> withContext (@Nonnull Object context);
+    
+    @Override @Nonnull
+    public Finder8<TYPE> sort (@Nonnull SortCriterion criterion);
+
+    @Override @Nonnull
+    public Finder8<TYPE> sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
   }
