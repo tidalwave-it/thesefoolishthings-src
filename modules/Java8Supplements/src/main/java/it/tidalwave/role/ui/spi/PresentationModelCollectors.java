@@ -32,11 +32,14 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 import java.util.function.Function;
+import it.tidalwave.util.As;
 import it.tidalwave.util.spi.ArrayListCollectorSupport;
+import it.tidalwave.role.spi.ArrayListSimpleComposite;
 import it.tidalwave.role.Composite;
 import it.tidalwave.role.ui.PresentationModel;
-import it.tidalwave.role.spi.ArrayListSimpleComposite;
+import static it.tidalwave.role.ui.Presentable.Presentable;
 
 /***********************************************************************************************************************
  *
@@ -76,13 +79,45 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
 
     /*******************************************************************************************************************
      *
+     * A facility method that creates a composite {@link PresentationModel} out of a stream of objects. For each object
+     * in the stream, its {@code PresentationModel} is created by means of invoking its {@link Presentable} role.
+     * Then all the {@code PresentationModel}s are aggregated into the composite.
+     * 
+     * This method accepts an {@link Iterable}. A function which creates specific roles for each 
+     * {@code PresentationModel} can be supplied. The function can return a single role or multiple roles in form of
+     * an {@code Object[]}.
+     * 
+     * @param   i               the {@code Iterable}
+     * @param   roleCreator     the function to create roles
+     * @return                  the composite {@code PresentationModel}
      * 
      ******************************************************************************************************************/
-    private PresentationModelCollectors (final @Nonnull List<Object> roles) 
+    @Nonnull
+    public static <T extends As> PresentationModel toCompositePresentationModel (
+            final @Nonnull Iterable<T> i,
+            final @Nonnull Function<T, Object> roleCreator)
       {
-        this.roles.addAll(roles);
+        return StreamSupport.stream(i.spliterator(), false)
+                            .map(o -> o.as(Presentable).createPresentationModel(array(roleCreator.apply(o))))
+                            .collect(PresentationModelCollectors.toCompositePresentationModel());
       }
-    
+
+    /*******************************************************************************************************************
+     *
+     * A facility simplified version of 
+     * {@link #toCompositePresentationModel(java.lang.Iterable, java.util.function.Function)} without a function to
+     * supply additional roles.
+     * 
+     * @param   i               the {@code Iterable}
+     * @return                  the composite {@code PresentationModel}
+     * 
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T extends As> PresentationModel toCompositePresentationModel (final @Nonnull Iterable<T> i)
+      {
+        return toCompositePresentationModel(i, o -> new Object[0]);
+      }
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -98,5 +133,24 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
             // FIXME: "" triggers a NPE in RoleManagerSupport.java:341
             return new DefaultPresentationModel("", temp.toArray());
           };
+      }
+    
+    /*******************************************************************************************************************
+     *
+     * 
+     ******************************************************************************************************************/
+    private PresentationModelCollectors (final @Nonnull List<Object> roles) 
+      {
+        this.roles.addAll(roles);
+      }
+    
+    /*******************************************************************************************************************
+     *
+     * 
+     ******************************************************************************************************************/
+    @Nonnull
+    private static Object[] array (final @Nonnull Object object) 
+      {
+        return (object instanceof Object[]) ? (Object[])object : new Object[] { object };
       }
   }
