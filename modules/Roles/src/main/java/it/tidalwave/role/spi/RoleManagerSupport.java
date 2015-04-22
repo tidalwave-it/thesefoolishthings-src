@@ -41,6 +41,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.role.ContextManager;
+import java.util.Set;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -319,10 +320,31 @@ outer:  for (final Class<? extends RoleType> roleImplementationClass : roleImple
     public void logRoles()
       {
         log.debug("Configured roles:");
-
-        for (final Entry<ClassAndRole, List<Class<?>>> entry : roleMapByOwnerClass.entrySet())
+        
+        final List<Entry<ClassAndRole, List<Class<?>>>> entries = new ArrayList<>(roleMapByOwnerClass.entrySet());
+        Collections.sort(entries, new Comparator<Entry<ClassAndRole, List<Class<?>>>>()
           {
-            log.debug(">>>> {} -> {}", entry.getKey(), entry.getValue());
+            @Override
+            public int compare (final @Nonnull Entry<ClassAndRole, List<Class<?>>> e1,
+                                final @Nonnull Entry<ClassAndRole, List<Class<?>>> e2) 
+              {
+                final int s1 = e1.getKey().ownerClass.getName().compareTo(e2.getKey().ownerClass.getName());
+                
+                if (s1 != 0)
+                  {
+                    return s1;   
+                  }
+                
+                return e1.getKey().roleClass.getName().compareTo(e2.getKey().roleClass.getName());
+              }
+          });
+
+        for (final Entry<ClassAndRole, List<Class<?>>> entry : entries)
+          {
+            log.debug(">>>> {}: {} -> {}", 
+                    new Object[] { entry.getKey().ownerClass.getName(), 
+                                   entry.getKey().roleClass.getName(),
+                                   entry.getValue()});
           }
       }
 
