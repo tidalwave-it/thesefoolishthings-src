@@ -184,9 +184,9 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
             alreadyScanned.add(datumAndRole);
             final Set<Class<?>> before = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
             
-            for (final DatumAndRole superDataAndRole : datumAndRole.getSuper())
+            for (final DatumAndRole superDatumAndRole : datumAndRole.getSuper())
               {
-                roleMapByDatumAndRole.addAll(datumAndRole, roleMapByDatumAndRole.getValues(superDataAndRole));
+                roleMapByDatumAndRole.addAll(datumAndRole, roleMapByDatumAndRole.getValues(superDatumAndRole));
               }
 
             final Set<Class<?>> after = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
