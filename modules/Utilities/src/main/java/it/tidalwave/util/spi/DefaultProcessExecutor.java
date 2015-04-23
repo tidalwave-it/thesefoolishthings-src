@@ -211,8 +211,8 @@ public class DefaultProcessExecutor implements ProcessExecutor
         public List<String> filteredBy (final @Nonnull String regexp)
           {
             final Pattern pattern = Pattern.compile(regexp);
-            final List<String> result = new ArrayList<String>();
-            final ArrayList<String> strings = new ArrayList<String>(content);
+            final List<String> result = new ArrayList<>();
+            final ArrayList<String> strings = new ArrayList<>(content);
 
             // TODO: sync
             if (latestLine != null)
@@ -331,7 +331,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
           }
       }
 
-    private final List<String> arguments = new ArrayList<String>();
+    private final List<String> arguments = new ArrayList<>();
 
     private Process process;
 
@@ -418,7 +418,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
       {
         log.info(">>>> executing {} ...", arguments);
 
-        final List<String> environment = new ArrayList<String>();
+        final List<String> environment = new ArrayList<>();
 
         for (final Entry<String, String> e : System.getenv().entrySet())
           {
