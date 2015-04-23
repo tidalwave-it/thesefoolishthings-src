@@ -143,7 +143,21 @@ public class RoleManagerSupportTest
         assertEquals(underTest.findRoleImplementationsFor(CB3.class, R2.class), asSet(RI2A.class, RI2B.class));
         assertEquals(underTest.findRoleImplementationsFor(CB3.class, R3.class), asSet());
 
+          System.err.println(m);
         assertThat(m.size(), is(13));
+        assertThat(m.getValues(new DatumAndRole(IA1.class, R3.class)), is(asSet(RI3C.class)));
+        assertThat(m.getValues(new DatumAndRole(IA2.class, R2.class)), is(asSet(RI2C.class)));
+        assertThat(m.getValues(new DatumAndRole(CA1.class, R1.class)), is(asSet(RI1A.class)));
+        assertThat(m.getValues(new DatumAndRole(CA1.class, R2.class)), is(asSet(RI2A.class)));
+        assertThat(m.getValues(new DatumAndRole(CA2.class, R1.class)), is(asSet(RI1A.class)));
+        assertThat(m.getValues(new DatumAndRole(CA2.class, R2.class)), is(asSet(RI2C.class)));
+        assertThat(m.getValues(new DatumAndRole(CA3.class, R3.class)), is(asSet(RI3A.class)));
+        assertThat(m.getValues(new DatumAndRole(CB1.class, R2.class)), is(asSet(RI2B.class, RI2C.class)));
+        assertThat(m.getValues(new DatumAndRole(CB2.class, R1.class)), is(asSet(RI1A.class)));
+        assertThat(m.getValues(new DatumAndRole(CB2.class, R2.class)), is(asSet(RI2C.class)));
+        assertThat(m.getValues(new DatumAndRole(CB2.class, R3.class)), is(asSet(RI3C.class)));
+        assertThat(m.getValues(new DatumAndRole(CB3.class, R1.class)), is(asSet(RI1A.class)));
+        assertThat(m.getValues(new DatumAndRole(CB3.class, R2.class)), is(asSet(RI2A.class, RI2B.class)));
         
         // These were not explicitly registered - late discovery
         assertEquals(underTest.findRoleImplementationsFor(XCA1.class, R1.class), asSet(RI1A.class));
@@ -151,23 +165,22 @@ public class RoleManagerSupportTest
         assertEquals(underTest.findRoleImplementationsFor(XCA1.class, R3.class), asSet());
         
         assertThat(m.size(), is(15));       
-        assertThat(m.getValues(new DatumAndRole(IA1.class,  R3.class)), is(asSet(RI3C.class)));
-        assertThat(m.getValues(new DatumAndRole(IA2.class,  R2.class)), is(asSet(RI2C.class)));
-        assertThat(m.getValues(new DatumAndRole(CA1.class,  R1.class)), is(asSet(RI1A.class)));
-        assertThat(m.getValues(new DatumAndRole(CA1.class,  R2.class)), is(asSet(RI2A.class)));
-        assertThat(m.getValues(new DatumAndRole(CA2.class,  R1.class)), is(asSet(RI1A.class)));
-        assertThat(m.getValues(new DatumAndRole(CA2.class,  R2.class)), is(asSet(RI2C.class))); 
-        assertThat(m.getValues(new DatumAndRole(CA3.class,  R3.class)), is(asSet(RI3A.class)));
-        assertThat(m.getValues(new DatumAndRole(CB1.class,  R2.class)), is(asSet(RI2B.class, RI2C.class)));
-        assertThat(m.getValues(new DatumAndRole(CB2.class,  R1.class)), is(asSet(RI1A.class)));
-        assertThat(m.getValues(new DatumAndRole(CB2.class,  R2.class)), is(asSet(RI2C.class)));
-        assertThat(m.getValues(new DatumAndRole(CB2.class,  R3.class)), is(asSet(RI3C.class)));
-        assertThat(m.getValues(new DatumAndRole(CB3.class,  R1.class)), is(asSet(RI1A.class)));
-        assertThat(m.getValues(new DatumAndRole(CB3.class,  R2.class)), is(asSet(RI2A.class, RI2B.class)));
+        assertThat(m.getValues(new DatumAndRole(IA1.class, R3.class)), is(asSet(RI3C.class)));
+        assertThat(m.getValues(new DatumAndRole(IA2.class, R2.class)), is(asSet(RI2C.class)));
+        assertThat(m.getValues(new DatumAndRole(CA1.class, R1.class)), is(asSet(RI1A.class)));
+        assertThat(m.getValues(new DatumAndRole(CA1.class, R2.class)), is(asSet(RI2A.class)));
+        assertThat(m.getValues(new DatumAndRole(CA2.class, R1.class)), is(asSet(RI1A.class)));
+        assertThat(m.getValues(new DatumAndRole(CA2.class, R2.class)), is(asSet(RI2C.class)));
+        assertThat(m.getValues(new DatumAndRole(CA3.class, R3.class)), is(asSet(RI3A.class)));
+        assertThat(m.getValues(new DatumAndRole(CB1.class, R2.class)), is(asSet(RI2B.class, RI2C.class)));
+        assertThat(m.getValues(new DatumAndRole(CB2.class, R1.class)), is(asSet(RI1A.class)));
+        assertThat(m.getValues(new DatumAndRole(CB2.class, R2.class)), is(asSet(RI2C.class)));
+        assertThat(m.getValues(new DatumAndRole(CB2.class, R3.class)), is(asSet(RI3C.class)));
+        assertThat(m.getValues(new DatumAndRole(CB3.class, R1.class)), is(asSet(RI1A.class)));
+        assertThat(m.getValues(new DatumAndRole(CB3.class, R2.class)), is(asSet(RI2A.class, RI2B.class)));
         
         assertThat(m.getValues(new DatumAndRole(XCA1.class, R1.class)), is(asSet(RI1A.class)));
         assertThat(m.getValues(new DatumAndRole(XCA1.class, R2.class)), is(asSet(RI2A.class)));
-        assertThat(m.getValues(new DatumAndRole(XCA1.class, R3.class)), is(asSet()));
         
         // These were not explicitly registered - late discovery
         assertEquals(underTest.findRoleImplementationsFor(YCA1.class, R1.class), asSet(RI1A.class));
@@ -190,11 +203,9 @@ public class RoleManagerSupportTest
         assertThat(m.getValues(new DatumAndRole(CB3.class,  R2.class)), is(asSet(RI2A.class, RI2B.class)));
         assertThat(m.getValues(new DatumAndRole(XCA1.class, R1.class)), is(asSet(RI1A.class)));
         assertThat(m.getValues(new DatumAndRole(XCA1.class, R2.class)), is(asSet(RI2A.class)));
-        assertThat(m.getValues(new DatumAndRole(XCA1.class, R3.class)), is(asSet()));
 
         assertThat(m.getValues(new DatumAndRole(YCA1.class, R1.class)), is(asSet(RI1A.class)));
         assertThat(m.getValues(new DatumAndRole(YCA1.class, R2.class)), is(asSet(RI2A.class)));
-        assertThat(m.getValues(new DatumAndRole(YCA1.class, R3.class)), is(asSet()));
       }
     
     // TODO: test role creations (findRoles())

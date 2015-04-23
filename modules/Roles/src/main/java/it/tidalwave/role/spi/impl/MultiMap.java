@@ -49,7 +49,10 @@ public class MultiMap<K, V> extends HashMap<K, Set<V>>
 
     public synchronized void addAll (final @Nonnull K key, final @Nonnull Collection<? extends V> values)
       {
-        internalGetValues(key).addAll(values);
+        if (!values.isEmpty())
+          {
+            internalGetValues(key).addAll(values);
+          }
       }
     
     @Nonnull

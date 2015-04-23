@@ -79,8 +79,8 @@ public abstract class RoleManagerSupport implements RoleManager
 
     /* VisibleForTesting */ final MultiMap<DatumAndRole, Class<?>> roleMapByDatumAndRole = new MultiMap<>();
     
-    // FIXME: use ConcurrentHashMap
-    /* VisibleForTesting */ final Set<DatumAndRole> totallyExplored = new HashSet<>();
+    // FIXME: use ConcurrentHashMap// FIXME: use ConcurrentHashMap
+    /* VisibleForTesting */ final Set<DatumAndRole> alreadyScanned = new HashSet<>();
 
     /*******************************************************************************************************************
      *
@@ -179,27 +179,23 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
       {
         final DatumAndRole datumAndRole = new DatumAndRole(datumClass, roleClass);
 
-        if (!totallyExplored.contains(datumAndRole))
+        if (!alreadyScanned.contains(datumAndRole))
           {
-            boolean tableUpdated = false;
-        
+            alreadyScanned.add(datumAndRole);
+            
+            final Set<Class<?>> v1 = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
+            
             for (final DatumAndRole superDataAndRole : datumAndRole.getSuper())
               {
-                log.trace(">>>> probing {}", superDataAndRole);
-                final Set<Class<?>> superImplementations = (Set)roleMapByDatumAndRole.getValues(superDataAndRole);
-
-                if (!superImplementations.isEmpty())
-                  {
-                    roleMapByDatumAndRole.addAll(datumAndRole, new ArrayList<>(superImplementations));
-                    tableUpdated = true;
-                    log.debug(">>>>>>> added implementations: {} -> {}", datumAndRole, superImplementations);
-                  }
+                roleMapByDatumAndRole.addAll(datumAndRole, new ArrayList<>(roleMapByDatumAndRole.getValues(superDataAndRole)));
               }
 
-            totallyExplored.add(datumAndRole);
+            final Set<Class<?>> v2 = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
+            v2.removeAll(v1);
 
-            if (tableUpdated && log.isTraceEnabled()) // yes, trace level - otherwise it would be too verbose
+            if (!v2.isEmpty() && log.isTraceEnabled()) // yes, trace level - otherwise it would be too verbose
               {
+                log.debug(">>>>>>> added implementations: {} -> {}", datumAndRole, v2);
                 logRoles();
               }
           }
