@@ -182,26 +182,15 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
         if (!alreadyScanned.contains(datumAndRole))
           {
             alreadyScanned.add(datumAndRole);
-            
-            final Set<Class<?>> v1 = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
+            final Set<Class<?>> before = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
             
             for (final DatumAndRole superDataAndRole : datumAndRole.getSuper())
               {
                 roleMapByDatumAndRole.addAll(datumAndRole, new ArrayList<>(roleMapByDatumAndRole.getValues(superDataAndRole)));
               }
 
-            final Set<Class<?>> v2 = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
-            v2.removeAll(v1);
-
-            if (!v2.isEmpty()) 
-              {
-                log.debug(">>>>>>> added implementations: {} -> {}", datumAndRole, v2);
-                
-                if (log.isTraceEnabled()) // yes, trace
-                  {
-                    logRoles();
-                  }
-              }
+            final Set<Class<?>> after = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
+            logChanges(datumAndRole, before, after);
           }
 
         return (Set<Class<? extends RT>>)(Set)roleMapByDatumAndRole.getValues(datumAndRole);
@@ -282,6 +271,27 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
      ******************************************************************************************************************/
     @Nonnull
     protected abstract Class<?>[] findDatumTypesForRole (@Nonnull Class<?> roleImplementationClass);
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    private void logChanges (final @Nonnull DatumAndRole datumAndRole,
+                             final @Nonnull Set<Class<?>> before, 
+                             final @Nonnull Set<Class<?>> after)
+      {
+        after.removeAll(before);
+
+        if (!after.isEmpty()) 
+          {
+            log.debug(">>>>>>> added implementations: {} -> {}", datumAndRole, after);
+
+            if (log.isTraceEnabled()) // yes, trace
+              {
+                logRoles();
+              }
+          }
+      }
 
     /*******************************************************************************************************************
      *
