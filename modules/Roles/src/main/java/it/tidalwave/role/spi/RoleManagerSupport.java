@@ -125,35 +125,33 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
                     // ok, no context
                   }
 
-                if (parameterTypes.length > 0)
+                try
                   {
-                    try
-                      {
-                        final List<Object> parameters = new ArrayList<>();
+                    final List<Object> parameters = new ArrayList<>();
 
-                        for (Class<?> parameterType : parameterTypes)
+                    for (Class<?> parameterType : parameterTypes)
+                      {
+                        if (parameterType.isAssignableFrom(datumClass))
                           {
-                            if (parameterType.isAssignableFrom(datumClass))
-                              {
-                                parameters.add(datum);
-                              }
-                            // TODO: strict equals or isAssignableFrom?
-                            else if (parameterType.equals(contextClass))
-                              {
-                                parameters.add(context);
-                              }
-                            else // standard injection
-                              {
-                                parameters.add(getBean(parameterType));
-                              }
+                            parameters.add(datum);
                           }
+                        // TODO: strict equals or isAssignableFrom?
+                        else if (parameterType.equals(contextClass))
+                          {
+                            parameters.add(context);
+                          }
+                        else // standard injection
+                          {
+                            parameters.add(getBean(parameterType));
+                          }
+                      }
 
-                        roles.add(roleClass.cast(constructor.newInstance(parameters.toArray())));
-                      }
-                    catch (Exception e)
-                      {
-                        log.error("", e);
-                      }
+                    roles.add(roleClass.cast(constructor.newInstance(parameters.toArray())));
+                    break;
+                  }
+                catch (Exception e)
+                  {
+                    log.error("", e);
                   }
               }
           }
