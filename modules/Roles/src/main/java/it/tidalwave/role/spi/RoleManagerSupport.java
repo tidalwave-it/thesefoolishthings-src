@@ -193,10 +193,14 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
             final Set<Class<?>> v2 = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
             v2.removeAll(v1);
 
-            if (!v2.isEmpty() && log.isTraceEnabled()) // yes, trace level - otherwise it would be too verbose
+            if (!v2.isEmpty()) 
               {
                 log.debug(">>>>>>> added implementations: {} -> {}", datumAndRole, v2);
-                logRoles();
+                
+                if (log.isTraceEnabled()) // yes, trace
+                  {
+                    logRoles();
+                  }
               }
           }
 
