@@ -44,6 +44,7 @@ import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.impl.DatumAndRole;
 import it.tidalwave.role.spi.impl.MultiMap;
 import java.util.HashSet;
+import javax.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
@@ -98,7 +99,6 @@ public abstract class RoleManagerSupport implements RoleManager
 
 outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImplementations)
           {
-            // FIXME: why enumerating all constructors?
             for (final Constructor<?> constructor : roleImplementationClass.getDeclaredConstructors())
               {
                 final Class<?>[] parameterTypes = constructor.getParameterTypes();
@@ -127,26 +127,8 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
 
                 try
                   {
-                    final List<Object> parameters = new ArrayList<>();
-
-                    for (Class<?> parameterType : parameterTypes)
-                      {
-                        if (parameterType.isAssignableFrom(datumClass))
-                          {
-                            parameters.add(datum);
-                          }
-                        // TODO: strict equals or isAssignableFrom?
-                        else if (parameterType.equals(contextClass))
-                          {
-                            parameters.add(context);
-                          }
-                        else // standard injection
-                          {
-                            parameters.add(getBean(parameterType));
-                          }
-                      }
-
-                    roles.add(roleClass.cast(constructor.newInstance(parameters.toArray())));
+                    final Object[] parameters = getParameters(parameterTypes, datumClass, datum, contextClass, context);
+                    roles.add(roleClass.cast(constructor.newInstance(parameters)));
                     break;
                   }
                 catch (Exception e)
@@ -159,6 +141,39 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
         log.trace(">>>> returning: {}", roles);
 
         return roles;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    private Object[] getParameters (final @Nonnull Class<?>[] parameterTypes, 
+                                    final @Nonnull Class<?> datumClass, 
+                                    final @Nonnull Object datum, 
+                                    final @Nullable Class<?> contextClass, 
+                                    final @Nullable Object context) 
+      {
+        final List<Object> parameters = new ArrayList<>();
+
+        for (Class<?> parameterType : parameterTypes)
+          {
+            if (parameterType.isAssignableFrom(datumClass))
+              {
+                parameters.add(datum);
+              }
+            // TODO: strict equals or isAssignableFrom?
+            else if (parameterType.equals(contextClass))
+              {
+                parameters.add(context);
+              }
+            else // standard injection
+              {
+                parameters.add(getBean(parameterType));
+              }
+          }
+        
+        return parameters.toArray();
       }
 
     /*******************************************************************************************************************
