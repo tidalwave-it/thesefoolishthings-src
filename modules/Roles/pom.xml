@@ -41,7 +41,7 @@
             <groupId>com.kenai.nbpwr</groupId>
             <artifactId>org-slf4j-jdk14</artifactId>
             <!-- So we get the dependency info in the NBM, but the jar doesn't depend on the wrapper module -->
-            <optional>true</optional> 
+            <optional>true</optional>
         </dependency>
 
         <!-- Needed in compilation, because of the annotation processor -->
@@ -56,6 +56,17 @@
             <artifactId>it-tidalwave-util</artifactId>
             <classifier>tests</classifier>
             <scope>test</scope>
+        </dependency>
+        <!-- FIXME: fixes the trouble with missing Hamcrest methods -->
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it-tidalwave-util-test</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
