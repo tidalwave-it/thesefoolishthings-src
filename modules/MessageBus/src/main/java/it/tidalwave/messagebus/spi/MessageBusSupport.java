@@ -53,8 +53,7 @@ import lombok.extern.slf4j.Slf4j;
 @ThreadSafe @Slf4j
 public abstract class MessageBusSupport implements MessageBus
   {
-    private final Map<Class<?>, List<WeakReference<Listener<?>>>> listenersMapByTopic =
-            new HashMap<Class<?>, List<WeakReference<Listener<?>>>>();
+    private final Map<Class<?>, List<WeakReference<Listener<?>>>> listenersMapByTopic = new HashMap<>();
 
     /*******************************************************************************************************************
      *
@@ -95,7 +94,7 @@ public abstract class MessageBusSupport implements MessageBus
     public <Topic> void subscribe (final @Nonnull Class<Topic> topic, final @Nonnull Listener<Topic> listener)
       {
         log.debug("subscribe({}, {})", topic, listener);
-        findListenersByTopic(topic).add(new WeakReference<Listener<Topic>>(listener));
+        findListenersByTopic(topic).add(new WeakReference<>(listener));
       }
 
     /*******************************************************************************************************************
@@ -129,7 +128,7 @@ public abstract class MessageBusSupport implements MessageBus
     protected <Topic> void deliverMessage (final @Nonnull Class<Topic> topic, final @Nonnull Topic message)
       {
         final HashSet<Entry<Class<?>, List<WeakReference<Listener<?>>>>> clone =
-                new HashSet<Entry<Class<?>, List<WeakReference<Listener<?>>>>>(listenersMapByTopic.entrySet());
+                new HashSet<>(listenersMapByTopic.entrySet());
 
         for (final Entry<Class<?>, List<WeakReference<Listener<?>>>> e : clone)
           {
@@ -177,7 +176,7 @@ public abstract class MessageBusSupport implements MessageBus
 
         if (listeners == null)
           {
-            listeners = new ArrayList<WeakReference<Listener<Topic>>>();
+            listeners = new ArrayList<>();
             listenersMapByTopic.put(topic, (List)listeners);
           }
 
