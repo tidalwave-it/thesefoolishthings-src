@@ -162,12 +162,11 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
               {
                 parameters.add(datum);
               }
-            // TODO: strict equals or isAssignableFrom?
-            else if (parameterType.equals(contextClass))
+            else if (parameterType.isAssignableFrom(contextClass))
               {
                 parameters.add(context);
               }
-            else // standard injection
+            else // generic injection
               {
                 parameters.add(getBean(parameterType));
               }
