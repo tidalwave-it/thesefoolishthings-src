@@ -25,37 +25,51 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.actor.netbeans.impl;
+package it.tidalwave.messagebus.spi;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
-import org.openide.util.lookup.ServiceProvider;
-import it.tidalwave.messagebus.impl.netbeans.NetBeansPlatformMessageBus;
-import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
-import it.tidalwave.actor.impl.DefaultCollaboration;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
- * An implementation of {@link EventBus}.
- *
+ * An implementation of {@link MessageDelivery} that dispatches messages as they are delivered, each one in a separated
+ * thread.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @since   2.2
  *
  **********************************************************************************************************************/
-@ServiceProvider(service = CollaborationAwareMessageBus.class)
-@ThreadSafe @Slf4j
-public class NetBeansPlatformCollaborationAwareMessageBus extends NetBeansPlatformMessageBus
-                                                          implements CollaborationAwareMessageBus
+@Slf4j
+public class SimpleAsyncMessageDelivery implements MessageDelivery
   {
+    @Nonnull
+    private SimpleMessageBus messageBusSupport;
+    
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
     @Override
-    protected <Topic> void dispatchMessage (final @Nonnull Class<Topic> topic, final @Nonnull Topic message)
+    public void initialize (final @Nonnull SimpleMessageBus messageBusSupport)
       {
-        super.dispatchMessage(topic, message);
-        DefaultCollaboration.getCollaboration(message).unregisterDeliveringMessage(message);
+        this.messageBusSupport = messageBusSupport;
+      }
+    
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Override
+    public <TOPIC> void deliverMessage (final @Nonnull Class<TOPIC> topic, final @Nonnull TOPIC message)
+      {
+        messageBusSupport.getExecutor().execute(new Runnable()
+          {
+            @Override
+            public void run()
+              {
+                messageBusSupport.dispatchMessage(topic, message);
+              }
+          });
       }
   }

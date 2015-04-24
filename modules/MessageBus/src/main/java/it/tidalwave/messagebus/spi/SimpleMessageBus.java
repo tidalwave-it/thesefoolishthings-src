@@ -36,10 +36,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import it.tidalwave.messagebus.MessageBus;
 import it.tidalwave.messagebus.MessageBus.Listener;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
@@ -51,10 +52,48 @@ import lombok.extern.slf4j.Slf4j;
  *
  **********************************************************************************************************************/
 @ThreadSafe @Slf4j
-public abstract class MessageBusSupport implements MessageBus
+public class SimpleMessageBus implements MessageBus
   {
     private final Map<Class<?>, List<WeakReference<Listener<?>>>> listenersMapByTopic = new HashMap<>();
 
+    private final MessageDelivery messageDelivery;
+    
+    @Getter
+    private final Executor executor;
+    
+    /*******************************************************************************************************************
+     *
+     * 
+     *
+     ******************************************************************************************************************/
+    public SimpleMessageBus() 
+      {
+        this(Executors.newFixedThreadPool(10));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * 
+     *
+     ******************************************************************************************************************/
+    public SimpleMessageBus (final @Nonnull Executor executor)
+      {
+        this(executor, new SimpleAsyncMessageDelivery());
+      }
+    
+    /*******************************************************************************************************************
+     *
+     * 
+     *
+     ******************************************************************************************************************/
+    public SimpleMessageBus (final @Nonnull Executor executor, final @Nonnull MessageDelivery messageDelivery)
+      {
+        this.executor = executor;
+        this.messageDelivery = messageDelivery;
+        this.messageDelivery.initialize(this);
+        log.info("MessageBusSupport configured with {}", messageDelivery);
+      }
+     
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -75,14 +114,7 @@ public abstract class MessageBusSupport implements MessageBus
     public <Topic> void publish (final @Nonnull Class<Topic> topic, final @Nonnull Topic message)
       {
         log.trace("publish({}, {})", topic, message);
-        getExecutor().execute(new Runnable()
-          {
-            @Override
-            public void run()
-              {
-                deliverMessage(topic, message);
-              }
-        });
+        messageDelivery.deliverMessage(topic, message);
       }
 
     /*******************************************************************************************************************
@@ -125,20 +157,20 @@ public abstract class MessageBusSupport implements MessageBus
      *
      *
      ******************************************************************************************************************/
-    protected <Topic> void deliverMessage (final @Nonnull Class<Topic> topic, final @Nonnull Topic message)
+    protected <TOPIC> void dispatchMessage (final @Nonnull Class<TOPIC> topic, final @Nonnull TOPIC message)
       {
-        final HashSet<Entry<Class<?>, List<WeakReference<Listener<?>>>>> clone =
+        final HashSet<Map.Entry<Class<?>, List<WeakReference<MessageBus.Listener<?>>>>> clone =
                 new HashSet<>(listenersMapByTopic.entrySet());
 
-        for (final Entry<Class<?>, List<WeakReference<Listener<?>>>> e : clone)
+        for (final Map.Entry<Class<?>, List<WeakReference<MessageBus.Listener<?>>>> e : clone)
           {
             if (e.getKey().isAssignableFrom(topic))
               {
-                final List<WeakReference<Listener<Topic>>> listeners = (List)e.getValue();
+                final List<WeakReference<MessageBus.Listener<TOPIC>>> listeners = (List)e.getValue();
 
-                for (final WeakReference<Listener<Topic>> listenerReference : listeners)
+                for (final WeakReference<MessageBus.Listener<TOPIC>> listenerReference : listeners)
                   {
-                    final Listener<Topic> listener = listenerReference.get();
+                    final MessageBus.Listener<TOPIC> listener = listenerReference.get();
 
                     if (listener != null)
                       {
@@ -155,14 +187,7 @@ public abstract class MessageBusSupport implements MessageBus
               }
           }
       }
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    protected abstract Executor getExecutor();
-
+    
     /*******************************************************************************************************************
      *
      *

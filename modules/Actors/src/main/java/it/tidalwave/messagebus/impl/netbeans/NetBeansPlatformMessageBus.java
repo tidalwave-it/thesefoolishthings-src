@@ -29,12 +29,11 @@ package it.tidalwave.messagebus.impl.netbeans;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ExecutorService;
 import org.openide.util.lookup.ServiceProvider;
 import it.tidalwave.messagebus.MessageBus;
-import it.tidalwave.messagebus.spi.MessageBusSupport;
+import it.tidalwave.messagebus.spi.MessageDelivery;
+import it.tidalwave.messagebus.spi.SimpleMessageBus;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
@@ -47,18 +46,17 @@ import lombok.extern.slf4j.Slf4j;
  **********************************************************************************************************************/
 @ServiceProvider(service = MessageBus.class)
 @ThreadSafe @Slf4j
-public class NetBeansPlatformMessageBus extends MessageBusSupport
+public class NetBeansPlatformMessageBus extends SimpleMessageBus
   {
 //    private final RequestProcessor executor = RequestProcessor.getDefault(); FIXME
-    private final ExecutorService executor = Executors.newFixedThreadPool(10);
 
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    protected Executor getExecutor()
+    public NetBeansPlatformMessageBus ()
       {
-        return executor;
+        super();
+      }
+
+    public NetBeansPlatformMessageBus (final @Nonnull MessageDelivery messageDelivery)
+      {
+        super(Executors.newFixedThreadPool(10), messageDelivery);
       }
   }

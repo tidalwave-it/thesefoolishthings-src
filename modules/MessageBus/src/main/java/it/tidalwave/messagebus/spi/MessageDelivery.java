@@ -25,34 +25,28 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.messagebus.impl.spring;
+package it.tidalwave.messagebus.spi;
 
-import java.util.concurrent.Executor;
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
-import org.springframework.core.task.TaskExecutor;
-import it.tidalwave.messagebus.spi.MessageBusSupport;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
- * A simple implementation of {@link EventBus} based on Spring.
- *
  * @author  Fabrizio Giudici
  * @version $Id$
+ * @since   2.2
  *
  **********************************************************************************************************************/
-@ThreadSafe @Slf4j
-public class SpringMessageBus extends MessageBusSupport
+public interface MessageDelivery 
   {
-    @Getter @Setter @Nonnull
-    private TaskExecutor taskExecutor;
-
-    @Override @Nonnull
-    protected Executor getExecutor()
-      {
-        return taskExecutor;
-      }
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public void initialize (@Nonnull SimpleMessageBus messageBusSupport); 
+    
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public <TOPIC> void deliverMessage (@Nonnull Class<TOPIC> topic, @Nonnull TOPIC message);
   }
