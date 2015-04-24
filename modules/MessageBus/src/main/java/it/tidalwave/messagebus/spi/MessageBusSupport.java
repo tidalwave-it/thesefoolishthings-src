@@ -134,8 +134,7 @@ public abstract class MessageBusSupport implements MessageBus
           {
             if (e.getKey().isAssignableFrom(topic))
               {
-                final List tmp = e.getValue();
-                final List<WeakReference<Listener<Topic>>> listeners = tmp;
+                final List<WeakReference<Listener<Topic>>> listeners = (List)e.getValue();
 
                 for (final WeakReference<Listener<Topic>> listenerReference : listeners)
                   {
