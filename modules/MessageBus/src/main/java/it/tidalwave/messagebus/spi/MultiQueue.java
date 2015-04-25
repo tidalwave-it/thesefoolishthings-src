@@ -71,11 +71,6 @@ public class MultiQueue
     public synchronized <TOPIC> TopicAndMessage<TOPIC> remove() 
       throws InterruptedException
       {
-        while (queueMapByTopic.isEmpty()) // now is probably redundamt, reorderedTopic would return empty
-          {
-            wait();  
-          }
-        
         for (;;)
           {
             for (final Class<?> topic : reorderedTopics())
@@ -166,7 +161,6 @@ public class MultiQueue
           {
             queue = new LinkedBlockingQueue<>();
             queueMapByTopic.put(topic, queue);
-            notifyAll();
           }
         
         return queue;
