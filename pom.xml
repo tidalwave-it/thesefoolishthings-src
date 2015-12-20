@@ -20,9 +20,10 @@
 
     <properties>
         <tft.project.description>These Foolish Things - Miscellaneous utilities</tft.project.description>
-        <tft.project.url>http://thesefoolishthings.java.net</tft.project.url>
+        <tft.project.url>http://thesefoolishthings.tidalwave.it</tft.project.url>
 
-        <scm.repo.url>ssh://hg@bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.url>
+        <tft.scm>git</tft.scm>
+        <scm.repo.url>ssh://git@bitbucket.org/tidalwave/thesefoolishthings-src.git</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
 
@@ -52,8 +53,8 @@
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
     <scm>
-        <connection>scm:hg:${scm.repo.readonly.url}</connection>
-        <developerConnection>scm:hg:${scm.repo.effective.url}</developerConnection>
+        <connection>scm:git:${scm.repo.readonly.url}</connection>
+        <developerConnection>scm:git:${scm.repo.effective.url}</developerConnection>
         <url>${scm.repo.browse.url}</url>
       <tag>HEAD</tag>
   </scm>
@@ -84,13 +85,6 @@
             </snapshots>
         </repository>
     </repositories>
-
-    <distributionManagement>
-        <site>
-            <id>website-thesefoolishthings.java.net</id>
-            <url>dav:https://java.net/website/thesefoolishthings/site/${project.version}</url>
-        </site>
-    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
@@ -244,7 +238,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <links>
-                        <link href="http://java.sun.com/javase/6/docs/api/" />
+                        <link href="http://java.sun.com/javase/7/docs/api/" />
                     </links>
                 </configuration>
             </plugin>
