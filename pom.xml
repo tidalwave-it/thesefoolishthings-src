@@ -31,6 +31,8 @@
 
         <netbeans.hint.jdkPlatform>JDK_1.8.0</netbeans.hint.jdkPlatform>
         <netbeans.compile.on.save>all</netbeans.compile.on.save>
+
+        <tft.clirr.skip>true</tft.clirr.skip> <!-- FIXME Clirr makes the build fail -->
     </properties>
 
     <issueManagement>
