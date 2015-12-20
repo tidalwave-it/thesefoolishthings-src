@@ -33,6 +33,8 @@
         <netbeans.compile.on.save>all</netbeans.compile.on.save>
 
         <tft.clirr.skip>true</tft.clirr.skip> <!-- FIXME Clirr makes the build fail -->
+        <!-- disables javancss since it's broken with JDK 1.7 -->
+        <tft.profile.metrics.defaultGoal>install findbugs:findbugs pmd:cpd pmd:pmd checkstyle:checkstyle clirr:clirr dependency:analyze</tft.profile.metrics.defaultGoal>
     </properties>
 
     <issueManagement>
