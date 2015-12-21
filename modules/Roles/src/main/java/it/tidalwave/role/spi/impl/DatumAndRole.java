@@ -34,7 +34,7 @@ import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import static it.tidalwave.role.spi.LogUtil.*;
 
 /***********************************************************************************************************************
  *
@@ -42,7 +42,7 @@ import lombok.ToString;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Immutable @RequiredArgsConstructor @Getter @EqualsAndHashCode @ToString
+@Immutable @RequiredArgsConstructor @Getter @EqualsAndHashCode
 public class DatumAndRole
   {
     @Nonnull
@@ -73,5 +73,12 @@ public class DatumAndRole
           }
 
         return result;
+      }
+
+    @Override
+    public String toString()
+      {
+        return String.format("DatumAndRole(datumClass: %s, roleClass: %s)",
+                             shortName(datumClass), shortName(roleClass));
       }
   }

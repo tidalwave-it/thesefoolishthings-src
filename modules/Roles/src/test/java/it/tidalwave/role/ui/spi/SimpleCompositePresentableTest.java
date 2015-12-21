@@ -73,7 +73,7 @@ public class SimpleCompositePresentableTest
         private SimpleComposite<MockDatum> composite;
 
         @Getter
-        private List<MockDatum> children = new ArrayList<MockDatum>();
+        private List<MockDatum> children = new ArrayList<>();
 
         @Nonnull
         public MockDatum withChildren (final @Nonnull MockDatum ... children)
@@ -85,7 +85,7 @@ public class SimpleCompositePresentableTest
         public MockDatum withChildren (final @Nonnull List<MockDatum> children)
           {
             this.children = children;
-            composite = new DefaultSimpleComposite<MockDatum>(new SimpleFinderSupport<MockDatum>()
+            composite = new DefaultSimpleComposite<>(new SimpleFinderSupport<MockDatum>()
               {
                 @Override @Nonnull
                 protected List<? extends MockDatum> computeResults()
@@ -119,10 +119,10 @@ public class SimpleCompositePresentableTest
           {
             if (roleType.equals(SimpleComposite.class) && (composite != null))
               {
-                return new ArrayList<T>(Arrays.asList(roleType.cast(composite)));
+                return new ArrayList<>(Arrays.asList(roleType.cast(composite)));
               }
 
-            return new ArrayList<T>();
+            return new ArrayList<>();
           }
       }
 
@@ -182,7 +182,7 @@ public class SimpleCompositePresentableTest
         final MockDatum a = new MockDatum("a").withChildren(b1, b2, b3);
 
         final SimpleCompositePresentable<MockDatum> fixture
-                = new SimpleCompositePresentable<MockDatum>(a, new DefaultPresentationModelFactory());
+                = new SimpleCompositePresentable<>(a, new DefaultPresentationModelFactory());
 
         final MockRole1 role1 = new MockRole1();
         final MockRoleFactory roleFactory = new MockRoleFactory();

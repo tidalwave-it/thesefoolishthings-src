@@ -191,6 +191,7 @@ public class DefaultContextManagerTest
 
         executorService.submit(new Runnable()
           {
+            @Override
             public void run()
               {
                 fixture.addGlobalContext(globalContext1);
@@ -201,6 +202,7 @@ public class DefaultContextManagerTest
 
         executorService.submit(new Runnable()
           {
+            @Override
             public void run()
               {
                 fixture.addGlobalContext(globalContext2);
@@ -211,6 +213,7 @@ public class DefaultContextManagerTest
 
         executorService.submit(new Runnable()
           {
+            @Override
             public void run()
               {
                 fixture.addGlobalContext(globalContext3);

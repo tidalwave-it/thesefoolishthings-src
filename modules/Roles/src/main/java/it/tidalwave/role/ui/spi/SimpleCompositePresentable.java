@@ -44,6 +44,7 @@ import it.tidalwave.role.ui.PresentationModelFactory;
 import it.tidalwave.role.spi.ContextSampler;
 import it.tidalwave.role.spi.DefaultSimpleComposite;
 import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.role.spi.LogUtil.*;
 
 /***********************************************************************************************************************
  *
@@ -84,8 +85,8 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
      *
      *
      ******************************************************************************************************************/
-    public SimpleCompositePresentable (final @Nonnull T datum, 
-                                       final @Nonnull PresentationModelFactory defaultPresentationModelFactory) 
+    public SimpleCompositePresentable (final @Nonnull T datum,
+                                       final @Nonnull PresentationModelFactory defaultPresentationModelFactory)
       {
         this.datum = datum;
         this.defaultPresentationModelFactory = defaultPresentationModelFactory;
@@ -100,7 +101,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
     @Override @Nonnull
     public PresentationModel createPresentationModel (final @Nonnull Object ... rolesOrFactories)
       {
-        return internalCreatePresentationModel(datum, new ArrayList<Object>(Arrays.asList(rolesOrFactories)));
+        return internalCreatePresentationModel(datum, new ArrayList<>(Arrays.asList(rolesOrFactories)));
       }
 
     /*******************************************************************************************************************
@@ -122,7 +123,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
                     @Override
                     public List<? extends PresentationModel> run()
                       {
-                        final List<PresentationModel> results = new ArrayList<PresentationModel>();
+                        final List<PresentationModel> results = new ArrayList<>();
 
                         try
                           {
@@ -151,8 +152,8 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
             public PresentationModel run()
               {
                 final List<Object> roles = resolveRoles(datum, rolesOrFactories);
-                roles.add(new DefaultSimpleComposite<PresentationModel>(pmFinder));
-                log.trace(">>>> roles for {}: {}", datum, roles);
+                roles.add(new DefaultSimpleComposite<>(pmFinder));
+                log.trace(">>>> roles for {}: {}", shortId(datum), shortIds(roles));
 
                 return defaultPresentationModelFactory.createPresentationModel(datum, roles.toArray());
               }
@@ -168,7 +169,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
     private List<Object> resolveRoles (final @Nonnull T datum,
                                        final @Nonnull List<Object> rolesOrFactories)
       {
-        final List<Object> roles = new ArrayList<Object>();
+        final List<Object> roles = new ArrayList<>();
 
         for (final Object roleOrFactory : rolesOrFactories)
           {
