@@ -165,7 +165,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
               {
                 parameters.add(datum);
               }
-            else if (parameterType.isAssignableFrom(contextClass))
+            else if ((contextClass != null) && parameterType.isAssignableFrom(contextClass))
               {
                 parameters.add(context);
               }
