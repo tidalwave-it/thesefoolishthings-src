@@ -14,12 +14,16 @@
     <artifactId>thesefoolishthings</artifactId>
     <packaging>pom</packaging>
     <version>2.3-SNAPSHOT</version>
-    <name>TheseFoolishThings (master)</name>
-
+    <name>TheseFoolishThings</name>
     <inceptionYear>2009</inceptionYear>
+    <description>
+[![Build Status](https://drone.io/bitbucket.org/tidalwave/thesefoolishthings-src/status.png)](https://drone.io/bitbucket.org/tidalwave/thesefoolishthings-src/latest)
+
+A kitchen sink of small libraries that are used by all projects by Tidalwave. Plus some legacy stuff that should be
+really dropped.
+    </description>
 
     <properties>
-        <tft.project.description>These Foolish Things - Miscellaneous utilities</tft.project.description>
         <tft.project.url>http://thesefoolishthings.tidalwave.it</tft.project.url>
 
         <tft.scm>git</tft.scm>
@@ -40,18 +44,10 @@
         <url>http://kenai.com/jira/browse/THESEFOOLISHTHINGS</url>
     </issueManagement>
 
-    <mailingLists>
-        <mailingList>
-            <name>Continuous Integration</name>
-            <post>ci@thesefoolishthings.java.net</post>
-            <archive>http://java.net/projects/thesefoolishthings/lists/ci/archive</archive>
-        </mailingList>
-        <mailingList>
-            <name>Commits</name>
-            <post>commits@thesefoolishthings.java.net</post>
-            <archive>http://java.net/projects/thesefoolishthings/lists/commits/archive</archive>
-        </mailingList>
-    </mailingLists>
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>http://ci.tidalwave.it/view/TheseFoolishThings</url>
+    </ciManagement>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
     <scm>
@@ -59,7 +55,7 @@
         <developerConnection>scm:git:${scm.repo.effective.url}</developerConnection>
         <url>${scm.repo.browse.url}</url>
       <tag>HEAD</tag>
-  </scm>
+    </scm>
 
     <repositories>
         <repository> <!-- Needed for org.incava.util.diff -->
