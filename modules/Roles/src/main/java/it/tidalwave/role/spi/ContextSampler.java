@@ -76,7 +76,7 @@ public class ContextSampler
     @Nonnull
     public List<Object> getContexts()
       {
-        return new CopyOnWriteArrayList<Object>(contexts);
+        return new CopyOnWriteArrayList<>(contexts);
       }
 
     /*******************************************************************************************************************

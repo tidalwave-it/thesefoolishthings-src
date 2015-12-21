@@ -51,7 +51,7 @@ public class PresentationModelMatcher extends BaseMatcher<PresentationModel>
 
     private String separator = "";
 
-    private final List<Class<?>> expectedRoleTypes = new ArrayList<Class<?>>();
+    private final List<Class<?>> expectedRoleTypes = new ArrayList<>();
 
     @Nonnull
     public static PresentationModelMatcher presentationModel()

@@ -35,17 +35,17 @@ import it.tidalwave.util.spi.SimpleFinderSupport;
 /***********************************************************************************************************************
  *
  * An implementation of {@link Composite} which holds an immutable list of items.
- * 
+ *
  * @param  <TYPE>   the type of contained items
  *
  * @author  Fabrizio Giudici
  * @version $Id$
- * 
+ *
  **********************************************************************************************************************/
 public class ArrayListSimpleComposite<TYPE> extends DefaultSimpleComposite<TYPE>
   {
     private static final long serialVersionUID = 1L;
-    
+
     public ArrayListSimpleComposite (final @Nonnull List<TYPE> items)
       {
         super(new SimpleFinderSupport<TYPE>()
@@ -53,7 +53,7 @@ public class ArrayListSimpleComposite<TYPE> extends DefaultSimpleComposite<TYPE>
             @Override @Nonnull
             protected List<? extends TYPE> computeResults()
               {
-                return new CopyOnWriteArrayList<TYPE>(items);
+                return new CopyOnWriteArrayList<>(items);
               }
           });
       }

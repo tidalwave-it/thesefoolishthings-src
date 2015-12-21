@@ -101,7 +101,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
     @Override @Nonnull
     public PresentationModel createPresentationModel (final @Nonnull Object ... rolesOrFactories)
       {
-        return internalCreatePresentationModel(datum, new ArrayList<Object>(Arrays.asList(rolesOrFactories)));
+        return internalCreatePresentationModel(datum, new ArrayList<>(Arrays.asList(rolesOrFactories)));
       }
 
     /*******************************************************************************************************************
@@ -123,7 +123,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
                     @Override
                     public List<? extends PresentationModel> run()
                       {
-                        final List<PresentationModel> results = new ArrayList<PresentationModel>();
+                        final List<PresentationModel> results = new ArrayList<>();
 
                         try
                           {
@@ -152,7 +152,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
             public PresentationModel run()
               {
                 final List<Object> roles = resolveRoles(datum, rolesOrFactories);
-                roles.add(new DefaultSimpleComposite<PresentationModel>(pmFinder));
+                roles.add(new DefaultSimpleComposite<>(pmFinder));
                 log.trace(">>>> roles for {}: {}", shortId(datum), shortIds(roles));
 
                 return defaultPresentationModelFactory.createPresentationModel(datum, roles.toArray());
@@ -169,7 +169,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
     private List<Object> resolveRoles (final @Nonnull T datum,
                                        final @Nonnull List<Object> rolesOrFactories)
       {
-        final List<Object> roles = new ArrayList<Object>();
+        final List<Object> roles = new ArrayList<>();
 
         for (final Object roleOrFactory : rolesOrFactories)
           {

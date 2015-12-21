@@ -42,6 +42,8 @@ import java.util.Set;
  **********************************************************************************************************************/
 public class MultiMap<K, V> extends HashMap<K, Set<V>>
   {
+    private static final long serialVersionUID = 8834342771135005212L;
+
     public synchronized void add (final @Nonnull K key, final @Nonnull V value)
       {
         internalGetValues(key).add(value);
@@ -54,7 +56,7 @@ public class MultiMap<K, V> extends HashMap<K, Set<V>>
             internalGetValues(key).addAll(values);
           }
       }
-    
+
     @Nonnull
     public synchronized Set<V> getValues (final @Nonnull K key)
       {
@@ -66,13 +68,13 @@ public class MultiMap<K, V> extends HashMap<K, Set<V>>
     private Set<V> internalGetValues (final @Nonnull K key)
       {
         Set<V> values = get(key);
-        
+
         if (values == null)
           {
             values = new HashSet<>();
             put(key, values);
           }
-        
+
         return values;
       }
   }

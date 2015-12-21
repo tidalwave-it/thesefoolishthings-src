@@ -123,7 +123,7 @@ public class DefaultPresentationModel implements PresentationModel
           {
             result.add(roleType.cast(owner));
           }
-        
+
         if (owner instanceof As)
           {
             result.addAll(((As)owner).asMany(roleType));
@@ -137,6 +137,7 @@ public class DefaultPresentationModel implements PresentationModel
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
+    @Override
     public void dispose()
       {
         for (final PropertyChangeListener listener : pcs.getPropertyChangeListeners().clone())

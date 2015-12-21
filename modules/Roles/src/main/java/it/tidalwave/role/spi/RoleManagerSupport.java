@@ -28,12 +28,15 @@
 package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -43,8 +46,6 @@ import it.tidalwave.util.NotFoundException;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.impl.DatumAndRole;
 import it.tidalwave.role.spi.impl.MultiMap;
-import java.util.HashSet;
-import javax.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.role.spi.LogUtil.*;
 
@@ -133,7 +134,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
                     roles.add(roleClass.cast(constructor.newInstance(parameters)));
                     break;
                   }
-                catch (Exception e)
+                catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
                   {
                     log.error("", e);
                   }
