@@ -35,6 +35,7 @@ import it.tidalwave.util.Task;
 import it.tidalwave.role.ContextManager;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.role.spi.LogUtil.*;
 
 /***********************************************************************************************************************
  *
@@ -61,10 +62,10 @@ public class ContextSampler
     public ContextSampler (final @Nonnull Object owner)
       {
         contexts = Collections.unmodifiableList(contextManager.getContexts());
-        
+
         if (log.isTraceEnabled())
           {
-            log.trace(">>>> contexts for {} at construction time: {}", System.identityHashCode(owner), contexts);
+            log.trace(">>>> contexts for {} at construction time: {}", shortId(owner), shortIds(contexts));
           }
       }
 

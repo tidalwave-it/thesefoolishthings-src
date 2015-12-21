@@ -39,6 +39,7 @@ import it.tidalwave.util.spi.AsDelegate;
 import it.tidalwave.role.spi.RoleManager;
 import it.tidalwave.role.spi.ContextSampler;
 import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.role.spi.LogUtil.*;
 
 /***********************************************************************************************************************
  *
@@ -94,7 +95,7 @@ class SpringAsDelegate implements AsDelegate
     @Override @Nonnull
     public <T> Collection<? extends T> as (final @Nonnull Class<T> roleType)
       {
-        log.trace("as({}) - {}", roleType, owner);
+        log.trace("as({}) for {}", shortName(roleType), shortId(owner));
         log.trace(">>>> contexts: {}", contextSampler);
 
         final List<T> roles = new ArrayList<T>(contextSampler.runWithContexts(new Task<List<? extends T>, RuntimeException>()
@@ -110,6 +111,8 @@ class SpringAsDelegate implements AsDelegate
           {
             roles.add(roleType.cast(owner));
           }
+
+        log.trace(">>>> as() returning {}", shortIds((List)roles));
 
         return roles;
       }

@@ -46,6 +46,7 @@ import it.tidalwave.role.spi.impl.MultiMap;
 import java.util.HashSet;
 import javax.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.role.spi.LogUtil.*;
 
 /***********************************************************************************************************************
  *
@@ -59,7 +60,7 @@ import lombok.extern.slf4j.Slf4j;
  * </ol>
  *
  * Specializations might use annotations or configuration files to accomplish these tasks.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -79,7 +80,7 @@ public abstract class RoleManagerSupport implements RoleManager
     private final ContextManager contextManager = ContextManager.Locator.find();
 
     /* VisibleForTesting */ final MultiMap<DatumAndRole, Class<?>> roleMapByDatumAndRole = new MultiMap<>();
-    
+
     // FIXME: use ConcurrentHashMap// FIXME: use ConcurrentHashMap
     /* VisibleForTesting */ final Set<DatumAndRole> alreadyScanned = new HashSet<>();
 
@@ -92,7 +93,7 @@ public abstract class RoleManagerSupport implements RoleManager
     public <ROLE_TYPE> List<? extends ROLE_TYPE> findRoles (final @Nonnull Object datum,
                                                             final @Nonnull Class<ROLE_TYPE> roleClass)
       {
-        log.trace("findRoles({}, {})", datum, roleClass);
+        log.trace("findRoles({}, {})", shortId(datum), shortName(roleClass));
         final Class<?> datumClass = findClass(datum);
         final List<ROLE_TYPE> roles = new ArrayList<>();
         final Set<Class<? extends ROLE_TYPE>> roleImplementations = findRoleImplementationsFor(datumClass, roleClass);
@@ -108,7 +109,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
                 try
                   {
                     contextClass = findContextForRole(roleImplementationClass);
-                    log.trace(">>>> contexts: {}", contextManager.getContexts());
+                    log.trace(">>>> contexts: {}", shortIds(contextManager.getContexts()));
 
                     try
                       {
@@ -116,7 +117,8 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
                       }
                     catch (NotFoundException e)
                       {
-                        log.trace(">>>> role {} discarded, can't find context: {}", roleImplementationClass, contextClass);
+                        log.trace(">>>> role {} discarded, can't find context: {}",
+                                shortName(roleImplementationClass), shortName(contextClass));
                         continue outer;
                       }
                   }
@@ -138,7 +140,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
               }
           }
 
-        log.trace(">>>> returning: {}", roles);
+        log.trace(">>>> findRoles() returning: {}", shortIds((Collection)roles));
 
         return roles;
       }
@@ -148,11 +150,11 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
      *
      ******************************************************************************************************************/
     @Nonnull
-    private Object[] getParameters (final @Nonnull Class<?>[] parameterTypes, 
-                                    final @Nonnull Class<?> datumClass, 
-                                    final @Nonnull Object datum, 
-                                    final @Nullable Class<?> contextClass, 
-                                    final @Nullable Object context) 
+    private Object[] getParameters (final @Nonnull Class<?>[] parameterTypes,
+                                    final @Nonnull Class<?> datumClass,
+                                    final @Nonnull Object datum,
+                                    final @Nullable Class<?> contextClass,
+                                    final @Nullable Object context)
       {
         final List<Object> parameters = new ArrayList<>();
 
@@ -171,13 +173,13 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
                 parameters.add(getBean(parameterType));
               }
           }
-        
+
         return parameters.toArray();
       }
 
     /*******************************************************************************************************************
      *
-     * Finds the role implementations for the given owner type and role type. This method might discover new 
+     * Finds the role implementations for the given owner type and role type. This method might discover new
      * implementations that weren't found during the initial scan, since the initial scan can't go down in a
      * hierarchy; that is, given a Base class or interface with some associated roles, it can't associate those roles
      * to subclasses (or implementations) of Base. Now we can navigate up the hierarchy and complete the picture.
@@ -195,7 +197,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
           {
             alreadyScanned.add(datumAndRole);
             final Set<Class<?>> before = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
-            
+
             for (final DatumAndRole superDatumAndRole : datumAndRole.getSuper())
               {
                 roleMapByDatumAndRole.addAll(datumAndRole, roleMapByDatumAndRole.getValues(superDatumAndRole));
@@ -215,8 +217,8 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
      ******************************************************************************************************************/
     protected void scan (final @Nonnull Collection<Class<?>> roleImplementationClasses)
       {
-        log.debug("scan({})", roleImplementationClasses);
-        
+        log.debug("scan({})", shortNames(roleImplementationClasses));
+
         for (final Class<?> roleImplementationClass : roleImplementationClasses)
           {
             for (final Class<?> datumClass : findDatumTypesForRole(roleImplementationClass))
@@ -248,7 +250,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
       {
         final SortedSet<Class<?>> interfaces = new TreeSet<>(CLASS_COMPARATOR);
         interfaces.addAll(Arrays.asList(clazz.getInterfaces()));
-        
+
         for (final Class<?> interface_ : interfaces)
           {
             interfaces.addAll(findAllImplementedInterfacesOf(interface_));
@@ -289,12 +291,12 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
      *
      ******************************************************************************************************************/
     private void logChanges (final @Nonnull DatumAndRole datumAndRole,
-                             final @Nonnull Set<Class<?>> before, 
+                             final @Nonnull Set<Class<?>> before,
                              final @Nonnull Set<Class<?>> after)
       {
         after.removeAll(before);
 
-        if (!after.isEmpty()) 
+        if (!after.isEmpty())
           {
             log.debug(">>>>>>> added implementations: {} -> {}", datumAndRole, after);
 
@@ -312,22 +314,22 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
     public void logRoles()
       {
         log.debug("Configured roles:");
-        
+
         final List<Entry<DatumAndRole, Set<Class<?>>>> entries = new ArrayList<>(roleMapByDatumAndRole.entrySet());
         Collections.sort(entries, new Comparator<Entry<DatumAndRole, Set<Class<?>>>>()
           {
             @Override
             public int compare (final @Nonnull Entry<DatumAndRole, Set<Class<?>>> e1,
-                                final @Nonnull Entry<DatumAndRole, Set<Class<?>>> e2) 
+                                final @Nonnull Entry<DatumAndRole, Set<Class<?>>> e2)
               {
                 final int s1 = e1.getKey().getDatumClass().getName().compareTo(
                                e2.getKey().getDatumClass().getName());
-                
+
                 if (s1 != 0)
                   {
-                    return s1;   
+                    return s1;
                   }
-                
+
                 return e1.getKey().getRoleClass().getName().compareTo(
                        e2.getKey().getRoleClass().getName());
               }
@@ -335,10 +337,10 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
 
         for (final Entry<DatumAndRole, Set<Class<?>>> entry : entries)
           {
-            log.debug(">>>> {}: {} -> {}", 
-                    new Object[] { entry.getKey().getDatumClass().getName(), 
-                                   entry.getKey().getRoleClass().getName(),
-                                   entry.getValue()});
+            log.debug(">>>> {}: {} -> {}",
+                    new Object[] { shortName(entry.getKey().getDatumClass()),
+                                   shortName(entry.getKey().getRoleClass()),
+                                   shortNames(entry.getValue())});
           }
       }
 
@@ -352,15 +354,20 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
      *
      ******************************************************************************************************************/
     @Nonnull
-    private Class<?> findClass (final @Nonnull Object owner)
+    private static Class<?> findClass (final @Nonnull Object owner)
       {
         Class<?> ownerClass = owner.getClass();
 
         if (ownerClass.toString().contains("EnhancerByMockito"))
           {
-            log.trace(">>>> owner is a mock {} implementing {}", ownerClass, ownerClass.getInterfaces());
             ownerClass = ownerClass.getInterfaces()[0]; // 1st is the original class, 2nd is CGLIB proxy
-            log.trace(">>>> owner class replaced with {}", ownerClass);
+
+            if (log.isTraceEnabled())
+              {
+                log.trace(">>>> owner is a mock {} implementing {}",
+                        shortName(ownerClass), shortNames(Arrays.asList(ownerClass.getInterfaces())));
+                log.trace(">>>> owner class replaced with {}", shortName(ownerClass));
+              }
           }
 
         return ownerClass;
