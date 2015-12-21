@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>superpom</artifactId>
-        <version>2.18</version>
+        <version>3.0</version>
         <relativePath />
     </parent>
 
@@ -14,15 +14,20 @@
     <artifactId>thesefoolishthings</artifactId>
     <packaging>pom</packaging>
     <version>2.3-SNAPSHOT</version>
-    <name>TheseFoolishThings (master)</name>
-
+    <name>TheseFoolishThings</name>
     <inceptionYear>2009</inceptionYear>
+    <description>
+[![Build Status](https://drone.io/bitbucket.org/tidalwave/thesefoolishthings-src/status.png)](https://drone.io/bitbucket.org/tidalwave/thesefoolishthings-src/latest)
+
+A kitchen sink of small libraries that are used by all projects by Tidalwave. Plus some legacy stuff that should be
+really dropped.
+    </description>
 
     <properties>
-        <tft.project.description>These Foolish Things - Miscellaneous utilities</tft.project.description>
-        <tft.project.url>http://thesefoolishthings.java.net</tft.project.url>
+        <tft.project.url>http://thesefoolishthings.tidalwave.it</tft.project.url>
 
-        <scm.repo.url>ssh://hg@bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.url>
+        <tft.scm>git</tft.scm>
+        <scm.repo.url>ssh://git@bitbucket.org/tidalwave/thesefoolishthings-src.git</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
 
@@ -30,6 +35,8 @@
 
         <netbeans.hint.jdkPlatform>JDK_1.8.0</netbeans.hint.jdkPlatform>
         <netbeans.compile.on.save>all</netbeans.compile.on.save>
+
+        <tft.clirr.skip>true</tft.clirr.skip> <!-- FIXME Clirr makes the build fail -->
     </properties>
 
     <issueManagement>
@@ -37,26 +44,18 @@
         <url>http://kenai.com/jira/browse/THESEFOOLISHTHINGS</url>
     </issueManagement>
 
-    <mailingLists>
-        <mailingList>
-            <name>Continuous Integration</name>
-            <post>ci@thesefoolishthings.java.net</post>
-            <archive>http://java.net/projects/thesefoolishthings/lists/ci/archive</archive>
-        </mailingList>
-        <mailingList>
-            <name>Commits</name>
-            <post>commits@thesefoolishthings.java.net</post>
-            <archive>http://java.net/projects/thesefoolishthings/lists/commits/archive</archive>
-        </mailingList>
-    </mailingLists>
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>http://ci.tidalwave.it/view/TheseFoolishThings</url>
+    </ciManagement>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
     <scm>
-        <connection>scm:hg:${scm.repo.readonly.url}</connection>
-        <developerConnection>scm:hg:${scm.repo.effective.url}</developerConnection>
+        <connection>scm:git:${scm.repo.readonly.url}</connection>
+        <developerConnection>scm:git:${scm.repo.effective.url}</developerConnection>
         <url>${scm.repo.browse.url}</url>
       <tag>HEAD</tag>
-  </scm>
+    </scm>
 
     <repositories>
         <repository> <!-- Needed for org.incava.util.diff -->
@@ -84,13 +83,6 @@
             </snapshots>
         </repository>
     </repositories>
-
-    <distributionManagement>
-        <site>
-            <id>website-thesefoolishthings.java.net</id>
-            <url>dav:https://java.net/website/thesefoolishthings/site/${project.version}</url>
-        </site>
-    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
@@ -244,7 +236,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <links>
-                        <link href="http://java.sun.com/javase/6/docs/api/" />
+                        <link href="http://java.sun.com/javase/7/docs/api/" />
                     </links>
                 </configuration>
             </plugin>

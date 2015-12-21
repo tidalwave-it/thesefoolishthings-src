@@ -16,7 +16,7 @@
     <version>2.3-SNAPSHOT</version>
     <name>TheseFoolishThings - Actors</name>
     <description>An experimental module which provides an implementation of an actor-based framework.</description>
-    
+
     <dependencies>
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -26,7 +26,7 @@
             <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it-tidalwave-util</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util-lookup</artifactId>
@@ -43,6 +43,10 @@
         <dependency>
             <groupId>com.kenai.nbpwr</groupId>
             <artifactId>com-eaio-uuid</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>annotations</artifactId>
         </dependency>
         <dependency>
             <groupId>com.kenai.nbpwr</groupId>

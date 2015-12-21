@@ -24,7 +24,7 @@
         <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
+            <artifactId>annotations</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
