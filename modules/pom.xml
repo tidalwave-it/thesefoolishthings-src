@@ -28,7 +28,6 @@
         <uuid.version>2.1.5-201007271250</uuid.version>
         <vaadin.version>6.6.1</vaadin.version>
         <tft.jsr330.version>1.0-201002241208</tft.jsr330.version>
-        <tft.junit.version>4.12</tft.junit.version>
         <tft.slf4j.version>1.6.1</tft.slf4j.version>
         <slf4j.version>${tft.slf4j.version}</slf4j.version>
         <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide java.*|javax.*</tft.UmlGraphDoc.additionalParam>
