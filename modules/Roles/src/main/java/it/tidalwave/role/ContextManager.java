@@ -37,6 +37,7 @@ import it.tidalwave.util.Task;
 import it.tidalwave.role.spi.ContextManagerProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
@@ -58,7 +59,7 @@ public interface ContextManager
      * has been completed.
      *
      ******************************************************************************************************************/
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @Slf4j @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Locator
       {
         @CheckForNull
@@ -84,6 +85,7 @@ public interface ContextManager
                       }
 
                     contextManagerProvider = i.next();
+                    log.trace("ContextManagerProvider instantiated from META-INF: {}", contextManagerProvider);
                   }
 
                 contextManager = contextManagerProvider.getContextManager();

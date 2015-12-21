@@ -36,6 +36,7 @@ import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.Task;
 import it.tidalwave.role.ContextManager;
 import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.role.spi.LogUtil.*;
 
 /***********************************************************************************************************************
  *
@@ -161,13 +162,21 @@ public class DefaultContextManager implements ContextManager
                                                        final @Nonnull Task<V, T> task)
       throws T
       {
+        final String taskId = shortId(task);
+        final String contextIds = shortIds(contexts);
+
         try
           {
-            log.trace("runWithContexts({}, {})", contexts, task);
+            log.trace("runWithContexts({}, {})", contextIds, taskId);
 
             for (final Object context : contexts)
               {
                 addLocalContext(context);
+              }
+
+            if (log.isTraceEnabled())
+              {
+                log.trace(">>>> contexts now: {}", getContexts());
               }
 
             return task.run();
@@ -179,7 +188,7 @@ public class DefaultContextManager implements ContextManager
                 removeLocalContext(context);
               }
 
-            log.trace(">>>> runWithContexts({}, {}) completed", contexts, task);
+            log.trace(">>>> runWithContexts({}, {}) completed", contextIds, taskId);
           }
       }
   }
