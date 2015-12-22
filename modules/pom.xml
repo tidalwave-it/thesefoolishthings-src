@@ -6,14 +6,14 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings</artifactId>
-        <version>2.6-SNAPSHOT</version>
+        <version>2.6</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>modules</artifactId>
     <packaging>pom</packaging>
-    <version>2.6-SNAPSHOT</version>
+    <version>2.6</version>
     <name>TheseFoolishThings (modules)</name>
 
     <properties>
