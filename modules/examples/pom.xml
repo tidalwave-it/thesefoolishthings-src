@@ -16,15 +16,6 @@
     <version>3.0-ALPHA-1-SNAPSHOT</version>
     <name>TheseFoolishThings Examples (master)</name>
 
-    <dependencies>
-        <!-- Needed in compilation, because of the annotation processor -->
-        <dependency>
-            <groupId>org.netbeans.api</groupId>
-            <artifactId>org-openide-util-lookup</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-        
     <build>
         <defaultGoal>clean install exec:java</defaultGoal>
         <plugins>

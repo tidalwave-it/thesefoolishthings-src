@@ -2,31 +2,31 @@
 <!--
   #%L
   *********************************************************************************************************************
-  
+
   TheseFoolishThings - Project Archetype
   %%
   Copyright (C) 2009 - 2015 Tidalwave s.a.s. (http://tidalwave.it)
   %%
   *********************************************************************************************************************
-  
+
   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
   the License. You may obtain a copy of the License at
-  
+
       http://www.apache.org/licenses/LICENSE-2.0
-  
+
   Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
   an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
   specific language governing permissions and limitations under the License.
-  
+
   *********************************************************************************************************************
-  
+
   $Id$
-  
+
 *********************************************************************************************************************
 #L%
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
@@ -40,28 +40,28 @@
     </parent>
 
     <!-- ===============================================================================================================
-    
-        This is the "Modules POM" of the project. It is an intermediate-level POM, just below the "Master POM", which 
+
+        This is the "Modules POM" of the project. It is an intermediate-level POM, just below the "Master POM", which
         takes care of everything we need for used dependencies: declare their versions with a <dependencyManagement>
         section. This POM includes, one by one, all the actual modules of the project.
-        
+
     ================================================================================================================ -->
-    
+
     <groupId>${groupId}</groupId>
     <artifactId>${rootArtifactId}-modules</artifactId>
     <version>${version}</version>
     <packaging>pom</packaging>
     <name>${projectName} (modules)</name>
     <description>The parent POM of all modules.</description>
-    
+
     <!-- ===============================================================================================================
-    
+
         Here you declare some properties defining the version of dependencies used by this project. All dependencies
         for all modules must be enumerated, and specified below in the <dependencyManagement> section.
-         
+
     ================================================================================================================ -->
-    <properties>        
-        
+    <properties>
+
         <!-- thesefoolishthings.version>1.28</thesefoolishthings.version -->
         <!-- netbeans.version>RELEASE72</netbeans.version -->
         <slf4j.version>1.7.5</slf4j.version>
@@ -73,17 +73,17 @@
     </properties>
 
     <!-- ===============================================================================================================
-    
-        Here you declare the dependencies used by all the modules in the project. This section only instructs Maven to 
+
+        Here you declare the dependencies used by all the modules in the project. This section only instructs Maven to
         remember the version of each dependency, while actual dependencies will be enumerated in each module requiring
         them. This section is a fundamental part of Maven best practices, as it ensures that dependency convergence is
         preserved: that is the same dependency is not listed in different places with different versions.
-        For the sake of readability, don't inline version numbers here, but use properties specified in the 
+        For the sake of readability, don't inline version numbers here, but use properties specified in the
         <properties> section above.
         Keep dependencies for tests separated for better readability.
         You shouldn't declare the modules of this project here, instead they should go in the <dependencyManagement>
         section of the "Master POM".
-        
+
     ================================================================================================================ -->
     <dependencyManagement>
         <dependencies>
@@ -110,12 +110,12 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
+                <version>${tft.slf4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
+                <version>${tft.logback.version}</version>
             </dependency>
 
             <dependency>
@@ -127,18 +127,24 @@
     </dependencyManagement>
 
     <!-- ===============================================================================================================
-    
-        Here you declare some actual dependencies that are shared by all the modules in this project. This usually 
+
+        Here you declare some actual dependencies that are shared by all the modules in this project. This usually
         includes common stuff such as annotations, annotation processors, and the libraries for testing. This section
         might be empty.
         Don't specify versions here - they should be listed in the <dependencyManagement> section above.
         Keep dependencies for tests separated for better readability.
-        
+
     ================================================================================================================ -->
     <dependencies>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>annotations</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -167,7 +173,7 @@
             <artifactId>hamcrest-all</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--        
+        <!--
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it-tidalwave-util-test</artifactId>
@@ -177,13 +183,13 @@
     </dependencies>
 
     <!-- ===============================================================================================================
-    
+
         Inclusion of modules participating in this project. Remember to list all the modules as soon as you add them
         to the project.
-        
+
     ================================================================================================================ -->
     <modules>
-        <module>Module1</module> <!-- TODO: Module1 has been generated by the archetype as an example - 
+        <module>Module1</module> <!-- TODO: Module1 has been generated by the archetype as an example -
                                       rename & expand it, or drop it and create your own stuff -->
     </modules>
 

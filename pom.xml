@@ -120,26 +120,6 @@ really dropped.
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
-                <artifactId>it-tidalwave-swing-beansbinding</artifactId>
-                <version>3.0-ALPHA-1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>it.tidalwave.thesefoolishthings</groupId>
-                <artifactId>it-tidalwave-util-logging-singlelinelogformatter</artifactId>
-                <version>3.0-ALPHA-1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>it.tidalwave.thesefoolishthings</groupId>
-                <artifactId>it-tidalwave-util-logging</artifactId>
-                <version>3.0-ALPHA-1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>it.tidalwave.thesefoolishthings</groupId>
-                <artifactId>it-tidalwave-stopwatch</artifactId>
-                <version>3.0-ALPHA-1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-test</artifactId>
                 <version>3.0-ALPHA-1-SNAPSHOT</version>
             </dependency>
@@ -157,16 +137,6 @@ really dropped.
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus-spring</artifactId>
-                <version>3.0-ALPHA-1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>it.tidalwave.thesefoolishthings</groupId>
-                <artifactId>it-tidalwave-messagebus-platformx-eventbus</artifactId>
-                <version>3.0-ALPHA-1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>it.tidalwave.thesefoolishthings</groupId>
-                <artifactId>it-tidalwave-ui-vaadin</artifactId>
                 <version>3.0-ALPHA-1-SNAPSHOT</version>
             </dependency>
             <dependency>
