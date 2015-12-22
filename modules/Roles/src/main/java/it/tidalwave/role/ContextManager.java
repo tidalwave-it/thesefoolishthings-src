@@ -31,6 +31,7 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.ServiceLoader;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.Task;
@@ -84,16 +85,12 @@ public interface ContextManager
                         throw new RuntimeException("No ServiceProvider for ContextManagerProvider");
                       }
 
-                    contextManagerProvider = i.next();
+                    contextManagerProvider = Objects.requireNonNull(i.next());
                     log.trace("ContextManagerProvider instantiated from META-INF: {}", contextManagerProvider);
                   }
 
-                contextManager = contextManagerProvider.getContextManager();
-
-                if (contextManager == null)
-                  {
-                    throw new RuntimeException("Cannot find ContextManager");
-                  }
+                contextManager = Objects.requireNonNull(contextManagerProvider.getContextManager(),
+                                                        "Cannot find ContextManager");
               }
 
             return contextManager;

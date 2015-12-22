@@ -45,9 +45,6 @@ import static it.tidalwave.role.spi.LogUtil.*;
  *
  * An implementation for {@link As} based on Spring.
  *
- * FIXME: this class should be declared package protected and only implement AsDelegate, since AsSupport should be used
- * instead.
- *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
