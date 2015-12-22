@@ -25,11 +25,14 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.role.spi;
 
-import javax.annotation.Nonnull;
 import it.tidalwave.util.Finder;
-import it.tidalwave.util.spi.ArrayListFinder;
+import java.util.Arrays;
+import java.util.List;
+import org.testng.annotations.Test;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
  *
@@ -37,19 +40,18 @@ import it.tidalwave.util.spi.ArrayListFinder;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DefaultPersonRegistry implements PersonRegistry
+public class ArrayListSimpleCompositeTest
   {
-    final ListOfPersons persons = new ListOfPersons();
+    private final List<String> data = Arrays.asList("1", "2", "3", "4", "5");
 
-    @Override @Nonnull
-    public Finder<Person> findPerson()
+    @Test
+    public void must_produce_valid_Finders()
       {
-        return new ArrayListFinder<>(persons);
-      }
+        final ArrayListSimpleComposite<String> underTest = new ArrayListSimpleComposite<>(data);
+        final Finder<String> finder1 = underTest.findChildren();
+        final Finder<String> finder2 = finder1.from(3).max(1);
 
-    @Override @Nonnull
-    public void add (final @Nonnull Person person)
-      {
-        persons.add(person);
+        assertThat((List<String>)finder1.results(), is(data));
+        assertThat((List<String>)finder2.results(), is(Arrays.asList("4")));
       }
-  }
+}

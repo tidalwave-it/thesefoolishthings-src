@@ -27,6 +27,7 @@
  */
 package it.tidalwave.role.spi;
 
+import it.tidalwave.role.Identifiable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -79,8 +80,19 @@ public class LogUtil
     @Nonnull
     public static String shortId (final @Nullable Object object)
       {
-        return (object == null) ? "null" : String.format("%s@%x", shortName(object.getClass()),
-                                                                  System.identityHashCode(object));
+        if (object == null)
+          {
+            return "null";
+          }
+
+        String s = String.format("%s@%x", shortName(object.getClass()),
+                                                          System.identityHashCode(object));
+        if (object instanceof Identifiable)
+          {
+            s += "/" + ((Identifiable)object).getId();
+          }
+
+        return s;
       }
 
     @Nonnull

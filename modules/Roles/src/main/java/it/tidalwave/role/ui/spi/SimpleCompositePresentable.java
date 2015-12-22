@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import it.tidalwave.util.As;
+import it.tidalwave.util.As.NotFoundBehaviour;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.RoleFactory;
@@ -44,7 +45,9 @@ import it.tidalwave.role.ui.PresentationModelFactory;
 import it.tidalwave.role.spi.ContextSampler;
 import it.tidalwave.role.spi.DefaultSimpleComposite;
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import static it.tidalwave.role.spi.LogUtil.*;
+import static it.tidalwave.role.ui.Presentable.Presentable;
 
 /***********************************************************************************************************************
  *
@@ -59,6 +62,65 @@ import static it.tidalwave.role.spi.LogUtil.*;
 @Slf4j
 public class SimpleCompositePresentable<T extends As> implements Presentable
   {
+    @RequiredArgsConstructor
+    static class SCPFinder<T extends As> extends SimpleFinderSupport<PresentationModel>
+      {
+        private static final long serialVersionUID = -3235827383866946732L;
+
+        @Nonnull
+        private final SimpleCompositePresentable<T> scp;
+
+        @Nonnull
+        private final List<Object> rolesOrFactories;
+
+        public SCPFinder (final @Nonnull SCPFinder<T> other, final @Nonnull Object override)
+          {
+            super(other, override);
+            final SCPFinder<T> source = getSource(SCPFinder.class, other, override);
+            this.scp = source.scp;
+            this.rolesOrFactories = source.rolesOrFactories;
+          }
+
+        @Override
+        protected List<? extends PresentationModel> computeResults()
+          {
+            return scp.contextSampler.runWithContexts(new Task<List<? extends PresentationModel>, RuntimeException>()
+              {
+                @Override
+                public List<? extends PresentationModel> run()
+                  {
+                    final List<PresentationModel> results = new ArrayList<>();
+
+                    try
+                      {
+                        @SuppressWarnings("unchecked")
+                        final SimpleComposite<T> composite = scp.datum.as(SimpleComposite.class);
+
+                        for (final T child : composite.findChildren().results())
+                          {
+                            final Presentable presentable = child.as(Presentable, new NotFoundBehaviour<Presentable>()
+                              {
+                                @Override
+                                public Presentable run (final Throwable t)
+                                  {
+                                    return new SimpleCompositePresentable<>(child);
+                                  }
+                              });
+
+                            results.add(presentable.createPresentationModel(rolesOrFactories.toArray()));
+                          }
+                      }
+                    catch (AsException e)
+                      {
+                        // ok, no Composite role
+                      }
+
+                    return results;
+                  }
+              });
+          }
+      }
+
     private static final long serialVersionUID = 324646965695684L;
 
     @Nonnull
@@ -113,42 +175,11 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
     private PresentationModel internalCreatePresentationModel (final @Nonnull T datum,
                                                                final @Nonnull List<Object> rolesOrFactories)
       {
-        final Finder<PresentationModel> pmFinder = new SimpleFinderSupport<PresentationModel>()
-          {
-            @Override @Nonnull
-            protected List<? extends PresentationModel> computeResults()
-              {
-                return contextSampler.runWithContexts(new Task<List<? extends PresentationModel>, RuntimeException>()
-                  {
-                    @Override
-                    public List<? extends PresentationModel> run()
-                      {
-                        final List<PresentationModel> results = new ArrayList<>();
-
-                        try
-                          {
-                            @SuppressWarnings("unchecked")
-                            final SimpleComposite<T> composite = datum.as(SimpleComposite.class);
-
-                            for (final T child : composite.findChildren().results())
-                              {
-                                results.add(internalCreatePresentationModel(child, rolesOrFactories));
-                              }
-                          }
-                        catch (AsException e)
-                          {
-                            // ok, no Composite role
-                          }
-
-                        return results;
-                      }
-                  });
-              }
-          };
+        final Finder<PresentationModel> pmFinder = new SCPFinder(this, rolesOrFactories);
 
         return contextSampler.runWithContexts(new Task<PresentationModel, RuntimeException>()
           {
-            @Override
+            @Override @Nonnull
             public PresentationModel run()
               {
                 final List<Object> roles = resolveRoles(datum, rolesOrFactories);
