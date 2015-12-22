@@ -83,25 +83,6 @@
             <artifactId>commons-logging</artifactId>
             <scope>provided</scope>
         </dependency>
-
     </dependencies>
-
-    <!-- FIXME: push up -->
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <properties>
-                        <property>
-                            <name>listener</name>
-                            <value>${tft.test.listeners}</value>
-                        </property>
-                    </properties>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
