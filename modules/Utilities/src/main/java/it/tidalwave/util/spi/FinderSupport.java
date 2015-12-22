@@ -1,27 +1,27 @@
 /*
  * #%L
  * *********************************************************************************************************************
- * 
+ *
  * These Foolish Things - Miscellaneous utilities
  * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
  * %%
  * Copyright (C) 2009 - 2015 Tidalwave s.a.s. (http://tidalwave.it)
  * %%
  * *********************************************************************************************************************
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * *********************************************************************************************************************
- * 
+ *
  * $Id$
- * 
+ *
  * *********************************************************************************************************************
  * #L%
  */
@@ -79,6 +79,11 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
           }
       }
 
+    private final String MESSAGE =
+          "Since version 2.0, Implementations of Finder must have a clone constructor such as "
+        + "MyFinder(MyFinder other, Object override). This means that they can't be implemented by anonymous or inner. "
+        + " non static classes. See the javadoc for further information. ";
+
     @Nonnull
     private final String name;
 
@@ -95,7 +100,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     private final List<Sorter<TYPE>> sorters;
 
     private static final int DEFAULT_MAX_RESULTS = Integer.MAX_VALUE - 10; // gets inolved in some math, so can't use Integer.MAX_VALUE
-    
+
     /*******************************************************************************************************************
      *
      * Creates an instance with the given name (that will be used for diagnostics).
@@ -110,6 +115,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
         this.maxResults = DEFAULT_MAX_RESULTS;
         this.sorters = new ArrayList<Sorter<TYPE>>();
         this.contexts = Collections.emptyList();
+        checkSubClass();
       }
 
     /*******************************************************************************************************************
@@ -124,8 +130,9 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
         this.maxResults = DEFAULT_MAX_RESULTS;
         this.sorters = new ArrayList<Sorter<TYPE>>();
         this.contexts = Collections.emptyList();
+        checkSubClass();
       }
-    
+
     /*******************************************************************************************************************
      *
      * Clone constructor for subclasses.
@@ -141,7 +148,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
         this.sorters = source.sorters;
         this.contexts = source.contexts; // it's always unmodifiable
       }
-    
+
     /*******************************************************************************************************************
      *
      *
@@ -172,12 +179,11 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
       {
         try
           {
-            final Constructor<? extends FinderSupport> constructor = 
-                    getClass().getConstructor(new Class<?>[] { getClass(), Object.class });
+            final Constructor<? extends FinderSupport> constructor = getCloneConstructor();
             constructor.setAccessible(true);
             return (EXTENDED_FINDER)constructor.newInstance(this, override);
           }
-        catch (Exception e) 
+        catch (Exception e)
           {
             throw new RuntimeException(e);
           }
@@ -239,7 +245,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
       {
         if (criterion instanceof FilterSortCriterion)
           {
-            final List<Sorter<TYPE>> sorters = concat(this.sorters, 
+            final List<Sorter<TYPE>> sorters = concat(this.sorters,
                     new Sorter<TYPE>((FilterSortCriterion<TYPE>)criterion, direction));
             return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
           }
@@ -248,7 +254,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
         final String message = String.format(template, criterion, FilterSortCriterion.class);
         throw new UnsupportedOperationException(message);
       }
-    
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -366,5 +372,33 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
         final List<T> result = new ArrayList<T>(list);
         result.add(item);
         return Collections.unmodifiableList(result);
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    private Constructor<? extends FinderSupport> getCloneConstructor() throws SecurityException, NoSuchMethodException
+      {
+        final Constructor<? extends FinderSupport> constructor =
+                getClass().getConstructor(new Class<?>[] { getClass(), Object.class });
+        return constructor;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    private void checkSubClass()
+      {
+        try
+          {
+            getCloneConstructor();
+          }
+        catch (SecurityException | NoSuchMethodException e)
+          {
+            throw new RuntimeException(MESSAGE + e.getMessage());
+          }
       }
   }

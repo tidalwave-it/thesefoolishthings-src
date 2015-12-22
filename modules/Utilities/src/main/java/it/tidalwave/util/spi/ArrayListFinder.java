@@ -25,29 +25,47 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spi;
+package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import it.tidalwave.role.Composite;
-import it.tidalwave.util.spi.ArrayListFinder;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /***********************************************************************************************************************
  *
- * An implementation of {@link Composite} which holds an immutable list of items.
+ * An implementation of {@link Finder} which holds an immutable list of items.
  *
  * @param  <T>   the type of contained items
  *
- * @author  Fabrizio Giudici
- * @version $Id$
+ * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * @version $Id: Class.java,v 631568052e17 2013/02/19 15:45:02 fabrizio $
  *
  **********************************************************************************************************************/
-public class ArrayListSimpleComposite<T> extends DefaultSimpleComposite<T>
+public class ArrayListFinder<T> extends SimpleFinderSupport<T>
   {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -3529114277448372453L;
 
-    public ArrayListSimpleComposite (final @Nonnull List<T> items)
+    @Nonnull
+    private final Collection<T> items;
+
+    public ArrayListFinder (final @Nonnull Collection<T> items)
       {
-        super(new ArrayListFinder<>(items));
+        this.items = Collections.unmodifiableCollection(new ArrayList<>(items));
+      }
+
+    public ArrayListFinder (final @Nonnull ArrayListFinder<T> other, @Nonnull Object override)
+      {
+        super(other, override);
+        final ArrayListFinder<T> source = getSource(ArrayListFinder.class, other, override);
+        this.items = source.items;
+      }
+
+    @Override @Nonnull
+    protected List<? extends T> computeResults()
+      {
+        return new CopyOnWriteArrayList<>(items);
       }
   }

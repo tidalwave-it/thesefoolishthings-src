@@ -27,27 +27,31 @@
  */
 package it.tidalwave.role.spi;
 
-import javax.annotation.Nonnull;
+import it.tidalwave.util.Finder;
+import java.util.Arrays;
 import java.util.List;
-import it.tidalwave.role.Composite;
-import it.tidalwave.util.spi.ArrayListFinder;
+import org.testng.annotations.Test;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
- *
- * An implementation of {@link Composite} which holds an immutable list of items.
- *
- * @param  <T>   the type of contained items
  *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ArrayListSimpleComposite<T> extends DefaultSimpleComposite<T>
+public class ArrayListSimpleCompositeTest
   {
-    private static final long serialVersionUID = 1L;
+    private final List<String> data = Arrays.asList("1", "2", "3", "4", "5");
 
-    public ArrayListSimpleComposite (final @Nonnull List<T> items)
+    @Test
+    public void must_produce_valid_Finders()
       {
-        super(new ArrayListFinder<>(items));
+        final ArrayListSimpleComposite<String> underTest = new ArrayListSimpleComposite<>(data);
+        final Finder<String> finder1 = underTest.findChildren();
+        final Finder<String> finder2 = finder1.from(3).max(1);
+
+        assertThat((List<String>)finder1.results(), is(data));
+        assertThat((List<String>)finder2.results(), is(Arrays.asList("4")));
       }
-  }
+}

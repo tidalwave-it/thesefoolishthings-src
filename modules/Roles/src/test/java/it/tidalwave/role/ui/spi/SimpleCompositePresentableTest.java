@@ -35,18 +35,19 @@ import java.util.Collection;
 import java.util.List;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
+import it.tidalwave.util.Id;
 import it.tidalwave.util.RoleFactory;
-import it.tidalwave.util.spi.SimpleFinderSupport;
 import it.tidalwave.util.spi.AsDelegateProvider;
-import it.tidalwave.role.SimpleComposite;
-import it.tidalwave.role.ContextManager;
-import it.tidalwave.role.ui.PresentationModel;
-import it.tidalwave.role.spi.DefaultSimpleComposite;
-import it.tidalwave.role.spi.DefaultContextManagerProvider;
 import it.tidalwave.util.spi.EmptyAsDelegateProvider;
+import it.tidalwave.role.ContextManager;
+import it.tidalwave.role.Identifiable;
+import it.tidalwave.role.SimpleComposite;
+import it.tidalwave.role.ui.PresentationModel;
+import it.tidalwave.role.spi.ArrayListSimpleComposite;
+import it.tidalwave.role.spi.DefaultContextManagerProvider;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import static org.hamcrest.MatcherAssert.*;
@@ -58,22 +59,27 @@ import static org.hamcrest.CoreMatchers.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
+@Slf4j
 public class SimpleCompositePresentableTest
   {
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @RequiredArgsConstructor @ToString(of = "id")
-    public static class MockDatum implements As
+    public static class MockDatum implements As, Identifiable
       {
-        @Nonnull
-        private final String id;
+        @Getter @Nonnull
+        private final Id id;
 
         @CheckForNull
         private SimpleComposite<MockDatum> composite;
 
         @Getter
         private List<MockDatum> children = new ArrayList<>();
+
+        public MockDatum (final @Nonnull String id)
+          {
+            this.id = new Id(id);
+          }
 
         @Nonnull
         public MockDatum withChildren (final @Nonnull MockDatum ... children)
@@ -84,16 +90,7 @@ public class SimpleCompositePresentableTest
         @Nonnull
         public MockDatum withChildren (final @Nonnull List<MockDatum> children)
           {
-            this.children = children;
-            composite = new DefaultSimpleComposite<>(new SimpleFinderSupport<MockDatum>()
-              {
-                @Override @Nonnull
-                protected List<? extends MockDatum> computeResults()
-                  {
-                    return children;
-                  }
-              });
-
+            composite = new ArrayListSimpleComposite<>(this.children = children);
             return this;
           }
 
@@ -123,6 +120,12 @@ public class SimpleCompositePresentableTest
               }
 
             return new ArrayList<>();
+          }
+
+        @Override @Nonnull
+        public String toString()
+          {
+            return String.format("MockDatum(%s)", id);
           }
       }
 
@@ -181,23 +184,26 @@ public class SimpleCompositePresentableTest
 
         final MockDatum a = new MockDatum("a").withChildren(b1, b2, b3);
 
-        final SimpleCompositePresentable<MockDatum> fixture
+        final SimpleCompositePresentable<MockDatum> underTest
                 = new SimpleCompositePresentable<>(a, new DefaultPresentationModelFactory());
 
         final MockRole1 role1 = new MockRole1();
         final MockRoleFactory roleFactory = new MockRoleFactory();
 
-        final PresentationModel pm = fixture.createPresentationModel(role1, roleFactory);
+        final PresentationModel pm = underTest.createPresentationModel(role1, roleFactory);
 
-        assertProperPresentationModel(pm, a);
+        assertProperPresentationModel("", pm, a);
       }
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
     @Nonnull
-    private void assertProperPresentationModel (final @Nonnull PresentationModel pm, final @Nonnull MockDatum datum)
+    private void assertProperPresentationModel (final @Nonnull String indent,
+                                                final @Nonnull PresentationModel pm,
+                                                final @Nonnull MockDatum datum)
       {
+        log.debug("assertProperPresentationModel() - {} {}, {}", new Object[] { indent, pm, datum });
         pm.as(MockRole1.class);                        // must not throw AsException
         final MockRole2 role = pm.as(MockRole2.class); // must not throw AsException
 
@@ -211,7 +217,7 @@ public class SimpleCompositePresentableTest
 
         for (int i = 0; i < childrenPm.size(); i++)
           {
-            assertProperPresentationModel(childrenPm.get(i), childrenData.get(i));
+            assertProperPresentationModel(indent + "    ", childrenPm.get(i), childrenData.get(i));
           }
       }
   }
