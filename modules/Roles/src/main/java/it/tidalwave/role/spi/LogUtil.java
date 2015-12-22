@@ -27,9 +27,9 @@
  */
 package it.tidalwave.role.spi;
 
-import it.tidalwave.role.Identifiable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import it.tidalwave.role.Identifiable;
 
 /***********************************************************************************************************************
  *
@@ -63,7 +63,7 @@ public class LogUtil
       }
 
     @Nonnull
-    public static String shortNames (final @Nullable Iterable<Class<?>> classes)
+    public static String shortNames (final @Nonnull Iterable<Class<?>> classes)
       {
         final StringBuilder result = new StringBuilder();
         String separator = "";
@@ -96,7 +96,7 @@ public class LogUtil
       }
 
     @Nonnull
-    public static String shortIds (final @Nullable Iterable<Object> objects)
+    public static String shortIds (final @Nonnull Iterable<Object> objects)
       {
         final StringBuilder result = new StringBuilder();
         String separator = "";
