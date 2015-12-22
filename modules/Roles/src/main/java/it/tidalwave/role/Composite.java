@@ -28,8 +28,6 @@
 package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.List;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.spi.FinderSupport;
@@ -51,17 +49,6 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
     //@bluebook-begin other
     public static final Class<Composite> Composite = Composite.class;
 
-    static final class EmptyFinder extends FinderSupport<Object, EmptyFinder> // TODO: move to Finder, make it public
-      {
-        private static final long serialVersionUID = -4351036793423982993L;
-
-        @Override @Nonnull
-        protected List<? extends Object> computeResults()
-          {
-            return Collections.emptyList();
-          }
-      }
-
     /*******************************************************************************************************************
      *
      * A default <code>Composite</code> with no children.
@@ -69,12 +56,10 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
      ******************************************************************************************************************/
     public final static Composite<Object, Finder<Object>> DEFAULT = new Composite<Object, Finder<Object>>()
       {
-        private final Finder<Object> EMPTY_FINDER = new EmptyFinder();
-
         @Override @Nonnull
         public Finder<Object> findChildren()
           {
-            return EMPTY_FINDER;
+            return FinderSupport.emptyFinder();
           }
       };
 
