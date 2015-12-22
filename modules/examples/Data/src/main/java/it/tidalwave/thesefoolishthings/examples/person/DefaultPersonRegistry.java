@@ -28,10 +28,8 @@
 package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 import it.tidalwave.util.Finder;
-import it.tidalwave.util.spi.SimpleFinderSupport;
+import it.tidalwave.util.spi.ArrayListFinder;
 
 /***********************************************************************************************************************
  *
@@ -46,16 +44,7 @@ public class DefaultPersonRegistry implements PersonRegistry
     @Override @Nonnull
     public Finder<Person> findPerson()
       {
-        return new SimpleFinderSupport<Person>()
-          {
-            @Override @Nonnull
-            protected List<? extends Person> computeResults()
-              {
-                final List<Person> results = new ArrayList<>();
-                results.addAll(persons);
-                return results;
-              }
-          };
+        return new ArrayListFinder<>(persons);
       }
 
     @Override @Nonnull
