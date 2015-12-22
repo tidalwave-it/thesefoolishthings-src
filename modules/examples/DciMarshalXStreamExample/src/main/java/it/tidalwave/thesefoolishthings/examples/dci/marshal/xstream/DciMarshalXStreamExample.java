@@ -1,27 +1,27 @@
 /*
  * #%L
  * *********************************************************************************************************************
- * 
+ *
  * These Foolish Things - Miscellaneous utilities
  * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
  * %%
  * Copyright (C) 2009 - 2015 Tidalwave s.a.s. (http://tidalwave.it)
  * %%
  * *********************************************************************************************************************
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * *********************************************************************************************************************
- * 
+ *
  * $Id$
- * 
+ *
  * *********************************************************************************************************************
  * #L%
  */
@@ -39,6 +39,7 @@ import it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry;
 import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
 import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.ExtensionMethod;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static it.tidalwave.role.Marshallable.Marshallable;
 
 /***********************************************************************************************************************
@@ -52,7 +53,7 @@ public class DciMarshalXStreamExample
   {
     @Inject @Nonnull
     private ContextManager contextManager;
-    
+
     public void run()
       throws Exception
       {
@@ -64,20 +65,20 @@ public class DciMarshalXStreamExample
 
         final ByteArrayOutputStream os1 = new ByteArrayOutputStream();
         joe.as(Marshallable).marshal(os1);
-        log.info("******** (jos as Mashallable) marshalled: {}", new String(os1.toByteArray()));
+        log.info("******** (jos as Mashallable) marshalled: {}", new String(os1.toByteArray(), UTF_8));
 
         final ByteArrayOutputStream os2 = new ByteArrayOutputStream();
         final ListOfPersons listOfPersons = new ListOfPersons(Arrays.asList(joe, luke));
         listOfPersons.as(Marshallable).marshal(os2);
-        log.info("******** (listOfPersons as Mashallable) marshalled: {}", new String(os2.toByteArray()));
+        log.info("******** (listOfPersons as Mashallable) marshalled: {}", new String(os2.toByteArray(), UTF_8));
 
         final ByteArrayOutputStream os3 = new ByteArrayOutputStream();
         final DefaultPersonRegistry personRegistry = new DefaultPersonRegistry();
         personRegistry.add(joe);
         personRegistry.add(luke);
         personRegistry.as(Marshallable).marshal(os3);
-        log.info("******** (personRegistry as Mashallable) marshalled: {}", new String(os2.toByteArray()));
-        
+        log.info("******** (personRegistry as Mashallable) marshalled: {}", new String(os2.toByteArray(), UTF_8));
+
         contextManager.removeLocalContext(xStreamContext);
       }
   }
