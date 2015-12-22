@@ -120,6 +120,14 @@
                 <artifactId>org.incava.util.diff</artifactId>
                 <version>${incava.version}</version>
             </dependency>
+
+
+            <!-- FIXME: used as provided dependency in some modules to work around a javadoc crash -->
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -138,6 +146,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

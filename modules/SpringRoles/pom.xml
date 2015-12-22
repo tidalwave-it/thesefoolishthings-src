@@ -77,6 +77,13 @@
             <artifactId>it-tidalwave-util-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency> <!-- FIXME: to prevent a javadoc crash -->
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <!-- FIXME: push up -->
