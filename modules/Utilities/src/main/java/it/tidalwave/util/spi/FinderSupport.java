@@ -103,6 +103,20 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     /*******************************************************************************************************************
      *
+     * Returns an empty {@code Finder}.
+     *
+     * @param   <T>     the type of the {@code Finder}
+     * @return          the empty {@code Finder}
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> Finder<T> emptyFinder()
+      {
+        return new ArrayListFinder<>(Collections.<T>emptyList());
+      }
+
+    /*******************************************************************************************************************
+     *
      * Creates an instance with the given name (that will be used for diagnostics).
      *
      * @param  name   the name
@@ -397,7 +411,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
           }
         catch (SecurityException | NoSuchMethodException e)
           {
-            throw new RuntimeException(MESSAGE + e.getMessage());
+            throw new ExceptionInInitializerError(MESSAGE + e.getMessage());
           }
       }
   }
