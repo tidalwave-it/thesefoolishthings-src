@@ -25,31 +25,47 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.Finder;
-import it.tidalwave.util.spi.ArrayListFinder;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /***********************************************************************************************************************
  *
- * @author  Fabrizio Giudici
- * @version $Id$
+ * An implementation of {@link Finder} which holds an immutable list of items.
+ *
+ * @param  <T>   the type of contained items
+ *
+ * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * @version $Id: Class.java,v 631568052e17 2013/02/19 15:45:02 fabrizio $
  *
  **********************************************************************************************************************/
-public class DefaultPersonRegistry implements PersonRegistry
+public class ArrayListFinder<T> extends SimpleFinderSupport<T>
   {
-    final ListOfPersons persons = new ListOfPersons();
+    private static final long serialVersionUID = -3529114277448372453L;
 
-    @Override @Nonnull
-    public Finder<Person> findPerson()
+    @Nonnull
+    private final Collection<T> items;
+
+    public ArrayListFinder (final @Nonnull Collection<T> items)
       {
-        return new ArrayListFinder<>(persons);
+        this.items = Collections.unmodifiableCollection(new ArrayList<>(items));
+      }
+
+    public ArrayListFinder (final @Nonnull ArrayListFinder<T> other, @Nonnull Object override)
+      {
+        super(other, override);
+        final ArrayListFinder<T> source = getSource(ArrayListFinder.class, other, override);
+        this.items = source.items;
       }
 
     @Override @Nonnull
-    public void add (final @Nonnull Person person)
+    protected List<? extends T> computeResults()
       {
-        persons.add(person);
+        return new CopyOnWriteArrayList<>(items);
       }
   }

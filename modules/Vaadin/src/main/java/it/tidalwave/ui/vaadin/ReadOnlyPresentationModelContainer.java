@@ -30,14 +30,13 @@ package it.tidalwave.ui.vaadin;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Collections;
-import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import java.text.Format;
 import it.tidalwave.util.Finder;
-import it.tidalwave.util.spi.SimpleFinderSupport;
 import it.tidalwave.role.Composite;
 import it.tidalwave.role.ui.PresentationModel;
+import it.tidalwave.util.spi.ArrayListFinder;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 import lombok.extern.slf4j.Slf4j;
@@ -60,14 +59,7 @@ public class ReadOnlyPresentationModelContainer extends IndexedContainerSupport
 
     // TODO: move to Finder
     private static final Finder<PresentationModel> EMPTY_FINDER =
-            new SimpleFinderSupport<PresentationModel>("EMPTY_FINDER")
-      {
-        @Override  @Nonnull
-        protected List<? extends PresentationModel> computeResults()
-          {
-            return Collections.emptyList();
-          }
-      };
+            new ArrayListFinder<>(Collections.<PresentationModel>emptyList());
 
     @Nonnull
     private final Finder<PresentationModel> finder;

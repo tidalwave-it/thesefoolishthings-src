@@ -29,32 +29,25 @@ package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import it.tidalwave.util.spi.SimpleFinderSupport;
+import it.tidalwave.role.Composite;
+import it.tidalwave.util.spi.ArrayListFinder;
 
 /***********************************************************************************************************************
  *
  * An implementation of {@link Composite} which holds an immutable list of items.
  *
- * @param  <TYPE>   the type of contained items
+ * @param  <T>   the type of contained items
  *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ArrayListSimpleComposite<TYPE> extends DefaultSimpleComposite<TYPE>
+public class ArrayListSimpleComposite<T> extends DefaultSimpleComposite<T>
   {
     private static final long serialVersionUID = 1L;
 
-    public ArrayListSimpleComposite (final @Nonnull List<TYPE> items)
+    public ArrayListSimpleComposite (final @Nonnull List<T> items)
       {
-        super(new SimpleFinderSupport<TYPE>()
-          {
-            @Override @Nonnull
-            protected List<? extends TYPE> computeResults()
-              {
-                return new CopyOnWriteArrayList<>(items);
-              }
-          });
+        super(new ArrayListFinder<>(items));
       }
   }
