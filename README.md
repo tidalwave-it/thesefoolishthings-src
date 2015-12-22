@@ -3,8 +3,22 @@ TheseFoolishThings
 
 [![Build Status](https://drone.io/bitbucket.org/tidalwave/thesefoolishthings-src/status.png)](https://drone.io/bitbucket.org/tidalwave/thesefoolishthings-src/latest)
 
-A kitchen sink of small libraries that are used by all projects by Tidalwave. Plus some legacy stuff that should be
-really dropped.
+A kitchen sink of small libraries that are used by all projects by Tidalwave. It mostly contains:
+
+* a few generic stuff such as ```Id``` and ```IdFactory```;
+* the ```Finder``` API for fluent query builders;
+* support for the DCI pattern (Data Context and Interaction), with optional Spring integration;
+* a tiny but functional local Message Bus, with optional Spring integration;
+* a small, experimental Actor library;
+* some test utilities.
+
+TheseFoolishThings supports JDK 7 and has got a small JDK 8 integration module.
+        
+Since version 3.0 lots of old stuff have been dropped:
+
+* Support for Swing.
+* Support for the NetBeans Platform.
+* A very small support library for Vaadin.
 
 
 Bootstrapping
