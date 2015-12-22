@@ -6,14 +6,14 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>2.7-SNAPSHOT</version>
+        <version>3.1-ALPHA-1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-util</artifactId>
-    <packaging>nbm</packaging>
-    <version>2.7-SNAPSHOT</version>
+    <version>3.1-ALPHA-1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>TheseFoolishThings - Utilities</name>
 
     <properties>
@@ -25,6 +25,7 @@
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util</artifactId>
+            <optional>true</optional>
             <exclusions>
                 <exclusion>
                     <groupId>org.netbeans.api</groupId>
@@ -33,16 +34,8 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.kenai.nbpwr</groupId>
-            <artifactId>org-slf4j-jdk14</artifactId>
-            <!-- So we get the dependency info in the NBM, but the jar doesn't depend on the wrapper module -->
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-jdk14</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
 
         <!-- Needed in compilation, because of the annotation processor -->
@@ -51,57 +44,14 @@
             <artifactId>org-openide-util-lookup</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>annotations</artifactId>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.code.findbugs</groupId>
-                    <artifactId>jsr305</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>annotations</artifactId>
+        </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>clirr-maven-plugin</artifactId>
-                <configuration>
-                <!-- workaround, as enum signature is slightly different in Java 5 and 6, so
-                     it fails the check when compiling with Java 5. -->
-                    <excludes>
-                        <exclude>it/tidalwave/util/Finder$SortDirection</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>nbm-maven-plugin</artifactId>
-                <configuration>
-                    <publicPackages>
-                        <publicPackage>it.tidalwave.util</publicPackage>
-                        <publicPackage>it.tidalwave.util.spi</publicPackage>
-                        <publicPackage>it.tidalwave.util.thread</publicPackage>
-                        <publicPackage>it.tidalwave.util.thread.annotation</publicPackage>
-                        <publicPackage>it.tidalwave.util.ui</publicPackage>
-                    </publicPackages>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

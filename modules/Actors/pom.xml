@@ -6,14 +6,14 @@
     <parent>
        <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>2.7-SNAPSHOT</version>
+        <version>3.1-ALPHA-1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-actor</artifactId>
-    <packaging>nbm</packaging>
-    <version>2.7-SNAPSHOT</version>
+    <version>3.1-ALPHA-1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>TheseFoolishThings - Actors</name>
     <description>An experimental module which provides an implementation of an actor-based framework.</description>
 
@@ -33,66 +33,23 @@
         </dependency>
 
         <dependency>
-            <groupId>com.kenai.nbpwr</groupId>
+            <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.kenai.nbpwr</groupId>
-            <artifactId>org-slf4j-jdk14</artifactId>
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-jdk14</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.kenai.nbpwr</groupId>
-            <artifactId>com-eaio-uuid</artifactId>
+            <groupId>com.eaio</groupId>
+            <artifactId>uuid</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>annotations</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.code.findbugs</groupId>
-                    <artifactId>jsr305</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.kenai.nbpwr</groupId>
-            <artifactId>javax-inject</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
         </dependency>
 
         <!-- TEST DEPENDENCIES -->
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>nbm-maven-plugin</artifactId>
-                <configuration>
-                    <publicPackages>
-                        <publicPackage>it.tidalwave.actor</publicPackage>
-                        <publicPackage>it.tidalwave.actor.annotation</publicPackage>
-                        <publicPackage>it.tidalwave.actor.netbeans.spi</publicPackage>
-                        <publicPackage>it.tidalwave.actor.spi</publicPackage>
-                        <publicPackage>it.tidalwave.message</publicPackage>
-                        <publicPackage>it.tidalwave.messagebus.annotation</publicPackage>
-                        <publicPackage>it.tidalwave.messagebus.spi</publicPackage>
-                        <publicPackage>it.tidalwave.messagebus.util</publicPackage>
-                    </publicPackages>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
