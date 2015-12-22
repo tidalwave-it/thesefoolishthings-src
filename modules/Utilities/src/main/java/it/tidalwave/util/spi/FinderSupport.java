@@ -79,10 +79,10 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
           }
       }
 
-    private final String MESSAGE =
+    private final static String MESSAGE =
           "Since version 2.0, Implementations of Finder must have a clone constructor such as "
-        + "MyFinder(MyFinder other, Object override). This means that they can't be implemented by anonymous or inner. "
-        + " non static classes. See the javadoc for further information. ";
+        + "MyFinder(MyFinder other, Object override). This means that they can't be implemented by anonymous or inner, "
+        + "non static classes. See the javadoc for further information. Could not find constructor: ";
 
     @Nonnull
     private final String name;
@@ -379,11 +379,10 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      *
      ******************************************************************************************************************/
     @Nonnull
-    private Constructor<? extends FinderSupport> getCloneConstructor() throws SecurityException, NoSuchMethodException
+    private Constructor<? extends FinderSupport> getCloneConstructor()
+      throws SecurityException, NoSuchMethodException
       {
-        final Constructor<? extends FinderSupport> constructor =
-                getClass().getConstructor(new Class<?>[] { getClass(), Object.class });
-        return constructor;
+        return getClass().getConstructor(new Class<?>[] { getClass(), Object.class });
       }
 
     /*******************************************************************************************************************

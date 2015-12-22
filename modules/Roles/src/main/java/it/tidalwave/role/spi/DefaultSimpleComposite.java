@@ -28,9 +28,10 @@
 package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
-import lombok.RequiredArgsConstructor;
 import it.tidalwave.role.SimpleComposite;
 import it.tidalwave.util.Finder;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /***********************************************************************************************************************
  *
@@ -39,7 +40,7 @@ import it.tidalwave.util.Finder;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor
+@RequiredArgsConstructor @ToString
 public class DefaultSimpleComposite<TYPE> implements SimpleComposite<TYPE>
   {
     @Nonnull

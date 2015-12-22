@@ -113,6 +113,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
                     catch (AsException e)
                       {
                         // ok, no Composite role
+                        log.trace(">>>> no composite role for {}", scp.datum);
                       }
 
                     return results;
