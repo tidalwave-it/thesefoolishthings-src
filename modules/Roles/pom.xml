@@ -6,14 +6,14 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>2.6-SNAPSHOT</version>
+        <version>3.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-role</artifactId>
-    <packaging>nbm</packaging>
-    <version>2.6-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <version>3.0-SNAPSHOT</version>
     <name>TheseFoolishThings - Roles</name>
 
     <properties>
@@ -21,46 +21,14 @@
     </properties>
 
     <dependencies>
-        <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>annotations</artifactId>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.code.findbugs</groupId>
-                    <artifactId>jsr305</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it-tidalwave-util</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.kenai.nbpwr</groupId>
-            <artifactId>org-slf4j-jdk14</artifactId>
-            <!-- So we get the dependency info in the NBM, but the jar doesn't depend on the wrapper module -->
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-jdk14</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- Needed in compilation, because of the annotation processor -->
-        <dependency>
-            <groupId>org.netbeans.api</groupId>
-            <artifactId>org-openide-util-lookup</artifactId>
-            <scope>provided</scope>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
 
         <dependency>
@@ -81,25 +49,5 @@
             </exclusions>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>nbm-maven-plugin</artifactId>
-                <configuration>
-                    <publicPackages>
-                        <publicPackage>it.tidalwave.dci.annotation</publicPackage>
-                        <publicPackage>it.tidalwave.role</publicPackage>
-                        <publicPackage>it.tidalwave.role.annotation</publicPackage>
-                        <publicPackage>it.tidalwave.role.spi</publicPackage>
-                        <publicPackage>it.tidalwave.role.ui</publicPackage>
-                        <publicPackage>it.tidalwave.role.ui.spi</publicPackage>
-                        <publicPackage>it.tidalwave.text</publicPackage>
-                    </publicPackages>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
