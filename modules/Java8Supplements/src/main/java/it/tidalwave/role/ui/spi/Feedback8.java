@@ -25,74 +25,53 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.util;
+package it.tidalwave.role.ui.spi;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
+import it.tidalwave.util.Callback;
+import it.tidalwave.util.ui.UserNotificationWithFeedback.Feedback;
+import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.experimental.Wither;
+import static lombok.AccessLevel.PRIVATE;
 
 /***********************************************************************************************************************
  *
- * @author  Fabrizio Giudici
+ * A Java 8 extension of {@link Feedback} that supports lambda syntax.
+ * 
+ * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
  * @version $Id$
+ * @since   3.0
  *
  **********************************************************************************************************************/
-public interface Finder8<TYPE> extends Finder<TYPE>, Iterable<TYPE>
+@AllArgsConstructor(access = PRIVATE)
+public class Feedback8 extends Feedback
   {
-    @Nonnull
-    default public Optional<TYPE> optionalResult()
-      {
-        try
-          {
-            return Optional.of(result());
-          }
-        catch (NotFoundException e)
-          {
-            return Optional.empty();
-          }
-      }
+    @Wither
+    private final Callback onConfirm;
+
+    @Wither
+    private final Callback onCancel;
 
     @Nonnull
-    default public Optional<TYPE> optionalFirstResult()
+    public static Feedback8 feedback()
       {
-        try
-          {
-            return Optional.of(firstResult());
-          }
-        catch (NotFoundException e)
-          {
-            return Optional.empty();
-          }
+        return new Feedback8(Callback.EMPTY, Callback.EMPTY);
       }
 
-    @Nonnull
-    default public Stream<TYPE> stream()
+    @Override
+    @SneakyThrows(Throwable.class)
+    public final void onConfirm()
+      throws Exception
       {
-        return ((List<TYPE>)results()).stream();
+        onConfirm.call();
       }
 
-    @Override @Nonnull
-    default public Iterator<TYPE> iterator()
+    @Override
+    @SneakyThrows(Throwable.class)
+    public final void onCancel()
+      throws Exception
       {
-        return ((List<TYPE>)results()).iterator();
+        onCancel.call();
       }
-
-    // TODO: this should come by means of ExtendedFinder
-    @Override @Nonnull
-    public Finder8<TYPE> from (@Nonnegative int firstResult);
-
-    @Override @Nonnull
-    public Finder8<TYPE> max (@Nonnegative int maxResults);
-
-    @Override @Nonnull
-    public Finder8<TYPE> withContext (@Nonnull Object context);
-
-    @Override @Nonnull
-    public Finder8<TYPE> sort (@Nonnull SortCriterion criterion);
-
-    @Override @Nonnull
-    public Finder8<TYPE> sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
   }
