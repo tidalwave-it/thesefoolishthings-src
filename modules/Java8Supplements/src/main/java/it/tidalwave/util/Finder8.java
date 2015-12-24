@@ -1,27 +1,27 @@
 /*
  * #%L
  * *********************************************************************************************************************
- * 
+ *
  * These Foolish Things - Miscellaneous utilities
  * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
  * %%
  * Copyright (C) 2009 - 2015 Tidalwave s.a.s. (http://tidalwave.it)
  * %%
  * *********************************************************************************************************************
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * *********************************************************************************************************************
- * 
+ *
  * $Id$
- * 
+ *
  * *********************************************************************************************************************
  * #L%
  */
@@ -45,41 +45,41 @@ public interface Finder8<TYPE> extends Finder<TYPE>, Iterable<TYPE>
     @Nonnull
     default public Optional<TYPE> optionalResult()
       {
-        try 
+        try
           {
             return Optional.of(result());
-          } 
-        catch (NotFoundException e) 
+          }
+        catch (NotFoundException e)
           {
             return Optional.empty();
           }
       }
-    
+
     @Nonnull
     default public Optional<TYPE> optionalFirstResult()
       {
-        try 
+        try
           {
             return Optional.of(firstResult());
-          } 
-        catch (NotFoundException e) 
+          }
+        catch (NotFoundException e)
           {
             return Optional.empty();
           }
       }
-    
+
     @Nonnull
-    default public Stream<TYPE> stream() 
+    default public Stream<TYPE> stream()
       {
         return ((List<TYPE>)results()).stream();
-      }    
-    
+      }
+
     @Override @Nonnull
     default public Iterator<TYPE> iterator()
       {
         return ((List<TYPE>)results()).iterator();
       }
-    
+
     // TODO: this should come by means of ExtendedFinder
     @Override @Nonnull
     public Finder8<TYPE> from (@Nonnegative int firstResult);
@@ -89,7 +89,7 @@ public interface Finder8<TYPE> extends Finder<TYPE>, Iterable<TYPE>
 
     @Override @Nonnull
     public Finder8<TYPE> withContext (@Nonnull Object context);
-    
+
     @Override @Nonnull
     public Finder8<TYPE> sort (@Nonnull SortCriterion criterion);
 
