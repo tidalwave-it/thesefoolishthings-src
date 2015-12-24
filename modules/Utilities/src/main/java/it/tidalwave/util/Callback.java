@@ -27,72 +27,25 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
-
 /***********************************************************************************************************************
  *
- * @author  Fabrizio Giudici
+ * A simple callback that can throw any kind of exception.
+ * 
+ * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
  * @version $Id$
+ * @since   3.0
  *
  **********************************************************************************************************************/
-public interface Finder8<TYPE> extends Finder<TYPE>, Iterable<TYPE>
+public interface Callback
   {
-    @Nonnull
-    default public Optional<TYPE> optionalResult()
+    public final static Callback EMPTY = new Callback()
       {
-        try
+        @Override
+        public void call()
           {
-            return Optional.of(result());
           }
-        catch (NotFoundException e)
-          {
-            return Optional.empty();
-          }
-      }
+      };
 
-    @Nonnull
-    default public Optional<TYPE> optionalFirstResult()
-      {
-        try
-          {
-            return Optional.of(firstResult());
-          }
-        catch (NotFoundException e)
-          {
-            return Optional.empty();
-          }
-      }
-
-    @Nonnull
-    default public Stream<TYPE> stream()
-      {
-        return ((List<TYPE>)results()).stream();
-      }
-
-    @Override @Nonnull
-    default public Iterator<TYPE> iterator()
-      {
-        return ((List<TYPE>)results()).iterator();
-      }
-
-    // TODO: this should come by means of ExtendedFinder
-    @Override @Nonnull
-    public Finder8<TYPE> from (@Nonnegative int firstResult);
-
-    @Override @Nonnull
-    public Finder8<TYPE> max (@Nonnegative int maxResults);
-
-    @Override @Nonnull
-    public Finder8<TYPE> withContext (@Nonnull Object context);
-
-    @Override @Nonnull
-    public Finder8<TYPE> sort (@Nonnull SortCriterion criterion);
-
-    @Override @Nonnull
-    public Finder8<TYPE> sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
+    public void call()
+      throws Throwable;
   }

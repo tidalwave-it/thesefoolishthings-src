@@ -25,74 +25,51 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.util;
 
-import javax.annotation.Nonnegative;
+package it.tidalwave.role.ui.spi;
+
 import javax.annotation.Nonnull;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
+import it.tidalwave.util.Callback;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
- * @author  Fabrizio Giudici
+ * A Java 8 extension for {@link UserActionSupport} that supports lambdas.
+ * 
+ * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
  * @version $Id$
+ * @since   3.0
  *
  **********************************************************************************************************************/
-public interface Finder8<TYPE> extends Finder<TYPE>, Iterable<TYPE>
+@RequiredArgsConstructor(staticName = "withCallback") @Slf4j
+public class UserActionSupport8 extends UserActionSupport
   {
     @Nonnull
-    default public Optional<TYPE> optionalResult()
+    private final Callback callback;
+
+    private UserActionSupport8 (final @Nonnull Callback callback, final @Nonnull Object ... rolesOrFactories)
       {
-        try
-          {
-            return Optional.of(result());
-          }
-        catch (NotFoundException e)
-          {
-            return Optional.empty();
-          }
+        super(rolesOrFactories);
+        this.callback = callback;
       }
 
     @Nonnull
-    default public Optional<TYPE> optionalFirstResult()
+    public UserActionSupport8 withRoles (final @Nonnull Object ... rolesOrFactories)
+      {
+        return new UserActionSupport8(callback, rolesOrFactories);
+      }
+
+    @Override
+    public final void actionPerformed()
       {
         try
           {
-            return Optional.of(firstResult());
+            callback.call();
           }
-        catch (NotFoundException e)
+        catch (Throwable e)
           {
-            return Optional.empty();
+            log.error("", e);
           }
       }
-
-    @Nonnull
-    default public Stream<TYPE> stream()
-      {
-        return ((List<TYPE>)results()).stream();
-      }
-
-    @Override @Nonnull
-    default public Iterator<TYPE> iterator()
-      {
-        return ((List<TYPE>)results()).iterator();
-      }
-
-    // TODO: this should come by means of ExtendedFinder
-    @Override @Nonnull
-    public Finder8<TYPE> from (@Nonnegative int firstResult);
-
-    @Override @Nonnull
-    public Finder8<TYPE> max (@Nonnegative int maxResults);
-
-    @Override @Nonnull
-    public Finder8<TYPE> withContext (@Nonnull Object context);
-
-    @Override @Nonnull
-    public Finder8<TYPE> sort (@Nonnull SortCriterion criterion);
-
-    @Override @Nonnull
-    public Finder8<TYPE> sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
   }
