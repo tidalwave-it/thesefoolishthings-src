@@ -53,7 +53,7 @@ public final class UserNotificationWithFeedbackTestHelper
         public Void answer (final @Nonnull InvocationOnMock invocation)
           throws Exception
           {
-            EventQueue.invokeAndWait(new Runnable()
+            EventQueue.invokeAndWait(new Runnable() // FIXME: use Platform.runLater() and wait
               {
                 @Override
                 public void run()
@@ -84,7 +84,7 @@ public final class UserNotificationWithFeedbackTestHelper
         public Void answer (final @Nonnull InvocationOnMock invocation)
           throws Exception
           {
-            EventQueue.invokeAndWait(new Runnable()
+            EventQueue.invokeAndWait(new Runnable() // FIXME: use Platform.runLater() and wait
               {
                 @Override
                 public void run()
