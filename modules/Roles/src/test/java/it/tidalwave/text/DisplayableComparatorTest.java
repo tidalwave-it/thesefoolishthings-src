@@ -34,6 +34,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import org.testng.annotations.BeforeMethod;
 
 /***********************************************************************************************************************
  *
@@ -47,6 +48,12 @@ public class DisplayableComparatorTest
     final Displayable b  = new DefaultDisplayable("b", "b");
     final Displayable c1 = new DefaultDisplayable("c", "c");
     final Displayable c2 = new DefaultDisplayable("c", "c");
+
+    @BeforeMethod
+    public void fail()
+      {
+        throw new RuntimeException();
+      }
 
     @Test(dataProvider = "data")
     public void test (final @Nonnull Displayable d1, final @Nonnull Displayable d2, final int expectedResult)
