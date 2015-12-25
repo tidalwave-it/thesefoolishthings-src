@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>it.tidalwave.thesefoolishthings</groupId>
+        <groupId>it.tidalwave.superpom</groupId>
         <artifactId>superpom</artifactId>
         <version>3.1</version>
         <relativePath />
@@ -29,7 +29,7 @@ A kitchen sink of small libraries that are used by all projects by Tidalwave. It
 * some test utilities.
 
 TheseFoolishThings supports JDK 7 and has got a small JDK 8 integration module.
-        
+
 Since version 3.0 lots of old stuff have been dropped:
 
 * Support for Swing.
