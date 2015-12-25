@@ -49,6 +49,7 @@ public class TestLogger extends TestListenerAdapter
     @Override
     public void onTestStart (final @Nonnull ITestResult result)
       {
+        super.onTestStart(result);
         String args = "";
 
         final Object[] parameters = result.getParameters();
@@ -76,6 +77,7 @@ public class TestLogger extends TestListenerAdapter
     @Override
     public void onTestFailure (final @Nonnull ITestResult result)
       {
+        super.onTestFailure(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
         log.info("TEST FAILED in {} msec - {}", result.getEndMillis() - result.getStartMillis(), result.getThrowable());
         log.info("");
@@ -100,6 +102,7 @@ public class TestLogger extends TestListenerAdapter
     @Override
     public void onTestSuccess (final @Nonnull ITestResult result)
       {
+        super.onTestSuccess(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
         log.info("TEST PASSED in {} msec", result.getEndMillis() - result.getStartMillis());
         log.info("");
