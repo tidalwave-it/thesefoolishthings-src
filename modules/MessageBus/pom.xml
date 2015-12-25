@@ -6,13 +6,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>3.0-ALPHA-3-SNAPSHOT</version>
+        <version>3.0-BETA-1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-messagebus</artifactId>
-    <version>3.0-ALPHA-3-SNAPSHOT</version>
+    <version>3.0-BETA-1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings - MessageBus</name>
     <description>TheseFoolishThings - MessageBus</description>

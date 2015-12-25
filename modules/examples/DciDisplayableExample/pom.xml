@@ -5,13 +5,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings-examples</artifactId>
-        <version>3.0-ALPHA-3-SNAPSHOT</version>
+        <version>3.0-BETA-1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-thesefoolishthings-examples-dci-displayable</artifactId>
-    <version>3.0-ALPHA-3-SNAPSHOT</version>
+    <version>3.0-BETA-1-SNAPSHOT</version>
     <name>TheseFoolishThings Examples - DCI Displayable</name>
 
     <properties>
