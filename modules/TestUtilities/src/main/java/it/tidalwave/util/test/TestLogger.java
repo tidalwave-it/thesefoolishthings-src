@@ -48,6 +48,32 @@ public class TestLogger extends TestListenerAdapter
     private static final String SEPARATOR = S + S + S + S;
 
     @Override
+    public void onStart (final @Nonnull ITestContext testContext)
+      {
+        super.onStart(testContext);
+        final String testClass = testContext.getCurrentXmlTest().getClasses().get(0).getName();
+        final Logger log = LoggerFactory.getLogger(testClass);
+        log.info("STARTING TESTS OF {}", testClass);
+      }
+
+    @Override
+    public void onFinish (final @Nonnull ITestContext testContext)
+      {
+        super.onFinish(testContext);
+        final String testClass = testContext.getCurrentXmlTest().getClasses().get(0).getName();
+        final Logger log = LoggerFactory.getLogger(testClass);
+        log.info("FINISHED TESTS OF {}", testClass);
+      }
+
+//    @Override
+//    public void onConfigurationSuccess (final @Nonnull ITestResult result)
+//      {
+//        super.onConfigurationSuccess(result);
+//        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+//        log.info("====== ON CONFIG SUCCESS");
+//      }
+
+    @Override
     public void onConfigurationSkip (final @Nonnull ITestResult result)
       {
         super.onConfigurationSkip(result);
@@ -108,7 +134,23 @@ public class TestLogger extends TestListenerAdapter
       {
         super.onTestFailure(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
-        log.info("TEST FAILED in {} msec - {}", result.getEndMillis() - result.getStartMillis(), result.getThrowable());
+        final Throwable throwable = result.getThrowable();
+        log.info("TEST FAILED in {} msec - {}", result.getEndMillis() - result.getStartMillis(),
+                                                getMessage(throwable));
+        if (throwable != null)
+          {
+            log.info("TEST FAILED", result.getThrowable());
+          }
+
+        log.info("");
+      }
+
+    @Override
+    public void onTestFailedButWithinSuccessPercentage (final @Nonnull ITestResult result)
+      {
+        super.onTestFailedButWithinSuccessPercentage(result);
+        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+        log.info("TEST FAILED WITHIN SUCCESS PERCENTAGE in {} msec", result.getEndMillis() - result.getStartMillis());
         log.info("");
       }
 
