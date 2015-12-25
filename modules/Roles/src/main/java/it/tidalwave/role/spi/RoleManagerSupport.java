@@ -56,7 +56,7 @@ import static it.tidalwave.role.spi.LogUtil.*;
  * <ol>
  * <li>discover roles (see {@link #scan(java.util.Collection)}</li>
  * <li>associate roles to a datum (see {@link #findDatumTypesForRole(java.lang.Class)}</li>
- * <li>associate roles to contexts (see {@link #findContextForRole(java.lang.Class)}</li>
+ * <li>associate roles to contexts (see {@link #findContextTypeForRole(java.lang.Class)}</li>
  * <li>eventually retrieve beans to inject in created roles (see {@link #getBean(java.lang.Class)}</li>
  * </ol>
  *
@@ -92,34 +92,35 @@ public abstract class RoleManagerSupport implements RoleManager
      ******************************************************************************************************************/
     @Override @Nonnull
     public <ROLE_TYPE> List<? extends ROLE_TYPE> findRoles (final @Nonnull Object datum,
-                                                            final @Nonnull Class<ROLE_TYPE> roleClass)
+                                                            final @Nonnull Class<ROLE_TYPE> roleType)
       {
-        log.trace("findRoles({}, {})", shortId(datum), shortName(roleClass));
-        final Class<?> datumClass = findClass(datum);
+        log.trace("findRoles({}, {})", shortId(datum), shortName(roleType));
+        final Class<?> datumType = findTypeOf(datum);
         final List<ROLE_TYPE> roles = new ArrayList<>();
-        final Set<Class<? extends ROLE_TYPE>> roleImplementations = findRoleImplementationsFor(datumClass, roleClass);
+        final Set<Class<? extends ROLE_TYPE>> roleImplementationTypes = findRoleImplementationsFor(datumType, roleType);
 
-outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImplementations)
+outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImplementationTypes)
           {
-            for (final Constructor<?> constructor : roleImplementationClass.getDeclaredConstructors())
+            for (final Constructor<?> constructor : roleImplementationType.getDeclaredConstructors())
               {
+                log.trace(">>>> trying constructor {}", constructor);
                 final Class<?>[] parameterTypes = constructor.getParameterTypes();
-                Class<?> contextClass = null;
+                Class<?> contextType = null;
                 Object context = null;
 
                 try
                   {
-                    contextClass = findContextForRole(roleImplementationClass);
+                    contextType = findContextTypeForRole(roleImplementationType);
                     log.trace(">>>> contexts: {}", shortIds(contextManager.getContexts()));
 
                     try
                       {
-                        context = contextManager.findContext(contextClass);
+                        context = contextManager.findContextOfType(contextType);
                       }
                     catch (NotFoundException e)
                       {
                         log.trace(">>>> role {} discarded, can't find context: {}",
-                                shortName(roleImplementationClass), shortName(contextClass));
+                                  shortName(roleImplementationType), shortName(contextType));
                         continue outer;
                       }
                   }
@@ -130,52 +131,65 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
 
                 try
                   {
-                    final Object[] parameters = getParameters(parameterTypes, datumClass, datum, contextClass, context);
-                    roles.add(roleClass.cast(constructor.newInstance(parameters)));
+                    final Object[] params = getParameterValues(parameterTypes, datumType, datum, contextType, context);
+                    roles.add(roleType.cast(constructor.newInstance(params)));
                     break;
                   }
-                catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+                catch (InstantiationException | IllegalAccessException
+                     | IllegalArgumentException | InvocationTargetException e)
                   {
-                    log.error("", e);
+                    log.error("Could not instantiate role of type " + roleImplementationType, e);
                   }
               }
           }
 
-        log.trace(">>>> findRoles() returning: {}", shortIds((Collection)roles));
+        if (log.isTraceEnabled())
+          {
+            log.trace(">>>> findRoles() returning: {}", shortIds((Collection)roles));
+          }
 
         return roles;
       }
 
     /*******************************************************************************************************************
      *
+     * Prepare the constructor parameters out of the given expected types. Parameters will be eventually made of the
+     * given datum, context, and other objects returned by {@link #getBean(java.lang.Class)}.
+     *
+     * @param   parameterTypes      the expected types
+     * @param   datumClass          the type of the datum
+     * @param   datum               the datum
+     * @param   contextClass        the type of the context
+     * @param   context             the context
      *
      ******************************************************************************************************************/
     @Nonnull
-    private Object[] getParameters (final @Nonnull Class<?>[] parameterTypes,
-                                    final @Nonnull Class<?> datumClass,
-                                    final @Nonnull Object datum,
-                                    final @Nullable Class<?> contextClass,
-                                    final @Nullable Object context)
+    private Object[] getParameterValues (final @Nonnull Class<?>[] parameterTypes,
+                                         final @Nonnull Class<?> datumClass,
+                                         final @Nonnull Object datum,
+                                         final @Nullable Class<?> contextClass,
+                                         final @Nullable Object context)
       {
-        final List<Object> parameters = new ArrayList<>();
+        final List<Object> values = new ArrayList<>();
 
         for (Class<?> parameterType : parameterTypes)
           {
             if (parameterType.isAssignableFrom(datumClass))
               {
-                parameters.add(datum);
+                values.add(datum);
               }
             else if ((contextClass != null) && parameterType.isAssignableFrom(contextClass))
               {
-                parameters.add(context);
+                values.add(context);
               }
             else // generic injection
               {
-                parameters.add(getBean(parameterType));
+                values.add(getBean(parameterType));
               }
           }
 
-        return parameters.toArray();
+        log.trace(">>>> constructor parameters: {}", values);
+        return values.toArray();
       }
 
     /*******************************************************************************************************************
@@ -186,13 +200,17 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
      * to subclasses (or implementations) of Base. Now we can navigate up the hierarchy and complete the picture.
      * Each new discovered role is added into the map, so the next time scanning will be faster.
      *
+     * @param   datumType       the type of the datum
+     * @param   roleType        the type of the role to find
+     * @param                   the types of role implementations
+     *
      ******************************************************************************************************************/
     @Nonnull
     /* VisibleForTesting */ synchronized <RT> Set<Class<? extends RT>> findRoleImplementationsFor (
-            final @Nonnull Class<?> datumClass,
-            final @Nonnull Class<RT> roleClass)
+            final @Nonnull Class<?> datumType,
+            final @Nonnull Class<RT> roleType)
       {
-        final DatumAndRole datumAndRole = new DatumAndRole(datumClass, roleClass);
+        final DatumAndRole datumAndRole = new DatumAndRole(datumType, roleType);
 
         if (!alreadyScanned.contains(datumAndRole))
           {
@@ -215,20 +233,22 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
      *
      * Scans all the given role implementation classes and build a map of roles by owner class.
      *
+     * @param   roleImplementationTypes     the types of role implementations to scan
+     *
      ******************************************************************************************************************/
-    protected void scan (final @Nonnull Collection<Class<?>> roleImplementationClasses)
+    protected void scan (final @Nonnull Collection<Class<?>> roleImplementationTypes)
       {
-        log.debug("scan({})", shortNames(roleImplementationClasses));
+        log.debug("scan({})", shortNames(roleImplementationTypes));
 
-        for (final Class<?> roleImplementationClass : roleImplementationClasses)
+        for (final Class<?> roleImplementationType : roleImplementationTypes)
           {
-            for (final Class<?> datumClass : findDatumTypesForRole(roleImplementationClass))
+            for (final Class<?> datumType : findDatumTypesForRole(roleImplementationType))
               {
-                for (final Class<?> roleClass : findAllImplementedInterfacesOf(roleImplementationClass))
+                for (final Class<?> roleType : findAllImplementedInterfacesOf(roleImplementationType))
                   {
-                    if (!roleClass.getName().equals("org.springframework.beans.factory.aspectj.ConfigurableObject"))
+                    if (!roleType.getName().equals("org.springframework.beans.factory.aspectj.ConfigurableObject"))
                       {
-                        roleMapByDatumAndRole.add(new DatumAndRole(datumClass, roleClass), roleImplementationClass);
+                        roleMapByDatumAndRole.add(new DatumAndRole(datumType, roleType), roleImplementationType);
                       }
                   }
               }
@@ -267,25 +287,39 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
 
     /*******************************************************************************************************************
      *
+     * Retrieves an extra bean.
+     *
+     * @param <T>           the static type of the bean
+     * @param beanType      the dynamic type of the bean
+     * @return              the bean
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nullable
     protected abstract <T> T getBean (@Nonnull Class<T> beanType);
 
     /*******************************************************************************************************************
      *
+     * Returns the type of the context associated to the given role implementation type.
+     *
+     * @param   roleImplementationType      the role type
+     * @return                              the context type
+     * @throws NotFoundException            if no context is found
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected abstract Class<?> findContextForRole (@Nonnull Class<?> roleImplementationClass)
+    protected abstract Class<?> findContextTypeForRole (@Nonnull Class<?> roleImplementationType)
       throws NotFoundException;
 
     /*******************************************************************************************************************
      *
+     * Returns the valid datum types for the given role implementation type.
+     *
+     * @param   roleImplementationType      the role type
+     * @return                              the datum types
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected abstract Class<?>[] findDatumTypesForRole (@Nonnull Class<?> roleImplementationClass);
+    protected abstract Class<?>[] findDatumTypesForRole (@Nonnull Class<?> roleImplementationType);
 
     /*******************************************************************************************************************
      *
@@ -347,17 +381,17 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
 
     /*******************************************************************************************************************
      *
-     * Returns the class of an object, taking care of mocks created by Mockito, for which the original class is
+     * Returns the type of an object, taking care of mocks created by Mockito, for which the implemented interface is
      * returned.
      *
-     * @param  owner    the owner
-     * @return          the owner class
+     * @param  object   the object
+     * @return          the object type
      *
      ******************************************************************************************************************/
     @Nonnull
-    private static Class<?> findClass (final @Nonnull Object owner)
+    /* VisibleForTesting */ static <T> Class<T> findTypeOf (final @Nonnull T object)
       {
-        Class<?> ownerClass = owner.getClass();
+        Class<?> ownerClass = object.getClass();
 
         if (ownerClass.toString().contains("EnhancerByMockito"))
           {
@@ -371,6 +405,6 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
               }
           }
 
-        return ownerClass;
+        return (Class<T>)ownerClass;
       }
   }

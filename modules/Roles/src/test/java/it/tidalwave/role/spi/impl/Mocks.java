@@ -27,13 +27,18 @@
  */
 package it.tidalwave.role.spi.impl;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class Hierarchy1 
+public class Mocks
   {
     public static interface IA1 { }
     public static interface IA2 { }
@@ -54,16 +59,67 @@ public class Hierarchy1
     public static interface R1 { }
     public static interface R2 { }
     public static interface R3 { }
-    
+
+    @EqualsAndHashCode
+    public static class Context1 { }
+
+    @EqualsAndHashCode
+    public static class Context2 { }
+
+    @EqualsAndHashCode
     public static class RI1A implements R1 {}
-    public static class RI1B implements R1 {}
+
+    @EqualsAndHashCode @ToString
+    public static class RI1B implements R1
+      {
+        private Bean1 bean1;
+
+        private Bean2 bean2;
+
+        public RI1B (final Bean1 bean1)
+          {
+            this.bean1 = bean1;
+          }
+
+        public RI1B (final Bean2 bean2)
+          {
+            this.bean2 = bean2;
+          }
+      }
+
+    @EqualsAndHashCode
     public static class RI1C implements R1 {}
-    
+
+    @EqualsAndHashCode
     public static class RI2A implements R2 {}
-    public static class RI2B implements R2 {}
-    public static class RI2C implements R2 {}
-    
-    public static class RI3A implements R3 {}
+
+    @AllArgsConstructor @EqualsAndHashCode @ToString
+    public static class RI2B implements R2
+      {
+        private Bean1 bean1;
+
+        private Bean2 bean2;
+      }
+
+    @RequiredArgsConstructor @EqualsAndHashCode @ToString
+    public static class RI2C implements R2
+      {
+        private final Context2 context;
+        private final Bean1 bean1;
+      }
+
+    @RequiredArgsConstructor @EqualsAndHashCode @ToString
+    public static class RI3A implements R3
+      {
+        private final Object owner;
+      }
+
+    @EqualsAndHashCode
     public static class RI3B implements R3 {}
+
+    @EqualsAndHashCode
     public static class RI3C implements R3 {}
+
+    public static class Bean1 {}
+    public static class Bean2 {}
   }

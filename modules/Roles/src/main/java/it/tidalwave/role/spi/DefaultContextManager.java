@@ -81,18 +81,18 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> T findContext (final @Nonnull Class<T> contextClass)
+    public <T> T findContextOfType (final @Nonnull Class<T> contextType)
       throws NotFoundException
       {
         for (final Object context : getContexts())
           {
-            if (contextClass.isAssignableFrom(context.getClass()))
+            if (contextType.isAssignableFrom(context.getClass()))
               {
-                return contextClass.cast(context);
+                return contextType.cast(context);
               }
           }
 
-        throw new NotFoundException();
+        throw new NotFoundException("No current context of type " + contextType);
       }
 
     /*******************************************************************************************************************

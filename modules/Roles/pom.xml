@@ -37,6 +37,7 @@
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
+
         <!-- FIXME: fixes the trouble with missing Hamcrest methods -->
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
