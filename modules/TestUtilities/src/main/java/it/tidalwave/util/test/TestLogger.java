@@ -32,6 +32,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
@@ -45,6 +46,34 @@ public class TestLogger extends TestListenerAdapter
   {
     private static final String S = "***********************************************";
     private static final String SEPARATOR = S + S + S + S;
+
+    @Override
+    public void onConfigurationSkip (final @Nonnull ITestResult result)
+      {
+        super.onConfigurationSkip(result);
+        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+        final Throwable throwable = result.getThrowable();
+        log.info("CONFIGURATION SKIPPED {}", getMessage(throwable));
+
+        if (throwable != null)
+          {
+            log.info("CONFIGURATION SKIPPED", result.getThrowable());
+          }
+      }
+
+    @Override
+    public void onConfigurationFailure (final @Nonnull ITestResult result)
+      {
+        super.onConfigurationFailure(result);
+        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+        final Throwable throwable = result.getThrowable();
+        log.info("CONFIGURATION FAILED {}", getMessage(throwable));
+
+        if (throwable != null)
+          {
+            log.info("CONFIGURATION FAILED", result.getThrowable());
+          }
+      }
 
     @Override
     public void onTestStart (final @Nonnull ITestResult result)
