@@ -103,6 +103,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
           {
             for (final Constructor<?> constructor : roleImplementationClass.getDeclaredConstructors())
               {
+                log.trace(">>>> trying constructor {}", constructor);
                 final Class<?>[] parameterTypes = constructor.getParameterTypes();
                 Class<?> contextClass = null;
                 Object context = null;
@@ -175,6 +176,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationClass : roleImpl
               }
           }
 
+        log.trace(">>>> constructor parameters: {}", parameters);
         return parameters.toArray();
       }
 
