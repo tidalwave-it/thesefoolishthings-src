@@ -95,7 +95,7 @@ public abstract class RoleManagerSupport implements RoleManager
                                                             final @Nonnull Class<ROLE_TYPE> roleType)
       {
         log.trace("findRoles({}, {})", shortId(datum), shortName(roleType));
-        final Class<?> datumType = findClass(datum);
+        final Class<?> datumType = findTypeOf(datum);
         final List<ROLE_TYPE> roles = new ArrayList<>();
         final Set<Class<? extends ROLE_TYPE>> roleImplementationTypes = findRoleImplementationsFor(datumType, roleType);
 
@@ -385,11 +385,11 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      * returned.
      *
      * @param  owner    the owner
-     * @return          the owner class
+     * @return          the owner type
      *
      ******************************************************************************************************************/
     @Nonnull
-    private static Class<?> findClass (final @Nonnull Object owner)
+    /* VisibleForTesting */ static <T> Class<T> findTypeOf (final @Nonnull T owner)
       {
         Class<?> ownerClass = owner.getClass();
 
@@ -405,6 +405,6 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
               }
           }
 
-        return ownerClass;
+        return (Class<T>)ownerClass;
       }
   }
