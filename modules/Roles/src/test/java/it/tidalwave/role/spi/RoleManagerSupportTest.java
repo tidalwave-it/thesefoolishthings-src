@@ -49,29 +49,29 @@ class YCA1 extends XCA1 {}
 class UnderTest extends RoleManagerSupport
   {
     private final Map<Class<?>, Class<?>[]> map = new HashMap<>();
-    
+
     public void register (final @Nonnull Class<?> roleClass, final @Nonnull Class<?> ... ownerClasses)
       {
-        map.put(roleClass, ownerClasses);  
-      }
-    
-    @Override
-    protected <T> T getBean (Class<T> beanType) 
-      {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        map.put(roleClass, ownerClasses);
       }
 
     @Override
-    protected Class<?> findContextForRole (Class<?> roleImplementationClass) 
-      throws NotFoundException 
+    protected <T> T getBean (Class<T> beanType)
       {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
+      }
+
+    @Override
+    protected Class<?> findContextForRole (Class<?> roleImplementationClass)
+      throws NotFoundException
+      {
+        throw new UnsupportedOperationException("Not supported yet.");
       }
 
     @Override
     protected Class<?>[] findDatumTypesForRole (final Class<?> roleImplementationClass)
       {
-        final Class<?>[] result = map.get(roleImplementationClass);       
+        final Class<?>[] result = map.get(roleImplementationClass);
         return (result == null) ? new Class<?>[0] : result;
       }
   }
@@ -84,30 +84,38 @@ class UnderTest extends RoleManagerSupport
  **********************************************************************************************************************/
 public class RoleManagerSupportTest
   {
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
     @Test(dataProvider = "provider")
-    public void testFindAllImplementedInterfacesOf (final @Nonnull Class<?> clazz, final @Nonnull List<Class<?>> expected)
+    public void testFindAllImplementedInterfacesOf (final @Nonnull Class<?> clazz,
+                                                    final @Nonnull List<Class<?>> expected)
       {
         RoleManagerSupport.findAllImplementedInterfacesOf(clazz);
       }
-    
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
     @Test
-    public void testRegisteredRoles()
+    public void must_properly_scan_classes()
       {
+        // given
         final UnderTest underTest = new UnderTest();
-        
+
         underTest.register(RI1A.class, CA1.class, CA2.class);
         underTest.register(RI3A.class, CA3.class);
         underTest.register(RI2B.class, CB1.class, CB3.class);
         underTest.register(RI2A.class, CA1.class, CB3.class);
         underTest.register(RI3C.class, IA1.class);
         underTest.register(RI2C.class, IA2.class);
-        
-        underTest.scan(asList(RI1A.class, RI1B.class, RI1C.class, 
-                              RI2A.class, RI2B.class, RI2C.class, 
+        // when
+        underTest.scan(asList(RI1A.class, RI1B.class, RI1C.class,
+                              RI2A.class, RI2B.class, RI2C.class,
                               RI3A.class, RI3B.class, RI3C.class));
-        
+        // then
         final MultiMap<DatumAndRole, Class<?>> m = underTest.roleMapByDatumAndRole;
-        
+
         assertThat(m.size(), is(8));
         assertThat(m.getValues(new DatumAndRole(IA1.class, R3.class)), is(asSet(RI3C.class)));
         assertThat(m.getValues(new DatumAndRole(IA2.class, R2.class)), is(asSet(RI2C.class)));
@@ -117,12 +125,12 @@ public class RoleManagerSupportTest
         assertThat(m.getValues(new DatumAndRole(CA3.class, R3.class)), is(asSet(RI3A.class)));
         assertThat(m.getValues(new DatumAndRole(CB1.class, R2.class)), is(asSet(RI2B.class)));
         assertThat(m.getValues(new DatumAndRole(CB3.class, R2.class)), is(asSet(RI2A.class, RI2B.class)));
-        
+
         // The following were not mapped now, but will be discovered later:
-        // CA2 -> R12C 
-        // CB1 -> R12C 
-        // CB2 -> RI1A, R12C, R13C 
-        // CB3 -> R11A 
+        // CA2 -> R12C
+        // CB1 -> R12C
+        // CB2 -> RI1A, R12C, R13C
+        // CB3 -> R11A
 
         assertEquals(underTest.findRoleImplementationsFor(CA1.class, R1.class), asSet(RI1A.class));
         assertEquals(underTest.findRoleImplementationsFor(CA1.class, R2.class), asSet(RI2A.class));
@@ -143,7 +151,6 @@ public class RoleManagerSupportTest
         assertEquals(underTest.findRoleImplementationsFor(CB3.class, R2.class), asSet(RI2A.class, RI2B.class));
         assertEquals(underTest.findRoleImplementationsFor(CB3.class, R3.class), asSet());
 
-          System.err.println(m);
         assertThat(m.size(), is(13));
         assertThat(m.getValues(new DatumAndRole(IA1.class, R3.class)), is(asSet(RI3C.class)));
         assertThat(m.getValues(new DatumAndRole(IA2.class, R2.class)), is(asSet(RI2C.class)));
@@ -158,13 +165,13 @@ public class RoleManagerSupportTest
         assertThat(m.getValues(new DatumAndRole(CB2.class, R3.class)), is(asSet(RI3C.class)));
         assertThat(m.getValues(new DatumAndRole(CB3.class, R1.class)), is(asSet(RI1A.class)));
         assertThat(m.getValues(new DatumAndRole(CB3.class, R2.class)), is(asSet(RI2A.class, RI2B.class)));
-        
+
         // These were not explicitly registered - late discovery
         assertEquals(underTest.findRoleImplementationsFor(XCA1.class, R1.class), asSet(RI1A.class));
         assertEquals(underTest.findRoleImplementationsFor(XCA1.class, R2.class), asSet(RI2A.class));
         assertEquals(underTest.findRoleImplementationsFor(XCA1.class, R3.class), asSet());
-        
-        assertThat(m.size(), is(15));       
+
+        assertThat(m.size(), is(15));
         assertThat(m.getValues(new DatumAndRole(IA1.class, R3.class)), is(asSet(RI3C.class)));
         assertThat(m.getValues(new DatumAndRole(IA2.class, R2.class)), is(asSet(RI2C.class)));
         assertThat(m.getValues(new DatumAndRole(CA1.class, R1.class)), is(asSet(RI1A.class)));
@@ -178,15 +185,15 @@ public class RoleManagerSupportTest
         assertThat(m.getValues(new DatumAndRole(CB2.class, R3.class)), is(asSet(RI3C.class)));
         assertThat(m.getValues(new DatumAndRole(CB3.class, R1.class)), is(asSet(RI1A.class)));
         assertThat(m.getValues(new DatumAndRole(CB3.class, R2.class)), is(asSet(RI2A.class, RI2B.class)));
-        
+
         assertThat(m.getValues(new DatumAndRole(XCA1.class, R1.class)), is(asSet(RI1A.class)));
         assertThat(m.getValues(new DatumAndRole(XCA1.class, R2.class)), is(asSet(RI2A.class)));
-        
+
         // These were not explicitly registered - late discovery
         assertEquals(underTest.findRoleImplementationsFor(YCA1.class, R1.class), asSet(RI1A.class));
         assertEquals(underTest.findRoleImplementationsFor(YCA1.class, R2.class), asSet(RI2A.class));
         assertEquals(underTest.findRoleImplementationsFor(YCA1.class, R3.class), asSet());
-        
+
         assertThat(m.size(), is(17));
         assertThat(m.getValues(new DatumAndRole(IA1.class,  R3.class)), is(asSet(RI3C.class)));
         assertThat(m.getValues(new DatumAndRole(IA2.class,  R2.class)), is(asSet(RI2C.class)));
@@ -207,21 +214,30 @@ public class RoleManagerSupportTest
         assertThat(m.getValues(new DatumAndRole(YCA1.class, R1.class)), is(asSet(RI1A.class)));
         assertThat(m.getValues(new DatumAndRole(YCA1.class, R2.class)), is(asSet(RI2A.class)));
       }
-    
+
     // TODO: test role creations (findRoles())
-    
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
     private static void assertEquals (Set l1, Set l2)
       {
         assertThat(l1, is(l2));
       }
-    
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
     @Nonnull
     private static Set<Class<?>> asSet (final Class<?> ... objects)
       {
         return new HashSet<>(asList(objects));
       }
-    
-    @DataProvider(name = "provider")
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @DataProvider
     private static Object[][] provider()
       {
         return new Object[][]
