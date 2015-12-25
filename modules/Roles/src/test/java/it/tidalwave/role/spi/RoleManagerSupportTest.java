@@ -44,6 +44,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
+import static org.testng.AssertJUnit.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -198,24 +199,24 @@ public class RoleManagerSupportTest
         // CB2 -> RI1A, R12C, R13C
         // CB3 -> R11A
 
-        assertEquals(underTest.findRoleImplementationsFor(CA1.class, R1.class), asSet(RI1A.class));
-        assertEquals(underTest.findRoleImplementationsFor(CA1.class, R2.class), asSet(RI2A.class));
-        assertEquals(underTest.findRoleImplementationsFor(CA1.class, R3.class), asSet());
-        assertEquals(underTest.findRoleImplementationsFor(CA2.class, R1.class), asSet(RI1A.class));
-        assertEquals(underTest.findRoleImplementationsFor(CA2.class, R2.class), asSet(RI2C.class));
-        assertEquals(underTest.findRoleImplementationsFor(CA2.class, R3.class), asSet());
-        assertEquals(underTest.findRoleImplementationsFor(CA3.class, R1.class), asSet());
-        assertEquals(underTest.findRoleImplementationsFor(CA3.class, R2.class), asSet());
-        assertEquals(underTest.findRoleImplementationsFor(CA3.class, R3.class), asSet(RI3A.class));
-        assertEquals(underTest.findRoleImplementationsFor(CB1.class, R1.class), asSet());
-        assertEquals(underTest.findRoleImplementationsFor(CB1.class, R2.class), asSet(RI2B.class, RI2C.class));
-        assertEquals(underTest.findRoleImplementationsFor(CB1.class, R3.class), asSet());
-        assertEquals(underTest.findRoleImplementationsFor(CB2.class, R1.class), asSet(RI1A.class));
-        assertEquals(underTest.findRoleImplementationsFor(CB2.class, R2.class), asSet(RI2C.class));
-        assertEquals(underTest.findRoleImplementationsFor(CB2.class, R3.class), asSet(RI3C.class));
-        assertEquals(underTest.findRoleImplementationsFor(CB3.class, R1.class), asSet(RI1A.class));
-        assertEquals(underTest.findRoleImplementationsFor(CB3.class, R2.class), asSet(RI2A.class, RI2B.class));
-        assertEquals(underTest.findRoleImplementationsFor(CB3.class, R3.class), asSet());
+        assertSetEquals(underTest.findRoleImplementationsFor(CA1.class, R1.class), asSet(RI1A.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(CA1.class, R2.class), asSet(RI2A.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(CA1.class, R3.class), asSet());
+        assertSetEquals(underTest.findRoleImplementationsFor(CA2.class, R1.class), asSet(RI1A.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(CA2.class, R2.class), asSet(RI2C.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(CA2.class, R3.class), asSet());
+        assertSetEquals(underTest.findRoleImplementationsFor(CA3.class, R1.class), asSet());
+        assertSetEquals(underTest.findRoleImplementationsFor(CA3.class, R2.class), asSet());
+        assertSetEquals(underTest.findRoleImplementationsFor(CA3.class, R3.class), asSet(RI3A.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(CB1.class, R1.class), asSet());
+        assertSetEquals(underTest.findRoleImplementationsFor(CB1.class, R2.class), asSet(RI2B.class, RI2C.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(CB1.class, R3.class), asSet());
+        assertSetEquals(underTest.findRoleImplementationsFor(CB2.class, R1.class), asSet(RI1A.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(CB2.class, R2.class), asSet(RI2C.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(CB2.class, R3.class), asSet(RI3C.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(CB3.class, R1.class), asSet(RI1A.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(CB3.class, R2.class), asSet(RI2A.class, RI2B.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(CB3.class, R3.class), asSet());
 
         assertThat(m.size(), is(13));
         assertThat(m.getValues(new DatumAndRole(IA1.class, R3.class)), is(asSet(RI3C.class)));
@@ -233,9 +234,9 @@ public class RoleManagerSupportTest
         assertThat(m.getValues(new DatumAndRole(CB3.class, R2.class)), is(asSet(RI2A.class, RI2B.class)));
 
         // These were not explicitly registered - late discovery
-        assertEquals(underTest.findRoleImplementationsFor(XCA1.class, R1.class), asSet(RI1A.class));
-        assertEquals(underTest.findRoleImplementationsFor(XCA1.class, R2.class), asSet(RI2A.class));
-        assertEquals(underTest.findRoleImplementationsFor(XCA1.class, R3.class), asSet());
+        assertSetEquals(underTest.findRoleImplementationsFor(XCA1.class, R1.class), asSet(RI1A.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(XCA1.class, R2.class), asSet(RI2A.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(XCA1.class, R3.class), asSet());
 
         assertThat(m.size(), is(15));
         assertThat(m.getValues(new DatumAndRole(IA1.class, R3.class)), is(asSet(RI3C.class)));
@@ -256,9 +257,9 @@ public class RoleManagerSupportTest
         assertThat(m.getValues(new DatumAndRole(XCA1.class, R2.class)), is(asSet(RI2A.class)));
 
         // These were not explicitly registered - late discovery
-        assertEquals(underTest.findRoleImplementationsFor(YCA1.class, R1.class), asSet(RI1A.class));
-        assertEquals(underTest.findRoleImplementationsFor(YCA1.class, R2.class), asSet(RI2A.class));
-        assertEquals(underTest.findRoleImplementationsFor(YCA1.class, R3.class), asSet());
+        assertSetEquals(underTest.findRoleImplementationsFor(YCA1.class, R1.class), asSet(RI1A.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(YCA1.class, R2.class), asSet(RI2A.class));
+        assertSetEquals(underTest.findRoleImplementationsFor(YCA1.class, R3.class), asSet());
 
         assertThat(m.size(), is(17));
         assertThat(m.getValues(new DatumAndRole(IA1.class,  R3.class)), is(asSet(RI3C.class)));
@@ -305,7 +306,7 @@ public class RoleManagerSupportTest
         final List<?> actualRoles = underTest.findRoles(owner, roleClass);
         // then
         final String s = String.format("owner: %s role: %s", shortId(owner), shortName(roleClass));
-        assertEquals(s, actualRoles, expectedRoles);
+        assertListEquals(s, actualRoles, expectedRoles);
       }
 
     /*******************************************************************************************************************
@@ -351,6 +352,23 @@ public class RoleManagerSupportTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
+    @Test
+    public void findTypeOf_must_return_orinal_class_for_Mockito_mocks()
+      {
+        // given
+        final R1 nonMock = new RI1A();
+        final R2 mock = mock(R2.class);
+        // when
+        final Class<R1> nonMockType = RoleManagerSupport.findTypeOf(nonMock);
+        final Class<R2> mockType = RoleManagerSupport.findTypeOf(mock);
+        // then
+        assertEquals(RI1A.class, nonMockType);
+        assertEquals(R2.class, mockType);
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
     private void registerMockRoles (final @Nonnull UnderTest underTest)
       {
         underTest.register(RI1A.class, CA1.class, CA2.class);
@@ -369,9 +387,9 @@ public class RoleManagerSupportTest
      * To get rid of generics problems.
      *
      ******************************************************************************************************************/
-    private static <T> void assertEquals (Set l1, Set l2)
+    private static <T> void assertSetEquals (Set actual, Set expected)
       {
-        assertThat(l1, is(l2));
+        assertThat(actual, is(expected));
       }
 
     /*******************************************************************************************************************
@@ -379,11 +397,13 @@ public class RoleManagerSupportTest
      * To get rid of generics problems.
      *
      ******************************************************************************************************************/
-    private static <T> void assertEquals (final @Nonnull String message, final @Nonnull List l1, final @Nonnull List l2)
+    private static <T> void assertListEquals (final @Nonnull String message,
+                                              final @Nonnull List actual,
+                                              final @Nonnull List expected)
       {
-        sort(l1);
-        sort(l2);
-        assertThat(message, l1, is(l2));
+        sort(actual);
+        sort(expected);
+        assertThat(message, actual, is(expected));
       }
 
     /*******************************************************************************************************************
