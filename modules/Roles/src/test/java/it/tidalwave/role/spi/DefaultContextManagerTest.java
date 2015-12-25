@@ -28,12 +28,14 @@
 package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import it.tidalwave.util.Task;
+import java.util.ArrayList;
+import static java.util.Arrays.asList;
+import java.util.List;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;
@@ -47,7 +49,7 @@ import static org.hamcrest.MatcherAssert.*;
  **********************************************************************************************************************/
 public class DefaultContextManagerTest
   {
-    private DefaultContextManager fixture;
+    private DefaultContextManager underTest;
 
     private Object globalContext1;
 
@@ -67,7 +69,7 @@ public class DefaultContextManagerTest
     @BeforeMethod
     public void setupFixture()
       {
-        fixture = new DefaultContextManager();
+        underTest = new DefaultContextManager();
 
         globalContext1 = "globalContext1";
         globalContext2 = "globalContext2";
@@ -83,7 +85,11 @@ public class DefaultContextManagerTest
     @Test
     public void must_start_with_no_contexts()
       {
-        assertThat(fixture.getContexts(), is(Collections.<Object>emptyList()));
+        // given fresh DefaultContextManager
+        // when
+        final List<Object> contexts = underTest.getContexts();
+        // then
+        assertThat(contexts, is(Collections.<Object>emptyList()));
       }
 
     /*******************************************************************************************************************
@@ -92,9 +98,12 @@ public class DefaultContextManagerTest
     @Test
     public void must_properly_add_and_retrieve_global_contexts()
       {
-        fixture.addGlobalContext(globalContext1);
-
-        assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1)));
+        // given
+        underTest.addGlobalContext(globalContext1);
+        // when
+        final List<Object> contexts = underTest.getContexts();
+        // then
+        assertThat(contexts, is(asList(globalContext1)));
       }
 
     /*******************************************************************************************************************
@@ -103,11 +112,14 @@ public class DefaultContextManagerTest
     @Test
     public void must_properly_add_and_retrieve_global_contexts_in_order()
       {
-        fixture.addGlobalContext(globalContext1);
-        fixture.addGlobalContext(globalContext2);
-        fixture.addGlobalContext(globalContext3);
-
-        assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext2, globalContext3)));
+        // given
+        underTest.addGlobalContext(globalContext1);
+        underTest.addGlobalContext(globalContext2);
+        underTest.addGlobalContext(globalContext3);
+        // when
+        final List<Object> contexts = underTest.getContexts();
+        // then
+        assertThat(contexts, is(asList(globalContext1, globalContext2, globalContext3)));
       }
 
     /*******************************************************************************************************************
@@ -116,12 +128,15 @@ public class DefaultContextManagerTest
     @Test
     public void must_properly_remove_and_retrieve_global_contexts()
       {
-        fixture.addGlobalContext(globalContext1);
-        fixture.addGlobalContext(globalContext2);
-        fixture.addGlobalContext(globalContext3);
-        fixture.removeGlobalContext(globalContext2);
-
-        assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext3)));
+        // given
+        underTest.addGlobalContext(globalContext1);
+        underTest.addGlobalContext(globalContext2);
+        underTest.addGlobalContext(globalContext3);
+        underTest.removeGlobalContext(globalContext2);
+        // when
+        final List<Object> contexts = underTest.getContexts();
+        // then
+        assertThat(contexts, is(asList(globalContext1, globalContext3)));
       }
 
     /*******************************************************************************************************************
@@ -130,9 +145,12 @@ public class DefaultContextManagerTest
     @Test
     public void must_properly_add_and_retrieve_local_contexts()
       {
-        fixture.addLocalContext(localContext1);
-
-        assertThat(fixture.getContexts(), is(Arrays.asList(localContext1)));
+        // given
+        underTest.addLocalContext(localContext1);
+        // when
+        final List<Object> contexts = underTest.getContexts();
+        // then
+        assertThat(contexts, is(asList(localContext1)));
       }
 
     /*******************************************************************************************************************
@@ -141,11 +159,14 @@ public class DefaultContextManagerTest
     @Test
     public void must_properly_add_and_retrieve_local_contexts_in_order()
       {
-        fixture.addLocalContext(localContext1);
-        fixture.addLocalContext(localContext2);
-        fixture.addLocalContext(localContext3);
-
-        assertThat(fixture.getContexts(), is(Arrays.asList(localContext3, localContext2, localContext1)));
+        // given
+        underTest.addLocalContext(localContext1);
+        underTest.addLocalContext(localContext2);
+        underTest.addLocalContext(localContext3);
+        // when
+        final List<Object> contexts = underTest.getContexts();
+        // then
+        assertThat(contexts, is(asList(localContext3, localContext2, localContext1)));
       }
 
     /*******************************************************************************************************************
@@ -154,12 +175,15 @@ public class DefaultContextManagerTest
     @Test
     public void must_properly_remove_and_retrieve_local_contexts()
       {
-        fixture.addLocalContext(localContext1);
-        fixture.addLocalContext(localContext2);
-        fixture.addLocalContext(localContext3);
-        fixture.removeLocalContext(localContext2);
-
-        assertThat(fixture.getContexts(), is(Arrays.asList(localContext3, localContext1)));
+        // given
+        underTest.addLocalContext(localContext1);
+        underTest.addLocalContext(localContext2);
+        underTest.addLocalContext(localContext3);
+        underTest.removeLocalContext(localContext2);
+        // when
+        final List<Object> contexts = underTest.getContexts();
+        // then
+        assertThat(contexts, is(asList(localContext3, localContext1)));
       }
 
     /*******************************************************************************************************************
@@ -168,15 +192,18 @@ public class DefaultContextManagerTest
     @Test
     public void must_prioritize_global_contexts()
       {
-        fixture.addLocalContext(localContext1);
-        fixture.addLocalContext(localContext2);
-        fixture.addGlobalContext(globalContext1);
-        fixture.addLocalContext(localContext3);
-        fixture.addGlobalContext(globalContext2);
-        fixture.addGlobalContext(globalContext3);
-
-        assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext2, globalContext3,
-                                                           localContext3, localContext2, localContext1)));
+        // given
+        underTest.addLocalContext(localContext1);
+        underTest.addLocalContext(localContext2);
+        underTest.addGlobalContext(globalContext1);
+        underTest.addLocalContext(localContext3);
+        underTest.addGlobalContext(globalContext2);
+        underTest.addGlobalContext(globalContext3);
+        // when
+        final List<Object> contexts = underTest.getContexts();
+        // then
+        assertThat(contexts, is(asList(globalContext1, globalContext2, globalContext3,
+                                       localContext3, localContext2, localContext1)));
       }
 
     /*******************************************************************************************************************
@@ -186,45 +213,49 @@ public class DefaultContextManagerTest
     public void must_confine_local_contexts_in_their_thread()
       throws InterruptedException
       {
+        // given
         final ExecutorService executorService = Executors.newSingleThreadExecutor();
         final CountDownLatch latch = new CountDownLatch(3);
 
-        executorService.submit(new Runnable()
+        final Runnable r1 = new Runnable()
           {
             @Override
             public void run()
               {
-                fixture.addGlobalContext(globalContext1);
-                fixture.addLocalContext(localContext1);
+                underTest.addGlobalContext(globalContext1);
+                underTest.addLocalContext(localContext1);
                 latch.countDown();
               }
-          });
+          };
 
-        executorService.submit(new Runnable()
+        final Runnable r2 = new Runnable()
           {
             @Override
             public void run()
               {
-                fixture.addGlobalContext(globalContext2);
-                fixture.addLocalContext(localContext2);
+                underTest.addGlobalContext(globalContext2);
+                underTest.addLocalContext(localContext2);
                 latch.countDown();
               }
-          });
+          };
 
-        executorService.submit(new Runnable()
+        final Runnable r3 = new Runnable()
           {
             @Override
             public void run()
               {
-                fixture.addGlobalContext(globalContext3);
-                fixture.addLocalContext(localContext3);
+                underTest.addGlobalContext(globalContext3);
+                underTest.addLocalContext(localContext3);
                 latch.countDown();
               }
-          });
-
+          };
+        // when
+        executorService.submit(r1);
+        executorService.submit(r2);
+        executorService.submit(r3);
         latch.await();
-
-        assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext2, globalContext3)));
+        // then
+        assertThat(underTest.getContexts(), is(asList(globalContext1, globalContext2, globalContext3)));
       }
 
     /*******************************************************************************************************************
@@ -239,25 +270,29 @@ public class DefaultContextManagerTest
     public void runWithContexts_must_temporarily_associate_local_contexts()
       throws InterruptedException
       {
-        fixture.addGlobalContext(globalContext1);
-        fixture.addGlobalContext(globalContext2);
-        fixture.addGlobalContext(globalContext3);
-
-        assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext2, globalContext3)));
-
-        final String result = fixture.runWithContexts(Arrays.asList(localContext1, localContext2, localContext3),
-                new Task<String, RuntimeException>()
+        // given
+        underTest.addGlobalContext(globalContext1);
+        underTest.addGlobalContext(globalContext2);
+        underTest.addGlobalContext(globalContext3);
+        final List<Object> contextsBefore = underTest.getContexts();
+        // when
+        final List<Object> contextsInThread = new ArrayList<>();
+        final String result = underTest.runWithContexts(asList(localContext1, localContext2, localContext3),
+            new Task<String, RuntimeException>()
           {
             @Override @Nonnull
             public String run()
               {
-                assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext2, globalContext3,
-                                                                   localContext3, localContext2, localContext1)));
+                contextsInThread.addAll(underTest.getContexts());
                 return "result";
               }
           });
-
-        assertThat(fixture.getContexts(), is(Arrays.asList(globalContext1, globalContext2, globalContext3)));
+        final List<Object> contextsAfter = underTest.getContexts();
+        // then
+        assertThat(contextsBefore, is(asList(globalContext1, globalContext2, globalContext3)));
+        assertThat(contextsInThread, is(asList(globalContext1, globalContext2, globalContext3,
+                                               localContext3, localContext2, localContext1)));
+        assertThat(contextsAfter, is(asList(globalContext1, globalContext2, globalContext3)));
         assertThat(result, is("result"));
       }
   }
