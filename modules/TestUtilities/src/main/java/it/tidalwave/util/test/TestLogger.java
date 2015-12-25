@@ -1,27 +1,27 @@
 /*
  * #%L
  * *********************************************************************************************************************
- * 
+ *
  * These Foolish Things - Miscellaneous utilities
  * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
  * %%
  * Copyright (C) 2009 - 2015 Tidalwave s.a.s. (http://tidalwave.it)
  * %%
  * *********************************************************************************************************************
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * *********************************************************************************************************************
- * 
+ *
  * $Id$
- * 
+ *
  * *********************************************************************************************************************
  * #L%
  */
@@ -29,8 +29,10 @@ package it.tidalwave.util.test;
 
 import java.util.Arrays;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
@@ -46,8 +48,63 @@ public class TestLogger extends TestListenerAdapter
     private static final String SEPARATOR = S + S + S + S;
 
     @Override
+    public void onStart (final @Nonnull ITestContext testContext)
+      {
+        super.onStart(testContext);
+        final String testClass = testContext.getCurrentXmlTest().getClasses().get(0).getName();
+        final Logger log = LoggerFactory.getLogger(testClass);
+        log.info("STARTING TESTS OF {}", testClass);
+      }
+
+    @Override
+    public void onFinish (final @Nonnull ITestContext testContext)
+      {
+        super.onFinish(testContext);
+        final String testClass = testContext.getCurrentXmlTest().getClasses().get(0).getName();
+        final Logger log = LoggerFactory.getLogger(testClass);
+        log.info("FINISHED TESTS OF {}", testClass);
+      }
+
+//    @Override
+//    public void onConfigurationSuccess (final @Nonnull ITestResult result)
+//      {
+//        super.onConfigurationSuccess(result);
+//        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+//        log.info("====== ON CONFIG SUCCESS");
+//      }
+
+    @Override
+    public void onConfigurationSkip (final @Nonnull ITestResult result)
+      {
+        super.onConfigurationSkip(result);
+        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+        final Throwable throwable = result.getThrowable();
+        log.info("CONFIGURATION SKIPPED {}", getMessage(throwable));
+
+        if (throwable != null)
+          {
+            log.info("CONFIGURATION SKIPPED", result.getThrowable());
+          }
+      }
+
+    @Override
+    public void onConfigurationFailure (final @Nonnull ITestResult result)
+      {
+        super.onConfigurationFailure(result);
+        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+        final Throwable throwable = result.getThrowable();
+        log.info("CONFIGURATION FAILED {}", getMessage(throwable));
+
+        if (throwable != null)
+          {
+            log.info("CONFIGURATION FAILED", result.getThrowable());
+          }
+      }
+
+    @Override
     public void onTestStart (final @Nonnull ITestResult result)
       {
+        super.onTestStart(result);
         String args = "";
 
         final Object[] parameters = result.getParameters();
@@ -75,25 +132,56 @@ public class TestLogger extends TestListenerAdapter
     @Override
     public void onTestFailure (final @Nonnull ITestResult result)
       {
+        super.onTestFailure(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
-        log.info("TEST FAILED in {} msec - {}", result.getEndMillis() - result.getStartMillis(), result.getThrowable());
+        final Throwable throwable = result.getThrowable();
+        log.info("TEST FAILED in {} msec - {}", result.getEndMillis() - result.getStartMillis(),
+                                                getMessage(throwable));
+        if (throwable != null)
+          {
+            log.info("TEST FAILED", result.getThrowable());
+          }
+
+        log.info("");
+      }
+
+    @Override
+    public void onTestFailedButWithinSuccessPercentage (final @Nonnull ITestResult result)
+      {
+        super.onTestFailedButWithinSuccessPercentage(result);
+        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+        log.info("TEST FAILED WITHIN SUCCESS PERCENTAGE in {} msec", result.getEndMillis() - result.getStartMillis());
         log.info("");
       }
 
     @Override
     public void onTestSkipped (final @Nonnull ITestResult result)
       {
-        onTestStart(result);
+        super.onTestSkipped(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
-        log.info("TEST SKIPPED");
+        final Throwable throwable = result.getThrowable();
+        log.info("TEST SKIPPED {}", getMessage(throwable));
+
+        if (throwable != null)
+          {
+            log.info("TEST SKIPPED", result.getThrowable());
+          }
+
         log.info("");
       }
 
     @Override
     public void onTestSuccess (final @Nonnull ITestResult result)
       {
+        super.onTestSuccess(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
         log.info("TEST PASSED in {} msec", result.getEndMillis() - result.getStartMillis());
         log.info("");
+      }
+
+    @Nonnull
+    private static String getMessage (final @Nullable Throwable throwable)
+      {
+        return (throwable == null) ? "" : throwable.toString().replaceAll("\n*", "");
       }
   }

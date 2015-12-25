@@ -47,11 +47,13 @@ public class DatumAndRoleTest
     @Test(dataProvider = "provider")
     public void testGetSuper (final @Nonnull DatumAndRole underTest, final @Nonnull List<DatumAndRole> expected)
       {
+        // when
         final List<DatumAndRole> actual = underTest.getSuper();
+        // then
         assertThat(actual, is(expected));
       }
 
-    @DataProvider(name = "provider")
+    @DataProvider
     private static Object[][] provider()
       {
         return new Object[][]

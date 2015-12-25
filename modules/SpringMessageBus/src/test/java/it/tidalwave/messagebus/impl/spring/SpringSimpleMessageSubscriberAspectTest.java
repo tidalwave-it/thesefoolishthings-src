@@ -61,7 +61,7 @@ public class SpringSimpleMessageSubscriberAspectTest
      *
      ******************************************************************************************************************/
     @BeforeMethod
-    public void setupFixture()
+    public void setup()
       {
         context = new ClassPathXmlApplicationContext("SpringSimpleMessageSubscriberAspectTestBeans.xml");
         subscriber1 = context.getBean(MockSubscriber1.class);
@@ -74,15 +74,16 @@ public class SpringSimpleMessageSubscriberAspectTest
      *
      ******************************************************************************************************************/
     @Test
-    public void must_subscribe_to_default_message_bus()
+    public void must_subscribe_to_default_message_bus_at_initialize()
       throws Exception
       {
+        // given
         reset(applicationMessageBus);
         reset(otherMessageBus);
-
+        // when
         assertThat(subscriber1, is(instanceOf(InitializingBean.class)));
         ((InitializingBean)subscriber1).afterPropertiesSet();
-
+        // then
         verify(applicationMessageBus).subscribe(eq(MockEvent1.class), argThat(listenerAdapter()
                                                                             .withMethodName("onMockEvent1")
                                                                             .withOwner(subscriber1)
@@ -98,16 +99,17 @@ public class SpringSimpleMessageSubscriberAspectTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test(dependsOnMethods = "must_subscribe_to_default_message_bus")
-    public void must_unsubscribe_from_default_message_bus()
+    @Test(dependsOnMethods = "must_subscribe_to_default_message_bus_at_initialize")
+    public void must_unsubscribe_from_default_message_bus_at_destroy()
       throws Exception
       {
+        // given
         reset(applicationMessageBus);
         reset(otherMessageBus);
-
+        // when
         assertThat(subscriber1, is(instanceOf(DisposableBean.class)));
         ((DisposableBean)subscriber1).destroy();
-
+        // then
         verify(applicationMessageBus).unsubscribe(argThat(listenerAdapter().withMethodName("onMockEvent1")
                                                                 .withOwner(subscriber1)
                                                                 .withTopic(MockEvent1.class)));
@@ -121,16 +123,17 @@ public class SpringSimpleMessageSubscriberAspectTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test(dependsOnMethods = "must_subscribe_to_default_message_bus")
+    @Test(dependsOnMethods = "must_subscribe_to_default_message_bus_at_initialize")
     public void must_subscribe_to_alternate_message_bus()
       throws Exception
       {
+        // given
         reset(applicationMessageBus);
         reset(otherMessageBus);
-
+        // when
         assertThat(subscriber2, is(instanceOf(InitializingBean.class)));
         ((InitializingBean)subscriber2).afterPropertiesSet();
-
+        // then
         verify(otherMessageBus).subscribe(eq(MockEvent1.class), argThat(listenerAdapter()
                                                                             .withMethodName("onMockEvent1")
                                                                             .withOwner(subscriber2)
@@ -146,16 +149,17 @@ public class SpringSimpleMessageSubscriberAspectTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test(dependsOnMethods = "must_unsubscribe_from_default_message_bus")
+    @Test(dependsOnMethods = "must_subscribe_to_default_message_bus_at_initialize")
     public void must_unsubscribe_from_alternate_message_bus()
       throws Exception
       {
+        // given
         reset(applicationMessageBus);
         reset(otherMessageBus);
-
+        // when
         assertThat(subscriber2, is(instanceOf(DisposableBean.class)));
         ((DisposableBean)subscriber2).destroy();
-
+        // then
         verify(otherMessageBus).unsubscribe(argThat(listenerAdapter().withMethodName("onMockEvent1")
                                                                      .withOwner(subscriber2)
                                                                      .withTopic(MockEvent1.class)));

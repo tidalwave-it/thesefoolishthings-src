@@ -40,6 +40,7 @@ import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.any;
 import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
@@ -57,7 +58,7 @@ public class ContextSamplerTest
         private final ContextManager contextManager;
       }
 
-    private ContextSampler fixture;
+    private ContextSampler underTest;
 
     private ContextManager contextManager;
 
@@ -65,7 +66,7 @@ public class ContextSamplerTest
      *
      ******************************************************************************************************************/
     @BeforeMethod
-    public void setupFixture()
+    public void setup()
       {
         contextManager = mock(ContextManager.class);
         ContextManager.Locator.set(new MockContextManagerProvider(contextManager));
@@ -77,11 +78,12 @@ public class ContextSamplerTest
     @Test(dataProvider = "contextProvider")
     public void must_sample_Contexts_at_construction_time (final @Nonnull List<Object> contexts)
       {
+        // given
         when(contextManager.getContexts()).thenReturn(contexts);
-
-        fixture = new ContextSampler(new Object());
-
-        assertThat(fixture.getContexts(), is(contexts));
+        // when
+        underTest = new ContextSampler(new Object());
+        // then
+        assertThat(underTest.getContexts(), is(contexts));
       }
 
     /*******************************************************************************************************************
@@ -89,27 +91,26 @@ public class ContextSamplerTest
      ******************************************************************************************************************/
     @Test(dataProvider = "contextProvider")
     public void must_delegate_runWithContexts_to_ContextManager (final @Nonnull List<Object> contexts)
+      throws Throwable
       {
+        // given
         when(contextManager.getContexts()).thenReturn(contexts);
-//        final Class<List<Object>> listClass = (Class)List.class;
-//        final Class<Task<Object, RuntimeException>> taskClass = (Class)Task.class;
-//        when(contextManager.<Object>runWithContexts(CoreMatchers.any(listClass),
-//                                                    CoreMatchers.any((taskClass))));
         final Task<String, RuntimeException> task = mock(Task.class);
-
-        fixture = new ContextSampler(new Object());
+//        when(contextManager.runWithContexts(any(List.class), eq(task))).thenReturn("result");
+        underTest = new ContextSampler(new Object());
         reset(contextManager);
-        final Object result = fixture.runWithContexts(task);
-
+        // when
+        final String result = underTest.runWithContexts(task);
+        // then
         verify(contextManager, times(1)).runWithContexts(eq(contexts), same(task));
         verifyNoMoreInteractions(contextManager);
-//        assertThat(result, is((Object)"result")); FIXME: need to stub
+//        assertThat(result, is("result")); FIXME: depend on commented stubbing above
       }
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @DataProvider(name = "contextProvider")
+    @DataProvider
     public Object[][] contextProvider()
       {
         return new Object[][]
