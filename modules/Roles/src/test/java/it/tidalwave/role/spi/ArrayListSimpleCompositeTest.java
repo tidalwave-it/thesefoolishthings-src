@@ -27,9 +27,9 @@
  */
 package it.tidalwave.role.spi;
 
-import it.tidalwave.util.Finder;
 import java.util.Arrays;
 import java.util.List;
+import it.tidalwave.util.Finder;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -47,11 +47,15 @@ public class ArrayListSimpleCompositeTest
     @Test
     public void must_produce_valid_Finders()
       {
+        // given
         final ArrayListSimpleComposite<String> underTest = new ArrayListSimpleComposite<>(data);
+        // when
         final Finder<String> finder1 = underTest.findChildren();
         final Finder<String> finder2 = finder1.from(3).max(1);
-
-        assertThat((List<String>)finder1.results(), is(data));
-        assertThat((List<String>)finder2.results(), is(Arrays.asList("4")));
+        final List<? extends String> results1 = finder1.results();
+        final List<? extends String> results2 = finder2.results();
+        // then
+        assertThat((List<String>)results1, is(data));
+        assertThat((List<String>)results2, is(Arrays.asList("4")));
       }
 }

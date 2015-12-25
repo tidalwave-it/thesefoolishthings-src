@@ -59,7 +59,7 @@ public class AsSupportTest
             this.roles = roles;
           }
 
-        @Nonnull
+        @Override @Nonnull
         public AsDelegate createAsDelegate (final @Nonnull Object datum)
           {
             return new AsDelegate()
@@ -67,7 +67,7 @@ public class AsSupportTest
                 @Override @Nonnull
                 public <T> Collection<? extends T> as (final @Nonnull Class<T> roleType)
                   {
-                    final List<T> result = new ArrayList<T>();
+                    final List<T> result = new ArrayList<>();
 
                     for (final Object role : roles)
                       {
@@ -100,7 +100,7 @@ public class AsSupportTest
 
     public static class RoleFactory3 implements RoleFactory<Object>
       {
-        @Nonnull
+        @Override @Nonnull
         public Object createRoleFor (final @Nonnull Object owner)
           {
             return new Role3(owner);
@@ -133,13 +133,17 @@ public class AsSupportTest
     @Test
     public void must_find_local_roles()
       {
-        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider());
-        final AsSupport fixture1 = new AsSupport(owner, localRole1);
-        final AsSupport fixture2 = new AsSupport(owner, localRole1, localRole2);
-
-        assertThat(fixture1.as(Role1.class), is(sameInstance(localRole1)));
-        assertThat(fixture2.as(Role1.class), is(sameInstance(localRole1)));
-        assertThat(fixture2.as(Role2.class), is(sameInstance(localRole2)));
+        // given
+        final AsSupport underTest1 = new AsSupport(owner, localRole1);
+        final AsSupport underTest2 = new AsSupport(owner, localRole1, localRole2);
+        // when
+        final Role1 ut1role1 = underTest1.as(Role1.class);
+        final Role1 ut2Role1 = underTest2.as(Role1.class);
+        final Role2 ut2Role2 = underTest2.as(Role2.class);
+        // then
+        assertThat(ut1role1, is(sameInstance(localRole1)));
+        assertThat(ut2Role1, is(sameInstance(localRole1)));
+        assertThat(ut2Role2, is(sameInstance(localRole2)));
       }
 
     /*******************************************************************************************************************
@@ -148,11 +152,11 @@ public class AsSupportTest
     @Test
     public void must_create_role_from_factory()
       {
-        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider());
-        final AsSupport fixture = new AsSupport(owner, new RoleFactory3());
-
-        final Role3 role = fixture.as(Role3.class);
-
+        // given
+        final AsSupport underTest = new AsSupport(owner, new RoleFactory3());
+        // when
+        final Role3 role = underTest.as(Role3.class);
+        // then
         assertThat(role, is(notNullValue()));
         assertThat(role.getOwner(), is(sameInstance(owner)));
       }
@@ -163,10 +167,10 @@ public class AsSupportTest
     @Test(expectedExceptions = AsException.class)
     public void must_not_find_inexistent_role()
       {
-        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider());
-        final AsSupport fixture = new AsSupport(owner, localRole1);
-
-        fixture.as(Role2.class);
+        // given
+        final AsSupport underTest = new AsSupport(owner, localRole1);
+        // when
+        underTest.as(Role2.class);
       }
 
     /*******************************************************************************************************************
@@ -175,10 +179,10 @@ public class AsSupportTest
     @Test(expectedExceptions = AsException.class)
     public void must_not_find_inexistent_role_bis()
       {
-        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider());
-        final AsSupport fixture = new AsSupport(owner, localRole2);
-
-        fixture.as(Role1.class);
+        // given
+        final AsSupport underTest = new AsSupport(owner, localRole2);
+        // when
+        underTest.as(Role1.class);
       }
 
     /*******************************************************************************************************************
@@ -187,10 +191,13 @@ public class AsSupportTest
     @Test
     public void must_find_roles_in_delegate()
       {
+        // given
         AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(delegateRole2));
-        final AsSupport fixture = new AsSupport(owner);
-
-        assertThat(fixture.as(Role2.class), is(sameInstance(delegateRole2)));
+        final AsSupport underTest = new AsSupport(owner);
+        // when
+        final Role2 role = underTest.as(Role2.class);
+        // then
+        assertThat(role, is(sameInstance(delegateRole2)));
       }
 
     /*******************************************************************************************************************
@@ -199,10 +206,13 @@ public class AsSupportTest
     @Test
     public void must_give_priority_to_local_roles()
       {
+        // given
         AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(delegateRole2));
-        final AsSupport fixture = new AsSupport(owner, localRole2);
-
-        assertThat(fixture.as(Role2.class), is(sameInstance(localRole2)));
+        final AsSupport underTest = new AsSupport(owner, localRole2);
+        // when
+        final Role2 role = underTest.as(Role2.class);
+        // then
+        assertThat(role, is(sameInstance(localRole2)));
       }
 
     /*******************************************************************************************************************
@@ -211,10 +221,11 @@ public class AsSupportTest
     @Test
     public void must_retrieve_multiple_local_roles()
       {
-        final AsSupport fixture = new AsSupport(owner, localRole2, localRole2b);
-
-        final Collection<Role2> roles = fixture.asMany(Role2.class);
-
+        // given
+        final AsSupport underTest = new AsSupport(owner, localRole2, localRole2b);
+        // when
+        final Collection<Role2> roles = underTest.asMany(Role2.class);
+        // then
         assertThat("" + roles, roles.size(), is(2));
         assertThat("" + roles, roles.contains(localRole2), is(true));
         assertThat("" + roles, roles.contains(localRole2b), is(true));
@@ -226,11 +237,12 @@ public class AsSupportTest
     @Test
     public void must_retrieve_multiple_local_and_global_roles()
       {
+        // given
         AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(delegateRole2));
-        final AsSupport fixture = new AsSupport(owner, localRole2, localRole2b);
-
-        final Collection<Role2> roles = fixture.asMany(Role2.class);
-
+        final AsSupport underTest = new AsSupport(owner, localRole2, localRole2b);
+        // when
+        final Collection<Role2> roles = underTest.asMany(Role2.class);
+        // then
         assertThat("" + roles, roles.size(), is(3));
         assertThat("" + roles, roles.contains(localRole2), is(true));
         assertThat("" + roles, roles.contains(localRole2b), is(true));

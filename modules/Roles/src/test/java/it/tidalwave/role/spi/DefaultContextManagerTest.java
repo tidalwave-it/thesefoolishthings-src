@@ -67,7 +67,7 @@ public class DefaultContextManagerTest
      *
      ******************************************************************************************************************/
     @BeforeMethod
-    public void setupFixture()
+    public void setup()
       {
         underTest = new DefaultContextManager();
 
@@ -292,7 +292,7 @@ public class DefaultContextManagerTest
         assertThat(contextsBefore, is(asList(globalContext1, globalContext2, globalContext3)));
         assertThat(contextsInThread, is(asList(globalContext1, globalContext2, globalContext3,
                                                localContext3, localContext2, localContext1)));
-        assertThat(contextsAfter, is(asList(globalContext1, globalContext2, globalContext3)));
+        assertThat(contextsAfter, is(contextsBefore));
         assertThat(result, is("result"));
       }
   }

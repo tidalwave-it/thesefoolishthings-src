@@ -85,12 +85,17 @@ public class DefaultPresentationModelTest
     @Test
     public void must_find_local_roles()
       {
-        final DefaultPresentationModel fixture1 = new DefaultPresentationModel(ownerNoAs, localRole1);
-        final DefaultPresentationModel fixture2 = new DefaultPresentationModel(ownerNoAs, localRole1, localRole2);
-
-        assertThat(fixture1.as(Role1.class), is(sameInstance(localRole1)));
-        assertThat(fixture2.as(Role1.class), is(sameInstance(localRole1)));
-        assertThat(fixture2.as(Role2.class), is(sameInstance(localRole2)));
+        // given
+        final DefaultPresentationModel underTest1 = new DefaultPresentationModel(ownerNoAs, localRole1);
+        final DefaultPresentationModel underTest2 = new DefaultPresentationModel(ownerNoAs, localRole1, localRole2);
+        // when
+        final Role1 ut1Role1 = underTest1.as(Role1.class);
+        final Role1 ut2Role1 = underTest2.as(Role1.class);
+        final Role2 ut2Role2 = underTest2.as(Role2.class);
+        //then
+        assertThat(ut1Role1, is(sameInstance(localRole1)));
+        assertThat(ut2Role1, is(sameInstance(localRole1)));
+        assertThat(ut2Role2, is(sameInstance(localRole2)));
       }
 
     /*******************************************************************************************************************
@@ -99,9 +104,10 @@ public class DefaultPresentationModelTest
     @Test(expectedExceptions = AsException.class)
     public void must_not_find_inexistent_role()
       {
-        final DefaultPresentationModel fixture = new DefaultPresentationModel(ownerNoAs, localRole1);
-
-        fixture.as(Role2.class);
+        // given
+        final DefaultPresentationModel underTest = new DefaultPresentationModel(ownerNoAs, localRole1);
+        // when
+        underTest.as(Role2.class);
       }
 
     /*******************************************************************************************************************
@@ -110,9 +116,10 @@ public class DefaultPresentationModelTest
     @Test(expectedExceptions = AsException.class)
     public void must_not_find_inexistent_role_bis()
       {
-        final DefaultPresentationModel fixture = new DefaultPresentationModel(ownerAsWithRole2, localRole2);
-
-        fixture.as(Role1.class);
+        // given
+        final DefaultPresentationModel underTest = new DefaultPresentationModel(ownerAsWithRole2, localRole2);
+        // when
+        underTest.as(Role1.class);
       }
 
     /*******************************************************************************************************************
@@ -121,9 +128,12 @@ public class DefaultPresentationModelTest
     @Test
     public void must_find_roles_in_owner()
       {
-        final DefaultPresentationModel fixture = new DefaultPresentationModel(ownerAsWithRole2);
-
-        assertThat(fixture.as(Role2.class), is(sameInstance(role2InOwner)));
+        // given
+        final DefaultPresentationModel underTest = new DefaultPresentationModel(ownerAsWithRole2);
+        // when
+        final Role2 role2 = underTest.as(Role2.class);
+        // then
+        assertThat(role2, is(sameInstance(role2InOwner)));
       }
 
     /*******************************************************************************************************************
@@ -132,8 +142,11 @@ public class DefaultPresentationModelTest
     @Test
     public void must_give_priority_to_local_roles()
       {
-        final DefaultPresentationModel fixture = new DefaultPresentationModel(ownerAsWithRole2, localRole2);
-
-        assertThat(fixture.as(Role2.class), is(sameInstance(localRole2)));
+        // given
+        final DefaultPresentationModel underTest = new DefaultPresentationModel(ownerAsWithRole2, localRole2);
+        // when
+        final Role2 role2 = underTest.as(Role2.class);
+        // then
+        assertThat(role2, is(sameInstance(localRole2)));
       }
   }

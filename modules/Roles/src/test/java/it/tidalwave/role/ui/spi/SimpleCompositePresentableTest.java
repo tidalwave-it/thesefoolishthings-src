@@ -174,6 +174,7 @@ public class SimpleCompositePresentableTest
     @Test
     public void must_create_a_PresentationModel_containing_the_proper_children()
       {
+        // given
         final MockDatum c1 = new MockDatum("c1");
         final MockDatum c2 = new MockDatum("c2");
         final MockDatum c3 = new MockDatum("c3");
@@ -189,9 +190,9 @@ public class SimpleCompositePresentableTest
 
         final MockRole1 role1 = new MockRole1();
         final MockRoleFactory roleFactory = new MockRoleFactory();
-
+        // when
         final PresentationModel pm = underTest.createPresentationModel(role1, roleFactory);
-
+        // then
         assertProperPresentationModel("", pm, a);
       }
 
