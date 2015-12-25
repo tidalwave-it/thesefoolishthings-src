@@ -46,32 +46,8 @@ public final class UserNotificationWithFeedbackTestHelper
   {
     /*******************************************************************************************************************
      *
-     *
-     *
      ******************************************************************************************************************/
-    @Nonnull
-    public static UserNotificationMatcher notification (final @Nonnull String caption, final @Nonnull String text)
-      {
-        return new UserNotificationMatcher(caption, text);
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public static UserNotificationWithFeedbackMatcher notificationWithFeedback (final @Nonnull String caption,
-                                                                                final @Nonnull String text)
-      {
-        return new UserNotificationWithFeedbackMatcher(caption, text);
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     *
-     ******************************************************************************************************************/
+    // FIXME: make private
     public static final Answer<Void> CONFIRM = new Answer<Void>()
       {
         public Void answer (final @Nonnull InvocationOnMock invocation)
@@ -101,9 +77,8 @@ public final class UserNotificationWithFeedbackTestHelper
 
     /*******************************************************************************************************************
      *
-     *
-     *
      ******************************************************************************************************************/
+    // FIXME: make private
     public static final Answer<Void> CANCEL = new Answer<Void>()
       {
         public Void answer (final @Nonnull InvocationOnMock invocation)
@@ -130,4 +105,47 @@ public final class UserNotificationWithFeedbackTestHelper
             return null;
           }
       };
+
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static UserNotificationMatcher notification (final @Nonnull String caption, final @Nonnull String text)
+      {
+        return new UserNotificationMatcher(caption, text);
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static UserNotificationWithFeedbackMatcher notificationWithFeedback (final @Nonnull String caption,
+                                                                                final @Nonnull String text)
+      {
+        return new UserNotificationWithFeedbackMatcher(caption, text);
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
+    public static final Answer<Void> confirm()
+      {
+        return CONFIRM;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
+    public static final Answer<Void> cancel()
+      {
+        return CANCEL;
+      }
   }
