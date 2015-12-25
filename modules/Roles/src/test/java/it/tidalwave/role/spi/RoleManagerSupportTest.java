@@ -35,10 +35,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.impl.DatumAndRole;
 import it.tidalwave.role.spi.impl.MultiMap;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
@@ -49,8 +51,6 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static it.tidalwave.role.spi.LogUtil.*;
 import static it.tidalwave.role.spi.impl.Mocks.*;
-import java.util.SortedSet;
-import org.testng.annotations.BeforeMethod;
 
 class XCA1 extends CA1 {}
 class YCA1 extends XCA1 {}
@@ -86,7 +86,7 @@ class UnderTest extends RoleManagerSupport
       }
 
     @Override
-    protected Class<?> findContextForRole (Class<?> roleImplementationClass)
+    protected Class<?> findContextTypeForRole (Class<?> roleImplementationClass)
       throws NotFoundException
       {
         return NotFoundException.throwWhenNull(contextClassMapByRoleClass.get(roleImplementationClass), "No context");
@@ -291,8 +291,8 @@ public class RoleManagerSupportTest
       throws NotFoundException
       {
         // given
-        when(contextManager.findContext(eq(Context1.class))).thenThrow(new NotFoundException());
-        when(contextManager.findContext(eq(Context2.class))).thenReturn(context2);
+        when(contextManager.findContextOfType(eq(Context1.class))).thenThrow(new NotFoundException());
+        when(contextManager.findContextOfType(eq(Context2.class))).thenReturn(context2);
 
         final UnderTest underTest = new UnderTest();
         registerMockRoles(underTest);
