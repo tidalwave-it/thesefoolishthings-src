@@ -381,17 +381,17 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
 
     /*******************************************************************************************************************
      *
-     * Returns the class of an object, taking care of mocks created by Mockito, for which the original class is
+     * Returns the type of an object, taking care of mocks created by Mockito, for which the implemented interface is
      * returned.
      *
-     * @param  owner    the owner
-     * @return          the owner type
+     * @param  object   the object
+     * @return          the object type
      *
      ******************************************************************************************************************/
     @Nonnull
-    /* VisibleForTesting */ static <T> Class<T> findTypeOf (final @Nonnull T owner)
+    /* VisibleForTesting */ static <T> Class<T> findTypeOf (final @Nonnull T object)
       {
-        Class<?> ownerClass = owner.getClass();
+        Class<?> ownerClass = object.getClass();
 
         if (ownerClass.toString().contains("EnhancerByMockito"))
           {
