@@ -34,7 +34,7 @@ import org.testng.annotations.Test;
 import static java.util.Arrays.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
-import static it.tidalwave.role.spi.impl.Hierarchy1.*;
+import static it.tidalwave.role.spi.impl.Mocks.*;
 
 /***********************************************************************************************************************
  *

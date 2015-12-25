@@ -28,50 +28,74 @@
 package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import it.tidalwave.util.NotFoundException;
+import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.impl.DatumAndRole;
 import it.tidalwave.role.spi.impl.MultiMap;
-import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
-import static it.tidalwave.role.spi.impl.Hierarchy1.*;
+import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static it.tidalwave.role.spi.LogUtil.*;
+import static it.tidalwave.role.spi.impl.Mocks.*;
+import java.util.SortedSet;
+import org.testng.annotations.BeforeMethod;
 
 class XCA1 extends CA1 {}
 class YCA1 extends XCA1 {}
 
 class UnderTest extends RoleManagerSupport
   {
-    private final Map<Class<?>, Class<?>[]> map = new HashMap<>();
+    private final Map<Class<?>, Class<?>[]> ownerClassesMapByRoleClass = new HashMap<>();
+
+    private final Map<Class<?>, Class<?>> contextClassMapByRoleClass = new HashMap<>();
+
+    private final Map<Class<?>, Object> beanMapByClass = new HashMap<>();
 
     public void register (final @Nonnull Class<?> roleClass, final @Nonnull Class<?> ... ownerClasses)
       {
-        map.put(roleClass, ownerClasses);
+        ownerClassesMapByRoleClass.put(roleClass, ownerClasses);
+      }
+
+    public void registerContext (final @Nonnull Class<?> roleImplementationClass,
+                                 final @Nonnull Class<?> contextClass)
+      {
+        contextClassMapByRoleClass.put(roleImplementationClass, contextClass);
+      }
+
+    public void registerBean (final @Nonnull Object bean)
+      {
+        beanMapByClass.put(bean.getClass(), bean);
       }
 
     @Override
-    protected <T> T getBean (Class<T> beanType)
+    protected <T> T getBean (final @Nonnull Class<T> beanType)
       {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return (T)beanMapByClass.get(beanType);
       }
 
     @Override
     protected Class<?> findContextForRole (Class<?> roleImplementationClass)
       throws NotFoundException
       {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return NotFoundException.throwWhenNull(contextClassMapByRoleClass.get(roleImplementationClass), "No context");
       }
 
     @Override
     protected Class<?>[] findDatumTypesForRole (final Class<?> roleImplementationClass)
       {
-        final Class<?>[] result = map.get(roleImplementationClass);
+        final Class<?>[] result = ownerClassesMapByRoleClass.get(roleImplementationClass);
         return (result == null) ? new Class<?>[0] : result;
       }
   }
@@ -84,14 +108,62 @@ class UnderTest extends RoleManagerSupport
  **********************************************************************************************************************/
 public class RoleManagerSupportTest
   {
+    private static final Context1 context1 = new Context1();
+
+    private static final Context2 context2 = new Context2();
+
+    private static final Bean1 bean1 = new Bean1();
+
+    private static final Bean2 bean2 = new Bean2();
+
+    private ContextManager contextManager;
+
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test(dataProvider = "provider")
-    public void testFindAllImplementedInterfacesOf (final @Nonnull Class<?> clazz,
-                                                    final @Nonnull List<Class<?>> expected)
+    @BeforeMethod
+    public void setup()
       {
-        RoleManagerSupport.findAllImplementedInterfacesOf(clazz);
+        contextManager = mock(ContextManager.class);
+        ContextManager.Locator.set(new ContextManagerProvider()
+          {
+            @Override
+            public ContextManager getContextManager()
+              {
+                return contextManager;
+              }
+          });
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test(dataProvider = "classesAndExpectedInterfaces")
+    public void must_correctly_find_implemented_interfaces (final @Nonnull Class<?> clazz,
+                                                            final @Nonnull Set<Class<?>> expectedInterfaces)
+      {
+        // given the mocks
+        // when
+        final SortedSet<Class<?>> actualInterfaces = RoleManagerSupport.findAllImplementedInterfacesOf(clazz);
+        // then
+        assertThat(actualInterfaces, is(expectedInterfaces));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @DataProvider
+    private static Object[][] classesAndExpectedInterfaces()
+      {
+        return new Object[][]
+          {
+            { CA1.class, asSet() },
+            { CA2.class, asSet(IA2.class) },
+            { CA3.class, asSet(IA3.class) },
+            { CB1.class, asSet(IB2.class, IA2.class, IA3.class) },
+            { CB2.class, asSet(IA2.class, IB1.class, IA1.class) },
+            { CB3.class, asSet() },
+          };
       }
 
     /*******************************************************************************************************************
@@ -102,13 +174,7 @@ public class RoleManagerSupportTest
       {
         // given
         final UnderTest underTest = new UnderTest();
-
-        underTest.register(RI1A.class, CA1.class, CA2.class);
-        underTest.register(RI3A.class, CA3.class);
-        underTest.register(RI2B.class, CB1.class, CB3.class);
-        underTest.register(RI2A.class, CA1.class, CB3.class);
-        underTest.register(RI3C.class, IA1.class);
-        underTest.register(RI2C.class, IA2.class);
+        registerMockRoles(underTest);
         // when
         underTest.scan(asList(RI1A.class, RI1B.class, RI1C.class,
                               RI2A.class, RI2B.class, RI2C.class,
@@ -215,14 +281,109 @@ public class RoleManagerSupportTest
         assertThat(m.getValues(new DatumAndRole(YCA1.class, R2.class)), is(asSet(RI2A.class)));
       }
 
-    // TODO: test role creations (findRoles())
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test(dataProvider = "ownersAndRoleImplementations")
+    public void must_correctly_find_roles (final @Nonnull Object owner,
+                                           final @Nonnull Class<?> roleClass,
+                                           final @Nonnull List<?> expectedRoles)
+      throws NotFoundException
+      {
+        // given
+        when(contextManager.findContext(eq(Context1.class))).thenThrow(new NotFoundException());
+        when(contextManager.findContext(eq(Context2.class))).thenReturn(context2);
+
+        final UnderTest underTest = new UnderTest();
+        registerMockRoles(underTest);
+        underTest.registerBean(bean1);
+        underTest.registerBean(bean2);
+        underTest.scan(asList(RI1A.class, RI1B.class, RI1C.class,
+                              RI2A.class, RI2B.class, RI2C.class,
+                              RI3A.class, RI3B.class, RI3C.class));
+        // when
+        final List<?> actualRoles = underTest.findRoles(owner, roleClass);
+        // then
+        final String s = String.format("owner: %s role: %s", shortId(owner), shortName(roleClass));
+        assertEquals(s, actualRoles, expectedRoles);
+      }
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    private static void assertEquals (Set l1, Set l2)
+    @DataProvider
+    private static Object[][] ownersAndRoleImplementations()
+      {
+        final CA3 ca3 = new CA3();
+
+        return new Object[][]
+          {
+          //  owner      role      expected role implementations
+            { new CA1(), R1.class, asList(new RI1A()) },
+            // no RI2A because Context1 is not present
+            { new CA1(), R2.class, asList()           },
+            { new CA1(), R3.class, asList()           },
+
+            { new CA2(), R1.class, asList(new RI1A()) },
+            { new CA2(), R2.class, asList(new RI2C(context2, bean1)) },
+            { new CA2(), R3.class, asList()           },
+
+            { new CA3(), R1.class, asList()           },
+            { new CA3(), R2.class, asList()           },
+            { ca3,       R3.class, asList(new RI3A(ca3)) },
+
+            { new CB1(), R1.class, asList()           },
+            // RI2C beause Context2 is present
+            { new CB1(), R2.class, asList(new RI2B(bean1, bean2), new RI2C(context2, bean1)) },
+            { new CB1(), R3.class, asList()           },
+
+            { new CB2(), R1.class, asList(new RI1A()) },
+            { new CB2(), R2.class, asList(new RI2C(context2, bean1)) },
+            { new CB2(), R3.class, asList(new RI3C()) },
+
+            { new CB3(), R1.class, asList(new RI1A()) },
+            // no RI2A because Context1 is not present
+            { new CB3(), R2.class, asList(new RI2B(bean1, bean2)) },
+            { new CB3(), R3.class, asList()           },
+          };
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    private void registerMockRoles (final @Nonnull UnderTest underTest)
+      {
+        underTest.register(RI1A.class, CA1.class, CA2.class);
+        underTest.register(RI3A.class, CA3.class);
+        underTest.register(RI2B.class, CB1.class, CB3.class);
+        underTest.register(RI2A.class, CA1.class, CB3.class);
+        underTest.register(RI3C.class, IA1.class);
+        underTest.register(RI2C.class, IA2.class);
+
+        underTest.registerContext(RI2A.class, Context1.class);
+        underTest.registerContext(RI2C.class, Context2.class);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * To get rid of generics problems.
+     *
+     ******************************************************************************************************************/
+    private static <T> void assertEquals (Set l1, Set l2)
       {
         assertThat(l1, is(l2));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * To get rid of generics problems.
+     *
+     ******************************************************************************************************************/
+    private static <T> void assertEquals (final @Nonnull String message, final @Nonnull List l1, final @Nonnull List l2)
+      {
+        sort(l1);
+        sort(l2);
+        assertThat(message, l1, is(l2));
       }
 
     /*******************************************************************************************************************
@@ -237,29 +398,15 @@ public class RoleManagerSupportTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @DataProvider
-    private static Object[][] provider()
+    private static void sort (final @Nonnull List<?> list)
       {
-        return new Object[][]
+        Collections.sort(list, new Comparator<Object>()
           {
+            @Override
+            public int compare (final @Nonnull Object o1, final @Nonnull Object o2)
               {
-                CA1.class, asList()
-              },
-              {
-                CA2.class, asList(IA2.class)
-              },
-              {
-                CA3.class, asList(IA3.class)
-              },
-              {
-                CB1.class, asList(IB2.class, IA2.class, IA3.class)
-              },
-              {
-                CB2.class, asList(IA2.class, IB1.class, IA1.class)
-              },
-              {
-                CB3.class, asList()
+                return o1.toString().compareTo(o2.toString());
               }
-          };
+          });
       }
   }
