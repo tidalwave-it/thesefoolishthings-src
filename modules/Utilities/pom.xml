@@ -18,6 +18,8 @@
 
     <properties>
         <stableAPI>true</stableAPI>
+        <!-- TestLogger is defined here and Surefire can't find it -->
+        <tft.test.listeners></tft.test.listeners>
     </properties>
 
     <dependencies>

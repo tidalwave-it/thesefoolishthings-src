@@ -116,15 +116,15 @@ public interface ContextManager
 
     /*******************************************************************************************************************
      *
-     * Finds a context of the given type.
+     * Finds a current context instance of the given type.
      *
-     * @param   contextClass       the context type
+     * @param   contextType        the context type
      * @return                     the requested context
      * @throws  NotFoundException  if no context of that type is found
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> T findContext (@Nonnull Class<T> contextClass)
+    public <T> T findContextOfType (@Nonnull Class<T> contextType)
       throws NotFoundException;
 
     /*******************************************************************************************************************

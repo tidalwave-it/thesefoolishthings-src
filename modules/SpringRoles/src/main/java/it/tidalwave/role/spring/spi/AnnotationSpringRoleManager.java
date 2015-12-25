@@ -81,10 +81,10 @@ public class AnnotationSpringRoleManager extends RoleManagerSupport
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    protected Class<?> findContextForRole (final @Nonnull Class<?> roleImplementationClass)
+    protected Class<?> findContextTypeForRole (final @Nonnull Class<?> roleImplementationType)
       throws NotFoundException
       {
-        final Class<?> contextClass = roleImplementationClass.getAnnotation(DciRole.class).context();
+        final Class<?> contextClass = roleImplementationType.getAnnotation(DciRole.class).context();
 
         if (contextClass == DciRole.NoContext.class)
           {
@@ -100,8 +100,8 @@ public class AnnotationSpringRoleManager extends RoleManagerSupport
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    protected Class<?>[] findDatumTypesForRole (final @Nonnull Class<?> roleImplementationClass)
+    protected Class<?>[] findDatumTypesForRole (final @Nonnull Class<?> roleImplementationType)
       {
-        return roleImplementationClass.getAnnotation(DciRole.class).datumType();
+        return roleImplementationType.getAnnotation(DciRole.class).datumType();
       }
   }
