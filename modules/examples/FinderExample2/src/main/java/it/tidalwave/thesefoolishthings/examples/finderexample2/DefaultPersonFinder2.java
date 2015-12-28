@@ -1,25 +1,30 @@
-/***********************************************************************************************************************
- *
+/*
+ * #%L
+ * *********************************************************************************************************************
+ * 
  * These Foolish Things - Miscellaneous utilities
- * Copyright (C) 2009-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
- *
- ***********************************************************************************************************************
- *
+ * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
+ * %%
+ * Copyright (C) 2009 - 2015 Tidalwave s.a.s. (http://tidalwave.it)
+ * %%
+ * *********************************************************************************************************************
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * 
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- *
- ***********************************************************************************************************************
- *
- * WWW: http://thesefoolishthings.kenai.com
- * SCM: http://kenai.com/hg/thesefoolishthings~src
- *
- **********************************************************************************************************************/
+ * 
+ * *********************************************************************************************************************
+ * 
+ * $Id$
+ * 
+ * *********************************************************************************************************************
+ * #L%
+ */
 package it.tidalwave.thesefoolishthings.examples.finderexample2;
 
 import javax.annotation.Nonnull;
@@ -27,7 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import it.tidalwave.util.spi.FinderSupport;
-import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
@@ -35,48 +41,48 @@ import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
  * @version $Id$
  *
  **********************************************************************************************************************/
+@RequiredArgsConstructor
 /* package */ class DefaultPersonFinder2 extends FinderSupport<Person, PersonFinder> implements PersonFinder
   {
-    private List<Person> persons;
-    
-    private String firstName = ".*";
-    
-    private String lastName = ".*";
-    
-    public DefaultPersonFinder2 (final @Nonnull List<Person> persons) 
+    @Nonnull
+    private final List<Person> persons;
+
+    @Nonnull
+    private final String firstName; 
+
+    @Nonnull
+    private final String lastName; 
+
+    public DefaultPersonFinder2 (final @Nonnull List<Person> persons)
       {
         this.persons = persons;
+        this.firstName = ".*";
+        this.lastName = ".*";
       }
     
-    @Override @Nonnull
-    public DefaultPersonFinder2 clone()
+    public DefaultPersonFinder2 (final @Nonnull DefaultPersonFinder2 other, final @Nonnull Object override)
       {
-        final DefaultPersonFinder2 clone = (DefaultPersonFinder2)super.clone();
-        clone.persons   = this.persons;
-        clone.firstName = this.firstName;
-        clone.lastName  = this.lastName;
-        
-        return clone;
+        super(other, override);
+        this.persons = new ArrayList<Person>(other.persons);
+        final DefaultPersonFinder2 source = getSource(DefaultPersonFinder2.class, other, override);
+        this.firstName = source.firstName;
+        this.lastName = source.lastName;
       }
 
     @Override @Nonnull
-    public PersonFinder withFirstName (final @Nonnull String firstName) 
+    public PersonFinder withFirstName (final @Nonnull String firstName)
       {
-        final DefaultPersonFinder2 clone = clone();
-        clone.firstName = firstName;
-        return clone;
+        return clone(new DefaultPersonFinder2(persons, firstName, lastName));
       }
 
     @Override @Nonnull
-    public PersonFinder withLastName (final @Nonnull String lastName) 
+    public PersonFinder withLastName (final @Nonnull String lastName)
       {
-        final DefaultPersonFinder2 clone = clone();
-        clone.lastName = lastName;
-        return clone;
+        return clone(new DefaultPersonFinder2(persons, firstName, lastName));
       }
 
     @Override @Nonnull
-    protected List<? extends Person> computeResults() 
+    protected List<? extends Person> computeResults()
       {
         final List<Person> result = new ArrayList<Person>();
         final Pattern firstNameRegEx = Pattern.compile(firstName);
@@ -84,10 +90,10 @@ import it.tidalwave.thesefoolishthings.examples.finderexample1.Person;
 
         for (final Person person : persons)
           {
-            if (firstNameRegEx.matcher(person.getFirstName()).matches() 
+            if (firstNameRegEx.matcher(person.getFirstName()).matches()
                 && lastNameRegEx.matcher(person.getLastName()).matches())
               {
-                result.add(person);  
+                result.add(person);
               }
           }
 

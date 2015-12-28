@@ -1,28 +1,32 @@
-/***********************************************************************************************************************
- *
+/*
+ * #%L
+ * *********************************************************************************************************************
+ * 
  * These Foolish Things - Miscellaneous utilities
- * Copyright (C) 2009-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
- *
- ***********************************************************************************************************************
- *
+ * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
+ * %%
+ * Copyright (C) 2009 - 2015 Tidalwave s.a.s. (http://tidalwave.it)
+ * %%
+ * *********************************************************************************************************************
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * 
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- *
- ***********************************************************************************************************************
- *
- * WWW: http://thesefoolishthings.kenai.com
- * SCM: http://kenai.com/hg/thesefoolishthings~src
- *
- **********************************************************************************************************************/
+ * 
+ * *********************************************************************************************************************
+ * 
+ * $Id$
+ * 
+ * *********************************************************************************************************************
+ * #L%
+ */
 package it.tidalwave.util.ui;
 
-import it.tidalwave.util.ui.UserNotification;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.regex.Pattern;
@@ -39,22 +43,22 @@ import org.slf4j.LoggerFactory;
  **********************************************************************************************************************/
 // FIXME: merge with the one in blueBill Core
 public class UserNotificationMatcher extends BaseMatcher<UserNotification>
-  {    
+  {
     private static final Logger log = LoggerFactory.getLogger(UserNotificationMatcher.class);
-    
+
     @Nonnull
     private final String caption;
 
     @Nonnull
     private final String text;
-    
+
     private String d = "UserNotification ?";
 
     private UserNotification notification;
-    
+
     /*******************************************************************************************************************
      *
-     * 
+     *
      *
      ******************************************************************************************************************/
     /* package */ UserNotificationMatcher (final @Nonnull String caption, final @Nonnull String text)
@@ -78,14 +82,14 @@ public class UserNotificationMatcher extends BaseMatcher<UserNotification>
 
         notification = (UserNotification)item;
 
-        final boolean b = Pattern.matches(caption, notification.getCaption()) &&
-                          Pattern.matches(text, notification.getText());
-        
+        final boolean b = Pattern.matches(caption, notification.getCaption())
+                       && Pattern.matches(text, notification.getText());
+
         if (!b)
           {
             d = String.format("%s (instead is %s)", d, item);
           }
-        
+
         return b;
       }
 

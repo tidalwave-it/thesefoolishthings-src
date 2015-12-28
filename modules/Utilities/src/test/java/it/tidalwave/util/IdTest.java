@@ -1,25 +1,30 @@
-/***********************************************************************************************************************
- *
+/*
+ * #%L
+ * *********************************************************************************************************************
+ * 
  * These Foolish Things - Miscellaneous utilities
- * Copyright (C) 2009-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
- *
- ***********************************************************************************************************************
- *
+ * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
+ * %%
+ * Copyright (C) 2009 - 2015 Tidalwave s.a.s. (http://tidalwave.it)
+ * %%
+ * *********************************************************************************************************************
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * 
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- *
- ***********************************************************************************************************************
- *
- * WWW: http://thesefoolishthings.kenai.com
- * SCM: http://kenai.com/hg/thesefoolishthings~src
- *
- **********************************************************************************************************************/
+ * 
+ * *********************************************************************************************************************
+ * 
+ * $Id$
+ * 
+ * *********************************************************************************************************************
+ * #L%
+ */
 package it.tidalwave.util;
 
 import org.testng.annotations.Test;
@@ -32,14 +37,14 @@ import static org.testng.AssertJUnit.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class IdTest 
+public class IdTest
   {
     private Id id1;
     private Id id2;
     private Id id1a;
-    
+
     @BeforeMethod
-    public void setUp() 
+    public void setUp()
       {
         id1 = new Id("id1");
         id2 = new Id("id2");
@@ -47,7 +52,7 @@ public class IdTest
       }
 
     @Test
-    public void testStringValue() 
+    public void testStringValue()
       {
         assertEquals("id1", id1.stringValue());
         assertEquals("id2", id2.stringValue());
@@ -55,7 +60,7 @@ public class IdTest
       }
 
     @Test
-    public void testEquals() 
+    public void testEquals()
       {
         assertTrue(id1.equals(id1a));
         assertTrue(id1a.equals(id1));
@@ -64,7 +69,7 @@ public class IdTest
       }
 
     @Test
-    public void testHashCode() 
+    public void testHashCode()
       {
         assertEquals(104054L, id1.hashCode());
         assertEquals(104055L, id2.hashCode());
@@ -72,7 +77,7 @@ public class IdTest
       }
 
     @Test
-    public void testCompareTo() 
+    public void testCompareTo()
       {
         assertEquals(0, id1.compareTo(id1a));
         assertEquals(0, id1a.compareTo(id1));
@@ -81,7 +86,7 @@ public class IdTest
       }
 
     @Test
-    public void testToString() 
+    public void testToString()
       {
         assertEquals("id1", id1.toString());
         assertEquals("id1", id1a.toString());

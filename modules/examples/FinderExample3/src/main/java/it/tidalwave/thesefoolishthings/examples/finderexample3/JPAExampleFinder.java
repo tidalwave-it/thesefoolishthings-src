@@ -1,25 +1,30 @@
-/***********************************************************************************************************************
- *
+/*
+ * #%L
+ * *********************************************************************************************************************
+ * 
  * These Foolish Things - Miscellaneous utilities
- * Copyright (C) 2009-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
- *
- ***********************************************************************************************************************
- *
+ * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
+ * %%
+ * Copyright (C) 2009 - 2015 Tidalwave s.a.s. (http://tidalwave.it)
+ * %%
+ * *********************************************************************************************************************
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * 
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- *
- ***********************************************************************************************************************
- *
- * WWW: http://thesefoolishthings.kenai.com
- * SCM: http://kenai.com/hg/thesefoolishthings~src
- *
- **********************************************************************************************************************/
+ * 
+ * *********************************************************************************************************************
+ * 
+ * $Id$
+ * 
+ * *********************************************************************************************************************
+ * #L%
+ */
 package it.tidalwave.thesefoolishthings.examples.finderexample3;
 
 import javax.annotation.Nonnegative;
@@ -31,6 +36,8 @@ import it.tidalwave.util.Finder;
 import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.SortDirection;
 import it.tidalwave.util.NotFoundException;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 
 /***********************************************************************************************************************
  *
@@ -38,6 +45,7 @@ import it.tidalwave.util.NotFoundException;
  * @version $Id$
  *
  **********************************************************************************************************************/
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class JPAExampleFinder implements Finder<String>
   {
     private static class JpaqlSortCriterion implements SortCriterion
@@ -60,57 +68,41 @@ public class JPAExampleFinder implements Finder<String>
     public static final SortCriterion BY_LAST_NAME  = new JpaqlSortCriterion("p.lastName");
             
     @Nonnull
-    private EntityManager em;
+    private final EntityManager em;
     
-    private int firstResult = 0;
-    private int maxResults = Integer.MAX_VALUE;
-    private String sql;
+    private final int firstResult;
+    private final int maxResults;
+    private final String sql;
 
     public JPAExampleFinder (final @Nonnull EntityManager em) 
       {
         this.em = em;
         sql = " FROM Person p";
-      }
-    
-    @Nonnull @Override
-    public JPAExampleFinder clone()
-      {
-        try 
-          {
-            final JPAExampleFinder clone = (JPAExampleFinder)super.clone();
-            clone.em = this.em;
-            clone.firstResult = this.firstResult;
-            clone.maxResults = this.maxResults;
-            clone.sql = this.sql;
-            
-            return clone;
-          } 
-        catch (CloneNotSupportedException e) 
-          {
-            throw new RuntimeException(e);
-          }
+        firstResult = 0;
+        maxResults = Integer.MAX_VALUE;
       }
 
     @Nonnull
     public Finder<String> from (final @Nonnegative int firstResult) 
       {
-        final JPAExampleFinder clone = clone();
-        clone.firstResult = firstResult;
-        return clone;
+        return new JPAExampleFinder(em, firstResult, maxResults, sql);
       }
 
     @Nonnull
     public Finder<String> max (final @Nonnegative int maxResults) 
       {
-        final JPAExampleFinder clone = clone();
-        clone.maxResults = maxResults;
-        return clone;
+        return new JPAExampleFinder(em, firstResult, maxResults, sql);
       }
 
+    public Finder<String> withContext(Object context) 
+      {
+        throw new UnsupportedOperationException("Not supported.");
+      }
+    
     @Nonnull
     public <AnotherType> Finder<AnotherType> ofType (final @Nonnull Class<AnotherType> type) 
       {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported.");
       }
 
     @Nonnull
@@ -125,9 +117,8 @@ public class JPAExampleFinder implements Finder<String>
       {
         if (criterion instanceof JpaqlSortCriterion)
           {
-            final JPAExampleFinder clone = clone();
-            clone.sql = ((JpaqlSortCriterion)criterion).processSql(this.sql, direction); 
-            return clone;
+            final String newSql = ((JpaqlSortCriterion)criterion).processSql(this.sql, direction);
+            return new JPAExampleFinder(em, firstResult, maxResults, newSql);
           }
         else
           {

@@ -1,25 +1,30 @@
-/***********************************************************************************************************************
- *
+/*
+ * #%L
+ * *********************************************************************************************************************
+ * 
  * These Foolish Things - Miscellaneous utilities
- * Copyright (C) 2009-2011 by Tidalwave s.a.s. (http://www.tidalwave.it)
- *
- ***********************************************************************************************************************
- *
+ * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
+ * %%
+ * Copyright (C) 2009 - 2015 Tidalwave s.a.s. (http://tidalwave.it)
+ * %%
+ * *********************************************************************************************************************
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * 
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- *
- ***********************************************************************************************************************
- *
- * WWW: http://thesefoolishthings.kenai.com
- * SCM: http://kenai.com/hg/thesefoolishthings~src
- *
- **********************************************************************************************************************/
+ * 
+ * *********************************************************************************************************************
+ * 
+ * $Id$
+ * 
+ * *********************************************************************************************************************
+ * #L%
+ */
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
@@ -29,8 +34,7 @@ import java.util.Collection;
 /***********************************************************************************************************************
  *
  * Notifies that a searched object couldn't be found.
- * 
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  * @it.tidalwave.javadoc.stable
@@ -40,6 +44,7 @@ public class NotFoundException extends Exception
   {
     /*******************************************************************************************************************
      *
+     * Creates an empty exception.
      *
      ******************************************************************************************************************/
     public NotFoundException()
@@ -48,6 +53,9 @@ public class NotFoundException extends Exception
 
     /*******************************************************************************************************************
      *
+     * Creates an exception with a message.
+     *
+     * @param  message    the message
      *
      ******************************************************************************************************************/
     public NotFoundException (final @Nonnull String message)
@@ -57,29 +65,36 @@ public class NotFoundException extends Exception
 
     /*******************************************************************************************************************
      *
+     * Creates an exception with a cause.
+     *
+     * @param  cause    the cause
      *
      ******************************************************************************************************************/
-    public NotFoundException (final @Nonnull Throwable throwable)
+    public NotFoundException (final @Nonnull Throwable cause)
       {
-        super(throwable);
+        super(cause);
       }
 
     /*******************************************************************************************************************
      *
+     * Creates an exception with a message and a cause.
+     *
+     * @param  message    the message
+     * @param  cause    the cause
      *
      ******************************************************************************************************************/
-    public NotFoundException (final @Nonnull String message, final @Nonnull Throwable throwable)
+    public NotFoundException (final @Nonnull String message, final @Nonnull Throwable cause)
       {
-        super(message, throwable);
+        super(message, cause);
       }
 
     /*******************************************************************************************************************
      *
      * Throws the {@code NotFoundException} when the passed object is {@code null}. The method returns the object
      * itself and thus it can be used with fluent interfaces.
-     * 
+     *
      * @param  object             the object to be tested
-     * @param  message            the error message to be thrown 
+     * @param  message            the error message to be thrown
      * @return                    the object
      * @throws NotFoundException  if the object is null
      *
@@ -101,7 +116,7 @@ public class NotFoundException extends Exception
      *
      * Throws the {@code NotFoundException} when the passed object is {@code null}. The method returns the object
      * itself and thus it can be used with fluent interfaces.
-     * 
+     *
      * @param  object             the object to be tested
      * @param  message            the error message to be thrown (formatted as in {@link String#format}
      * @param  args               the arguments to format the error message
@@ -125,10 +140,10 @@ public class NotFoundException extends Exception
 
     /*******************************************************************************************************************
      *
-     * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the 
+     * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the
      * collection itself and thus it can be used with fluent interfaces.
-     * 
-     * @param  object             the collection to be tested
+     *
+     * @param  collection         the collection to be tested
      * @param  message            the error message to be thrown
      * @return                    the collection
      * @throws NotFoundException  if the collection is null or empty
@@ -149,10 +164,10 @@ public class NotFoundException extends Exception
 
     /*******************************************************************************************************************
      *
-     * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the 
+     * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the
      * collection itself and thus it can be used with fluent interfaces.
-     * 
-     * @param  object             the collection to be tested
+     *
+     * @param  collection         the collection to be tested
      * @param  message            the error message to be thrown (formatted as in {@link String#format}
      * @param  args               the arguments to format the error message
      * @return                    the collection
