@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.superpom</groupId>
         <artifactId>superpom</artifactId>
-        <version>3.1</version>
+        <version>3.3</version>
         <relativePath />
     </parent>
 
@@ -16,9 +16,8 @@
     <version>3.1-ALPHA-1-SNAPSHOT</version>
     <name>TheseFoolishThings</name>
     <inceptionYear>2009</inceptionYear>
+    <url>http://thesefoolishthings.tidalwave.it</url>
     <description>
-[![Build Status](https://drone.io/bitbucket.org/tidalwave/thesefoolishthings-src/status.png)](https://drone.io/bitbucket.org/tidalwave/thesefoolishthings-src/latest)
-
 A kitchen sink of small libraries that are used by all projects by Tidalwave. It mostly contains:
 
 * a few generic stuff such as ```Id``` and ```IdFactory```;
@@ -38,12 +37,11 @@ Since version 3.0 lots of old stuff have been dropped:
     </description>
 
     <properties>
-        <tft.project.url>http://thesefoolishthings.tidalwave.it</tft.project.url>
-
-        <tft.scm>git</tft.scm>
         <scm.repo.url>ssh://git@bitbucket.org/tidalwave/thesefoolishthings-src.git</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
+
+        <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
 
         <tft.maven.requiredJdk>[1.8.0-0,1.8.0-99)</tft.maven.requiredJdk>
 
@@ -57,11 +55,6 @@ Since version 3.0 lots of old stuff have been dropped:
         <system>Jira</system>
         <url>http://kenai.com/jira/browse/THESEFOOLISHTHINGS</url>
     </issueManagement>
-
-    <ciManagement>
-        <system>Jenkins</system>
-        <url>http://ci.tidalwave.it/view/TheseFoolishThings</url>
-    </ciManagement>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
     <scm>
