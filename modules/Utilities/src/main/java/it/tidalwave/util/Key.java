@@ -30,6 +30,9 @@ package it.tidalwave.util;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.io.Serializable;
+import it.tidalwave.util.spi.ReflectionUtils;
+import it.tidalwave.util.impl.TypeHolder;
+import lombok.Getter;
 
 /***********************************************************************************************************************
  *
@@ -45,6 +48,9 @@ public final class Key<T> implements StringValue, Comparable<Key<T>>, Serializab
     @Nonnull
     private final String name;
 
+    @Getter @Nonnull
+    private final Class<T> type;
+
     /*******************************************************************************************************************
      *
      * Create a new instance with the given name.
@@ -55,6 +61,7 @@ public final class Key<T> implements StringValue, Comparable<Key<T>>, Serializab
     public Key (final @Nonnull String name)
       {
         this.name = name;
+        type = (Class<T>)ReflectionUtils.getTypeArguments(TypeHolder.class, (new TypeHolder<T>() {}).getClass()).get(0);
       }
 
     /*******************************************************************************************************************
@@ -66,7 +73,7 @@ public final class Key<T> implements StringValue, Comparable<Key<T>>, Serializab
      ******************************************************************************************************************/
     public Key (final @Nonnull StringValue name)
       {
-        this.name = name.stringValue();
+        this(name.stringValue());
       }
 
     /*******************************************************************************************************************
