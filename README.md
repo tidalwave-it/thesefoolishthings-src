@@ -1,7 +1,10 @@
+![Maven Central](https://img.shields.io/maven-central/v/it.tidalwave.thesefoolishthings/thesefoolishthings.svg)
+[![Build Status](https://img.shields.io/jenkins/s/http/services.tidalwave.it/ci/TheseFoolishThings_Build_from_Scratch.svg)](http://services.tidalwave.it/ci/view/TheseFoolishThings)
+[![Test Status](https://img.shields.io/jenkins/t/http/services.tidalwave.it/ci/TheseFoolishThings.svg)](http://services.tidalwave.it/ci/view/TheseFoolishThings)
+[![Coverage](https://img.shields.io/jenkins/c/http/services.tidalwave.it/ci/TheseFoolishThings.svg)](http://services.tidalwave.it/ci/view/TheseFoolishThings)
+
 TheseFoolishThings
 ================================
-
-[![Build Status](https://drone.io/bitbucket.org/tidalwave/thesefoolishthings-src/status.png)](https://drone.io/bitbucket.org/tidalwave/thesefoolishthings-src/latest)
 
 A kitchen sink of small libraries that are used by all projects by Tidalwave. It mostly contains:
 
@@ -13,7 +16,7 @@ A kitchen sink of small libraries that are used by all projects by Tidalwave. It
 * some test utilities.
 
 TheseFoolishThings supports JDK 7 and has got a small JDK 8 integration module.
-        
+
 Since version 3.0 lots of old stuff have been dropped:
 
 * Support for Swing.
@@ -34,7 +37,7 @@ The project can be opened and built by a recent version of the NetBeans, Eclipse
 Documentation
 -------------
 
-More information can be found on the [homepage](http://thesefoolishthings.tidalwave.it/thesefoolishthings) of the project.
+More information can be found on the [homepage](http://thesefoolishthings.tidalwave.it) of the project.
 
 
 Where can I get the latest release?
@@ -55,7 +58,7 @@ Alternatively you can pull it from the central Maven repositories:
 Contributing
 ------------
 
-We accept pull requests via BitBucket or GitHub.
+We accept pull requests via Bitbucket or GitHub.
 
 There are some guidelines which will make applying pull requests easier for us:
 
@@ -80,4 +83,4 @@ Additional Resources
 
 * [Tidalwave Homepage](http://tidalwave.it)
 * [Project Issue Tracker (Jira)](http://kenai.com/jira/browse/THESEFOOLISHTHINGS)
-* [Project Continuous Integration (Jenkins)](http://ci.tidalwave.it/view/TheseFoolishThings)
+* [Project Continuous Integration (Jenkins)](http://services.tidalwave.it/ci/view/TheseFoolishThings)
