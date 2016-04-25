@@ -154,7 +154,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      ******************************************************************************************************************/
     protected FinderSupport (final @Nonnull FinderSupport<TYPE, EXTENDED_FINDER> other, final @Nonnull Object override)
       {
-        log.debug("FinderSupport({}, {})", other, override);
+        log.trace("FinderSupport({}, {})", other, override);
         final FinderSupport<TYPE, EXTENDED_FINDER> source = getSource(FinderSupport.class, other, override);
         this.name = source.name;
         this.firstResult = source.firstResult;
@@ -361,7 +361,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Nonnull
     protected List<? extends TYPE> computeNeededResults()
       {
-        log.debug("computeNeededResults() - {}", this);
+        log.trace("computeNeededResults() - {}", this);
         List<? extends TYPE> results = computeResults();
 
         // First sort and then extract the sublist
