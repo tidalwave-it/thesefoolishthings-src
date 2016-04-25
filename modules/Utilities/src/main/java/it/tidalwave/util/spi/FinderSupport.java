@@ -99,7 +99,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Nonnull
     private final List<Sorter<TYPE>> sorters;
 
-    private static final int DEFAULT_MAX_RESULTS = Integer.MAX_VALUE - 10; // gets inolved in some math, so can't use Integer.MAX_VALUE
+    private static final int DEFAULT_MAX_RESULTS = Integer.MAX_VALUE;
 
     /*******************************************************************************************************************
      *
@@ -371,7 +371,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
             sorter.sort(results);
           }
 
-        results = results.subList(firstResult, Math.min(results.size(), firstResult + maxResults));
+        results = results.subList(firstResult, (int)Math.min(results.size(), (long)firstResult + (long)maxResults));
 
         return results;
       }
