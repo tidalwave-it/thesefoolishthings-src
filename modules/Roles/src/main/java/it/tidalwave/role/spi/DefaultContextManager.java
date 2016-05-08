@@ -47,6 +47,10 @@ import static it.tidalwave.role.spi.LogUtil.*;
 @Slf4j
 public class DefaultContextManager implements ContextManager
   {
+    /** Useful for troubleshooting in cases when multiple instances are erroneously created. */
+    private static final boolean DUMP_STACK_AT_CREATION = Boolean.getBoolean(
+            DefaultContextManager.class.getName() + ".dumpStackAtCreation");
+
     /** The list of global contexts, ordered by priority. */
     private final List<Object> globalContexts = new ArrayList<>();
 
@@ -62,12 +66,33 @@ public class DefaultContextManager implements ContextManager
 
     /*******************************************************************************************************************
      *
+     *
+     *
+     ******************************************************************************************************************/
+    public DefaultContextManager()
+      {
+        if (DUMP_STACK_AT_CREATION)
+          {
+            try
+              {
+                throw new RuntimeException();
+              }
+            catch (Exception e)
+              {
+                log.trace(">>>> created context manager " + this, e);
+              }
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override @Nonnull
     public List<Object> getContexts()
       {
+        log.trace("CONTEXT MANAGER GET CONTEXTS {}", this);
         final List<Object> contexts = new ArrayList<>();
         contexts.addAll(localContexts.get());
         Collections.reverse(contexts);
@@ -176,7 +201,7 @@ public class DefaultContextManager implements ContextManager
 
             if (log.isTraceEnabled())
               {
-                log.trace(">>>> contexts now: {}", getContexts());
+                log.trace(">>>> contexts now: {} - {}", getContexts(), this);
               }
 
             return task.run();

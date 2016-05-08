@@ -33,6 +33,7 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.Finder.FilterSortCriterion;
 import it.tidalwave.util.Finder.SortCriterion;
@@ -371,11 +372,18 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
             sorter.sort(results);
           }
 
-        results = results.subList(firstResult, (int)Math.min(results.size(), (long)firstResult + (long)maxResults));
+        final int toIndex = (int)Math.min(results.size(), (long)firstResult + (long)maxResults);
+
+        if (firstResult > toIndex)
+          {
+            return new CopyOnWriteArrayList();
+          }
+
+        results = results.subList(firstResult, toIndex);
 
         return results;
       }
-
+    
     /*******************************************************************************************************************
      *
      *
