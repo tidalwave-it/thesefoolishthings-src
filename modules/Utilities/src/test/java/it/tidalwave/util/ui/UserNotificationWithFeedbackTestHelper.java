@@ -32,10 +32,12 @@ import java.awt.EventQueue;
 import lombok.NoArgsConstructor;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import static lombok.AccessLevel.*;
 import lombok.extern.slf4j.Slf4j;
+import static lombok.AccessLevel.*;
 
 /***********************************************************************************************************************
+ *
+ * A factory class to create testing matchers.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -46,10 +48,66 @@ public final class UserNotificationWithFeedbackTestHelper
   {
     /*******************************************************************************************************************
      *
+     * Creates a {@link UserNotification} matcher for the given caption and text.
+     *
+     * @param   captionRegex    the regular expression that should match the caption
+     * @param   textRegex       the regular expression that should match the text
+     * @return                  the matcher
+     *
      ******************************************************************************************************************/
-    // FIXME: make private
-    public static final Answer<Void> CONFIRM = new Answer<Void>()
+    @Nonnull
+    public static UserNotificationMatcher notification (final @Nonnull String captionRegex,
+                                                        final @Nonnull String textRegex)
       {
+        return new UserNotificationMatcher(captionRegex, textRegex);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates a {@link UserNotificationWithFeedback} matcher for the given caption and text.
+     *
+     * @param   captionRegex    the regular expression that should match the caption
+     * @param   textRegex       the regular expression that should match the text
+     * @return                  the matcher
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static UserNotificationWithFeedbackMatcher notificationWithFeedback (final @Nonnull String captionRegex,
+                                                                                final @Nonnull String textRegex)
+      {
+        return new UserNotificationWithFeedbackMatcher(captionRegex, textRegex);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * An {@link Answer} that triggers a confirmation to a {@link UserNotificationWithFeedback}.
+     *
+     * @return  the {@code Answer}
+     *
+     ******************************************************************************************************************/
+    public static final Answer<Void> confirm()
+      {
+        return CONFIRM;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * An {@link Answer} that triggers a cancellation to a {@link UserNotificationWithFeedback}.
+     *
+     * @return  the {@code Answer}
+     *
+     ******************************************************************************************************************/
+    public static final Answer<Void> cancel()
+      {
+        return CANCEL;
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    private static final Answer<Void> CONFIRM = new Answer<Void>()
+      {
+        @Override
         public Void answer (final @Nonnull InvocationOnMock invocation)
           throws Exception
           {
@@ -78,9 +136,9 @@ public final class UserNotificationWithFeedbackTestHelper
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    // FIXME: make private
-    public static final Answer<Void> CANCEL = new Answer<Void>()
+    private static final Answer<Void> CANCEL = new Answer<Void>()
       {
+        @Override
         public Void answer (final @Nonnull InvocationOnMock invocation)
           throws Exception
           {
@@ -105,47 +163,4 @@ public final class UserNotificationWithFeedbackTestHelper
             return null;
           }
       };
-
-    /*******************************************************************************************************************
-     *
-     *
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public static UserNotificationMatcher notification (final @Nonnull String caption, final @Nonnull String text)
-      {
-        return new UserNotificationMatcher(caption, text);
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public static UserNotificationWithFeedbackMatcher notificationWithFeedback (final @Nonnull String caption,
-                                                                                final @Nonnull String text)
-      {
-        return new UserNotificationWithFeedbackMatcher(caption, text);
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     *
-     ******************************************************************************************************************/
-    public static final Answer<Void> confirm()
-      {
-        return CONFIRM;
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     *
-     ******************************************************************************************************************/
-    public static final Answer<Void> cancel()
-      {
-        return CANCEL;
-      }
   }
