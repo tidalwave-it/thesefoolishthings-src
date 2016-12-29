@@ -28,24 +28,27 @@
 package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
 import java.util.List;
 import it.tidalwave.util.AsException;
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.mockito.ArgumentMatcher;
+import lombok.NoArgsConstructor;
 
 /***********************************************************************************************************************
  *
  * A {@link Matcher} for {@link PresentationModel}.
  *
+ * @stereotype  mockito matcher
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@NotThreadSafe
-public class PresentationModelMatcher extends BaseMatcher<PresentationModel>
+@NotThreadSafe @NoArgsConstructor(staticName = "presentationModel")
+public class PresentationModelMatcher implements ArgumentMatcher<PresentationModel>
   {
     private final StringBuilder pmDescription = new StringBuilder("PresentationModel");
 
@@ -53,12 +56,11 @@ public class PresentationModelMatcher extends BaseMatcher<PresentationModel>
 
     private final List<Class<?>> expectedRoleTypes = new ArrayList<>();
 
-    @Nonnull
-    public static PresentationModelMatcher presentationModel()
-      {
-        return new PresentationModelMatcher();
-      }
-
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public PresentationModelMatcher withRole (final @Nonnull Class<?> roleType)
       {
@@ -68,15 +70,18 @@ public class PresentationModelMatcher extends BaseMatcher<PresentationModel>
         return this;
       }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
     @Override
-    public boolean matches (final Object item)
+    public boolean matches (final @Nullable PresentationModel pm)
       {
-        if (!(item instanceof PresentationModel))
+        if (pm == null)
           {
             return false;
           }
-
-        final PresentationModel pm = (PresentationModel)item;
 
         for (final Class<?> roleType : expectedRoleTypes)
           {
@@ -93,9 +98,14 @@ public class PresentationModelMatcher extends BaseMatcher<PresentationModel>
         return true;
       }
 
-    @Override
-    public void describeTo (final @Nonnull Description description)
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public String toString()
       {
-        description.appendText(pmDescription.toString());
+        return pmDescription.toString();
       }
   }
