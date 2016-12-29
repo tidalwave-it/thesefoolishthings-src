@@ -25,61 +25,28 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.actor.impl;
+package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
-import javax.inject.Provider;
+import java.util.ResourceBundle;
 
 /***********************************************************************************************************************
  *
- * A trimmed down replacement for OpenBlueSky Locator, in order to avoid depending on OpenBlueSky.
- *
- * @author  Fabrizio Giudici
- * @version $Id$
+ * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * @version $Id: $
  *
  **********************************************************************************************************************/
-public class Locator
+public class BundleHelper
   {
-    public static class NotFoundException extends RuntimeException
-      {
-        NotFoundException (final @Nonnull Class<?> serviceClass)
-          {
-            super("Not found: " + serviceClass);
-          }
-
-        NotFoundException (final @Nonnull String name)
-          {
-            super("Not found: " + name);
-          }
-      }
-
     @Nonnull
-    public static <T> Provider<T> createProviderFor (final @Nonnull Class<T> serviceClass)
+    public static String getMessage (final @Nonnull Class<?> ownerClass,
+                                     final @Nonnull String resourceName,
+                                     final @Nonnull Object ... params)
       {
-        return new Provider<T>()
-          {
-            @Override @Nonnull
-            public T get()
-              {
-                return find(serviceClass);
-              }
-          };
-      }
+        final String packageName = ownerClass.getPackage().getName();
+        final ResourceBundle bundle = ResourceBundle.getBundle(packageName + ".Bundle");
+        final String string = bundle.getString(resourceName);
 
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    private static <T> T find (final @Nonnull Class<T> serviceClass)
-      {
-//        final T service = Lookup.getDefault().lookup(serviceClass); FIXME
-//
-//        if (service == null)
-//          {
-            throw new NotFoundException(serviceClass);
-//          }
-//
-//        return service;
+        return (params.length == 0) ? string : String.format(string, params);
       }
   }

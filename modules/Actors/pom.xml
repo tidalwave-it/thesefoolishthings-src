@@ -6,13 +6,13 @@
     <parent>
        <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>3.1-ALPHA-1-SNAPSHOT</version>
+        <version>3.1-ALPHA-2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-actor</artifactId>
-    <version>3.1-ALPHA-1-SNAPSHOT</version>
+    <version>3.1-ALPHA-2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings - Actors</name>
     <description>An experimental module which provides an implementation of an actor-based framework.</description>
@@ -25,11 +25,6 @@
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it-tidalwave-util</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.netbeans.api</groupId>
-            <artifactId>org-openide-util-lookup</artifactId>
         </dependency>
 
         <dependency>

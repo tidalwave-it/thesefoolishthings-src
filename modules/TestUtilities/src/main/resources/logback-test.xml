@@ -50,6 +50,7 @@
 
     <logger name="org.springframework" level="INFO"/>
 
-    <include file="\${tft.test.logConfig}" optional="true" />
+    <include file="target/test-classes/logback-test-override.xml" optional="true" />
+    <include file="${tft.test.logConfig}" optional="true" />
 
 </configuration>

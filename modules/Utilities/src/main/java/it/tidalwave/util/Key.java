@@ -61,7 +61,8 @@ public final class Key<T> implements StringValue, Comparable<Key<T>>, Serializab
     public Key (final @Nonnull String name)
       {
         this.name = name;
-        type = (Class<T>)ReflectionUtils.getTypeArguments(TypeHolder.class, (new TypeHolder<T>() {}).getClass()).get(0);
+        type = null; // FIXME
+//        type = (Class<T>)ReflectionUtils.getTypeArguments(TypeHolder.class, (new TypeHolder<T>() {}).getClass()).get(0);
       }
 
     /*******************************************************************************************************************

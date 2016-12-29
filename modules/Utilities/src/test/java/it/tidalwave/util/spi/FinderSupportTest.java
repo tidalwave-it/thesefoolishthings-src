@@ -76,4 +76,15 @@ public class FinderSupportTest
         // then
         assertThat(results.size(), is(100 - 11));
       }
+
+    @Test
+    public void fix_for_THESEFOOLISHTHINGS_176()
+      {
+        // given
+        final UnderTest underTest = new UnderTest();
+        // when
+        List<? extends String> results = underTest.from(101).results();
+        // then
+        assertThat(results.size(), is(0));
+      }
   }

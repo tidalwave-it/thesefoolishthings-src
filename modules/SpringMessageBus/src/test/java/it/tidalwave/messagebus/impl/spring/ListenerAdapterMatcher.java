@@ -27,14 +27,12 @@
  */
 package it.tidalwave.messagebus.impl.spring;
 
-import javax.annotation.Nonnull;
 import it.tidalwave.messagebus.impl.spring.MessageBusAdapterFactory.MessageBusListenerAdapter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Wither;
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
+import org.mockito.ArgumentMatcher;
 
 /***********************************************************************************************************************
  *
@@ -43,7 +41,7 @@ import org.hamcrest.Description;
  *
  **********************************************************************************************************************/
 @NoArgsConstructor(staticName = "listenerAdapter") @AllArgsConstructor @ToString
-public class ListenerAdapterMatcher extends BaseMatcher<MessageBusListenerAdapter>
+public class ListenerAdapterMatcher implements ArgumentMatcher<MessageBusListenerAdapter>
   {
     @Wither
     public String methodName;
@@ -55,13 +53,13 @@ public class ListenerAdapterMatcher extends BaseMatcher<MessageBusListenerAdapte
     public Class<?> topic;
 
     @Override
-    public boolean matches (final Object item)
+    public boolean matches (final MessageBusListenerAdapter item)
       {
-        if (! (item instanceof MessageBusListenerAdapter))
-          {
-            return false;
-          }
-
+//        if (! (item instanceof MessageBusListenerAdapter))
+//          {
+//            return false;
+//          }
+//
         final MessageBusListenerAdapter listener = (MessageBusListenerAdapter)item;
 
         return (methodName.equals(listener.getMethod().getName())
@@ -69,9 +67,9 @@ public class ListenerAdapterMatcher extends BaseMatcher<MessageBusListenerAdapte
                 && topic.equals(listener.getTopic()));
       }
 
-    @Override
-    public void describeTo (final @Nonnull Description description)
-      {
-        description.appendText(toString());
-      }
+//    @Override FIXME!
+//    public void describeTo (final @Nonnull Description description)
+//      {
+//        description.appendText(toString());
+//      }
   }
