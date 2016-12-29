@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.superpom</groupId>
         <artifactId>superpom</artifactId>
-        <version>3.3</version>
+        <version>4.0</version>
         <relativePath />
     </parent>
 
@@ -43,7 +43,7 @@ Since version 3.0 lots of old stuff have been dropped:
 
         <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
 
-        <tft.maven.requiredJdk>[1.8.0-0,1.8.0-99)</tft.maven.requiredJdk>
+        <tft.maven.requiredJdk>[1.8.0-0,)</tft.maven.requiredJdk>
 
         <netbeans.hint.jdkPlatform>JDK_1.8.0</netbeans.hint.jdkPlatform>
         <netbeans.compile.on.save>all</netbeans.compile.on.save>
@@ -69,14 +69,6 @@ Since version 3.0 lots of old stuff have been dropped:
             <id>maven2-release-repository.tidalwave.it</id>
             <name>Tidalwave Releases Repository</name>
             <url>http://services.tidalwave.it/nexus/content/repositories/releases/</url>
-        </repository>
-        <repository>
-            <id>netbeans</id>
-            <name>NetBeans Platform Maven Repository</name>
-            <url>http://bits.netbeans.org/maven2/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </repository>
         <repository>
             <id>snapshots-oss.sonatype.org</id>
