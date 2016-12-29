@@ -33,14 +33,14 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>3.1-ALPHA-1-SNAPSHOT</version>
+        <version>3.1-ALPHA-1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-util-java8supplement</artifactId>
     <packaging>jar</packaging>
-    <version>3.1-ALPHA-1-SNAPSHOT</version>
+    <version>3.1-ALPHA-1</version>
     <name>TheseFoolishThings - Java 8 Supplements</name>
 
     <properties>
