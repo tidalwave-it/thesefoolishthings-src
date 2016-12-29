@@ -92,7 +92,6 @@ public class DefaultContextManager implements ContextManager
     @Override @Nonnull
     public List<Object> getContexts()
       {
-        log.trace("CONTEXT MANAGER GET CONTEXTS {}", this);
         final List<Object> contexts = new ArrayList<>();
         contexts.addAll(localContexts.get());
         Collections.reverse(contexts);
