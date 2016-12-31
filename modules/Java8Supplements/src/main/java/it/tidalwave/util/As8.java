@@ -25,51 +25,34 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spi;
+package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
-import it.tidalwave.role.Aggregate;
-import lombok.ToString;
 
 /***********************************************************************************************************************
  *
- * A map-based implementation of {@link Aggregate}.
+ * An extension of {@link As} for Java 8 which makes use of {@link Optional}.
  *
- * @stereotype Role
- *
- * @param <TYPE>    the type of the aggregate
- * 
+ * @since   3.1-ALPHA-2
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Immutable @ToString
-public class MapAggregate<TYPE> implements Aggregate<TYPE>
+public interface As8 extends As
   {
-    private final Map<String, TYPE> mapByName;
-
     /*******************************************************************************************************************
      *
+     * Returns the requested role, or an empty {@link Optional}.
+     *
+     * @param   <T>     the role type
+     * @param   type    the role type
+     * @return          the optional role
      *
      ******************************************************************************************************************/
-    public MapAggregate (final @Nonnull Map<String, TYPE> mapByName)
+    @Nonnull
+    default <T> Optional<T> asOptional (final @Nonnull Class<T> type)
       {
-        this.mapByName = Collections.unmodifiableMap(new HashMap<>(mapByName));
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public Optional<TYPE> getByName (final @Nonnull String name)
-      {
-        return Optional.ofNullable(mapByName.get(name));
+        return Optional.ofNullable(as(type, throwable -> null));
       }
   }

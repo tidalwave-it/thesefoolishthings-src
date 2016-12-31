@@ -82,5 +82,5 @@ Additional Resources
 --------------------
 
 * [Tidalwave Homepage](http://tidalwave.it)
-* [Project Issue Tracker (Jira)](http://kenai.com/jira/browse/THESEFOOLISHTHINGS)
+* [Project Issue Tracker (Jira)](http://services.tidalwave.it/jira/browse/TFT)
 * [Project Continuous Integration (Jenkins)](http://services.tidalwave.it/ci/view/TheseFoolishThings)

@@ -25,51 +25,61 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spi;
+package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
-import it.tidalwave.role.Aggregate;
-import lombok.ToString;
+import java.util.concurrent.ConcurrentHashMap;
 
 /***********************************************************************************************************************
  *
- * A map-based implementation of {@link Aggregate}.
- *
- * @stereotype Role
- *
- * @param <TYPE>    the type of the aggregate
+ * A specialisation of {@link ConcurrentHashMap} with {@link Optional} support.
  * 
+ * @param <K>   the type of the key
+ * @param <V>   the type of the value
+ *
+ * @since   3.1-ALPHA-2
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Immutable @ToString
-public class MapAggregate<TYPE> implements Aggregate<TYPE>
+public class ConcurrentHashMapWithOptionals<K, V> extends ConcurrentHashMap<K, V>
   {
-    private final Map<String, TYPE> mapByName;
+    private static final long serialVersionUID = -1771492882183193296L;
 
     /*******************************************************************************************************************
      *
+     * If the map doesn't contain the given key, put the new pair(key, value), and return the key itself. Otherwise,
+     * do nothing and return an empty {@link Optional}. The map manipulation is atomically performed by calling
+     * {@link #putIfAbsent(java.lang.Object, java.lang.Object)}.
+     *
+     * If {@code optionalKey} is empty, do nothing and return nothing.
+     *
+     * @param   optionalKey     the key
+     * @param   value           the value
+     * @return                  the new key, or nothing
      *
      ******************************************************************************************************************/
-    public MapAggregate (final @Nonnull Map<String, TYPE> mapByName)
+    @Nonnull
+    public Optional<K> putIfAbsentAndGetNewKey (final @Nonnull Optional<K> optionalKey, final @Nonnull V value)
       {
-        this.mapByName = Collections.unmodifiableMap(new HashMap<>(mapByName));
+        return optionalKey.flatMap(key -> putIfAbsentAndGetNewKey(key, value));
       }
 
     /*******************************************************************************************************************
      *
-     * {@inheritDoc}
+     * If the map doesn't contain the given key, put the new pair(key, value), and return the key itself. Otherwise,
+     * do nothing and return an empty {@link Optional}. The map manipulation is atomically performed by calling
+     * {@link #putIfAbsent(java.lang.Object, java.lang.Object)}.
+     *
+     * @param   key     the key
+     * @param   value   the value
+     * @return          the new key, or nothing
      *
      ******************************************************************************************************************/
-    @Override @Nonnull
-    public Optional<TYPE> getByName (final @Nonnull String name)
+    @Nonnull
+    public Optional<K> putIfAbsentAndGetNewKey (final @Nonnull K key, final @Nonnull V value)
       {
-        return Optional.ofNullable(mapByName.get(name));
+        return (putIfAbsent(key, value) == null) ? Optional.of(key) : Optional.empty();
       }
   }

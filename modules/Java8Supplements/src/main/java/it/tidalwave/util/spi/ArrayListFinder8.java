@@ -2,11 +2,12 @@
  * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
+ * SteelBlue
+ * http://steelblue.tidalwave.it - git clone git@bitbucket.org:tidalwave/steelblue-src.git
  * %%
- * Copyright (C) 2009 - 2016 Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2015 - 2015 Tidalwave s.a.s. (http://tidalwave.it)
  * %%
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -25,51 +26,52 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spi;
+package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import it.tidalwave.role.Aggregate;
-import lombok.ToString;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import it.tidalwave.util.Finder8;
+import static it.tidalwave.util.spi.FinderSupport.getSource;
 
 /***********************************************************************************************************************
  *
- * A map-based implementation of {@link Aggregate}.
+ * An implementation of {@link Finder8} which holds an immutable list of items.
  *
- * @stereotype Role
+ * @param  <T>   the type of contained items
  *
- * @param <TYPE>    the type of the aggregate
- * 
- * @author  Fabrizio Giudici
- * @version $Id$
+ * @since   3.1-ALPHA-2
+ * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * @version $Id: Class.java,v 631568052e17 2013/02/19 15:45:02 fabrizio $
  *
  **********************************************************************************************************************/
-@Immutable @ToString
-public class MapAggregate<TYPE> implements Aggregate<TYPE>
+@Immutable
+public class ArrayListFinder8<T> extends SimpleFinder8Support<T>
   {
-    private final Map<String, TYPE> mapByName;
+    private static final long serialVersionUID = -3529114277448372453L;
 
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    public MapAggregate (final @Nonnull Map<String, TYPE> mapByName)
+    @Nonnull
+    private final Collection<T> items;
+
+    public ArrayListFinder8 (final @Nonnull Collection<T> items)
       {
-        this.mapByName = Collections.unmodifiableMap(new HashMap<>(mapByName));
+        this.items = Collections.unmodifiableCollection(new ArrayList<>(items));
       }
 
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public Optional<TYPE> getByName (final @Nonnull String name)
+    public ArrayListFinder8 (final @Nonnull ArrayListFinder8<T> other, @Nonnull Object override)
       {
-        return Optional.ofNullable(mapByName.get(name));
+        super(other, override);
+        final ArrayListFinder8<T> source = getSource(ArrayListFinder8.class, other, override);
+        this.items = source.items;
+      }
+
+    @Override @Nonnull
+    protected List<? extends T> computeResults()
+      {
+        return new CopyOnWriteArrayList<>(items);
       }
   }

@@ -25,51 +25,20 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spi;
+package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import it.tidalwave.role.Aggregate;
-import lombok.ToString;
+import javafx.beans.property.BooleanProperty;
 
 /***********************************************************************************************************************
  *
- * A map-based implementation of {@link Aggregate}.
- *
- * @stereotype Role
- *
- * @param <TYPE>    the type of the aggregate
- * 
+ * @since   3.1-ALPHA-2
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Immutable @ToString
-public class MapAggregate<TYPE> implements Aggregate<TYPE>
+public interface UserAction8 extends UserAction
   {
-    private final Map<String, TYPE> mapByName;
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    public MapAggregate (final @Nonnull Map<String, TYPE> mapByName)
-      {
-        this.mapByName = Collections.unmodifiableMap(new HashMap<>(mapByName));
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public Optional<TYPE> getByName (final @Nonnull String name)
-      {
-        return Optional.ofNullable(mapByName.get(name));
-      }
+    @Nonnull
+    public BooleanProperty enabledProperty();
   }
