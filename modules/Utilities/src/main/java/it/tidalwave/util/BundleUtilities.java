@@ -29,15 +29,24 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
 import java.util.ResourceBundle;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /***********************************************************************************************************************
  *
+ * @since   3.1-ALPHA-2
  * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
  * @version $Id: $
  *
  **********************************************************************************************************************/
-public class BundleHelper
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class BundleUtilities
   {
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public static String getMessage (final @Nonnull Class<?> ownerClass,
                                      final @Nonnull String resourceName,

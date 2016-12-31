@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import lombok.Getter;
 import lombok.ToString;
-import static it.tidalwave.util.BundleHelper.getMessage;
+import static it.tidalwave.util.BundleUtilities.getMessage;
 
 /***********************************************************************************************************************
  *
