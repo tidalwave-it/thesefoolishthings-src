@@ -42,6 +42,7 @@ Since version 3.0 lots of old stuff have been dropped:
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
 
         <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
+        <tidalwave.issues>TFT</tidalwave.issues>
 
         <tft.maven.requiredJdk>[1.8.0-0,)</tft.maven.requiredJdk>
 
@@ -50,11 +51,6 @@ Since version 3.0 lots of old stuff have been dropped:
 
         <tft.clirr.skip>true</tft.clirr.skip> <!-- FIXME Clirr makes the build fail -->
     </properties>
-
-    <issueManagement>
-        <system>Jira</system>
-        <url>http://kenai.com/jira/browse/THESEFOOLISHTHINGS</url>
-    </issueManagement>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
     <scm>
