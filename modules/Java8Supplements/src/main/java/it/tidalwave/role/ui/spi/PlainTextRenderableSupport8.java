@@ -25,28 +25,35 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.util;
+package it.tidalwave.role.ui.spi;
 
 import javax.annotation.Nonnull;
-import java.util.ResourceBundle;
+import java.io.PrintWriter;
+import it.tidalwave.role.PlainTextRenderable;
 
 /***********************************************************************************************************************
  *
- * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
- * @version $Id: $
+ * @stereotype Role
+ *
+ * @since   3.1-ALPHA-2
+ * @author  Fabrizio Giudici
+ * @version $Id$
  *
  **********************************************************************************************************************/
-public class BundleHelper
+@FunctionalInterface
+public interface PlainTextRenderableSupport8 extends PlainTextRenderable
   {
-    @Nonnull
-    public static String getMessage (final @Nonnull Class<?> ownerClass,
-                                     final @Nonnull String resourceName,
-                                     final @Nonnull Object ... params)
+    @Override
+    public default void renderTo (final @Nonnull StringBuilder stringBuilder,
+                                  final @Nonnull Object ... args)
       {
-        final String packageName = ownerClass.getPackage().getName();
-        final ResourceBundle bundle = ResourceBundle.getBundle(packageName + ".Bundle");
-        final String string = bundle.getString(resourceName);
+        stringBuilder.append(render(args));
+      }
 
-        return (params.length == 0) ? string : String.format(string, params);
+    @Override
+    public default void renderTo (final @Nonnull PrintWriter printWriter,
+                                  final @Nonnull Object ... args)
+      {
+        printWriter.print(render(args));
       }
   }

@@ -25,51 +25,58 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spi;
+package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import it.tidalwave.role.Aggregate;
-import lombok.ToString;
+import it.tidalwave.role.spi.MapAggregate;
+import it.tidalwave.role.ui.spi.DefaultPresentationModel;
+import lombok.NoArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * A map-based implementation of {@link Aggregate}.
+ * A builder for an {@link Aggregate} of {@link PresentationModel}s.
  *
- * @stereotype Role
+ * @stereotype  role factory, builder
  *
- * @param <TYPE>    the type of the aggregate
- * 
+ * @since   3.1-ALPHA-2
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Immutable @ToString
-public class MapAggregate<TYPE> implements Aggregate<TYPE>
+@NoArgsConstructor(staticName = "newInstance")
+public class AggregatePresentationModelBuilder
   {
-    private final Map<String, TYPE> mapByName;
+    private final Map<String, PresentationModel> map = new ConcurrentHashMap<>();
 
     /*******************************************************************************************************************
      *
+     * Adds another {@link PresentationModel} with the given roles, associated to the given name.
+     *
+     * @param   name    the name of the {@code PresentationModel}
+     * @param   roles   the roles
+     * @return          the new {@code PresentationModel}
      *
      ******************************************************************************************************************/
-    public MapAggregate (final @Nonnull Map<String, TYPE> mapByName)
+    @Nonnull
+    public AggregatePresentationModelBuilder with (final @Nonnull String name, final @Nonnull Object ... roles)
       {
-        this.mapByName = Collections.unmodifiableMap(new HashMap<>(mapByName));
+        map.put(name, new DefaultPresentationModel("", roles));
+        return this;
       }
 
     /*******************************************************************************************************************
      *
-     * {@inheritDoc}
+     * Creates the {@link Agggregate} from the previously accumulated items.
+     *
+     * @return  the {@code Agggregate}
      *
      ******************************************************************************************************************/
-    @Override @Nonnull
-    public Optional<TYPE> getByName (final @Nonnull String name)
+    @Nonnull
+    public Aggregate create()
       {
-        return Optional.ofNullable(mapByName.get(name));
+        return new MapAggregate<>(map);
       }
   }

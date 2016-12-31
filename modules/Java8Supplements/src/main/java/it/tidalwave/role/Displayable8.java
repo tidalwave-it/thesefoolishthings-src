@@ -25,51 +25,36 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spi;
+package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import it.tidalwave.role.Aggregate;
-import lombok.ToString;
+import it.tidalwave.role.spi.DefaultDisplayable;
+import static it.tidalwave.util.BundleUtilities.*;
 
 /***********************************************************************************************************************
  *
- * A map-based implementation of {@link Aggregate}.
- *
- * @stereotype Role
- *
- * @param <TYPE>    the type of the aggregate
- * 
- * @author  Fabrizio Giudici
- * @version $Id$
+ * @since   3.1-ALPHA-2
+ * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * @version $Id: Interface.java,v 631568052e17 2013/02/19 15:45:02 fabrizio $
  *
  **********************************************************************************************************************/
-@Immutable @ToString
-public class MapAggregate<TYPE> implements Aggregate<TYPE>
+public interface Displayable8 extends Displayable
   {
-    private final Map<String, TYPE> mapByName;
+    public static final Class<Displayable8> Displayable8 = Displayable8.class;
 
     /*******************************************************************************************************************
      *
+     * Creates a {@link Displayable} from a resource bundle. The bundle resource file is named {@code Bundle.properties}
+     * and it should be placed in the same package as the owner class.
+     *
+     * @param   ownerClass  the class that owns the bundle
+     * @param   key         the resource key
+     * @return              the {@code Displayable}
      *
      ******************************************************************************************************************/
-    public MapAggregate (final @Nonnull Map<String, TYPE> mapByName)
+    @Nonnull
+    public static Displayable displayableFromBundle (final @Nonnull Class<?> ownerClass, final @Nonnull String key)
       {
-        this.mapByName = Collections.unmodifiableMap(new HashMap<>(mapByName));
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public Optional<TYPE> getByName (final @Nonnull String name)
-      {
-        return Optional.ofNullable(mapByName.get(name));
+        return new DefaultDisplayable(getMessage(ownerClass, key));
       }
   }

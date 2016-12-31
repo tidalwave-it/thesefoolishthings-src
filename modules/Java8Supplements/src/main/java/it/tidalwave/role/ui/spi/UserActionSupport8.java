@@ -25,33 +25,55 @@
  * *********************************************************************************************************************
  * #L%
  */
-
 package it.tidalwave.role.ui.spi;
 
 import javax.annotation.Nonnull;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import it.tidalwave.util.Callback;
+import it.tidalwave.role.ui.UserAction8;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
  * A Java 8 extension for {@link UserActionSupport} that supports lambdas.
- * 
+ *
  * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
  * @version $Id$
  * @since   3.0
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor(staticName = "withCallback") @Slf4j
-public class UserActionSupport8 extends UserActionSupport
+public class UserActionSupport8 extends UserActionSupport implements UserAction8
   {
+    @Getter @Accessors(fluent = true)
+    private final BooleanProperty enabledProperty = new SimpleBooleanProperty(true);
+
     @Nonnull
     private final Callback callback;
 
-    private UserActionSupport8 (final @Nonnull Callback callback, final @Nonnull Object ... rolesOrFactories)
+//    private final InvalidationListener invalidationListener = (Observable observable) ->
+//      {
+//        log.info("invalidated {}", observable);
+//      };
+
+    private final ChangeListener<Boolean> changeListener =
+            (ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) ->
+      {
+        this.enabled().set(newValue);
+      };
+
+    public UserActionSupport8 (final @Nonnull Callback callback, final @Nonnull Object ... rolesOrFactories)
       {
         super(rolesOrFactories);
         this.callback = callback;
+        enabledProperty.addListener(changeListener);
+//        enabledProperty.addListener(invalidationListener);
       }
 
     @Nonnull

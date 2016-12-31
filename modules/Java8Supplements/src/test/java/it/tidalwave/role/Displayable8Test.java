@@ -25,51 +25,26 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spi;
+package it.tidalwave.role;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import it.tidalwave.role.Aggregate;
-import lombok.ToString;
+import org.testng.annotations.Test;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
  *
- * A map-based implementation of {@link Aggregate}.
- *
- * @stereotype Role
- *
- * @param <TYPE>    the type of the aggregate
- * 
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-@Immutable @ToString
-public class MapAggregate<TYPE> implements Aggregate<TYPE>
+public class Displayable8Test
   {
-    private final Map<String, TYPE> mapByName;
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    public MapAggregate (final @Nonnull Map<String, TYPE> mapByName)
+    @Test
+    public void must_read_the_displayName_from_the_bundle()
       {
-        this.mapByName = Collections.unmodifiableMap(new HashMap<>(mapByName));
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public Optional<TYPE> getByName (final @Nonnull String name)
-      {
-        return Optional.ofNullable(mapByName.get(name));
+        // when
+        final Displayable displayable = Displayable8.displayableFromBundle(Displayable8Test.class, "key");
+        // then
+        assertThat(displayable.getDisplayName(), is("value"));
       }
   }

@@ -32,7 +32,7 @@ import javax.annotation.concurrent.Immutable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import static it.tidalwave.util.BundleHelper.getMessage;
+import static it.tidalwave.util.BundleUtilities.getMessage;
 import static lombok.AccessLevel.PROTECTED;
 
 /***********************************************************************************************************************

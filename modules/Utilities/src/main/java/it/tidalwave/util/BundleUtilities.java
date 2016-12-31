@@ -25,51 +25,37 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spi;
+package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import it.tidalwave.role.Aggregate;
-import lombok.ToString;
+import java.util.ResourceBundle;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * A map-based implementation of {@link Aggregate}.
- *
- * @stereotype Role
- *
- * @param <TYPE>    the type of the aggregate
- * 
- * @author  Fabrizio Giudici
- * @version $Id$
+ * @since   3.1-ALPHA-2
+ * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * @version $Id: $
  *
  **********************************************************************************************************************/
-@Immutable @ToString
-public class MapAggregate<TYPE> implements Aggregate<TYPE>
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class BundleUtilities
   {
-    private final Map<String, TYPE> mapByName;
-
     /*******************************************************************************************************************
      *
      *
+     *
      ******************************************************************************************************************/
-    public MapAggregate (final @Nonnull Map<String, TYPE> mapByName)
+    @Nonnull
+    public static String getMessage (final @Nonnull Class<?> ownerClass,
+                                     final @Nonnull String resourceName,
+                                     final @Nonnull Object ... params)
       {
-        this.mapByName = Collections.unmodifiableMap(new HashMap<>(mapByName));
-      }
+        final String packageName = ownerClass.getPackage().getName();
+        final ResourceBundle bundle = ResourceBundle.getBundle(packageName + ".Bundle");
+        final String string = bundle.getString(resourceName);
 
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public Optional<TYPE> getByName (final @Nonnull String name)
-      {
-        return Optional.ofNullable(mapByName.get(name));
+        return (params.length == 0) ? string : String.format(string, params);
       }
   }
