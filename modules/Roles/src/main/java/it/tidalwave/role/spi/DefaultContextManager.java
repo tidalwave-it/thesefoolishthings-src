@@ -215,4 +215,40 @@ public class DefaultContextManager implements ContextManager
             log.trace(">>>> runWithContexts({}, {}) completed", contextIds, taskId);
           }
       }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    public <V> V runWithContext (final @Nonnull Object context, final @Nonnull Supplier<V> task)
+      {
+        return runWithContext(context, new Task<V, RuntimeException>()
+          {
+            @Override
+            public V run()
+              {
+                return task.get();
+              }
+          });
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    public <V> V runWithContexts (final @Nonnull List<Object> contexts, final @Nonnull Supplier<V> task)
+      {
+        return runWithContext(contexts, new Task<V, RuntimeException>()
+          {
+            @Override
+            public V run()
+              {
+                return task.get();
+              }
+          });
+      }
   }

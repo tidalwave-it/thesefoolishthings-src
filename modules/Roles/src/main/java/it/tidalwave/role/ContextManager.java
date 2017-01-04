@@ -50,6 +50,12 @@ import lombok.extern.slf4j.Slf4j;
  **********************************************************************************************************************/
 public interface ContextManager
   {
+    // We must compile with Java 7
+    public static interface Supplier<V>
+      {
+        public V get();
+      }
+
     /*******************************************************************************************************************
      *
      * A locator for the {@link ContextManager} which uses the {@link ServiceProvider} facility to be independent of
@@ -179,11 +185,31 @@ public interface ContextManager
      *
      * Runs a {@link Task} associated with a new bunch of local contexts.
      *
+     * @param  contexts            the contexts
+     * @param  task                the task
+     *
+     ******************************************************************************************************************/
+    public <V, T extends Throwable> V runWithContexts (@Nonnull List<Object> contexts,
+                                                       @Nonnull Task<V, T> task)
+      throws T;
+
+    /*******************************************************************************************************************
+     *
+     * Runs a task associated with a new local context. This variant fits functional interfaces.
+     *
      * @param  context             the context
      * @param  task                the task
      *
      ******************************************************************************************************************/
-    public <V, T extends Throwable> V runWithContexts (@Nonnull List<Object> context,
-                                                       @Nonnull Task<V, T> task)
-      throws T;
+    public <V> V runWithContext (@Nonnull Object context, @Nonnull Supplier<V> task);
+
+    /*******************************************************************************************************************
+     *
+     * Runs a task associated with a new bunch of local contexts. This variant fits functional interfaces.
+     *
+     * @param  contexts             the context
+     * @param  task                the task
+     *
+     ******************************************************************************************************************/
+    public <V> V runWithContexts (@Nonnull List<Object> contexts, @Nonnull Supplier<V> task);
   }
