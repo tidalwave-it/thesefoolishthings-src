@@ -1,7 +1,7 @@
 ![Maven Central](https://img.shields.io/maven-central/v/it.tidalwave.thesefoolishthings/thesefoolishthings.svg)
-[![Build Status](https://img.shields.io/jenkins/s/http/services.tidalwave.it/ci/TheseFoolishThings_Build_from_Scratch.svg)](http://services.tidalwave.it/ci/view/TheseFoolishThings)
-[![Test Status](https://img.shields.io/jenkins/t/http/services.tidalwave.it/ci/TheseFoolishThings.svg)](http://services.tidalwave.it/ci/view/TheseFoolishThings)
-[![Coverage](https://img.shields.io/jenkins/c/http/services.tidalwave.it/ci/TheseFoolishThings.svg)](http://services.tidalwave.it/ci/view/TheseFoolishThings)
+[![Build Status](https://img.shields.io/jenkins/s/http/services.tidalwave.it/ci/job/TheseFoolishThings_Build_from_Scratch.svg)](http://services.tidalwave.it/ci/view/TheseFoolishThings)
+[![Test Status](https://img.shields.io/jenkins/t/http/services.tidalwave.it/ci/job/TheseFoolishThings.svg)](http://services.tidalwave.it/ci/view/TheseFoolishThings)
+[![Coverage](https://img.shields.io/jenkins/c/http/services.tidalwave.it/ci/job/TheseFoolishThings.svg)](http://services.tidalwave.it/ci/view/TheseFoolishThings)
 
 TheseFoolishThings
 ================================
@@ -42,6 +42,7 @@ More information can be found on the [homepage](http://thesefoolishthings.tidalw
 
 Where can I get the latest release?
 -----------------------------------
+
 You can download source and binaries from the [download page](https://bitbucket.org/tidalwave/thesefoolishthings-src/src).
 
 Alternatively you can pull it from the central Maven repositories:
@@ -75,6 +76,7 @@ If you plan to contribute on a regular basis, please consider filing a contribut
 
 License
 -------
+
 Code is released under the [Apache Licence v2](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
 
