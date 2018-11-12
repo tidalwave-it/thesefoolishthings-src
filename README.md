@@ -15,7 +15,7 @@ A kitchen sink of small libraries that are used by all projects by Tidalwave. It
 * a small, experimental Actor library;
 * some test utilities.
 
-TheseFoolishThings supports JDK 7 and has got a small JDK 8 integration module.
+TheseFoolishThings still supports JDK 7 and has got a small JDK 8 integration module.
 
 Since version 3.0 lots of old stuff have been dropped:
 
