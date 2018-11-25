@@ -6,13 +6,13 @@
     <parent>
        <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>3.1-ALPHA-3-SNAPSHOT</version>
+        <version>3.1-ALPHA-4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-role-spring</artifactId>
-    <version>3.1-ALPHA-3-SNAPSHOT</version>
+    <version>3.1-ALPHA-4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings - Roles (Spring)</name>
     <description>Specific Spring support for DCI roles</description>
@@ -59,10 +59,6 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>annotations</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.inject</groupId>
