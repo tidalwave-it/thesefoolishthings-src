@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.superpom</groupId>
         <artifactId>superpom</artifactId>
-        <version>4.4</version>
+        <version>4.5</version>
         <relativePath />
     </parent>
 
@@ -45,6 +45,10 @@ Since version 3.0 lots of old stuff have been dropped:
         <tidalwave.issues>TFT</tidalwave.issues>
 
         <tft.maven.requiredJdk>[1.8.0-0,)</tft.maven.requiredJdk>
+
+        <tft.javax-annotation.version>1.3.2</tft.javax-annotation.version>
+        <tft.jsr305.version>3.0.2</tft.jsr305.version>
+        <tft.findbugs-annotations.version>3.1.9</tft.findbugs-annotations.version>
 
         <netbeans.hint.jdkPlatform>JDK_1.8.0</netbeans.hint.jdkPlatform>
         <netbeans.compile.on.save>all</netbeans.compile.on.save>
