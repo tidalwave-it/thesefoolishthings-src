@@ -6,14 +6,14 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings</artifactId>
-        <version>3.1-ALPHA-3-SNAPSHOT</version>
+        <version>3.1-ALPHA-4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>modules</artifactId>
     <packaging>pom</packaging>
-    <version>3.1-ALPHA-3-SNAPSHOT</version>
+    <version>3.1-ALPHA-4-SNAPSHOT</version>
     <name>TheseFoolishThings (modules)</name>
 
     <properties>
@@ -45,6 +45,22 @@
                 <version>${incava.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>${tft.javax-annotation.version}</version> <!-- FIXME -->
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>${tft.jsr305.version}</version> <!-- FIME -->
+            </dependency>
+            <dependency>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-annotations</artifactId>
+                <version>${tft.findbugs-annotations.version}</version>
+            </dependency>
+
             <!-- FIXME: used as provided dependency in some modules to work around a javadoc crash -->
             <dependency>
                 <groupId>commons-logging</groupId>
@@ -72,18 +88,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.google.code.findbugs</groupId>
-            <artifactId>annotations</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.code.findbugs</groupId>
-                    <artifactId>jsr305</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.jcip</groupId>
-                    <artifactId>jcip-annotations</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
         </dependency>
 
         <dependency>
@@ -158,6 +172,7 @@
                                         <exclude>commons-logging:commons-logging</exclude>
                                         <exclude>org.aspectj:aspectjweaver</exclude>
                                         <exclude>com.kenai.nbpwr:org-slf4j-jdk14</exclude>
+                                        <exclude>com.google.code.findbugs:annotations</exclude>
                                     </excludes>
                                 </bannedDependencies>
                             </rules>
