@@ -45,22 +45,6 @@
                 <version>${incava.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>javax.annotation</groupId>
-                <artifactId>javax.annotation-api</artifactId>
-                <version>${tft.javax-annotation.version}</version> <!-- FIXME -->
-            </dependency>
-            <dependency>
-                <groupId>com.google.code.findbugs</groupId>
-                <artifactId>jsr305</artifactId>
-                <version>${tft.jsr305.version}</version> <!-- FIME -->
-            </dependency>
-            <dependency>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-annotations</artifactId>
-                <version>${tft.findbugs-annotations.version}</version>
-            </dependency>
-
             <!-- FIXME: used as provided dependency in some modules to work around a javadoc crash -->
             <dependency>
                 <groupId>commons-logging</groupId>
@@ -90,10 +74,6 @@
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.spotbugs</groupId>
@@ -155,31 +135,6 @@
                         </property>
                     </properties>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>enforce-banned-dependencies</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <bannedDependencies>
-                                    <excludes>
-                                        <exclude>commons-logging:commons-logging</exclude>
-                                        <exclude>org.aspectj:aspectjweaver</exclude>
-                                        <exclude>com.kenai.nbpwr:org-slf4j-jdk14</exclude>
-                                        <exclude>com.google.code.findbugs:annotations</exclude>
-                                    </excludes>
-                                </bannedDependencies>
-                            </rules>
-                            <fail>true</fail>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
