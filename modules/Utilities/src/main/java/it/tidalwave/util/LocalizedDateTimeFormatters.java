@@ -5,7 +5,7 @@
  * These Foolish Things - Miscellaneous utilities
  * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
  * %%
- * Copyright (C) 2009 - 2018 Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2016 Tidalwave s.a.s. (http://tidalwave.it)
  * %%
  * *********************************************************************************************************************
  *
@@ -28,41 +28,43 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Locale;
-import it.tidalwave.util.mock.Mock;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /***********************************************************************************************************************
  *
+ * A factory class for localized {@link DateTimeFormatter}s in various flavours, specified by the {@link FormatStyle}.
+ * This class is especially useful for migration to JDK 9+, where the default behaviour of
+ * {@code DateTimeFormatter.ofLocalizedDate/DateTime(...)} has changed.
  *
+ * At the moment only locales for English and Italian are supported.
+ *
+ * @since   3.1-ALPHA-4
+ * @author  Fabrizio Giudici
+ * @version $Id$
  *
  **********************************************************************************************************************/
-public class BundleUtilitiesTest
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class LocalizedDateTimeFormatters
   {
-    @Test(dataProvider = "dataTest")
-    public void test (final @Nonnull Locale locale,
-                      final @Nonnull String resourceName,
-                      final @Nonnull Object[] params,
-                      final @Nonnull String expectedResult)
+    /*******************************************************************************************************************
+     *
+     * Returns a formatter.
+     *
+     * @param   style   the style
+     * @param   locale  the locale
+     * @return          the formatter
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static DateTimeFormatter getDateTimeFormatterFor (final @Nonnull FormatStyle style,
+                                                             final @Nonnull Locale locale)
       {
-        // when
-        final String actualResult = BundleUtilities.getMessage(Mock.class, locale, resourceName, params);
-        // then
-        assertThat(actualResult, is(expectedResult));
+        final String resourceName = "dateTimeFormatterPattern." + style.name();
+        final String pattern = BundleUtilities.getMessage(LocalizedDateTimeFormatters.class, locale, resourceName);
+        return DateTimeFormatter.ofPattern(pattern).withLocale(locale);
       }
-
-    @DataProvider
-    private Object[][] dataTest()
-      {
-        return new Object[][]
-          {
-            { Locale.US,    "res1", new Object[0],            "message 1"              },
-            { Locale.ITALY, "res1", new Object[0],            "messaggio 1"            },
-            { Locale.US,    "res2", new Object[] { "x", 1 },  "message 2 with x and 1" },
-            { Locale.ITALY, "res2", new Object[] { "x", 1 },  "messaggio 2 con x e 1"  }
-          };
-      };
   }

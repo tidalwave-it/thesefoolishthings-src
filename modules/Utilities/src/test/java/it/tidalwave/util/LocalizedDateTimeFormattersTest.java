@@ -5,7 +5,7 @@
  * These Foolish Things - Miscellaneous utilities
  * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
  * %%
- * Copyright (C) 2009 - 2018 Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2016 Tidalwave s.a.s. (http://tidalwave.it)
  * %%
  * *********************************************************************************************************************
  *
@@ -29,7 +29,10 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
 import java.util.Locale;
-import it.tidalwave.util.mock.Mock;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.FormatStyle;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.is;
@@ -37,32 +40,43 @@ import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *
- *
+ * @author  Fabrizio Giudici
+ * @version $Id$
  *
  **********************************************************************************************************************/
-public class BundleUtilitiesTest
+public class LocalizedDateTimeFormattersTest
   {
-    @Test(dataProvider = "dataTest")
-    public void test (final @Nonnull Locale locale,
-                      final @Nonnull String resourceName,
-                      final @Nonnull Object[] params,
-                      final @Nonnull String expectedResult)
+    @Test(dataProvider = "dates")
+    public void must_properly_format_date_and_time (final @Nonnull ZonedDateTime dt,
+                                                    final @Nonnull Locale locale,
+                                                    final @Nonnull FormatStyle style,
+                                                    final @Nonnull String expectedValue)
       {
         // when
-        final String actualResult = BundleUtilities.getMessage(Mock.class, locale, resourceName, params);
+        String actualValue = LocalizedDateTimeFormatters.getDateTimeFormatterFor(style, locale).format(dt);
         // then
-        assertThat(actualResult, is(expectedResult));
+        // JDK 8 formats AM/PM, JDK 9+ formats am/pm ...
+        assertThat(actualValue.replace(" am", " AM").replace(" pm", " PM"), is(expectedValue));
       }
 
-    @DataProvider
-    private Object[][] dataTest()
+    @DataProvider(name = "dates")
+    private static Object[][] dates()
       {
+        final ZonedDateTime dt = Instant.ofEpochMilli(1344353463985L).atZone(ZoneId.of("GMT"));
+
         return new Object[][]
           {
-            { Locale.US,    "res1", new Object[0],            "message 1"              },
-            { Locale.ITALY, "res1", new Object[0],            "messaggio 1"            },
-            { Locale.US,    "res2", new Object[] { "x", 1 },  "message 2 with x and 1" },
-            { Locale.ITALY, "res2", new Object[] { "x", 1 },  "messaggio 2 con x e 1"  }
+            { dt, Locale.UK,    FormatStyle.SHORT,  "8/7/12 3:31 PM"},
+            { dt, Locale.ITALY, FormatStyle.SHORT,  "07/08/12 15:31"},
+
+            { dt, Locale.UK,    FormatStyle.MEDIUM, "Aug 7, 2012 3:31 PM"},
+            { dt, Locale.ITALY, FormatStyle.MEDIUM, "7-ago-2012 15:31"},
+
+            { dt, Locale.UK,    FormatStyle.LONG,   "August 7, 2012 3:31:03 PM"},
+            { dt, Locale.ITALY, FormatStyle.LONG,   "7 agosto 2012 15:31:03"},
+
+            { dt, Locale.UK,    FormatStyle.FULL,   "Tuesday, August 7, 2012 3:31:03 PM GMT"},
+            { dt, Locale.ITALY, FormatStyle.FULL,   "martedì 7 agosto 2012 15:31:03 GMT"},
           };
-      };
+      }
   }

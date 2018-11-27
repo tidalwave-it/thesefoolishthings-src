@@ -5,7 +5,7 @@
  * These Foolish Things - Miscellaneous utilities
  * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
  * %%
- * Copyright (C) 2009 - 2018 Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2016 Tidalwave s.a.s. (http://tidalwave.it)
  * %%
  * *********************************************************************************************************************
  *
@@ -25,44 +25,14 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.util;
-
-import javax.annotation.Nonnull;
-import java.util.Locale;
-import it.tidalwave.util.mock.Mock;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.*;
+package it.tidalwave.util.mock;
 
 /***********************************************************************************************************************
  *
- *
+ * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * @version $Id$
  *
  **********************************************************************************************************************/
-public class BundleUtilitiesTest
+public class Mock
   {
-    @Test(dataProvider = "dataTest")
-    public void test (final @Nonnull Locale locale,
-                      final @Nonnull String resourceName,
-                      final @Nonnull Object[] params,
-                      final @Nonnull String expectedResult)
-      {
-        // when
-        final String actualResult = BundleUtilities.getMessage(Mock.class, locale, resourceName, params);
-        // then
-        assertThat(actualResult, is(expectedResult));
-      }
-
-    @DataProvider
-    private Object[][] dataTest()
-      {
-        return new Object[][]
-          {
-            { Locale.US,    "res1", new Object[0],            "message 1"              },
-            { Locale.ITALY, "res1", new Object[0],            "messaggio 1"            },
-            { Locale.US,    "res2", new Object[] { "x", 1 },  "message 2 with x and 1" },
-            { Locale.ITALY, "res2", new Object[] { "x", 1 },  "messaggio 2 con x e 1"  }
-          };
-      };
   }
