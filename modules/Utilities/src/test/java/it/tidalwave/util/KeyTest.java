@@ -55,9 +55,9 @@ public class KeyTest
       {
         return new Object[][]
           {
-            { new Key<String>("string") ,  String.class  },
-            { new Key<Integer>("integer"), Integer.class },
-            { new Key<Date>("date"),       Date.class    },
+            { new Key<String>("string") {},   String.class  },
+            { new Key<Integer>("integer") {}, Integer.class },
+            { new Key<Date>("date") {},       Date.class    },
           };
       }
   }

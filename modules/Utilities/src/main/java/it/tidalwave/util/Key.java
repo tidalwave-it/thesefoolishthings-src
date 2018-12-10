@@ -41,7 +41,7 @@ import lombok.Getter;
  * @since   1.11.0
  *
  **********************************************************************************************************************/
-public final class Key<T> implements StringValue, Comparable<Key<T>>, Serializable
+public class Key<T> implements StringValue, Comparable<Key<T>>, Serializable
   {
     private static final long serialVersionUID = 2817490298518793579L;
 
@@ -61,8 +61,7 @@ public final class Key<T> implements StringValue, Comparable<Key<T>>, Serializab
     public Key (final @Nonnull String name)
       {
         this.name = name;
-        type = null; // FIXME
-//        type = (Class<T>)ReflectionUtils.getTypeArguments(TypeHolder.class, (new TypeHolder<T>() {}).getClass()).get(0);
+        type = (Class<T>)ReflectionUtils.getTypeArguments(Key.class, getClass()).get(0);
       }
 
     /*******************************************************************************************************************
