@@ -45,7 +45,7 @@
         <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
         <tidalwave.issues>TFT</tidalwave.issues>
 
-        <tft.maven.requiredJdk>[1.8, 12)</tft.maven.requiredJdk>
+        <tft.maven.requiredJdk>[11, 12)</tft.maven.requiredJdk>
 
         <tft.clirr.skip>true</tft.clirr.skip> <!-- FIXME Clirr makes the build fail -->
     </properties>
