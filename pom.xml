@@ -176,20 +176,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <links>
-                        <link href="http://java.sun.com/javase/7/docs/api/"/>
-                    </links>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
-
     <modules>
         <module>modules</module>
         <module>archetypes/project</module>
