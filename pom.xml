@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>it.tidalwave.superpom</groupId>
         <artifactId>superpom</artifactId>
-        <version>4.14</version>
-        <relativePath />
+        <version>4.15</version>
+        <relativePath/>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -18,22 +19,22 @@
     <inceptionYear>2009</inceptionYear>
     <url>http://thesefoolishthings.tidalwave.it</url>
     <description>
-A kitchen sink of small libraries that are used by all projects by Tidalwave. It mostly contains:
+        A kitchen sink of small libraries that are used by all projects by Tidalwave. It mostly contains:
 
-* a few generic stuff such as ```Id``` and ```IdFactory```;
-* the ```Finder``` API for fluent query builders;
-* support for the DCI pattern (Data Context and Interaction), with optional Spring integration;
-* a tiny but functional local Message Bus, with optional Spring integration;
-* a small, experimental Actor library;
-* some test utilities.
+        * a few generic stuff such as ```Id``` and ```IdFactory```;
+        * the ```Finder``` API for fluent query builders;
+        * support for the DCI pattern (Data Context and Interaction), with optional Spring integration;
+        * a tiny but functional local Message Bus, with optional Spring integration;
+        * a small, experimental Actor library;
+        * some test utilities.
 
-TheseFoolishThings supports JDK 7 and has got a small JDK 8 integration module.
+        TheseFoolishThings supports JDK 7 and has got a small JDK 8 integration module.
 
-Since version 3.0 lots of old stuff have been dropped:
+        Since version 3.0 lots of old stuff have been dropped:
 
-* Support for Swing.
-* Support for the NetBeans Platform.
-* A very small support library for Vaadin.
+        * Support for Swing.
+        * Support for the NetBeans Platform.
+        * A very small support library for Vaadin.
     </description>
 
     <properties>
@@ -44,10 +45,7 @@ Since version 3.0 lots of old stuff have been dropped:
         <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
         <tidalwave.issues>TFT</tidalwave.issues>
 
-        <tft.maven.requiredJdk>[1.8.0-0,)</tft.maven.requiredJdk>
-
-        <netbeans.hint.jdkPlatform>JDK_1.8.0</netbeans.hint.jdkPlatform>
-        <netbeans.compile.on.save>all</netbeans.compile.on.save>
+        <tft.maven.requiredJdk>[1.8, 12)</tft.maven.requiredJdk>
 
         <tft.clirr.skip>true</tft.clirr.skip> <!-- FIXME Clirr makes the build fail -->
     </properties>
@@ -57,7 +55,7 @@ Since version 3.0 lots of old stuff have been dropped:
         <connection>scm:git:${scm.repo.readonly.url}</connection>
         <developerConnection>scm:git:${scm.repo.effective.url}</developerConnection>
         <url>${scm.repo.browse.url}</url>
-      <tag>HEAD</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <dependencyManagement>
@@ -174,20 +172,6 @@ Since version 3.0 lots of old stuff have been dropped:
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <links>
-                        <link href="http://java.sun.com/javase/7/docs/api/" />
-                    </links>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
 
     <modules>
         <module>modules</module>
