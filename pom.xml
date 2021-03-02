@@ -45,10 +45,7 @@
         <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
         <tidalwave.issues>TFT</tidalwave.issues>
 
-        <tft.maven.requiredJdk>[1.8.0-0,)</tft.maven.requiredJdk>
-
-        <netbeans.hint.jdkPlatform>JDK_1.8.0</netbeans.hint.jdkPlatform>
-        <netbeans.compile.on.save>all</netbeans.compile.on.save>
+        <tft.maven.requiredJdk>[1.8, 12)</tft.maven.requiredJdk>
 
         <tft.clirr.skip>true</tft.clirr.skip> <!-- FIXME Clirr makes the build fail -->
     </properties>
