@@ -1,5 +1,4 @@
-# JAVA_HOME=$JAVA8_ORACLE_HOME
 JAVA_HOME=$JAVA11_HOME
 
-MAVEN_ARGS="-fae -DtestFailureIgnore=true -Pit.tidalwave-metrics-v2,it-tidalwave-test-report-v1 -Dtft.profile.metrics.sonarGoal= -Dtft.pmd.skip=true"
+# MAVEN_ARGS="-fae -DtestFailureIgnore=true -Pit.tidalwave-metrics-v2,it-tidalwave-test-report-v1 -Dtft.profile.metrics.sonarGoal= -Dtft.pmd.skip=true"
 # MAVEN_ARGS="site:site -Dtest.report=true"
