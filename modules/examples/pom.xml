@@ -37,6 +37,7 @@
             <dependency>
                 <groupId>it.tidalwave.betterbeansbinding</groupId>
                 <artifactId>betterbeansbinding-core</artifactId>
+                <version>${betterbeansbinding.version}</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.betterbeansbinding</groupId>
