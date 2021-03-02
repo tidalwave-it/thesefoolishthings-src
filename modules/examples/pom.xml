@@ -16,6 +16,20 @@
     <version>3.1-ALPHA-7-SNAPSHOT</version>
     <name>TheseFoolishThings Examples (master)</name>
 
+    <properties>
+        <xstream.version>1.4.15</xstream.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${xstream.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <defaultGoal>clean install exec:java</defaultGoal>
         <plugins>
