@@ -84,7 +84,6 @@
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
-            <version>1.0</version> <!-- FIXME -->
         </dependency>
     </dependencies>
 </project>
