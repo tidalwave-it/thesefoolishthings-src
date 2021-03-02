@@ -17,6 +17,8 @@
     <name>TheseFoolishThings Examples (master)</name>
 
     <properties>
+        <betterbeansbinding.version>1.3.0</betterbeansbinding.version>
+        <javax.persistence>1.0</javax.persistence>
         <xstream.version>1.4.15</xstream.version>
     </properties>
 
@@ -26,6 +28,20 @@
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
                 <version>${xstream.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>persistence-api</artifactId>
+                <version>${javax.persistence}</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.betterbeansbinding</groupId>
+                <artifactId>betterbeansbinding-core</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.betterbeansbinding</groupId>
+                <artifactId>betterbeansbinding-swingbinding</artifactId>
+                <version>${betterbeansbinding.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
