@@ -4,30 +4,6 @@
     <excludeFromCompile>
       <directory url="file://$PROJECT_DIR$/archetypes/project/src/main/resources/archetype-resources" includeSubdirectories="true" />
     </excludeFromCompile>
-    <annotationProcessing>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="it-tidalwave-messagebus-spring" />
-        <module name="it-tidalwave-thesefoolishthings-examples-dci-swing" />
-        <module name="it-tidalwave-messagebus" />
-        <module name="it-tidalwave-role-spring" />
-        <module name="it-tidalwave-actor" />
-        <module name="it-tidalwave-util-test" />
-        <module name="it-tidalwave-thesefoolishthings-examples-finderexample1" />
-        <module name="project-archetype" />
-        <module name="it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream" />
-        <module name="it-tidalwave-thesefoolishthings-examples-finderexample2" />
-        <module name="it-tidalwave-thesefoolishthings-examples-finderexample3" />
-        <module name="it-tidalwave-thesefoolishthings-examples-data" />
-        <module name="it-tidalwave-role" />
-        <module name="it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa" />
-        <module name="it-tidalwave-util" />
-        <module name="it-tidalwave-thesefoolishthings-examples-dci-displayable" />
-        <module name="it-tidalwave-util-java8supplement" />
-      </profile>
-    </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="it-tidalwave-actor" target="1.7" />
       <module name="it-tidalwave-messagebus" target="1.7" />
