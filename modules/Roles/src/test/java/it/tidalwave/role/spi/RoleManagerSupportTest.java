@@ -353,7 +353,7 @@ public class RoleManagerSupportTest
      *
      ******************************************************************************************************************/
     @Test
-    public void findTypeOf_must_return_orinal_class_for_Mockito_mocks()
+    public void findTypeOf_must_return_original_class_for_Mockito_mocks()
       {
         // given
         final R1 nonMock = new RI1A();

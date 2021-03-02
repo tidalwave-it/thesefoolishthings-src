@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/modules/Actors/it-tidalwave-actor.iml" filepath="$PROJECT_DIR$/modules/Actors/it-tidalwave-actor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/MessageBus/it-tidalwave-messagebus.iml" filepath="$PROJECT_DIR$/modules/MessageBus/it-tidalwave-messagebus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/SpringMessageBus/it-tidalwave-messagebus-spring.iml" filepath="$PROJECT_DIR$/modules/SpringMessageBus/it-tidalwave-messagebus-spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/Roles/it-tidalwave-role.iml" filepath="$PROJECT_DIR$/modules/Roles/it-tidalwave-role.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/SpringRoles/it-tidalwave-role-spring.iml" filepath="$PROJECT_DIR$/modules/SpringRoles/it-tidalwave-role-spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/examples/Data/it-tidalwave-thesefoolishthings-examples-data.iml" filepath="$PROJECT_DIR$/modules/examples/Data/it-tidalwave-thesefoolishthings-examples-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/examples/DciDisplayableExample/it-tidalwave-thesefoolishthings-examples-dci-displayable.iml" filepath="$PROJECT_DIR$/modules/examples/DciDisplayableExample/it-tidalwave-thesefoolishthings-examples-dci-displayable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/examples/DciMarshalXStreamExample/it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream.iml" filepath="$PROJECT_DIR$/modules/examples/DciMarshalXStreamExample/it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/examples/DciPersistenceJpaExample/it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa.iml" filepath="$PROJECT_DIR$/modules/examples/DciPersistenceJpaExample/it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/examples/DciSwingExample/it-tidalwave-thesefoolishthings-examples-dci-swing.iml" filepath="$PROJECT_DIR$/modules/examples/DciSwingExample/it-tidalwave-thesefoolishthings-examples-dci-swing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/examples/FinderExample1/it-tidalwave-thesefoolishthings-examples-finderexample1.iml" filepath="$PROJECT_DIR$/modules/examples/FinderExample1/it-tidalwave-thesefoolishthings-examples-finderexample1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/examples/FinderExample2/it-tidalwave-thesefoolishthings-examples-finderexample2.iml" filepath="$PROJECT_DIR$/modules/examples/FinderExample2/it-tidalwave-thesefoolishthings-examples-finderexample2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/examples/FinderExample3/it-tidalwave-thesefoolishthings-examples-finderexample3.iml" filepath="$PROJECT_DIR$/modules/examples/FinderExample3/it-tidalwave-thesefoolishthings-examples-finderexample3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/Utilities/it-tidalwave-util.iml" filepath="$PROJECT_DIR$/modules/Utilities/it-tidalwave-util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/Java8Supplements/it-tidalwave-util-java8supplement.iml" filepath="$PROJECT_DIR$/modules/Java8Supplements/it-tidalwave-util-java8supplement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/TestUtilities/it-tidalwave-util-test.iml" filepath="$PROJECT_DIR$/modules/TestUtilities/it-tidalwave-util-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/modules.iml" filepath="$PROJECT_DIR$/modules/modules.iml" />
+      <module fileurl="file://$PROJECT_DIR$/archetypes/project/project-archetype.iml" filepath="$PROJECT_DIR$/archetypes/project/project-archetype.iml" />
+      <module fileurl="file://$PROJECT_DIR$/thesefoolishthings.iml" filepath="$PROJECT_DIR$/thesefoolishthings.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/examples/thesefoolishthings-examples.iml" filepath="$PROJECT_DIR$/modules/examples/thesefoolishthings-examples.iml" />
+    </modules>
+  </component>
+</project>

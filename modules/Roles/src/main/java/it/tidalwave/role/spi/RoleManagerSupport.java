@@ -393,7 +393,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
       {
         Class<?> ownerClass = object.getClass();
 
-        if (ownerClass.toString().contains("EnhancerByMockito"))
+        if (ownerClass.toString().contains("MockitoMock"))
           {
             ownerClass = ownerClass.getInterfaces()[0]; // 1st is the original class, 2nd is CGLIB proxy
 

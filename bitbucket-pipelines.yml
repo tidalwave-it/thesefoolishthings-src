@@ -1,8 +1,9 @@
-# You can specify a custom docker image from Docker Hub as your build environment.
-image: maven:3.3.9-jdk-8
+image: maven:3.6.3-openjdk-11
 
 pipelines:
   default:
+    caches:
+      - maven
     - step:
-        script: # Modify the commands below to build your repository.
+        script:
           - mvn -B -DskipTests -Pit.tidalwave-ci-v1,generate-revision-id

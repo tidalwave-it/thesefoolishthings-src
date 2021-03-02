@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -20,7 +21,10 @@
         <incava.version>1.1.0</incava.version>
         <joda-time.version>1.6.2</joda-time.version>
         <uuid.version>2.1.5</uuid.version>
-        <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide java.*|javax.*</tft.UmlGraphDoc.additionalParam>
+        <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6
+            -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide
+            java.*|javax.*
+        </tft.UmlGraphDoc.additionalParam>
 
         <tft.javac.source>1.7</tft.javac.source> <!-- For Android compatibility -->
         <tft.javac.target>1.7</tft.javac.target>
@@ -51,22 +55,6 @@
                 <artifactId>commons-logging</artifactId>
                 <version>1.2</version>
             </dependency>
-
-            <!-- FIXME: push to SuperPOM -->
-<!--
-            <dependency>
-                <groupId>org.testng</groupId>
-                <artifactId>testng</artifactId>
-                <scope>test</scope>
-                <version>${tft.testng.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hamcrest</groupId>
-                <artifactId>hamcrest-all</artifactId>
-                <version>${tft.hamcrest-matchers.version}</version>
-                <scope>test</scope>
-            </dependency>
--->
         </dependencies>
     </dependencyManagement>
 
