@@ -10,3 +10,5 @@ release.properties
 .chg.*
 .rej
 .DS_Store
+*.iml
+Maven__*.xml
