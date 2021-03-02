@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 JAVA_HOME=$JAVA8_HOME
+=======
+JAVA_HOME=$JAVA8_ORACLE_HOME
+>>>>>>> master
