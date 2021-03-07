@@ -30,7 +30,7 @@ package it.tidalwave.thesefoolishthings.examples.person;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Delegate;
+import lombok.experimental.Delegate;
 import lombok.NoArgsConstructor;
 
 /***********************************************************************************************************************

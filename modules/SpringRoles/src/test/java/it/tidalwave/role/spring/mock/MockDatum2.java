@@ -29,7 +29,7 @@ package it.tidalwave.role.spring.mock;
 
 import it.tidalwave.util.As;
 import it.tidalwave.util.spi.AsSupport;
-import lombok.Delegate;
+import lombok.experimental.Delegate;
 
 /***********************************************************************************************************************
  *

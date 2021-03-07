@@ -32,7 +32,7 @@ import it.tidalwave.util.Callback;
 import it.tidalwave.util.ui.UserNotificationWithFeedback.Feedback;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
-import lombok.experimental.Wither;
+import lombok.With;
 import static lombok.AccessLevel.PRIVATE;
 
 /***********************************************************************************************************************
@@ -47,10 +47,10 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor(access = PRIVATE)
 public class Feedback8 extends Feedback
   {
-    @Wither
+    @With
     private final Callback onConfirm;
 
-    @Wither
+    @With
     private final Callback onCancel;
 
     @Nonnull
