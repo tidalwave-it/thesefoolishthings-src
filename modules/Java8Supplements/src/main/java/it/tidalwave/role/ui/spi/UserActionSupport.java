@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import it.tidalwave.util.spi.AsSupport;
 import it.tidalwave.role.ui.BoundProperty;
 import it.tidalwave.role.ui.UserAction;
-import lombok.Delegate;
+import lombok.experimental.Delegate;
 
 /***********************************************************************************************************************
  *

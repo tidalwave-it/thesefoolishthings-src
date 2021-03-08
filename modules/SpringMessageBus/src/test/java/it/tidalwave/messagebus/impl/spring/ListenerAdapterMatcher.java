@@ -31,7 +31,7 @@ import it.tidalwave.messagebus.impl.spring.MessageBusAdapterFactory.MessageBusLi
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import lombok.experimental.Wither;
+import lombok.With;
 import org.mockito.ArgumentMatcher;
 
 /***********************************************************************************************************************
@@ -43,13 +43,13 @@ import org.mockito.ArgumentMatcher;
 @NoArgsConstructor(staticName = "listenerAdapter") @AllArgsConstructor @ToString
 public class ListenerAdapterMatcher implements ArgumentMatcher<MessageBusListenerAdapter>
   {
-    @Wither
+    @With
     public String methodName;
 
-    @Wither
+    @With
     public Object owner;
 
-    @Wither
+    @With
     public Class<?> topic;
 
     @Override

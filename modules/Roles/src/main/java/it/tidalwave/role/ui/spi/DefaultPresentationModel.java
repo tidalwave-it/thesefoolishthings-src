@@ -34,7 +34,7 @@ import it.tidalwave.util.As;
 import it.tidalwave.util.spi.AsSupport;
 import it.tidalwave.role.ui.PresentationModel;
 import java.beans.PropertyChangeListener;
-import lombok.Delegate;
+import lombok.experimental.Delegate;
 import lombok.ToString;
 
 /***********************************************************************************************************************

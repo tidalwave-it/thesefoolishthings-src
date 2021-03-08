@@ -29,7 +29,7 @@ package it.tidalwave.role.ui.function;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import lombok.Delegate;
+import lombok.experimental.Delegate;
 
 /***********************************************************************************************************************
  *

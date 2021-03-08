@@ -32,7 +32,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import lombok.AllArgsConstructor;
-import lombok.Delegate;
+import lombok.experimental.Delegate;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;

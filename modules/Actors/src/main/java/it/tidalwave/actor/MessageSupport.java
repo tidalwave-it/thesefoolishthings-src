@@ -40,7 +40,7 @@ import it.tidalwave.util.spi.AsSupport;
 import it.tidalwave.actor.impl.Locator;
 import it.tidalwave.actor.impl.DefaultCollaboration;
 import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
-import lombok.Delegate;
+import lombok.experimental.Delegate;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.actor.MessageDecorator.MessageDecorator;
