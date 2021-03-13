@@ -99,7 +99,6 @@
 
     <modules>
         <module>Actors</module>
-        <module>Java8Supplements</module>
         <module>MessageBus</module>
         <module>Roles</module>
         <module>SpringMessageBus</module>
