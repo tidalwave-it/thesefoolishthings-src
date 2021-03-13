@@ -25,8 +25,8 @@
             java.*|javax.*
         </tft.UmlGraphDoc.additionalParam>
 
-        <tft.javac.source>1.7</tft.javac.source> <!-- For Android compatibility -->
-        <tft.javac.target>1.7</tft.javac.target>
+        <tft.javac.source>1.8</tft.javac.source>
+        <tft.javac.target>1.8</tft.javac.target>
     </properties>
 
     <dependencyManagement>

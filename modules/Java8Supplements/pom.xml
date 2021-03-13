@@ -43,11 +43,6 @@
     <version>3.1-ALPHA-8-SNAPSHOT</version>
     <name>TheseFoolishThings - Java 8 Supplements</name>
 
-    <properties>
-        <tft.javac.source>1.8</tft.javac.source>
-        <tft.javac.target>1.8</tft.javac.target>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>

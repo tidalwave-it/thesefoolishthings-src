@@ -94,15 +94,10 @@
         <scm.repo.browse.url>http://bitbucket.org/${organizationName.toLowerCase()}/${rootArtifactId}/src</scm.repo.browse.url>
         -->
 
-        <tft.maven.requiredJdk>[1.7.0,)</tft.maven.requiredJdk>
-        <tft.javac.source>1.7</tft.javac.source>
-        <tft.javac.target>1.7</tft.javac.target>
-        
-        <!-- E.g. for Android
-        <tft.javac.source>1.5</tft.javac.source>
-        <tft.javac.target>1.5</tft.javac.target>
-        -->
-                
+        <tft.maven.requiredJdk>[1.8)</tft.maven.requiredJdk>
+        <tft.javac.source>1.8</tft.javac.source>
+        <tft.javac.target>1.8</tft.javac.target>
+
         <!--
         <tft.test.maxMemory>1024M</tft.test.maxMemory>
         <tft.test.listeners>it.tidalwave.util.test.TestLogger</tft.test.listeners>
