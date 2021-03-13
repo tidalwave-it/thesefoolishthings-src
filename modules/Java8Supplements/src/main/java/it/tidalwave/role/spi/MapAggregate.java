@@ -29,10 +29,12 @@ package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
 import it.tidalwave.role.Aggregate;
 import lombok.ToString;
 
@@ -71,5 +73,16 @@ public class MapAggregate<TYPE> implements Aggregate<TYPE>
     public Optional<TYPE> getByName (final @Nonnull String name)
       {
         return Optional.ofNullable(mapByName.get(name));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public Collection<String> getNames()
+      {
+        return new CopyOnWriteArrayList<>(mapByName.keySet());
       }
   }

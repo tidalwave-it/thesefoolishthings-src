@@ -28,6 +28,8 @@
 package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 /***********************************************************************************************************************
@@ -46,4 +48,18 @@ public interface Aggregate<TYPE>
 
     @Nonnull
     public Optional<TYPE> getByName (@Nonnull String name);
+
+    /*******************************************************************************************************************
+     *
+     * Returns the names of contained objects.
+     *
+     * @return  the names of the objects
+     * @since 3.1-ALPHA-8
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    default public Collection<String> getNames()
+      {
+        return Collections.emptyList();
+      }
   }
