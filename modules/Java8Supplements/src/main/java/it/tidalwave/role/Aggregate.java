@@ -46,6 +46,13 @@ public interface Aggregate<TYPE>
   {
     public static final Class<Aggregate> Aggregate = Aggregate.class;
 
+    /*******************************************************************************************************************
+     *
+     * Returns an object given its name.
+     *
+     * @return  the optional object
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public Optional<TYPE> getByName (@Nonnull String name);
 
