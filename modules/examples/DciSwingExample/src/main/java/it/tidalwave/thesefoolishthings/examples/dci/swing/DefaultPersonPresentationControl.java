@@ -20,7 +20,6 @@
  * 
  * *********************************************************************************************************************
  * 
- * $Id$
  * 
  * *********************************************************************************************************************
  * #L%
@@ -40,7 +39,6 @@ import it.tidalwave.thesefoolishthings.examples.person.Utils;
  * The default control for the presentation.
  *
  * @author  Fabrizio Giudici
- * @version $Id$
  *
  **********************************************************************************************************************/
 public class DefaultPersonPresentationControl implements PersonPresentationControl

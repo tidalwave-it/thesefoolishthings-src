@@ -20,7 +20,6 @@
  *
  * *********************************************************************************************************************
  *
- * $Id$
  *
  * *********************************************************************************************************************
  * #L%
@@ -36,7 +35,6 @@ import it.tidalwave.role.ui.PresentationModelFactory;
  * An implementation of {@link PresentationModelFactory} that creates instances of {@link DefaultPresentationModel}.
  *
  * @author  Fabrizio Giudici
- * @version $Id$
  *
  **********************************************************************************************************************/
 public class DefaultPresentationModelFactory implements PresentationModelFactory

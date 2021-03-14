@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings</artifactId>
-        <version>3.1-ALPHA-8-SNAPSHOT</version>
+        <version>3.2-ALPHA-1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>modules</artifactId>
     <packaging>pom</packaging>
-    <version>3.1-ALPHA-8-SNAPSHOT</version>
+    <version>3.2-ALPHA-1-SNAPSHOT</version>
     <name>TheseFoolishThings (modules)</name>
 
     <properties>
@@ -25,8 +26,8 @@
             java.*|javax.*
         </tft.UmlGraphDoc.additionalParam>
 
-        <tft.javac.source>1.7</tft.javac.source> <!-- For Android compatibility -->
-        <tft.javac.target>1.7</tft.javac.target>
+        <tft.javac.source>1.8</tft.javac.source>
+        <tft.javac.target>1.8</tft.javac.target>
     </properties>
 
     <dependencyManagement>
@@ -99,7 +100,6 @@
 
     <modules>
         <module>Actors</module>
-        <module>Java8Supplements</module>
         <module>MessageBus</module>
         <module>Roles</module>
         <module>SpringMessageBus</module>
