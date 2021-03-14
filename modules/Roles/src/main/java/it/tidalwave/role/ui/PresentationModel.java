@@ -29,6 +29,8 @@ package it.tidalwave.role.ui;
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
 import it.tidalwave.util.As;
+import it.tidalwave.util.NamedCallback;
+import it.tidalwave.role.ui.impl.DefaultPresentationModel;
 
 /***********************************************************************************************************************
  *
@@ -45,6 +47,10 @@ public interface PresentationModel extends As
     public static Class<PresentationModel> PresentationModel = PresentationModel.class;
 
     public static final String PROPERTY_CHILDREN = "children";
+
+    /** This is an undocumented feature. If you add a {@link NamedCallback} with this name as a role in this object, it
+     * will be called back when {@link #dispose()} is called. */
+    public static final String CALLBACK_DISPOSE = "dispose";
 
     /*******************************************************************************************************************
      *
@@ -103,4 +109,15 @@ public interface PresentationModel extends As
      ******************************************************************************************************************/
     @Nonnull
     public PropertyChangeListener[] getPropertyChangeListeners (@Nonnull String propertyName);
+
+    /*******************************************************************************************************************
+     *
+     *
+     * @since 3.2-ALPHA-1
+     *
+     ******************************************************************************************************************/
+    public static PresentationModel of (final @Nonnull Object owner, final @Nonnull Object ... rolesOrFactories)
+      {
+        return new DefaultPresentationModel(owner, rolesOrFactories);
+      }
   }

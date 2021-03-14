@@ -63,7 +63,10 @@ public interface StringRenderable
      * @param  args            optional rendering parameters
      *
      ******************************************************************************************************************/
-    public void renderTo (@Nonnull StringBuilder stringBuilder, @Nonnull Object ... args);
+    public default void renderTo (final @Nonnull StringBuilder stringBuilder, final @Nonnull Object ... args)
+      {
+        stringBuilder.append(render(args));
+      }
 
     /*******************************************************************************************************************
      *
@@ -74,5 +77,7 @@ public interface StringRenderable
      * @param  args  optional rendering parameters
      *
      ******************************************************************************************************************/
-    public void renderTo (@Nonnull PrintWriter printWriter, @Nonnull Object ... args);
-  }
+    public default void renderTo (final @Nonnull PrintWriter printWriter, final @Nonnull Object ... args)
+      {
+        printWriter.print(render(args));
+      }  }

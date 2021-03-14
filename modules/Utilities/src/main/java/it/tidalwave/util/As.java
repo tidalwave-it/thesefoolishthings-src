@@ -29,6 +29,7 @@ package it.tidalwave.util;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.Optional;
 
 /***********************************************************************************************************************
  *
@@ -102,6 +103,22 @@ public interface As
      ******************************************************************************************************************/
     @Nonnull
     public <T> T as (@Nonnull Class<T> type, @Nonnull NotFoundBehaviour<T> notFoundBehaviour);
+
+    /*******************************************************************************************************************
+     *
+     * Returns the requested role, or an empty {@link Optional}.
+     *
+     * @param   <T>     the role type
+     * @param   type    the role type
+     * @return          the optional role
+     * @since           3.2-ALPHA-1
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    default <T> Optional<T> asOptional (final @Nonnull Class<T> type)
+      {
+        return Optional.ofNullable(as(type, throwable -> null));
+      }
 
     /*******************************************************************************************************************
      *

@@ -34,9 +34,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import it.tidalwave.util.Finder;
-import it.tidalwave.util.Finder.FilterSortCriterion;
-import it.tidalwave.util.Finder.SortCriterion;
-import it.tidalwave.util.Finder.SortDirection;
 import it.tidalwave.util.NotFoundException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -99,20 +96,6 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     private final List<Sorter<TYPE>> sorters;
 
     private static final int DEFAULT_MAX_RESULTS = Integer.MAX_VALUE;
-
-    /*******************************************************************************************************************
-     *
-     * Returns an empty {@code Finder}.
-     *
-     * @param   <T>     the type of the {@code Finder}
-     * @return          the empty {@code Finder}
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public static <T> Finder<T> emptyFinder()
-      {
-        return new ArrayListFinder<>(Collections.<T>emptyList());
-      }
 
     /*******************************************************************************************************************
      *

@@ -26,9 +26,11 @@
  */
 package it.tidalwave.role;
 
+import it.tidalwave.role.impl.MapAggregate;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
 
 /***********************************************************************************************************************
@@ -66,5 +68,52 @@ public interface Aggregate<TYPE>
     default public Collection<String> getNames()
       {
         return Collections.emptyList();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a new instance with the specified (name, value) pairs.
+     *
+     * @param   mapByName    the map containing the pairs
+     * @return  the new instance
+     * @since 3.2-ALPHA-1
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <TYPE> Aggregate<TYPE> of (final @Nonnull Map<String, TYPE> mapByName)
+      {
+        return new MapAggregate<TYPE>(mapByName);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a new instance with the specified (name, value) pair.
+     *
+     * @param   name    the name in the pair
+     * @param   value   the value in the pair
+     * @return  the new instance
+     * @since 3.2-ALPHA-1
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <TYPE> Aggregate<TYPE> of (final @Nonnull String name, final @Nonnull TYPE value)
+      {
+        return new MapAggregate<TYPE>().with(name, value);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a new instance with the specified (name, value) pair.
+     *
+     * @param   name    the name in the pair
+     * @param   value   the value in the pair
+     * @return  the new instance
+     * @since 3.2-ALPHA-1
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    default public Aggregate<TYPE> with (final @Nonnull String name, final @Nonnull TYPE value)
+      {
+        return new MapAggregate<TYPE>().with(name, value);
       }
   }

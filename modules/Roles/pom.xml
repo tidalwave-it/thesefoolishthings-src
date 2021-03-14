@@ -31,11 +31,11 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <dependency>
+<!--        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>

@@ -46,7 +46,7 @@ import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.impl.DatumAndRole;
 import it.tidalwave.role.spi.impl.MultiMap;
 import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.role.spi.LogUtil.*;
+import static it.tidalwave.role.spi.impl.LogUtil.*;
 
 /***********************************************************************************************************************
  *

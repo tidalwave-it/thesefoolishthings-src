@@ -34,7 +34,7 @@ import it.tidalwave.role.ContextManager;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.role.Displayable.Displayable;
+import static it.tidalwave.role.ui.Displayable.Displayable;
 
 /***********************************************************************************************************************
  *

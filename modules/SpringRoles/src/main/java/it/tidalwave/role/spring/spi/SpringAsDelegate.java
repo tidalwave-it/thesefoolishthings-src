@@ -38,7 +38,7 @@ import it.tidalwave.util.spi.AsDelegate;
 import it.tidalwave.role.spi.RoleManager;
 import it.tidalwave.role.spi.ContextSampler;
 import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.role.spi.LogUtil.*;
+import static it.tidalwave.role.spi.impl.LogUtil.*;
 
 /***********************************************************************************************************************
  *

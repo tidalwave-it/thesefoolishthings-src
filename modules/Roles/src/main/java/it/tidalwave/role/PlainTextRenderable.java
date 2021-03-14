@@ -26,6 +26,9 @@
  */
 package it.tidalwave.role;
 
+import java.io.PrintWriter;
+import javax.annotation.Nonnull;
+
 /***********************************************************************************************************************
  *
  * The role of an object that can be rendered into a {@link String} as plain text. Note that while it has a method
@@ -40,4 +43,28 @@ package it.tidalwave.role;
 public interface PlainTextRenderable extends StringRenderable
   {
     public static final Class<PlainTextRenderable> PlainTextRenderable = PlainTextRenderable.class;
+
+    /*******************************************************************************************************************
+     *
+     *
+     * @since 3.2-ALPHA-1 (was previously on {@code Feedback8}
+     *
+     ******************************************************************************************************************/
+    public default void renderTo (final @Nonnull StringBuilder stringBuilder,
+                                  final @Nonnull Object ... args)
+      {
+        stringBuilder.append(render(args));
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     * @since 3.2-ALPHA-1 (was previously on {@code Feedback8}
+     *
+     ******************************************************************************************************************/
+    public default void renderTo (final @Nonnull PrintWriter printWriter,
+                                  final @Nonnull Object ... args)
+      {
+        printWriter.print(render(args));
+      }
   }

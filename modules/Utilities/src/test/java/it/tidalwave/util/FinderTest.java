@@ -30,8 +30,13 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 import it.tidalwave.util.spi.FinderSupport;
 import it.tidalwave.util.spi.ExtendedFinderSupport;
+import org.testng.annotations.Test;
+import static java.util.stream.Collectors.toList;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
  *
@@ -78,6 +83,29 @@ public class FinderTest
             this.prefix = prefix;
             return this;
           }
+      }
+
+    private final static List<Integer> ITEMS = IntStream.range(0, 10).mapToObj(Integer::valueOf).collect(toList());
+
+    @Test
+    public void ofClone_must_behave_correctly()
+      {
+        // when
+        final Finder<Integer> underTest = Finder.ofCloned(ITEMS);
+        // then
+        assertThat(underTest.results(), is(ITEMS));
+        assertThat(underTest.from(5).results(), is(ITEMS.subList(5, 10)));
+        assertThat(underTest.from(7).max(2).results(), is(ITEMS.subList(7, 9)));
+      }
+
+    @Test
+    public void ofClone_result_must_be_a_modifiable_list()
+      {
+        // when
+        final Finder<Integer> underTest = Finder.ofCloned(ITEMS);
+        // then
+        underTest.results().clear();
+        underTest.from(5).results().clear();
       }
 
     public void test1() // just to see the syntax

@@ -29,8 +29,6 @@ package it.tidalwave.util;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.io.Serializable;
-import it.tidalwave.util.spi.ReflectionUtils;
-import it.tidalwave.util.impl.TypeHolder;
 import lombok.Getter;
 
 /***********************************************************************************************************************

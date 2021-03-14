@@ -29,6 +29,7 @@ package it.tidalwave.role.ui.spi;
 import javax.annotation.Nonnull;
 import it.tidalwave.role.ui.PresentationModel;
 import it.tidalwave.role.ui.PresentationModelFactory;
+import it.tidalwave.role.ui.impl.DefaultPresentationModel;
 
 /***********************************************************************************************************************
  *

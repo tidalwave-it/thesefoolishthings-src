@@ -26,7 +26,10 @@
  */
 package it.tidalwave.role;
 
+import javax.annotation.Nonnull;
+import java.util.Collection;
 import it.tidalwave.util.Finder;
+import it.tidalwave.role.impl.DefaultSimpleComposite;
 
 /***********************************************************************************************************************
  *
@@ -40,5 +43,38 @@ import it.tidalwave.util.Finder;
  **********************************************************************************************************************/
 public interface SimpleComposite<TYPE> extends Composite<TYPE, Finder<? extends TYPE>>
   {
-    public static final Class<SimpleComposite> SimpleComposite = SimpleComposite.class; 
+    public static final Class<SimpleComposite> SimpleComposite = SimpleComposite.class;
+
+    /*******************************************************************************************************************
+     *
+     * Returns a wrapped {@code SimpleComposite} on a given {@link Finder}
+     *
+     * @param   <TYPE>  the type of the {@code Finder}
+     * @param   finder  the {@code Finder}
+     * @return          the wrapped {@code SimpleComposite}
+     * @since 3.2-ALPHA-1
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <TYPE> SimpleComposite<TYPE> of (final Finder<TYPE> finder)
+      {
+        return new DefaultSimpleComposite<>(finder);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a wrapped {@code SimpleComposite} on a given collection of elements. The collection is cloned and will be
+     * immutable
+     *
+     * @param   <TYPE>  the type of the {@code Finder}
+     * @param   items   the objects to wrap
+     * @return          the wrapped {@code SimpleComposite}
+     * @since 3.2-ALPHA-1
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <TYPE> SimpleComposite<TYPE> ofCloned (final @Nonnull Collection<TYPE> items)
+      {
+        return of(Finder.ofCloned(items));
+      }
   }

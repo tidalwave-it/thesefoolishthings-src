@@ -27,8 +27,8 @@
 package it.tidalwave.text;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.role.spi.DefaultDisplayable;
-import it.tidalwave.role.Displayable;
+import it.tidalwave.role.ui.impl.DefaultDisplayable;
+import it.tidalwave.role.ui.Displayable;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;

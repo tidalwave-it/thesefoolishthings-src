@@ -49,7 +49,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
-import static it.tidalwave.role.spi.LogUtil.*;
+import static it.tidalwave.role.spi.impl.LogUtil.*;
 import static it.tidalwave.role.spi.impl.Mocks.*;
 
 class XCA1 extends CA1 {}

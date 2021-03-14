@@ -29,6 +29,7 @@ package it.tidalwave.role.ui.spi;
 import javax.annotation.Nonnull;
 import it.tidalwave.role.ui.Presentable;
 import it.tidalwave.role.ui.PresentationModel;
+import it.tidalwave.role.ui.impl.DefaultPresentationModel;
 import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
@@ -54,6 +55,6 @@ public class DefaultPresentable implements Presentable
     @Override @Nonnull
     public PresentationModel createPresentationModel (final @Nonnull Object... localRolesOrFactories)
       {
-        return new DefaultPresentationModel(datum, localRolesOrFactories);
+        return PresentationModel.of(datum, localRolesOrFactories);
       }
   }

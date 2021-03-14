@@ -34,7 +34,7 @@ import it.tidalwave.util.Task;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.dci.annotation.DciContext;
 import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.role.spi.LogUtil.shortId;
+import static it.tidalwave.role.spi.impl.LogUtil.shortId;
 
 /***********************************************************************************************************************
  *

@@ -39,7 +39,7 @@ import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
 import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.ExtensionMethod;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static it.tidalwave.role.Marshallable.Marshallable;
+import static it.tidalwave.role.io.Marshallable.Marshallable;
 
 /***********************************************************************************************************************
  *

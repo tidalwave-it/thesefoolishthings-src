@@ -34,6 +34,7 @@ package it.tidalwave.util;
  * @since   3.0
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface Callback
   {
     public final static Callback EMPTY = new Callback()

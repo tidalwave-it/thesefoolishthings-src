@@ -27,7 +27,10 @@
 package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
+import it.tidalwave.role.ui.impl.DefaultUserAction;
 import it.tidalwave.util.As;
+import it.tidalwave.util.Callback;
+// import javafx.beans.property.BooleanProperty;
 
 /***********************************************************************************************************************
  *
@@ -52,4 +55,26 @@ public interface UserAction extends As
      ******************************************************************************************************************/
     @Nonnull
     public BoundProperty<Boolean> enabled();
+
+    /*******************************************************************************************************************
+     *
+     * @since 3.2-ALPHA-1 (was previously in {@code UserAction8}
+     *
+     ******************************************************************************************************************/
+//    @Nonnull
+//    public default BooleanProperty enabledProperty()
+//      {
+//        throw new UnsupportedOperationException();
+//      }
+
+    /*******************************************************************************************************************
+     *
+     * @since 3.2-ALPHA-1 (replaces {@code new UserActionSupport()}
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static UserAction of (final @Nonnull Callback callback, final @Nonnull Object ... rolesOrFactories)
+      {
+        return new DefaultUserAction(callback, rolesOrFactories);
+      }
   }

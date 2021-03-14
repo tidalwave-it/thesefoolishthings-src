@@ -37,12 +37,10 @@ import it.tidalwave.util.AsException;
 import it.tidalwave.util.Id;
 import it.tidalwave.util.RoleFactory;
 import it.tidalwave.util.spi.AsDelegateProvider;
-import it.tidalwave.util.spi.EmptyAsDelegateProvider;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.Identifiable;
 import it.tidalwave.role.SimpleComposite;
 import it.tidalwave.role.ui.PresentationModel;
-import it.tidalwave.role.spi.ArrayListSimpleComposite;
 import it.tidalwave.role.spi.DefaultContextManagerProvider;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -88,7 +86,7 @@ public class SimpleCompositePresentableTest
         @Nonnull
         public MockDatum withChildren (final @Nonnull List<MockDatum> children)
           {
-            composite = new ArrayListSimpleComposite<>(this.children = children);
+            composite = SimpleComposite.ofCloned(this.children = children);
             return this;
           }
 
@@ -162,7 +160,7 @@ public class SimpleCompositePresentableTest
     @BeforeMethod
     public void setup()
       {
-        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider());
+        AsDelegateProvider.Locator.set(AsDelegateProvider.empty());
         ContextManager.Locator.set(new DefaultContextManagerProvider());
       }
 

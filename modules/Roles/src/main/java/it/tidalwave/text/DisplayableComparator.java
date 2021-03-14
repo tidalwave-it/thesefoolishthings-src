@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 import java.util.Comparator;
 import java.text.Collator;
 import java.io.Serializable;
-import it.tidalwave.role.Displayable;
+import it.tidalwave.role.ui.Displayable;
 
 /***********************************************************************************************************************
  *

@@ -33,9 +33,10 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import java.util.function.Function;
+import it.tidalwave.role.SimpleComposite;
+import it.tidalwave.role.ui.impl.DefaultPresentationModel;
 import it.tidalwave.util.As;
 import it.tidalwave.util.spi.ArrayListCollectorSupport;
-import it.tidalwave.role.spi.ArrayListSimpleComposite;
 import it.tidalwave.role.Composite;
 import it.tidalwave.role.ui.PresentationModel;
 import static it.tidalwave.role.ui.Presentable.Presentable;
@@ -127,7 +128,7 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
         return childrenPms ->
           {
             final List<Object> temp = new ArrayList<>(roles);
-            temp.add(new ArrayListSimpleComposite<>(childrenPms));
+            temp.add(SimpleComposite.ofCloned(childrenPms));
             // FIXME: "" triggers a NPE in RoleManagerSupport.java:341
             return new DefaultPresentationModel("", temp.toArray());
           };

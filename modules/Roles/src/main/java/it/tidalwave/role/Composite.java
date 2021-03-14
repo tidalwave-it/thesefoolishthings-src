@@ -29,7 +29,6 @@ package it.tidalwave.role;
 import javax.annotation.Nonnull;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.NotFoundException;
-import it.tidalwave.util.spi.FinderSupport;
 
 /***********************************************************************************************************************
  *
@@ -57,7 +56,7 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
         @Override @Nonnull
         public Finder<Object> findChildren()
           {
-            return FinderSupport.emptyFinder();
+            return Finder.empty();
           }
       };
 

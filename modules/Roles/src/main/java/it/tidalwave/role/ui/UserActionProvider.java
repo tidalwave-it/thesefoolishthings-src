@@ -62,10 +62,10 @@ public interface UserActionProvider
      *
      * @return                      the default action
      * @throws  NotFoundException   if there's no default action
+     * @deprecated                  Use {@link #getOptionalDefaultAction()}
      *
      ******************************************************************************************************************/
-//    FIXME: should be deprecated in favour of getOptionalDefaultAction().
-    @Nonnull
+    @Nonnull @Deprecated
     public UserAction getDefaultAction()
       throws NotFoundException;
 

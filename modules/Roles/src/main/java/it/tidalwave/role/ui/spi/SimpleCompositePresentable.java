@@ -42,11 +42,10 @@ import it.tidalwave.role.ui.Presentable;
 import it.tidalwave.role.ui.PresentationModel;
 import it.tidalwave.role.ui.PresentationModelFactory;
 import it.tidalwave.role.spi.ContextSampler;
-import it.tidalwave.role.spi.DefaultSimpleComposite;
+import it.tidalwave.role.impl.DefaultSimpleComposite;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
-import static it.tidalwave.role.spi.LogUtil.*;
-import static it.tidalwave.role.ui.Presentable.Presentable;
+import static it.tidalwave.role.spi.impl.LogUtil.*;
 
 /***********************************************************************************************************************
  *

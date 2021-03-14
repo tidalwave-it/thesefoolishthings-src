@@ -26,6 +26,7 @@
  */
 package it.tidalwave.util;
 
+import java.util.concurrent.Callable;
 import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
@@ -33,7 +34,7 @@ import javax.annotation.Nonnull;
  * A class which encapsulates a task..
  *
  * @author  Fabrizio Giudici
- * @experimental
+ * @it.tidalwave.javadoc.experimental
  *
  **********************************************************************************************************************/
 public abstract class Task<T, E extends Throwable>
@@ -80,6 +81,76 @@ public abstract class Task<T, E extends Throwable>
     public String toString()
       {
         return name;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates a {@code Task} from a {@link Runnable}.
+     *
+     * @param   runnable    the wrapped object
+     * @return              the {@code Task}
+     * @since 3.2-ALPHA-1 (was previously on {@code Task8}
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Task<Void, RuntimeException> ofRunnable (final @Nonnull Runnable runnable)
+      {
+        return new Task<Void, RuntimeException>()
+          {
+            @Override
+            public Void run()
+              {
+                runnable.run();
+                return null;
+              }
+          };
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates a {@code Task} from a {@link Callable}.
+     *
+     * @param   callable    the wrapped object
+     * @return              the {@code Task}
+     * @since 3.2-ALPHA-1 (was previously on {@code Task8}
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> Task<T, Exception> ofCallable (final @Nonnull Callable<T> callable)
+      {
+        return new Task<T, Exception>()
+          {
+            @Override
+            public T run()
+                    throws Exception
+              {
+                return callable.call();
+              }
+          };
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates a {@code Task} from a {@link Callback}.
+     *
+     * @param   callback    the wrapped object
+     * @return              the {@code Task}
+     * @since 3.2-ALPHA-1 (was previously on {@code Task8}
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Task<Void, Throwable> ofCallback (final @Nonnull Callback callback)
+      {
+        return new Task<Void, Throwable>()
+          {
+            @Override
+            public Void run()
+                    throws Throwable
+              {
+                callback.call();
+                return null;
+              }
+          };
       }
   }
 

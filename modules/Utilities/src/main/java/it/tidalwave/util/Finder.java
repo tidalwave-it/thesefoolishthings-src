@@ -28,8 +28,14 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 import java.io.Serializable;
+import it.tidalwave.util.impl.ArrayListFinder;
 
 /***********************************************************************************************************************
  *
@@ -72,7 +78,8 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * by themselves the sorting of objects, by post-processing an existing collection of objects. While this is often
      * convenient, it is possible for it to be inefficient in cases in which the original source of objects is capable
      * to perform the sort in an optimized way (e.g. a SQL database by means of {@code ORDER BY}}. The facility class
-     * {@link FinderSupport} supports {@code FilterSortCriterion} objects out of the box. A convenient partial
+     * {@link it.tidalwave.util.spi.FinderSupport} supports {@code FilterSortCriterion} objects out of the box. A
+     * convenient partial
      * implementation of {@code FilterSortCriterion} is {@link DefaultFilterSortCriterion}.
      *
      ******************************************************************************************************************/
@@ -193,9 +200,10 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @return                    the found item
      * @throws NotFoundException  if the search didn't find anything
      * @throws RuntimeException   if the search returned more than one single item
+     * @deprecated                Use {@link #optionalResult()} instead
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nonnull @Deprecated
     public TYPE result()
       throws NotFoundException, RuntimeException;
 
@@ -205,9 +213,10 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      * @return                    the first found item
      * @throws NotFoundException  if the search didn't find anything
+     * @deprecated                Use {@link #optionalFirstResult()} ()} instead
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nonnull @Deprecated
     public TYPE firstResult()
       throws NotFoundException;
 
@@ -230,4 +239,109 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      ******************************************************************************************************************/
     @Nonnegative
     public int count();
+
+    /*******************************************************************************************************************
+     *
+     * Performs the search assuming that it will return a single item and returns it. This method fails if the search
+     * returns more than one single item.
+     *
+     * @return            the optional result
+     * @throws RuntimeException   if the search returned more than one single item
+     *
+     * @since 3.2-ALPHA-1 (previously in Finder8)
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    default public Optional<TYPE> optionalResult()
+      {
+        try
+          {
+            return Optional.of(result());
+          }
+        catch (NotFoundException e)
+          {
+            return Optional.empty();
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Performs the search and returns only the first found item.
+     *
+     * @return            the first result
+     * @since 3.2-ALPHA-1 (previously in Finder8)
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    default public Optional<TYPE> optionalFirstResult()
+      {
+        try
+          {
+            return Optional.of(firstResult());
+          }
+        catch (NotFoundException e)
+          {
+            return Optional.empty();
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a stream of results.
+     *
+     * @return    the stream
+     * @since 3.2-ALPHA-1 (previously in Finder8)
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    default public Stream<TYPE> stream()
+      {
+        return ((List<TYPE>)results()).stream();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns am iterator of results.
+     *
+     * @return    the iterator
+     * @since 3.2-ALPHA-1 (previously in Finder8)
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    default public Iterator<TYPE> iterator()
+      {
+        return ((List<TYPE>)results()).iterator();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns an empty {@code Finder}.
+     *
+     * @param   <T>     the type of the {@code Finder}
+     * @return          the empty {@code Finder}
+     * @since 3.2-ALPHA-1 (previously in FinderSupport.emptyFinder())
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> Finder<T> empty()
+      {
+        return ofCloned(Collections.<T>emptyList());
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a wrapped {@code Finder} on a given collection of elements. The collection is cloned and will be
+     * immutable
+     *
+     * @param   <T>     the type of the {@code Finder}
+     * @param   items   the objects to wrap
+     * @return          the wrapped {@code Finder}
+     * @since 3.2-ALPHA-1
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> Finder<T> ofCloned (final @Nonnull Collection<T> items)
+      {
+        return new ArrayListFinder<>(items);
+      }
   }

@@ -29,6 +29,7 @@ package it.tidalwave.util.spi;
 import javax.annotation.Nonnull;
 import java.util.Iterator;
 import java.util.ServiceLoader;
+import it.tidalwave.util.impl.EmptyAsDelegateProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -79,4 +80,21 @@ public interface AsDelegateProvider
      ******************************************************************************************************************/
     @Nonnull
     public AsDelegate createAsDelegate (@Nonnull Object datum);
+
+    /*******************************************************************************************************************
+     *
+     * Returns an empty implementation. Useful for setting up test environment.
+     *
+     * <pre>
+     * AsDelegateProvider.Locator.set(AsDelegateProvider.empty());
+     * </pre>
+     *
+     * @since 3.2-ALPHA-1
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static AsDelegateProvider empty()
+      {
+        return new EmptyAsDelegateProvider();
+      }
   }

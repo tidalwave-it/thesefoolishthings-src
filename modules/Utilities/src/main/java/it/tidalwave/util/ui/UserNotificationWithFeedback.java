@@ -28,8 +28,13 @@ package it.tidalwave.util.ui;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import it.tidalwave.util.Callback;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import lombok.ToString;
+import lombok.With;
 import static it.tidalwave.util.BundleUtilities.getMessage;
 
 /***********************************************************************************************************************
@@ -48,8 +53,35 @@ public class UserNotificationWithFeedback extends UserNotification
      * This class provides a few callback methods to notify a choice from the user.
      *
      ******************************************************************************************************************/
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Feedback
       {
+        @With
+        private final Callback onConfirm;
+
+        @With
+        private final Callback onCancel;
+
+        /***************************************************************************************************************
+         *
+         * @since   3.2-ALPHA-1
+         *
+         **************************************************************************************************************/
+        public boolean canConfirm()
+          {
+            return onConfirm != Callback.EMPTY;
+          }
+
+        /***************************************************************************************************************
+         *
+         * @since   3.2-ALPHA-1
+         *
+         **************************************************************************************************************/
+        public boolean canCancel()
+          {
+            return onCancel != Callback.EMPTY;
+          }
+
         /***************************************************************************************************************
          *
          * Callback method invoked when the user confirms an operation.
@@ -57,9 +89,11 @@ public class UserNotificationWithFeedback extends UserNotification
          * @throws  Exception  in cases of error
          *
          **************************************************************************************************************/
-        public void onConfirm()
-          throws Exception
+        @SneakyThrows(Throwable.class)
+        private final void onConfirm()
+                throws Exception
           {
+            onConfirm.call();
           }
 
         /***************************************************************************************************************
@@ -69,9 +103,11 @@ public class UserNotificationWithFeedback extends UserNotification
          * @throws  Exception  in cases of error
          *
          **************************************************************************************************************/
-        public void onCancel()
-          throws Exception
+        @SneakyThrows(Throwable.class)
+        private final void onCancel()
+                throws Exception
           {
+            onCancel.call();
           }
       }
 
@@ -100,7 +136,7 @@ public class UserNotificationWithFeedback extends UserNotification
     @Nonnull
     public static UserNotificationWithFeedback notificationWithFeedback()
       {
-        return new UserNotificationWithFeedback("", "", new Feedback());
+        return new UserNotificationWithFeedback("", "", feedback());
       }
 
     /*******************************************************************************************************************
@@ -205,5 +241,17 @@ public class UserNotificationWithFeedback extends UserNotification
       throws Exception
       {
         feedback.onCancel();
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     * @since 3.2-ALPHA-1 (was previously on {@code Feedback8}
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Feedback feedback()
+      {
+        return new Feedback(Callback.EMPTY, Callback.EMPTY);
       }
   }

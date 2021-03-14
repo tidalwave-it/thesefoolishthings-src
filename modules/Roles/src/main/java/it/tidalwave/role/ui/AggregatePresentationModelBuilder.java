@@ -30,8 +30,6 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import it.tidalwave.role.Aggregate;
-import it.tidalwave.role.spi.MapAggregate;
-import it.tidalwave.role.ui.spi.DefaultPresentationModel;
 import lombok.NoArgsConstructor;
 
 /***********************************************************************************************************************
@@ -61,20 +59,20 @@ public class AggregatePresentationModelBuilder
     @Nonnull
     public AggregatePresentationModelBuilder with (final @Nonnull String name, final @Nonnull Object ... roles)
       {
-        map.put(name, new DefaultPresentationModel("", roles));
+        map.put(name, PresentationModel.of("", roles));
         return this;
       }
 
     /*******************************************************************************************************************
      *
-     * Creates the {@link Agggregate} from the previously accumulated items.
+     * Creates the {@link Aggregate} from the previously accumulated items.
      *
-     * @return  the {@code Agggregate}
+     * @return  the {@code Aggregate}
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Aggregate create()
+    public Aggregate<PresentationModel> create()
       {
-        return new MapAggregate<>(map);
+        return Aggregate.of(map);
       }
   }

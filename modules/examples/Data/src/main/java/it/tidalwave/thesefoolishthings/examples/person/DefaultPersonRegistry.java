@@ -28,7 +28,7 @@ package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.util.Finder;
-import it.tidalwave.util.spi.ArrayListFinder;
+import it.tidalwave.util.impl.ArrayListFinder;
 
 /***********************************************************************************************************************
  *
