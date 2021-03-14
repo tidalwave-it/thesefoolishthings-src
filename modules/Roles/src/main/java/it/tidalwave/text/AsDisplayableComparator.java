@@ -20,7 +20,6 @@
  *
  * *********************************************************************************************************************
  *
- * $Id$
  *
  * *********************************************************************************************************************
  * #L%
@@ -40,7 +39,6 @@ import static it.tidalwave.role.Displayable.Displayable;
  * A {@link Comparator} for classes implementing the {@link As} interface containing a {@link Displayable} role.
  *
  * @author  Fabrizio Giudici
- * @version $Id$
  * @it.tidalwave.javadoc.draft Will be moved to a different package
  *
  **********************************************************************************************************************/

@@ -20,7 +20,6 @@
  * 
  * *********************************************************************************************************************
  * 
- * $Id$
  * 
  * *********************************************************************************************************************
  * #L%
@@ -36,7 +35,6 @@ import it.tidalwave.util.Finder8Support;
  * An extension of {@link SimpleFinderSupport} that uses {@link Finder8}.
  * 
  * @author  Fabrizio Giudici
- * @version $Id$
  * @since 1.38
  * @it.tidalwave.javadoc.draft
  *

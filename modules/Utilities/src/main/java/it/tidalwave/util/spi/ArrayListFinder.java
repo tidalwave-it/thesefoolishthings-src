@@ -20,7 +20,6 @@
  *
  * *********************************************************************************************************************
  *
- * $Id$
  *
  * *********************************************************************************************************************
  * #L%
@@ -41,7 +40,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @param  <T>   the type of contained items
  *
  * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
- * @version $Id: Class.java,v 631568052e17 2013/02/19 15:45:02 fabrizio $
  *
  **********************************************************************************************************************/
 public class ArrayListFinder<T> extends SimpleFinderSupport<T>

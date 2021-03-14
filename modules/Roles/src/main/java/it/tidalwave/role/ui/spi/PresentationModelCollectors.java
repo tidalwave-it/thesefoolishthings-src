@@ -20,7 +20,6 @@
  * 
  * *********************************************************************************************************************
  * 
- * $Id$
  * 
  * *********************************************************************************************************************
  * #L%
@@ -47,7 +46,6 @@ import static it.tidalwave.role.ui.Presentable.Presentable;
  * {@code PresentationModel} with a {@link Composite&lt;PresentationModel&gt;} role containing them.
  * 
  * @author  Fabrizio Giudici
- * @version $Id$
  *
  **********************************************************************************************************************/
 public class PresentationModelCollectors extends ArrayListCollectorSupport<PresentationModel, PresentationModel>

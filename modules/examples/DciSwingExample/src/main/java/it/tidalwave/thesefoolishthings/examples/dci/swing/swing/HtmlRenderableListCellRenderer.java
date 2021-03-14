@@ -20,7 +20,6 @@
  * 
  * *********************************************************************************************************************
  * 
- * $Id$
  * 
  * *********************************************************************************************************************
  * #L%
@@ -44,7 +43,6 @@ import static it.tidalwave.role.HtmlRenderable.*;
  * A specialization of {@link javax.swing.DefaultListCellRenderer} that uses {@link HtmlRenderable} for rendering items.
  *
  * @author  Fabrizio Giudici
- * @version $Id$
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor
