@@ -4,27 +4,49 @@
     <excludeFromCompile>
       <directory url="file://$PROJECT_DIR$/archetypes/project/src/main/resources/archetype-resources" includeSubdirectories="true" />
     </excludeFromCompile>
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="it-tidalwave-messagebus-spring" />
+        <module name="it-tidalwave-thesefoolishthings-examples-dci-swing" />
+        <module name="it-tidalwave-role-spring" />
+        <module name="it-tidalwave-actor" />
+        <module name="it-tidalwave-messagebus" />
+        <module name="it-tidalwave-util-test" />
+        <module name="it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream" />
+        <module name="it-tidalwave-thesefoolishthings-examples-finderexample1" />
+        <module name="project-archetype" />
+        <module name="it-tidalwave-thesefoolishthings-examples-finderexample2" />
+        <module name="it-tidalwave-thesefoolishthings-examples-finderexample3" />
+        <module name="it-tidalwave-thesefoolishthings-examples-data" />
+        <module name="it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa" />
+        <module name="it-tidalwave-role" />
+        <module name="it-tidalwave-util" />
+        <module name="it-tidalwave-thesefoolishthings-examples-dci-displayable" />
+      </profile>
+    </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="it-tidalwave-actor" target="1.7" />
-      <module name="it-tidalwave-messagebus" target="1.7" />
-      <module name="it-tidalwave-messagebus-spring" target="1.7" />
-      <module name="it-tidalwave-role" target="1.7" />
-      <module name="it-tidalwave-role-spring" target="1.7" />
-      <module name="it-tidalwave-thesefoolishthings-examples-data" target="1.7" />
-      <module name="it-tidalwave-thesefoolishthings-examples-dci-displayable" target="1.7" />
-      <module name="it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream" target="1.7" />
-      <module name="it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa" target="1.7" />
-      <module name="it-tidalwave-thesefoolishthings-examples-dci-swing" target="1.7" />
-      <module name="it-tidalwave-thesefoolishthings-examples-finderexample1" target="1.7" />
-      <module name="it-tidalwave-thesefoolishthings-examples-finderexample2" target="1.7" />
-      <module name="it-tidalwave-thesefoolishthings-examples-finderexample3" target="1.7" />
-      <module name="it-tidalwave-util" target="1.7" />
-      <module name="it-tidalwave-util-java8supplement" target="1.8" />
-      <module name="it-tidalwave-util-test" target="1.7" />
-      <module name="modules" target="1.7" />
+      <module name="it-tidalwave-actor" target="1.8" />
+      <module name="it-tidalwave-messagebus" target="1.8" />
+      <module name="it-tidalwave-messagebus-spring" target="1.8" />
+      <module name="it-tidalwave-role" target="1.8" />
+      <module name="it-tidalwave-role-spring" target="1.8" />
+      <module name="it-tidalwave-thesefoolishthings-examples-data" target="1.8" />
+      <module name="it-tidalwave-thesefoolishthings-examples-dci-displayable" target="1.8" />
+      <module name="it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream" target="1.8" />
+      <module name="it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa" target="1.8" />
+      <module name="it-tidalwave-thesefoolishthings-examples-dci-swing" target="1.8" />
+      <module name="it-tidalwave-thesefoolishthings-examples-finderexample1" target="1.8" />
+      <module name="it-tidalwave-thesefoolishthings-examples-finderexample2" target="1.8" />
+      <module name="it-tidalwave-thesefoolishthings-examples-finderexample3" target="1.8" />
+      <module name="it-tidalwave-util" target="1.8" />
+      <module name="it-tidalwave-util-test" target="1.8" />
+      <module name="modules" target="1.8" />
       <module name="project-archetype" target="1.8" />
       <module name="thesefoolishthings" target="1.8" />
-      <module name="thesefoolishthings-examples" target="1.7" />
+      <module name="thesefoolishthings-examples" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -43,7 +65,6 @@
       <module name="it-tidalwave-thesefoolishthings-examples-finderexample2" options="-Xlint:all" />
       <module name="it-tidalwave-thesefoolishthings-examples-finderexample3" options="-Xlint:all" />
       <module name="it-tidalwave-util" options="-Xlint:all" />
-      <module name="it-tidalwave-util-java8supplement" options="-Xlint:all" />
       <module name="it-tidalwave-util-test" options="-Xlint:all" />
       <module name="project-archetype" options="-Xlint:all" />
     </option>
