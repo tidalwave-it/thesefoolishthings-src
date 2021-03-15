@@ -29,6 +29,7 @@ package it.tidalwave.util;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 /***********************************************************************************************************************
@@ -72,4 +73,22 @@ public interface TypeSafeMap extends Iterable<Object>
      ******************************************************************************************************************/
     @Nonnull
     public Map<Key<?>, Object> asMap();
+
+    /*******************************************************************************************************************
+     *
+     * @since 3.2-ALPHA-1
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public default <T> Optional<T> getOptional (@Nonnull Key<T> key)
+      {
+        try
+          {
+            return Optional.of(get(key));
+          }
+        catch (NotFoundException ex)
+          {
+            return Optional.empty();
+          }
+      }
   }
