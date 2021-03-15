@@ -33,7 +33,7 @@ import org.jdesktop.observablecollections.ObservableList;
  *
  * A role which creates an {@link ObservableList} bound to the datum.
  *
- * @sterotype Role
+ * @stereotype Role
  *
  * @author  Fabrizio Giudici
  *
