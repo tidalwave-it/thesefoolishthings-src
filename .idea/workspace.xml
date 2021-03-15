@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="" />
+    <list id="e5d5b2a3-6651-4f8f-8de6-08ecc9c98530" name="AsExtensions" comment="" />
+    <list id="40cbff3c-db78-4d92-b06b-4a58d9e38d0a" name="Idea" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitRewordedCommitMessages">
+    <option name="commitMessagesMapping">
+      <RewordedCommitMessageMapping>
+        <option name="originalMessage" value="Partial fix for TFT-207: Finders." />
+        <option name="rewordedMessage" value="Fix for TFT-207 and TFT-208." />
+      </RewordedCommitMessageMapping>
+    </option>
+    <option name="currentCommit" value="1" />
+    <option name="onto" value="21532e93b52c651bdf34c8eaa722c02fe168faeb" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1pkKS2x0Cq35c7qsqOpvdjBZMVr" />
+  <component name="ProjectViewState">
+    <option name="abbreviatePackageNames" value="true" />
+    <option name="flattenPackages" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/Roles/src/test/resources" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="it.tidalwave.util" />
+      <recent name="it.tidalwave.util.impl" />
+      <recent name="it.tidalwave.role.ui.impl" />
+      <recent name="it.tidalwave.role" />
+      <recent name="it.tidalwave.role.spi.impl" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main (1)">
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.Main" />
+      <module name="it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.tidalwave.thesefoolishthings.examples.dci.displayable.Main" />
+      <module name="it-tidalwave-thesefoolishthings-examples-dci-displayable" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.tidalwave.thesefoolishthings.examples.dci.displayable.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main (1)" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="" />
+      <changelist id="40cbff3c-db78-4d92-b06b-4a58d9e38d0a" name="Idea" comment="" />
+      <changelist id="e5d5b2a3-6651-4f8f-8de6-08ecc9c98530" name="AsExtensions" comment="" />
+      <created>1615721645836</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1615721645836</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Partial fix for TFT-207: Finders.">
+      <created>1615722510700</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1615722510700</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Partial fix for TFT-207: Finders.">
+      <created>1615725281357</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1615725281357</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Partial fix for TFT-207: More Finders.">
+      <created>1615726486951</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1615726486951</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Partial fix for TFT-207: More Finders.">
+      <created>1615726817364</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1615726817364</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Partial fix for TFT-207: As.">
+      <created>1615727303114</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1615727303114</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Partial fix for TFT-207: Displayable.">
+      <created>1615728739919</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1615728739919</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Partial fix for TFT-207: Displayable.">
+      <created>1615728750887</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1615728750887</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Partial fix for TFT-207: More Displayable.">
+      <created>1615730455652</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1615730455652</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Partial fix for TFT-207: UserAction.">
+      <created>1615735694998</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1615735694998</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Partial fix for TFT-207: UserAction no more depends on JavaFX properties.">
+      <created>1615736315931</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1615736315931</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Partial fix for TFT-207: UserNotificationWithFeeedback.">
+      <created>1615738094525</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1615738094525</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Partial fix for TFT-207: UserNotificationWithFeeedback.">
+      <created>1615738258570</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1615738258570</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Partial fix for TFT-207: public interface PlainTextRenderableSupport8.">
+      <created>1615740727731</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1615740727731</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Partial fix for TFT-207: Task8.">
+      <created>1615741149109</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1615741149109</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Partial fix for TFT-207: I/O roles.">
+      <created>1615742595386</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1615742595386</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Partial fix for TFT-207: StringRenderable.">
+      <created>1615743076256</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1615743076256</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Partial fix for TFT-207: MapAggregate.">
+      <created>1615744701564</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1615744701564</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Partial fix for TFT-207: Internal package refactoring.">
+      <created>1615744787382</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1615744787382</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Partial fix for TFT-207: DefaultSimpleComposite.">
+      <created>1615746102426</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1615746102426</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Partial fix for TFT-207: DefaultPresentationModel.">
+      <created>1615751907808</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1615751907808</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Partial fix for TFT-207: EmptyAsDelegateProvider.">
+      <created>1615753062544</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1615753062544</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Partial fix for TFT-207: Package chaged for a class.">
+      <created>1615753079185</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1615753079185</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Partial fix for TFT-207: ReflectionUtils is again public.">
+      <created>1615765010599</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1615765010599</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Partial fix for TFT-207: fromBundle() moved.">
+      <created>1615804336091</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1615804336091</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Fix for TFT-209.">
+      <created>1615808598492</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1615808598492</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Fix for TFT-209.">
+      <created>1615811697479</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1615811697479</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Fix for TFT-210.">
+      <created>1615811947609</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1615811947609</updated>
+    </task>
+    <task id="LOCAL-00028" summary="AsExtensions.asOptional() added.">
+      <created>1615811981724</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1615811981724</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Fixed javadoc typos.">
+      <created>1615812044006</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1615812044006</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Added PresentationModel.concat().">
+      <created>1615812764085</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1615812764085</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Updated Idea files.">
+      <created>1615813622229</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1615813622229</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Partial fix for TFT-207: More Finders." />
+    <MESSAGE value="Partial fix for TFT-207: As." />
+    <MESSAGE value="Partial fix for TFT-207: Displayable." />
+    <MESSAGE value="Partial fix for TFT-207: More Displayable." />
+    <MESSAGE value="Partial fix for TFT-207: UserAction." />
+    <MESSAGE value="Partial fix for TFT-207: UserAction no more depends on JavaFX properties." />
+    <MESSAGE value="Partial fix for TFT-207: UserNotificationWithFeeedback." />
+    <MESSAGE value="Partial fix for TFT-207: public interface PlainTextRenderableSupport8." />
+    <MESSAGE value="Partial fix for TFT-207: Task8." />
+    <MESSAGE value="Partial fix for TFT-207: I/O roles." />
+    <MESSAGE value="Partial fix for TFT-207: StringRenderable." />
+    <MESSAGE value="Partial fix for TFT-207: MapAggregate." />
+    <MESSAGE value="Partial fix for TFT-207: Internal package refactoring." />
+    <MESSAGE value="Partial fix for TFT-207: DefaultSimpleComposite." />
+    <MESSAGE value="Partial fix for TFT-207: DefaultPresentationModel." />
+    <MESSAGE value="Partial fix for TFT-207: EmptyAsDelegateProvider." />
+    <MESSAGE value="Partial fix for TFT-207: Package chaged for a class." />
+    <MESSAGE value="Partial fix for TFT-207: ReflectionUtils is again public." />
+    <MESSAGE value="Partial fix for TFT-207: fromBundle() moved." />
+    <MESSAGE value="Fix for TFT-209." />
+    <MESSAGE value="Fix for TFT-210." />
+    <MESSAGE value="AsExtensions.asOptional() added." />
+    <MESSAGE value="Fixed javadoc typos." />
+    <MESSAGE value="Added PresentationModel.concat()." />
+    <MESSAGE value="Updated Idea files." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated Idea files." />
+  </component>
+</project>

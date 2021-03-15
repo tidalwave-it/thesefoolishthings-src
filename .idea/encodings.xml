@@ -4,11 +4,9 @@
     <file url="file://$PROJECT_DIR$/archetypes/project/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/Actors/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/Actors/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/modules/Java8Supplements/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/MessageBus/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/MessageBus/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/Roles/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/modules/Roles/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/SpringMessageBus/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/SpringMessageBus/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/SpringRoles/src/main/java" charset="UTF-8" />
