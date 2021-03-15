@@ -27,6 +27,8 @@
 package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.Optional;
 import it.tidalwave.util.As;
 
 /***********************************************************************************************************************
@@ -41,16 +43,32 @@ public class AsExtensions
   {
     private final static AsExtensionsBean bean = new AsExtensionsBean();
 
+    @Nonnull
     public static <T> T as (final @Nonnull Object datum,
                             final @Nonnull Class<T> roleType)
       {
         return as(datum, roleType, As.Defaults.throwAsException(roleType));
       }
 
+    @Nonnull
     public static <T> T as (final @Nonnull Object datum,
                             final @Nonnull Class<T> roleType,
                             final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour)
       {
         return bean.as(datum, roleType, notFoundBehaviour);
+      }
+
+    @Nonnull
+    public static <T> Optional<T> asOptional (final @Nonnull Object datum,
+                                              final @Nonnull Class<T> type)
+      {
+        return Optional.ofNullable(as(datum, type, throwable -> null));
+      }
+
+    @Nonnull
+    public static <T> Collection<T> asMany (final @Nonnull Object datum,
+                                            final @Nonnull Class<T> type)
+      {
+        return (Collection<T>)bean.asMany(datum, type);
       }
   }
