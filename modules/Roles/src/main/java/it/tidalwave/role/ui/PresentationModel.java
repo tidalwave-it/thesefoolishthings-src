@@ -28,6 +28,9 @@ package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import it.tidalwave.util.As;
 import it.tidalwave.util.NamedCallback;
 import it.tidalwave.role.ui.impl.DefaultPresentationModel;
@@ -119,5 +122,22 @@ public interface PresentationModel extends As
     public static PresentationModel of (final @Nonnull Object owner, final @Nonnull Object ... rolesOrFactories)
       {
         return new DefaultPresentationModel(owner, rolesOrFactories);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * A convenience method for concatenating roles.
+     *
+     * @it.tidalwave.javadoc.draft
+     * @since 3.2-ALPHA-1
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Object[] concat (final @Nonnull Object object, final @Nonnull Object ... objects)
+      {
+        // FIXME: for performance it could be reimplemented with array manipulation
+        final List<Object> temp = new ArrayList<>(Arrays.asList(objects));
+        temp.add(object);
+        return temp.toArray();
       }
   }
