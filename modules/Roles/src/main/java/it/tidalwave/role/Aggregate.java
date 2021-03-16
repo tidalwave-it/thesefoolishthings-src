@@ -87,6 +87,20 @@ public interface Aggregate<TYPE>
 
     /*******************************************************************************************************************
      *
+     * Returns a new empty instance that will be populated by means of {@link #with(String, Object)}.
+     *
+     * @return  the new instance
+     * @since 3.2-ALPHA-2
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <TYPE> Aggregate<TYPE> newInstance()
+      {
+        return new MapAggregate<TYPE>();
+      }
+
+    /*******************************************************************************************************************
+     *
      * Returns a new instance with the specified (name, value) pair.
      *
      * @param   name    the name in the pair
