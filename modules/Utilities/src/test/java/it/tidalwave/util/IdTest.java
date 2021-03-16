@@ -69,9 +69,9 @@ public class IdTest
     @Test
     public void testHashCode()
       {
-        assertEquals(104054L, id1.hashCode());
-        assertEquals(104055L, id2.hashCode());
-        assertEquals(104054L, id1a.hashCode());
+        assertEquals(104113L, id1.hashCode());
+        assertEquals(104114L, id2.hashCode());
+        assertEquals(104113L, id1a.hashCode());
       }
 
     @Test
