@@ -47,7 +47,10 @@
                 <version>${incava.version}</version>
             </dependency>
 
-            <!-- FIXME: used as provided dependency in some modules to work around a javadoc crash -->
+            <!--
+            FIXME: used as provided dependency in some modules to work around a javadoc crash.
+            2021-03-16: doesn't crash, but javadoc runs much longer (10 mins vs 20 mins).
+            -->
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
