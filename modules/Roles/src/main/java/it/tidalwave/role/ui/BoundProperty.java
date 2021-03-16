@@ -42,7 +42,7 @@ import lombok.ToString;
  *
  **********************************************************************************************************************/
 // FIXME: weak listeners
-@AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode @ToString(exclude="pcs")
+@AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode(exclude="pcs") @ToString(exclude="pcs")
 public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
   {
     @Delegate
