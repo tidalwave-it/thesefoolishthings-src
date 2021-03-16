@@ -44,16 +44,12 @@
     </distributionManagement>
 
     <properties>
+        <tft.maven.requiredJdk>[11, 12)</tft.maven.requiredJdk>
+        <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
+        <tidalwave.issues>TFT</tidalwave.issues>
         <scm.repo.url>ssh://git@bitbucket.org/tidalwave/thesefoolishthings-src.git</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
-
-        <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
-        <tidalwave.issues>TFT</tidalwave.issues>
-
-        <tft.maven.requiredJdk>[11, 12)</tft.maven.requiredJdk>
-
-        <tft.clirr.skip>true</tft.clirr.skip> <!-- FIXME Clirr makes the build fail -->
     </properties>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
