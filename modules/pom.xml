@@ -20,16 +20,12 @@
     </description>
 
     <properties>
+        <tft.javac.source>1.8</tft.javac.source>
+        <tft.javac.target>1.8</tft.javac.target>
+
         <incava.version>1.1.0</incava.version>
         <joda-time.version>1.6.2</joda-time.version>
         <uuid.version>2.1.5</uuid.version>
-        <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6
-            -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide
-            java.*|javax.*
-        </tft.UmlGraphDoc.additionalParam>
-
-        <tft.javac.source>1.8</tft.javac.source>
-        <tft.javac.target>1.8</tft.javac.target>
     </properties>
 
     <dependencyManagement>
