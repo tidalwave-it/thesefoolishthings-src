@@ -12,4 +12,4 @@ release.properties
 .DS_Store
 *.iml
 Maven__*.xml
-.maven-env-local
+.maven-local-env
