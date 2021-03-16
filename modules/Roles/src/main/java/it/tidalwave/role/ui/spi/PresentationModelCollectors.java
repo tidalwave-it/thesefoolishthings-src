@@ -43,8 +43,8 @@ import static it.tidalwave.role.ui.Presentable.Presentable;
 
 /***********************************************************************************************************************
  *
- * A {@link Collector} which collects a {@link Stream} of {@link PresentationModel}s into a single
- * {@code PresentationModel} with a {@link Composite&lt;PresentationModel&gt;} role containing them.
+ * A {@link java.util.stream.Collector} which collects a {@link Stream} of {@link PresentationModel}s into a single
+ * {@code PresentationModel} with a {@code Composite&lt;PresentationModel&gt;} role containing them.
  * 
  * @author  Fabrizio Giudici
  *
@@ -79,8 +79,9 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
     /*******************************************************************************************************************
      *
      * A facility method that creates a composite {@link PresentationModel} out of a stream of objects. For each object
-     * in the stream, its {@code PresentationModel} is created by means of invoking its {@link Presentable} role.
-     * Then all the {@code PresentationModel}s are aggregated into the composite.
+     * in the stream, its {@code PresentationModel} is created by means of invoking its
+     * {@link it.tidalwave.role.ui.Presentable} role. Then all the {@code PresentationModel}s are aggregated into the
+     * composite.
      * 
      * This method accepts an {@link Iterable}. A function which creates specific roles for each 
      * {@code PresentationModel} can be supplied. The function can return a single role or multiple roles in form of

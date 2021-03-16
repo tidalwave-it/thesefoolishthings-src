@@ -83,7 +83,7 @@ public interface As
      * Returns an adapter to this object of the specified type. If the implementation can find multiple compliant
      * adapters, only one will be returned.
      *
-     * @paramm  type    the type
+     * @param   type    the type
      * @return          the adapter
      * @throws          AsException if no adapter is found
      *
@@ -97,7 +97,7 @@ public interface As
      * adapters, only one will be returned. If no adapter is found, the result provided by the given default
      * behaviour will be returned.
      *
-     * @paramm  type                the type
+     * @param   type                the type
      * @param   notFoundBehaviour   the behaviour to apply when an adapter is not found
      *
      ******************************************************************************************************************/

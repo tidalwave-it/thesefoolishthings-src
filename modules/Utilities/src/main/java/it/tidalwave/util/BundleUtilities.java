@@ -37,7 +37,7 @@ import lombok.NoArgsConstructor;
  * Facility class to manage resource bundles.
  *
  * @since   3.1-ALPHA-2
- * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

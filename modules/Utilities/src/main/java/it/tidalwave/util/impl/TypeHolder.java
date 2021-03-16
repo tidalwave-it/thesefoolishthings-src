@@ -28,7 +28,7 @@ package it.tidalwave.util.impl;
 
 /***********************************************************************************************************************
  *
- * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
 public abstract class TypeHolder<T>

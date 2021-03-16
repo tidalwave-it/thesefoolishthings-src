@@ -47,8 +47,8 @@ public interface Sortable
     /*******************************************************************************************************************
      *
      * A default {@code Sortable} which does nothing (useful for implementing the NullObject pattern). This object
-     * always returns {@link Finder.SortCriterion.UNSORTED} as {@code sortCriterion} and
-     * {@link SortDirection.ASCENDING} as {@code sortDirection}.
+     * always returns {@link SortCriterion.UNSORTED} as {@code sortCriterion} and {@link SortDirection.ASCENDING} as
+     * {@code sortDirection}.
      *
      ******************************************************************************************************************/
     public final static Sortable DEFAULT = new Sortable()

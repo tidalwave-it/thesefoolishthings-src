@@ -36,7 +36,7 @@ import it.tidalwave.util.Finder;
  * extended {@code Finder} interface to extend from this. For instance, a custom {@code Date} finder can be declared as:
  *
  * <pre>
- * public class DateFinder extends ExtendedFinderSupport<Date, DateFinder>
+ * public class DateFinder extends ExtendedFinderSupport&lt;Date, DateFinder&gt;
  *   {
  *     public DateFinder before (Date date);
  *

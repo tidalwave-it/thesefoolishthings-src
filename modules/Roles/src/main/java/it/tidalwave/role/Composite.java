@@ -90,8 +90,8 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
 
         /***************************************************************************************************************
          *
-         * Visits an object. This method is actually called just after {@link #preVisit()}, it makes sense to implement
-         * it when you don't need to distinguish between pre-order and post-order traversal.
+         * Visits an object. This method is actually called just after {@link #preVisit(Object)}, it makes sense to
+         * implement it when you don't need to distinguish between pre-order and post-order traversal.
          *
          * @param  object  the visited object
          *
