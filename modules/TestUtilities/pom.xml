@@ -14,10 +14,9 @@
     <packaging>jar</packaging>
     <version>3.2-ALPHA-2-SNAPSHOT</version>
     <name>TheseFoolishThings - Test Utilities</name>
-
-    <properties>
-        <!--<stableAPI>true</stableAPI>-->
-    </properties>
+    <description>
+        Miscellaneous utilities for testing.
+    </description>
 
     <dependencies>
         <dependency>

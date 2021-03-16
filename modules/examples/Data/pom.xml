@@ -13,6 +13,9 @@
     <artifactId>it-tidalwave-thesefoolishthings-examples-data</artifactId>
     <version>3.2-ALPHA-2-SNAPSHOT</version>
     <name>TheseFoolishThings Examples - Data</name>
+    <description>
+        This module provides sample data structures used by other examples.
+    </description>
 
     <dependencies>
         <dependency>

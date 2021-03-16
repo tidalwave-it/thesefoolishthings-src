@@ -15,7 +15,9 @@
     <version>3.2-ALPHA-2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings - MessageBus (Spring)</name>
-    <description>TheseFoolishThings - MessageBus (Spring)</description>
+    <description>
+        A Spring implementation of a simple message bus to be used within an application.
+    </description>
 
     <properties>
         <tft.javadoc.excludePackageNames />

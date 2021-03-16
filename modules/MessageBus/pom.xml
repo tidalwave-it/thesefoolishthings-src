@@ -15,7 +15,9 @@
     <version>3.2-ALPHA-2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings - MessageBus</name>
-    <description>TheseFoolishThings - MessageBus</description>
+    <description>
+        An abstract description of a simple message bus to be used within an application.
+    </description>
 
     <dependencies>
         <dependency>

@@ -20,6 +20,9 @@
         <javax.persistence>1.0</javax.persistence>
         <xstream.version>1.4.15</xstream.version>
     </properties>
+    <description>
+        A set of examples demonstrating the features of this project.
+    </description>
 
     <dependencyManagement>
         <dependencies>

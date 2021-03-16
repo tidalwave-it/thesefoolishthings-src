@@ -15,7 +15,9 @@
     <version>3.2-ALPHA-2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings - Roles (Spring)</name>
-    <description>Specific Spring support for DCI roles</description>
+    <description>
+        Specific Spring support for DCI roles.
+    </description>
 
     <properties>
         <!-- FIXME: push up -->

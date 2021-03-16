@@ -15,6 +15,9 @@
     <packaging>pom</packaging>
     <version>3.2-ALPHA-2-SNAPSHOT</version>
     <name>TheseFoolishThings (modules)</name>
+    <description>
+        This module is an umbrella for all the components. It contains the global configuration for the build as well as the declaration of dependencies.
+    </description>
 
     <properties>
         <incava.version>1.1.0</incava.version>

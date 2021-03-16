@@ -15,7 +15,9 @@
     <version>3.2-ALPHA-2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings - Actors</name>
-    <description>An experimental module which provides an implementation of an actor-based framework.</description>
+    <description>
+        An experimental module which provides an implementation of an actor-based framework.
+    </description>
 
     <dependencies>
         <dependency>

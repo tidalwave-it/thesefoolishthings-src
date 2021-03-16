@@ -13,6 +13,9 @@
     <artifactId>it-tidalwave-thesefoolishthings-examples-dci-displayable</artifactId>
     <version>3.2-ALPHA-2-SNAPSHOT</version>
     <name>TheseFoolishThings Examples - DCI Displayable</name>
+    <description>
+        An example of DCI for the Displayable role in a DCI environment.
+    </description>
 
     <properties>
         <mainClass>it.tidalwave.thesefoolishthings.examples.dci.displayable.Main</mainClass>

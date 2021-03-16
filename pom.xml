@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.superpom</groupId>
         <artifactId>superpom</artifactId>
-        <version>5.0-ALPHA-4</version>
+        <version>5.0-ALPHA-5-SNAPSHOT</version>
         <relativePath />
     </parent>
 
@@ -35,6 +35,13 @@
         * Support for the NetBeans Platform.
         * A very small support library for Vaadin.
     </description>
+
+    <distributionManagement>
+        <site>
+            <id>thesefoolishthings-site</id>
+            <url>http://tidalwave.it/projects/thesefoolishthings</url>
+        </site>
+    </distributionManagement>
 
     <properties>
         <scm.repo.url>ssh://git@bitbucket.org/tidalwave/thesefoolishthings-src.git</scm.repo.url>
