@@ -24,7 +24,7 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.ui.spi;
+package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.role.ui.Presentable;
