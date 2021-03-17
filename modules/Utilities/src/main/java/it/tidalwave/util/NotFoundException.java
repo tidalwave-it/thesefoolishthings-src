@@ -40,6 +40,8 @@ import java.util.Collection;
  **********************************************************************************************************************/
 public class NotFoundException extends Exception
   {
+    private final static long serialVersionUID = 3453465498093L;
+
     /*******************************************************************************************************************
      *
      * Creates an empty exception.

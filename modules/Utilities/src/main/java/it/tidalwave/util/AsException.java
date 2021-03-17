@@ -39,6 +39,8 @@ import javax.annotation.Nonnull;
  **********************************************************************************************************************/
 public class AsException extends RuntimeException
   {
+    private final static long serialVersionUID = 7345935467346234L;
+
     /*******************************************************************************************************************
      *
      * Creates an exception.

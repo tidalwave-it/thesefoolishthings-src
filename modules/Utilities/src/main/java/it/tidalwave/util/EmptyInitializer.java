@@ -37,6 +37,8 @@ import java.io.Serializable;
  **********************************************************************************************************************/
 public final class EmptyInitializer<K> implements Initializer<K>, Serializable
   {
+    private final static long serialVersionUID = 6039459583930596L;
+
     public static <K> Initializer<K> instance()
       {
         return new EmptyInitializer<K>();

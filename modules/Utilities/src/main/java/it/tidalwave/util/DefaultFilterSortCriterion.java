@@ -44,6 +44,8 @@ import it.tidalwave.util.Finder.SortDirection;
  **********************************************************************************************************************/
 public class DefaultFilterSortCriterion<Type> implements Finder.FilterSortCriterion<Type>, Serializable
   {
+    private final static long serialVersionUID = 76093596048395982L;
+
     @Nonnull
     private final Comparator<? super Type> comparator;
 
