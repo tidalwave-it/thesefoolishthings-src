@@ -47,10 +47,10 @@ import static org.testng.Assert.fail;
  **********************************************************************************************************************/
 public class TypeSafeMultiMapTest
   {
-    private final static Key<String> K_STRING = new Key<String>("string") {};
-    private final static Key<String> K_STRING2 = new Key<String>("string2") {};
-    private final static Key<Integer> K_INTEGER = new Key<Integer>("integer") {};
-    private final static Key<LocalDateTime> DATETIME = new Key<LocalDateTime>("datetime") {};
+    private final static Key<String> K_STRING = Key.of("string", String.class);
+    private final static Key<String> K_STRING2 = Key.of("string2", String.class);
+    private final static Key<Integer> K_INTEGER = Key.of("integer", Integer.class);
+    private final static Key<LocalDateTime> K_DATETIME = Key.of("datetime", LocalDateTime.class);
     public static final LocalDateTime LOCAL_DATE = LocalDateTime.now();
 
     /*******************************************************************************************************************
@@ -79,15 +79,15 @@ public class TypeSafeMultiMapTest
         final TypeSafeMultiMap underTest = TypeSafeMultiMap.ofCloned(map);
         // then
         assertThat(underTest.getSize(), is(3));
-        assertThat(underTest.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, DATETIME))));
+        assertThat(underTest.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
         assertThat(underTest.asMap(), is(map));
         assertThat(underTest.get(K_STRING), is(Collections.singletonList("1")));
         assertThat(underTest.get(K_INTEGER), is(Collections.singletonList(2)));
-        assertThat(underTest.get(DATETIME), is(Collections.singletonList(LOCAL_DATE)));
+        assertThat(underTest.get(K_DATETIME), is(Collections.singletonList(LOCAL_DATE)));
         assertThat(underTest.get(K_STRING2), is(Collections.emptyList()));
         assertThat(underTest.containsKey(K_STRING), is(true));
         assertThat(underTest.containsKey(K_INTEGER), is(true));
-        assertThat(underTest.containsKey(DATETIME), is(true));
+        assertThat(underTest.containsKey(K_DATETIME), is(true));
         assertThat(underTest.containsKey(K_STRING2), is(false));
       }
 
@@ -106,8 +106,8 @@ public class TypeSafeMultiMapTest
         assertThat(underTest, is(not(sameInstance(firstMap))));
         assertThat(firstMap.getSize(), is(3));
         assertThat(underTest.getSize(), is(4));
-        assertThat(firstMap.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, DATETIME))));
-        assertThat(underTest.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, DATETIME, K_STRING2))));
+        assertThat(firstMap.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
+        assertThat(underTest.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME, K_STRING2))));
         map.put(K_STRING2, Collections.singletonList("2"));
         assertThat(underTest.asMap(), is(map));
         assertThat(underTest.get(K_STRING2), is(Collections.singletonList("2")));
@@ -129,8 +129,8 @@ public class TypeSafeMultiMapTest
         assertThat(underTest, is(not(sameInstance(firstMap))));
         assertThat(firstMap.getSize(), is(3));
         assertThat(underTest.getSize(), is(3));
-        assertThat(firstMap.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, DATETIME))));
-        assertThat(underTest.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, DATETIME))));
+        assertThat(firstMap.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
+        assertThat(underTest.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
         map.put(K_STRING, Arrays.asList("1", "1+"));
         assertThat(underTest.asMap(), is(map));
         assertThat(firstMap.get(K_STRING), is(Collections.singletonList("1")));
@@ -182,7 +182,7 @@ public class TypeSafeMultiMapTest
         final Map<Key<?>, Collection<?>> map = new HashMap<>();
         map.put(K_STRING, Collections.singletonList("1"));
         map.put(K_INTEGER, Collections.singletonList(2));
-        map.put(DATETIME, Collections.singletonList(LOCAL_DATE));
+        map.put(K_DATETIME, Collections.singletonList(LOCAL_DATE));
         return map;
       }
   }
