@@ -24,46 +24,52 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.util;
+package it.tidalwave.util.impl;
 
+import it.tidalwave.util.Key;
+import it.tidalwave.util.TypeSafeMultiMap;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.io.Serializable;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
 @Immutable
-public class TypeSafeHashMap implements TypeSafeMap, Serializable
+public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
   {
+    private final static long serialVersionUID = 759233572056L;
+
     @Nonnull
-    private final Map<Key<?>, Object> map;
+    private final Map<Key<?>, Collection<?>> map;
 
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    public TypeSafeHashMap (final @Nonnull Map<Key<?>, Object> map)
+    public TypeSafeHashMultiMap (final @Nonnull Map<Key<?>, Collection<?>> map)
       {
-        this(new HashMap<Key<?>, Object>(), false);
+        this(new HashMap<Key<?>, Collection<? extends Object>>(), true);
         this.map.putAll(map);
       }
 
     /*******************************************************************************************************************
      *
-     * For testing only.
      *
      ******************************************************************************************************************/
-    /* package */ TypeSafeHashMap (final @Nonnull Map<Key<?>, Object> map, final boolean dummy)
+    /* package */ TypeSafeHashMultiMap (final @Nonnull Map<Key<?>, Collection<?>> map, final boolean dummy)
       {
         this.map = map;
       }
@@ -73,11 +79,11 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Nonnull
-    public <T> T get (final @Nonnull Key<T> key)
-      throws NotFoundException
+    @Nonnull @SuppressWarnings("unchecked")
+    public <T> Collection<T> get (final @Nonnull Key<T> key)
       {
-        return NotFoundException.throwWhenNull((T)map.get(key), "not found: %s", key);
+        return containsKey(key) ? new CopyOnWriteArrayList<>((Collection<T>)map.get(key))
+                                : new ArrayList<>();
       }
 
     /*******************************************************************************************************************
@@ -95,10 +101,25 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
+    @Override @Nonnull
+    public <T> TypeSafeHashMultiMap with (final @Nonnull Key<T> key, final @Nonnull T value)
+      {
+        final Map<Key<?>, Collection<?>> map = asMap();
+        final Collection<T> values = get(key);
+        values.add(value);
+        map.put(key, values);
+        return new TypeSafeHashMultiMap(map);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public Set<Key<?>> getKeys()
       {
-        return Collections.unmodifiableSet(map.keySet());
+        return new CopyOnWriteArraySet<>(map.keySet());
       }
 
     /*******************************************************************************************************************
@@ -118,7 +139,7 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Iterator<Object> iterator()
+    public Iterator<Collection<?>> iterator()
       {
         return Collections.unmodifiableCollection(map.values()).iterator();
       }
@@ -129,9 +150,9 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Map<Key<?>, Object> asMap()
+    public Map<Key<?>, Collection<?>> asMap()
       {
-        return new HashMap<Key<?>, Object>(map);
+        return new HashMap<Key<?>, Collection<?>>(map);
       }
 
     /*******************************************************************************************************************
