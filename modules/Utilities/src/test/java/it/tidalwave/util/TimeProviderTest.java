@@ -24,55 +24,52 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.ui;
+package it.tidalwave.util;
 
-import javax.annotation.Nonnull;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import it.tidalwave.role.Aggregate;
-import lombok.NoArgsConstructor;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import org.testng.annotations.Test;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.lessThan;
 
 /***********************************************************************************************************************
  *
- * A builder for an {@link Aggregate} of {@link PresentationModel}s.
- *
- * @stereotype  role factory, builder
- *
- * @since   3.1-ALPHA-2
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@NoArgsConstructor(staticName = "newInstance")
-public class AggregatePresentationModelBuilder
+public class TimeProviderTest
   {
-    private final Map<String, PresentationModel> map = new ConcurrentHashMap<>();
-
     /*******************************************************************************************************************
      *
-     * Adds another {@link PresentationModel} with the given roles, associated to the given name.
-     *
-     * @param   name    the name of the {@code PresentationModel}
-     * @param   roles   the roles
-     * @return          the new {@code PresentationModel}
-     *
      ******************************************************************************************************************/
-    @Nonnull
-    public AggregatePresentationModelBuilder with (final @Nonnull String name, final @Nonnull Object ... roles)
+    @Test
+    public void test()
       {
-        map.put(name, PresentationModel.of("", roles));
-        return this;
+        // given
+        final TimeProvider underTest = TimeProvider.getInstance();
+        // when
+        final Instant nowInstant = underTest.currentInstant();
+        final LocalDateTime nowLocal = underTest.currentLocalDateTime();
+        final ZonedDateTime nowZoned = underTest.currentZonedDateTime();
+        // then
+        final ZoneId zoneId = ZoneId.systemDefault();
+        final ZoneOffset offset = zoneId.getRules().getStandardOffset(nowInstant);
+        assertThat(getDeltaMillis(nowInstant, nowLocal, offset), is(lessThan(1L)));
+        assertThat(getDeltaMillis(nowInstant, nowZoned), is(lessThan(1L)));
       }
 
-    /*******************************************************************************************************************
-     *
-     * Creates the {@link Aggregate} from the previously accumulated items.
-     *
-     * @return  the {@code Aggregate}
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public Aggregate<PresentationModel> create()
+    private static long getDeltaMillis (final Instant i, final LocalDateTime ldt, final ZoneOffset offset)
       {
-        return Aggregate.of(map);
+        return Duration.between(ldt.toInstant(offset), i).toMillis();
+      }
+
+    private static long getDeltaMillis (final Instant i, final ZonedDateTime zdt)
+      {
+        return Duration.between(zdt.toInstant(), i).toMillis();
       }
   }

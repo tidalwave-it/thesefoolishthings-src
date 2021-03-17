@@ -42,6 +42,7 @@ import java.util.Optional;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface Aggregate<TYPE>
   {
     public static final Class<Aggregate> Aggregate = Aggregate.class;
@@ -83,6 +84,20 @@ public interface Aggregate<TYPE>
     public static <TYPE> Aggregate<TYPE> of (final @Nonnull Map<String, TYPE> mapByName)
       {
         return new MapAggregate<TYPE>(mapByName);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a new empty instance that will be populated by means of {@link #with(String, Object)}.
+     *
+     * @return  the new instance
+     * @since 3.2-ALPHA-2
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <TYPE> Aggregate<TYPE> newInstance()
+      {
+        return new MapAggregate<TYPE>();
       }
 
     /*******************************************************************************************************************

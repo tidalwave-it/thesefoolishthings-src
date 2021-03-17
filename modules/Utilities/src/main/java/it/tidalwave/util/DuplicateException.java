@@ -39,6 +39,8 @@ import javax.annotation.Nonnull;
  **********************************************************************************************************************/
 public class DuplicateException extends Exception
   {
+    private final static long serialVersionUID = 12560685435629394L;
+
     /*******************************************************************************************************************
      *
      * Creates a messageless exception.

@@ -62,7 +62,7 @@ import static lombok.AccessLevel.PRIVATE;
  * <pre>
  *   try
  *     {
- *       List<Integer> numbers = IntStream.rangeClosed(1, 20)
+ *       List&lt;Integer&gt; numbers = IntStream.rangeClosed(1, 20)
  *                                        .mapToObj(Integer::valueOf)
  *                                        .filter(_p(this::matchEven)) // note the wrapper here
  *                                        .collect(Collectors.toList());

@@ -26,108 +26,102 @@
  */
 package it.tidalwave.util;
 
+import it.tidalwave.util.impl.DefaultTimeProvider;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.Optional;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
 
 /***********************************************************************************************************************
  *
- * Objects implementing this interface can provide am adapter of the required type. The adapter can be found with a
- * variety of approaches that depend on the implementation. This capability can be used to implement a design based
- * on the Data, Context and Interaction pattern (DCI).
- *
+ * A provider of current time. It should be used by code requiring a timestamp, so it can be mocked during tests.
+ * {@code MockTimeProvider} in module "Test Utilities" is a suitable mock for performing tests.
+ * 
  * @author  Fabrizio Giudici
- * @it.tidalwave.javadoc.stable
+ * @since   3.2-ALPHA-1 (was previously InstantProvider since 1.39)
  *
  **********************************************************************************************************************/
-public interface As
+@FunctionalInterface
+public interface TimeProvider extends Supplier<Instant>
   {
+    // FIXME: should be private
+    public static AtomicReference<TimeProvider> __INSTANCE = new AtomicReference<>();
+
     /*******************************************************************************************************************
      *
-     * @it.tidalwave.javadoc.stable
+     * Returns the current time.
+     *
+     * @return    the current time as an {@link Instant}
+     * @since 3.2-ALPHA-2
      *
      ******************************************************************************************************************/
-    public static interface NotFoundBehaviour<T>
+    @Nonnull
+    public Instant currentInstant();
+
+    /*******************************************************************************************************************
+     *
+     * Returns the current time. This method is provided to implement {@link Supplier}{@code <Instant>}.
+     *
+     * @return    the current time as an {@link Instant}
+     * @since 3.2-ALPHA-2
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    default public Instant get()
       {
-        @Nonnull
-        public T run (@Nullable final Throwable t);
+        return currentInstant();
       }
 
     /*******************************************************************************************************************
      *
+     * Returns the current time.
+     *
+     * @return    the current time as a {@link ZonedDateTime} in the default zone.
+     * @since 3.2-ALPHA-2
      *
      ******************************************************************************************************************/
-    public final static class Defaults
+    @Nonnull
+    default public ZonedDateTime currentZonedDateTime()
       {
-        private Defaults()
-          {
-          }
+        return ZonedDateTime.ofInstant(currentInstant(), ZoneId.systemDefault());
+      }
 
-        public static <X> NotFoundBehaviour<X> throwAsException (final @Nonnull Class<X> clazz)
+    /*******************************************************************************************************************
+     *
+     * Returns the current time.
+     *
+     * @return    the current time as a {@link LocalDateTime} in the default zone.
+     * @since 3.2-ALPHA-2
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    default public LocalDateTime currentLocalDateTime()
+      {
+        return LocalDateTime.ofInstant(currentInstant(), ZoneId.systemDefault());
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns the default instance.
+     *
+     * @return    the default instance
+     * @since 3.2-ALPHA-2
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    static public TimeProvider getInstance()
+      {
+        synchronized (TimeProvider.class)
           {
-            return new NotFoundBehaviour<X>()
+            if (__INSTANCE.get() == null)
               {
-//                @Override
-                @Nonnull
-                public X run (final @Nonnull Throwable t)
-                  {
-                    throw new AsException(clazz, t);
-                  }
-              };
+                __INSTANCE.set(new DefaultTimeProvider());
+              }
+
+            return __INSTANCE.get();
           }
       }
-
-    /*******************************************************************************************************************
-     *
-     * Returns an adapter to this object of the specified type. If the implementation can find multiple compliant
-     * adapters, only one will be returned.
-     *
-     * @param   type    the type
-     * @return          the adapter
-     * @throws          AsException if no adapter is found
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public <T> T as (@Nonnull Class<T> type);
-
-    /*******************************************************************************************************************
-     *
-     * Returns an adapter to this object of the specified type. If the implementation can find multiple compliant
-     * adapters, only one will be returned. If no adapter is found, the result provided by the given default
-     * behaviour will be returned.
-     *
-     * @param   type                the type
-     * @param   notFoundBehaviour   the behaviour to apply when an adapter is not found
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public <T> T as (@Nonnull Class<T> type, @Nonnull NotFoundBehaviour<T> notFoundBehaviour);
-
-    /*******************************************************************************************************************
-     *
-     * Returns the requested role, or an empty {@link Optional}.
-     *
-     * @param   <T>     the role type
-     * @param   type    the role type
-     * @return          the optional role
-     * @since           3.2-ALPHA-1
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    default <T> Optional<T> asOptional (final @Nonnull Class<T> type)
-      {
-        return Optional.ofNullable(as(type, throwable -> null));
-      }
-
-    /*******************************************************************************************************************
-     *
-     * Searches for multiple adapters of the given type and returns them.
-     *
-     * @param  type     the adapter type
-     * @return          a collection of adapters, possibly empty
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public <T> Collection<T> asMany (@Nonnull Class<T> type);
   }

@@ -39,6 +39,8 @@ import javax.annotation.Nonnull;
  **********************************************************************************************************************/
 public class AsException extends RuntimeException
   {
+    private final static long serialVersionUID = 7345935467346234L;
+
     /*******************************************************************************************************************
      *
      * Creates an exception.
@@ -64,8 +66,8 @@ public class AsException extends RuntimeException
      * @param  cause       the cause for not having found the role
      *
      ******************************************************************************************************************/
-    public AsException (@Nonnull final Class<?> clazz, @Nonnull final Throwable cause)
+    public AsException (@Nonnull final Class<?> roleType, @Nonnull final Throwable cause)
       {
-        super(clazz.getName(), cause);
+        super(roleType.getName(), cause);
       }
   }

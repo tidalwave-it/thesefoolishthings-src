@@ -40,6 +40,7 @@ import javax.annotation.Nonnull;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface PlainTextRenderable extends StringRenderable
   {
     public static final Class<PlainTextRenderable> PlainTextRenderable = PlainTextRenderable.class;

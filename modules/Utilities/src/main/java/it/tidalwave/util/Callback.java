@@ -30,7 +30,7 @@ package it.tidalwave.util;
  *
  * A simple callback that can throw any kind of exception.
  * 
- * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * @author  Fabrizio Giudici
  * @since   3.0
  *
  **********************************************************************************************************************/

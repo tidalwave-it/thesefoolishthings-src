@@ -38,6 +38,7 @@ import java.io.Reader;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface TextReadable
   {
     //@bluebook-begin other

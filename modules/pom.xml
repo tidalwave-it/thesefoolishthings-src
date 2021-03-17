@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings</artifactId>
-        <version>3.2-ALPHA-1-SNAPSHOT</version>
+        <version>3.2-ALPHA-2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>modules</artifactId>
     <packaging>pom</packaging>
-    <version>3.2-ALPHA-1-SNAPSHOT</version>
+    <version>3.2-ALPHA-2-SNAPSHOT</version>
     <name>TheseFoolishThings (modules)</name>
+    <description>
+        This module is an umbrella for all the components. It contains the global configuration for the build as well as the declaration of dependencies.
+    </description>
 
     <properties>
-        <incava.version>1.1.0</incava.version>
-        <joda-time.version>1.6.2</joda-time.version>
-        <uuid.version>2.1.5</uuid.version>
-        <tft.UmlGraphDoc.additionalParam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6
-            -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferrel -hide
-            java.*|javax.*
-        </tft.UmlGraphDoc.additionalParam>
-
         <tft.javac.source>1.8</tft.javac.source>
         <tft.javac.target>1.8</tft.javac.target>
+        <tft.javac.release>8</tft.javac.release>
+
+        <incava.version>1.1.0</incava.version>
+        <joda-time.version>1.6.2</joda-time.version>
+        <tft.spring.version>4.3.30.RELEASE</tft.spring.version>
+        <uuid.version>2.1.5</uuid.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${tft.spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>com.eaio</groupId>
                 <artifactId>uuid</artifactId>
@@ -49,7 +56,10 @@
                 <version>${incava.version}</version>
             </dependency>
 
-            <!-- FIXME: used as provided dependency in some modules to work around a javadoc crash -->
+            <!--
+            FIXME: used as provided dependency in some modules to work around a javadoc crash.
+            2021-03-16: doesn't crash, but javadoc runs much longer (10 mins vs 20 mins).
+            -->
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>

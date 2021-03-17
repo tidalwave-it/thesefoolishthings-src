@@ -24,37 +24,23 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.ui.spi;
+package it.tidalwave.util.impl;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.role.ui.Presentable;
-import it.tidalwave.role.ui.PresentationModel;
-import it.tidalwave.role.ui.impl.DefaultPresentationModel;
-import lombok.RequiredArgsConstructor;
+import java.time.Instant;
+import it.tidalwave.util.TimeProvider;
 
 /***********************************************************************************************************************
  *
- * An implementation of {@link Presentable} that creates instances of {@link DefaultPresentationModel}.
- *
- * @stereotype Role
- *
  * @author  Fabrizio Giudici
+ * @since   1.39
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor
-public class DefaultPresentable implements Presentable
+public class DefaultTimeProvider implements TimeProvider
   {
-    @Nonnull
-    private final Object datum;
-
-    /*******************************************************************************************************************
-     *
-     *{@inheritDoc}
-     *
-     ******************************************************************************************************************/
     @Override @Nonnull
-    public PresentationModel createPresentationModel (final @Nonnull Object... localRolesOrFactories)
+    public Instant currentInstant()
       {
-        return PresentationModel.of(datum, localRolesOrFactories);
+        return Instant.now();
       }
   }

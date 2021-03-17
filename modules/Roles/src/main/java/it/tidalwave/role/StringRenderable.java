@@ -38,6 +38,7 @@ import java.io.PrintWriter;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface StringRenderable
   {
     public static final Class<StringRenderable> StringRenderable = StringRenderable.class;

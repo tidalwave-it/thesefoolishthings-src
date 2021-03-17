@@ -36,6 +36,7 @@ package it.tidalwave.role.io;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface Persistable
   {
     public static final Class<Persistable> Persistable = Persistable.class;

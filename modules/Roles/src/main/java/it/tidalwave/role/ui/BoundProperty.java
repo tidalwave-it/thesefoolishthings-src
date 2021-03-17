@@ -27,14 +27,14 @@
 package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import lombok.AllArgsConstructor;
-import lombok.experimental.Delegate;
+import lombok.Getter;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Delegate;
 
 /***********************************************************************************************************************
  *
@@ -42,7 +42,7 @@ import lombok.ToString;
  *
  **********************************************************************************************************************/
 // FIXME: weak listeners
-@AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode @ToString(exclude="pcs")
+@AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode(exclude="pcs") @ToString(exclude="pcs")
 public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
   {
     @Delegate
@@ -51,6 +51,17 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
     public static final String PROP_VALUE = "value";
 
     private T value;
+
+    /*******************************************************************************************************************
+     *
+     * @since 3.2-ALPHA-2
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> BoundProperty<T> of (final @Nonnull T value)
+      {
+        return new BoundProperty<>(value);
+      }
 
     /*******************************************************************************************************************
      *
@@ -83,28 +94,13 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
      ******************************************************************************************************************/
     public void bind (final @Nonnull ChangingSource<T> source)
       {
-        source.addPropertyChangeListener(new PropertyChangeListener()
-          {
-            @Override
-            public void propertyChange (final @Nonnull PropertyChangeEvent event)
-              {
-                set((T)event.getNewValue());
-              }
-          });
+        source.addPropertyChangeListener(event -> set((T)event.getNewValue()));
 
         if (source instanceof Changeable)
           {
             final Changeable<T> changeable = (Changeable<T>)source;
             changeable.set(value);
-
-            this.addPropertyChangeListener(new PropertyChangeListener()
-              {
-                @Override
-                public void propertyChange (final @Nonnull PropertyChangeEvent event)
-                  {
-                    changeable.set((T)event.getNewValue());
-                  }
-            });
+            this.addPropertyChangeListener(event -> changeable.set((T)event.getNewValue()));
           }
       }
 

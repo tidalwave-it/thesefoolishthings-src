@@ -62,12 +62,12 @@ public final class Parameters
     /*******************************************************************************************************************
      *
      * Extracts a singled-value parameter of the given type from an array. If the parameter is not found, the default
-     * value is returned. If more than a single parameter is found, an {@link IllegalparameterException} is thrown.
+     * value is returned. If more than a single parameter is found, an {@link IllegalArgumentException} is thrown.
      *
      * @param  parameterClass           the class of the parameter to retrieve
      * @param  defaultOption            the default value of the parameter
-     * @param  parameters                the array of parameters
-     * @throws IllegalparameterException if more than a single value is found
+     * @param  parameters               the array of parameters
+     * @throws IllegalArgumentException if more than a single value is found
      *
      ******************************************************************************************************************/
     @CheckForNull

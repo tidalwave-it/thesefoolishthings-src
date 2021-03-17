@@ -40,6 +40,7 @@ import java.io.InputStream;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface BinaryReadable
   {
     //@bluebook-begin other

@@ -57,6 +57,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j @AllArgsConstructor(access = AccessLevel.PRIVATE) @ToString
 public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implements Finder<TYPE>, Cloneable
   {
+    private final static long serialVersionUID = 2467809593956684L;
+
     static class Sorter<Type>
       {
         private final FilterSortCriterion<Type> sortCriterion;

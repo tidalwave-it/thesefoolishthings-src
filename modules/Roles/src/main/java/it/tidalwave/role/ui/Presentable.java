@@ -27,6 +27,7 @@
 package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
+import it.tidalwave.role.ui.impl.DefaultPresentable;
 
 /***********************************************************************************************************************
  *
@@ -37,6 +38,7 @@ import javax.annotation.Nonnull;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface Presentable
   {
     public final static Class<Presentable> Presentable = Presentable.class;
@@ -51,4 +53,15 @@ public interface Presentable
      ******************************************************************************************************************/
     @Nonnull
     public PresentationModel createPresentationModel (@Nonnull Object... instanceRoles);
+
+    /*******************************************************************************************************************
+     *
+     * @since         3.2-ALPHA-2
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Presentable of (final @Nonnull Object owner)
+      {
+        return new DefaultPresentable(owner);
+      }
   }

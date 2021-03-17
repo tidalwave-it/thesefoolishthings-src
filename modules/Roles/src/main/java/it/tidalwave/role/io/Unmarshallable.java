@@ -39,6 +39,7 @@ import java.io.IOException;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface Unmarshallable
   {
     public static final Class<Unmarshallable> Unmarshallable = Unmarshallable.class;

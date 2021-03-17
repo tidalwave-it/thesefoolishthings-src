@@ -27,10 +27,10 @@
 package it.tidalwave.util;
 
 import javax.annotation.concurrent.Immutable;
-import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import lombok.RequiredArgsConstructor;
 import java.io.Serializable;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
@@ -40,7 +40,7 @@ import java.io.Serializable;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-@Immutable @RequiredArgsConstructor
+@Immutable @RequiredArgsConstructor @EqualsAndHashCode
 public class Id implements Serializable, Comparable<Id>, StringValue
   {
     private static final long serialVersionUID = 3309234234279593043L;
@@ -50,48 +50,24 @@ public class Id implements Serializable, Comparable<Id>, StringValue
 
     /*******************************************************************************************************************
      *
+     * @since 3.2-ALPHA-2
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Id of (final @Nonnull Object value)
+      {
+        return new Id(value);
+      }
+
+    /*******************************************************************************************************************
+     *
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-//    @Override
-    @Nonnull
+    @Override @Nonnull
     public String stringValue()
       {
         return (value instanceof StringValue) ? ((StringValue)value).stringValue() : value.toString();
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override
-    public boolean equals (final @CheckForNull Object object)
-      {
-        if (object == null)
-          {
-            return false;
-          }
-
-        if (getClass() != object.getClass())
-          {
-            return false;
-          }
-
-        final Id other = (Id)object;
-
-        return this.value.equals(other.value);
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override
-    public int hashCode()
-      {
-        return value.hashCode();
       }
 
     /*******************************************************************************************************************

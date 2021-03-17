@@ -37,6 +37,7 @@ package it.tidalwave.role;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface HtmlRenderable extends StringRenderable
   {
     public static final Class<HtmlRenderable> HtmlRenderable = HtmlRenderable.class;

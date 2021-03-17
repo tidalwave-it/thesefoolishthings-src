@@ -35,7 +35,7 @@ import lombok.experimental.Delegate;
  *
  * A callback associated with a name.
  *
- * @author  Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * @author  Fabrizio Giudici
  * @since   3.2-ALPHA-1
  *
  **********************************************************************************************************************/

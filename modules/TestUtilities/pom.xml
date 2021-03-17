@@ -1,24 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>3.2-ALPHA-1-SNAPSHOT</version>
+        <version>3.2-ALPHA-2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-util-test</artifactId>
     <packaging>jar</packaging>
-    <version>3.2-ALPHA-1-SNAPSHOT</version>
+    <version>3.2-ALPHA-2-SNAPSHOT</version>
     <name>TheseFoolishThings - Test Utilities</name>
-
-    <properties>
-        <!--<stableAPI>true</stableAPI>-->
-    </properties>
+    <description>
+        Miscellaneous utilities for testing.
+    </description>
 
     <dependencies>
         <dependency>
@@ -38,6 +36,10 @@
         <dependency>
             <groupId>org.incava</groupId>
             <artifactId>org.incava.util.diff</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it-tidalwave-util</artifactId>
         </dependency>
     </dependencies>
 

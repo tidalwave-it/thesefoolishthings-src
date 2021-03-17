@@ -38,6 +38,7 @@ import java.io.Writer;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface TextWritable
   {
     //@bluebook-begin other

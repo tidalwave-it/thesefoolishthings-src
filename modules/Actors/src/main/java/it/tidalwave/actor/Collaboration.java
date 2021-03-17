@@ -199,7 +199,6 @@ public interface Collaboration
      * {@code resume()) for resuming.
      *
      * @see #resume(java.lang.Object, java.lang.Runnable)
-     * @see #terminate()
      * @see #isSuspended()
      *
      * @return   a token representing the reason for the suspension
@@ -213,7 +212,6 @@ public interface Collaboration
      * messages.
      *
      * @see #suspend()
-     * @see #terminate()
      * @see #isSuspended()
      *
      * @param  suspensionToken  the token representing the reason for the suspension
@@ -240,7 +238,6 @@ public interface Collaboration
      * Returns {@code true} when the current {@code Collaboration} is suspended.
      *
      * @see #suspend()
-     * @see #terminate()
      * @see #resume(java.lang.Object, java.lang.Runnable)
      *
      * @return {@code true} when it's suspended
