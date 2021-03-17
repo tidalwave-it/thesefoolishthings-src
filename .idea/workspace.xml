@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="" />
-    <list id="e5d5b2a3-6651-4f8f-8de6-08ecc9c98530" name="AsExtensions" comment="" />
-    <list id="40cbff3c-db78-4d92-b06b-4a58d9e38d0a" name="Idea" comment="" />
+    <list default="true" id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="Updated Idea files.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,6 +16,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="AnnotationType" />
         <option value="Class" />
       </list>
     </option>
@@ -25,12 +27,12 @@
   <component name="GitRewordedCommitMessages">
     <option name="commitMessagesMapping">
       <RewordedCommitMessageMapping>
-        <option name="originalMessage" value="Partial fix for TFT-207: Finders." />
-        <option name="rewordedMessage" value="Fix for TFT-207 and TFT-208." />
+        <option name="originalMessage" value="Javadoc fixed." />
+        <option name="rewordedMessage" value="Javadoc clean up and fixed." />
       </RewordedCommitMessageMapping>
     </option>
     <option name="currentCommit" value="1" />
-    <option name="onto" value="21532e93b52c651bdf34c8eaa722c02fe168faeb" />
+    <option name="onto" value="7df2bd471de2154619ed414d0480d0808b38b6e7" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -55,17 +57,21 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/modules/Roles/src/test/resources" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="it.tidalwave.util" />
-      <recent name="it.tidalwave.util.impl" />
       <recent name="it.tidalwave.role.ui.impl" />
+      <recent name="it.tidalwave.util.impl" />
+      <recent name="it.tidalwave.util" />
       <recent name="it.tidalwave.role" />
       <recent name="it.tidalwave.role.spi.impl" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="it.tidalwave.util" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main (1)">
@@ -106,231 +112,359 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="" />
-      <changelist id="40cbff3c-db78-4d92-b06b-4a58d9e38d0a" name="Idea" comment="" />
-      <changelist id="e5d5b2a3-6651-4f8f-8de6-08ecc9c98530" name="AsExtensions" comment="" />
+      <changelist id="" name="Idea" comment="" />
+      <changelist id="" name="archetype" comment="" />
+      <changelist id="" name="site" comment="" />
+      <changelist id="" name="TFT-215" comment="" />
       <created>1615721645836</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1615721645836</updated>
     </task>
-    <task id="LOCAL-00001" summary="Partial fix for TFT-207: Finders.">
-      <created>1615722510700</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
+    <task id="LOCAL-00039" summary="Fix for TFT-211.">
+      <created>1615913884963</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
       <option name="project" value="LOCAL" />
-      <updated>1615722510700</updated>
+      <updated>1615913884963</updated>
     </task>
-    <task id="LOCAL-00002" summary="Partial fix for TFT-207: Finders.">
-      <created>1615725281357</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
+    <task id="LOCAL-00040" summary="Fix for TFT-211.">
+      <created>1615913938470</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
       <option name="project" value="LOCAL" />
-      <updated>1615725281357</updated>
+      <updated>1615913938470</updated>
     </task>
-    <task id="LOCAL-00003" summary="Partial fix for TFT-207: More Finders.">
-      <created>1615726486951</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
+    <task id="LOCAL-00041" summary="Fix for TFT-213.">
+      <created>1615914306227</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
       <option name="project" value="LOCAL" />
-      <updated>1615726486951</updated>
+      <updated>1615914306227</updated>
     </task>
-    <task id="LOCAL-00004" summary="Partial fix for TFT-207: More Finders.">
-      <created>1615726817364</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
+    <task id="LOCAL-00042" summary="Refactored.">
+      <created>1615914687501</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
       <option name="project" value="LOCAL" />
-      <updated>1615726817364</updated>
+      <updated>1615914687501</updated>
     </task>
-    <task id="LOCAL-00005" summary="Partial fix for TFT-207: As.">
-      <created>1615727303114</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
+    <task id="LOCAL-00043" summary="Refactored.">
+      <created>1615914724716</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
       <option name="project" value="LOCAL" />
-      <updated>1615727303114</updated>
+      <updated>1615914724716</updated>
     </task>
-    <task id="LOCAL-00006" summary="Partial fix for TFT-207: Displayable.">
-      <created>1615728739919</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
+    <task id="LOCAL-00044" summary="Refactored.">
+      <created>1615914734190</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
       <option name="project" value="LOCAL" />
-      <updated>1615728739919</updated>
+      <updated>1615914734190</updated>
     </task>
-    <task id="LOCAL-00007" summary="Partial fix for TFT-207: Displayable.">
-      <created>1615728750887</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
+    <task id="LOCAL-00045" summary="Added factory method Id.of().">
+      <created>1615914827817</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
       <option name="project" value="LOCAL" />
-      <updated>1615728750887</updated>
+      <updated>1615914827817</updated>
     </task>
-    <task id="LOCAL-00008" summary="Partial fix for TFT-207: More Displayable.">
-      <created>1615730455652</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
+    <task id="LOCAL-00046" summary="Added factory method BoundProperty.of().">
+      <created>1615915091532</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
       <option name="project" value="LOCAL" />
-      <updated>1615730455652</updated>
+      <updated>1615915091532</updated>
     </task>
-    <task id="LOCAL-00009" summary="Partial fix for TFT-207: UserAction.">
-      <created>1615735694998</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
+    <task id="LOCAL-00047" summary="Fix for TFT-214.">
+      <created>1615915183530</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
       <option name="project" value="LOCAL" />
-      <updated>1615735694998</updated>
+      <updated>1615915183530</updated>
     </task>
-    <task id="LOCAL-00010" summary="Partial fix for TFT-207: UserAction no more depends on JavaFX properties.">
-      <created>1615736315931</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
+    <task id="LOCAL-00048" summary="Refactored.">
+      <created>1615915581018</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
       <option name="project" value="LOCAL" />
-      <updated>1615736315931</updated>
+      <updated>1615915581018</updated>
     </task>
-    <task id="LOCAL-00011" summary="Partial fix for TFT-207: UserNotificationWithFeeedback.">
-      <created>1615738094525</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
+    <task id="LOCAL-00049" summary="Clean up.">
+      <created>1615915652339</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
       <option name="project" value="LOCAL" />
-      <updated>1615738094525</updated>
+      <updated>1615915652339</updated>
     </task>
-    <task id="LOCAL-00012" summary="Partial fix for TFT-207: UserNotificationWithFeeedback.">
-      <created>1615738258570</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
+    <task id="LOCAL-00050" summary="Javadoc fixed.">
+      <created>1615917738310</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
       <option name="project" value="LOCAL" />
-      <updated>1615738258570</updated>
+      <updated>1615917738310</updated>
     </task>
-    <task id="LOCAL-00013" summary="Partial fix for TFT-207: public interface PlainTextRenderableSupport8.">
-      <created>1615740727731</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
+    <task id="LOCAL-00051" summary="Updated Super POM.">
+      <created>1615975650664</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
       <option name="project" value="LOCAL" />
-      <updated>1615740727731</updated>
+      <updated>1615975650664</updated>
     </task>
-    <task id="LOCAL-00014" summary="Partial fix for TFT-207: Task8.">
-      <created>1615741149109</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
+    <task id="LOCAL-00052" summary="Fix for TFT-215.">
+      <created>1615976007279</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
       <option name="project" value="LOCAL" />
-      <updated>1615741149109</updated>
+      <updated>1615976007279</updated>
     </task>
-    <task id="LOCAL-00015" summary="Partial fix for TFT-207: I/O roles.">
-      <created>1615742595386</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
+    <task id="LOCAL-00053" summary="Fix for TFT-216.">
+      <created>1615976241035</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
       <option name="project" value="LOCAL" />
-      <updated>1615742595386</updated>
+      <updated>1615976241035</updated>
     </task>
-    <task id="LOCAL-00016" summary="Partial fix for TFT-207: StringRenderable.">
-      <created>1615743076256</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
+    <task id="LOCAL-00054" summary="Now using javac -release 8.">
+      <created>1615976259121</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
       <option name="project" value="LOCAL" />
-      <updated>1615743076256</updated>
+      <updated>1615976259121</updated>
     </task>
-    <task id="LOCAL-00017" summary="Partial fix for TFT-207: MapAggregate.">
-      <created>1615744701564</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
+    <task id="LOCAL-00055" summary="Site clean up.">
+      <created>1615976272579</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
       <option name="project" value="LOCAL" />
-      <updated>1615744701564</updated>
+      <updated>1615976272579</updated>
     </task>
-    <task id="LOCAL-00018" summary="Partial fix for TFT-207: Internal package refactoring.">
-      <created>1615744787382</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
+    <task id="LOCAL-00056" summary="Updated Idea files.">
+      <created>1615976281500</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
       <option name="project" value="LOCAL" />
-      <updated>1615744787382</updated>
+      <updated>1615976281501</updated>
     </task>
-    <task id="LOCAL-00019" summary="Partial fix for TFT-207: DefaultSimpleComposite.">
-      <created>1615746102426</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
+    <task id="LOCAL-00057" summary="Updated archetype files.">
+      <created>1615976294871</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
       <option name="project" value="LOCAL" />
-      <updated>1615746102426</updated>
+      <updated>1615976294871</updated>
     </task>
-    <task id="LOCAL-00020" summary="Partial fix for TFT-207: DefaultPresentationModel.">
-      <created>1615751907808</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
+    <task id="LOCAL-00058" summary="Fix for TFT-215.">
+      <created>1615976373003</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
       <option name="project" value="LOCAL" />
-      <updated>1615751907808</updated>
+      <updated>1615976373003</updated>
     </task>
-    <task id="LOCAL-00021" summary="Partial fix for TFT-207: EmptyAsDelegateProvider.">
-      <created>1615753062544</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
+    <task id="LOCAL-00059" summary="Updated Idea files.">
+      <created>1615976385113</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
       <option name="project" value="LOCAL" />
-      <updated>1615753062544</updated>
+      <updated>1615976385113</updated>
     </task>
-    <task id="LOCAL-00022" summary="Partial fix for TFT-207: Package chaged for a class.">
-      <created>1615753079185</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
+    <task id="LOCAL-00060" summary="Fix for TFT-216.">
+      <created>1615976919089</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
       <option name="project" value="LOCAL" />
-      <updated>1615753079185</updated>
+      <updated>1615976919089</updated>
     </task>
-    <task id="LOCAL-00023" summary="Partial fix for TFT-207: ReflectionUtils is again public.">
-      <created>1615765010599</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
+    <task id="LOCAL-00061" summary="Fix for TFT-216.">
+      <created>1615977200487</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
       <option name="project" value="LOCAL" />
-      <updated>1615765010599</updated>
+      <updated>1615977200487</updated>
     </task>
-    <task id="LOCAL-00024" summary="Partial fix for TFT-207: fromBundle() moved.">
-      <created>1615804336091</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
+    <task id="LOCAL-00062" summary="Fix for TFT-216.">
+      <created>1615979188380</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
       <option name="project" value="LOCAL" />
-      <updated>1615804336091</updated>
+      <updated>1615979188380</updated>
     </task>
-    <task id="LOCAL-00025" summary="Fix for TFT-209.">
-      <created>1615808598492</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
+    <task id="LOCAL-00063" summary="Fix for TFT-216.">
+      <created>1615979506371</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
       <option name="project" value="LOCAL" />
-      <updated>1615808598492</updated>
+      <updated>1615979506371</updated>
     </task>
-    <task id="LOCAL-00026" summary="Fix for TFT-209.">
-      <created>1615811697479</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
+    <task id="LOCAL-00064" summary="Fix for TFT-216.">
+      <created>1615979929302</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
       <option name="project" value="LOCAL" />
-      <updated>1615811697479</updated>
+      <updated>1615979929302</updated>
     </task>
-    <task id="LOCAL-00027" summary="Fix for TFT-210.">
-      <created>1615811947609</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
+    <task id="LOCAL-00065" summary="Fix for TFT-216.">
+      <created>1615980377850</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
       <option name="project" value="LOCAL" />
-      <updated>1615811947609</updated>
+      <updated>1615980377850</updated>
     </task>
-    <task id="LOCAL-00028" summary="AsExtensions.asOptional() added.">
-      <created>1615811981724</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
+    <task id="LOCAL-00066" summary="Fix for TFT-216.">
+      <created>1615980586238</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
       <option name="project" value="LOCAL" />
-      <updated>1615811981724</updated>
+      <updated>1615980586238</updated>
     </task>
-    <task id="LOCAL-00029" summary="Fixed javadoc typos.">
-      <created>1615812044006</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
+    <task id="LOCAL-00067" summary="Fix for TFT-216.">
+      <created>1615981405102</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
       <option name="project" value="LOCAL" />
-      <updated>1615812044006</updated>
+      <updated>1615981405102</updated>
     </task>
-    <task id="LOCAL-00030" summary="Added PresentationModel.concat().">
-      <created>1615812764085</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
+    <task id="LOCAL-00068" summary="Javadoc clean up.">
+      <created>1615981543450</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
       <option name="project" value="LOCAL" />
-      <updated>1615812764085</updated>
+      <updated>1615981543450</updated>
     </task>
-    <task id="LOCAL-00031" summary="Updated Idea files.">
-      <created>1615813622229</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
+    <task id="LOCAL-00069" summary="Fix for TFT-216.">
+      <created>1615981934693</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
       <option name="project" value="LOCAL" />
-      <updated>1615813622229</updated>
+      <updated>1615981934693</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00070" summary="Added serialVersionUID.">
+      <created>1615982064981</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1615982064981</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Added serialVersionUID.">
+      <created>1615982170210</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1615982170210</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Added serialVersionUID.">
+      <created>1615982218371</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1615982218371</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Key redesign.">
+      <created>1615986666144</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1615986666144</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Key redesign.">
+      <created>1615987209045</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1615987209045</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Added Idea files.">
+      <created>1615987288365</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1615987288365</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Fix for TFT-215.">
+      <created>1615988452148</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1615988452148</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Updated Idea file.">
+      <created>1615988459584</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1615988459584</updated>
+    </task>
+    <task id="LOCAL-00078" summary="EmptyInitializer is no more part of the public API.">
+      <created>1615988692484</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1615988692484</updated>
+    </task>
+    <task id="LOCAL-00079" summary="EmptyInitializer is no more part of the public API.">
+      <created>1615988805044</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1615988805044</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Updated Idea files.">
+      <created>1615988816183</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1615988816183</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Added @FunctionalInterface where applicable.">
+      <created>1615989333452</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1615989333452</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Updated Idea file.">
+      <created>1615989342308</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1615989342308</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Fix for TFT-218.">
+      <created>1615991311542</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1615991311542</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Fix for TFT-219.">
+      <created>1615991395871</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1615991395871</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Updated Idea file.">
+      <created>1615991407553</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1615991407553</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Fix for TFT-217.">
+      <created>1615991615216</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1615991615216</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Updated Idea files.">
+      <created>1615991624639</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1615991624639</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -346,30 +480,30 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Partial fix for TFT-207: More Finders." />
-    <MESSAGE value="Partial fix for TFT-207: As." />
-    <MESSAGE value="Partial fix for TFT-207: Displayable." />
-    <MESSAGE value="Partial fix for TFT-207: More Displayable." />
-    <MESSAGE value="Partial fix for TFT-207: UserAction." />
-    <MESSAGE value="Partial fix for TFT-207: UserAction no more depends on JavaFX properties." />
-    <MESSAGE value="Partial fix for TFT-207: UserNotificationWithFeeedback." />
-    <MESSAGE value="Partial fix for TFT-207: public interface PlainTextRenderableSupport8." />
-    <MESSAGE value="Partial fix for TFT-207: Task8." />
-    <MESSAGE value="Partial fix for TFT-207: I/O roles." />
-    <MESSAGE value="Partial fix for TFT-207: StringRenderable." />
-    <MESSAGE value="Partial fix for TFT-207: MapAggregate." />
-    <MESSAGE value="Partial fix for TFT-207: Internal package refactoring." />
-    <MESSAGE value="Partial fix for TFT-207: DefaultSimpleComposite." />
-    <MESSAGE value="Partial fix for TFT-207: DefaultPresentationModel." />
-    <MESSAGE value="Partial fix for TFT-207: EmptyAsDelegateProvider." />
-    <MESSAGE value="Partial fix for TFT-207: Package chaged for a class." />
-    <MESSAGE value="Partial fix for TFT-207: ReflectionUtils is again public." />
-    <MESSAGE value="Partial fix for TFT-207: fromBundle() moved." />
-    <MESSAGE value="Fix for TFT-209." />
-    <MESSAGE value="Fix for TFT-210." />
-    <MESSAGE value="AsExtensions.asOptional() added." />
-    <MESSAGE value="Fixed javadoc typos." />
-    <MESSAGE value="Added PresentationModel.concat()." />
+    <MESSAGE value="Fix for TFT-211." />
+    <MESSAGE value="Fix for TFT-213." />
+    <MESSAGE value="Added factory method Id.of()." />
+    <MESSAGE value="Added factory method BoundProperty.of()." />
+    <MESSAGE value="Fix for TFT-214." />
+    <MESSAGE value="Refactored." />
+    <MESSAGE value="Clean up." />
+    <MESSAGE value="Javadoc fixed." />
+    <MESSAGE value="Updated Super POM." />
+    <MESSAGE value="Now using javac -release 8." />
+    <MESSAGE value="Site clean up." />
+    <MESSAGE value="Updated archetype files." />
+    <MESSAGE value="Javadoc clean up." />
+    <MESSAGE value="Fix for TFT-216." />
+    <MESSAGE value="Added serialVersionUID." />
+    <MESSAGE value="Key redesign." />
+    <MESSAGE value="Added Idea files." />
+    <MESSAGE value="Fix for TFT-215." />
+    <MESSAGE value="EmptyInitializer is no more part of the public API." />
+    <MESSAGE value="Added @FunctionalInterface where applicable." />
+    <MESSAGE value="Fix for TFT-218." />
+    <MESSAGE value="Fix for TFT-219." />
+    <MESSAGE value="Updated Idea file." />
+    <MESSAGE value="Fix for TFT-217." />
     <MESSAGE value="Updated Idea files." />
     <option name="LAST_COMMIT_MESSAGE" value="Updated Idea files." />
   </component>
