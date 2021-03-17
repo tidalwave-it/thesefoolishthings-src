@@ -22,6 +22,7 @@
     <properties>
         <tft.javac.source>1.8</tft.javac.source>
         <tft.javac.target>1.8</tft.javac.target>
+        <tft.javac.release>8</tft.javac.release>
 
         <incava.version>1.1.0</incava.version>
         <joda-time.version>1.6.2</joda-time.version>
