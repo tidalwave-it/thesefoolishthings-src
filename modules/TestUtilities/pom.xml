@@ -37,6 +37,10 @@
             <groupId>org.incava</groupId>
             <artifactId>org.incava.util.diff</artifactId>
         </dependency>
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it-tidalwave-util</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

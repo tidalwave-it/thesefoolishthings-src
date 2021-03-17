@@ -24,25 +24,31 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.util.spi;
+package it.tidalwave.util.test;
 
+import javax.annotation.Nonnull;
 import java.time.Instant;
-import lombok.Getter;
 import lombok.Setter;
-import it.tidalwave.util.InstantProvider;
+import it.tidalwave.util.TimeProvider;
 
 /***********************************************************************************************************************
  *
- * A mock implementation of {@link InstantProvider} which returns a fixed value that can be set (the zero epoch instant
+ * A mock implementation of {@link TimeProvider} which returns a fixed value that can be set (the zero epoch instant
  * by default).
  * 
- * @see     InstantProvider
+ * @see     TimeProvider
  * @author  Fabrizio Giudici
  * @since   1.39
  *
  **********************************************************************************************************************/
-public class MockInstantProvider implements InstantProvider
+public class MockTimeProvider implements TimeProvider
   {
-    @Getter @Setter
+    @Setter
     private Instant instant = Instant.ofEpochMilli(0);
+
+    @Override @Nonnull
+    public Instant currentInstant()
+      {
+        return instant;
+      }
   }

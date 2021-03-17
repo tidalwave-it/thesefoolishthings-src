@@ -24,26 +24,22 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.util.spi;
+package it.tidalwave.util.impl;
 
 import javax.annotation.Nonnull;
 import java.time.Instant;
-import it.tidalwave.util.InstantProvider;
+import it.tidalwave.util.TimeProvider;
 
 /***********************************************************************************************************************
  *
- * A default implementation of {@link InstantProvider} which returns {@code Instant.now()}.
- * 
- * @see     InstantProvider
- * @see     MockInstantProvider
  * @author  Fabrizio Giudici
  * @since   1.39
  *
  **********************************************************************************************************************/
-public class DefaultInstantProvider implements InstantProvider
+public class DefaultTimeProvider implements TimeProvider
   {
     @Override @Nonnull
-    public Instant getInstant() 
+    public Instant currentInstant()
       {
         return Instant.now();
       }

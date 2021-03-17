@@ -26,32 +26,50 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.Nonnull;
+import java.time.Duration;
 import java.time.Instant;
-import java.util.function.Supplier;
-import it.tidalwave.util.spi.DefaultInstantProvider;
-import it.tidalwave.util.spi.MockInstantProvider;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import org.testng.annotations.Test;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.lessThan;
 
 /***********************************************************************************************************************
  *
- * A provider of {@link Instant}s. It should be used by code requiring a timestamp, so it can be mocked during tests.
- * {@link DefaultInstantProvider} provides a default implementation, while {@link MockInstantProvider} is the one for
- * tests.
- * 
- * @see     DefaultInstantProvider
- * @see     MockInstantProvider
  * @author  Fabrizio Giudici
- * @since   1.39
  *
  **********************************************************************************************************************/
-public interface InstantProvider extends Supplier<Instant>
+public class TimeProviderTest
   {
-    @Nonnull
-    public Instant getInstant();
-    
-    @Override @Nonnull
-    default public Instant get()
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void test()
       {
-        return getInstant();
+        // given
+        final TimeProvider underTest = TimeProvider.getInstance();
+        // when
+        final Instant nowInstant = underTest.currentInstant();
+        final LocalDateTime nowLocal = underTest.currentLocalDateTime();
+        final ZonedDateTime nowZoned = underTest.currentZonedDateTime();
+        // then
+        final ZoneId zoneId = ZoneId.systemDefault();
+        final ZoneOffset offset = zoneId.getRules().getStandardOffset(nowInstant);
+        assertThat(getDeltaMillis(nowInstant, nowLocal, offset), is(lessThan(1L)));
+        assertThat(getDeltaMillis(nowInstant, nowZoned), is(lessThan(1L)));
+      }
+
+    private static long getDeltaMillis (final Instant i, final LocalDateTime ldt, final ZoneOffset offset)
+      {
+        return Duration.between(ldt.toInstant(offset), i).toMillis();
+      }
+
+    private static long getDeltaMillis (final Instant i, final ZonedDateTime zdt)
+      {
+        return Duration.between(zdt.toInstant(), i).toMillis();
       }
   }
