@@ -40,6 +40,7 @@ import static it.tidalwave.util.BundleUtilities.getMessage;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface Displayable
   {
     //@bluebook-begin other

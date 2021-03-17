@@ -41,6 +41,7 @@ import it.tidalwave.util.NotFoundException;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYPE>>
   {
     //@bluebook-begin other

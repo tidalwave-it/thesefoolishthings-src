@@ -31,6 +31,7 @@ package it.tidalwave.role.ui;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface Changeable<T>
   {
     public void set (T value);

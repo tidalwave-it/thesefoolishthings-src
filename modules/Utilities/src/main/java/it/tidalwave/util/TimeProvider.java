@@ -44,6 +44,7 @@ import java.util.function.Supplier;
  * @since   3.2-ALPHA-1 (was previously InstantProvider since 1.39)
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface TimeProvider extends Supplier<Instant>
   {
     // FIXME: should be private

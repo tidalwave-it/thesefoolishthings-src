@@ -42,6 +42,7 @@ import javax.swing.ImageIcon;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface IconProvider
   {
     //@bluebook-begin other

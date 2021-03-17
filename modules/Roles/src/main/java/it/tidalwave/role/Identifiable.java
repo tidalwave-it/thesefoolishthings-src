@@ -39,6 +39,7 @@ import it.tidalwave.util.Id;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface Identifiable
   {
     public final static Class<Identifiable> Identifiable = Identifiable.class;

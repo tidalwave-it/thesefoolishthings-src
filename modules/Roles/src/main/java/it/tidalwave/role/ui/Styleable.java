@@ -38,7 +38,8 @@ import javax.annotation.Nonnull;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public interface Styleable 
+@FunctionalInterface
+public interface Styleable
   {
     public static final Class<Styleable> Styleable = Styleable.class;
     

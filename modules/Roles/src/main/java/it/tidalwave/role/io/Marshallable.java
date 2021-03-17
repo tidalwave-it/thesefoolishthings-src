@@ -39,6 +39,7 @@ import java.io.OutputStream;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface Marshallable
   {
     public static final Class<Marshallable> Marshallable = Marshallable.class;

@@ -36,6 +36,7 @@ import it.tidalwave.util.RoleFactory;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface PresentationModelFactory
   {
     public static final Class<PresentationModelFactory> PresentationModelFactory = PresentationModelFactory.class;

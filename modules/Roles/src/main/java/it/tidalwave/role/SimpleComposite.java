@@ -41,6 +41,7 @@ import it.tidalwave.role.impl.DefaultSimpleComposite;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface SimpleComposite<TYPE> extends Composite<TYPE, Finder<? extends TYPE>>
   {
     public static final Class<SimpleComposite> SimpleComposite = SimpleComposite.class;

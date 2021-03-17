@@ -42,6 +42,7 @@ import java.util.Optional;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface Aggregate<TYPE>
   {
     public static final Class<Aggregate> Aggregate = Aggregate.class;

@@ -37,6 +37,7 @@ import javax.annotation.Nonnull;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface Presentable
   {
     public final static Class<Presentable> Presentable = Presentable.class;
