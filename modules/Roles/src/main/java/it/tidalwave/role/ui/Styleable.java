@@ -26,6 +26,8 @@
  */
 package it.tidalwave.role.ui;
 
+import it.tidalwave.role.ui.impl.DefaultStyleable;
+import java.util.Arrays;
 import java.util.Collection;
 import javax.annotation.Nonnull;
 
@@ -45,4 +47,26 @@ public interface Styleable
     
     @Nonnull
     public Collection<String> getStyles();
+
+    /*******************************************************************************************************************
+     *
+     * @since         3.2-ALPHA-2
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Styleable of (final @Nonnull Collection<String> styles)
+      {
+        return new DefaultStyleable(styles);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * @since         3.2-ALPHA-2
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Styleable of (final @Nonnull String ... styles)
+      {
+        return new DefaultStyleable(styles);
+      }
   }

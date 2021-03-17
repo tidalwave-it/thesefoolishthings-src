@@ -24,7 +24,7 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.ui.spi;
+package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -36,7 +36,7 @@ import it.tidalwave.role.ui.Styleable;
 
 /***********************************************************************************************************************
  *
- * A default implementation of {@link Styleable}.
+ * A default implementation of {@link Styleable}. This class is not part of the public API.
  * 
  * @stereotype Role
  * 
