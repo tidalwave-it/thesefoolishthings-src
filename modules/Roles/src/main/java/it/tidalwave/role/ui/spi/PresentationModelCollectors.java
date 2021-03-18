@@ -39,7 +39,7 @@ import it.tidalwave.util.As;
 import it.tidalwave.util.spi.ArrayListCollectorSupport;
 import it.tidalwave.role.Composite;
 import it.tidalwave.role.ui.PresentationModel;
-import static it.tidalwave.role.ui.Presentable.Presentable;
+import static it.tidalwave.role.ui.Presentable._Presentable_;
 
 /***********************************************************************************************************************
  *
@@ -63,7 +63,7 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
      * List&lt;PresentationModel&gt; pms = ...
      * PresentationModel compositePm = pms.stream().collect(toCompositePresentationModel());
      * // same contents as childrenPms
-     * List&lt;PresentationModel&gt; childrenPms = compositePm.as(Composite).findChildren().results();
+     * List&lt;PresentationModel&gt; childrenPms = compositePm.as(_Composite_).findChildren().results();
      * </pre>
      * 
      * @param   roles   some extra roles included in the resulting {@code PresentationModel}
@@ -98,7 +98,7 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
             final @Nonnull Function<T, Object> roleCreator)
       {
         return StreamSupport.stream(i.spliterator(), false)
-                            .map(o -> o.as(Presentable).createPresentationModel(array(roleCreator.apply(o))))
+                            .map(o -> o.as(_Presentable_).createPresentationModel(array(roleCreator.apply(o))))
                             .collect(PresentationModelCollectors.toCompositePresentationModel());
       }
 

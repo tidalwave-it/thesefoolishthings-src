@@ -45,7 +45,7 @@ import it.tidalwave.util.NotFoundException;
 public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYPE>>
   {
     //@bluebook-begin other
-    public static final Class<Composite> Composite = Composite.class;
+    public static final Class<Composite> _Composite_ = Composite.class;
 
     /*******************************************************************************************************************
      *

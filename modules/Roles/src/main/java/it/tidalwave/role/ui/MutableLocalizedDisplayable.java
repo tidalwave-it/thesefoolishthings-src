@@ -41,7 +41,7 @@ import it.tidalwave.role.ui.impl.DefaultMutableDisplayable;
  **********************************************************************************************************************/
 public interface MutableLocalizedDisplayable extends MutableDisplayable, LocalizedDisplayable
   {
-    public final static Class<MutableLocalizedDisplayable> MutableLocalizedDisplayable =
+    public final static Class<MutableLocalizedDisplayable> _MutableLocalizedDisplayable_ =
             MutableLocalizedDisplayable.class;
 
     /*******************************************************************************************************************

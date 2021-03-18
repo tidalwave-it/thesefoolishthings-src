@@ -42,7 +42,7 @@ import javax.swing.Icon;
  **********************************************************************************************************************/
 public interface MutableIconProvider extends IconProvider
   {
-    public static final Class<MutableIconProvider> MutableIconProvider = MutableIconProvider.class;
+    public static final Class<MutableIconProvider> _MutableIconProvider_ = MutableIconProvider.class;
 
     /** The property name for icon. */
     public final static String PROP_ICON = "icon";

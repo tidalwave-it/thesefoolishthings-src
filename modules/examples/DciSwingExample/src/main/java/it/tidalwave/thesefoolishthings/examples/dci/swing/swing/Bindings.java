@@ -74,7 +74,7 @@ public final class Bindings
                              final @Nonnull Object datum,
                              final @Nonnull JList jList)
       {
-        final ObservableList<?> ol = datum.as(ObservableListProvider).createObservableList();
+        final ObservableList<?> ol = datum.as(_ObservableListProvider_).createObservableList();
         bindings.addBinding(SwingBindings.createJListBinding(READ, ol, jList));
         jList.setCellRenderer(new HtmlRenderableListCellRenderer());
       }
@@ -97,10 +97,10 @@ public final class Bindings
                              final @Nonnull Object datum,
                              final @Nonnull JTable jTable)
       {
-        final ObservableList<?> ol = datum.as(ObservableListProvider).createObservableList();
+        final ObservableList<?> ol = datum.as(_ObservableListProvider_).createObservableList();
         final JTableBinding tb = SwingBindings.createJTableBinding(READ_WRITE, ol, jTable);
 
-        for (final TableColumnDescriptor columnDescriptor : datum.as(TableHeaderDescriptor).getColumnDescriptors())
+        for (final TableColumnDescriptor columnDescriptor : datum.as(_TableHeaderDescriptor_).getColumnDescriptors())
           {
             final BeanProperty property = BeanProperty.create(columnDescriptor.getPropertyName());
             tb.addColumnBinding(property).setColumnName(columnDescriptor.getHeaderName());

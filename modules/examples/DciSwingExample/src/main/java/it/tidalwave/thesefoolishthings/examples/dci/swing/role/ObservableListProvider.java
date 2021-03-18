@@ -40,7 +40,7 @@ import org.jdesktop.observablecollections.ObservableList;
  **********************************************************************************************************************/
 public interface ObservableListProvider
   {
-    public static final Class<ObservableListProvider> ObservableListProvider = ObservableListProvider.class;
+    public static final Class<ObservableListProvider> _ObservableListProvider_ = ObservableListProvider.class;
 
     /*******************************************************************************************************************
      *

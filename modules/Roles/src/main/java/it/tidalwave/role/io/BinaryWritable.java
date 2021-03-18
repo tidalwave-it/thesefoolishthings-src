@@ -44,7 +44,7 @@ import java.io.OutputStream;
 public interface BinaryWritable
   {
     //@bluebook-begin other
-    public final static Class<BinaryWritable> BinaryWritable = BinaryWritable.class;
+    public final static Class<BinaryWritable> _BinaryWritable_ = BinaryWritable.class;
 
     /*******************************************************************************************************************
      *

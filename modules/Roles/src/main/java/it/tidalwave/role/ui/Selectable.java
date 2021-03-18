@@ -38,7 +38,7 @@ package it.tidalwave.role.ui;
 @FunctionalInterface
 public interface Selectable
   {
-    public static final Class<Selectable> Selectable = Selectable.class;
+    public static final Class<Selectable> _Selectable_ = Selectable.class;
 
     /*******************************************************************************************************************
      *

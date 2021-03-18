@@ -45,6 +45,7 @@ import it.tidalwave.role.spi.ContextSampler;
 import it.tidalwave.role.impl.DefaultSimpleComposite;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
+import static it.tidalwave.role.SimpleComposite._SimpleComposite_;
 import static it.tidalwave.role.spi.impl.LogUtil.*;
 
 /***********************************************************************************************************************
@@ -91,11 +92,11 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
                     try
                       {
                         @SuppressWarnings("unchecked")
-                        final SimpleComposite<T> composite = scp.datum.as(SimpleComposite.class);
+                        final SimpleComposite<T> composite = scp.datum.as(_SimpleComposite_);
 
                         for (final T child : composite.findChildren().results())
                           {
-                            final Presentable presentable = child.as(Presentable, new NotFoundBehaviour<Presentable>()
+                            final Presentable presentable = child.as(_Presentable_, new NotFoundBehaviour<Presentable>()
                               {
                                 @Override
                                 public Presentable run (final Throwable t)

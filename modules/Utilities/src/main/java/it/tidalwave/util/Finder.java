@@ -58,7 +58,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
     public static interface SortCriterion
       {
         //@bluebook-ignore-begin
-        public static final Class<SortCriterion> SortCriterion = SortCriterion.class;
+        public static final Class<SortCriterion> _SortCriterion_ = SortCriterion.class;
 
         /** A special {@link SortCriterion} which indicates that no sort has been performed. */
         public static final SortCriterion UNSORTED = new FilterSortCriterion<Object>()

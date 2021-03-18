@@ -33,5 +33,5 @@ package it.tidalwave.thesefoolishthings.examples.dci.swing;
  **********************************************************************************************************************/
 public interface PersonPresentationControl
   {
-    public static final Class<PersonPresentationControl> PersonPresentationController = PersonPresentationControl.class;
+    public static final Class<PersonPresentationControl> _PersonPresentationController_ = PersonPresentationControl.class;
   }

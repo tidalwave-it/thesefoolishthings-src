@@ -42,7 +42,7 @@ import it.tidalwave.util.Finder.SortDirection;
 public interface Sortable
   {
     //@bluebook-begin others
-    public final static Class<Sortable> Sortable = Sortable.class;
+    public final static Class<Sortable> _Sortable_ = Sortable.class;
 
     /*******************************************************************************************************************
      *

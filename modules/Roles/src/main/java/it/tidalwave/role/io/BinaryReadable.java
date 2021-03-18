@@ -44,7 +44,7 @@ import java.io.InputStream;
 public interface BinaryReadable
   {
     //@bluebook-begin other
-    public final static Class<BinaryReadable> BinaryReadable = BinaryReadable.class;
+    public final static Class<BinaryReadable> _BinaryReadable_ = BinaryReadable.class;
 
     /*******************************************************************************************************************
      *

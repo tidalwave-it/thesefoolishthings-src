@@ -42,7 +42,7 @@ import java.io.Reader;
 public interface TextReadable
   {
     //@bluebook-begin other
-    public final static Class<TextReadable> TextReadable = TextReadable.class;
+    public final static Class<TextReadable> _TextReadable_ = TextReadable.class;
 
     /*******************************************************************************************************************
      *

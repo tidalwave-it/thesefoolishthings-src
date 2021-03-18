@@ -39,7 +39,7 @@ import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
 import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.ExtensionMethod;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static it.tidalwave.role.io.Marshallable.Marshallable;
+import static it.tidalwave.role.io.Marshallable._Marshallable_;
 
 /***********************************************************************************************************************
  *
@@ -62,19 +62,19 @@ public class DciMarshalXStreamExample
         contextManager.addLocalContext(xStreamContext);
 
         final ByteArrayOutputStream os1 = new ByteArrayOutputStream();
-        joe.as(Marshallable).marshal(os1);
+        joe.as(_Marshallable_).marshal(os1);
         log.info("******** (jos as Mashallable) marshalled: {}", new String(os1.toByteArray(), UTF_8));
 
         final ByteArrayOutputStream os2 = new ByteArrayOutputStream();
         final ListOfPersons listOfPersons = new ListOfPersons(Arrays.asList(joe, luke));
-        listOfPersons.as(Marshallable).marshal(os2);
+        listOfPersons.as(_Marshallable_).marshal(os2);
         log.info("******** (listOfPersons as Mashallable) marshalled: {}", new String(os2.toByteArray(), UTF_8));
 
         final ByteArrayOutputStream os3 = new ByteArrayOutputStream();
         final DefaultPersonRegistry personRegistry = new DefaultPersonRegistry();
         personRegistry.add(joe);
         personRegistry.add(luke);
-        personRegistry.as(Marshallable).marshal(os3);
+        personRegistry.as(_Marshallable_).marshal(os3);
         log.info("******** (personRegistry as Mashallable) marshalled: {}", new String(os2.toByteArray(), UTF_8));
 
         contextManager.removeLocalContext(xStreamContext);

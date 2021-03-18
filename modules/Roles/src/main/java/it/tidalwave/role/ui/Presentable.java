@@ -41,7 +41,7 @@ import it.tidalwave.role.ui.impl.DefaultPresentable;
 @FunctionalInterface
 public interface Presentable
   {
-    public final static Class<Presentable> Presentable = Presentable.class;
+    public final static Class<Presentable> _Presentable_ = Presentable.class;
 
     /*******************************************************************************************************************
      *

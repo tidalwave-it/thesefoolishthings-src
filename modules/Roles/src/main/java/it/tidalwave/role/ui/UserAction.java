@@ -39,7 +39,7 @@ import it.tidalwave.util.Callback;
  **********************************************************************************************************************/
 public interface UserAction extends As
   {
-    public static final Class<UserAction> UserAction = UserAction.class;
+    public static final Class<UserAction> _UserAction_ = UserAction.class;
 
     /*******************************************************************************************************************
      *

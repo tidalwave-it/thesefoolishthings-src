@@ -44,7 +44,7 @@ import static it.tidalwave.util.BundleUtilities.getMessage;
 public interface Displayable
   {
     //@bluebook-begin other
-    public final static Class<Displayable> Displayable = Displayable.class;
+    public final static Class<Displayable> _Displayable_ = Displayable.class;
 
     /*******************************************************************************************************************
      *

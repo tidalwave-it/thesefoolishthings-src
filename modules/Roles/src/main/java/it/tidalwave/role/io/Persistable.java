@@ -39,7 +39,7 @@ package it.tidalwave.role.io;
 @FunctionalInterface
 public interface Persistable
   {
-    public static final Class<Persistable> Persistable = Persistable.class;
+    public static final Class<Persistable> _Persistable_ = Persistable.class;
 
     /*******************************************************************************************************************
      *

@@ -41,7 +41,7 @@ import java.io.PrintWriter;
 @FunctionalInterface
 public interface StringRenderable
   {
-    public static final Class<StringRenderable> StringRenderable = StringRenderable.class;
+    public static final Class<StringRenderable> _StringRenderable_ = StringRenderable.class;
 
     /*******************************************************************************************************************
      *

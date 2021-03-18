@@ -39,7 +39,7 @@ import it.tidalwave.util.RoleFactory;
 @FunctionalInterface
 public interface PresentationModelFactory
   {
-    public static final Class<PresentationModelFactory> PresentationModelFactory = PresentationModelFactory.class;
+    public static final Class<PresentationModelFactory> _PresentationModelFactory_ = PresentationModelFactory.class;
 
     /*******************************************************************************************************************
      *

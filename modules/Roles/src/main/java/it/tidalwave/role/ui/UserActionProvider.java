@@ -43,7 +43,7 @@ import it.tidalwave.util.NotFoundException;
  **********************************************************************************************************************/
 public interface UserActionProvider
   {
-    public static final Class<UserActionProvider> UserActionProvider = UserActionProvider.class;
+    public static final Class<UserActionProvider> _UserActionProvider_ = UserActionProvider.class;
 
     /*******************************************************************************************************************
      *
