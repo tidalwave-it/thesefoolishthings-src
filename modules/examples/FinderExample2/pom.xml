@@ -5,13 +5,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings-examples</artifactId>
-        <version>3.2-ALPHA-3-SNAPSHOT</version>
+        <version>3.2-ALPHA-3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample2</artifactId>
-    <version>3.2-ALPHA-3-SNAPSHOT</version>
+    <version>3.2-ALPHA-3</version>
     <name>TheseFoolishThings Examples - Finder Example 2</name>
     <description>
         A more complex example of Finder usage.
