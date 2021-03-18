@@ -106,18 +106,29 @@ public interface As
 
     /*******************************************************************************************************************
      *
-     * Returns the requested role, or an empty {@link Optional}.
+     * Returns the requested role or an empty {@link Optional}.
      *
      * @param   <T>     the role type
      * @param   type    the role type
      * @return          the optional role
-     * @since           3.2-ALPHA-1
+     * @since           3.2-ALPHA-3
      *
      ******************************************************************************************************************/
     @Nonnull
-    default <T> Optional<T> asOptional (final @Nonnull Class<T> type)
+    default <T> Optional<T> maybeAs (final @Nonnull Class<T> type)
       {
         return Optional.ofNullable(as(type, throwable -> null));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * @deprecated  Use {@link #maybeAs(Class)}.
+     *
+     ******************************************************************************************************************/
+    @Nonnull @Deprecated
+    default <T> Optional<T> asOptional (final @Nonnull Class<T> type)
+      {
+        return maybeAs(type);
       }
 
     /*******************************************************************************************************************

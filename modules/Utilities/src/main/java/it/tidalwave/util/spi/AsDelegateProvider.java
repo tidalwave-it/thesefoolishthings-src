@@ -40,7 +40,7 @@ import lombok.NoArgsConstructor;
  **********************************************************************************************************************/
 public interface AsDelegateProvider
   {
-    public static final Class<AsDelegateProvider> AsDelegateProvider = AsDelegateProvider.class;
+    public static final Class<AsDelegateProvider> _AsDelegateProvider_ = AsDelegateProvider.class;
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Locator

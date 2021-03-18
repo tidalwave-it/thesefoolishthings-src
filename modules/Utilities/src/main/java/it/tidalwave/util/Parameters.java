@@ -30,33 +30,51 @@ import javax.annotation.Nonnull;
 import javax.annotation.CheckForNull;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * This class provides a few static utility methods to extracts parameters from an array.
+ * This class provides a few static utility methods to manipulate arguments to methods.
  *
  * @author  Fabrizio Giudici
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Parameters
   {
-    private Parameters()
-      {
-      }
-
     /*******************************************************************************************************************
      *
+     * A convenience method for transforming a varargs of roles to a {@link Collection}. It supports concatenating
+     * collections: that is, each varargs item that is a {@link Collection} is flattened.
+     *
+     * @param   roles   the roles
+     * @return          the
+     * @since   3.2-ALPHA-3
+     * @it.tidalwave.experimental
      *
      ******************************************************************************************************************/
-    public static void checkNonNull (@CheckForNull final Object parameter,
-                                     @Nonnull final String name)
-      throws IllegalArgumentException
+    @Nonnull
+    public static Collection<Object> r (final @Nonnull Object ... roles)
       {
-        if (parameter == null)
+        // Don't use streams() for performance reasons.
+        final List<Object> result = new ArrayList<>();
+
+        for (final Object role : roles)
           {
-            throw new IllegalArgumentException(String.format("%s is mandatory", name));
+            if (!(role instanceof Collection))
+              {
+                result.add(role);
+              }
+            else
+              {
+                result.addAll((Collection<?>)role);
+              }
           }
+
+        return result;
       }
 
     /*******************************************************************************************************************
@@ -76,6 +94,7 @@ public final class Parameters
                                  final @Nonnull O ... parameters)
       throws IllegalArgumentException
       {
+        // Don't use streams() for performance reasons.
         final Collection<T> c = find(parameterClass, parameters);
 
         if (c.size() > 1)
@@ -100,6 +119,7 @@ public final class Parameters
     public static <T, O> Collection<T> find (final @Nonnull Class<T> parameterClass,
                                              final @Nonnull O ... parameters)
       {
+        // Don't use streams() for performance reasons.
         final Collection<T> result = new ArrayList<T>();
 
         for (final Object parameter : parameters)
@@ -111,5 +131,24 @@ public final class Parameters
           }
 
         return result;
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Object mustNotBeArrayOrCollection (final @Nonnull Object object, final @Nonnull String message)
+      {
+        if (object instanceof Collection)
+          {
+            throw new IllegalArgumentException(message + " can't be a Collection");
+          }
+
+        if (object.getClass().isArray())
+          {
+            throw new IllegalArgumentException(message + " can't be an array");
+          }
+
+        return object;
       }
   }

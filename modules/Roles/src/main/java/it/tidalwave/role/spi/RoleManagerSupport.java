@@ -331,7 +331,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
 
         if (!after.isEmpty())
           {
-            log.debug(">>>>>>> added implementations: {} -> {}", datumAndRole, after);
+            log.debug(">>>>>>> added implementations: {} -> {}", datumAndRole, shortNames(after));
 
             if (log.isTraceEnabled()) // yes, trace
               {

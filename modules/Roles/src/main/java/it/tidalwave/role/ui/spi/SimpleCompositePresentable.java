@@ -28,7 +28,7 @@ package it.tidalwave.role.ui.spi;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import it.tidalwave.util.As;
 import it.tidalwave.util.As.NotFoundBehaviour;
@@ -45,6 +45,7 @@ import it.tidalwave.role.spi.ContextSampler;
 import it.tidalwave.role.impl.DefaultSimpleComposite;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
+import static it.tidalwave.role.SimpleComposite._SimpleComposite_;
 import static it.tidalwave.role.spi.impl.LogUtil.*;
 
 /***********************************************************************************************************************
@@ -68,7 +69,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
         private final SimpleCompositePresentable<T> scp;
 
         @Nonnull
-        private final List<Object> rolesOrFactories;
+        private final Collection<Object> rolesOrFactories;
 
         public SCPFinder (final @Nonnull SCPFinder<T> other, final @Nonnull Object override)
           {
@@ -91,11 +92,11 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
                     try
                       {
                         @SuppressWarnings("unchecked")
-                        final SimpleComposite<T> composite = scp.datum.as(SimpleComposite.class);
+                        final SimpleComposite<T> composite = scp.datum.as(_SimpleComposite_);
 
                         for (final T child : composite.findChildren().results())
                           {
-                            final Presentable presentable = child.as(Presentable, new NotFoundBehaviour<Presentable>()
+                            final Presentable presentable = child.as(_Presentable_, new NotFoundBehaviour<Presentable>()
                               {
                                 @Override
                                 public Presentable run (final Throwable t)
@@ -104,7 +105,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
                                   }
                               });
 
-                            results.add(presentable.createPresentationModel(rolesOrFactories.toArray()));
+                            results.add(presentable.createPresentationModel(rolesOrFactories));
                           }
                       }
                     catch (AsException e)
@@ -159,9 +160,9 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public PresentationModel createPresentationModel (final @Nonnull Object ... rolesOrFactories)
+    public PresentationModel createPresentationModel (final @Nonnull Collection<Object> rolesOrFactories)
       {
-        return internalCreatePresentationModel(datum, new ArrayList<>(Arrays.asList(rolesOrFactories)));
+        return internalCreatePresentationModel(datum, rolesOrFactories);
       }
 
     /*******************************************************************************************************************
@@ -171,7 +172,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
      ******************************************************************************************************************/
     @Nonnull
     private PresentationModel internalCreatePresentationModel (final @Nonnull T datum,
-                                                               final @Nonnull List<Object> rolesOrFactories)
+                                                               final @Nonnull Collection<Object> rolesOrFactories)
       {
         final Finder<PresentationModel> pmFinder = new SCPFinder(this, rolesOrFactories);
 
@@ -184,7 +185,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
                 roles.add(new DefaultSimpleComposite<>(pmFinder));
                 log.trace(">>>> roles for {}: {}", shortId(datum), shortIds(roles));
 
-                return defaultPresentationModelFactory.createPresentationModel(datum, roles.toArray());
+                return defaultPresentationModelFactory.createPresentationModel(datum, roles);
               }
           });
       }
@@ -195,8 +196,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
      *
      ******************************************************************************************************************/
     @Nonnull
-    private List<Object> resolveRoles (final @Nonnull T datum,
-                                       final @Nonnull List<Object> rolesOrFactories)
+    private List<Object> resolveRoles (final @Nonnull T datum, final @Nonnull Collection<Object> rolesOrFactories)
       {
         final List<Object> roles = new ArrayList<>();
 

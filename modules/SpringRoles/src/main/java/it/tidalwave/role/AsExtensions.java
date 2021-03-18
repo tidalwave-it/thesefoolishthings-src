@@ -59,8 +59,8 @@ public class AsExtensions
       }
 
     @Nonnull
-    public static <T> Optional<T> asOptional (final @Nonnull Object datum,
-                                              final @Nonnull Class<T> type)
+    public static <T> Optional<T> maybeAs (final @Nonnull Object datum,
+                                           final @Nonnull Class<T> type)
       {
         return Optional.ofNullable(as(datum, type, throwable -> null));
       }

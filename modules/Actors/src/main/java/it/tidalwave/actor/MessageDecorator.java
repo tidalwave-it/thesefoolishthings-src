@@ -43,7 +43,7 @@ import lombok.ToString;
  **********************************************************************************************************************/
 public interface MessageDecorator
   {
-    public static final Class<MessageDecorator> MessageDecorator = MessageDecorator.class;
+    public static final Class<MessageDecorator> _MessageDecorator_ = MessageDecorator.class;
 
     /*******************************************************************************************************************
      *

@@ -36,7 +36,7 @@ import javax.annotation.Nonnull;
  **********************************************************************************************************************/
 public interface PersonRegistry
   {
-    public static final Class<PersonRegistry> PersonRegistry = PersonRegistry.class;
+    public static final Class<PersonRegistry> _PersonRegistry_ = PersonRegistry.class;
 
     @Nonnull
     public Finder<Person> findPerson();

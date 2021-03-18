@@ -45,7 +45,7 @@ import java.util.Map;
  **********************************************************************************************************************/
 public interface MutableDisplayable extends Displayable
   {
-    public final static Class<MutableDisplayable> MutableDisplayable = MutableDisplayable.class;
+    public final static Class<MutableDisplayable> _MutableDisplayable_ = MutableDisplayable.class;
 
     /** The property name for displayName */
     public final static String PROP_DISPLAY_NAME = "displayName";

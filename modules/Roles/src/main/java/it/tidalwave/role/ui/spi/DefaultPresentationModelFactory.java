@@ -27,6 +27,7 @@
 package it.tidalwave.role.ui.spi;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import it.tidalwave.role.ui.PresentationModel;
 import it.tidalwave.role.ui.PresentationModelFactory;
 import it.tidalwave.role.ui.impl.DefaultPresentationModel;
@@ -47,7 +48,7 @@ public class DefaultPresentationModelFactory implements PresentationModelFactory
      ******************************************************************************************************************/
     @Override @Nonnull
     public PresentationModel createPresentationModel (final @Nonnull Object owner,
-                                                      final @Nonnull Object... localRolesOrFactories)
+                                                      final @Nonnull Collection<Object> localRolesOrFactories)
       {
         return new DefaultPresentationModel(owner, localRolesOrFactories);
       }

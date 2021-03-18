@@ -34,7 +34,7 @@ import it.tidalwave.role.ContextManager;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.role.ui.Displayable.Displayable;
+import static it.tidalwave.role.ui.Displayable._Displayable_;
 
 /***********************************************************************************************************************
  *
@@ -53,7 +53,7 @@ public class DisplayableExample
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
         final Person luke = new Person(new Id("2"), "Luke", "Skywalker");
         
-        log.info("******** (joe as Displayable).displayName: {}", joe.as(Displayable).getDisplayName());
-        log.info("******** (luke as Displayable).displayName: {}", luke.as(Displayable).getDisplayName());
+        log.info("******** (joe as Displayable).displayName: {}", joe.as(_Displayable_).getDisplayName());
+        log.info("******** (luke as Displayable).displayName: {}", luke.as(_Displayable_).getDisplayName());
       }
   }

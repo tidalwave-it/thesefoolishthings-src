@@ -89,7 +89,7 @@ public class AsTest
         // when
         final UnderTest underTest = new UnderTest(delegate);
         // then
-        Optional<Role> result = underTest.asOptional(Role.class);
+        Optional<Role> result = underTest.maybeAs(Role.class);
         assertThat(result.isPresent(), is(true));
         assertThat(result.get(), is(sameInstance(role)));
       }
@@ -103,7 +103,7 @@ public class AsTest
         // when
         final UnderTest underTest = new UnderTest(delegate);
         // then
-        Optional<Role> result = underTest.asOptional(Role.class);
+        Optional<Role> result = underTest.maybeAs(Role.class);
         assertThat(result.isPresent(), is(false));
       }
   }

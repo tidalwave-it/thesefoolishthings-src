@@ -46,7 +46,7 @@ public class DciPersistenceJpaExample
       {
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
 
-        joe.as(Persistable).persist();
-        joe.as(Removable).remove();
+        joe.as(_Persistable_).persist();
+        joe.as(_Removable_).remove();
       } 
   }

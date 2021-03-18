@@ -38,6 +38,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
+import java.util.Collection;
 // import java.beans.PropertyChangeListener;
 
 /***********************************************************************************************************************
@@ -64,9 +65,10 @@ public class DefaultUserAction implements UserAction
     /*******************************************************************************************************************
      *
      * @since 3.2-ALPHA-1 (was previously in {@code UserAction8}
+     * @since  3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
-    public DefaultUserAction (final @Nonnull Callback callback, final @Nonnull Object ... rolesOrFactories)
+    public DefaultUserAction (final @Nonnull Callback callback, final @Nonnull Collection<Object> rolesOrFactories)
       {
         this.callback = callback;
         this.asSupport = new AsSupport(this, rolesOrFactories);
@@ -89,10 +91,11 @@ public class DefaultUserAction implements UserAction
     /*******************************************************************************************************************
      *
      * @since 3.2-ALPHA-1 (was previously in {@code UserAction8}
+     * @since  3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
     @Nonnull
-    public DefaultUserAction withRoles (final @Nonnull Object ... rolesOrFactories)
+    public DefaultUserAction withRoles (final @Nonnull Collection<Object> rolesOrFactories)
       {
         return new DefaultUserAction(callback, rolesOrFactories);
       }

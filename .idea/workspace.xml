@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="Updated Idea files.">
+    <list default="true" id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="Fix for TFT-230.">
+      <change beforePath="$PROJECT_DIR$/modules/Roles/src/main/java/it/tidalwave/role/ui/Displayable.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Roles/src/main/java/it/tidalwave/role/ui/Displayable.java" afterDir="false" />
+    </list>
+    <list id="917968aa-8b09-491a-b660-3785d2496475" name="Idea" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/modules/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,10 +60,14 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="vcs.patch.path" value="$USER_HOME$" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/modules/Roles/src/test/resources" />
+    </key>
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="it.tidalwave.util.Parameters" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="it.tidalwave.role.ui.impl" />
@@ -74,7 +80,7 @@
       <recent name="it.tidalwave.util" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main (1)">
+  <component name="RunManager" selected="TestNG.KeyTest.test_registration">
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.Main" />
       <module name="it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream" />
@@ -88,23 +94,84 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.tidalwave.thesefoolishthings.examples.dci.displayable.Main" />
-      <module name="it-tidalwave-thesefoolishthings-examples-dci-displayable" />
+    <configuration name="KeyTest" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="it-tidalwave-util" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.tidalwave.thesefoolishthings.examples.dci.displayable.*" />
+          <option name="PATTERN" value="it.tidalwave.util.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="it.tidalwave.util" />
+      <option name="MAIN_CLASS_NAME" value="it.tidalwave.util.KeyTest" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KeyTest.must_now_allow_redefining_the_type_when_first_registration_is_not_Object" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="it-tidalwave-util" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.tidalwave.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.tidalwave.util" />
+      <option name="MAIN_CLASS_NAME" value="it.tidalwave.util.KeyTest" />
+      <option name="METHOD_NAME" value="must_now_allow_redefining_the_type_when_first_registration_is_not_Object" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KeyTest.test" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="it-tidalwave-util" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.tidalwave.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.tidalwave.util" />
+      <option name="MAIN_CLASS_NAME" value="it.tidalwave.util.KeyTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KeyTest.test_registration" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="it-tidalwave-util" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.tidalwave.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.tidalwave.util" />
+      <option name="MAIN_CLASS_NAME" value="it.tidalwave.util.KeyTest" />
+      <option name="METHOD_NAME" value="test_registration" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.KeyTest.test_registration" />
+        <item itemvalue="TestNG.KeyTest.must_now_allow_redefining_the_type_when_first_registration_is_not_Object" />
+        <item itemvalue="TestNG.KeyTest.test" />
+        <item itemvalue="TestNG.KeyTest" />
         <item itemvalue="Application.Main (1)" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -112,119 +179,11 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="" />
-      <changelist id="" name="Idea" comment="" />
-      <changelist id="" name="archetype" comment="" />
-      <changelist id="" name="site" comment="" />
-      <changelist id="" name="TFT-215" comment="" />
+      <changelist id="917968aa-8b09-491a-b660-3785d2496475" name="Idea" comment="" />
       <created>1615721645836</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1615721645836</updated>
-    </task>
-    <task id="LOCAL-00039" summary="Fix for TFT-211.">
-      <created>1615913884963</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1615913884963</updated>
-    </task>
-    <task id="LOCAL-00040" summary="Fix for TFT-211.">
-      <created>1615913938470</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1615913938470</updated>
-    </task>
-    <task id="LOCAL-00041" summary="Fix for TFT-213.">
-      <created>1615914306227</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1615914306227</updated>
-    </task>
-    <task id="LOCAL-00042" summary="Refactored.">
-      <created>1615914687501</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1615914687501</updated>
-    </task>
-    <task id="LOCAL-00043" summary="Refactored.">
-      <created>1615914724716</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1615914724716</updated>
-    </task>
-    <task id="LOCAL-00044" summary="Refactored.">
-      <created>1615914734190</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1615914734190</updated>
-    </task>
-    <task id="LOCAL-00045" summary="Added factory method Id.of().">
-      <created>1615914827817</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1615914827817</updated>
-    </task>
-    <task id="LOCAL-00046" summary="Added factory method BoundProperty.of().">
-      <created>1615915091532</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1615915091532</updated>
-    </task>
-    <task id="LOCAL-00047" summary="Fix for TFT-214.">
-      <created>1615915183530</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1615915183530</updated>
-    </task>
-    <task id="LOCAL-00048" summary="Refactored.">
-      <created>1615915581018</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1615915581018</updated>
-    </task>
-    <task id="LOCAL-00049" summary="Clean up.">
-      <created>1615915652339</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1615915652339</updated>
-    </task>
-    <task id="LOCAL-00050" summary="Javadoc fixed.">
-      <created>1615917738310</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1615917738310</updated>
-    </task>
-    <task id="LOCAL-00051" summary="Updated Super POM.">
-      <created>1615975650664</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1615975650664</updated>
-    </task>
-    <task id="LOCAL-00052" summary="Fix for TFT-215.">
-      <created>1615976007279</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1615976007279</updated>
-    </task>
-    <task id="LOCAL-00053" summary="Fix for TFT-216.">
-      <created>1615976241035</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1615976241035</updated>
     </task>
     <task id="LOCAL-00054" summary="Now using javac -release 8.">
       <created>1615976259121</created>
@@ -464,7 +423,112 @@
       <option name="project" value="LOCAL" />
       <updated>1615991624639</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="Fix for TFT-226.">
+      <created>1616060541701</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1616060541701</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Fix for TFT-227.">
+      <created>1616061050665</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1616061050665</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Fix for TFT-228.">
+      <created>1616061142237</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1616061142237</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Removed obsolete method, refactored.">
+      <created>1616064369129</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1616064369129</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Fix for TFT-227.">
+      <created>1616065034883</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1616065034883</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Fix for TFT-227.">
+      <created>1616065134508</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1616065134508</updated>
+    </task>
+    <task id="LOCAL-00094" summary="First varargs refactoring (FIXME: ISSUE?)">
+      <created>1616069342211</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1616069342211</updated>
+    </task>
+    <task id="LOCAL-00095" summary="Fixed test, varargs refactoring (FIXME: ISSUE?)">
+      <created>1616069568528</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1616069568528</updated>
+    </task>
+    <task id="LOCAL-00096" summary="TFT-229: added convenience methods.">
+      <created>1616084120075</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1616084120075</updated>
+    </task>
+    <task id="LOCAL-00097" summary="TFT-229: fixed refactoring regression.">
+      <created>1616084723599</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1616084723599</updated>
+    </task>
+    <task id="LOCAL-00098" summary="TFT-229: fixed code that deadlocks with SteelBlue.">
+      <created>1616086104295</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1616086104295</updated>
+    </task>
+    <task id="LOCAL-00099" summary="KEY.">
+      <created>1616090799020</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1616090799020</updated>
+    </task>
+    <task id="LOCAL-00100" summary="Improved logging.">
+      <created>1616100099844</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1616100099844</updated>
+    </task>
+    <task id="LOCAL-00101" summary="Improved logging.">
+      <created>1616100123992</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1616100123992</updated>
+    </task>
+    <task id="LOCAL-00102" summary="Fix for TFT-230.">
+      <created>1616102311500</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1616102311500</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -480,19 +544,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix for TFT-211." />
-    <MESSAGE value="Fix for TFT-213." />
-    <MESSAGE value="Added factory method Id.of()." />
-    <MESSAGE value="Added factory method BoundProperty.of()." />
-    <MESSAGE value="Fix for TFT-214." />
-    <MESSAGE value="Refactored." />
-    <MESSAGE value="Clean up." />
-    <MESSAGE value="Javadoc fixed." />
-    <MESSAGE value="Updated Super POM." />
-    <MESSAGE value="Now using javac -release 8." />
-    <MESSAGE value="Site clean up." />
-    <MESSAGE value="Updated archetype files." />
-    <MESSAGE value="Javadoc clean up." />
     <MESSAGE value="Fix for TFT-216." />
     <MESSAGE value="Added serialVersionUID." />
     <MESSAGE value="Key redesign." />
@@ -505,6 +556,19 @@
     <MESSAGE value="Updated Idea file." />
     <MESSAGE value="Fix for TFT-217." />
     <MESSAGE value="Updated Idea files." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated Idea files." />
+    <MESSAGE value="Fix for TFT-225." />
+    <MESSAGE value="Fix for TFT-226." />
+    <MESSAGE value="Fix for TFT-228." />
+    <MESSAGE value="Removed obsolete method, refactored." />
+    <MESSAGE value="Fix for TFT-227." />
+    <MESSAGE value="TFT-229: First varargs refactoring." />
+    <MESSAGE value="TFT-229: Fixed test, varargs refactoring." />
+    <MESSAGE value="TFT-229: added convenience methods." />
+    <MESSAGE value="TFT-229: fixed refactoring regression." />
+    <MESSAGE value="TFT-229: fixed code that deadlocks with SteelBlue." />
+    <MESSAGE value="KEY." />
+    <MESSAGE value="Improved logging." />
+    <MESSAGE value="Fix for TFT-230." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix for TFT-230." />
   </component>
 </project>

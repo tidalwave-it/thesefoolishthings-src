@@ -42,7 +42,7 @@ import java.io.Writer;
 public interface TextWritable
   {
     //@bluebook-begin other
-    public final static Class<TextWritable> TextWritable = TextWritable.class;
+    public final static Class<TextWritable> _TextWritable_ = TextWritable.class;
 
     /*******************************************************************************************************************
      *

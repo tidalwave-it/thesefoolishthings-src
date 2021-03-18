@@ -42,7 +42,7 @@ import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
 import lombok.experimental.Delegate;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.actor.MessageDecorator.MessageDecorator;
+import static it.tidalwave.actor.MessageDecorator._MessageDecorator_;
 
 /***********************************************************************************************************************
  *
@@ -199,9 +199,9 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     @Nonnull
     private MessageSupport findDecoratedMessage()
       {
-        final MessageSupport decoratedMessage = this.as(MessageDecorator).getDecoratedMessage();
+        final MessageSupport decoratedMessage = this.as(_MessageDecorator_).getDecoratedMessage();
         return (decoratedMessage == this) ? this : decoratedMessage.findDecoratedMessage();
-//        MessageSupport decoratedMessage = this.as(MessageDecorator).getDecoratedMessage();
+//        MessageSupport decoratedMessage = this.as(_MessageDecorator_).getDecoratedMessage();
 //
 //        if (decoratedMessage != this)
 //          {

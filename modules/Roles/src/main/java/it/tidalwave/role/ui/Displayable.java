@@ -28,6 +28,8 @@ package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.role.ui.impl.DefaultDisplayable;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import static it.tidalwave.util.BundleUtilities.getMessage;
 
 /***********************************************************************************************************************
@@ -44,7 +46,7 @@ import static it.tidalwave.util.BundleUtilities.getMessage;
 public interface Displayable
   {
     //@bluebook-begin other
-    public final static Class<Displayable> Displayable = Displayable.class;
+    public final static Class<Displayable> _Displayable_ = Displayable.class;
 
     /*******************************************************************************************************************
      *
@@ -91,6 +93,41 @@ public interface Displayable
     public static Displayable of (final @Nonnull String displayName, final @Nonnull String toStringName)
       {
         return new DefaultDisplayable(displayName, toStringName);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance from a {@link Supplier<String>}. The supplier is invoked each time {@link #getDisplayName()}
+     * is called.
+     *
+     * @param   supplier    the {@code Supplier}
+     * @return              the instance
+     * @since   3.2-ALPHA-3
+     * @it.tidalwave.javadoc.experimental
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Displayable of (final @Nonnull Supplier<String> supplier)
+      {
+        return () -> supplier.get();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance from a {@link Function<..., String>} and a generic object that the function is applied to.
+     * The function is invoked each time {@link #getDisplayName()} is called.
+     *
+     * @param   function    the {@code Function}
+     * @param   object      the object
+     * @return              the instance
+     * @since   3.2-ALPHA-3
+     * @it.tidalwave.javadoc.experimental
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> Displayable of (final @Nonnull Function<T, String> function, final @Nonnull T object)
+      {
+        return () -> function.apply(object);
       }
 
     /*******************************************************************************************************************

@@ -27,6 +27,8 @@
 package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.Collections;
 import it.tidalwave.util.RoleFactory;
 
 /***********************************************************************************************************************
@@ -39,16 +41,31 @@ import it.tidalwave.util.RoleFactory;
 @FunctionalInterface
 public interface PresentationModelFactory
   {
-    public static final Class<PresentationModelFactory> PresentationModelFactory = PresentationModelFactory.class;
+    public static final Class<PresentationModelFactory> _PresentationModelFactory_ = PresentationModelFactory.class;
+
+    /*******************************************************************************************************************
+     *
+     * Creates a new instance of {@link PresentationModel} with some roles or role factories.
+     *
+     * @param  datum              the related datum
+     * @param  rolesOrFactories   roles or {@link RoleFactory} instances to put in the presentation model
+     * @since 3.2-ALPHA-3 (refactored)
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public PresentationModel createPresentationModel (@Nonnull Object datum, @Nonnull Collection<Object> rolesOrFactories);
 
     /*******************************************************************************************************************
      *
      * Creates a new instance of {@link PresentationModel}.
      *
      * @param  datum              the related datum
-     * @param  rolesOrFactories   roles of {@link RoleFactory} instances to put in the presentation model
+     * @since 3.2-ALPHA-3
      *
      ******************************************************************************************************************/
     @Nonnull
-    public PresentationModel createPresentationModel (@Nonnull Object datum, @Nonnull Object ... rolesOrFactories);
+    public default PresentationModel createPresentationModel (final @Nonnull Object datum)
+      {
+        return createPresentationModel(datum, Collections.emptyList());
+      }
   }

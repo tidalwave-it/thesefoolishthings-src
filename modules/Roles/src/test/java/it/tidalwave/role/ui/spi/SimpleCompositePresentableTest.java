@@ -47,6 +47,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
+import static it.tidalwave.util.Parameters.r;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -187,7 +188,7 @@ public class SimpleCompositePresentableTest
         final MockRole1 role1 = new MockRole1();
         final MockRoleFactory roleFactory = new MockRoleFactory();
         // when
-        final PresentationModel pm = underTest.createPresentationModel(role1, roleFactory);
+        final PresentationModel pm = underTest.createPresentationModel(r(role1, roleFactory));
         // then
         assertProperPresentationModel("", pm, a);
       }

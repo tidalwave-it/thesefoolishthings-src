@@ -40,7 +40,7 @@ import javax.annotation.Nonnull;
  **********************************************************************************************************************/
 public interface TableHeaderDescriptor
   {
-    public static final Class<TableHeaderDescriptor> TableHeaderDescriptor = TableHeaderDescriptor.class;
+    public static final Class<TableHeaderDescriptor> _TableHeaderDescriptor_ = TableHeaderDescriptor.class;
 
     @Nonnull
     public List<TableColumnDescriptor> getColumnDescriptors();

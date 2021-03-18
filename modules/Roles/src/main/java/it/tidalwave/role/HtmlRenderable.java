@@ -40,5 +40,5 @@ package it.tidalwave.role;
 @FunctionalInterface
 public interface HtmlRenderable extends StringRenderable
   {
-    public static final Class<HtmlRenderable> HtmlRenderable = HtmlRenderable.class;
+    public static final Class<HtmlRenderable> _HtmlRenderable_ = HtmlRenderable.class;
   }

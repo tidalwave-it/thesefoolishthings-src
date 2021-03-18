@@ -46,7 +46,7 @@ import javax.swing.ImageIcon;
 public interface IconProvider
   {
     //@bluebook-begin other
-    public static final Class<IconProvider> IconProvider = IconProvider.class;
+    public static final Class<IconProvider> _IconProvider_ = IconProvider.class;
 
     /*******************************************************************************************************************
      *

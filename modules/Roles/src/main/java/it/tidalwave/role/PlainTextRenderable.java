@@ -43,7 +43,7 @@ import javax.annotation.Nonnull;
 @FunctionalInterface
 public interface PlainTextRenderable extends StringRenderable
   {
-    public static final Class<PlainTextRenderable> PlainTextRenderable = PlainTextRenderable.class;
+    public static final Class<PlainTextRenderable> _PlainTextRenderable_ = PlainTextRenderable.class;
 
     /*******************************************************************************************************************
      *

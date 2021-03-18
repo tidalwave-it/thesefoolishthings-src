@@ -45,7 +45,7 @@ import java.util.Optional;
 @FunctionalInterface
 public interface Aggregate<TYPE>
   {
-    public static final Class<Aggregate> Aggregate = Aggregate.class;
+    public static final Class<Aggregate> _Aggregate_ = Aggregate.class;
 
     /*******************************************************************************************************************
      *

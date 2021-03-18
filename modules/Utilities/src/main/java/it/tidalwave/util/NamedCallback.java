@@ -42,7 +42,7 @@ import lombok.experimental.Delegate;
 @RequiredArgsConstructor(staticName = "of")
 public final class NamedCallback implements Callback
   {
-    public static final Class<NamedCallback> NamedCallback = NamedCallback.class;
+    public static final Class<NamedCallback> _NamedCallback_ = NamedCallback.class;
 
     @Getter @Nonnull
     private final String name;

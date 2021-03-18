@@ -43,7 +43,7 @@ import javax.annotation.Nonnull;
 @FunctionalInterface
 public interface Styleable
   {
-    public static final Class<Styleable> Styleable = Styleable.class;
+    public static final Class<Styleable> _Styleable_ = Styleable.class;
     
     @Nonnull
     public Collection<String> getStyles();

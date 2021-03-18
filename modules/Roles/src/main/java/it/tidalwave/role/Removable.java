@@ -39,7 +39,7 @@ package it.tidalwave.role;
 @FunctionalInterface
 public interface Removable
   {
-    public final static Class<Removable> Removable = Removable.class;
+    public final static Class<Removable> _Removable_ = Removable.class;
 
     /*******************************************************************************************************************
      *

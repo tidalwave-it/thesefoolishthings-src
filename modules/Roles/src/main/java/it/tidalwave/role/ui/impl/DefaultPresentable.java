@@ -27,14 +27,14 @@
 package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import it.tidalwave.role.ui.Presentable;
 import it.tidalwave.role.ui.PresentationModel;
-import it.tidalwave.role.ui.impl.DefaultPresentationModel;
 import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * An implementation of {@link Presentable} that creates instances of {@link DefaultPresentationModel}.
+ * An implementation of {@link Presentable}.
  *
  * @stereotype Role
  *
@@ -53,7 +53,7 @@ public class DefaultPresentable implements Presentable
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public PresentationModel createPresentationModel (final @Nonnull Object... localRolesOrFactories)
+    public PresentationModel createPresentationModel (final @Nonnull Collection<Object> localRolesOrFactories)
       {
         return PresentationModel.of(datum, localRolesOrFactories);
       }

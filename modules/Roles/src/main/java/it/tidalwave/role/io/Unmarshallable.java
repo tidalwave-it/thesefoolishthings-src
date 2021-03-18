@@ -42,7 +42,7 @@ import java.io.IOException;
 @FunctionalInterface
 public interface Unmarshallable
   {
-    public static final Class<Unmarshallable> Unmarshallable = Unmarshallable.class;
+    public static final Class<Unmarshallable> _Unmarshallable_ = Unmarshallable.class;
 
     /*******************************************************************************************************************
      *

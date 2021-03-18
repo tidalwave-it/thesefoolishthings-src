@@ -28,100 +28,75 @@ package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
-import java.util.Arrays;
 import java.util.Optional;
-import it.tidalwave.util.NotFoundException;
+import it.tidalwave.role.Aggregate;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * A role that provides {@link UserAction}s.
- *
- * @stereotype role
+ * A specialisation of {@link Aggregate<PresentationModel>} which offers a convenience method for aggregating
+ * its contained objects.
  *
  * @author  Fabrizio Giudici
+ * @since 3.2-ALPHA-3
  *
  **********************************************************************************************************************/
-public interface UserActionProvider
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+public class PresentationModelAggregate implements Aggregate<PresentationModel>
   {
-    public static final Class<UserActionProvider> _UserActionProvider_ = UserActionProvider.class;
+    @Nonnull
+    private final Aggregate<PresentationModel> delegate;
 
     /*******************************************************************************************************************
      *
-     * Returns a collection of {@link UserAction}s.
+     * Creates a new, empty instance.
      *
-     * @return  a collection of actions
+     * @return          the new instance
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Collection<? extends UserAction> getActions();
-
-    /*******************************************************************************************************************
-     *
-     * Returns the default action, if available.
-     *
-     *
-     * @return                      the default action
-     * @throws  NotFoundException   if there's no default action
-     * @deprecated                  Use {@link #getOptionalDefaultAction()}
-     *
-     ******************************************************************************************************************/
-    @Nonnull @Deprecated
-    public UserAction getDefaultAction()
-      throws NotFoundException;
-
-    /*******************************************************************************************************************
-     *
-     * Returns the default action, if available.
-     *
-     * @since   3.1-ALPHA-2
-     * @return                      the default action
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public default Optional<UserAction> getOptionalDefaultAction()
+    public static PresentationModelAggregate newInstance()
       {
-        try
-          {
-            return Optional.of(getDefaultAction());
-          }
-        catch (NotFoundException e)
-          {
-            return Optional.empty();
-          }
+        return new PresentationModelAggregate(it.tidalwave.role.Aggregate.newInstance());
       }
 
     /*******************************************************************************************************************
      *
-     * Factory method which creates an instance out of an array of {@link UserAction}s. The first one is considered the
-     * default action.
+     * Adds another {@link PresentationModel} with the given roles, associated to the given name. With a plain
+     * {@link Aggregate<PresentationModel>} the code would be:
      *
-     * @since   3.1-ALPHA-2
-     * @param   actions     the actions
-     * @return              the {@code UserActionProvider}
+     * <pre>
+     *   Aggregate&lt;PresentationModel&gt; aggregate = Aggregate.newInstance()
+     *            .with("name", PresentationModel.of("", r(role1, role2, role3));
+     * </pre>
+     *
+     * The simplified code is:
+     *
+     * <pre>
+     *   Aggregate&lt;PresentationModel&gt; aggregate = PresentationModelAggregate.newInstance()
+     *            .withPmOf("name", r(role1, role2, role3));
+     * </pre>
+     *
+     * @param   name    the name of the {@code PresentationModel}
+     * @param   roles   the roles
+     * @return          the new {@code PresentationModel}
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static UserActionProvider of (final @Nonnull UserAction ... actions)
+    public PresentationModelAggregate withPmOf (final @Nonnull String name, final @Nonnull Collection<Object> roles)
       {
-        return new UserActionProvider()
-          {
-            @Override @Nonnull
-            public Collection<? extends UserAction> getActions()
-              {
-                return Arrays.asList(actions);
-              }
+        return new PresentationModelAggregate(delegate.with(name, PresentationModel.of("", roles)));
+      }
 
-            @Override @Nonnull
-            public UserAction getDefaultAction()
-              throws NotFoundException
-              {
-                if (actions.length == 0)
-                  {
-                    throw new NotFoundException();
-                  }
-
-                return actions[0];
-              }
-          };
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public Optional<PresentationModel> getByName (final @Nonnull String name)
+      {
+        return delegate.getByName(name);
       }
   }

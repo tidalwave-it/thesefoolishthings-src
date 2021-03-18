@@ -73,10 +73,9 @@ public class DatumAndRole
         return result;
       }
 
-    @Override
+    @Override @Nonnull
     public String toString()
       {
-        return String.format("DatumAndRole(datumClass: %s, roleClass: %s)",
-                             shortName(datumClass), shortName(roleClass));
+        return String.format("(%s, %s)", shortName(datumClass), shortName(roleClass));
       }
   }

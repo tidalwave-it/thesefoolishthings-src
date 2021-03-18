@@ -32,7 +32,7 @@ import java.text.Collator;
 import java.io.Serializable;
 import it.tidalwave.util.As;
 import it.tidalwave.role.ui.Displayable;
-import static it.tidalwave.role.ui.Displayable.Displayable;
+import static it.tidalwave.role.ui.Displayable._Displayable_;
 
 /***********************************************************************************************************************
  *
@@ -58,6 +58,6 @@ public final class AsDisplayableComparator implements Comparator<As>, Serializab
     @Override
     public int compare (final @Nonnull As object1, final @Nonnull As object2)
       {
-        return collator.compare(object1.as(Displayable).getDisplayName(), object2.as(Displayable).getDisplayName());
+        return collator.compare(object1.as(_Displayable_).getDisplayName(), object2.as(_Displayable_).getDisplayName());
       }
   }

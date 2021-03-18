@@ -42,7 +42,7 @@ import java.io.OutputStream;
 @FunctionalInterface
 public interface Marshallable
   {
-    public static final Class<Marshallable> Marshallable = Marshallable.class;
+    public static final Class<Marshallable> _Marshallable_ = Marshallable.class;
 
     /*******************************************************************************************************************
      *
