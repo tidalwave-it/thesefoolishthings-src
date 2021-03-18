@@ -31,6 +31,8 @@ import javax.annotation.CheckForNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
@@ -40,12 +42,9 @@ import java.util.Collection;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Parameters
   {
-    private Parameters()
-      {
-      }
-
     /*******************************************************************************************************************
      *
      * A convenience method for transforming a varargs of roles to a {@link Collection}.
@@ -60,20 +59,6 @@ public final class Parameters
     public static Collection<Object> r (final @Nonnull Object ... roles)
       {
         return Arrays.asList(roles);
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    public static void checkNonNull (@CheckForNull final Object parameter,
-                                     @Nonnull final String name)
-      throws IllegalArgumentException
-      {
-        if (parameter == null)
-          {
-            throw new IllegalArgumentException(String.format("%s is mandatory", name));
-          }
       }
 
     /*******************************************************************************************************************
