@@ -29,6 +29,7 @@ package it.tidalwave.util;
 import javax.annotation.Nonnull;
 import javax.annotation.CheckForNull;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 /***********************************************************************************************************************
@@ -43,6 +44,22 @@ public final class Parameters
   {
     private Parameters()
       {
+      }
+
+    /*******************************************************************************************************************
+     *
+     * A convenience method for transforming a varargs of roles to a {@link Collection}.
+     *
+     * @param   roles   the roles
+     * @return          the
+     * @since   3.2-ALPHA-3
+     * @it.tidalwave.experimental
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Collection<Object> r (final @Nonnull Object ... roles)
+      {
+        return Arrays.asList(roles);
       }
 
     /*******************************************************************************************************************
