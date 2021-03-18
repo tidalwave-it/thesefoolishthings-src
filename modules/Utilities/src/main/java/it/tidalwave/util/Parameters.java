@@ -29,14 +29,14 @@ package it.tidalwave.util;
 import javax.annotation.Nonnull;
 import javax.annotation.CheckForNull;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * This class provides a few static utility methods to extracts parameters from an array.
+ * This class provides a few static utility methods to manipulate arguments to methods.
  *
  * @author  Fabrizio Giudici
  * @it.tidalwave.javadoc.stable
@@ -47,7 +47,8 @@ public final class Parameters
   {
     /*******************************************************************************************************************
      *
-     * A convenience method for transforming a varargs of roles to a {@link Collection}.
+     * A convenience method for transforming a varargs of roles to a {@link Collection}. It supports concatenating
+     * collections: that is, each varargs item that is a {@link Collection} is flattened.
      *
      * @param   roles   the roles
      * @return          the
@@ -58,7 +59,22 @@ public final class Parameters
     @Nonnull
     public static Collection<Object> r (final @Nonnull Object ... roles)
       {
-        return Arrays.asList(roles);
+        // Don't use streams() for performance reasons.
+        final List<Object> result = new ArrayList<>();
+
+        for (final Object role : roles)
+          {
+            if (!(role instanceof Collection))
+              {
+                result.add(role);
+              }
+            else
+              {
+                result.addAll((Collection<?>)role);
+              }
+          }
+
+        return result;
       }
 
     /*******************************************************************************************************************
@@ -78,6 +94,7 @@ public final class Parameters
                                  final @Nonnull O ... parameters)
       throws IllegalArgumentException
       {
+        // Don't use streams() for performance reasons.
         final Collection<T> c = find(parameterClass, parameters);
 
         if (c.size() > 1)
@@ -102,6 +119,7 @@ public final class Parameters
     public static <T, O> Collection<T> find (final @Nonnull Class<T> parameterClass,
                                              final @Nonnull O ... parameters)
       {
+        // Don't use streams() for performance reasons.
         final Collection<T> result = new ArrayList<T>();
 
         for (final Object parameter : parameters)
