@@ -27,9 +27,12 @@
 package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.Collections;
 import it.tidalwave.role.ui.impl.DefaultUserAction;
 import it.tidalwave.util.As;
 import it.tidalwave.util.Callback;
+import it.tidalwave.util.Parameters;
 // import javafx.beans.property.BooleanProperty;
 
 /***********************************************************************************************************************
@@ -59,11 +62,35 @@ public interface UserAction extends As
     /*******************************************************************************************************************
      *
      * @since 3.2-ALPHA-1 (replaces {@code new UserActionSupport()}
+     * @since 3.2-ALPHA-3 (refactored}
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static UserAction of (final @Nonnull Callback callback, final @Nonnull Object ... rolesOrFactories)
+    public static UserAction of (final @Nonnull Callback callback, final @Nonnull Collection<Object> rolesOrFactories)
       {
         return new DefaultUserAction(callback, rolesOrFactories);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * @since 3.2-ALPHA-3
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static UserAction of (final @Nonnull Callback callback, final @Nonnull Object role)
+      {
+        Parameters.mustNotBeArrayOrCollection(role, "role");
+        return of(callback, Collections.singletonList(role));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * @since 3.2-ALPHA-3
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static UserAction of (final @Nonnull Callback callback)
+      {
+        return of(callback, Collections.emptyList());
       }
   }

@@ -27,6 +27,8 @@
 package it.tidalwave.role.ui.spi;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,6 +42,7 @@ import it.tidalwave.util.spi.ArrayListCollectorSupport;
 import it.tidalwave.role.Composite;
 import it.tidalwave.role.ui.PresentationModel;
 import static it.tidalwave.role.ui.Presentable._Presentable_;
+import static it.tidalwave.util.Parameters.r;
 
 /***********************************************************************************************************************
  *
@@ -52,7 +55,7 @@ import static it.tidalwave.role.ui.Presentable._Presentable_;
 public class PresentationModelCollectors extends ArrayListCollectorSupport<PresentationModel, PresentationModel>
   {
     @Nonnull
-    private final List<Object> roles = new ArrayList<>();
+    private final Collection<Object> roles = new ArrayList<>();
     
     /*******************************************************************************************************************
      *
@@ -68,12 +71,19 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
      * 
      * @param   roles   some extra roles included in the resulting {@code PresentationModel}
      * @return          a {@code PresentationModel}
-     * 
+     * @since   3.2-ALPHA-3 (refactored)
+     *
      ******************************************************************************************************************/
     @Nonnull
-    public static PresentationModelCollectors toCompositePresentationModel (final @Nonnull Object ... roles)
+    public static PresentationModelCollectors toCompositePresentationModel (final @Nonnull Collection<Object> roles)
       {
-        return new PresentationModelCollectors(Arrays.asList(roles));
+        return new PresentationModelCollectors(roles);
+      }
+
+    @Nonnull
+    public static PresentationModelCollectors toCompositePresentationModel()
+      {
+        return toCompositePresentationModel((Collection<Object>)Collections.emptyList());
       }
 
     /*******************************************************************************************************************
@@ -98,7 +108,7 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
             final @Nonnull Function<T, Object> roleCreator)
       {
         return StreamSupport.stream(i.spliterator(), false)
-                            .map(o -> o.as(_Presentable_).createPresentationModel(array(roleCreator.apply(o))))
+                            .map(o -> o.as(_Presentable_).createPresentationModel(r(roleCreator.apply(o))))
                             .collect(PresentationModelCollectors.toCompositePresentationModel());
       }
 
@@ -126,31 +136,21 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
     @Override @Nonnull 
     public Function<List<PresentationModel>, PresentationModel> finisher() 
       {
-        return childrenPms ->
-          {
-            final List<Object> temp = new ArrayList<>(roles);
-            temp.add(SimpleComposite.ofCloned(childrenPms));
-            // FIXME: "" triggers a NPE in RoleManagerSupport.java:341
-            return new DefaultPresentationModel("", temp.toArray());
-          };
+        return childrenPms -> PresentationModel.of("", r(roles, SimpleComposite.ofCloned(childrenPms)));
+          // {
+          // final List<Object> temp = new ArrayList<>(roles);
+          // temp.add(SimpleComposite.ofCloned(childrenPms));
+          // // FIXME: "" triggers a NPE in RoleManagerSupport.java:341
+          // return new DefaultPresentationModel("", temp);
+          // };
       }
     
     /*******************************************************************************************************************
      *
      * 
      ******************************************************************************************************************/
-    private PresentationModelCollectors (final @Nonnull List<Object> roles) 
+    private PresentationModelCollectors (final @Nonnull Collection<Object> roles)
       {
         this.roles.addAll(roles);
-      }
-    
-    /*******************************************************************************************************************
-     *
-     * 
-     ******************************************************************************************************************/
-    @Nonnull
-    private static Object[] array (final @Nonnull Object object) 
-      {
-        return (object instanceof Object[]) ? (Object[])object : new Object[] { object };
       }
   }

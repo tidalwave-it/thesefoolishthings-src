@@ -27,6 +27,8 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.Collections;
 import it.tidalwave.util.spi.AsSupport;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -51,13 +53,29 @@ public final class MockAs
      * Creates a mock with Mockito that fully supports {@link As}.
      *
      * @param   clazz               the mock class
+     * @return                      the mock
+     * @since   3.2-ALPHA-3 (refactored)
+     *
+     **********************************************************************************************************************/
+    @Nonnull
+    public static <T extends As> T mockWithAsSupport (final @Nonnull Class<T> clazz)
+      {
+        return mockWithAsSupport(clazz, Collections.emptyList());
+      }
+
+    /***********************************************************************************************************************
+     *
+     * Creates a mock with Mockito that fully supports {@link As}.
+     *
+     * @param   clazz               the mock class
      * @param   rolesOrFactories    a collection of roles or factories for roles
      * @return                      the mock
+     * @since   3.2-ALPHA-3 (refactored)
      *
      **********************************************************************************************************************/
     @Nonnull
     public static <T extends As> T mockWithAsSupport (final @Nonnull Class<T> clazz,
-                                                      final @Nonnull Object ... rolesOrFactories)
+                                                      final @Nonnull Collection<Object> rolesOrFactories)
       {
         final T mock = mock(clazz);
         final AsSupport asSupport = new AsSupport(mock, rolesOrFactories);

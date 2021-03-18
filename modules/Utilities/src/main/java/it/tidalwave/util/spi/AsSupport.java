@@ -28,12 +28,14 @@ package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
+import it.tidalwave.util.Parameters;
 import it.tidalwave.util.RoleFactory;
-import java.util.Collection;
+import static it.tidalwave.util.Parameters.r;
 
 /***********************************************************************************************************************
  *
@@ -64,18 +66,47 @@ public class AsSupport implements As
 
     /*******************************************************************************************************************
      *
-     * Constructor for use in composition. In addition to the mandatory owner, it's possible to pass a collection of
-     * pre-instantiated roles, or instances of {@link RoleFactory} that will be invoked to create additional roles.
+     * Constructor for use in composition.
      *
      * @param  owner             the owner
-     * @param  rolesOrFactories  a collection of roles or factories for roles
+     * @since  3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
-    public AsSupport (final @Nonnull Object owner, final @Nonnull Object ... rolesOrFactories)
+    public AsSupport (final @Nonnull Object owner)
+      {
+        this(owner, Collections.emptyList());
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Constructor for use in composition. In addition to the mandatory owner, it accepts a single pre-instantiated
+     * role, or a {@link RoleFactory} that will be invoked to create additional roles.
+     *
+     * @param  owner          the owner
+     * @param  role           the role or {@link it.tidalwave.util.RoleFactory}
+     * @since  3.2-ALPHA-3
+     *
+     ******************************************************************************************************************/
+    public AsSupport (final @Nonnull Object owner, final @Nonnull Object role)
+      {
+        this(owner, r(Parameters.mustNotBeArrayOrCollection(role, "role")));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Constructor for use in composition. In addition to the mandatory owner, it accepts a collection of
+     * pre-instantiated roles, or instances of {@link RoleFactory} that will be invoked to create additional roles.
+     *
+     * @param  owner          the owner
+     * @param  roles          roles or {@link it.tidalwave.util.RoleFactory} instances
+     * @since  3.2-ALPHA-3 (refactored)
+     *
+     ******************************************************************************************************************/
+    public AsSupport (final @Nonnull Object owner, final @Nonnull Collection<Object> roles)
       {
         delegate = AsDelegateProvider.Locator.find().createAsDelegate(owner);
         this.owner = owner;
-        roles.addAll(resolveFactories(Arrays.asList(rolesOrFactories)));
+        this.roles.addAll(resolveFactories(roles));
       }
 
     /*******************************************************************************************************************
@@ -152,7 +183,7 @@ public class AsSupport implements As
      *
      ******************************************************************************************************************/
     @Nonnull
-    private List<Object> resolveFactories (final @Nonnull List<Object> rolesOrFactories)
+    private List<Object> resolveFactories (final @Nonnull Collection<Object> rolesOrFactories)
       {
         final List<Object> result = new ArrayList<Object>();
 

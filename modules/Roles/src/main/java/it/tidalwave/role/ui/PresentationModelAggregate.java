@@ -86,7 +86,7 @@ public class PresentationModelAggregate implements Aggregate<PresentationModel>
     @Nonnull
     public PresentationModelAggregate withPmOf (final @Nonnull String name, final @Nonnull Collection<Object> roles)
       {
-        return new PresentationModelAggregate(delegate.with(name, PresentationModel.of("", roles.toArray())));
+        return new PresentationModelAggregate(delegate.with(name, PresentationModel.of("", roles)));
       }
 
     /*******************************************************************************************************************

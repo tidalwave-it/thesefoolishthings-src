@@ -28,12 +28,13 @@ package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
 import it.tidalwave.util.As;
 import it.tidalwave.util.NamedCallback;
 import it.tidalwave.role.ui.impl.DefaultPresentationModel;
+import it.tidalwave.util.Parameters;
+import static it.tidalwave.util.Parameters.r;
 
 /***********************************************************************************************************************
  *
@@ -115,12 +116,73 @@ public interface PresentationModel extends As
 
     /*******************************************************************************************************************
      *
+     * Creates an instance given an owner and no roles.
      *
-     * @since 3.2-ALPHA-1
+     * @param   owner   the owner
+     * @return          the new instance
+     *
+     * @since   3.2-ALPHA-3
      *
      ******************************************************************************************************************/
-    public static PresentationModel of (final @Nonnull Object owner, final @Nonnull Object ... rolesOrFactories)
+    @Nonnull
+    public static PresentationModel of (final @Nonnull Object owner)
       {
-        return new DefaultPresentationModel(owner, rolesOrFactories);
+        Parameters.mustNotBeArrayOrCollection(owner, "owner");
+        return of(owner, Collections.emptyList());
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance given an owner and a single role.
+     *
+     * @param   owner   the owner
+     * @param   role    the role (or a {@link it.tidalwave.util.RoleFactory})
+     * @return          the new instance
+     *
+     * @since   3.2-ALPHA-3
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static PresentationModel of (final @Nonnull Object owner, final @Nonnull Object role)
+      {
+        Parameters.mustNotBeArrayOrCollection(owner, "owner");
+        Parameters.mustNotBeArrayOrCollection(role, "role");
+        return of(owner, r(role));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance given an owner and multiple roles.
+     *
+     * @param   owner   the owner
+     * @param   roles   roles or {@link it.tidalwave.util.RoleFactory} instances
+     * @return          the new instance
+     *
+     * @since 3.2-ALPHA-1
+     * @since   3.2-ALPHA-3 (refactored)
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static PresentationModel of (final @Nonnull Object owner, final @Nonnull Collection<Object> roles)
+      {
+        Parameters.mustNotBeArrayOrCollection(owner, "owner");
+        return new DefaultPresentationModel(owner, roles);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns an empty instance (no roles with the exception of a dummy {@link Displayable}.
+     *
+     * @return          the empty instance
+     *
+     * @since   3.2-ALPHA-3
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static PresentationModel empty()
+      {
+        // TODO: cache a singleton, but don't do eager initialization (e.g. a final static), as it would deadlock with
+        // SteelBlue.
+        return of("", Displayable.of("<empty presentation model>"));
       }
   }

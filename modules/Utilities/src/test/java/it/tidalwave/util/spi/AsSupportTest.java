@@ -37,6 +37,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static it.tidalwave.util.Parameters.r;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -48,15 +49,11 @@ import static org.hamcrest.MatcherAssert.*;
  **********************************************************************************************************************/
 public class AsSupportTest
   {
+    @RequiredArgsConstructor
     public static class FixedAsDelegateProvider implements AsDelegateProvider
       {
         @Nonnull
-        private final Object[] roles;
-
-        public FixedAsDelegateProvider (final @Nonnull Object ... roles)
-          {
-            this.roles = roles;
-          }
+        private final Collection<Object> roles;
 
         @Override @Nonnull
         public AsDelegate createAsDelegate (final @Nonnull Object datum)
@@ -133,8 +130,8 @@ public class AsSupportTest
     public void must_find_local_roles()
       {
         // given
-        final AsSupport underTest1 = new AsSupport(owner, localRole1);
-        final AsSupport underTest2 = new AsSupport(owner, localRole1, localRole2);
+        final AsSupport underTest1 = new AsSupport(owner, r(localRole1));
+        final AsSupport underTest2 = new AsSupport(owner, r(localRole1, localRole2));
         // when
         final Role1 ut1role1 = underTest1.as(Role1.class);
         final Role1 ut2Role1 = underTest2.as(Role1.class);
@@ -152,7 +149,7 @@ public class AsSupportTest
     public void must_create_role_from_factory()
       {
         // given
-        final AsSupport underTest = new AsSupport(owner, new RoleFactory3());
+        final AsSupport underTest = new AsSupport(owner, r(new RoleFactory3()));
         // when
         final Role3 role = underTest.as(Role3.class);
         // then
@@ -167,7 +164,7 @@ public class AsSupportTest
     public void must_not_find_inexistent_role()
       {
         // given
-        final AsSupport underTest = new AsSupport(owner, localRole1);
+        final AsSupport underTest = new AsSupport(owner, r(localRole1));
         // when
         underTest.as(Role2.class);
       }
@@ -179,7 +176,7 @@ public class AsSupportTest
     public void must_not_find_inexistent_role_bis()
       {
         // given
-        final AsSupport underTest = new AsSupport(owner, localRole2);
+        final AsSupport underTest = new AsSupport(owner, r(localRole2));
         // when
         underTest.as(Role1.class);
       }
@@ -191,7 +188,7 @@ public class AsSupportTest
     public void must_find_roles_in_delegate()
       {
         // given
-        AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(delegateRole2));
+        AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(r(delegateRole2)));
         final AsSupport underTest = new AsSupport(owner);
         // when
         final Role2 role = underTest.as(Role2.class);
@@ -206,8 +203,8 @@ public class AsSupportTest
     public void must_give_priority_to_local_roles()
       {
         // given
-        AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(delegateRole2));
-        final AsSupport underTest = new AsSupport(owner, localRole2);
+        AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(r(delegateRole2)));
+        final AsSupport underTest = new AsSupport(owner, r(localRole2));
         // when
         final Role2 role = underTest.as(Role2.class);
         // then
@@ -221,7 +218,7 @@ public class AsSupportTest
     public void must_retrieve_multiple_local_roles()
       {
         // given
-        final AsSupport underTest = new AsSupport(owner, localRole2, localRole2b);
+        final AsSupport underTest = new AsSupport(owner, r(localRole2, localRole2b));
         // when
         final Collection<Role2> roles = underTest.asMany(Role2.class);
         // then
@@ -237,8 +234,8 @@ public class AsSupportTest
     public void must_retrieve_multiple_local_and_global_roles()
       {
         // given
-        AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(delegateRole2));
-        final AsSupport underTest = new AsSupport(owner, localRole2, localRole2b);
+        AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(r(delegateRole2)));
+        final AsSupport underTest = new AsSupport(owner, r(localRole2, localRole2b));
         // when
         final Collection<Role2> roles = underTest.asMany(Role2.class);
         // then

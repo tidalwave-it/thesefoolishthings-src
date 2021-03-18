@@ -28,6 +28,10 @@ package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.role.ui.impl.DefaultPresentable;
+import it.tidalwave.util.Parameters;
+import java.util.Collection;
+import java.util.Collections;
+import static it.tidalwave.util.Parameters.r;
 
 /***********************************************************************************************************************
  *
@@ -45,14 +49,44 @@ public interface Presentable
 
     /*******************************************************************************************************************
      *
-     * Creates a {@link PresentationModel} with some optional roles.
+     * Creates a {@link PresentationModel}.
      *
-     * @param  instanceRoles    the optional roles
      * @return                  the {@code PresentationModel}
+     * @since   3.2-ALPHA-3 (refactored)
+     *
+     ******************************************************************************************************************/
+    public default PresentationModel createPresentationModel()
+      {
+        return createPresentationModel(Collections.emptyList());
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates a {@link PresentationModel} with some roles.
+     *
+     * @param  instanceRoles    the roles
+     * @return                  the {@code PresentationModel}
+     * @since   3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
     @Nonnull
-    public PresentationModel createPresentationModel (@Nonnull Object... instanceRoles);
+    public PresentationModel createPresentationModel (@Nonnull Collection<Object> instanceRoles);
+
+    /*******************************************************************************************************************
+     *
+     * Creates a {@link PresentationModel} with a single role.
+     *
+     * @param  instanceRole     the role
+     * @return                  the {@code PresentationModel}
+     * @since   3.2-ALPHA-3
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public default PresentationModel createPresentationModel (@Nonnull Object instanceRole)
+      {
+        Parameters.mustNotBeArrayOrCollection(instanceRole, "instanceRole");
+        return createPresentationModel(r(instanceRole));
+      }
 
     /*******************************************************************************************************************
      *

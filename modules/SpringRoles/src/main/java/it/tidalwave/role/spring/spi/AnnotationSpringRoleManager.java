@@ -51,6 +51,11 @@ public class AnnotationSpringRoleManager extends RoleManagerSupport
     @Inject @Nonnull
     private BeanFactory beanFactory;
 
+    public AnnotationSpringRoleManager()
+      {
+        log.debug("ctor");
+      }
+
     /*******************************************************************************************************************
      *
      *
@@ -59,6 +64,7 @@ public class AnnotationSpringRoleManager extends RoleManagerSupport
     @PostConstruct
     /* package */ void initialize()
       {
+        log.debug("scanning classes with {} annotation...", DciRole.class);
         scan(new ClassScanner().withAnnotationFilter(DciRole.class).findClasses());
       }
 

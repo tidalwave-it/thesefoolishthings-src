@@ -132,4 +132,23 @@ public final class Parameters
 
         return result;
       }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Object mustNotBeArrayOrCollection (final @Nonnull Object object, final @Nonnull String message)
+      {
+        if (object instanceof Collection)
+          {
+            throw new IllegalArgumentException(message + " can't be a Collection");
+          }
+
+        if (object.getClass().isArray())
+          {
+            throw new IllegalArgumentException(message + " can't be an array");
+          }
+
+        return object;
+      }
   }
