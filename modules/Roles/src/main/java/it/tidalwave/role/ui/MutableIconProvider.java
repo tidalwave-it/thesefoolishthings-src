@@ -45,7 +45,7 @@ public interface MutableIconProvider extends IconProvider
     public static final Class<MutableIconProvider> _MutableIconProvider_ = MutableIconProvider.class;
 
     /** The property name for icon. */
-    public final static String PROP_ICON = "icon";
+    public static final String PROP_ICON = "icon";
 
     /*******************************************************************************************************************
      *
@@ -56,7 +56,7 @@ public interface MutableIconProvider extends IconProvider
      * @param  icon  the icon
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nonnull @SuppressWarnings("EmptyMethod")
     public void setIcon (@Nonnull Icon icon);
 
     /*******************************************************************************************************************

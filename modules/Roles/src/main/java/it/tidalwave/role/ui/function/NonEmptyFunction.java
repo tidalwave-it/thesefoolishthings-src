@@ -37,12 +37,12 @@ import it.tidalwave.role.ui.ChangingSource;
 public class NonEmptyFunction extends UnaryBoundFunctionSupport<String, Boolean>
   {
     @Nonnull
-    public static NonEmptyFunction nonEmpty (final @Nonnull ChangingSource<String> source)
+    public static NonEmptyFunction nonEmpty (@Nonnull final ChangingSource<String> source)
       {
         return new NonEmptyFunction(source);
       }
 
-    public NonEmptyFunction (final @Nonnull ChangingSource<String> source)
+    public NonEmptyFunction (@Nonnull final ChangingSource<String> source)
       {
         super(source);
       }

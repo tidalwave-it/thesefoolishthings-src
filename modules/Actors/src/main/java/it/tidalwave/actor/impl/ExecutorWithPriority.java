@@ -73,7 +73,7 @@ public class ExecutorWithPriority
     private final BlockingQueue<Runnable> runnableQueue = new LinkedBlockingDeque<Runnable>()
       {
         @Override
-        public boolean add (final @Nonnull Runnable runnable)
+        public boolean add (@Nonnull final Runnable runnable)
           {
             if (runnable instanceof PriorityRunnable)
               {
@@ -99,16 +99,16 @@ public class ExecutorWithPriority
      * @param  initialPriority   the initial thread priority in this executor
      *
      ******************************************************************************************************************/
-    public ExecutorWithPriority (final @Nonnegative int poolSize,
-                                 final @Nonnull String name,
-                                 final @Nonnegative int initialPriority)
+    public ExecutorWithPriority (@Nonnegative final int poolSize,
+                                 @Nonnull final String name,
+                                 @Nonnegative final int initialPriority)
       {
         final ThreadFactory threadFactory = new ThreadFactory()
           {
             private int count = 0;
 
             @Override @Nonnull
-            public Thread newThread (final @Nonnull Runnable runnable)
+            public Thread newThread (@Nonnull final Runnable runnable)
               {
                 final Thread thread = new Thread(runnable, name + "-" + count++);
                 thread.setPriority(initialPriority);
@@ -117,7 +117,8 @@ public class ExecutorWithPriority
           };
 
         // first parameter should be 0, but in this case it goes monothread
-        executor = new ThreadPoolExecutor(poolSize, poolSize, 2, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(), threadFactory);
+        executor = new ThreadPoolExecutor(poolSize, poolSize, 2, TimeUnit.SECONDS,
+                                          new LinkedBlockingQueue<>(), threadFactory);
 //        executor = new ThreadPoolExecutor(poolSize, poolSize, 2, TimeUnit.SECONDS, runnableQueue, threadFactory);
       }
 
@@ -128,7 +129,7 @@ public class ExecutorWithPriority
      * @param  worker  the worker
      *
      ******************************************************************************************************************/
-    public void execute (final @Nonnull Runnable worker)
+    public void execute (@Nonnull final Runnable worker)
       {
         runnableQueue.add(worker);
         executor.execute(consumer);
@@ -142,17 +143,10 @@ public class ExecutorWithPriority
      * @param  worker  the worker
      *
      ******************************************************************************************************************/
-    public void executeWithPriority (final @Nonnull Runnable worker)
+    public void executeWithPriority (@Nonnull final Runnable worker)
       {
 //        executor.execute(new PriorityRunnable()
-        runnableQueue.add(new PriorityRunnable()
-          {
-            @Override
-            public void run()
-              {
-                worker.run();
-              }
-          });
+        runnableQueue.add((PriorityRunnable)worker::run);
         executor.execute(consumer);
       }
   }

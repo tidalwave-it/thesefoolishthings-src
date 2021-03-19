@@ -54,7 +54,7 @@ public class Id implements Serializable, Comparable<Id>, StringValue
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Id of (final @Nonnull Object value)
+    public static Id of (@Nonnull final Object value)
       {
         return new Id(value);
       }

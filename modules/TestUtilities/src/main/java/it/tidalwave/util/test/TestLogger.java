@@ -46,7 +46,7 @@ public class TestLogger extends TestListenerAdapter
     private static final String SEPARATOR = S + S + S + S;
 
     @Override
-    public void onStart (final @Nonnull ITestContext testContext)
+    public void onStart (@Nonnull final ITestContext testContext)
       {
         super.onStart(testContext);
         final String testClass = testContext.getCurrentXmlTest().getClasses().get(0).getName();
@@ -55,7 +55,7 @@ public class TestLogger extends TestListenerAdapter
       }
 
     @Override
-    public void onFinish (final @Nonnull ITestContext testContext)
+    public void onFinish (@Nonnull final ITestContext testContext)
       {
         super.onFinish(testContext);
         final String testClass = testContext.getCurrentXmlTest().getClasses().get(0).getName();
@@ -72,7 +72,7 @@ public class TestLogger extends TestListenerAdapter
 //      }
 
     @Override
-    public void onConfigurationSkip (final @Nonnull ITestResult result)
+    public void onConfigurationSkip (@Nonnull final ITestResult result)
       {
         super.onConfigurationSkip(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
@@ -86,7 +86,7 @@ public class TestLogger extends TestListenerAdapter
       }
 
     @Override
-    public void onConfigurationFailure (final @Nonnull ITestResult result)
+    public void onConfigurationFailure (@Nonnull final ITestResult result)
       {
         super.onConfigurationFailure(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
@@ -100,7 +100,7 @@ public class TestLogger extends TestListenerAdapter
       }
 
     @Override
-    public void onTestStart (final @Nonnull ITestResult result)
+    public void onTestStart (@Nonnull final ITestResult result)
       {
         super.onTestStart(result);
         String args = "";
@@ -128,7 +128,7 @@ public class TestLogger extends TestListenerAdapter
       }
 
     @Override
-    public void onTestFailure (final @Nonnull ITestResult result)
+    public void onTestFailure (@Nonnull final ITestResult result)
       {
         super.onTestFailure(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
@@ -144,7 +144,7 @@ public class TestLogger extends TestListenerAdapter
       }
 
     @Override
-    public void onTestFailedButWithinSuccessPercentage (final @Nonnull ITestResult result)
+    public void onTestFailedButWithinSuccessPercentage (@Nonnull final ITestResult result)
       {
         super.onTestFailedButWithinSuccessPercentage(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
@@ -153,7 +153,7 @@ public class TestLogger extends TestListenerAdapter
       }
 
     @Override
-    public void onTestSkipped (final @Nonnull ITestResult result)
+    public void onTestSkipped (@Nonnull final ITestResult result)
       {
         super.onTestSkipped(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
@@ -169,7 +169,7 @@ public class TestLogger extends TestListenerAdapter
       }
 
     @Override
-    public void onTestSuccess (final @Nonnull ITestResult result)
+    public void onTestSuccess (@Nonnull final ITestResult result)
       {
         super.onTestSuccess(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
@@ -178,7 +178,7 @@ public class TestLogger extends TestListenerAdapter
       }
 
     @Nonnull
-    private static String getMessage (final @Nullable Throwable throwable)
+    private static String getMessage (@Nullable final Throwable throwable)
       {
         return (throwable == null) ? "" : throwable.toString().replaceAll("\n*", "");
       }

@@ -39,7 +39,7 @@ import javax.annotation.Nonnull;
  **********************************************************************************************************************/
 public class AsException extends RuntimeException
   {
-    private final static long serialVersionUID = 7345935467346234L;
+    private static final long serialVersionUID = 7345935467346234L;
 
     /*******************************************************************************************************************
      *
@@ -52,11 +52,6 @@ public class AsException extends RuntimeException
       {
         super(roleType.getName());
       }
-
-//    public AsException (@Nonnull final Throwable t)
-//      {
-//        super(t);
-//      }
 
     /*******************************************************************************************************************
      *

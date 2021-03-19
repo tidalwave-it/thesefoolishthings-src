@@ -26,6 +26,7 @@
  */
 package it.tidalwave.util.spi;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -50,7 +51,7 @@ public class FinderSupportTest
             super(other, override);
           }
 
-        @Override
+        @Override @Nonnull
         protected List<? extends String> computeResults()
           {
             final List<String> result = new ArrayList<>();
@@ -70,7 +71,7 @@ public class FinderSupportTest
         // given
         final UnderTest underTest = new UnderTest();
         // when
-        List<? extends String> results = underTest.from(11).results();
+        final List<? extends String> results = underTest.from(11).results();
         // then
         assertThat(results.size(), is(100 - 11));
       }
@@ -81,7 +82,7 @@ public class FinderSupportTest
         // given
         final UnderTest underTest = new UnderTest();
         // when
-        List<? extends String> results = underTest.from(101).results();
+        final List<? extends String> results = underTest.from(101).results();
         // then
         assertThat(results.size(), is(0));
       }

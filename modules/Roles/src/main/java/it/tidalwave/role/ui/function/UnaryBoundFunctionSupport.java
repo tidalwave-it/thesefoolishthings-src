@@ -44,20 +44,14 @@ public abstract class UnaryBoundFunctionSupport<DOMAIN_TYPE, CODOMAIN_TYPE>
 
     protected CODOMAIN_TYPE value;
 
-    protected UnaryBoundFunctionSupport (final @Nonnull ChangingSource<DOMAIN_TYPE> source)
+    protected UnaryBoundFunctionSupport (@Nonnull final ChangingSource<DOMAIN_TYPE> source)
       {
         this.source = source;
-        source.addPropertyChangeListener(new PropertyChangeListener()
-          {
-            @Override
-            public void propertyChange (final @Nonnull PropertyChangeEvent event)
-              {
-                onSourceChange((DOMAIN_TYPE)event.getOldValue(), (DOMAIN_TYPE)event.getNewValue());
-              }
-          });
+        source.addPropertyChangeListener((PropertyChangeListener)event ->
+                onSourceChange((DOMAIN_TYPE)event.getOldValue(), (DOMAIN_TYPE)event.getNewValue()));
       }
 
-    protected void onSourceChange (final @Nonnull DOMAIN_TYPE oldSourceValue, final @Nonnull DOMAIN_TYPE newSourceValue)
+    protected void onSourceChange (@Nonnull final DOMAIN_TYPE oldSourceValue, @Nonnull final DOMAIN_TYPE newSourceValue)
       {
         final CODOMAIN_TYPE oldValue = function(oldSourceValue);
         value = function(newSourceValue);

@@ -87,7 +87,7 @@ public class DefaultContextManagerTest
         // when
         final List<Object> contexts = underTest.getContexts();
         // then
-        assertThat(contexts, is(Collections.<Object>emptyList()));
+        assertThat(contexts, is(Collections.emptyList()));
       }
 
     /*******************************************************************************************************************
@@ -215,37 +215,25 @@ public class DefaultContextManagerTest
         final ExecutorService executorService = Executors.newSingleThreadExecutor();
         final CountDownLatch latch = new CountDownLatch(3);
 
-        final Runnable r1 = new Runnable()
+        final Runnable r1 = () ->
           {
-            @Override
-            public void run()
-              {
-                underTest.addGlobalContext(globalContext1);
-                underTest.addLocalContext(localContext1);
-                latch.countDown();
-              }
+            underTest.addGlobalContext(globalContext1);
+            underTest.addLocalContext(localContext1);
+            latch.countDown();
           };
 
-        final Runnable r2 = new Runnable()
+        final Runnable r2 = () ->
           {
-            @Override
-            public void run()
-              {
-                underTest.addGlobalContext(globalContext2);
-                underTest.addLocalContext(localContext2);
-                latch.countDown();
-              }
+            underTest.addGlobalContext(globalContext2);
+            underTest.addLocalContext(localContext2);
+            latch.countDown();
           };
 
-        final Runnable r3 = new Runnable()
+        final Runnable r3 = () ->
           {
-            @Override
-            public void run()
-              {
-                underTest.addGlobalContext(globalContext3);
-                underTest.addLocalContext(localContext3);
-                latch.countDown();
-              }
+            underTest.addGlobalContext(globalContext3);
+            underTest.addLocalContext(localContext3);
+            latch.countDown();
           };
         // when
         executorService.submit(r1);
@@ -256,9 +244,6 @@ public class DefaultContextManagerTest
         assertThat(underTest.getContexts(), is(asList(globalContext1, globalContext2, globalContext3)));
       }
 
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
     // TODO: test findContextOfType()
 
     /*******************************************************************************************************************
@@ -266,7 +251,6 @@ public class DefaultContextManagerTest
      ******************************************************************************************************************/
     @Test
     public void runWithContexts_must_temporarily_associate_local_contexts()
-      throws InterruptedException
       {
         // given
         underTest.addGlobalContext(globalContext1);

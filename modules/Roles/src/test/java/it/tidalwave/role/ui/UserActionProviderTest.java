@@ -56,7 +56,7 @@ public class UserActionProviderTest
         private final List<UserAction> expected;
 
         @Override
-        public boolean matches (final @Nonnull Object object)
+        public boolean matches (@Nonnull final Object object)
           {
             final List<UserAction> actual = (List<UserAction>) object;
 
@@ -77,7 +77,7 @@ public class UserActionProviderTest
           }
 
         @Override
-        public void describeTo(Description description)
+        public void describeTo(final Description description)
           {
             description.appendValue(expected);
           }

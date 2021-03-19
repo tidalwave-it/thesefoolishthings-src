@@ -45,7 +45,7 @@ public class ActionProviderSupport implements ActionProvider
     @Override @Nonnull
     public Collection<? extends Action> getActions()
       {
-        return Collections.<Action>emptyList();
+        return Collections.emptyList();
       }
 
     @Override @Nonnull

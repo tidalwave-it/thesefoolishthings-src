@@ -39,7 +39,7 @@ import javax.annotation.Nonnull;
  **********************************************************************************************************************/
 public class DuplicateException extends Exception
   {
-    private final static long serialVersionUID = 12560685435629394L;
+    private static final long serialVersionUID = 12560685435629394L;
 
     /*******************************************************************************************************************
      *
@@ -57,7 +57,7 @@ public class DuplicateException extends Exception
      * @param  message  the message
      *
      ******************************************************************************************************************/
-    public DuplicateException (final @Nonnull String message)
+    public DuplicateException (@Nonnull final String message)
       {
         super(message);
       }

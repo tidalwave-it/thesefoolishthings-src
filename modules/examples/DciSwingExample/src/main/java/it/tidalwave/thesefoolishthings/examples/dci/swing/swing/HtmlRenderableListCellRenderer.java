@@ -50,9 +50,9 @@ import static it.tidalwave.role.HtmlRenderable.*;
 public class HtmlRenderableListCellRenderer extends DefaultListCellRenderer
   {
     @Override @Nonnull
-    public Component getListCellRendererComponent (final @Nonnull JList list,
-                                                   final @Nonnull Object value,
-                                                   final @Nonnegative int index,
+    public Component getListCellRendererComponent (@Nonnull final JList list,
+                                                   @Nonnull final Object value,
+                                                   @Nonnegative final int index,
                                                    final boolean isSelected,
                                                    final boolean cellHasFocus)
       {
@@ -60,7 +60,7 @@ public class HtmlRenderableListCellRenderer extends DefaultListCellRenderer
       }
 
     @Nonnull
-    private static String getRenderableString (final @Nonnull Object value)
+    private static String getRenderableString (@Nonnull final Object value)
       {
         try
           {

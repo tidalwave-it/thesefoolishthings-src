@@ -59,7 +59,7 @@ public abstract class Task<T, E extends Throwable>
      * @param  name  the name
      *
      ******************************************************************************************************************/
-    public Task (final @Nonnull String name)
+    public Task (@Nonnull final String name)
       {
         this.name = String.format("Task@%x[%s]", System.identityHashCode(this), name);
       }
@@ -93,7 +93,7 @@ public abstract class Task<T, E extends Throwable>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Task<Void, RuntimeException> ofRunnable (final @Nonnull Runnable runnable)
+    public static Task<Void, RuntimeException> ofRunnable (@Nonnull final Runnable runnable)
       {
         return new Task<Void, RuntimeException>()
           {
@@ -116,7 +116,7 @@ public abstract class Task<T, E extends Throwable>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Task<T, Exception> ofCallable (final @Nonnull Callable<T> callable)
+    public static <T> Task<T, Exception> ofCallable (@Nonnull final Callable<T> callable)
       {
         return new Task<T, Exception>()
           {
@@ -139,7 +139,7 @@ public abstract class Task<T, E extends Throwable>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Task<Void, Throwable> ofCallback (final @Nonnull Callback callback)
+    public static Task<Void, Throwable> ofCallback (@Nonnull final Callback callback)
       {
         return new Task<Void, Throwable>()
           {

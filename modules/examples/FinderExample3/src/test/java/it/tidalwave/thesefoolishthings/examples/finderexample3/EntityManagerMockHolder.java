@@ -56,7 +56,7 @@ public class EntityManagerMockHolder
         when(em.createQuery(anyString())).thenAnswer(new Answer<Query>() 
           {
             @Nonnull
-            public Query answer (final @Nonnull InvocationOnMock invocation)  
+            public Query answer (@Nonnull final InvocationOnMock invocation)
               {
                 sqlQuery = (String)invocation.getArguments()[0];
                 return query;  
@@ -66,7 +66,7 @@ public class EntityManagerMockHolder
         when(query.setFirstResult(anyInt())).thenAnswer(new Answer<Query>() 
           {
             @Nonnull
-            public Query answer (final @Nonnull InvocationOnMock invocation)  
+            public Query answer (@Nonnull final InvocationOnMock invocation)
               {
                 firstResult = (Integer)invocation.getArguments()[0];
                 return query;
@@ -76,7 +76,7 @@ public class EntityManagerMockHolder
         when(query.setMaxResults(anyInt())).thenAnswer(new Answer<Query>() 
           {
             @Nonnull
-            public Query answer (final @Nonnull InvocationOnMock invocation)  
+            public Query answer (@Nonnull final InvocationOnMock invocation)
               {
                 maxResults = (Integer)invocation.getArguments()[0];
                 return query;

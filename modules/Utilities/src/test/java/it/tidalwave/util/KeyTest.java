@@ -89,7 +89,7 @@ public class KeyTest
      *
      ******************************************************************************************************************/
     @Test(dataProvider = "keysAndExpectedTypes")
-    public <T> void must_return_the_correct_dynamic_type (final @Nonnull Key<T> key, final @Nonnull Class<T> expectedType)
+    public <T> void must_return_the_correct_dynamic_type (@Nonnull final Key<T> key, @Nonnull final Class<T> expectedType)
       {
         // when
         final Class<T> actualType = key.getType();
@@ -106,10 +106,10 @@ public class KeyTest
     private static Object[][] keysAndExpectedTypes()
       {
         return new Object[][]
-                {
-                        { new Key<String>("string") {},   String.class  },
-                        { new Key<Integer>("integer") {}, Integer.class },
-                        { new Key<Date>("date") {},       Date.class    },
-                        };
+          {
+            { new Key<String>("string") {},   String.class  },
+            { new Key<Integer>("integer") {}, Integer.class },
+            { new Key<Date>("date") {},       Date.class    }
+          };
       }
   }

@@ -41,33 +41,33 @@ import it.tidalwave.util.As;
  **********************************************************************************************************************/
 public class AsExtensions
   {
-    private final static AsExtensionsBean bean = new AsExtensionsBean();
+    private static final AsExtensionsBean bean = new AsExtensionsBean();
 
     @Nonnull
-    public static <T> T as (final @Nonnull Object datum,
-                            final @Nonnull Class<T> roleType)
+    public static <T> T as (@Nonnull final Object datum,
+                            @Nonnull final Class<T> roleType)
       {
         return as(datum, roleType, As.Defaults.throwAsException(roleType));
       }
 
     @Nonnull
-    public static <T> T as (final @Nonnull Object datum,
-                            final @Nonnull Class<T> roleType,
-                            final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour)
+    public static <T> T as (@Nonnull final Object datum,
+                            @Nonnull final Class<T> roleType,
+                            @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
       {
         return bean.as(datum, roleType, notFoundBehaviour);
       }
 
     @Nonnull
-    public static <T> Optional<T> maybeAs (final @Nonnull Object datum,
-                                           final @Nonnull Class<T> type)
+    public static <T> Optional<T> maybeAs (@Nonnull final Object datum,
+                                           @Nonnull final Class<T> type)
       {
         return Optional.ofNullable(as(datum, type, throwable -> null));
       }
 
     @Nonnull
-    public static <T> Collection<T> asMany (final @Nonnull Object datum,
-                                            final @Nonnull Class<T> type)
+    public static <T> Collection<T> asMany (@Nonnull final Object datum,
+                                            @Nonnull final Class<T> type)
       {
         return (Collection<T>)bean.asMany(datum, type);
       }

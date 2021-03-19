@@ -45,7 +45,7 @@ import static it.tidalwave.util.Parameters.r;
 @FunctionalInterface
 public interface Presentable
   {
-    public final static Class<Presentable> _Presentable_ = Presentable.class;
+    public static final Class<Presentable> _Presentable_ = Presentable.class;
 
     /*******************************************************************************************************************
      *
@@ -82,7 +82,7 @@ public interface Presentable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default PresentationModel createPresentationModel (@Nonnull Object instanceRole)
+    public default PresentationModel createPresentationModel (@Nonnull final Object instanceRole)
       {
         Parameters.mustNotBeArrayOrCollection(instanceRole, "instanceRole");
         return createPresentationModel(r(instanceRole));
@@ -94,7 +94,7 @@ public interface Presentable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Presentable of (final @Nonnull Object owner)
+    public static Presentable of (@Nonnull final Object owner)
       {
         return new DefaultPresentable(owner);
       }

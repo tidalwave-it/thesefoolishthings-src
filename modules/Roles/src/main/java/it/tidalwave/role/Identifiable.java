@@ -42,7 +42,7 @@ import it.tidalwave.util.Id;
 @FunctionalInterface
 public interface Identifiable
   {
-    public final static Class<Identifiable> _Identifiable_ = Identifiable.class;
+    public static final Class<Identifiable> _Identifiable_ = Identifiable.class;
 
     /*******************************************************************************************************************
      *

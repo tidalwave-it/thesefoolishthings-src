@@ -66,7 +66,7 @@ public class MapAggregate<TYPE> implements Aggregate<TYPE>
      *
      *
      ******************************************************************************************************************/
-    public MapAggregate (final @Nonnull Map<String, TYPE> mapByName)
+    public MapAggregate (@Nonnull final Map<String, TYPE> mapByName)
       {
         this.mapByName = Collections.unmodifiableMap(new HashMap<>(mapByName));
       }
@@ -77,7 +77,7 @@ public class MapAggregate<TYPE> implements Aggregate<TYPE>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Optional<TYPE> getByName (final @Nonnull String name)
+    public Optional<TYPE> getByName (@Nonnull final String name)
       {
         return Optional.ofNullable(mapByName.get(name));
       }
@@ -99,7 +99,7 @@ public class MapAggregate<TYPE> implements Aggregate<TYPE>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Aggregate<TYPE> with (final @Nonnull String name, final @Nonnull TYPE object)
+    public Aggregate<TYPE> with (@Nonnull final String name, @Nonnull final TYPE object)
       {
         final Map<String, TYPE> clone = new HashMap<>(mapByName);
         clone.put(name, object);

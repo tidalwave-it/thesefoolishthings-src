@@ -101,7 +101,7 @@ public interface UserActionProvider
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static UserActionProvider of (final @Nonnull UserAction ... actions)
+    public static UserActionProvider of (@Nonnull final UserAction ... actions)
       {
         return new UserActionProvider()
           {

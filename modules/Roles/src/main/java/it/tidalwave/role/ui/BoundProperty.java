@@ -30,7 +30,6 @@ import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -46,7 +45,7 @@ import lombok.experimental.Delegate;
 public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
   {
     @Delegate
-    private transient final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private final transient PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public static final String PROP_VALUE = "value";
 
@@ -58,7 +57,7 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> BoundProperty<T> of (final @Nonnull T value)
+    public static <T> BoundProperty<T> of (@Nonnull final T value)
       {
         return new BoundProperty<>(value);
       }
@@ -92,7 +91,7 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
      *
      *
      ******************************************************************************************************************/
-    public void bind (final @Nonnull ChangingSource<T> source)
+    public void bind (@Nonnull final ChangingSource<T> source)
       {
         source.addPropertyChangeListener(event -> set((T)event.getNewValue()));
 

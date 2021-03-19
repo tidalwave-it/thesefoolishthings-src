@@ -41,8 +41,7 @@ import org.joda.time.Duration;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Message @Immutable
-@EqualsAndHashCode @ToString(callSuper = false)
+@Message @Immutable @EqualsAndHashCode @ToString
 public class CollaborationCompletedMessage extends MessageSupport
   {
     private final long endTime = System.currentTimeMillis();
@@ -52,7 +51,7 @@ public class CollaborationCompletedMessage extends MessageSupport
      *
      *
      ******************************************************************************************************************/
-    private CollaborationCompletedMessage (final @Nonnull Collaboration collaboration)
+    private CollaborationCompletedMessage (@Nonnull final Collaboration collaboration)
       {
         super(collaboration);
       }
@@ -66,7 +65,7 @@ public class CollaborationCompletedMessage extends MessageSupport
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static CollaborationCompletedMessage forCollaboration (final @Nonnull Collaboration collaboration)
+    public static CollaborationCompletedMessage forCollaboration (@Nonnull final Collaboration collaboration)
       {
         return new CollaborationCompletedMessage(collaboration);
       }

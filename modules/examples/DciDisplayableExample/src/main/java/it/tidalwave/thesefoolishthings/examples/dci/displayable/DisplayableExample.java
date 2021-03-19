@@ -48,7 +48,6 @@ public class DisplayableExample
     private ContextManager contextManager;
     
     public void run()
-      throws Exception
       {
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
         final Person luke = new Person(new Id("2"), "Luke", "Skywalker");

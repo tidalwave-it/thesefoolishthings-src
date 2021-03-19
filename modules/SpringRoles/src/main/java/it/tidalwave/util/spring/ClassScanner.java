@@ -62,7 +62,7 @@ public class ClassScanner
     @Nonnull
     public final Collection<Class<?>> findClasses()
       {
-        final List<Class<?>> classes = new ArrayList<Class<?>>();
+        final List<Class<?>> classes = new ArrayList<>();
 
         for (final String basePackage : basePackages.split(":"))
           {
@@ -84,7 +84,7 @@ public class ClassScanner
      *
      ******************************************************************************************************************/
     @Nonnull
-    public ClassScanner withIncludeFilter (final @Nonnull TypeFilter filter)
+    public ClassScanner withIncludeFilter (@Nonnull final TypeFilter filter)
       {
         scanner.addIncludeFilter(filter);
         return this;
@@ -98,7 +98,7 @@ public class ClassScanner
      *
      ******************************************************************************************************************/
     @Nonnull
-    public ClassScanner withAnnotationFilter (final @Nonnull Class<? extends Annotation> annotationClass)
+    public ClassScanner withAnnotationFilter (@Nonnull final Class<? extends Annotation> annotationClass)
       {
         return withIncludeFilter(new AnnotationTypeFilter(annotationClass));
       }

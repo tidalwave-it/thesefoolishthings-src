@@ -40,14 +40,14 @@ import java.util.Collection;
 public class EmptyAsDelegateProvider implements AsDelegateProvider
   {
     @Override @Nonnull
-    public AsDelegate createAsDelegate (final @Nonnull Object owner)
+    public AsDelegate createAsDelegate (@Nonnull final Object owner)
       {
         return new AsDelegate()
           {
             @Override @Nonnull
-            public <T> Collection<T> as (Class<T> type)
+            public <T> Collection<T> as (final Class<T> type)
               {
-                return new ArrayList<T>(); // must be mutable
+                return new ArrayList<>(); // must be mutable
               }
           };
       }

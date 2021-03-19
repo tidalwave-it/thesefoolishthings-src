@@ -40,7 +40,7 @@ import java.util.Collection;
  **********************************************************************************************************************/
 public class NotFoundException extends Exception
   {
-    private final static long serialVersionUID = 3453465498093L;
+    private static final long serialVersionUID = 3453465498093L;
 
     /*******************************************************************************************************************
      *
@@ -58,7 +58,7 @@ public class NotFoundException extends Exception
      * @param  message    the message
      *
      ******************************************************************************************************************/
-    public NotFoundException (final @Nonnull String message)
+    public NotFoundException (@Nonnull final String message)
       {
         super(message);
       }
@@ -70,7 +70,7 @@ public class NotFoundException extends Exception
      * @param  cause    the cause
      *
      ******************************************************************************************************************/
-    public NotFoundException (final @Nonnull Throwable cause)
+    public NotFoundException (@Nonnull final Throwable cause)
       {
         super(cause);
       }
@@ -83,7 +83,7 @@ public class NotFoundException extends Exception
      * @param  cause    the cause
      *
      ******************************************************************************************************************/
-    public NotFoundException (final @Nonnull String message, final @Nonnull Throwable cause)
+    public NotFoundException (@Nonnull final String message, @Nonnull final Throwable cause)
       {
         super(message, cause);
       }
@@ -100,8 +100,7 @@ public class NotFoundException extends Exception
      *
      ******************************************************************************************************************/
     @Nonnull // needed for binary backward compatibility (this method interprets % in message in verbatim mode)
-    public static <T> T throwWhenNull (final @Nullable T object,
-                                       final @Nonnull String message)
+    public static <T> T throwWhenNull (@Nullable final T object, @Nonnull final String message)
       throws NotFoundException
       {
         if (object == null)
@@ -125,9 +124,9 @@ public class NotFoundException extends Exception
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> T throwWhenNull (final @Nullable T object,
-                                       final @Nonnull String message,
-                                       final @Nonnull Object... args)
+    public static <T> T throwWhenNull (@Nullable final T object,
+                                       @Nonnull final String message,
+                                       @Nonnull final Object... args)
       throws NotFoundException
       {
         if (object == null)
@@ -150,8 +149,8 @@ public class NotFoundException extends Exception
      *
      ******************************************************************************************************************/
     @Nonnull // needed for binary backward compatibility (this method interprets % in message in verbatim mode)
-    public static <T extends Collection<?>> T throwWhenEmpty (final @Nullable T collection,
-                                                              final @Nonnull String message)
+    public static <T extends Collection<?>> T throwWhenEmpty (@Nullable final T collection,
+                                                              @Nonnull final String message)
       throws NotFoundException
       {
         if ((collection == null) || collection.isEmpty())
@@ -175,9 +174,9 @@ public class NotFoundException extends Exception
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T extends Collection<?>> T throwWhenEmpty (final @Nullable T collection,
-                                                              final @Nonnull String message,
-                                                              final @Nonnull Object... args)
+    public static <T extends Collection<?>> T throwWhenEmpty (@Nullable final T collection,
+                                                              @Nonnull final String message,
+                                                              @Nonnull final Object... args)
       throws NotFoundException
       {
         if ((collection == null) || collection.isEmpty())

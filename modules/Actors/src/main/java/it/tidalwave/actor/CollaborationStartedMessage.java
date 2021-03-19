@@ -40,8 +40,7 @@ import org.joda.time.DateTime;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Message @Immutable
-@EqualsAndHashCode(callSuper = true) @ToString(callSuper = false)
+@Message @Immutable @EqualsAndHashCode(callSuper = true) @ToString
 public class CollaborationStartedMessage extends MessageSupport
   {
     /*******************************************************************************************************************
@@ -49,7 +48,7 @@ public class CollaborationStartedMessage extends MessageSupport
      *
      *
      ******************************************************************************************************************/
-    private CollaborationStartedMessage (final @Nonnull Collaboration collaboration)
+    private CollaborationStartedMessage (@Nonnull final Collaboration collaboration)
       {
         super(collaboration);
       }
@@ -63,7 +62,7 @@ public class CollaborationStartedMessage extends MessageSupport
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static CollaborationStartedMessage forCollaboration (final @Nonnull Collaboration collaboration)
+    public static CollaborationStartedMessage forCollaboration (@Nonnull final Collaboration collaboration)
       {
         return new CollaborationStartedMessage(collaboration);
       }

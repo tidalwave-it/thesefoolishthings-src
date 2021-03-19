@@ -49,7 +49,7 @@ public abstract class EventBusAdapterTestSupport
         // FIXME: assertions
       }
 
-    protected abstract void publish (final @Nonnull Object message);
+    protected abstract void publish (@Nonnull final Object message);
 
     protected abstract MessageBusHelper.Adapter getAdapterFactory();
   }

@@ -27,7 +27,6 @@
 package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.HashMap;
@@ -63,36 +62,36 @@ class UnderTest extends RoleManagerSupport
 
     private final Map<Class<?>, Object> beanMapByClass = new HashMap<>();
 
-    public void register (final @Nonnull Class<?> roleClass, final @Nonnull Class<?> ... ownerClasses)
+    public void register (@Nonnull final Class<?> roleClass, @Nonnull final Class<?> ... ownerClasses)
       {
         ownerClassesMapByRoleClass.put(roleClass, ownerClasses);
       }
 
-    public void registerContext (final @Nonnull Class<?> roleImplementationClass,
-                                 final @Nonnull Class<?> contextClass)
+    public void registerContext (@Nonnull final Class<?> roleImplementationClass,
+                                 @Nonnull final Class<?> contextClass)
       {
         contextClassMapByRoleClass.put(roleImplementationClass, contextClass);
       }
 
-    public void registerBean (final @Nonnull Object bean)
+    public void registerBean (@Nonnull final Object bean)
       {
         beanMapByClass.put(bean.getClass(), bean);
       }
 
-    @Override
-    protected <T> T getBean (final @Nonnull Class<T> beanType)
+    @Override @Nonnull
+    protected <T> T getBean (@Nonnull final Class<T> beanType)
       {
         return (T)beanMapByClass.get(beanType);
       }
 
-    @Override
-    protected Class<?> findContextTypeForRole (Class<?> roleImplementationClass)
+    @Override @Nonnull
+    protected Class<?> findContextTypeForRole (final Class<?> roleImplementationClass)
       throws NotFoundException
       {
         return NotFoundException.throwWhenNull(contextClassMapByRoleClass.get(roleImplementationClass), "No context");
       }
 
-    @Override
+    @Override @Nonnull
     protected Class<?>[] findDatumTypesForRole (final Class<?> roleImplementationClass)
       {
         final Class<?>[] result = ownerClassesMapByRoleClass.get(roleImplementationClass);
@@ -124,22 +123,15 @@ public class RoleManagerSupportTest
     public void setup()
       {
         contextManager = mock(ContextManager.class);
-        ContextManager.Locator.set(new ContextManagerProvider()
-          {
-            @Override
-            public ContextManager getContextManager()
-              {
-                return contextManager;
-              }
-          });
+        ContextManager.Locator.set((ContextManagerProvider)() -> contextManager);
       }
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
     @Test(dataProvider = "classesAndExpectedInterfaces")
-    public void must_correctly_find_implemented_interfaces (final @Nonnull Class<?> clazz,
-                                                            final @Nonnull Set<Class<?>> expectedInterfaces)
+    public void must_correctly_find_implemented_interfaces (@Nonnull final Class<?> clazz,
+                                                            @Nonnull final Set<Class<?>> expectedInterfaces)
       {
         // given the mocks
         // when
@@ -284,9 +276,9 @@ public class RoleManagerSupportTest
      *
      ******************************************************************************************************************/
     @Test(dataProvider = "ownersAndRoleImplementations")
-    public void must_correctly_find_roles (final @Nonnull Object owner,
-                                           final @Nonnull Class<?> roleClass,
-                                           final @Nonnull List<?> expectedRoles)
+    public void must_correctly_find_roles (@Nonnull final Object owner,
+                                           @Nonnull final Class<?> roleClass,
+                                           @Nonnull final List<?> expectedRoles)
       throws NotFoundException
       {
         // given
@@ -367,7 +359,7 @@ public class RoleManagerSupportTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    private void registerMockRoles (final @Nonnull UnderTest underTest)
+    private void registerMockRoles (@Nonnull final UnderTest underTest)
       {
         underTest.register(RI1A.class, CA1.class, CA2.class);
         underTest.register(RI3A.class, CA3.class);
@@ -385,7 +377,7 @@ public class RoleManagerSupportTest
      * To get rid of generics problems.
      *
      ******************************************************************************************************************/
-    private static <T> void assertSetEquals (Set actual, Set expected)
+    private static <T> void assertSetEquals (final Set actual, final Set expected)
       {
         assertThat(actual, is(expected));
       }
@@ -395,9 +387,9 @@ public class RoleManagerSupportTest
      * To get rid of generics problems.
      *
      ******************************************************************************************************************/
-    private static <T> void assertListEquals (final @Nonnull String message,
-                                              final @Nonnull List actual,
-                                              final @Nonnull List expected)
+    private static <T> void assertListEquals (@Nonnull final String message,
+                                              @Nonnull final List actual,
+                                              @Nonnull final List expected)
       {
         sort(actual);
         sort(expected);
@@ -416,15 +408,8 @@ public class RoleManagerSupportTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    private static void sort (final @Nonnull List<?> list)
+    private static void sort (@Nonnull final List<?> list)
       {
-        Collections.sort(list, new Comparator<Object>()
-          {
-            @Override
-            public int compare (final @Nonnull Object o1, final @Nonnull Object o2)
-              {
-                return o1.toString().compareTo(o2.toString());
-              }
-          });
+        list.sort(Comparator.comparing(Object::toString));
       }
   }

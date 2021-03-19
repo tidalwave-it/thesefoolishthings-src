@@ -34,9 +34,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /***********************************************************************************************************************
  *
@@ -58,7 +56,7 @@ public final class MockAs
      *
      **********************************************************************************************************************/
     @Nonnull
-    public static <T extends As> T mockWithAsSupport (final @Nonnull Class<T> clazz)
+    public static <T extends As> T mockWithAsSupport (@Nonnull final Class<T> clazz)
       {
         return mockWithAsSupport(clazz, Collections.emptyList());
       }
@@ -74,15 +72,15 @@ public final class MockAs
      *
      **********************************************************************************************************************/
     @Nonnull
-    public static <T extends As> T mockWithAsSupport (final @Nonnull Class<T> clazz,
-                                                      final @Nonnull Collection<Object> rolesOrFactories)
+    public static <T extends As> T mockWithAsSupport (@Nonnull final Class<T> clazz,
+                                                      @Nonnull final Collection<Object> rolesOrFactories)
       {
         final T mock = mock(clazz);
         final AsSupport asSupport = new AsSupport(mock, rolesOrFactories);
         when(mock.as(any(Class.class))).thenAnswer(new Answer<Object>()
           {
             @Override @Nonnull
-            public Object answer (final @Nonnull InvocationOnMock invocation)
+            public Object answer (@Nonnull final InvocationOnMock invocation)
               {
                 final Class<?> roleType = (Class<?>)invocation.getArguments()[0];
                 return asSupport.as(roleType);

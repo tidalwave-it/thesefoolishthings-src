@@ -68,7 +68,7 @@ public interface AsDelegateProvider
           }
 
         /** For testing */
-        public static void set (final @Nonnull AsDelegateProvider provider)
+        public static void set (@Nonnull final AsDelegateProvider provider)
           {
             asSpiProvider = provider;
           }

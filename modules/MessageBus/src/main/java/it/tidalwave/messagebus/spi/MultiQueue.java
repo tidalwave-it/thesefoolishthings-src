@@ -39,16 +39,8 @@ public class MultiQueue
         private final TOPIC message;
       }
      
-    private final Comparator<Class<?>> comparator = new Comparator<Class<?>>()
-      {
-        @Override
-        public int compare (final @Nonnull Class<?> c1, final @Nonnull Class<?> c2) 
-          {
-            return c1.getName().compareTo(c2.getName());
-          }
-      };
-    
-    private final ConcurrentNavigableMap<Class<?>, Queue<?>> queueMapByTopic = new ConcurrentSkipListMap<>(comparator);
+    private final ConcurrentNavigableMap<Class<?>, Queue<?>> queueMapByTopic =
+            new ConcurrentSkipListMap<>(Comparator.comparing(Class::getName));
     
     private Class<?> latestSentTopic = null;
     
@@ -56,7 +48,7 @@ public class MultiQueue
      *
      *
      ******************************************************************************************************************/
-    public synchronized <TOPIC> void add (final @Nonnull Class<TOPIC> topic, final @Nonnull TOPIC message) 
+    public synchronized <TOPIC> void add (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)
       {
         getQueue(topic).add(message);
         notifyAll();
@@ -151,9 +143,9 @@ public class MultiQueue
      *
      ******************************************************************************************************************/
     @Nonnull
-    private synchronized <TOPIC> Queue<TOPIC> getQueue (final @Nonnull Class<TOPIC> topic)
+    private synchronized <TOPIC> Queue<TOPIC> getQueue (@Nonnull final Class<TOPIC> topic)
       {
-        // Java 8 would make this easier
+        // TODO Java 8 would make this easier
         Queue<TOPIC> queue = (Queue<TOPIC>)queueMapByTopic.get(topic);
         
         if (queue == null)

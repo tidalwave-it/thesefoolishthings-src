@@ -81,7 +81,7 @@ public class MessageBusHelper
     @Nonnull
     private final Adapter methodAdapterFactory;
 
-    private final List<MethodAdapter<?>> methodAdapters = new ArrayList<MethodAdapter<?>>();
+    private final List<MethodAdapter<?>> methodAdapters = new ArrayList<>();
 
     /*******************************************************************************************************************
      *
@@ -93,13 +93,13 @@ public class MessageBusHelper
         forEachMethodInTopDownHierarchy(owner, new MethodProcessor()
           {
             @Override @Nonnull
-            public FilterResult filter (final @Nonnull Class<?> clazz)
+            public FilterResult filter (@Nonnull final Class<?> clazz)
               {
                 return clazz.getAnnotation(SimpleMessageSubscriber.class) != null ? ACCEPT : IGNORE;
               }
 
             @Override
-            public void process (final @Nonnull Method method)
+            public void process (@Nonnull final Method method)
               {
                 final Annotation[][] parameterAnnotations = method.getParameterAnnotations();
 
@@ -129,7 +129,7 @@ public class MessageBusHelper
      *
      *
      ******************************************************************************************************************/
-    public void publish (final @Nonnull Object message)
+    public void publish (@Nonnull final Object message)
       {
         methodAdapterFactory.publish(message);
       }
@@ -139,7 +139,7 @@ public class MessageBusHelper
      *
      *
      ******************************************************************************************************************/
-    public <Topic> void publish (final @Nonnull Class<Topic> topicType, final @Nonnull Topic topic)
+    public <Topic> void publish (@Nonnull final Class<Topic> topicType, @Nonnull final Topic topic)
       {
         methodAdapterFactory.publish(topicType, topic);
       }
@@ -149,7 +149,7 @@ public class MessageBusHelper
      *
      *
      ******************************************************************************************************************/
-    private <Topic> void registerMessageListener (final @Nonnull Method method)
+    private <Topic> void registerMessageListener (@Nonnull final Method method)
       {
         log.trace("registerMessageListener({})", method);
 

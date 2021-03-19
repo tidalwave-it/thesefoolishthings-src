@@ -50,7 +50,7 @@ public abstract class MutableIconProviderSupport implements MutableIconProvider
      *
      ******************************************************************************************************************/
     @Override
-    public void addPropertyChangeListener (final @Nonnull PropertyChangeListener listener)
+    public void addPropertyChangeListener (@Nonnull final PropertyChangeListener listener)
       {
         pcs.addPropertyChangeListener(listener);
       }
@@ -61,7 +61,7 @@ public abstract class MutableIconProviderSupport implements MutableIconProvider
      *
      ******************************************************************************************************************/
     @Override
-    public void removePropertyChangeListener (final @Nonnull PropertyChangeListener listener)
+    public void removePropertyChangeListener (@Nonnull final PropertyChangeListener listener)
       {
         pcs.removePropertyChangeListener(listener);
       }
@@ -75,7 +75,7 @@ public abstract class MutableIconProviderSupport implements MutableIconProvider
      *
      ******************************************************************************************************************/
     @Override
-    public void setIcon (final @Nonnull Icon icon)
+    public void setIcon (@Nonnull final Icon icon)
       {
       }
 
@@ -87,7 +87,7 @@ public abstract class MutableIconProviderSupport implements MutableIconProvider
      * @param  newIcon   the new value of the property
      *
      ******************************************************************************************************************/
-    protected void fireIconChange (final @Nonnull Icon oldIcon, final @Nonnull Icon newIcon)
+    protected void fireIconChange (@Nonnull final Icon oldIcon, @Nonnull final Icon newIcon)
       {
         pcs.firePropertyChange(PROP_ICON, oldIcon, newIcon); // FIXME: should be in the EDT?
       }

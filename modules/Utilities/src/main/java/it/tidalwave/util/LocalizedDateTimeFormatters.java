@@ -58,8 +58,8 @@ public final class LocalizedDateTimeFormatters
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static DateTimeFormatter getDateTimeFormatterFor (final @Nonnull FormatStyle style,
-                                                             final @Nonnull Locale locale)
+    public static DateTimeFormatter getDateTimeFormatterFor (@Nonnull final FormatStyle style,
+                                                             @Nonnull final Locale locale)
       {
         final String resourceName = "dateTimeFormatterPattern." + style.name();
         final String pattern = BundleUtilities.getMessage(LocalizedDateTimeFormatters.class, locale, resourceName);

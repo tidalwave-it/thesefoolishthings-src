@@ -94,9 +94,9 @@ public class Mocks
     @AllArgsConstructor @EqualsAndHashCode @ToString
     public static class RI2B implements R2
       {
-        private Bean1 bean1;
+        private final Bean1 bean1;
 
-        private Bean2 bean2;
+        private final Bean2 bean2;
       }
 
     @RequiredArgsConstructor @EqualsAndHashCode @ToString

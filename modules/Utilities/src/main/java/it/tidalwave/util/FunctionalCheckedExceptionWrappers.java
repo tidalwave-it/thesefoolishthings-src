@@ -157,7 +157,7 @@ public final class FunctionalCheckedExceptionWrappers
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T, R> Function<T, R> _f (final @Nonnull FunctionWithException<T, R> function)
+    public static <T, R> Function<T, R> _f (@Nonnull final FunctionWithException<T, R> function)
       {
         return t ->
           {
@@ -182,7 +182,7 @@ public final class FunctionalCheckedExceptionWrappers
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Consumer<T> _c (final @Nonnull ConsumerWithException<T> consumer)
+    public static <T> Consumer<T> _c (@Nonnull final ConsumerWithException<T> consumer)
       {
         return t ->
           {
@@ -207,7 +207,7 @@ public final class FunctionalCheckedExceptionWrappers
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Supplier<T> _s (final @Nonnull SupplierWithException<T> supplier)
+    public static <T> Supplier<T> _s (@Nonnull final SupplierWithException<T> supplier)
       {
         return () ->
           {
@@ -232,7 +232,7 @@ public final class FunctionalCheckedExceptionWrappers
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Predicate<T> _p (final @Nonnull PredicateWithException<T> predicate)
+    public static <T> Predicate<T> _p (@Nonnull final PredicateWithException<T> predicate)
       {
         return t ->
           {
@@ -252,7 +252,7 @@ public final class FunctionalCheckedExceptionWrappers
      *
      ******************************************************************************************************************/
     @Nonnull
-    static RuntimeException wrappedException (Exception e)
+    static RuntimeException wrappedException (@Nonnull final Exception e)
       {
         if (e instanceof RuntimeException)
           {

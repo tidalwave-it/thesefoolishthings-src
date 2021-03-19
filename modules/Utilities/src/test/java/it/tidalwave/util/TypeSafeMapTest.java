@@ -47,10 +47,10 @@ import static org.testng.Assert.fail;
  **********************************************************************************************************************/
 public class TypeSafeMapTest
   {
-    private final static Key<String> K_STRING = Key.of("string", String.class);
-    private final static Key<String> K_STRING2 = Key.of("string2", String.class);
-    private final static Key<Integer> K_INTEGER = Key.of("integer", Integer.class);
-    private final static Key<LocalDateTime> K_DATETIME = Key.of("datetime", LocalDateTime.class);
+    private static final Key<String> K_STRING = Key.of("string", String.class);
+    private static final Key<String> K_STRING2 = Key.of("string2", String.class);
+    private static final Key<Integer> K_INTEGER = Key.of("integer", Integer.class);
+    private static final Key<LocalDateTime> K_DATETIME = Key.of("datetime", LocalDateTime.class);
     public static final LocalDateTime LOCAL_DATE = LocalDateTime.now();
 
     /*******************************************************************************************************************

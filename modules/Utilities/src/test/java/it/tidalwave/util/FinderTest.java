@@ -45,7 +45,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  **********************************************************************************************************************/
 public class FinderTest
   {
-    private final static List<String> ALL_NAMES = Arrays.asList("");
+    private static final List<String> ALL_NAMES = Arrays.asList("");
 
     static interface NameFinder extends ExtendedFinderSupport<String, NameFinder>
       {
@@ -64,7 +64,7 @@ public class FinderTest
         @Override @Nonnull
         protected List<? extends String> computeResults()
           {
-            final List<String> results = new ArrayList<String>();
+            final List<String> results = new ArrayList<>();
 
             for (final String name : ALL_NAMES)
               {
@@ -78,14 +78,14 @@ public class FinderTest
           }
 
         @Nonnull
-        public NameFinder startingWith (final @Nonnull String prefix)
+        public NameFinder startingWith (@Nonnull final String prefix)
           {
             this.prefix = prefix;
             return this;
           }
       }
 
-    private final static List<Integer> ITEMS = IntStream.range(0, 10).mapToObj(Integer::valueOf).collect(toList());
+    private static final List<Integer> ITEMS = IntStream.range(0, 10).boxed().collect(toList());
 
     @Test
     public void ofClone_must_behave_correctly()

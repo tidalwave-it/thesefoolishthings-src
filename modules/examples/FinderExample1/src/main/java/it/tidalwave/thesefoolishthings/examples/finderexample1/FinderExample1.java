@@ -40,8 +40,7 @@ import it.tidalwave.thesefoolishthings.examples.person.Utils;
  **********************************************************************************************************************/
 public class FinderExample1
   {
-    public static void main (final @Nonnull String ... args)
-      throws NotFoundException
+    public static void main (@Nonnull final String ... args)
       {
         final PersonRegistry registry = new DefaultPersonRegistry1();
         Utils.populatePresidents(registry);

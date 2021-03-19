@@ -91,11 +91,11 @@ public class SpringAsSupportTest // FIXME: tests are genera, move to a AsSupport
         // then
         assertThat(role1, is(notNullValue()));
         assertThat(role1, is(instanceOf(MockConcreteRole2.class)));
-        assertThat(((MockConcreteRole2)role1).getOwner(), is(sameInstance((Object)datum1)));
+        assertThat(((MockConcreteRole2)role1).getOwner(), is(sameInstance(datum1)));
 
         assertThat(role2, is(notNullValue()));
         assertThat(role2, is(instanceOf(MockConcreteRole2.class)));
-        assertThat(((MockConcreteRole2)role2).getOwner(), is(sameInstance((Object)datum2)));
+        assertThat(((MockConcreteRole2)role2).getOwner(), is(sameInstance(datum2)));
       }
 
     /*******************************************************************************************************************
@@ -126,6 +126,6 @@ public class SpringAsSupportTest // FIXME: tests are genera, move to a AsSupport
         final MockRole3 role = datum2.as(MockRole3.class);
         // then
         assertThat(role, is(notNullValue()));
-        assertThat(role, is(sameInstance((Object)datum2)));
+        assertThat(role, is(sameInstance(datum2)));
       }
   }

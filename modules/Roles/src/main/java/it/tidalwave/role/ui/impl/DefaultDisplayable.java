@@ -70,7 +70,7 @@ public class DefaultDisplayable implements LocalizedDisplayable, Serializable
      * @param  displayName   the display name
      *
      ******************************************************************************************************************/
-    public DefaultDisplayable (final @Nonnull String displayName)
+    public DefaultDisplayable (@Nonnull final String displayName)
       {
         this(displayName, "???");
       }
@@ -84,7 +84,7 @@ public class DefaultDisplayable implements LocalizedDisplayable, Serializable
      * @param  toStringName  the name to be rendered when {@code toString()} is called
      *
      ******************************************************************************************************************/
-    public DefaultDisplayable (final @Nonnull String displayName, final @Nonnull String toStringName)
+    public DefaultDisplayable (@Nonnull final String displayName, @Nonnull final String toStringName)
       {
         this.displayName = displayName;
         this.toStringName = toStringName;
@@ -108,7 +108,7 @@ public class DefaultDisplayable implements LocalizedDisplayable, Serializable
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public String getDisplayName (final @Nonnull Locale locale)
+    public String getDisplayName (@Nonnull final Locale locale)
       {
         return displayNameMap.get(locale);
       }

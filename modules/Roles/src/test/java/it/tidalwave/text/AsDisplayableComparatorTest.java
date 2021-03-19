@@ -58,7 +58,7 @@ public class AsDisplayableComparatorTest
       }
 
     @Nonnull
-    private static As createAs (final @Nonnull Displayable displayable)
+    private static As createAs (@Nonnull final Displayable displayable)
       {
         final As as = mock(As.class);
         when(as.as(eq(Displayable.class))).thenReturn(displayable);

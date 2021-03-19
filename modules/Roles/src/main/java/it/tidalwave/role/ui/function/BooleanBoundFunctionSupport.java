@@ -47,15 +47,15 @@ public abstract class BooleanBoundFunctionSupport extends BoundFunctionSupport<B
     private final PropertyChangeListener pcl = new PropertyChangeListener()
       {
         @Override
-        public void propertyChange (final @Nonnull PropertyChangeEvent event)
+        public void propertyChange (@Nonnull final PropertyChangeEvent event)
           {
             newValue = function();
             fireValueChanged(oldValue, newValue);
             oldValue = newValue;
-          };
+          }
       };
 
-    public BooleanBoundFunctionSupport (final @Nonnull ChangingSource<Boolean> ... sources)
+    public BooleanBoundFunctionSupport (@Nonnull final ChangingSource<Boolean> ... sources)
       {
         this.sources = sources;
 

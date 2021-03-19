@@ -42,9 +42,9 @@ import it.tidalwave.util.spi.SimpleFinderSupport;
 @AllArgsConstructor
 /* package */ class DefaultPersonFinder1 extends SimpleFinderSupport<Person> implements Finder<Person>
   {
-    private List<Person> persons;
+    private final List<Person> persons;
 
-    public DefaultPersonFinder1 (final @Nonnull DefaultPersonFinder1 clone, final @Nonnull Object override)
+    public DefaultPersonFinder1 (@Nonnull final DefaultPersonFinder1 clone, @Nonnull final Object override)
       {
         super(clone, override);
         this.persons = new ArrayList<Person>(clone.persons);

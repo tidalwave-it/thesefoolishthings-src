@@ -52,7 +52,7 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
      * A default <code>Composite</code> with no children.
      *
      ******************************************************************************************************************/
-    public final static Composite<Object, Finder<Object>> DEFAULT = new Composite<Object, Finder<Object>>()
+    public static final Composite<Object, Finder<Object>> DEFAULT = new Composite<Object, Finder<Object>>()
       {
         @Override @Nonnull
         public Finder<Object> findChildren()
@@ -78,6 +78,7 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
      *
      *
      ******************************************************************************************************************/
+    @SuppressWarnings("EmptyMethod")
     public static interface Visitor<T, R>
       {
         /***************************************************************************************************************
@@ -131,19 +132,19 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
       {
         /** {@inheritDoc} */
         @Override
-        public void preVisit (final @Nonnull T object)
+        public void preVisit (@Nonnull final T object)
           {
           }
 
         /** {@inheritDoc} */
         @Override
-        public void visit (final @Nonnull T object)
+        public void visit (@Nonnull final T object)
           {
           }
 
         /** {@inheritDoc} */
         @Override
-        public void postVisit (final @Nonnull T object)
+        public void postVisit (@Nonnull final T object)
           {
           }
 

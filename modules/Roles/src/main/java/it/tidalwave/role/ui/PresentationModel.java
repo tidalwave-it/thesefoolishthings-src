@@ -125,7 +125,7 @@ public interface PresentationModel extends As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static PresentationModel of (final @Nonnull Object owner)
+    public static PresentationModel of (@Nonnull final Object owner)
       {
         Parameters.mustNotBeArrayOrCollection(owner, "owner");
         return of(owner, Collections.emptyList());
@@ -143,7 +143,7 @@ public interface PresentationModel extends As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static PresentationModel of (final @Nonnull Object owner, final @Nonnull Object role)
+    public static PresentationModel of (@Nonnull final Object owner, @Nonnull final Object role)
       {
         Parameters.mustNotBeArrayOrCollection(owner, "owner");
         Parameters.mustNotBeArrayOrCollection(role, "role");
@@ -163,7 +163,7 @@ public interface PresentationModel extends As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static PresentationModel of (final @Nonnull Object owner, final @Nonnull Collection<Object> roles)
+    public static PresentationModel of (@Nonnull final Object owner, @Nonnull final Collection<Object> roles)
       {
         Parameters.mustNotBeArrayOrCollection(owner, "owner");
         return new DefaultPresentationModel(owner, roles);

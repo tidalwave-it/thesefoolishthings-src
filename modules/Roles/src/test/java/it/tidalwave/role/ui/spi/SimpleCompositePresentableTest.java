@@ -73,32 +73,32 @@ public class SimpleCompositePresentableTest
         @Getter
         private List<MockDatum> children = new ArrayList<>();
 
-        public MockDatum (final @Nonnull String id)
+        public MockDatum (@Nonnull final String id)
           {
             this.id = new Id(id);
           }
 
         @Nonnull
-        public MockDatum withChildren (final @Nonnull MockDatum ... children)
+        public MockDatum withChildren (@Nonnull final MockDatum ... children)
           {
             return withChildren(Arrays.asList(children));
           }
 
         @Nonnull
-        public MockDatum withChildren (final @Nonnull List<MockDatum> children)
+        public MockDatum withChildren (@Nonnull final List<MockDatum> children)
           {
             composite = SimpleComposite.ofCloned(this.children = children);
             return this;
           }
 
         @Override @Nonnull
-        public <T> T as (final @Nonnull Class<T> roleType)
+        public <T> T as (@Nonnull final Class<T> roleType)
           {
             return as(roleType, As.Defaults.throwAsException(roleType));
           }
 
         @Override @Nonnull
-        public <T> T as (final @Nonnull Class<T> roleType, final @Nonnull NotFoundBehaviour<T> notFoundBehaviour)
+        public <T> T as (@Nonnull final Class<T> roleType, @Nonnull final NotFoundBehaviour<T> notFoundBehaviour)
           {
             if (roleType.equals(SimpleComposite.class) && (composite != null))
               {
@@ -109,7 +109,7 @@ public class SimpleCompositePresentableTest
           }
 
         @Override @Nonnull
-        public <T> Collection<T> asMany (final @Nonnull Class<T> roleType)
+        public <T> Collection<T> asMany (@Nonnull final Class<T> roleType)
           {
             if (roleType.equals(SimpleComposite.class) && (composite != null))
               {
@@ -129,7 +129,7 @@ public class SimpleCompositePresentableTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    class MockRole1
+    static class MockRole1
       {
       }
 
@@ -137,7 +137,7 @@ public class SimpleCompositePresentableTest
      *
      ******************************************************************************************************************/
     @RequiredArgsConstructor
-    class MockRole2
+    static class MockRole2
       {
         @Getter @Nonnull
         private final MockDatum datum;
@@ -146,10 +146,10 @@ public class SimpleCompositePresentableTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    class MockRoleFactory implements RoleFactory<MockDatum>
+    static class MockRoleFactory implements RoleFactory<MockDatum>
       {
         @Override @Nonnull
-        public Object createRoleFor (final @Nonnull MockDatum datum)
+        public Object createRoleFor (@Nonnull final MockDatum datum)
           {
             return new MockRole2(datum);
           }
@@ -197,11 +197,11 @@ public class SimpleCompositePresentableTest
      *
      ******************************************************************************************************************/
     @Nonnull
-    private void assertProperPresentationModel (final @Nonnull String indent,
-                                                final @Nonnull PresentationModel pm,
-                                                final @Nonnull MockDatum datum)
+    private void assertProperPresentationModel (@Nonnull final String indent,
+                                                @Nonnull final PresentationModel pm,
+                                                @Nonnull final MockDatum datum)
       {
-        log.debug("assertProperPresentationModel() - {} {}, {}", new Object[] { indent, pm, datum });
+        log.debug("assertProperPresentationModel() - {} {}, {}", indent, pm, datum);
         pm.as(MockRole1.class);                        // must not throw AsException
         final MockRole2 role = pm.as(MockRole2.class); // must not throw AsException
 

@@ -26,14 +26,13 @@
  */
 package it.tidalwave.util;
 
-import it.tidalwave.util.impl.TypeSafeHashMap;
-import it.tidalwave.util.impl.TypeSafeHashMultiMap;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
+import it.tidalwave.util.impl.TypeSafeHashMultiMap;
 
 /***********************************************************************************************************************
  *
@@ -43,7 +42,7 @@ import java.util.Set;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public interface TypeSafeMultiMap extends Iterable<Collection<? extends Object>>
+public interface TypeSafeMultiMap extends Iterable<Collection<?>>
   {
     /*******************************************************************************************************************
      *
@@ -95,7 +94,7 @@ public interface TypeSafeMultiMap extends Iterable<Collection<? extends Object>>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Map<Key<?>, Collection<? extends Object>> asMap();
+    public Map<Key<?>, Collection<?>> asMap();
 
     /*******************************************************************************************************************
      *
@@ -107,7 +106,7 @@ public interface TypeSafeMultiMap extends Iterable<Collection<? extends Object>>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static TypeSafeMultiMap ofCloned (final @Nonnull Map<Key<?>, Collection<?>> map)
+    public static TypeSafeMultiMap ofCloned (@Nonnull final Map<Key<?>, Collection<?>> map)
       {
         return new TypeSafeHashMultiMap(map);
       }
@@ -137,5 +136,5 @@ public interface TypeSafeMultiMap extends Iterable<Collection<? extends Object>>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> TypeSafeMultiMap with (final @Nonnull Key<T> key, final @Nonnull T value);
+    public <T> TypeSafeMultiMap with (@Nonnull final Key<T> key, @Nonnull final T value);
   }

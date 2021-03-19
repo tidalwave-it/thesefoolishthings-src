@@ -34,13 +34,13 @@ import lombok.RequiredArgsConstructor;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public @RequiredArgsConstructor
+@RequiredArgsConstructor public
 class Datum1RenderableRole implements Renderable
   {
     @Nonnull
     private final Datum1 owner;
 
-    public void renderTo (final @Nonnull RenderingContext renderingContext)
+    public void renderTo (@Nonnull final RenderingContext renderingContext)
       {
         renderingContext.render(owner.status);
       }

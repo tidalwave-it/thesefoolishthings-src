@@ -41,7 +41,7 @@ import it.tidalwave.role.ui.impl.DefaultMutableDisplayable;
  **********************************************************************************************************************/
 public interface MutableLocalizedDisplayable extends MutableDisplayable, LocalizedDisplayable
   {
-    public final static Class<MutableLocalizedDisplayable> _MutableLocalizedDisplayable_ =
+    public static final Class<MutableLocalizedDisplayable> _MutableLocalizedDisplayable_ =
             MutableLocalizedDisplayable.class;
 
     /*******************************************************************************************************************
@@ -53,7 +53,7 @@ public interface MutableLocalizedDisplayable extends MutableDisplayable, Localiz
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static MutableLocalizedDisplayable of (final @Nonnull String displayName)
+    public static MutableLocalizedDisplayable of (@Nonnull final String displayName)
       {
         return of(displayName, "???");
       }
@@ -69,8 +69,8 @@ public interface MutableLocalizedDisplayable extends MutableDisplayable, Localiz
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static MutableLocalizedDisplayable of (final @Nonnull String displayName,
-                                                  final @Nonnull String toStringName)
+    public static MutableLocalizedDisplayable of (@Nonnull final String displayName,
+                                                  @Nonnull final String toStringName)
       {
         return new DefaultMutableDisplayable(displayName, toStringName);
       }

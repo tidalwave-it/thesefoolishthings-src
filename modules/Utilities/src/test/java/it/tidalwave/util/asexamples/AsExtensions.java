@@ -38,20 +38,20 @@ import it.tidalwave.util.As;
 public class AsExtensions
   {
     @Nonnull
-    public static <T> T as (final @Nonnull Object datum,
-                            final @Nonnull Class<T> roleClass)
+    public static <T> T as (@Nonnull final Object datum,
+                            @Nonnull final Class<T> roleClass)
       {
         return as(datum, roleClass, As.Defaults.throwAsException(roleClass));
       }
 
     @Nonnull
-    public static <T> T as (final @Nonnull Object datum,
-                            final @Nonnull Class<T> roleClass,
-                            final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour)
+    public static <T> T as (@Nonnull final Object datum,
+                            @Nonnull final Class<T> roleClass,
+                            @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
       {
         try
           {
-            final Class<? extends Object> datumClass = datum.getClass();
+            final Class<?> datumClass = datum.getClass();
             final String roleClassName = "it.tidalwave.util.asexamples."
                     + datumClass.getSimpleName() + roleClass.getSimpleName() + "Role";
             return (T)Class.forName(roleClassName).getConstructor(datumClass).newInstance(datum);
@@ -63,8 +63,8 @@ public class AsExtensions
       }
 
     @Nonnull
-    public static <T> Collection<T> asMany (final @Nonnull Object datum,
-                                            final @Nonnull Class<T> roleClass)
+    public static <T> Collection<T> asMany (@Nonnull final Object datum,
+                                            @Nonnull final Class<T> roleClass)
       {
         throw new UnsupportedOperationException();
       }

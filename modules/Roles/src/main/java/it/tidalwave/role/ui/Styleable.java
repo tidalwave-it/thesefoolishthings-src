@@ -26,10 +26,9 @@
  */
 package it.tidalwave.role.ui;
 
-import it.tidalwave.role.ui.impl.DefaultStyleable;
-import java.util.Arrays;
 import java.util.Collection;
 import javax.annotation.Nonnull;
+import it.tidalwave.role.ui.impl.DefaultStyleable;
 
 /***********************************************************************************************************************
  *
@@ -54,7 +53,7 @@ public interface Styleable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Styleable of (final @Nonnull Collection<String> styles)
+    public static Styleable of (@Nonnull final Collection<String> styles)
       {
         return new DefaultStyleable(styles);
       }
@@ -65,7 +64,7 @@ public interface Styleable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Styleable of (final @Nonnull String ... styles)
+    public static Styleable of (@Nonnull final String ... styles)
       {
         return new DefaultStyleable(styles);
       }

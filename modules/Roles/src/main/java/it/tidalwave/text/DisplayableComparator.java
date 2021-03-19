@@ -29,7 +29,6 @@ package it.tidalwave.text;
 import javax.annotation.Nonnull;
 import java.util.Comparator;
 import java.text.Collator;
-import java.io.Serializable;
 import it.tidalwave.role.ui.Displayable;
 
 /***********************************************************************************************************************
@@ -41,10 +40,9 @@ import it.tidalwave.role.ui.Displayable;
  * @it.tidalwave.javadoc.draft Will be removed (FIXME)
  *
  **********************************************************************************************************************/
-public final class DisplayableComparator implements Comparator<Displayable>, Serializable
+public final class DisplayableComparator implements Comparator<Displayable>
   {
     private static final DisplayableComparator INSTANCE = new DisplayableComparator();
-    private static final long serialVersionUID = 3785982561399322970L;
 
     private final Collator collator = Collator.getInstance();
 
@@ -55,7 +53,7 @@ public final class DisplayableComparator implements Comparator<Displayable>, Ser
       }
 
     @Override
-    public int compare (final @Nonnull Displayable d1, final @Nonnull Displayable d2)
+    public int compare (@Nonnull final Displayable d1, @Nonnull final Displayable d2)
       {
         return collator.compare(d1.getDisplayName(), d2.getDisplayName());
       }

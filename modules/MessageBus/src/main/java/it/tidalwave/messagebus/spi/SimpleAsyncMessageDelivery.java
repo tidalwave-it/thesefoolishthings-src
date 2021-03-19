@@ -49,7 +49,7 @@ public class SimpleAsyncMessageDelivery implements MessageDelivery
      *
      ******************************************************************************************************************/
     @Override
-    public void initialize (final @Nonnull SimpleMessageBus messageBusSupport)
+    public void initialize (@Nonnull final SimpleMessageBus messageBusSupport)
       {
         this.messageBusSupport = messageBusSupport;
       }
@@ -59,15 +59,8 @@ public class SimpleAsyncMessageDelivery implements MessageDelivery
      *
      ******************************************************************************************************************/
     @Override
-    public <TOPIC> void deliverMessage (final @Nonnull Class<TOPIC> topic, final @Nonnull TOPIC message)
+    public <TOPIC> void deliverMessage (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)
       {
-        messageBusSupport.getExecutor().execute(new Runnable()
-          {
-            @Override
-            public void run()
-              {
-                messageBusSupport.dispatchMessage(topic, message);
-              }
-          });
+        messageBusSupport.getExecutor().execute(() -> messageBusSupport.dispatchMessage(topic, message));
       }
   }

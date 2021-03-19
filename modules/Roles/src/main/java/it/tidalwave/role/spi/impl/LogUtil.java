@@ -38,7 +38,7 @@ import it.tidalwave.role.Identifiable;
 public class LogUtil
   {
     @Nonnull
-    public static String shortName (final @Nonnull Class<?> clazz)
+    public static String shortName (@Nonnull final Class<?> clazz)
       {
         String className = clazz.getName();
         String prefix = "";
@@ -54,14 +54,14 @@ public class LogUtil
 
         for (int i = 0; i < parts.length; i++)
           {
-            result.append((i < parts.length - 1) ? parts[i].substring(0, 1) + "." : parts[i]);
+            result.append((i < parts.length - 1) ? parts[i].charAt(0) + "." : parts[i]);
           }
 
-        return prefix + result.toString();
+        return prefix + result;
       }
 
     @Nonnull
-    public static String shortNames (final @Nonnull Iterable<Class<?>> classes)
+    public static String shortNames (@Nonnull final Iterable<Class<?>> classes)
       {
         final StringBuilder result = new StringBuilder();
         String separator = "";
@@ -72,11 +72,11 @@ public class LogUtil
             separator = ", ";
           }
 
-        return "[" + result.toString() + "]";
+        return "[" + result + "]";
       }
 
     @Nonnull
-    public static String shortId (final @Nullable Object object)
+    public static String shortId (@Nullable final Object object)
       {
         if (object == null)
           {
@@ -94,7 +94,7 @@ public class LogUtil
       }
 
     @Nonnull
-    public static String shortIds (final @Nonnull Iterable<Object> objects)
+    public static String shortIds (@Nonnull final Iterable<Object> objects)
       {
         final StringBuilder result = new StringBuilder();
         String separator = "";
@@ -105,6 +105,6 @@ public class LogUtil
             separator = ", ";
           }
 
-        return "[" + result.toString() + "]";
+        return "[" + result + "]";
       }
   }

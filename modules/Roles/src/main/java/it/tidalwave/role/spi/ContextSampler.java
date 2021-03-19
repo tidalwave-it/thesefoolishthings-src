@@ -57,7 +57,7 @@ public class ContextSampler
      *
      *
      ******************************************************************************************************************/
-    public ContextSampler (final @Nonnull Object owner)
+    public ContextSampler (@Nonnull final Object owner)
       {
         contexts = Collections.unmodifiableList(contextManager.getContexts());
 
@@ -84,7 +84,7 @@ public class ContextSampler
      * @param  task                the task
      *
      ******************************************************************************************************************/
-    public <V, T extends Throwable> V runWithContexts (@Nonnull Task<V, T> task)
+    public <V, T extends Throwable> V runWithContexts (@Nonnull final Task<V, T> task)
       throws T
       {
         return contextManager.runWithContexts(contexts, task);

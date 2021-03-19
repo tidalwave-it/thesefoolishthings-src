@@ -40,19 +40,19 @@ public class Locator
   {
     public static class NotFoundException extends RuntimeException
       {
-        NotFoundException (final @Nonnull Class<?> serviceClass)
+        NotFoundException (@Nonnull final Class<?> serviceClass)
           {
             super("Not found: " + serviceClass);
           }
 
-        NotFoundException (final @Nonnull String name)
+        NotFoundException (@Nonnull final String name)
           {
             super("Not found: " + name);
           }
       }
 
     @Nonnull
-    public static <T> Provider<T> createProviderFor (final @Nonnull Class<T> serviceClass)
+    public static <T> Provider<T> createProviderFor (@Nonnull final Class<T> serviceClass)
       {
         return new Provider<T>()
           {
@@ -69,7 +69,7 @@ public class Locator
      *
      ******************************************************************************************************************/
     @Nonnull
-    private static <T> T find (final @Nonnull Class<T> serviceClass)
+    private static <T> T find (@Nonnull final Class<T> serviceClass)
       {
 //        final T service = Lookup.getDefault().lookup(serviceClass); FIXME
 //

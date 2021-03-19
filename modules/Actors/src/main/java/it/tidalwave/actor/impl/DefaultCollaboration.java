@@ -58,7 +58,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
      *
      *
      ******************************************************************************************************************/
-    private final static DefaultCollaboration NULL_DEFAULT_COLLABORATION = new DefaultCollaboration(new Object())
+    private static final DefaultCollaboration NULL_DEFAULT_COLLABORATION = new DefaultCollaboration(new Object())
       {
         @Override
         public void bindToCurrentThread()
@@ -101,7 +101,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
           }
       }
 
-    private final static ThreadLocal<DefaultCollaboration> THREAD_LOCAL = new ThreadLocal<DefaultCollaboration>();
+    private static final ThreadLocal<DefaultCollaboration> THREAD_LOCAL = new ThreadLocal<>();
 
     private final UUID id = new UUID();
 
@@ -113,19 +113,19 @@ public class DefaultCollaboration implements Serializable, Collaboration
     @Getter
     private boolean completed;
 
-    private final List<Object> suspensionTokens = new ArrayList<Object>();
+    private final List<Object> suspensionTokens = new ArrayList<>();
 
     /** List of threads currently working for this Collaboration. */
     // No need for being weak, since objects are explicitly removed
-    private final List<Thread> runningThreads = new ArrayList<Thread>();
+    private final List<Thread> runningThreads = new ArrayList<>();
 
     /** List of messages currently being delivered as part of this Collaboration. */
     // No need for being weak, since objects are explicitly removed
-    private final List<Object> deliveringMessages = new ArrayList<Object>();
+    private final List<Object> deliveringMessages = new ArrayList<>();
 
     /** List of messages pending to be consumed as part of this Collaboration. */
     // No need for being weak, since objects are explicitly removed
-    private final List<IdentityWrapper> pendingMessages = new ArrayList<IdentityWrapper>();
+    private final List<IdentityWrapper> pendingMessages = new ArrayList<>();
 
     private boolean collaborationStartedMessageSent = false;
 
@@ -139,7 +139,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static DefaultCollaboration getCollaboration (final @Nonnull Object object)
+    public static DefaultCollaboration getCollaboration (@Nonnull final Object object)
       {
         return (object instanceof Provider) ? (DefaultCollaboration)((Provider)object).getCollaboration()
                                             : NULL_DEFAULT_COLLABORATION;
@@ -155,7 +155,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static DefaultCollaboration getOrCreateCollaboration (final @Nonnull Object originator)
+    public static DefaultCollaboration getOrCreateCollaboration (@Nonnull final Object originator)
       {
         DefaultCollaboration collaboration = THREAD_LOCAL.get();
 
@@ -243,7 +243,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
      *
      ******************************************************************************************************************/
     @Override
-    public void resume (final @Nonnull Object suspensionToken, final @Nonnull Runnable runnable)
+    public void resume (@Nonnull final Object suspensionToken, @Nonnull final Runnable runnable)
       {
         try
           {
@@ -263,15 +263,9 @@ public class DefaultCollaboration implements Serializable, Collaboration
      *
      ******************************************************************************************************************/
     @Override
-    public synchronized void resumeAndDie (final @Nonnull Object suspensionToken)
+    public synchronized void resumeAndDie (@Nonnull final Object suspensionToken)
       {
-        resume(suspensionToken, new Runnable()
-          {
-            @Override
-            public void run()
-              {
-              }
-          });
+        resume(suspensionToken, () -> {});
       }
 
     /*******************************************************************************************************************
@@ -334,7 +328,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
      * @param  message  the {@code Message}
      *
      ******************************************************************************************************************/
-    public synchronized void registerDeliveringMessage (final @Nonnull Object message)
+    public synchronized void registerDeliveringMessage (@Nonnull final Object message)
       {
         log.trace("registerDeliveringMessage({})", message);
 
@@ -368,7 +362,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
      * @param  message  the {@code Message}
      *
      ******************************************************************************************************************/
-    public synchronized void unregisterDeliveringMessage (final @Nonnull Object message)
+    public synchronized void unregisterDeliveringMessage (@Nonnull final Object message)
       {
         log.trace("unregisterDeliveringMessage({})", message);
 
@@ -389,7 +383,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
      * @param  message  the {@code Message}
      *
      ******************************************************************************************************************/
-    public synchronized void registerPendingMessage (final @Nonnull Object message)
+    public synchronized void registerPendingMessage (@Nonnull final Object message)
       {
         log.trace("registerPendingMessage({})", message);
 
@@ -408,7 +402,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
      * @param  message  the {@code Message}
      *
      ******************************************************************************************************************/
-    public synchronized void unregisterPendingMessage (final @Nonnull Object message)
+    public synchronized void unregisterPendingMessage (@Nonnull final Object message)
       {
         log.trace("unregisterPendingMessage({})", message);
 

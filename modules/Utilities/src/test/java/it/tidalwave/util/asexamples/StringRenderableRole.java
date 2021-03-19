@@ -40,7 +40,7 @@ public class StringRenderableRole implements Renderable
     @Nonnull
     private final String owner;
 
-    public void renderTo (final @Nonnull RenderingContext renderingContext)
+    public void renderTo (@Nonnull final RenderingContext renderingContext)
       {
         renderingContext.render(owner);
       }

@@ -41,7 +41,7 @@ import it.tidalwave.util.spi.AsDelegateProvider;
 public class SpringAsDelegateProvider implements AsDelegateProvider
   {
     @Override @Nonnull
-    public AsDelegate createAsDelegate (final @Nonnull Object datum)
+    public AsDelegate createAsDelegate (@Nonnull final Object datum)
       {
         return new SpringAsDelegate(datum);
       }

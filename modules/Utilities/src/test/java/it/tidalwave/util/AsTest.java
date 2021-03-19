@@ -58,22 +58,22 @@ public class AsTest
       {
         private final AsDelegate delegate;
 
-        @Override
-        public <T> T as (final @Nonnull Class<T> type)
+        @Override @Nonnull
+        public <T> T as (@Nonnull final Class<T> type)
           {
             return as(type, As.Defaults.throwAsException(type));
           }
 
-        @Override
-        public <T> T as (final @Nonnull Class<T> type, final @Nonnull NotFoundBehaviour<T> notFoundBehaviour)
+        @Override @Nonnull
+        public <T> T as (@Nonnull final Class<T> type, @Nonnull final NotFoundBehaviour<T> notFoundBehaviour)
           {
             final Collection<T> roles = asMany(type);
 
             return roles.isEmpty() ? notFoundBehaviour.run(null) : roles.iterator().next();
           }
 
-        @Override
-        public <T> Collection<T> asMany (final @Nonnull Class<T> type)
+        @Override @Nonnull
+        public <T> Collection<T> asMany (@Nonnull final Class<T> type)
           {
             return (Collection)delegate.as(type);
           }
@@ -89,7 +89,7 @@ public class AsTest
         // when
         final UnderTest underTest = new UnderTest(delegate);
         // then
-        Optional<Role> result = underTest.maybeAs(Role.class);
+        final Optional<Role> result = underTest.maybeAs(Role.class);
         assertThat(result.isPresent(), is(true));
         assertThat(result.get(), is(sameInstance(role)));
       }
@@ -103,7 +103,7 @@ public class AsTest
         // when
         final UnderTest underTest = new UnderTest(delegate);
         // then
-        Optional<Role> result = underTest.maybeAs(Role.class);
+        final Optional<Role> result = underTest.maybeAs(Role.class);
         assertThat(result.isPresent(), is(false));
       }
   }

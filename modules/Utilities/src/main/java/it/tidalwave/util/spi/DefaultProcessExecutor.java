@@ -79,7 +79,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
         private final InputStream input;
 
         @Getter
-        private final List<String> content = Collections.synchronizedList(new ArrayList<String>());
+        private final List<String> content = Collections.synchronizedList(new ArrayList<>());
 
         private volatile String latestLine;
 
@@ -133,10 +133,6 @@ public class DefaultProcessExecutor implements ProcessExecutor
                         l = li;
                         Thread.sleep(500);
                       }
-                    catch (InterruptedException e)
-                      {
-                        return;
-                      }
                     catch (Throwable e)
                       {
                         return;
@@ -170,7 +166,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
          *
          ***************************************************************************************************************/
         @Override
-        public boolean latestLineMatches (final @Nonnull String regexp)
+        public boolean latestLineMatches (@Nonnull final String regexp)
           {
             String s = null;
 
@@ -184,7 +180,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
               }
 
             log.trace(">>>> testing '{}' for '{}'", s, regexp);
-            return (s == null) ? false : Pattern.compile(regexp).matcher(s).matches();
+            return (s != null) && Pattern.compile(regexp).matcher(s).matches();
             // FIXME: sync
           }
 
@@ -194,7 +190,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
          *
          ***************************************************************************************************************/
         @Override @Nonnull
-        public Scanner filteredAndSplitBy (final @Nonnull String filterRegexp, final @Nonnull String delimiterRegexp)
+        public Scanner filteredAndSplitBy (@Nonnull final String filterRegexp, @Nonnull final String delimiterRegexp)
           {
             final String string = filteredBy(filterRegexp).get(0);
             return new Scanner(string).useDelimiter(Pattern.compile(delimiterRegexp));
@@ -206,7 +202,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
          *
          ***************************************************************************************************************/
         @Override @Nonnull
-        public List<String> filteredBy (final @Nonnull String regexp)
+        public List<String> filteredBy (@Nonnull final String regexp)
           {
             final Pattern pattern = Pattern.compile(regexp);
             final List<String> result = new ArrayList<>();
@@ -238,7 +234,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
          *
          ***************************************************************************************************************/
         @Override @Nonnull
-        public ConsoleOutput waitFor (final @Nonnull String regexp)
+        public ConsoleOutput waitFor (@Nonnull final String regexp)
           throws InterruptedException, IOException
           {
             log.debug("{} - waitFor({})", name, regexp);
@@ -281,12 +277,12 @@ public class DefaultProcessExecutor implements ProcessExecutor
         private void read()
           throws IOException
           {
-            final @Cleanup InputStreamReader is = new InputStreamReader(input);
+            @Cleanup final InputStreamReader is = new InputStreamReader(input);
             StringBuilder l = new StringBuilder();
 
             for (;;)
               {
-                int c = is.read();
+                final int c = is.read();
 
                 if (c < 0)
                   {
@@ -353,7 +349,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static DefaultProcessExecutor forExecutable (final @Nonnull String executable)
+    public static DefaultProcessExecutor forExecutable (@Nonnull final String executable)
       {
         final DefaultProcessExecutor executor = new DefaultProcessExecutor();
         executor.arguments.add(new File(executable + (isWindows() ? ".exe" : "")).getAbsolutePath());
@@ -387,7 +383,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public DefaultProcessExecutor withArgument (final @Nonnull String argument)
+    public DefaultProcessExecutor withArgument (@Nonnull final String argument)
       {
         arguments.add(argument);
         return this;
@@ -399,7 +395,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public DefaultProcessExecutor withArguments (final @Nonnull String ... arguments)
+    public DefaultProcessExecutor withArguments (@Nonnull final String ... arguments)
       {
         this.arguments.addAll(Arrays.asList(arguments));
         return this;
@@ -470,8 +466,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public DefaultProcessExecutor send (final @Nonnull String string)
-      throws IOException
+    public DefaultProcessExecutor send (@Nonnull final String string)
       {
         log.debug(">>>> sending '{}'...", string.replaceAll("\n", "<CR>"));
         stdin.print(string);

@@ -51,14 +51,14 @@ public abstract class XStreamMarshallableSupport<D> implements Marshallable
     private final XStreamContext xStreamContext;
 
     @Override
-    public final void marshal (final @Nonnull OutputStream os)
+    public final void marshal (@Nonnull final OutputStream os)
       throws IOException
       {
         xStreamContext.getXStream().toXML(getMarshallingObject(datum), os);
       }
 
     @Nonnull
-    protected Object getMarshallingObject (final @Nonnull D datum)
+    protected Object getMarshallingObject (@Nonnull final D datum)
       {
         return datum;
       }

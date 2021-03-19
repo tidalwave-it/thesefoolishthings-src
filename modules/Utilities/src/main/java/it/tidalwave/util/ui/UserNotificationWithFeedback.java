@@ -90,7 +90,7 @@ public class UserNotificationWithFeedback extends UserNotification
          *
          **************************************************************************************************************/
         @SneakyThrows(Throwable.class)
-        private final void onConfirm()
+        private void onConfirm()
                 throws Exception
           {
             onConfirm.call();
@@ -104,7 +104,7 @@ public class UserNotificationWithFeedback extends UserNotification
          *
          **************************************************************************************************************/
         @SneakyThrows(Throwable.class)
-        private final void onCancel()
+        private void onCancel()
                 throws Exception
           {
             onCancel.call();
@@ -118,9 +118,9 @@ public class UserNotificationWithFeedback extends UserNotification
      *
      *
      ******************************************************************************************************************/
-    protected UserNotificationWithFeedback (final @Nonnull String text,
-                                            final @Nonnull String caption,
-                                            final @Nonnull Feedback feedback)
+    protected UserNotificationWithFeedback (@Nonnull final String text,
+                                            @Nonnull final String caption,
+                                            @Nonnull final Feedback feedback)
       {
         super(text, caption);
         this.feedback = feedback;
@@ -148,7 +148,7 @@ public class UserNotificationWithFeedback extends UserNotification
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public UserNotificationWithFeedback withCaption (final @Nonnull String caption)
+    public UserNotificationWithFeedback withCaption (@Nonnull final String caption)
       {
         return new UserNotificationWithFeedback(text, caption, feedback);
       }
@@ -164,9 +164,9 @@ public class UserNotificationWithFeedback extends UserNotification
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public UserNotificationWithFeedback withCaption (final @Nonnull Class<?> bundleClass,
-                                                     final @Nonnull String resourceName,
-                                                     final @Nonnull Object ... params)
+    public UserNotificationWithFeedback withCaption (@Nonnull final Class<?> bundleClass,
+                                                     @Nonnull final String resourceName,
+                                                     @Nonnull final Object ... params)
       {
         return new UserNotificationWithFeedback(text, getMessage(bundleClass, resourceName, params), feedback);
       }
@@ -180,7 +180,7 @@ public class UserNotificationWithFeedback extends UserNotification
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public UserNotificationWithFeedback withText (final @Nonnull String text)
+    public UserNotificationWithFeedback withText (@Nonnull final String text)
       {
         return new UserNotificationWithFeedback(text, caption, feedback);
       }
@@ -196,9 +196,9 @@ public class UserNotificationWithFeedback extends UserNotification
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public UserNotificationWithFeedback withText (final @Nonnull Class<?> bundleClass,
-                                                  final @Nonnull String resourceName,
-                                                  final @Nonnull Object ... params)
+    public UserNotificationWithFeedback withText (@Nonnull final Class<?> bundleClass,
+                                                  @Nonnull final String resourceName,
+                                                  @Nonnull final Object ... params)
       {
         return new UserNotificationWithFeedback(getMessage(bundleClass, resourceName, params), caption, feedback);
       }
@@ -212,7 +212,7 @@ public class UserNotificationWithFeedback extends UserNotification
      *
      ******************************************************************************************************************/
     @Nonnull
-    public UserNotificationWithFeedback withFeedback (final @Nonnull Feedback feedback)
+    public UserNotificationWithFeedback withFeedback (@Nonnull final Feedback feedback)
       {
         return new UserNotificationWithFeedback(text, caption, feedback);
       }

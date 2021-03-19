@@ -66,7 +66,7 @@ public interface Aggregate<TYPE>
      *
      ******************************************************************************************************************/
     @Nonnull
-    default public Collection<String> getNames()
+    public default Collection<String> getNames()
       {
         return Collections.emptyList();
       }
@@ -81,9 +81,9 @@ public interface Aggregate<TYPE>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <TYPE> Aggregate<TYPE> of (final @Nonnull Map<String, TYPE> mapByName)
+    public static <TYPE> Aggregate<TYPE> of (@Nonnull final Map<String, TYPE> mapByName)
       {
-        return new MapAggregate<TYPE>(mapByName);
+        return new MapAggregate<>(mapByName);
       }
 
     /*******************************************************************************************************************
@@ -97,7 +97,7 @@ public interface Aggregate<TYPE>
     @Nonnull
     public static <TYPE> Aggregate<TYPE> newInstance()
       {
-        return new MapAggregate<TYPE>();
+        return new MapAggregate<>();
       }
 
     /*******************************************************************************************************************
@@ -111,7 +111,7 @@ public interface Aggregate<TYPE>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <TYPE> Aggregate<TYPE> of (final @Nonnull String name, final @Nonnull TYPE value)
+    public static <TYPE> Aggregate<TYPE> of (@Nonnull final String name, @Nonnull final TYPE value)
       {
         return new MapAggregate<TYPE>().with(name, value);
       }
@@ -127,7 +127,7 @@ public interface Aggregate<TYPE>
      *
      ******************************************************************************************************************/
     @Nonnull
-    default public Aggregate<TYPE> with (final @Nonnull String name, final @Nonnull TYPE value)
+    public default Aggregate<TYPE> with (@Nonnull final String name, @Nonnull final TYPE value)
       {
         return new MapAggregate<TYPE>().with(name, value);
       }

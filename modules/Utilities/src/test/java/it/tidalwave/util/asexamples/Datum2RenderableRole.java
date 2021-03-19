@@ -40,7 +40,7 @@ public class Datum2RenderableRole implements Renderable
     @Nonnull
     private final Datum2 owner;
 
-    public void renderTo (final @Nonnull RenderingContext renderingContext)
+    public void renderTo (@Nonnull final RenderingContext renderingContext)
       {
         renderingContext.render(owner.status);
       }

@@ -45,9 +45,9 @@ public class AsExtensionsBean
     @Inject @Nonnull
     private RoleManager roleManager;
 
-    public <T> T as (final @Nonnull Object datum,
-                     final @Nonnull Class<T> roleType,
-                     final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour)
+    public <T> T as (@Nonnull final Object datum,
+                     @Nonnull final Class<T> roleType,
+                     @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
       {
         final List<? extends T> roles = asMany(datum, roleType);
 
@@ -59,7 +59,7 @@ public class AsExtensionsBean
         return roles.get(0);
       }
 
-    public <T> List<? extends T> asMany (final @Nonnull Object datum, final @Nonnull Class<T> roleType)
+    public <T> List<? extends T> asMany (@Nonnull final Object datum, @Nonnull final Class<T> roleType)
       {
         assert roleManager != null : "roleManager not present or not injected";
         return roleManager.findRoles(datum, roleType);

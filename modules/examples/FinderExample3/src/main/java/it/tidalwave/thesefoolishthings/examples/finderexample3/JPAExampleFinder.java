@@ -51,12 +51,12 @@ public class JPAExampleFinder implements Finder<String>
         @Nonnull
         private final String field;
 
-        public JpaqlSortCriterion (final @Nonnull String field) 
+        public JpaqlSortCriterion (@Nonnull final String field)
           {
             this.field = field;
           }
         
-        public String processSql (final @Nonnull String sql, final @Nonnull SortDirection sortDirection)
+        public String processSql (@Nonnull final String sql, @Nonnull final SortDirection sortDirection)
           {
             return sql + " ORDER BY " + field + ((sortDirection == SortDirection.DESCENDING) ? " DESC" : "");  
           }
@@ -72,7 +72,7 @@ public class JPAExampleFinder implements Finder<String>
     private final int maxResults;
     private final String sql;
 
-    public JPAExampleFinder (final @Nonnull EntityManager em) 
+    public JPAExampleFinder (@Nonnull final EntityManager em)
       {
         this.em = em;
         sql = " FROM Person p";
@@ -81,37 +81,38 @@ public class JPAExampleFinder implements Finder<String>
       }
 
     @Nonnull
-    public Finder<String> from (final @Nonnegative int firstResult) 
+    public Finder<String> from (@Nonnegative final int firstResult)
       {
         return new JPAExampleFinder(em, firstResult, maxResults, sql);
       }
 
     @Nonnull
-    public Finder<String> max (final @Nonnegative int maxResults) 
+    public Finder<String> max (@Nonnegative final int maxResults)
       {
         return new JPAExampleFinder(em, firstResult, maxResults, sql);
       }
 
-    public Finder<String> withContext(Object context) 
+    @Nonnull
+    public Finder<String> withContext(@Nonnull final Object context)
       {
         throw new UnsupportedOperationException("Not supported.");
       }
     
     @Nonnull
-    public <AnotherType> Finder<AnotherType> ofType (final @Nonnull Class<AnotherType> type) 
+    public <AnotherType> Finder<AnotherType> ofType (@Nonnull final Class<AnotherType> type)
       {
         throw new UnsupportedOperationException("Not supported.");
       }
 
     @Nonnull
-    public Finder<String> sort (final @Nonnull SortCriterion criterion) 
+    public Finder<String> sort (@Nonnull final SortCriterion criterion)
       {
         return sort(criterion, SortDirection.ASCENDING);
       }
 
     @Nonnull
-    public Finder<String> sort (final @Nonnull SortCriterion criterion, 
-                                final @Nonnull SortDirection direction) 
+    public Finder<String> sort (@Nonnull final SortCriterion criterion,
+                                @Nonnull final SortDirection direction)
       {
         if (criterion instanceof JpaqlSortCriterion)
           {
@@ -155,7 +156,7 @@ public class JPAExampleFinder implements Finder<String>
       }
     
     @Nonnull
-    private Query createQuery (final @Nonnull String sqlPrefix)
+    private Query createQuery (@Nonnull final String sqlPrefix)
       {
         return em.createQuery(sqlPrefix + sql).setMaxResults(maxResults)
                                               .setFirstResult(firstResult);

@@ -62,14 +62,14 @@ public class MBeansManager
 
     private ObjectName statsName;
 
-    private final Map<ObjectName, Object> mbeansMapByName = new HashMap<ObjectName, Object>();
+    private final Map<ObjectName, Object> mbeansMapByName = new HashMap<>();
 
     /*******************************************************************************************************************
      *
      *
      *
      ******************************************************************************************************************/
-    public MBeansManager (final @Nonnull Object actorObject, final @Nonnegative int poolSize)
+    public MBeansManager (@Nonnull final Object actorObject, @Nonnegative final int poolSize)
       {
         this.actorObject = actorObject;
         stats = new ActorActivatorStats(poolSize);
@@ -85,7 +85,7 @@ public class MBeansManager
         forEachMethodInTopDownHierarchy(actorObject, new MethodProcessorSupport()
           {
             @Override @Nonnull
-            public FilterResult filter (final @Nonnull Class<?> clazz)
+            public FilterResult filter (@Nonnull final Class<?> clazz)
               {
                 mbeansMapByName.putAll(getMBeans(actorObject, clazz));
                 return FilterResult.IGNORE;
@@ -101,19 +101,7 @@ public class MBeansManager
             statsName = new ObjectName(name);
             mBeanServer.registerMBean(stats, statsName);
           }
-        catch (InstanceAlreadyExistsException e)
-          {
-            log.error("Cannot register master MBean for actor " + actorObject, e);
-          }
-        catch (MalformedObjectNameException e)
-          {
-            log.error("Cannot register master MBean for actor " + actorObject, e);
-          }
-        catch (MBeanRegistrationException e)
-          {
-            log.error("Cannot register master MBean for actor " + actorObject, e);
-          }
-        catch (NotCompliantMBeanException e)
+        catch (InstanceAlreadyExistsException | MalformedObjectNameException | NotCompliantMBeanException | MBeanRegistrationException e)
           {
             log.error("Cannot register master MBean for actor " + actorObject, e);
           }
@@ -125,15 +113,7 @@ public class MBeansManager
                 log.info(">>>> registering MBean {}", entry);
                 mBeanServer.registerMBean(entry.getValue(), entry.getKey());
               }
-            catch (InstanceAlreadyExistsException e)
-              {
-                log.error("Cannot register MBean: " + entry, e);
-              }
-            catch (MBeanRegistrationException e)
-              {
-                log.error("Cannot register MBean: " + entry, e);
-              }
-            catch (NotCompliantMBeanException e)
+            catch (InstanceAlreadyExistsException | NotCompliantMBeanException | MBeanRegistrationException e)
               {
                 log.error("Cannot register MBean: " + entry, e);
               }
@@ -153,11 +133,7 @@ public class MBeansManager
           {
             mBeanServer.unregisterMBean(statsName);
           }
-        catch (InstanceNotFoundException e)
-          {
-            log.error("Cannot register master MBean for actor " + actorObject, e);
-          }
-        catch (MBeanRegistrationException e)
+        catch (InstanceNotFoundException | MBeanRegistrationException e)
           {
             log.error("Cannot register master MBean for actor " + actorObject, e);
           }
@@ -169,11 +145,7 @@ public class MBeansManager
                 log.info(">>>> unregistering MBean {}", entry);
                 mBeanServer.unregisterMBean(entry.getKey());
               }
-            catch (InstanceNotFoundException e)
-              {
-                log.error("Cannot unregister MBean: " + entry, e);
-              }
-            catch (MBeanRegistrationException e)
+            catch (InstanceNotFoundException | MBeanRegistrationException e)
               {
                 log.error("Cannot unregister MBean: " + entry, e);
               }
@@ -186,9 +158,9 @@ public class MBeansManager
      *
      ******************************************************************************************************************/
     @Nonnull
-    private static Map<ObjectName, Object> getMBeans (final @Nonnull Object actorObject, final @Nonnull Class<?> clazz)
+    private static Map<ObjectName, Object> getMBeans (@Nonnull final Object actorObject, @Nonnull final Class<?> clazz)
       {
-        final Map<ObjectName, Object> result = new HashMap<ObjectName, Object>();
+        final Map<ObjectName, Object> result = new HashMap<>();
 
         for (final Field field : clazz.getDeclaredFields())
           {
@@ -213,15 +185,7 @@ public class MBeansManager
                           }
                       }
                   }
-                catch (IllegalArgumentException e)
-                  {
-                    log.error("Cannot handle object: {}", field);
-                  }
-                catch (IllegalAccessException e)
-                  {
-                    log.error("Cannot handle object: {}", field);
-                  }
-                catch (MalformedObjectNameException e)
+                catch (IllegalArgumentException | MalformedObjectNameException | IllegalAccessException e)
                   {
                     log.error("Cannot handle object: {}", field);
                   }

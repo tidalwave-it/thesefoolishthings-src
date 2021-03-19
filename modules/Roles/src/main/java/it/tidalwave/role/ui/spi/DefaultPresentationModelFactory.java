@@ -47,8 +47,8 @@ public class DefaultPresentationModelFactory implements PresentationModelFactory
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public PresentationModel createPresentationModel (final @Nonnull Object owner,
-                                                      final @Nonnull Collection<Object> localRolesOrFactories)
+    public PresentationModel createPresentationModel (@Nonnull final Object owner,
+                                                      @Nonnull final Collection<Object> localRolesOrFactories)
       {
         return new DefaultPresentationModel(owner, localRolesOrFactories);
       }

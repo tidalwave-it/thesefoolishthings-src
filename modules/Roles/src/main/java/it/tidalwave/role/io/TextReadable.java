@@ -42,14 +42,14 @@ import java.io.Reader;
 public interface TextReadable
   {
     //@bluebook-begin other
-    public final static Class<TextReadable> _TextReadable_ = TextReadable.class;
+    public static final Class<TextReadable> _TextReadable_ = TextReadable.class;
 
     /*******************************************************************************************************************
      *
      * A default implementation which throws {@link IOException} when opening the stream.
      *
      ******************************************************************************************************************/
-    public final static TextReadable DEFAULT = new TextReadable()
+    public static final TextReadable DEFAULT = new TextReadable()
       {
         @Override @Nonnull
         public Reader openReader()

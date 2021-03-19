@@ -37,19 +37,18 @@ import it.tidalwave.util.Finder;
  **********************************************************************************************************************/
 public abstract class SimpleFinderSupport<T> extends FinderSupport<T, Finder<T>>
   {
-    private final static long serialVersionUID = 743059684933055L;
+    private static final long serialVersionUID = 743059684933055L;
 
     protected SimpleFinderSupport()
       {
-        super();
       }
 
-    protected SimpleFinderSupport (final @Nonnull String name)
+    protected SimpleFinderSupport (@Nonnull final String name)
       {
         super(name);
       }
 
-    protected SimpleFinderSupport (final @Nonnull SimpleFinderSupport<T> other, final @Nonnull Object override)
+    protected SimpleFinderSupport (@Nonnull final SimpleFinderSupport<T> other, @Nonnull final Object override)
       {
         super(other, override);
       }
