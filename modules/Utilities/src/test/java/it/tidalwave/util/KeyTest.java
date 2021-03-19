@@ -56,14 +56,14 @@ public class KeyTest
      *
      ******************************************************************************************************************/
     @Test
-    public void test_registration()
+    public void test()
       {
         // when
         final Key<String> key1 = Key.of("key1", String.class);
         final Key<String> key2 = Key.of("key2", String.class);
         final Key<Integer> key3 = Key.of("key3", Integer.class);
-        final Key<String> key1b = Key.of("key1", String.class); // existing name, same type
-        final Key<Integer> key3b = Key.of("key3", Integer.class); // existing name, same type
+        final Key<String> key1b = Key.of("key1", String.class);
+        final Key<LocalDateTime> key1c = Key.of("key1", LocalDateTime.class); // existing name, different type
         final Set<Key<?>> allKeys = Key.allKeys();
         // then
         assertThat(key1.getName(), is("key1"));
@@ -74,48 +74,15 @@ public class KeyTest
         assertEquals(key3.getType(), Integer.class);
         assertThat(key1b.getName(), is("key1"));
         assertEquals(key1b.getType(), String.class);
-        assertThat(key3b.getName(), is("key3"));
-        assertEquals(key3b.getType(), Integer.class); // first wins
+        assertThat(key1c.getName(), is("key1"));
+        assertEquals(key1c.getType(), LocalDateTime.class);
         assertThat(key1b, is(sameInstance(key1)));
-        assertThat(key3b, is(sameInstance(key3)));
+        assertThat(key1c, is(not(sameInstance(key1))));
+        System.err.println(allKeys);
         assertThat(allKeys.stream().map(Key::getName).collect(toList()),
-                   is(Arrays.asList("key1", "key2", "key3")));
+                   is(Arrays.asList("key1", "key1", "key2", "key3")));
         assertThat(allKeys.stream().map(Key::getType).collect(toList()),
-                   is(Arrays.asList(String.class, String.class, Integer.class)));
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @Test
-    public void must_allow_redefining_the_type_when_first_registration_is_Object()
-      {
-        // given
-        final Key<Object> key1a = Key.of("key1", Object.class);
-        // when
-        final Key<String> key1b = Key.of("key1", String.class);
-        // then
-        assertThat(key1a.getName(), is("key1"));
-        assertThat(key1b.getName(), is("key1"));
-        assertEquals(key1a.getType(), String.class);
-        assertThat(key1b, is(sameInstance(key1a)));
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @Test(expectedExceptions = IllegalArgumentException.class,
-            expectedExceptionsMessageRegExp = "Can't create Key\\(name=key1, type=class java\\.time\\" +
-                                              ".LocalDateTime\\):" +
-                                              " previously created with type java\\.lang\\.String")
-    public void must_now_allow_redefining_the_type_when_first_registration_is_not_Object()
-      {
-        // given
-        final Key<String> key1a = Key.of("key1", String.class);
-        // when
-        final Key<LocalDateTime> key1b = Key.of("key1", LocalDateTime.class);
-        // then
-        // Exception
+                   is(Arrays.asList(String.class, LocalDateTime.class, String.class, Integer.class)));
       }
 
     /*******************************************************************************************************************
@@ -139,10 +106,10 @@ public class KeyTest
     private static Object[][] keysAndExpectedTypes()
       {
         return new Object[][]
-          {
-            { new Key<String>("string") {},   String.class  },
-            { new Key<Integer>("integer") {}, Integer.class },
-            { new Key<Date>("date") {},       Date.class    },
-          };
+                {
+                        { new Key<String>("string") {},   String.class  },
+                        { new Key<Integer>("integer") {}, Integer.class },
+                        { new Key<Date>("date") {},       Date.class    },
+                        };
       }
   }
