@@ -6,13 +6,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>3.2-ALPHA-4-SNAPSHOT</version>
+        <version>3.2-ALPHA-4</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-actor</artifactId>
-    <version>3.2-ALPHA-4-SNAPSHOT</version>
+    <version>3.2-ALPHA-4</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings - Actors</name>
     <description>
