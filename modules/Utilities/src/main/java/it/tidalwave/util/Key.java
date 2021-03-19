@@ -28,7 +28,7 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
-import java.util.Optional;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
@@ -39,7 +39,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
@@ -48,19 +47,19 @@ import lombok.extern.slf4j.Slf4j;
  * @stereotype flyweight
  *
  **********************************************************************************************************************/
-@Immutable @RequiredArgsConstructor(access = AccessLevel.PRIVATE) @EqualsAndHashCode(exclude = "type") @ToString @Slf4j
+@Immutable @RequiredArgsConstructor(access = AccessLevel.PRIVATE) @EqualsAndHashCode @ToString
 public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
   {
     private static final long serialVersionUID = 2817490298518793579L;
 
     // FIXME: a Set would be enough.
-    @VisibleForTesting static final ConcurrentHashMap<String, Key<?>> INSTANCES = new ConcurrentHashMap<>();
+    @VisibleForTesting static final ConcurrentHashMap<Key<?>, Key<?>> INSTANCES = new ConcurrentHashMap<>();
 
     @Getter @Nonnull
     private final String name;
 
     @Getter @Nonnull
-    private Class<T> type;
+    private final Class<T> type;
 
     /*******************************************************************************************************************
      *
@@ -74,31 +73,22 @@ public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
     public Key (final @Nonnull String name)
       {
         this.name = name;
-        this.type = (Class<T>)ReflectionUtils.getTypeArguments(Key.class, getClass()).get(0);
+        type = (Class<T>)ReflectionUtils.getTypeArguments(Key.class, getClass()).get(0);
       }
 
     /*******************************************************************************************************************
      *
      * Creates an instance with the given name and type. If an identical key already exists, that existing instance is
-     * returned. If a key with the same name but different type exists:
-     *
-     * <ul>
-     *   <li>if the previous type is {@code Object}, it is replaced by the new type; since key instances are
-     *   flyweight, this means that all the references previously obtained will see the change;</li>
-     *   <li>otherwise an exception is thrown.</li>
-     * </ul>
-     *
-     * We can call this behaviour "lazy typing" of the key. It allows to "pre-register" a key with a name, but unknown
-     * type (for instance this could be done when reading from a file where there is no type information) and only later
-     * specify the type (when a value associated to that key is going to be processed). For instance, the property
-     * unmarshallers of NorthernWind work this way.
+     * returned. It is allowed to have two keys with the same name and different types (e.g. {@code Key.of("foo",
+     * String.class)} and {@code Key.of("foo", Integer.class)}: they are considered as two distinct keys. This feature
+     * allows to treat the same data both as typed and type-agnostic at the same time; for instance, a collection of
+     * properties could be read from a configuration file in type-agnostic way (if there is no type information in
+     * the file) and later managed as typed only when needed.
      *
      * @param <T>     the static type
      * @param name    the name
      * @param type    the dynamic type
      * @return        the key
-     * @throws        IllegalArgumentException  when trying to create a {@code Key} with the same name of an existing
-     * instance, but a different type.
      * @since         3.2-ALPHA-2
      *
      ******************************************************************************************************************/
@@ -106,38 +96,24 @@ public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
     public static <T> Key<T> of (final @Nonnull String name, final @Nonnull Class<T> type)
       {
         final Key<T> newKey = new Key<T>(name, type);
-        final Key<T> key = (Key<T>)INSTANCES.putIfAbsent(name, newKey);
-
-        if ((key != null) && (key.getType() != newKey.getType()))
-          {
-            if (key.getType() != Object.class)
-              {
-                final String message = String.format("Can't create %s: previously created with type %s",
-                                                     newKey, key.getType().getName());
-                throw new IllegalArgumentException(message);
-              }
-
-            log.debug("Redefining {} as {}", key, type);
-            key.type = type;
-          }
-
+        final Key<T> key = (Key<T>)INSTANCES.putIfAbsent(newKey, newKey);
         return key != null ? key : newKey;
       }
 
     /*******************************************************************************************************************
      *
-     * Returns a key registered with a given name, if it exists. While the type bound to the key is statically unknown
-     * (thus the result is a {@code Key<Object>}), it can be dynamically retrieved by means of {@link #getType()}.
+     * Creates an instance with the given name. Type is considere as unknown (and assumed as {@link Object}. Please see
+     * {@link #of(String, Class)} for more information.
      *
      * @param name    the name
      * @return        the key
-     * @since         3.2-ALPHA-3
+     * @since         3.2-ALPHA-4
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Optional<Key<Object>> named (final @Nonnull String name)
+    public static Key<Object> of (final @Nonnull String name)
       {
-        return Optional.ofNullable((Key<Object>)INSTANCES.get(name));
+        return of(name, Object.class);
       }
 
     /*******************************************************************************************************************
@@ -186,9 +162,8 @@ public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
     @Override
     public int compareTo (final @Nonnull Key<?> other)
       {
-        return this.name.compareTo(other.name);
-//        final Comparator<Key<?>> byType = Comparator.comparing(k -> k.getType().getName());
-//        final Comparator<Key<?>> byName = Comparator.comparing(Key::getName);
-//        return byName.thenComparing(byType).compare(this, other);
+        final Comparator<Key<?>> byType = Comparator.comparing(k -> k.getType().getName());
+        final Comparator<Key<?>> byName = Comparator.comparing(Key::getName);
+        return byName.thenComparing(byType).compare(this, other);
       }
   }
