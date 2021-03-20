@@ -29,6 +29,7 @@ package it.tidalwave.util;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -43,7 +44,7 @@ import it.tidalwave.util.impl.TypeSafeHashMap;
  *
  **********************************************************************************************************************/
 @Immutable
-public interface TypeSafeMap extends Iterable<Object>
+public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
   {
     /*******************************************************************************************************************
      *
@@ -96,7 +97,29 @@ public interface TypeSafeMap extends Iterable<Object>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Set<Key<?>> getKeys();
+    public Set<Key<?>> keySet();
+
+    /*******************************************************************************************************************
+     *
+     * Returns a set of all the contained values.
+     *
+     * @return  the values as a mutable collection
+     * @since   3.2-ALPHA-6
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public Collection<Object> values();
+
+    /*******************************************************************************************************************
+     *
+     * Returns a set of all the contained (key, value) pairs.
+     *
+     * @return  the pairs as a mutable collection
+     * @since   3.2-ALPHA-6
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public Set<Map.Entry<Key<?>, Object>> entrySet();
 
     /*******************************************************************************************************************
      *
@@ -106,7 +129,7 @@ public interface TypeSafeMap extends Iterable<Object>
      *
      ******************************************************************************************************************/
     @Nonnegative
-    public int getSize();
+    public int size();
 
     /*******************************************************************************************************************
      *
@@ -117,6 +140,19 @@ public interface TypeSafeMap extends Iterable<Object>
      ******************************************************************************************************************/
     @Nonnull
     public Map<Key<?>, Object> asMap();
+
+    /*******************************************************************************************************************
+     *
+     * Create a new instance with an additional pair (key, value=
+     *
+     * @param   key   the key
+     * @param   value the value
+     * @return  the new instance
+     * @since 3.2-ALPHA-2
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public <T> TypeSafeMap with (@Nonnull final Key<T> key, @Nonnull final T value);
 
     /*******************************************************************************************************************
      *
@@ -147,16 +183,17 @@ public interface TypeSafeMap extends Iterable<Object>
         return new TypeSafeHashMap(map);
       }
 
-    /*******************************************************************************************************************
-     *
-     * Create a new instance with an additional pair (key, value=
-     *
-     * @param   key   the key
-     * @param   value the value
-     * @return  the new instance
-     * @since 3.2-ALPHA-2
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public <T> TypeSafeMap with (@Nonnull final Key<T> key, @Nonnull final T value);
+    /** @deprecated Use {@link #keySet()} instead. */
+    @Nonnull @Deprecated
+    public default Set<Key<?>> getKeys()
+      {
+        return keySet();
+      }
+
+    /** @deprecated Use {@link #size()} instead. */
+    @Nonnull @Deprecated
+    public default int getSize()
+      {
+        return size();
+      }
   }

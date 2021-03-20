@@ -26,21 +26,20 @@
  */
 package it.tidalwave.util.impl;
 
-import it.tidalwave.util.Key;
-import it.tidalwave.util.TypeSafeMultiMap;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.io.Serializable;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.io.Serializable;
+import it.tidalwave.util.Key;
+import it.tidalwave.util.TypeSafeMultiMap;
 
 /***********************************************************************************************************************
  *
@@ -79,7 +78,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Nonnull @SuppressWarnings("unchecked")
+    @Override @Nonnull @SuppressWarnings("unchecked")
     public <T> Collection<T> get (@Nonnull final Key<T> key)
       {
         return containsKey(key) ? new CopyOnWriteArrayList<>((Collection<T>)map.get(key))
@@ -91,6 +90,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
+    @Override
     public boolean containsKey (@Nonnull final Key<?> key)
       {
         return map.containsKey(key);
@@ -116,8 +116,8 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Nonnull
-    public Set<Key<?>> getKeys()
+    @Override @Nonnull
+    public Set<Key<?>> keySet()
       {
         return new CopyOnWriteArraySet<>(map.keySet());
       }
@@ -127,8 +127,41 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Nonnegative
-    public int getSize()
+    @Override @Nonnull
+    public Collection<Collection<?>> values()
+      {
+        return map.values();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public Set<Map.Entry<Key<?>, Collection<?>>> entrySet()
+      {
+        return map.entrySet();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public Iterator<Map.Entry<Key<?>, Collection<?>>> iterator()
+      {
+        return map.entrySet().iterator();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnegative
+    public int size()
       {
         return map.size();
       }
@@ -138,18 +171,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Nonnull
-    public Iterator<Collection<?>> iterator()
-      {
-        return Collections.unmodifiableCollection(map.values()).iterator();
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Nonnull
+    @Override @Nonnull
     public Map<Key<?>, Collection<?>> asMap()
       {
         return new HashMap<>(map);

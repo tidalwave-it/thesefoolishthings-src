@@ -29,6 +29,7 @@ package it.tidalwave.util.impl;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -79,7 +80,7 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Nonnull @SuppressWarnings("unchecked")
+    @Override @Nonnull @SuppressWarnings("unchecked")
     public <T> T get (@Nonnull final Key<T> key)
       throws NotFoundException
       {
@@ -91,6 +92,7 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
+    @Override
     public boolean containsKey (@Nonnull final Key<?> key)
       {
         return map.containsKey(key);
@@ -114,8 +116,8 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Nonnull
-    public Set<Key<?>> getKeys()
+    @Override @Nonnull
+    public Set<Key<?>> keySet()
       {
         return new CopyOnWriteArraySet<>(map.keySet());
       }
@@ -125,8 +127,30 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Nonnegative
-    public int getSize()
+    @Override @Nonnull
+    public Collection<Object> values()
+      {
+        return map.values();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public Set<Map.Entry<Key<?>, Object>> entrySet()
+      {
+        return map.entrySet();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnegative
+    public int size()
       {
         return map.size();
       }
@@ -136,10 +160,10 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Nonnull
-    public Iterator<Object> iterator()
+    @Override @Nonnull
+    public Iterator<Map.Entry<Key<?>, Object>> iterator()
       {
-        return new CopyOnWriteArraySet<>(map.values()).iterator();
+        return map.entrySet().iterator();
       }
 
     /*******************************************************************************************************************
@@ -147,7 +171,7 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Override @Nonnull
     public Map<Key<?>, Object> asMap()
       {
         return new HashMap<>(map);
