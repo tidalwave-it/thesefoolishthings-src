@@ -24,13 +24,13 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.text;
+package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.role.ui.impl.DefaultDisplayable;
 import it.tidalwave.role.ui.Displayable;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import java.util.Comparator;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -41,16 +41,18 @@ import static org.hamcrest.MatcherAssert.*;
  **********************************************************************************************************************/
 public class DisplayableComparatorTest
   {
-    final Displayable a  = new DefaultDisplayable("a", "a");
-    final Displayable b  = new DefaultDisplayable("b", "b");
-    final Displayable c1 = new DefaultDisplayable("c", "c");
-    final Displayable c2 = new DefaultDisplayable("c", "c");
+    private final Displayable a  = new DefaultDisplayable("a", "a");
+    private final Displayable b  = new DefaultDisplayable("b", "b");
+    private final Displayable c1 = new DefaultDisplayable("c", "c");
+    private final Displayable c2 = new DefaultDisplayable("c", "c");
 
     @Test(dataProvider = "data")
     public void test (@Nonnull final Displayable d1, @Nonnull final Displayable d2, final int expectedResult)
       {
+        // given
+        final Comparator<Displayable> underTest = Displayable.comparing();
         // when
-        final int actualResult = DisplayableComparator.getInstance().compare(d1, d2);
+        final int actualResult = underTest.compare(d1, d2);
         // then
         assertThat(actualResult, is(expectedResult));
       }

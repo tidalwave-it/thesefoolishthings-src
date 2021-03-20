@@ -24,7 +24,7 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.text;
+package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
 import java.util.Comparator;
