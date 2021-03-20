@@ -38,7 +38,7 @@ import static it.tidalwave.util.FunctionalCheckedExceptionWrappers.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@Slf4j
+@SuppressWarnings({"SameReturnValue", "RedundantThrows"}) @Slf4j
 public class FunctionalCheckedExceptionWrappersTest
   {
     /*******************************************************************************************************************
@@ -54,7 +54,7 @@ public class FunctionalCheckedExceptionWrappersTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test(expectedExceptions = {RuntimeException.class})
+    @Test(expectedExceptions = RuntimeException.class)
     public void test_function_wrapper_with_exception()
       {
         final String r = _f(this::sampleFunctionWithException).apply("bad");
@@ -72,7 +72,7 @@ public class FunctionalCheckedExceptionWrappersTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test(expectedExceptions = {RuntimeException.class})
+    @Test(expectedExceptions = RuntimeException.class)
     public void test_consumer_wrapper_with_exception()
       {
         _c(this::sampleConsumerWithException).accept("foo");
@@ -91,7 +91,7 @@ public class FunctionalCheckedExceptionWrappersTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test(expectedExceptions = {RuntimeException.class})
+    @Test(expectedExceptions = RuntimeException.class)
     public void test_supplier_wrapper_with_exception()
       {
         final String r = _s(this::sampleSupplierWithException).get();
@@ -110,7 +110,7 @@ public class FunctionalCheckedExceptionWrappersTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test(expectedExceptions = {RuntimeException.class})
+    @Test(expectedExceptions = RuntimeException.class)
     public void test_predicate_wrapper_with_exception()
       {
         final boolean r = _p(this::samplePredicateWithException).test("foo");
@@ -123,7 +123,7 @@ public class FunctionalCheckedExceptionWrappersTest
     public void test_with_Stream()
       {
         final List<Integer> numbers = IntStream.rangeClosed(1, 10)
-                                               .mapToObj(Integer::valueOf)
+                                               .boxed()
                                                .filter(_p(this::matchEven))
                                                .collect(Collectors.toList());
         log.info("Even numbers: {}", numbers);
@@ -132,11 +132,11 @@ public class FunctionalCheckedExceptionWrappersTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test(expectedExceptions = {RuntimeException.class}) // this is just to see a code example with Streams
+    @Test(expectedExceptions = RuntimeException.class) // this is just to see a code example with Streams
     public void test_with_Stream_with_exception()
       {
         final List<Integer> numbers = IntStream.rangeClosed(1, 20)
-                                               .mapToObj(Integer::valueOf)
+                                               .boxed()
                                                .filter(_p(this::matchEven))
                                                .collect(Collectors.toList());
       }
@@ -181,25 +181,26 @@ public class FunctionalCheckedExceptionWrappersTest
      *
      ******************************************************************************************************************/
     @Nonnull
-    private String sampleFunction (final @Nonnull String arg)
+    private String sampleFunction (@Nonnull final String arg)
             throws Exception
       {
         return arg;
       }
 
     @Nonnull
-    private String sampleFunctionWithException (final @Nonnull String arg)
+    private String sampleFunctionWithException (@Nonnull final String arg)
             throws Exception
       {
         throw new Exception();
       }
 
-    private void sampleConsumer (final @Nonnull String arg)
+    @SuppressWarnings("EmptyMethod")
+    private void sampleConsumer (@Nonnull final String arg)
             throws Exception
       {
       }
 
-    private void sampleConsumerWithException (final @Nonnull String arg)
+    private void sampleConsumerWithException (@Nonnull final String arg)
             throws Exception
       {
         throw new Exception();
@@ -219,19 +220,18 @@ public class FunctionalCheckedExceptionWrappersTest
         throw new Exception();
       }
 
-    private boolean samplePredicate (final @Nonnull String arg)
+    private boolean samplePredicate (@Nonnull final String arg)
             throws Exception
       {
         return true;
       }
 
-    private boolean samplePredicateWithException (final @Nonnull String arg)
+    private boolean samplePredicateWithException (@Nonnull final String arg)
             throws Exception
       {
         throw new Exception();
       }
 
-    @Nonnull
     private boolean matchEven (final int number)
             throws Exception
       {

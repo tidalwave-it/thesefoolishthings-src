@@ -44,14 +44,14 @@ import java.io.InputStream;
 public interface BinaryReadable
   {
     //@bluebook-begin other
-    public final static Class<BinaryReadable> _BinaryReadable_ = BinaryReadable.class;
+    public static final Class<BinaryReadable> _BinaryReadable_ = BinaryReadable.class;
 
     /*******************************************************************************************************************
      *
      * A default implementation which throws {@link IOException} when opening the stream.
      *
      ******************************************************************************************************************/
-    public final static BinaryReadable DEFAULT = new BinaryReadable()
+    public static final BinaryReadable DEFAULT = new BinaryReadable()
       {
         @Override @Nonnull
         public InputStream openStream()

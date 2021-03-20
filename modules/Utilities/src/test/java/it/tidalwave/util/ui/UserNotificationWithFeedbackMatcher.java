@@ -56,7 +56,7 @@ public class UserNotificationWithFeedbackMatcher implements ArgumentMatcher<User
      *
      ******************************************************************************************************************/
     @Override
-    public boolean matches (final @Nullable UserNotificationWithFeedback notification)
+    public boolean matches (@Nullable final UserNotificationWithFeedback notification)
       {
         return (notification != null)
                 && Pattern.matches(captionRegex, notification.getCaption())

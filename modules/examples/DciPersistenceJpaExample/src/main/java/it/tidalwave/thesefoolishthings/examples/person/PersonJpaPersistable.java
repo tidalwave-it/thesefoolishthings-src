@@ -55,7 +55,7 @@ public class PersonJpaPersistable extends JpaPersistableSupport
     @Column
     private String lastName;
 
-    public PersonJpaPersistable (final @Nonnull Person datum, final @Nonnull JpaPersistenceContext context)
+    public PersonJpaPersistable (@Nonnull final Person datum, @Nonnull final JpaPersistenceContext context)
       {
         super(context);
         this.id = datum.id.stringValue();

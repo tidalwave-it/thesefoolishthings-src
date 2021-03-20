@@ -35,14 +35,14 @@ import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@SimpleMessageSubscriber(source = "otherMessageBus")
+@SimpleMessageSubscriber(source = "otherMessageBus") @SuppressWarnings("EmptyMethod")
 public class MockSubscriber2
   {
-    void onMockEvent1 (final @Nonnull @ListensTo MockEvent1 event)
+    void onMockEvent1 (@Nonnull @ListensTo final MockEvent1 event)
       {
       }
 
-    void onMockEvent2 (final @Nonnull @ListensTo MockEvent2 event)
+    void onMockEvent2 (@Nonnull @ListensTo final MockEvent2 event)
       {
       }
   }

@@ -41,7 +41,7 @@ import it.tidalwave.util.NotFoundException;
 // FIXME: merge with the one in OpenBlueSky
 public interface ActionProvider
   {
-    public final static Class<ActionProvider> _ActionProvider_ = ActionProvider.class;
+    public static final Class<ActionProvider> _ActionProvider_ = ActionProvider.class;
 
     @Nonnull
     public Collection<? extends Action> getActions();

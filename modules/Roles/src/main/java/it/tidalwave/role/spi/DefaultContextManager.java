@@ -103,7 +103,7 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> T findContextOfType (final @Nonnull Class<T> contextType)
+    public <T> T findContextOfType (@Nonnull final Class<T> contextType)
       throws NotFoundException
       {
         for (final Object context : getContexts())
@@ -123,7 +123,7 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override
-    public void addGlobalContext (final @Nonnull Object context)
+    public void addGlobalContext (@Nonnull final Object context)
       {
         globalContexts.add(context);
       }
@@ -134,7 +134,7 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override
-    public void removeGlobalContext (final @Nonnull Object context)
+    public void removeGlobalContext (@Nonnull final Object context)
       {
         globalContexts.remove(context);
       }
@@ -145,7 +145,7 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override
-    public void addLocalContext (final @Nonnull Object context)
+    public void addLocalContext (@Nonnull final Object context)
       {
         localContexts.get().push(context);
       }
@@ -156,7 +156,7 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override
-    public void removeLocalContext (final @Nonnull Object context)
+    public void removeLocalContext (@Nonnull final Object context)
       {
         localContexts.get().remove(context);
       }
@@ -167,8 +167,8 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <V, T extends Throwable> V runWithContext (final @Nonnull Object context,
-                                                      final @Nonnull Task<V, T> task)
+    public <V, T extends Throwable> V runWithContext (@Nonnull final Object context,
+                                                      @Nonnull final Task<V, T> task)
       throws T
       {
         return runWithContexts(Collections.singletonList(context), task);
@@ -180,8 +180,8 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <V, T extends Throwable> V runWithContexts (final @Nonnull List<Object> contexts,
-                                                       final @Nonnull Task<V, T> task)
+    public <V, T extends Throwable> V runWithContexts (@Nonnull final List<Object> contexts,
+                                                       @Nonnull final Task<V, T> task)
       throws T
       {
         final String taskId = shortId(task);
@@ -220,7 +220,7 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override
-    public <V> V runWithContext (final @Nonnull Object context, final @Nonnull Supplier<V> task)
+    public <V> V runWithContext (@Nonnull final Object context, @Nonnull final Supplier<V> task)
       {
         return runWithContext(context, new Task<V, RuntimeException>()
           {
@@ -238,7 +238,7 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override
-    public <V> V runWithContexts (final @Nonnull List<Object> contexts, final @Nonnull Supplier<V> task)
+    public <V> V runWithContexts (@Nonnull final List<Object> contexts, @Nonnull final Supplier<V> task)
       {
         return runWithContext(contexts, new Task<V, RuntimeException>()
           {

@@ -60,7 +60,7 @@ public class PresentationModelMatcher implements ArgumentMatcher<PresentationMod
      *
      ******************************************************************************************************************/
     @Nonnull
-    public PresentationModelMatcher withRole (final @Nonnull Class<?> roleType)
+    public PresentationModelMatcher withRole (@Nonnull final Class<?> roleType)
       {
         expectedRoleTypes.add(roleType);
         pmDescription.append(separator).append(" with role ").append(roleType.getName());
@@ -74,7 +74,7 @@ public class PresentationModelMatcher implements ArgumentMatcher<PresentationMod
      *
      ******************************************************************************************************************/
     @Override
-    public boolean matches (final @Nullable PresentationModel pm)
+    public boolean matches (@Nullable final PresentationModel pm)
       {
         if (pm == null)
           {

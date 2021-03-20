@@ -29,7 +29,6 @@ package it.tidalwave.util;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -67,7 +66,7 @@ public interface TypeSafeMap extends Iterable<Object>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default <T> Optional<T> getOptional (@Nonnull Key<T> key)
+    public default <T> Optional<T> getOptional (@Nonnull final Key<T> key)
       {
         try
           {
@@ -143,7 +142,7 @@ public interface TypeSafeMap extends Iterable<Object>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static TypeSafeMap ofCloned (final @Nonnull Map<Key<?>, Object> map)
+    public static TypeSafeMap ofCloned (@Nonnull final Map<Key<?>, Object> map)
       {
         return new TypeSafeHashMap(map);
       }
@@ -159,5 +158,5 @@ public interface TypeSafeMap extends Iterable<Object>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> TypeSafeMap with (final @Nonnull Key<T> key, final @Nonnull T value);
+    public <T> TypeSafeMap with (@Nonnull final Key<T> key, @Nonnull final T value);
   }

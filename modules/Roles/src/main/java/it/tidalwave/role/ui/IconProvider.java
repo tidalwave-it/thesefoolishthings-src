@@ -53,12 +53,12 @@ public interface IconProvider
      * A default {@code IconProvider} with a empty icon.
      *
      ******************************************************************************************************************/
-    public final static IconProvider DEFAULT = new IconProvider()
+    public static final IconProvider DEFAULT = new IconProvider()
       {
         private final Icon EMPTY_ICON = new ImageIcon(new BufferedImage(16, 16, BufferedImage.TYPE_4BYTE_ABGR));
 
         @Override @Nonnull
-        public Icon getIcon (final @Nonnegative int size)
+        public Icon getIcon (@Nonnegative final int size)
           {
             return EMPTY_ICON;
           }

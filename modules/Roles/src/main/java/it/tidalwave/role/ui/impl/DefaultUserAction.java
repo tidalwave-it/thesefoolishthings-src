@@ -39,7 +39,6 @@ import lombok.experimental.Accessors;
 import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
 import java.util.Collection;
-// import java.beans.PropertyChangeListener;
 
 /***********************************************************************************************************************
  *
@@ -49,12 +48,8 @@ import java.util.Collection;
 @RequiredArgsConstructor(staticName = "withCallback") @Slf4j
 public class DefaultUserAction implements UserAction
   {
-    // @Getter @Accessors(fluent = true)
-    // private final SimpleBooleanProperty enabledProperty = new SimpleBooleanProperty(true); // BoundProperty<Boolean>?
-
-    // FIXME: what to do? Should be in sync with enabledProperty?
     @Getter @Accessors(fluent = true)
-    private final BoundProperty<Boolean> enabled = new BoundProperty<Boolean>(true);
+    private final BoundProperty<Boolean> enabled = new BoundProperty<>(true);
 
     @Delegate @Nonnull
     private final AsSupport asSupport;
@@ -68,25 +63,11 @@ public class DefaultUserAction implements UserAction
      * @since  3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
-    public DefaultUserAction (final @Nonnull Callback callback, final @Nonnull Collection<Object> rolesOrFactories)
+    public DefaultUserAction (@Nonnull final Callback callback, @Nonnull final Collection<Object> rolesOrFactories)
       {
         this.callback = callback;
         this.asSupport = new AsSupport(this, rolesOrFactories);
-        // enabledProperty.addListener(changeListener);
-        // enabled.addPropertyChangeListener(propertyChangeListener);
-//        enabled.addListener(invalidationListener);
       }
-
-//    private final InvalidationListener invalidationListener = (Observable observable) ->
-//      {
-//        log.info("invalidated {}", observable);
-//      };
-
-    // private final ChangeListener<Boolean> changeListener = (observable, oldValue, newValue) -> enabled.set(newValue);
-
-    //private final PropertyChangeListener propertyChangeListener =
-    //        evt -> enabledProperty.set((Boolean)evt.getNewValue());
-
 
     /*******************************************************************************************************************
      *
@@ -95,7 +76,7 @@ public class DefaultUserAction implements UserAction
      *
      ******************************************************************************************************************/
     @Nonnull
-    public DefaultUserAction withRoles (final @Nonnull Collection<Object> rolesOrFactories)
+    public DefaultUserAction withRoles (@Nonnull final Collection<Object> rolesOrFactories)
       {
         return new DefaultUserAction(callback, rolesOrFactories);
       }

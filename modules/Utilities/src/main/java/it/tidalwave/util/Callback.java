@@ -37,14 +37,9 @@ package it.tidalwave.util;
 @FunctionalInterface
 public interface Callback
   {
-    public final static Callback EMPTY = new Callback()
-      {
-        @Override
-        public void call()
-          {
-          }
-      };
+    public static final Callback EMPTY = () -> {};
 
+    @SuppressWarnings({"RedundantThrows", "EmptyMethod"})
     public void call()
       throws Throwable;
   }

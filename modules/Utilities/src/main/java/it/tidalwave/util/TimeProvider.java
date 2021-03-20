@@ -70,7 +70,7 @@ public interface TimeProvider extends Supplier<Instant>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    default public Instant get()
+    public default Instant get()
       {
         return currentInstant();
       }
@@ -84,7 +84,7 @@ public interface TimeProvider extends Supplier<Instant>
      *
      ******************************************************************************************************************/
     @Nonnull
-    default public ZonedDateTime currentZonedDateTime()
+    public default ZonedDateTime currentZonedDateTime()
       {
         return ZonedDateTime.ofInstant(currentInstant(), ZoneId.systemDefault());
       }
@@ -98,7 +98,7 @@ public interface TimeProvider extends Supplier<Instant>
      *
      ******************************************************************************************************************/
     @Nonnull
-    default public LocalDateTime currentLocalDateTime()
+    public default LocalDateTime currentLocalDateTime()
       {
         return LocalDateTime.ofInstant(currentInstant(), ZoneId.systemDefault());
       }
@@ -112,7 +112,7 @@ public interface TimeProvider extends Supplier<Instant>
      *
      ******************************************************************************************************************/
     @Nonnull
-    static public TimeProvider getInstance()
+    public static TimeProvider getInstance()
       {
         synchronized (TimeProvider.class)
           {

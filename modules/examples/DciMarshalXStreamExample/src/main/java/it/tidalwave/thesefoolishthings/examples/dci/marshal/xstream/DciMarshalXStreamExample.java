@@ -30,6 +30,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.Arrays;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import it.tidalwave.util.Id;
 import it.tidalwave.role.AsExtensions;
 import it.tidalwave.role.ContextManager;
@@ -53,7 +54,7 @@ public class DciMarshalXStreamExample
     private ContextManager contextManager;
 
     public void run()
-      throws Exception
+            throws IOException
       {
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
         final Person luke = new Person(new Id("2"), "Luke", "Skywalker");

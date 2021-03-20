@@ -35,7 +35,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import it.tidalwave.role.ui.LocalizedDisplayable;
 import it.tidalwave.role.ui.MutableLocalizedDisplayable;
 
 /***********************************************************************************************************************
@@ -70,7 +69,7 @@ public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
      * @param  displayName   the display name
      *
      ******************************************************************************************************************/
-    public DefaultMutableDisplayable (final @Nonnull String displayName)
+    public DefaultMutableDisplayable (@Nonnull final String displayName)
       {
         this(displayName, "???");
       }
@@ -84,7 +83,7 @@ public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
      * @param  toStringName  the name to be rendered when {@code toString()} is called
      *
      ******************************************************************************************************************/
-    public DefaultMutableDisplayable (final @Nonnull String displayName, final @Nonnull String toStringName)
+    public DefaultMutableDisplayable (@Nonnull final String displayName, @Nonnull final String toStringName)
       {
         this.toStringName = toStringName;
         displayNameMap.put(defaultLocale, displayName);
@@ -107,7 +106,7 @@ public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public String getDisplayName (final @Nonnull Locale locale)
+    public String getDisplayName (@Nonnull final Locale locale)
       {
         return displayNameMap.get(locale);
       }
@@ -140,7 +139,7 @@ public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
      *
      ******************************************************************************************************************/
     @Override
-    public void setDisplayName (final @Nonnull String displayName)
+    public void setDisplayName (@Nonnull final String displayName)
       {
         final String oldDisplayName = getDisplayName(defaultLocale);
         setDisplayName(displayName, defaultLocale);
@@ -153,7 +152,7 @@ public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
      *
      ******************************************************************************************************************/
     @Override
-    public void setDisplayName (final @Nonnull String displayName, final @Nonnull Locale locale)
+    public void setDisplayName (@Nonnull final String displayName, @Nonnull final Locale locale)
       {
         final Map<Locale, String> oldDisplayNameMap = new HashMap<>(displayNameMap);
         displayNameMap.put(locale, displayName);
@@ -166,7 +165,7 @@ public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
      *
      ******************************************************************************************************************/
     @Override
-    public void setDisplayNames (final @Nonnull Map<Locale, String> displayNames)
+    public void setDisplayNames (@Nonnull final Map<Locale, String> displayNames)
       {
         final Map<Locale, String> oldDisplayNameMap = new HashMap<>(displayNameMap);
         displayNameMap.putAll(displayNames);
@@ -179,7 +178,7 @@ public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
      *
      ******************************************************************************************************************/
     @Override
-    public void addPropertyChangeListener (final @Nonnull PropertyChangeListener listener)
+    public void addPropertyChangeListener (@Nonnull final PropertyChangeListener listener)
       {
         pcs.addPropertyChangeListener(listener);
       }
@@ -190,7 +189,7 @@ public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
      *
      ******************************************************************************************************************/
     @Override
-    public void removePropertyChangeListener (final @Nonnull PropertyChangeListener listener)
+    public void removePropertyChangeListener (@Nonnull final PropertyChangeListener listener)
       {
         pcs.removePropertyChangeListener(listener);
       }

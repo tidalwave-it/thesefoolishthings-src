@@ -42,7 +42,7 @@ import it.tidalwave.util.Finder.SortDirection;
 public interface Sortable
   {
     //@bluebook-begin others
-    public final static Class<Sortable> _Sortable_ = Sortable.class;
+    public static final Class<Sortable> _Sortable_ = Sortable.class;
 
     /*******************************************************************************************************************
      *
@@ -51,10 +51,10 @@ public interface Sortable
      * {@code sortDirection}.
      *
      ******************************************************************************************************************/
-    public final static Sortable DEFAULT = new Sortable()
+    public static final Sortable DEFAULT = new Sortable()
       {
         @Override
-        public void setSortCriterion (final @Nonnull SortCriterion sortCriterion)
+        public void setSortCriterion (@Nonnull final SortCriterion sortCriterion)
           {
           }
 
@@ -65,7 +65,7 @@ public interface Sortable
           }
 
         @Override
-        public void setSortDirection (final @Nonnull SortDirection sortDirection)
+        public void setSortDirection (@Nonnull final SortDirection sortDirection)
           {
           }
 
@@ -84,6 +84,7 @@ public interface Sortable
      * @param sortCriterion  the sort criterion
      *
      ******************************************************************************************************************/
+    @SuppressWarnings("EmptyMethod")
     public void setSortCriterion (@Nonnull SortCriterion sortCriterion);
 
     /*******************************************************************************************************************
@@ -93,6 +94,7 @@ public interface Sortable
      * @param sortDirection  the sort direction
      *
      ******************************************************************************************************************/
+    @SuppressWarnings("EmptyMethod")
     public void setSortDirection (@Nonnull SortDirection sortDirection);
 
     /*******************************************************************************************************************
@@ -102,7 +104,7 @@ public interface Sortable
      * @return  the sort criterion
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nonnull @SuppressWarnings("SameReturnValue")
     public SortCriterion getSortCriterion();
 
     /*******************************************************************************************************************
@@ -112,6 +114,6 @@ public interface Sortable
      * @return  the sort direction
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nonnull @SuppressWarnings("SameReturnValue")
     public SortDirection getSortDirection();
   }

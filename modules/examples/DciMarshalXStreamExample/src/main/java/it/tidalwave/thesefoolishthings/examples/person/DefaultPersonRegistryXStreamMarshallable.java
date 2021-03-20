@@ -38,14 +38,14 @@ import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.XStreamConte
 @DciRole(datumType = DefaultPersonRegistry.class, context = XStreamContext.class)
 public class DefaultPersonRegistryXStreamMarshallable extends XStreamMarshallableSupport<DefaultPersonRegistry>
   {
-    public DefaultPersonRegistryXStreamMarshallable (final @Nonnull DefaultPersonRegistry datum,
-                                                     final @Nonnull XStreamContext context)
+    public DefaultPersonRegistryXStreamMarshallable (@Nonnull final DefaultPersonRegistry datum,
+                                                     @Nonnull final XStreamContext context)
       {
         super(datum, context);
       }
 
     @Override @Nonnull
-    protected Object getMarshallingObject (final @Nonnull DefaultPersonRegistry datum)
+    protected Object getMarshallingObject (@Nonnull final DefaultPersonRegistry datum)
       {
         return datum.persons;
       }

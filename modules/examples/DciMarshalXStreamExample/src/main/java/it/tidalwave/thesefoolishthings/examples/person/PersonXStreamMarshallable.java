@@ -38,7 +38,7 @@ import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.XStreamConte
 @DciRole(datumType = Person.class, context = XStreamContext.class)
 public final class PersonXStreamMarshallable extends XStreamMarshallableSupport<Person>
   {
-    public PersonXStreamMarshallable (final @Nonnull Person datum, final @Nonnull XStreamContext context)
+    public PersonXStreamMarshallable (@Nonnull final Person datum, @Nonnull final XStreamContext context)
       {
         super(datum, context);
       }

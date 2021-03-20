@@ -71,7 +71,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
         @Nonnull
         private final Collection<Object> rolesOrFactories;
 
-        public SCPFinder (final @Nonnull SCPFinder<T> other, final @Nonnull Object override)
+        public SCPFinder (@Nonnull final SCPFinder<T> other, @Nonnull final Object override)
           {
             super(other, override);
             final SCPFinder<T> source = getSource(SCPFinder.class, other, override);
@@ -79,7 +79,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
             this.rolesOrFactories = source.rolesOrFactories;
           }
 
-        @Override
+        @Override @Nonnull
         protected List<? extends PresentationModel> computeResults()
           {
             return scp.contextSampler.runWithContexts(new Task<List<? extends PresentationModel>, RuntimeException>()
@@ -96,14 +96,8 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
 
                         for (final T child : composite.findChildren().results())
                           {
-                            final Presentable presentable = child.as(_Presentable_, new NotFoundBehaviour<Presentable>()
-                              {
-                                @Override
-                                public Presentable run (final Throwable t)
-                                  {
-                                    return new SimpleCompositePresentable<>(child);
-                                  }
-                              });
+                            final Presentable presentable = child.as(_Presentable_,
+                                                                     t -> new SimpleCompositePresentable<>(child));
 
                             results.add(presentable.createPresentationModel(rolesOrFactories));
                           }
@@ -136,7 +130,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
      *
      *
      ******************************************************************************************************************/
-    public SimpleCompositePresentable (final @Nonnull T datum)
+    public SimpleCompositePresentable (@Nonnull final T datum)
       {
         this(datum, new DefaultPresentationModelFactory());
       }
@@ -146,8 +140,8 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
      *
      *
      ******************************************************************************************************************/
-    public SimpleCompositePresentable (final @Nonnull T datum,
-                                       final @Nonnull PresentationModelFactory defaultPresentationModelFactory)
+    public SimpleCompositePresentable (@Nonnull final T datum,
+                                       @Nonnull final PresentationModelFactory defaultPresentationModelFactory)
       {
         this.datum = datum;
         this.defaultPresentationModelFactory = defaultPresentationModelFactory;
@@ -160,7 +154,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public PresentationModel createPresentationModel (final @Nonnull Collection<Object> rolesOrFactories)
+    public PresentationModel createPresentationModel (@Nonnull final Collection<Object> rolesOrFactories)
       {
         return internalCreatePresentationModel(datum, rolesOrFactories);
       }
@@ -171,8 +165,8 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
      *
      ******************************************************************************************************************/
     @Nonnull
-    private PresentationModel internalCreatePresentationModel (final @Nonnull T datum,
-                                                               final @Nonnull Collection<Object> rolesOrFactories)
+    private PresentationModel internalCreatePresentationModel (@Nonnull final T datum,
+                                                               @Nonnull final Collection<Object> rolesOrFactories)
       {
         final Finder<PresentationModel> pmFinder = new SCPFinder(this, rolesOrFactories);
 
@@ -196,7 +190,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
      *
      ******************************************************************************************************************/
     @Nonnull
-    private List<Object> resolveRoles (final @Nonnull T datum, final @Nonnull Collection<Object> rolesOrFactories)
+    private List<Object> resolveRoles (@Nonnull final T datum, @Nonnull final Collection<Object> rolesOrFactories)
       {
         final List<Object> roles = new ArrayList<>();
 

@@ -67,15 +67,6 @@ import static it.tidalwave.role.spi.impl.LogUtil.*;
 @Slf4j
 public abstract class RoleManagerSupport implements RoleManager
   {
-    private final static Comparator<Class<?>> CLASS_COMPARATOR = new Comparator<Class<?>>()
-      {
-        @Override
-        public int compare (final @Nonnull Class<?> class1, final @Nonnull Class<?> class2)
-          {
-            return class1.getName().compareTo(class2.getName());
-          }
-      };
-
     private final ContextManager contextManager = ContextManager.Locator.find();
 
     /* VisibleForTesting */ final MultiMap<DatumAndRole, Class<?>> roleMapByDatumAndRole = new MultiMap<>();
@@ -89,8 +80,8 @@ public abstract class RoleManagerSupport implements RoleManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <ROLE_TYPE> List<? extends ROLE_TYPE> findRoles (final @Nonnull Object datum,
-                                                            final @Nonnull Class<ROLE_TYPE> roleType)
+    public <ROLE_TYPE> List<? extends ROLE_TYPE> findRoles (@Nonnull final Object datum,
+                                                            @Nonnull final Class<ROLE_TYPE> roleType)
       {
         log.trace("findRoles({}, {})", shortId(datum), shortName(roleType));
         final Class<?> datumType = findTypeOf(datum);
@@ -162,15 +153,15 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      *
      ******************************************************************************************************************/
     @Nonnull
-    private Object[] getParameterValues (final @Nonnull Class<?>[] parameterTypes,
-                                         final @Nonnull Class<?> datumClass,
-                                         final @Nonnull Object datum,
-                                         final @Nullable Class<?> contextClass,
-                                         final @Nullable Object context)
+    private Object[] getParameterValues (@Nonnull final Class<?>[] parameterTypes,
+                                         @Nonnull final Class<?> datumClass,
+                                         @Nonnull final Object datum,
+                                         @Nullable final Class<?> contextClass,
+                                         @Nullable final Object context)
       {
         final List<Object> values = new ArrayList<>();
 
-        for (Class<?> parameterType : parameterTypes)
+        for (final Class<?> parameterType : parameterTypes)
           {
             if (parameterType.isAssignableFrom(datumClass))
               {
@@ -205,8 +196,8 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      ******************************************************************************************************************/
     @Nonnull
     /* VisibleForTesting */ synchronized <RT> Set<Class<? extends RT>> findRoleImplementationsFor (
-            final @Nonnull Class<?> datumType,
-            final @Nonnull Class<RT> roleType)
+            @Nonnull final Class<?> datumType,
+            @Nonnull final Class<RT> roleType)
       {
         final DatumAndRole datumAndRole = new DatumAndRole(datumType, roleType);
 
@@ -234,7 +225,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      * @param   roleImplementationTypes     the types of role implementations to scan
      *
      ******************************************************************************************************************/
-    protected void scan (final @Nonnull Collection<Class<?>> roleImplementationTypes)
+    protected void scan (@Nonnull final Collection<Class<?>> roleImplementationTypes)
       {
         log.debug("scan({})", shortNames(roleImplementationTypes));
 
@@ -244,7 +235,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
               {
                 for (final Class<?> roleType : findAllImplementedInterfacesOf(roleImplementationType))
                   {
-                    if (!roleType.getName().equals("org.springframework.beans.factory.aspectj.ConfigurableObject"))
+                    if (!"org.springframework.beans.factory.aspectj.ConfigurableObject".equals(roleType.getName()))
                       {
                         roleMapByDatumAndRole.add(new DatumAndRole(datumType, roleType), roleImplementationType);
                       }
@@ -265,9 +256,9 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      *
      ******************************************************************************************************************/
     @Nonnull
-    /* VisibleForTesting */ static SortedSet<Class<?>> findAllImplementedInterfacesOf (final @Nonnull Class<?> clazz)
+    /* VisibleForTesting */ static SortedSet<Class<?>> findAllImplementedInterfacesOf (@Nonnull final Class<?> clazz)
       {
-        final SortedSet<Class<?>> interfaces = new TreeSet<>(CLASS_COMPARATOR);
+        final SortedSet<Class<?>> interfaces = new TreeSet<>(Comparator.comparing(Class::getName));
         interfaces.addAll(Arrays.asList(clazz.getInterfaces()));
 
         for (final Class<?> interface_ : interfaces)
@@ -323,9 +314,9 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      *
      *
      ******************************************************************************************************************/
-    private void logChanges (final @Nonnull DatumAndRole datumAndRole,
-                             final @Nonnull Set<Class<?>> before,
-                             final @Nonnull Set<Class<?>> after)
+    private void logChanges (@Nonnull final DatumAndRole datumAndRole,
+                             @Nonnull final Set<Class<?>> before,
+                             @Nonnull final Set<Class<?>> after)
       {
         after.removeAll(before);
 
@@ -349,31 +340,17 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
         log.debug("Configured roles:");
 
         final List<Entry<DatumAndRole, Set<Class<?>>>> entries = new ArrayList<>(roleMapByDatumAndRole.entrySet());
-        Collections.sort(entries, new Comparator<Entry<DatumAndRole, Set<Class<?>>>>()
-          {
-            @Override
-            public int compare (final @Nonnull Entry<DatumAndRole, Set<Class<?>>> e1,
-                                final @Nonnull Entry<DatumAndRole, Set<Class<?>>> e2)
-              {
-                final int s1 = e1.getKey().getDatumClass().getName().compareTo(
-                               e2.getKey().getDatumClass().getName());
-
-                if (s1 != 0)
-                  {
-                    return s1;
-                  }
-
-                return e1.getKey().getRoleClass().getName().compareTo(
-                       e2.getKey().getRoleClass().getName());
-              }
-          });
+        entries.sort(Comparator.comparing((Entry<DatumAndRole, Set<Class<?>>> e) -> e.getKey()
+                                                                                     .getDatumClass()
+                                                                                     .getName())
+                               .thenComparing(e -> e.getKey().getRoleClass().getName()));
 
         for (final Entry<DatumAndRole, Set<Class<?>>> entry : entries)
           {
             log.debug(">>>> {}: {} -> {}",
-                    new Object[] { shortName(entry.getKey().getDatumClass()),
-                                   shortName(entry.getKey().getRoleClass()),
-                                   shortNames(entry.getValue())});
+                      shortName(entry.getKey().getDatumClass()),
+                      shortName(entry.getKey().getRoleClass()),
+                      shortNames(entry.getValue()));
           }
       }
 
@@ -387,7 +364,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      *
      ******************************************************************************************************************/
     @Nonnull
-    /* VisibleForTesting */ static <T> Class<T> findTypeOf (final @Nonnull T object)
+    /* VisibleForTesting */ static <T> Class<T> findTypeOf (@Nonnull final T object)
       {
         Class<?> ownerClass = object.getClass();
 

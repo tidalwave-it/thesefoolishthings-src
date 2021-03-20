@@ -64,7 +64,7 @@ public interface PresentationModelFactory
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default PresentationModel createPresentationModel (final @Nonnull Object datum)
+    public default PresentationModel createPresentationModel (@Nonnull final Object datum)
       {
         return createPresentationModel(datum, Collections.emptyList());
       }

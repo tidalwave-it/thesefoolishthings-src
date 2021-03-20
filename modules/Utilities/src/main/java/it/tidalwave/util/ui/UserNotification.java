@@ -71,7 +71,7 @@ public class UserNotification
      *
      ******************************************************************************************************************/
     @Nonnull
-    public UserNotification withCaption (final @Nonnull String caption)
+    public UserNotification withCaption (@Nonnull final String caption)
       {
         return new UserNotification(text, caption);
       }
@@ -87,9 +87,9 @@ public class UserNotification
      *
      ******************************************************************************************************************/
     @Nonnull
-    public UserNotification withCaption (final @Nonnull Class<?> bundleClass,
-                                         final @Nonnull String resourceName,
-                                         final @Nonnull Object ... params)
+    public UserNotification withCaption (@Nonnull final Class<?> bundleClass,
+                                         @Nonnull final String resourceName,
+                                         @Nonnull final Object ... params)
       {
         return new UserNotification(text, getMessage(bundleClass, resourceName, params));
       }
@@ -103,7 +103,7 @@ public class UserNotification
      *
      ******************************************************************************************************************/
     @Nonnull
-    public UserNotification withText (final @Nonnull String text)
+    public UserNotification withText (@Nonnull final String text)
       {
         return new UserNotification(text, caption);
       }
@@ -119,9 +119,9 @@ public class UserNotification
      *
      ******************************************************************************************************************/
     @Nonnull
-    public UserNotification withText (final @Nonnull Class<?> bundleClass,
-                                      final @Nonnull String resourceName,
-                                      final @Nonnull Object ... params)
+    public UserNotification withText (@Nonnull final Class<?> bundleClass,
+                                      @Nonnull final String resourceName,
+                                      @Nonnull final Object ... params)
       {
         return new UserNotification(getMessage(bundleClass, resourceName, params), caption);
       }

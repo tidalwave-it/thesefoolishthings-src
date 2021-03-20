@@ -70,9 +70,9 @@ public final class Bindings
      * @param  jList     the {@code JList}
      *
      ******************************************************************************************************************/
-    public static void bind (final @Nonnull BindingGroup bindings,
-                             final @Nonnull Object datum,
-                             final @Nonnull JList jList)
+    public static void bind (@Nonnull final BindingGroup bindings,
+                             @Nonnull final Object datum,
+                             @Nonnull final JList jList)
       {
         final ObservableList<?> ol = datum.as(_ObservableListProvider_).createObservableList();
         bindings.addBinding(SwingBindings.createJListBinding(READ, ol, jList));
@@ -93,9 +93,9 @@ public final class Bindings
      * @param  jTable    the {@code JTable}
      *
      ******************************************************************************************************************/
-    public static void bind (final @Nonnull BindingGroup bindings,
-                             final @Nonnull Object datum,
-                             final @Nonnull JTable jTable)
+    public static void bind (@Nonnull final BindingGroup bindings,
+                             @Nonnull final Object datum,
+                             @Nonnull final JTable jTable)
       {
         final ObservableList<?> ol = datum.as(_ObservableListProvider_).createObservableList();
         final JTableBinding tb = SwingBindings.createJTableBinding(READ_WRITE, ol, jTable);

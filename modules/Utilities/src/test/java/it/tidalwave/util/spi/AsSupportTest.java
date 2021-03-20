@@ -56,12 +56,12 @@ public class AsSupportTest
         private final Collection<Object> roles;
 
         @Override @Nonnull
-        public AsDelegate createAsDelegate (final @Nonnull Object datum)
+        public AsDelegate createAsDelegate (@Nonnull final Object datum)
           {
             return new AsDelegate()
               {
                 @Override @Nonnull
-                public <T> Collection<? extends T> as (final @Nonnull Class<T> roleType)
+                public <T> Collection<? extends T> as (@Nonnull final Class<T> roleType)
                   {
                     final List<T> result = new ArrayList<>();
 
@@ -97,7 +97,7 @@ public class AsSupportTest
     public static class RoleFactory3 implements RoleFactory<Object>
       {
         @Override @Nonnull
-        public Object createRoleFor (final @Nonnull Object owner)
+        public Object createRoleFor (@Nonnull final Object owner)
           {
             return new Role3(owner);
           }

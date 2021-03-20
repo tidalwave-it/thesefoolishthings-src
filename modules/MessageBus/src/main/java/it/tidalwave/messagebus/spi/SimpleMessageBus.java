@@ -74,7 +74,7 @@ public class SimpleMessageBus implements MessageBus
      * 
      *
      ******************************************************************************************************************/
-    public SimpleMessageBus (final @Nonnull Executor executor)
+    public SimpleMessageBus (@Nonnull final Executor executor)
       {
         this(executor, new SimpleAsyncMessageDelivery());
       }
@@ -84,7 +84,7 @@ public class SimpleMessageBus implements MessageBus
      * 
      *
      ******************************************************************************************************************/
-    public SimpleMessageBus (final @Nonnull Executor executor, final @Nonnull MessageDelivery messageDelivery)
+    public SimpleMessageBus (@Nonnull final Executor executor, @Nonnull final MessageDelivery messageDelivery)
       {
         this.executor = executor;
         this.messageDelivery = messageDelivery;
@@ -98,7 +98,7 @@ public class SimpleMessageBus implements MessageBus
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void publish (final @Nonnull Topic message)
+    public <Topic> void publish (@Nonnull final Topic message)
       {
         publish((Class<Topic>)message.getClass(), message);
       }
@@ -109,7 +109,7 @@ public class SimpleMessageBus implements MessageBus
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void publish (final @Nonnull Class<Topic> topic, final @Nonnull Topic message)
+    public <Topic> void publish (@Nonnull final Class<Topic> topic, @Nonnull final Topic message)
       {
         log.trace("publish({}, {})", topic, message);
         messageDelivery.deliverMessage(topic, message);
@@ -121,7 +121,7 @@ public class SimpleMessageBus implements MessageBus
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void subscribe (final @Nonnull Class<Topic> topic, final @Nonnull Listener<Topic> listener)
+    public <Topic> void subscribe (@Nonnull final Class<Topic> topic, @Nonnull final Listener<Topic> listener)
       {
         log.debug("subscribe({}, {})", topic, listener);
         findListenersByTopic(topic).add(new WeakReference<>(listener));
@@ -133,7 +133,7 @@ public class SimpleMessageBus implements MessageBus
      *
      ******************************************************************************************************************/
     @Override
-    public void unsubscribe (final @Nonnull Listener<?> listener)
+    public void unsubscribe (@Nonnull final Listener<?> listener)
       {
         log.debug("unsubscribe({})", listener);
 
@@ -155,7 +155,7 @@ public class SimpleMessageBus implements MessageBus
      *
      *
      ******************************************************************************************************************/
-    protected <TOPIC> void dispatchMessage (final @Nonnull Class<TOPIC> topic, final @Nonnull TOPIC message)
+    protected <TOPIC> void dispatchMessage (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)
       {
         final HashSet<Map.Entry<Class<?>, List<WeakReference<MessageBus.Listener<?>>>>> clone =
                 new HashSet<>(listenersMapByTopic.entrySet());
@@ -191,10 +191,9 @@ public class SimpleMessageBus implements MessageBus
      *
      ******************************************************************************************************************/
     @Nonnull
-    private <Topic> List<WeakReference<Listener<Topic>>> findListenersByTopic (final @Nonnull Class<Topic> topic)
+    private <Topic> List<WeakReference<Listener<Topic>>> findListenersByTopic (@Nonnull final Class<Topic> topic)
       {
-        final List tmp = listenersMapByTopic.get(topic);
-        List<WeakReference<Listener<Topic>>> listeners = tmp;
+        List<WeakReference<Listener<Topic>>> listeners = (List)listenersMapByTopic.get(topic);
 
         if (listeners == null)
           {

@@ -47,9 +47,9 @@ public interface Collaboration
      *
      *
      ******************************************************************************************************************/
-    public final static Collaboration NULL_COLLABORATION = new Collaboration()
+    public static final Collaboration NULL_COLLABORATION = new Collaboration()
       {
-        @Override
+        @Override @Nonnull
         public Object getOriginatingMessage()
           {
             return new Object();
@@ -66,13 +66,13 @@ public interface Collaboration
           {
           }
 
-        @Override
+        @Override @Nonnull
         public DateTime getStartTime()
           {
             return new DateTime(0);
           }
 
-        @Override
+        @Override @Nonnull
         public Duration getDuration()
           {
             return new Duration(0);
@@ -85,12 +85,12 @@ public interface Collaboration
           }
 
         @Override
-        public void resume (final @Nonnull Object suspensionToken, final @Nonnull Runnable runnable)
+        public void resume (@Nonnull final Object suspensionToken, @Nonnull final Runnable runnable)
           {
           }
 
         @Override
-        public void resumeAndDie (final @Nonnull Object suspensionToken)
+        public void resumeAndDie (@Nonnull final Object suspensionToken)
           {
           }
 

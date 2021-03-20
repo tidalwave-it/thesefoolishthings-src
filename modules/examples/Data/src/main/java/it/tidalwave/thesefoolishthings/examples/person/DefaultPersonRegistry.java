@@ -45,8 +45,8 @@ public class DefaultPersonRegistry implements PersonRegistry
         return new ArrayListFinder<>(persons);
       }
 
-    @Override @Nonnull
-    public void add (final @Nonnull Person person)
+    @Override
+    public void add (@Nonnull final Person person)
       {
         persons.add(person);
       }

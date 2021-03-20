@@ -37,12 +37,12 @@ import it.tidalwave.role.ui.ChangingSource;
 public class CopyIfEmptyOrConform extends WeakCopyFunctionSupport<String>
   {
     @Nonnull
-    public static CopyIfEmptyOrConform copyIfEmptyOrConform (final @Nonnull ChangingSource<String> source)
+    public static CopyIfEmptyOrConform copyIfEmptyOrConform (@Nonnull final ChangingSource<String> source)
       {
         return new CopyIfEmptyOrConform(source);
       }
 
-    public CopyIfEmptyOrConform (final @Nonnull ChangingSource<String> sourceProperty)
+    public CopyIfEmptyOrConform (@Nonnull final ChangingSource<String> sourceProperty)
       {
         super(sourceProperty);
       }

@@ -31,12 +31,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import java.util.function.Function;
 import it.tidalwave.role.SimpleComposite;
-import it.tidalwave.role.ui.impl.DefaultPresentationModel;
 import it.tidalwave.util.As;
 import it.tidalwave.util.spi.ArrayListCollectorSupport;
 import it.tidalwave.role.Composite;
@@ -75,7 +73,7 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static PresentationModelCollectors toCompositePresentationModel (final @Nonnull Collection<Object> roles)
+    public static PresentationModelCollectors toCompositePresentationModel (@Nonnull final Collection<Object> roles)
       {
         return new PresentationModelCollectors(roles);
       }
@@ -104,8 +102,8 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
      ******************************************************************************************************************/
     @Nonnull
     public static <T extends As> PresentationModel toCompositePresentationModel (
-            final @Nonnull Iterable<T> i,
-            final @Nonnull Function<T, Object> roleCreator)
+            @Nonnull final Iterable<T> i,
+            @Nonnull final Function<T, Object> roleCreator)
       {
         return StreamSupport.stream(i.spliterator(), false)
                             .map(o -> o.as(_Presentable_).createPresentationModel(r(roleCreator.apply(o))))
@@ -123,7 +121,7 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
      * 
      ******************************************************************************************************************/
     @Nonnull
-    public static <T extends As> PresentationModel toCompositePresentationModel (final @Nonnull Iterable<T> i)
+    public static <T extends As> PresentationModel toCompositePresentationModel (@Nonnull final Iterable<T> i)
       {
         return toCompositePresentationModel(i, o -> new Object[0]);
       }
@@ -137,19 +135,13 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
     public Function<List<PresentationModel>, PresentationModel> finisher() 
       {
         return childrenPms -> PresentationModel.of("", r(roles, SimpleComposite.ofCloned(childrenPms)));
-          // {
-          // final List<Object> temp = new ArrayList<>(roles);
-          // temp.add(SimpleComposite.ofCloned(childrenPms));
-          // // FIXME: "" triggers a NPE in RoleManagerSupport.java:341
-          // return new DefaultPresentationModel("", temp);
-          // };
       }
     
     /*******************************************************************************************************************
      *
      * 
      ******************************************************************************************************************/
-    private PresentationModelCollectors (final @Nonnull Collection<Object> roles)
+    private PresentationModelCollectors (@Nonnull final Collection<Object> roles)
       {
         this.roles.addAll(roles);
       }

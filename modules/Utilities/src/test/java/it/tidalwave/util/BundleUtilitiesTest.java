@@ -42,10 +42,10 @@ import static org.hamcrest.MatcherAssert.*;
 public class BundleUtilitiesTest
   {
     @Test(dataProvider = "dataTest")
-    public void test (final @Nonnull Locale locale,
-                      final @Nonnull String resourceName,
-                      final @Nonnull Object[] params,
-                      final @Nonnull String expectedResult)
+    public void test (@Nonnull final Locale locale,
+                      @Nonnull final String resourceName,
+                      @Nonnull final Object[] params,
+                      @Nonnull final String expectedResult)
       {
         // when
         final String actualResult = BundleUtilities.getMessage(Mock.class, locale, resourceName, params);
@@ -63,5 +63,5 @@ public class BundleUtilitiesTest
             { Locale.US,    "res2", new Object[] { "x", 1 },  "message 2 with x and 1" },
             { Locale.ITALY, "res2", new Object[] { "x", 1 },  "messaggio 2 con x e 1"  }
           };
-      };
+      }
   }

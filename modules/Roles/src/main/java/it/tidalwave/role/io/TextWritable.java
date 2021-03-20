@@ -42,14 +42,14 @@ import java.io.Writer;
 public interface TextWritable
   {
     //@bluebook-begin other
-    public final static Class<TextWritable> _TextWritable_ = TextWritable.class;
+    public static final Class<TextWritable> _TextWritable_ = TextWritable.class;
 
     /*******************************************************************************************************************
      *
      * A default implementation which throws {@link IOException} when opening the stream.
      *
      ******************************************************************************************************************/
-    public final static TextWritable DEFAULT = new TextWritable()
+    public static final TextWritable DEFAULT = new TextWritable()
       {
         @Override @Nonnull
         public Writer openWriter()

@@ -38,7 +38,7 @@ import it.tidalwave.util.Initializer;
  **********************************************************************************************************************/
 public final class EmptyInitializer<K> implements Initializer<K>, Serializable
   {
-    private final static long serialVersionUID = 6039459583930596L;
+    private static final long serialVersionUID = 6039459583930596L;
 
     @Nonnull // @Override
     public K initialize (@Nonnull final K entity)

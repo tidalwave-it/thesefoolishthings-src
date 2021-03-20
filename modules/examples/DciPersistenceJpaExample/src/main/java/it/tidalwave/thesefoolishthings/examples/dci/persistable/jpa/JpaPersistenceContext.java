@@ -42,13 +42,13 @@ public class JpaPersistenceContext
 //    @PersistenceContext
 //    private EntityManager em;
 
-    public void persist (final @Nonnull Object object)
+    public void persist (@Nonnull final Object object)
       {
         log.info("******** PERSIST {}", object);
 //        em.persist(object);
       }
 
-    public void remove (final @Nonnull Object object)
+    public void remove (@Nonnull final Object object)
       {
         log.info("******** REMOVE {}", object);
 //        em.remove(object);

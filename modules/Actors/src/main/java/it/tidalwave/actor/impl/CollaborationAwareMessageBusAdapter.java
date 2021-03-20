@@ -72,7 +72,7 @@ public class CollaborationAwareMessageBusAdapter implements ReflectionUtils.Meth
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public FilterResult filter (final @Nonnull Class<?> clazz)
+    public FilterResult filter (@Nonnull final Class<?> clazz)
       {
         return FilterResult.ACCEPT; // TODO: should filter with @Actor?
       }
@@ -83,7 +83,7 @@ public class CollaborationAwareMessageBusAdapter implements ReflectionUtils.Meth
      *
      ******************************************************************************************************************/
     @Override
-    public void process (final @Nonnull Method method)
+    public void process (@Nonnull final Method method)
       {
         final Annotation[][] parameterAnnotations = method.getParameterAnnotations();
 
@@ -116,7 +116,7 @@ public class CollaborationAwareMessageBusAdapter implements ReflectionUtils.Meth
      *
      *
      ******************************************************************************************************************/
-    private <Topic> void registerMessageListener (final @Nonnull Method method)
+    private <Topic> void registerMessageListener (@Nonnull final Method method)
       {
         log.info("registerMessageListener({})", method);
 
@@ -129,7 +129,7 @@ public class CollaborationAwareMessageBusAdapter implements ReflectionUtils.Meth
      *
      *
      ******************************************************************************************************************/
-    private <Topic> void registerCollaborationListener (final @Nonnull Method method)
+    private <Topic> void registerCollaborationListener (@Nonnull final Method method)
       {
         log.info("registerCollaborationListener({})", method);
         final Class<?> collaborationMessageType = method.getParameterTypes()[0];
@@ -146,9 +146,9 @@ public class CollaborationAwareMessageBusAdapter implements ReflectionUtils.Meth
      *
      *
      ******************************************************************************************************************/
-    private <Topic> void addListener (final @Nonnull Method method,
-                                      final @Nonnull MessageBus.Listener<Topic> messageListener,
-                                      final @Nonnull Class<Topic> topic) throws SecurityException
+    private <Topic> void addListener (@Nonnull final Method method,
+                                      @Nonnull final MessageBus.Listener<Topic> messageListener,
+                                      @Nonnull final Class<Topic> topic) throws SecurityException
       {
         method.setAccessible(true);
         messageBusListeners.add(messageListener);

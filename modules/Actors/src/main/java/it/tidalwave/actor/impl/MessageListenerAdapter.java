@@ -55,38 +55,34 @@ class MessageListenerAdapter<Topic> implements MessageBus.Listener<Topic>
     private final ActorActivatorStats stats;
 
     @Override
-    public void notify (final @Nonnull Topic message)
+    public void notify (@Nonnull final Topic message)
       {
         log.trace("notify({})", message);
         final DefaultCollaboration collaboration = DefaultCollaboration.getCollaboration(message);
         collaboration.registerPendingMessage(message);
         stats.changePendingMessageCount(+1);
 
-        final Runnable messageWorker = new Runnable()
+        final Runnable messageWorker = () ->
           {
-            @Override
-            public void run()
-              {
-                collaboration.bindToCurrentThread();
-                collaboration.unregisterPendingMessage(message);
-                stats.changePendingMessageCount(-1);
+            collaboration.bindToCurrentThread();
+            collaboration.unregisterPendingMessage(message);
+            stats.changePendingMessageCount(-1);
 
-                try
-                  {
-                    stats.incrementInvocationCount();
-                    method.invoke(owner, message);
-                  }
-                catch (Throwable t)
-                  {
-                    stats.incrementInvocationErrorCount();
-                    log.error("Error calling {} with {}", method, message.getClass());
-                    log.error("", t);
-                  }
-                finally
-                  {
-                    stats.incrementSuccessfulInvocationCount();
-                    collaboration.unbindFromCurrentThread();
-                  }
+            try
+              {
+                stats.incrementInvocationCount();
+                method.invoke(owner, message);
+              }
+            catch (Throwable t)
+              {
+                stats.incrementInvocationErrorCount();
+                log.error("Error calling {} with {}", method, message.getClass());
+                log.error("", t);
+              }
+            finally
+              {
+                stats.incrementSuccessfulInvocationCount();
+                collaboration.unbindFromCurrentThread();
               }
           };
 

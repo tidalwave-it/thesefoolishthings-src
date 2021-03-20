@@ -54,10 +54,10 @@ public class ReflectionUtils
    * @param childClass the child class
    * @return a list of the raw classes for the actual type arguments.
    */
-    public static <T> List<Class<?>> getTypeArguments (final @Nonnull Class<T> baseClass,
-                                                       final @Nonnull Class<? extends T> childClass)
+    public static <T> List<Class<?>> getTypeArguments (@Nonnull final Class<T> baseClass,
+                                                       @Nonnull final Class<? extends T> childClass)
       {
-        final Map<Type, Type> resolvedTypes = new HashMap<Type, Type>();
+        final Map<Type, Type> resolvedTypes = new HashMap<>();
         Type type = childClass;
 
         // start walking up the inheritance hierarchy until we hit baseClass
@@ -89,7 +89,7 @@ public class ReflectionUtils
 
         // finally, for each actual type argument provided to baseClass, determine (if possible)
         // the raw class for that type argument.
-        Type[] actualTypeArguments;
+        final Type[] actualTypeArguments;
 
         if (type instanceof Class)
           {
@@ -100,7 +100,7 @@ public class ReflectionUtils
             actualTypeArguments = ((ParameterizedType)type).getActualTypeArguments();
           }
 
-        final List<Class<?>> typeArgumentsAsClasses = new ArrayList<Class<?>>();
+        final List<Class<?>> typeArgumentsAsClasses = new ArrayList<>();
         // resolve types by chasing down type variables.
         for (Type baseType : actualTypeArguments)
           {
@@ -116,7 +116,7 @@ public class ReflectionUtils
       }
 
     @Nonnull
-    public static Class<?> getClass (final @Nonnull Type type)
+    public static Class<?> getClass (@Nonnull final Type type)
       {
         if (type == null)
           {

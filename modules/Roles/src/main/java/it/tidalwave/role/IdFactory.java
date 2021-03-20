@@ -41,7 +41,7 @@ import it.tidalwave.util.Id;
  **********************************************************************************************************************/
 public interface IdFactory
   {
-    public final static Class<IdFactory> _IdFactory_ = IdFactory.class;
+    public static final Class<IdFactory> _IdFactory_ = IdFactory.class;
 
     /*******************************************************************************************************************
      *

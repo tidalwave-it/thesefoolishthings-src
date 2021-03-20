@@ -41,6 +41,7 @@ import org.incava.util.diff.Difference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import static org.junit.Assert.*;
+import static java.nio.charset.StandardCharsets.*;
 
 /***********************************************************************************************************************
  *
@@ -55,7 +56,7 @@ public final class FileComparisonUtils
      *
      *
      ******************************************************************************************************************/
-    public static void assertSameContents (final @Nonnull File expectedFile, final @Nonnull File actualFile)
+    public static void assertSameContents (@Nonnull final File expectedFile, @Nonnull final File actualFile)
       throws IOException
       {
         final String expectedPath = expectedFile.getAbsolutePath();
@@ -72,7 +73,7 @@ public final class FileComparisonUtils
      *
      *
      ******************************************************************************************************************/
-    public static void assertSameContents (final @Nonnull List<String> expected, final @Nonnull List<String> actual)
+    public static void assertSameContents (@Nonnull final List<String> expected, @Nonnull final List<String> actual)
       {
         final Diff diff = new Diff(expected, actual);
         final List<Difference> differences = diff.diff();
@@ -83,9 +84,9 @@ public final class FileComparisonUtils
 
             for (final Difference difference : differences)
               {
-                int addedStart = difference.getAddedStart();
+                final int addedStart = difference.getAddedStart();
                 int addedEnd = difference.getAddedEnd();
-                int deletedStart = difference.getDeletedStart();
+                final int deletedStart = difference.getDeletedStart();
                 int deletedEnd = difference.getDeletedEnd();
 
                 if (addedStart >= 0)
@@ -94,7 +95,7 @@ public final class FileComparisonUtils
 
                     for (int i = addedStart; i <= addedEnd; i++)
                       {
-                        buffer.append(String.format("-act: %3d: *%s*\n", i + 1, actual.get(i)));
+                        buffer.append(String.format("-act: %3d: *%s*%n", i + 1, actual.get(i)));
                       }
                   }
 
@@ -104,7 +105,7 @@ public final class FileComparisonUtils
 
                     for (int i = deletedStart; i <= deletedEnd; i++)
                       {
-                        buffer.append(String.format("+exp: %3d: *%s*\n", i + 1, expected.get(i)));
+                        buffer.append(String.format("+exp: %3d: *%s*%n", i + 1, expected.get(i)));
                       }
                   }
               }
@@ -119,11 +120,11 @@ public final class FileComparisonUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static List<String> stringToStrings (final @Nonnull String string)
+    public static List<String> stringToStrings (@Nonnull final String string)
       throws IOException
       {
         //return Arrays.asList(string.split("\n"));
-        return fileToStrings(new ByteArrayInputStream(string.getBytes("UTF-8")));
+        return fileToStrings(new ByteArrayInputStream(string.getBytes(UTF_8)));
       }
 
     /*******************************************************************************************************************
@@ -131,7 +132,7 @@ public final class FileComparisonUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static List<String> fileToStrings (final @Nonnull File file)
+    public static List<String> fileToStrings (@Nonnull final File file)
       throws IOException
       {
         return fileToStrings(new FileInputStream(file));
@@ -142,7 +143,7 @@ public final class FileComparisonUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static List<String> fileToStrings (final @Nonnull String path)
+    public static List<String> fileToStrings (@Nonnull final String path)
       throws IOException
       {
         final InputStream is = FileComparisonUtils.class.getClassLoader().getResourceAsStream(path);
@@ -160,11 +161,11 @@ public final class FileComparisonUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static List<String> fileToStrings (final @Nonnull InputStream is)
+    public static List<String> fileToStrings (@Nonnull final InputStream is)
       throws IOException
       {
-        final BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-        final List<String> result = new ArrayList<String>();
+        final BufferedReader br = new BufferedReader(new InputStreamReader(is, UTF_8));
+        final List<String> result = new ArrayList<>();
 
         for (;;)
           {
@@ -188,7 +189,7 @@ public final class FileComparisonUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static String commonPrefix (final @Nonnull String s1, final @Nonnull String s2)
+    public static String commonPrefix (@Nonnull final String s1, @Nonnull final String s2)
       {
         final int min = Math.min(s1.length(), s2.length());
         int latestSeenSlash = 0;

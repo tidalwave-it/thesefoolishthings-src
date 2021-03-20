@@ -90,6 +90,7 @@ public interface ContextManager
                       }
 
                     contextManagerProvider = Objects.requireNonNull(i.next());
+                    assert contextManagerProvider != null : "contextManagerProvider is null" ;
                     log.trace("ContextManagerProvider instantiated from META-INF: {}", contextManagerProvider);
                   }
 
@@ -97,11 +98,12 @@ public interface ContextManager
                                                         "Cannot find ContextManager");
               }
 
+            assert contextManager != null : "contextManager is null" ;
             return contextManager;
           }
 
         /** For testing. */
-        public static void set (final @Nonnull ContextManagerProvider provider)
+        public static void set (@Nonnull final ContextManagerProvider provider)
           {
             contextManager = null;
             contextManagerProvider = provider;

@@ -54,8 +54,8 @@ public final class UserNotificationWithFeedbackTestHelper
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static UserNotificationMatcher notification (final @Nonnull String captionRegex,
-                                                        final @Nonnull String textRegex)
+    public static UserNotificationMatcher notification (@Nonnull final String captionRegex,
+                                                        @Nonnull final String textRegex)
       {
         return new UserNotificationMatcher(captionRegex, textRegex);
       }
@@ -70,8 +70,8 @@ public final class UserNotificationWithFeedbackTestHelper
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static UserNotificationWithFeedbackMatcher notificationWithFeedback (final @Nonnull String captionRegex,
-                                                                                final @Nonnull String textRegex)
+    public static UserNotificationWithFeedbackMatcher notificationWithFeedback (@Nonnull final String captionRegex,
+                                                                                @Nonnull final String textRegex)
       {
         return new UserNotificationWithFeedbackMatcher(captionRegex, textRegex);
       }
@@ -83,7 +83,7 @@ public final class UserNotificationWithFeedbackTestHelper
      * @return  the {@code Answer}
      *
      ******************************************************************************************************************/
-    public static final Answer<Void> confirm()
+    public static Answer<Void> confirm()
       {
         return CONFIRM;
       }
@@ -95,7 +95,7 @@ public final class UserNotificationWithFeedbackTestHelper
      * @return  the {@code Answer}
      *
      ******************************************************************************************************************/
-    public static final Answer<Void> cancel()
+    public static Answer<Void> cancel()
       {
         return CANCEL;
       }
@@ -103,62 +103,47 @@ public final class UserNotificationWithFeedbackTestHelper
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    private static final Answer<Void> CONFIRM = new Answer<Void>()
-      {
-        @Override
-        public Void answer (final @Nonnull InvocationOnMock invocation)
-          throws Exception
-          {
-            EventQueue.invokeAndWait(new Runnable() // FIXME: use Platform.runLater() and wait
-              {
-                @Override
-                public void run()
-                  {
-                    try
-                      {
-                        final UserNotificationWithFeedback notification =
-                                (UserNotificationWithFeedback)invocation.getArguments()[0];
-                        log.info(">>>> mock UI confirming {}...", notification);
-                        notification.confirm();
-                      }
-                    catch (Exception e)
-                      {
-                        log.debug("", e);
-                      }
-                  }
-              });
-            return null;
-          }
-      };
+    private static final Answer<Void> CONFIRM = invocation ->
+    {
+      // FIXME: use Platform.runLater() and wait
+      EventQueue.invokeAndWait(() ->
+        {
+          try
+            {
+              final UserNotificationWithFeedback notification =
+                      (UserNotificationWithFeedback)invocation.getArguments()[0];
+              log.info(">>>> mock UI confirming {}...", notification);
+              notification.confirm();
+            }
+          catch (Exception e)
+            {
+              log.debug("", e);
+            }
+        });
+
+      return null;
+    };
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    private static final Answer<Void> CANCEL = new Answer<Void>()
-      {
-        @Override
-        public Void answer (final @Nonnull InvocationOnMock invocation)
-          throws Exception
-          {
-            EventQueue.invokeAndWait(new Runnable() // FIXME: use Platform.runLater() and wait
-              {
-                @Override
-                public void run()
-                  {
-                    try
-                      {
-                        final UserNotificationWithFeedback notification =
-                                (UserNotificationWithFeedback)invocation.getArguments()[0];
-                        log.info(">>>> mock UI cancelling {}...", notification);
-                        notification.cancel();
-                      }
-                    catch (Exception e)
-                      {
-                        log.debug("", e);
-                      }
-                  }
-              });
-            return null;
-          }
-      };
+    private static final Answer<Void> CANCEL = invocation ->
+    {
+      // FIXME: use Platform.runLater() and wait
+      EventQueue.invokeAndWait(() ->
+        {
+          try
+            {
+              final UserNotificationWithFeedback notification =
+                      (UserNotificationWithFeedback)invocation.getArguments()[0];
+              log.info(">>>> mock UI cancelling {}...", notification);
+              notification.cancel();
+            }
+          catch (Exception e)
+            {
+              log.debug("", e);
+            }
+        });
+      return null;
+    };
   }

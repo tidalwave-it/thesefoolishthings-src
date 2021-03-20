@@ -51,7 +51,7 @@ public class AsSupport implements As
     private final Object owner;
 
     @Nonnull
-    private final List<Object> roles = new ArrayList<Object>();
+    private final List<Object> roles = new ArrayList<>();
 
     /*******************************************************************************************************************
      *
@@ -72,7 +72,7 @@ public class AsSupport implements As
      * @since  3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
-    public AsSupport (final @Nonnull Object owner)
+    public AsSupport (@Nonnull final Object owner)
       {
         this(owner, Collections.emptyList());
       }
@@ -87,7 +87,7 @@ public class AsSupport implements As
      * @since  3.2-ALPHA-3
      *
      ******************************************************************************************************************/
-    public AsSupport (final @Nonnull Object owner, final @Nonnull Object role)
+    public AsSupport (@Nonnull final Object owner, @Nonnull final Object role)
       {
         this(owner, r(Parameters.mustNotBeArrayOrCollection(role, "role")));
       }
@@ -102,7 +102,7 @@ public class AsSupport implements As
      * @since  3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
-    public AsSupport (final @Nonnull Object owner, final @Nonnull Collection<Object> roles)
+    public AsSupport (@Nonnull final Object owner, @Nonnull final Collection<Object> roles)
       {
         delegate = AsDelegateProvider.Locator.find().createAsDelegate(owner);
         this.owner = owner;
@@ -115,7 +115,7 @@ public class AsSupport implements As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> T as (final @Nonnull Class<T> type)
+    public <T> T as (@Nonnull final Class<T> type)
       {
         return as(type, As.Defaults.throwAsException(type));
       }
@@ -129,7 +129,7 @@ public class AsSupport implements As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> T as (final @Nonnull Class<T> type, final @Nonnull As.NotFoundBehaviour<T> notFoundBehaviour)
+    public <T> T as (@Nonnull final Class<T> type, @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
       {
         for (final Object role : roles)
           {
@@ -146,7 +146,7 @@ public class AsSupport implements As
             return notFoundBehaviour.run(new AsException(type));
           }
 
-        return (T)r.iterator().next();
+        return r.iterator().next();
       }
 
     /*******************************************************************************************************************
@@ -157,9 +157,9 @@ public class AsSupport implements As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> Collection<T> asMany (final @Nonnull Class<T> type)
+    public <T> Collection<T> asMany (@Nonnull final Class<T> type)
       {
-        Collection<T> results = new ArrayList<T>();
+        final Collection<T> results = new ArrayList<>();
 
         for (final Object role : roles)
           {
@@ -183,9 +183,9 @@ public class AsSupport implements As
      *
      ******************************************************************************************************************/
     @Nonnull
-    private List<Object> resolveFactories (final @Nonnull Collection<Object> rolesOrFactories)
+    private List<Object> resolveFactories (@Nonnull final Collection<Object> rolesOrFactories)
       {
-        final List<Object> result = new ArrayList<Object>();
+        final List<Object> result = new ArrayList<>();
 
         for (final Object roleOrFactory : rolesOrFactories)
           {

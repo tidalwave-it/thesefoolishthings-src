@@ -39,7 +39,6 @@ import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.CoreMatchers.any;
 import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
@@ -49,7 +48,7 @@ import static org.hamcrest.MatcherAssert.*;
  **********************************************************************************************************************/
 public class ContextSamplerTest
   {
-    @RequiredArgsConstructor @Getter
+    @RequiredArgsConstructor @Getter static
     class MockContextManagerProvider implements ContextManagerProvider
       {
         @Nonnull
@@ -74,7 +73,7 @@ public class ContextSamplerTest
      *
      ******************************************************************************************************************/
     @Test(dataProvider = "contextProvider")
-    public void must_sample_Contexts_at_construction_time (final @Nonnull List<Object> contexts)
+    public void must_sample_Contexts_at_construction_time (@Nonnull final List<Object> contexts)
       {
         // given
         when(contextManager.getContexts()).thenReturn(contexts);
@@ -88,8 +87,7 @@ public class ContextSamplerTest
      *
      ******************************************************************************************************************/
     @Test(dataProvider = "contextProvider")
-    public void must_delegate_runWithContexts_to_ContextManager (final @Nonnull List<Object> contexts)
-      throws Throwable
+    public void must_delegate_runWithContexts_to_ContextManager (@Nonnull final List<Object> contexts)
       {
         // given
         when(contextManager.getContexts()).thenReturn(contexts);
@@ -113,7 +111,7 @@ public class ContextSamplerTest
       {
         return new Object[][]
           {
-            { Collections.<Object>emptyList()    },
+            { Collections.emptyList()            },
             { Arrays.asList("a", "b", "c")       },
             { Arrays.asList("a", "b", "c" , "d") },
           };

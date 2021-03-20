@@ -45,13 +45,13 @@ import static org.hamcrest.MatcherAssert.*;
 public class LocalizedDateTimeFormattersTest
   {
     @Test(dataProvider = "dates")
-    public void must_properly_format_date_and_time (final @Nonnull ZonedDateTime dt,
-                                                    final @Nonnull Locale locale,
-                                                    final @Nonnull FormatStyle style,
-                                                    final @Nonnull String expectedValue)
+    public void must_properly_format_date_and_time (@Nonnull final ZonedDateTime dt,
+                                                    @Nonnull final Locale locale,
+                                                    @Nonnull final FormatStyle style,
+                                                    @Nonnull final String expectedValue)
       {
         // when
-        String actualValue = LocalizedDateTimeFormatters.getDateTimeFormatterFor(style, locale).format(dt);
+        final String actualValue = LocalizedDateTimeFormatters.getDateTimeFormatterFor(style, locale).format(dt);
         // then
         // JDK 8 formats AM/PM, JDK 9+ formats am/pm ...
         assertThat(actualValue.replace(" am", " AM").replace(" pm", " PM"), is(expectedValue));

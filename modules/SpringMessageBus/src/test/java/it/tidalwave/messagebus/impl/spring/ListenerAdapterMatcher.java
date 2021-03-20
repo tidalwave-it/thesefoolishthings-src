@@ -51,15 +51,8 @@ public class ListenerAdapterMatcher implements ArgumentMatcher<MessageBusListene
     public Class<?> topic;
 
     @Override
-    public boolean matches (final MessageBusListenerAdapter item)
+    public boolean matches (final MessageBusListenerAdapter listener)
       {
-//        if (! (item instanceof MessageBusListenerAdapter))
-//          {
-//            return false;
-//          }
-//
-        final MessageBusListenerAdapter listener = (MessageBusListenerAdapter)item;
-
         return (methodName.equals(listener.getMethod().getName())
                 && (owner == listener.getOwner())
                 && topic.equals(listener.getTopic()));

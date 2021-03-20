@@ -49,7 +49,7 @@ public class PersonHtmlRenderable implements HtmlRenderable,
     private final Person datum;
 
     @Override @Nonnull
-    public String render (final @Nonnull Object... args)
+    public String render (@Nonnull final Object... args)
       {
         return String.format("%s <b>%s</b>", datum.firstName, datum.lastName);
       }

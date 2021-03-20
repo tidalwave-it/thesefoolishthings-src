@@ -91,7 +91,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
      *
      *
      ******************************************************************************************************************/
-    protected MessageSupport (final @Nonnull Collaboration collaboration)
+    protected MessageSupport (@Nonnull final Collaboration collaboration)
       {
         this.collaboration = (DefaultCollaboration)collaboration;
       }
@@ -116,7 +116,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
      * @return  the {@code Collaboration} that this message is part of
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nonnull @SuppressWarnings("UnusedReturnValue")
     public Collaboration send()
       {
         log.debug("send() - {}", this);
@@ -150,9 +150,9 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Collaboration sendLater (final @Nonnegative int delay, final @Nonnull TimeUnit timeUnit)
+    public Collaboration sendLater (@Nonnegative final int delay, @Nonnull final TimeUnit timeUnit)
       {
-        log.debug("sendLater({}, {}) - {}", new Object[] { delay, timeUnit, this });
+        log.debug("sendLater({}, {}) - {}", delay, timeUnit, this);
         final MessageSupport message = findDecoratedMessage();
         collaboration.registerDeliveringMessage(message);
 
@@ -174,12 +174,12 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> T as (final @Nonnull Class<T> type)
+    public <T> T as (@Nonnull final Class<T> type)
       {
         return as(type, new As.NotFoundBehaviour<T>()
           {
             @Nonnull
-            public T run (final @Nonnull Throwable t)
+            public T run (@Nonnull final Throwable t)
               {
                 if (type.equals(MessageDecorator.class))
                   {

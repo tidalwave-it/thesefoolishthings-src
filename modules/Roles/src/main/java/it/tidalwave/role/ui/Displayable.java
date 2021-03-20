@@ -46,14 +46,14 @@ import static it.tidalwave.util.BundleUtilities.getMessage;
 public interface Displayable
   {
     //@bluebook-begin other
-    public final static Class<Displayable> _Displayable_ = Displayable.class;
+    public static final Class<Displayable> _Displayable_ = Displayable.class;
 
     /*******************************************************************************************************************
      *
      * A default {@code Displayable} with an empty display name.
      *
      ******************************************************************************************************************/
-    public final static Displayable DEFAULT = new DefaultDisplayable("", "DEFAULT");
+    public static final Displayable DEFAULT = new DefaultDisplayable("", "DEFAULT");
 
     //@bluebook-end other
     /*******************************************************************************************************************
@@ -75,7 +75,7 @@ public interface Displayable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Displayable of (final @Nonnull String displayName)
+    public static Displayable of (@Nonnull final String displayName)
       {
         return of(displayName, "???");
       }
@@ -90,7 +90,7 @@ public interface Displayable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Displayable of (final @Nonnull String displayName, final @Nonnull String toStringName)
+    public static Displayable of (@Nonnull final String displayName, @Nonnull final String toStringName)
       {
         return new DefaultDisplayable(displayName, toStringName);
       }
@@ -107,14 +107,14 @@ public interface Displayable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Displayable of (final @Nonnull Supplier<String> supplier)
+    public static Displayable of (@Nonnull final Supplier<String> supplier)
       {
-        return () -> supplier.get();
+        return supplier::get;
       }
 
     /*******************************************************************************************************************
      *
-     * Creates an instance from a {@link Function<..., String>} and a generic object that the function is applied to.
+     * Creates an instance from a {@link Function<T, String>} and a generic object that the function is applied to.
      * The function is invoked each time {@link #getDisplayName()} is called.
      *
      * @param   function    the {@code Function}
@@ -125,7 +125,7 @@ public interface Displayable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Displayable of (final @Nonnull Function<T, String> function, final @Nonnull T object)
+    public static <T> Displayable of (@Nonnull final Function<T, String> function, @Nonnull final T object)
       {
         return () -> function.apply(object);
       }
@@ -142,7 +142,7 @@ public interface Displayable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static LocalizedDisplayable fromBundle (final @Nonnull Class<?> ownerClass, final @Nonnull String key)
+    public static LocalizedDisplayable fromBundle (@Nonnull final Class<?> ownerClass, @Nonnull final String key)
       {
         return new DefaultDisplayable(getMessage(ownerClass, key));
       }

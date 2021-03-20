@@ -47,7 +47,7 @@ public class ReflectionUtils
      ******************************************************************************************************************/
     public static interface MethodProcessor
       {
-        enum FilterResult { ACCEPT, IGNORE };
+        enum FilterResult { ACCEPT, IGNORE }
 
         public FilterResult filter (@Nonnull Class<?> clazz);
 
@@ -62,13 +62,13 @@ public class ReflectionUtils
     public static class MethodProcessorSupport implements MethodProcessor
       {
         @Override @Nonnull
-        public FilterResult filter (final @Nonnull Class<?> clazz)
+        public FilterResult filter (@Nonnull final Class<?> clazz)
           {
             return FilterResult.ACCEPT;
           }
 
         @Override
-        public void process (final @Nonnull Method method)
+        public void process (@Nonnull final Method method)
           {
           }
       }
@@ -78,8 +78,8 @@ public class ReflectionUtils
      *
      *
      ******************************************************************************************************************/
-    public static void forEachMethodInTopDownHierarchy (final @Nonnull Object object,
-                                                        final @Nonnull MethodProcessor processor)
+    public static void forEachMethodInTopDownHierarchy (@Nonnull final Object object,
+                                                        @Nonnull final MethodProcessor processor)
       {
         for (final Class<?> clazz : getClassHierarchy(object.getClass()))
           {
@@ -95,8 +95,8 @@ public class ReflectionUtils
      *
      *
      ******************************************************************************************************************/
-    public static void forEachMethodInBottomUpHierarchy (final @Nonnull Object object,
-                                                         final @Nonnull MethodProcessor processor)
+    public static void forEachMethodInBottomUpHierarchy (@Nonnull final Object object,
+                                                         @Nonnull final MethodProcessor processor)
       {
         final List<Class<?>> hierarchy = getClassHierarchy(object.getClass());
         Collections.reverse(hierarchy);
@@ -119,9 +119,9 @@ public class ReflectionUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    private static List<Class<?>> getClassHierarchy (final @Nonnull Class<?> clazz)
+    private static List<Class<?>> getClassHierarchy (@Nonnull final Class<?> clazz)
       {
-        final List<Class<?>> hierarchy = new ArrayList<Class<?>>();
+        final List<Class<?>> hierarchy = new ArrayList<>();
 
         for (Class<?> ancestor = clazz; ancestor != null; ancestor = ancestor.getSuperclass())
           {
@@ -136,8 +136,8 @@ public class ReflectionUtils
      *
      *
      ******************************************************************************************************************/
-    public static boolean containsAnnotation (final @Nonnull Annotation[] annotations,
-                                              final @Nonnull Class<?> annotationClass)
+    public static boolean containsAnnotation (@Nonnull final Annotation[] annotations,
+                                              @Nonnull final Class<?> annotationClass)
       {
         for (final Annotation annotation : annotations)
           {

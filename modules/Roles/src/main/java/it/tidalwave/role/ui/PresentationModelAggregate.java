@@ -84,7 +84,7 @@ public class PresentationModelAggregate implements Aggregate<PresentationModel>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public PresentationModelAggregate withPmOf (final @Nonnull String name, final @Nonnull Collection<Object> roles)
+    public PresentationModelAggregate withPmOf (@Nonnull final String name, @Nonnull final Collection<Object> roles)
       {
         return new PresentationModelAggregate(delegate.with(name, PresentationModel.of("", roles)));
       }
@@ -95,7 +95,7 @@ public class PresentationModelAggregate implements Aggregate<PresentationModel>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Optional<PresentationModel> getByName (final @Nonnull String name)
+    public Optional<PresentationModel> getByName (@Nonnull final String name)
       {
         return delegate.getByName(name);
       }

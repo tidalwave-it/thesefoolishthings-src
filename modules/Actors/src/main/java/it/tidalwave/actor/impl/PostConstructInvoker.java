@@ -45,7 +45,7 @@ public class PostConstructInvoker extends ReflectionUtils.MethodProcessorSupport
     private final Object object;
 
     @Override
-    public void process (final @Nonnull Method method)
+    public void process (@Nonnull final Method method)
       {
         if (method.getAnnotation(PostConstruct.class) != null)
           {
@@ -53,15 +53,7 @@ public class PostConstructInvoker extends ReflectionUtils.MethodProcessorSupport
               {
                 method.invoke(object);
               }
-            catch (IllegalAccessException e)
-              {
-                throw new RuntimeException(e);
-              }
-            catch (IllegalArgumentException e)
-              {
-                throw new RuntimeException(e);
-              }
-            catch (InvocationTargetException e)
+            catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e)
               {
                 throw new RuntimeException(e);
               }

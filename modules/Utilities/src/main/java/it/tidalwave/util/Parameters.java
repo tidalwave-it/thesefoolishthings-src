@@ -57,7 +57,7 @@ public final class Parameters
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Collection<Object> r (final @Nonnull Object ... roles)
+    public static Collection<Object> r (@Nonnull final Object ... roles)
       {
         // Don't use streams() for performance reasons.
         final List<Object> result = new ArrayList<>();
@@ -89,9 +89,9 @@ public final class Parameters
      *
      ******************************************************************************************************************/
     @CheckForNull
-    public static <T, O> T find (final @Nonnull Class<T> parameterClass,
-                                 final @CheckForNull T defaultOption,
-                                 final @Nonnull O ... parameters)
+    public static <T, O> T find (@Nonnull final Class<T> parameterClass,
+                                 @CheckForNull final T defaultOption,
+                                 @Nonnull final O ... parameters)
       throws IllegalArgumentException
       {
         // Don't use streams() for performance reasons.
@@ -116,11 +116,10 @@ public final class Parameters
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T, O> Collection<T> find (final @Nonnull Class<T> parameterClass,
-                                             final @Nonnull O ... parameters)
+    public static <T, O> Collection<T> find (@Nonnull final Class<T> parameterClass, @Nonnull final O ... parameters)
       {
         // Don't use streams() for performance reasons.
-        final Collection<T> result = new ArrayList<T>();
+        final Collection<T> result = new ArrayList<>();
 
         for (final Object parameter : parameters)
           {
@@ -137,7 +136,7 @@ public final class Parameters
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Object mustNotBeArrayOrCollection (final @Nonnull Object object, final @Nonnull String message)
+    public static Object mustNotBeArrayOrCollection (@Nonnull final Object object, @Nonnull final String message)
       {
         if (object instanceof Collection)
           {

@@ -39,20 +39,14 @@ package it.tidalwave.role;
 @FunctionalInterface
 public interface Removable
   {
-    public final static Class<Removable> _Removable_ = Removable.class;
+    public static final Class<Removable> _Removable_ = Removable.class;
 
     /*******************************************************************************************************************
      *
      * A default {@code Removable} which does nothing (useful for implementing the NullObject pattern).
      *
      ******************************************************************************************************************/
-    public final static Removable DEFAULT = new Removable()
-      {
-        @Override
-        public void remove()
-          {
-          }
-      };
+    public static final Removable DEFAULT = () -> {};
 
     /*******************************************************************************************************************
      *

@@ -30,7 +30,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
-import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 
 /***********************************************************************************************************************
  *
@@ -42,7 +41,7 @@ public class DefaultPersonRegistry2 implements PersonRegistry2
     private final List<Person> persons = new ArrayList<Person>();
 
     @Override
-    public void add (final @Nonnull Person person)
+    public void add (@Nonnull final Person person)
       {
         persons.add(person);
       }

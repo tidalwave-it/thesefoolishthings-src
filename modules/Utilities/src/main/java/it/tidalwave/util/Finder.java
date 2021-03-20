@@ -61,12 +61,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
         public static final Class<SortCriterion> _SortCriterion_ = SortCriterion.class;
 
         /** A special {@link SortCriterion} which indicates that no sort has been performed. */
-        public static final SortCriterion UNSORTED = new FilterSortCriterion<Object>()
-          {
-            public void sort (final @Nonnull List<?> results, final @Nonnull SortDirection sortDirection)
-              {
-              }
-          };
+        public static final SortCriterion UNSORTED = (FilterSortCriterion<Object>)(results, sortDirection) -> {};
 
         public static final SortCriterion DEFAULT = UNSORTED;
         //@bluebook-ignore-end
@@ -93,7 +88,6 @@ public interface Finder<TYPE> extends Cloneable, Serializable
          * @param  sortDirection  the sort direction
          *
          **************************************************************************************************************/
-        @Nonnull
         public void sort (@Nonnull List<? extends TYPE> results, @Nonnull SortDirection sortDirection);
       }
 
@@ -252,7 +246,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    default public Optional<TYPE> optionalResult()
+    public default Optional<TYPE> optionalResult()
       {
         try
           {
@@ -273,7 +267,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    default public Optional<TYPE> optionalFirstResult()
+    public default Optional<TYPE> optionalFirstResult()
       {
         try
           {
@@ -294,7 +288,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    default public Stream<TYPE> stream()
+    public default Stream<TYPE> stream()
       {
         return ((List<TYPE>)results()).stream();
       }
@@ -308,7 +302,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    default public Iterator<TYPE> iterator()
+    public default Iterator<TYPE> iterator()
       {
         return ((List<TYPE>)results()).iterator();
       }
@@ -325,7 +319,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
     @Nonnull
     public static <T> Finder<T> empty()
       {
-        return ofCloned(Collections.<T>emptyList());
+        return ofCloned(Collections.emptyList());
       }
 
     /*******************************************************************************************************************
@@ -340,7 +334,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Finder<T> ofCloned (final @Nonnull Collection<T> items)
+    public static <T> Finder<T> ofCloned (@Nonnull final Collection<T> items)
       {
         return new ArrayListFinder<>(items);
       }

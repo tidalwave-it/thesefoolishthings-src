@@ -44,14 +44,14 @@ import java.io.OutputStream;
 public interface BinaryWritable
   {
     //@bluebook-begin other
-    public final static Class<BinaryWritable> _BinaryWritable_ = BinaryWritable.class;
+    public static final Class<BinaryWritable> _BinaryWritable_ = BinaryWritable.class;
 
     /*******************************************************************************************************************
      *
      * A default implementation which throws {@link IOException} when opening the stream.
      *
      ******************************************************************************************************************/
-    public final static BinaryWritable DEFAULT = new BinaryWritable()
+    public static final BinaryWritable DEFAULT = new BinaryWritable()
       {
         @Override @Nonnull
         public OutputStream openStream()

@@ -58,40 +58,36 @@ class CollaborationMessageListenerAdapter<Topic extends Collaboration.Provider> 
     private final ActorActivatorStats stats;
 
     @Override
-    public void notify (final @Nonnull Topic message)
+    public void notify (@Nonnull final Topic message)
       {
         log.trace("notify({})", message);
         final DefaultCollaboration collaboration = (DefaultCollaboration)message.getCollaboration();
         collaboration.registerPendingMessage(message);
         stats.changePendingMessageCount(+1);
-        executor.execute(new Runnable()
+        executor.execute(() ->
           {
-            @Override
-            public void run()
+            collaboration.unregisterPendingMessage(message);
+            stats.changePendingMessageCount(-1);
+
+            if (collaboration.getOriginatingMessage().getClass().equals(messageType))
               {
-                collaboration.unregisterPendingMessage(message);
-                stats.changePendingMessageCount(-1);
+                collaboration.bindToCurrentThread();
 
-                if (collaboration.getOriginatingMessage().getClass().equals(messageType))
+                try
                   {
-                    collaboration.bindToCurrentThread();
-
-                    try
-                      {
-                        stats.incrementInvocationCount();
-                        method.invoke(owner, message, collaboration.getOriginatingMessage());
-                        stats.incrementSuccessfulInvocationCount();
-                      }
-                    catch (Throwable t)
-                      {
-                        stats.incrementInvocationErrorCount();
-                        log.error("Error calling {} with {}", method, message.getClass());
-                        log.error("", t);
-                      }
-                    finally
-                      {
-                        collaboration.unbindFromCurrentThread();
-                      }
+                    stats.incrementInvocationCount();
+                    method.invoke(owner, message, collaboration.getOriginatingMessage());
+                    stats.incrementSuccessfulInvocationCount();
+                  }
+                catch (Throwable t)
+                  {
+                    stats.incrementInvocationErrorCount();
+                    log.error("Error calling {} with {}", method, message.getClass());
+                    log.error("", t);
+                  }
+                finally
+                  {
+                    collaboration.unbindFromCurrentThread();
                   }
               }
           });

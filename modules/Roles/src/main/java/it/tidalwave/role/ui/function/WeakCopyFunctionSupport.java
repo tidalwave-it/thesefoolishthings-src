@@ -44,13 +44,13 @@ public abstract class WeakCopyFunctionSupport<T> extends UnaryBoundFunctionSuppo
     @Nonnull
     protected T targetValue;
 
-    public WeakCopyFunctionSupport (final @Nonnull ChangingSource<T> source)
+    public WeakCopyFunctionSupport (@Nonnull final ChangingSource<T> source)
       {
         super(source);
       }
 
     @Override
-    protected void onSourceChange (final @Nonnull T oldSourceValue, final @Nonnull T newSourceValue)
+    protected void onSourceChange (@Nonnull final T oldSourceValue, @Nonnull final T newSourceValue)
       {
         final T oldValue = function(oldSourceValue);
         final T newValue = function(newSourceValue);
@@ -71,7 +71,7 @@ public abstract class WeakCopyFunctionSupport<T> extends UnaryBoundFunctionSuppo
     protected abstract boolean shouldChange (T oldValue, T newValue);
 
     @Override @Nonnull
-    protected T function (final @Nonnull T value)
+    protected T function (@Nonnull final T value)
       {
         return value;
       }

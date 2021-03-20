@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="GROUP_BY_SEVERITY" value="true" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="Fix for TFT-230.">
-      <change beforePath="$PROJECT_DIR$/modules/Roles/src/main/java/it/tidalwave/role/ui/Displayable.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Roles/src/main/java/it/tidalwave/role/ui/Displayable.java" afterDir="false" />
-    </list>
-    <list id="917968aa-8b09-491a-b660-3785d2496475" name="Idea" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="Partial fix for TFT-241: added Idea files." />
+    <list id="917968aa-8b09-491a-b660-3785d2496475" name="Idea" comment="" />
+    <list id="1d876ab4-03de-4b26-a4f7-b0bdc1ee28a7" name="other" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,18 +23,21 @@
       </list>
     </option>
   </component>
+  <component name="FindBugs-IDEA-Workspace">
+    <toolWindowGroupBy>BugRank</toolWindowGroupBy>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitRewordedCommitMessages">
     <option name="commitMessagesMapping">
       <RewordedCommitMessageMapping>
-        <option name="originalMessage" value="Javadoc fixed." />
-        <option name="rewordedMessage" value="Javadoc clean up and fixed." />
+        <option name="originalMessage" value="Partial fix for TFT-241." />
+        <option name="rewordedMessage" value="Fix for TFT-241." />
       </RewordedCommitMessageMapping>
     </option>
     <option name="currentCommit" value="1" />
-    <option name="onto" value="7df2bd471de2154619ed414d0480d0808b38b6e7" />
+    <option name="onto" value="d67f9a34ac579c1d67bbee15aea4491c9e85be41" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -60,6 +63,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vcs.patch.path" value="$USER_HOME$" />
   </component>
   <component name="RecentsManager">
@@ -180,94 +184,11 @@
     <task active="true" id="Default" summary="Default task">
       <changelist id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="" />
       <changelist id="917968aa-8b09-491a-b660-3785d2496475" name="Idea" comment="" />
+      <changelist id="1d876ab4-03de-4b26-a4f7-b0bdc1ee28a7" name="other" comment="" />
       <created>1615721645836</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1615721645836</updated>
-    </task>
-    <task id="LOCAL-00054" summary="Now using javac -release 8.">
-      <created>1615976259121</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1615976259121</updated>
-    </task>
-    <task id="LOCAL-00055" summary="Site clean up.">
-      <created>1615976272579</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1615976272579</updated>
-    </task>
-    <task id="LOCAL-00056" summary="Updated Idea files.">
-      <created>1615976281500</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1615976281501</updated>
-    </task>
-    <task id="LOCAL-00057" summary="Updated archetype files.">
-      <created>1615976294871</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1615976294871</updated>
-    </task>
-    <task id="LOCAL-00058" summary="Fix for TFT-215.">
-      <created>1615976373003</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1615976373003</updated>
-    </task>
-    <task id="LOCAL-00059" summary="Updated Idea files.">
-      <created>1615976385113</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1615976385113</updated>
-    </task>
-    <task id="LOCAL-00060" summary="Fix for TFT-216.">
-      <created>1615976919089</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1615976919089</updated>
-    </task>
-    <task id="LOCAL-00061" summary="Fix for TFT-216.">
-      <created>1615977200487</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1615977200487</updated>
-    </task>
-    <task id="LOCAL-00062" summary="Fix for TFT-216.">
-      <created>1615979188380</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1615979188380</updated>
-    </task>
-    <task id="LOCAL-00063" summary="Fix for TFT-216.">
-      <created>1615979506371</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1615979506371</updated>
-    </task>
-    <task id="LOCAL-00064" summary="Fix for TFT-216.">
-      <created>1615979929302</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1615979929302</updated>
-    </task>
-    <task id="LOCAL-00065" summary="Fix for TFT-216.">
-      <created>1615980377850</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1615980377850</updated>
     </task>
     <task id="LOCAL-00066" summary="Fix for TFT-216.">
       <created>1615980586238</created>
@@ -528,7 +449,91 @@
       <option name="project" value="LOCAL" />
       <updated>1616102311500</updated>
     </task>
-    <option name="localTasksCounter" value="103" />
+    <task id="LOCAL-00103" summary="Round of clean up and quality.">
+      <created>1616188279701</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1616188279702</updated>
+    </task>
+    <task id="LOCAL-00104" summary="Clean up.">
+      <created>1616188510658</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1616188510658</updated>
+    </task>
+    <task id="LOCAL-00105" summary="Big round of quality.">
+      <created>1616196972200</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1616196972200</updated>
+    </task>
+    <task id="LOCAL-00106" summary="Further round of quality.">
+      <created>1616198497578</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1616198497579</updated>
+    </task>
+    <task id="LOCAL-00107" summary="Partial fix for TFT-241: Spring XML files clean up.">
+      <created>1616239205424</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1616239205424</updated>
+    </task>
+    <task id="LOCAL-00108" summary="Partial fix for TFT-241: Spring XML files clean up.">
+      <created>1616239238621</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1616239238621</updated>
+    </task>
+    <task id="LOCAL-00109" summary="Partial fix for TFT-241: Spring XML files clean up.">
+      <created>1616239391989</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1616239391989</updated>
+    </task>
+    <task id="LOCAL-00110" summary="Partial fix for TFT-241: minor clean up.">
+      <created>1616239416692</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1616239416692</updated>
+    </task>
+    <task id="LOCAL-00111" summary="Partial fix for TFT-241: some more fixes.">
+      <created>1616240346489</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1616240346489</updated>
+    </task>
+    <task id="LOCAL-00112" summary="Partial fix for TFT-241: some more fixes.">
+      <created>1616243265326</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1616243265326</updated>
+    </task>
+    <task id="LOCAL-00113" summary="Partial fix for TFT-241: added Idea files.">
+      <created>1616244936596</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1616244936596</updated>
+    </task>
+    <task id="LOCAL-00114" summary="Partial fix for TFT-241: added Idea files.">
+      <created>1616244956723</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1616244956723</updated>
+    </task>
+    <option name="localTasksCounter" value="115" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -544,14 +549,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix for TFT-216." />
-    <MESSAGE value="Added serialVersionUID." />
-    <MESSAGE value="Key redesign." />
-    <MESSAGE value="Added Idea files." />
-    <MESSAGE value="Fix for TFT-215." />
-    <MESSAGE value="EmptyInitializer is no more part of the public API." />
-    <MESSAGE value="Added @FunctionalInterface where applicable." />
-    <MESSAGE value="Fix for TFT-218." />
     <MESSAGE value="Fix for TFT-219." />
     <MESSAGE value="Updated Idea file." />
     <MESSAGE value="Fix for TFT-217." />
@@ -569,6 +566,14 @@
     <MESSAGE value="KEY." />
     <MESSAGE value="Improved logging." />
     <MESSAGE value="Fix for TFT-230." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix for TFT-230." />
+    <MESSAGE value="Partial fix for TFT-241." />
+    <MESSAGE value="Partial fix for TFT-241." />
+    <MESSAGE value="Partial fix for TFT-241." />
+    <MESSAGE value="Partial fix for TFT-241." />
+    <MESSAGE value="Partial fix for TFT-241: Spring XML files clean up." />
+    <MESSAGE value="Partial fix for TFT-241: minor clean up." />
+    <MESSAGE value="Partial fix for TFT-241: some more fixes." />
+    <MESSAGE value="Partial fix for TFT-241: added Idea files." />
+    <option name="LAST_COMMIT_MESSAGE" value="Partial fix for TFT-241: added Idea files." />
   </component>
 </project>

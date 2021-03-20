@@ -36,6 +36,7 @@ import it.tidalwave.actor.impl.PostConstructInvoker;
 import it.tidalwave.actor.impl.PreDestroyInvoker;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import java.lang.reflect.InvocationTargetException;
 import static it.tidalwave.messagebus.spi.ReflectionUtils.*;
 
 /***********************************************************************************************************************
@@ -71,7 +72,7 @@ public class ActorActivator
      * @return              the instance
      *
      ******************************************************************************************************************/
-    public static ActorActivator activatorFor (final @Nonnull Class<?> actorClass)
+    public static ActorActivator activatorFor (@Nonnull final Class<?> actorClass)
       {
         return new ActorActivator(actorClass, 1);
       }
@@ -85,7 +86,7 @@ public class ActorActivator
      *
      ******************************************************************************************************************/
     @Nonnull
-    public ActorActivator withPoolSize (final @Nonnegative int poolSize)
+    public ActorActivator withPoolSize (@Nonnegative final int poolSize)
       {
         return new ActorActivator(actorClass, poolSize);
       }
@@ -95,7 +96,7 @@ public class ActorActivator
      *
      *
      ******************************************************************************************************************/
-    private ActorActivator (final @Nonnull Class<?> actorClass, final @Nonnegative int poolSize)
+    private ActorActivator (@Nonnull final Class<?> actorClass, @Nonnegative final int poolSize)
       {
         this.actorClass = actorClass;
         this.poolSize = poolSize;
@@ -112,16 +113,12 @@ public class ActorActivator
           {
             final Actor actor = actorClass.getAnnotation(Actor.class);
             validate(actor);
-            actorObject = actorClass.newInstance();
+            actorObject = actorClass.getDeclaredConstructor().newInstance();
             executor = new ExecutorWithPriority(poolSize, actorClass.getSimpleName(), actor.initialPriority());
             mBeansManager = new MBeansManager(actorObject, poolSize);
             messageBusAdapter = new CollaborationAwareMessageBusAdapter(actorObject, executor, mBeansManager.getStats());
           }
-        catch (InstantiationException e)
-          {
-            throw new RuntimeException(e);
-          }
-        catch (IllegalAccessException e)
+        catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e)
           {
             throw new RuntimeException(e);
           }
@@ -148,8 +145,9 @@ public class ActorActivator
      *
      *
      ******************************************************************************************************************/
-    private void validate (final @Nonnull Actor actor)
+    private void validate (@Nonnull final Actor actor)
       {
+        //noinspection ConstantConditions
         if (actor == null)
           {
             throw new IllegalArgumentException("Actor class must be annotated with @Actor: " + actorClass);

@@ -70,7 +70,7 @@ public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
      *
      ******************************************************************************************************************/
     @Deprecated
-    public Key (final @Nonnull String name)
+    public Key (@Nonnull final String name)
       {
         this.name = name;
         type = (Class<T>)ReflectionUtils.getTypeArguments(Key.class, getClass()).get(0);
@@ -93,9 +93,9 @@ public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Key<T> of (final @Nonnull String name, final @Nonnull Class<T> type)
+    public static <T> Key<T> of (@Nonnull final String name, @Nonnull final Class<T> type)
       {
-        final Key<T> newKey = new Key<T>(name, type);
+        final Key<T> newKey = new Key<>(name, type);
         final Key<T> key = (Key<T>)INSTANCES.putIfAbsent(newKey, newKey);
         return key != null ? key : newKey;
       }
@@ -111,7 +111,7 @@ public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Key<Object> of (final @Nonnull String name)
+    public static Key<Object> of (@Nonnull final String name)
       {
         return of(name, Object.class);
       }
@@ -127,7 +127,7 @@ public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
     @Nonnull
     public static Set<Key<?>> allKeys()
       {
-        return new TreeSet<Key<?>>(INSTANCES.values());
+        return new TreeSet<>(INSTANCES.values());
       }
 
     /*******************************************************************************************************************
@@ -138,7 +138,7 @@ public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
      * @deprecated use {@link #of(String, Class)}
      *
      ******************************************************************************************************************/
-    public Key (final @Nonnull StringValue name)
+    public Key (@Nonnull final StringValue name)
       {
         this(name.stringValue());
       }
@@ -160,7 +160,7 @@ public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
      *
      ******************************************************************************************************************/
     @Override
-    public int compareTo (final @Nonnull Key<?> other)
+    public int compareTo (@Nonnull final Key<?> other)
       {
         final Comparator<Key<?>> byType = Comparator.comparing(k -> k.getType().getName());
         final Comparator<Key<?>> byName = Comparator.comparing(Key::getName);

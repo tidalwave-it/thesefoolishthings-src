@@ -39,9 +39,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ActorGroupActivator
   {
-    private final List<ActorActivator> actorActivators = new ArrayList<ActorActivator>();
+    private final List<ActorActivator> actorActivators = new ArrayList<>();
 
-    public void add (final @Nonnull ActorActivator actorActivator)
+    public void add (@Nonnull final ActorActivator actorActivator)
       {
         actorActivators.add(actorActivator);
       }

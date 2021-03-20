@@ -43,7 +43,7 @@ public class DefaultPersonRegistry1 implements PersonRegistry
     private final List<Person> persons = new ArrayList<Person>();
 
     @Override
-    public void add (final @Nonnull Person person)
+    public void add (@Nonnull final Person person)
       {
         persons.add(person);
       }

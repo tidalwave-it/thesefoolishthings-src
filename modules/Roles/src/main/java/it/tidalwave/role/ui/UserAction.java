@@ -66,7 +66,7 @@ public interface UserAction extends As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static UserAction of (final @Nonnull Callback callback, final @Nonnull Collection<Object> rolesOrFactories)
+    public static UserAction of (@Nonnull final Callback callback, @Nonnull final Collection<Object> rolesOrFactories)
       {
         return new DefaultUserAction(callback, rolesOrFactories);
       }
@@ -77,7 +77,7 @@ public interface UserAction extends As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static UserAction of (final @Nonnull Callback callback, final @Nonnull Object role)
+    public static UserAction of (@Nonnull final Callback callback, @Nonnull final Object role)
       {
         Parameters.mustNotBeArrayOrCollection(role, "role");
         return of(callback, Collections.singletonList(role));
@@ -89,7 +89,7 @@ public interface UserAction extends As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static UserAction of (final @Nonnull Callback callback)
+    public static UserAction of (@Nonnull final Callback callback)
       {
         return of(callback, Collections.emptyList());
       }

@@ -50,7 +50,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Slf4j
+@SuppressWarnings("ALL") @Slf4j
 public class DciContextWithAutoThreadBindingAspectTest
   {
     /*******************************************************************************************************************
@@ -58,7 +58,7 @@ public class DciContextWithAutoThreadBindingAspectTest
      ******************************************************************************************************************/
     static class Support
       {
-        public Map<String, AtomicInteger> invocationCount = new HashMap<>();
+        public final Map<String, AtomicInteger> invocationCount = new HashMap<>();
 
         public void publicMethod()
           {
@@ -93,6 +93,7 @@ public class DciContextWithAutoThreadBindingAspectTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
+    @SuppressWarnings("EmptyMethod")
     static class WithoutAnnotation extends Support
       {
         @Override
@@ -171,7 +172,6 @@ public class DciContextWithAutoThreadBindingAspectTest
      ******************************************************************************************************************/
     @BeforeClass
     public void setup()
-      throws Throwable
       {
         contextManager = mock(ContextManager.class);
         doAnswer(new Answer()
@@ -183,11 +183,11 @@ public class DciContextWithAutoThreadBindingAspectTest
                 final Task task = (Task)invocation.getArguments()[1];
                 return task.run();
               }
-          }).when(contextManager).runWithContext(anyObject(), any(Task.class));
+          }).when(contextManager).runWithContext(any(), any(Task.class));
 
         ContextManager.Locator.set(new ContextManagerProvider()
           {
-            @Override
+            @Override @Nonnull
             public ContextManager getContextManager()
               {
                 return contextManager;

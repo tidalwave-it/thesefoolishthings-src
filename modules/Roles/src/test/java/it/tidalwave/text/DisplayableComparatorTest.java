@@ -47,7 +47,7 @@ public class DisplayableComparatorTest
     final Displayable c2 = new DefaultDisplayable("c", "c");
 
     @Test(dataProvider = "data")
-    public void test (final @Nonnull Displayable d1, final @Nonnull Displayable d2, final int expectedResult)
+    public void test (@Nonnull final Displayable d1, @Nonnull final Displayable d2, final int expectedResult)
       {
         // when
         final int actualResult = DisplayableComparator.getInstance().compare(d1, d2);

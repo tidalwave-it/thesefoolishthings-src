@@ -44,7 +44,7 @@ import java.util.SortedSet;
 public interface LocalizedDisplayable extends Displayable
   {
     //@bluebook-begin other
-    public final static Class<LocalizedDisplayable> _LocalizedDisplayable_ = LocalizedDisplayable.class;
+    public static final Class<LocalizedDisplayable> _LocalizedDisplayable_ = LocalizedDisplayable.class;
 
     //@bluebook-end other
     /*******************************************************************************************************************

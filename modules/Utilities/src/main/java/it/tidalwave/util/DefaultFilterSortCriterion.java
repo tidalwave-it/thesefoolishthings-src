@@ -44,7 +44,7 @@ import it.tidalwave.util.Finder.SortDirection;
  **********************************************************************************************************************/
 public class DefaultFilterSortCriterion<Type> implements Finder.FilterSortCriterion<Type>, Serializable
   {
-    private final static long serialVersionUID = 76093596048395982L;
+    private static final long serialVersionUID = 76093596048395982L;
 
     @Nonnull
     private final Comparator<? super Type> comparator;
@@ -60,7 +60,7 @@ public class DefaultFilterSortCriterion<Type> implements Finder.FilterSortCriter
      * @param  name         a name used for diagnostics
      *
      ******************************************************************************************************************/
-    public DefaultFilterSortCriterion (final @Nonnull Comparator<? super Type> comparator, final @Nonnull String name)
+    public DefaultFilterSortCriterion (@Nonnull final Comparator<? super Type> comparator, @Nonnull final String name)
       {
         this.comparator = comparator;
         this.name = name;
@@ -73,7 +73,7 @@ public class DefaultFilterSortCriterion<Type> implements Finder.FilterSortCriter
      * @param  comparator   the comparator
      *
      ******************************************************************************************************************/
-    protected DefaultFilterSortCriterion (final @Nonnull Comparator<? super Type> comparator)
+    protected DefaultFilterSortCriterion (@Nonnull final Comparator<? super Type> comparator)
       {
         this.comparator = comparator;
         this.name = getClass().getSimpleName();
@@ -84,17 +84,11 @@ public class DefaultFilterSortCriterion<Type> implements Finder.FilterSortCriter
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Override @Nonnull
-    public void sort (final @Nonnull List<? extends Type> results,
-                      final @Nonnull SortDirection sortDirection)
+    @Override
+    public void sort (@Nonnull final List<? extends Type> results,
+                      @Nonnull final SortDirection sortDirection)
       {
-        Collections.sort(results, new Comparator<Type>()
-          {
-            public int compare (final @Nonnull Type o1, final @Nonnull Type o2)
-              {
-                return comparator.compare(o1, o2) * sortDirection.intValue();
-              }
-          });
+        results.sort((Comparator<Type>)(o1, o2) -> comparator.compare(o1, o2) * sortDirection.intValue());
       }
 
     /*******************************************************************************************************************

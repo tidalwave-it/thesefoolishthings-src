@@ -39,7 +39,7 @@ import static lombok.AccessLevel.*;
 @NoArgsConstructor(access = PRIVATE)
 public final class Utils
   {
-    public static void populatePresidents (final @Nonnull PersonRegistry registry)
+    public static void populatePresidents (@Nonnull final PersonRegistry registry)
       {
         registry.add(new Person(new Id("1"), "Richard", "Nixon"));
         registry.add(new Person(new Id("2"), "Jimmy", "Carter"));

@@ -47,7 +47,7 @@ public final class ThreadAssertions
      * @param  threadType    the thread type
      *
      ******************************************************************************************************************/
-    public static void assertThread (final @Nonnull ThreadType threadType)
+    public static void assertThread (@Nonnull final ThreadType threadType)
       {
         assert doAssertThread(threadType); // trick so we skip everything if assertions are disabled
       }
@@ -56,7 +56,7 @@ public final class ThreadAssertions
      *
      *
      ******************************************************************************************************************/
-    private static boolean doAssertThread (final @Nonnull ThreadType threadType)
+    private static boolean doAssertThread (@Nonnull final ThreadType threadType)
       {
         switch (threadType)
           {

@@ -50,7 +50,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @Immutable
 public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
   {
-    private final static long serialVersionUID = 759233572056L;
+    private static final long serialVersionUID = 759233572056L;
 
     @Nonnull
     private final Map<Key<?>, Collection<?>> map;
@@ -59,9 +59,9 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
      *
      *
      ******************************************************************************************************************/
-    public TypeSafeHashMultiMap (final @Nonnull Map<Key<?>, Collection<?>> map)
+    public TypeSafeHashMultiMap (@Nonnull final Map<Key<?>, Collection<?>> map)
       {
-        this(new HashMap<Key<?>, Collection<? extends Object>>(), true);
+        this(new HashMap<>(), true);
         this.map.putAll(map);
       }
 
@@ -69,7 +69,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
      *
      *
      ******************************************************************************************************************/
-    /* package */ TypeSafeHashMultiMap (final @Nonnull Map<Key<?>, Collection<?>> map, final boolean dummy)
+    /* package */ TypeSafeHashMultiMap (@Nonnull final Map<Key<?>, Collection<?>> map, final boolean dummy)
       {
         this.map = map;
       }
@@ -80,7 +80,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull @SuppressWarnings("unchecked")
-    public <T> Collection<T> get (final @Nonnull Key<T> key)
+    public <T> Collection<T> get (@Nonnull final Key<T> key)
       {
         return containsKey(key) ? new CopyOnWriteArrayList<>((Collection<T>)map.get(key))
                                 : new ArrayList<>();
@@ -91,7 +91,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    public boolean containsKey (final @Nonnull Key<?> key)
+    public boolean containsKey (@Nonnull final Key<?> key)
       {
         return map.containsKey(key);
       }
@@ -102,7 +102,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> TypeSafeHashMultiMap with (final @Nonnull Key<T> key, final @Nonnull T value)
+    public <T> TypeSafeHashMultiMap with (@Nonnull final Key<T> key, @Nonnull final T value)
       {
         final Map<Key<?>, Collection<?>> map = asMap();
         final Collection<T> values = get(key);
@@ -152,7 +152,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
     @Nonnull
     public Map<Key<?>, Collection<?>> asMap()
       {
-        return new HashMap<Key<?>, Collection<?>>(map);
+        return new HashMap<>(map);
       }
 
     /*******************************************************************************************************************

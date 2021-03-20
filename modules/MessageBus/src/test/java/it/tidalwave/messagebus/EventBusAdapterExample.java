@@ -41,7 +41,7 @@ public class EventBusAdapterExample
   {
     private final MessageBusHelper messageBusHelper;
 
-    public EventBusAdapterExample (final @Nonnull MessageBusHelper.Adapter adapter)
+    public EventBusAdapterExample (@Nonnull final MessageBusHelper.Adapter adapter)
       {
         messageBusHelper = new MessageBusHelper(this, adapter);
       }
@@ -58,13 +58,13 @@ public class EventBusAdapterExample
         // dispose your stuff
       }
 
-    private void onMessage1 (final @ListensTo Message1 message)
+    private void onMessage1 (@ListensTo final Message1 message)
       {
         log.info("Received {}", message);
         messageBusHelper.publish(new Message2());
       }
 
-    private void onMessage2 (final @ListensTo Message2 message)
+    private void onMessage2 (@ListensTo final Message2 message)
       {
         log.info("Received {}", message);
       }

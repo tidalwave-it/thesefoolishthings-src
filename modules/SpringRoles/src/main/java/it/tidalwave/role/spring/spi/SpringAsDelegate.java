@@ -76,7 +76,7 @@ class SpringAsDelegate implements AsDelegate
      * @param  owner  the owner object
      *
      ******************************************************************************************************************/
-    public SpringAsDelegate (final @Nonnull Object owner)
+    public SpringAsDelegate (@Nonnull final Object owner)
       {
         this.owner = owner;
         contextSampler = new ContextSampler(owner);
@@ -88,19 +88,20 @@ class SpringAsDelegate implements AsDelegate
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> Collection<? extends T> as (final @Nonnull Class<T> roleType)
+    public <T> Collection<? extends T> as (@Nonnull final Class<T> roleType)
       {
         log.trace("as({}) for {}", shortName(roleType), shortId(owner));
         log.trace(">>>> contexts: {}", contextSampler);
 
-        final List<T> roles = new ArrayList<T>(contextSampler.runWithContexts(new Task<List<? extends T>, RuntimeException>()
-          {
-            @Override @Nonnull
-            public List<? extends T> run()
-              {
-                return roleManager.findRoles(owner, roleType);
-              }
-          }));
+        final List<T> roles =
+                new ArrayList<>(contextSampler.runWithContexts(new Task<List<? extends T>, RuntimeException>()
+                  {
+                    @Override @Nonnull
+                    public List<? extends T> run ()
+                      {
+                        return roleManager.findRoles(owner, roleType);
+                      }
+                  }));
 
         if (roleType.isAssignableFrom(owner.getClass()))
           {

@@ -52,6 +52,6 @@ public interface Initializer<T>
     @Nonnull
     public static <T> Initializer<T> empty()
       {
-        return new EmptyInitializer<T>();
+        return new EmptyInitializer<>();
       }
   }

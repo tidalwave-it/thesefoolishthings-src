@@ -76,7 +76,7 @@ public class RoundRobinAsyncMessageDelivery implements MessageDelivery
               }
           }
         
-        private <TOPIC> void dispatchMessage (final @Nonnull TopicAndMessage<TOPIC> tam)
+        private <TOPIC> void dispatchMessage (@Nonnull final TopicAndMessage<TOPIC> tam)
           {
             messageBusSupport.dispatchMessage(tam.getTopic(), tam.getMessage());
           }
@@ -88,7 +88,7 @@ public class RoundRobinAsyncMessageDelivery implements MessageDelivery
      *
      ******************************************************************************************************************/
     @Override
-    public void initialize (final @Nonnull SimpleMessageBus messageBusSupport) 
+    public void initialize (@Nonnull final SimpleMessageBus messageBusSupport)
       {
         this.messageBusSupport = messageBusSupport;
         final Executor executor = this.messageBusSupport.getExecutor();
@@ -105,7 +105,7 @@ public class RoundRobinAsyncMessageDelivery implements MessageDelivery
      *
      ******************************************************************************************************************/
     @Override
-    public <TOPIC> void deliverMessage (final @Nonnull Class<TOPIC> topic, @Nonnull TOPIC message)
+    public <TOPIC> void deliverMessage (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)
       {
         multiQueue.add(topic, message);
       }

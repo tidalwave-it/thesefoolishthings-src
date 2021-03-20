@@ -64,9 +64,9 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
         @Nonnull
         private final Class<Topic> topic;
 
-        public MessageBusListenerAdapter (final @Nonnull Object owner,
-                                          final @Nonnull Method method,
-                                          final @Nonnull Class<Topic> topic)
+        public MessageBusListenerAdapter (@Nonnull final Object owner,
+                                          @Nonnull final Method method,
+                                          @Nonnull final Class<Topic> topic)
           {
             this.owner  = owner;
             this.method = method;
@@ -75,7 +75,7 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
           }
 
         @Override
-        public void notify (final @Nonnull Topic message)
+        public void notify (@Nonnull final Topic message)
           {
             log.trace("notify({})", message);
 
@@ -109,9 +109,9 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <Topic> MethodAdapter createMethodAdapter (final @Nonnull Object owner,
-                                                      final @Nonnull Method method,
-                                                      final @Nonnull Class<Topic> topic)
+    public <Topic> MethodAdapter createMethodAdapter (@Nonnull final Object owner,
+                                                      @Nonnull final Method method,
+                                                      @Nonnull final Class<Topic> topic)
       {
         return new MessageBusListenerAdapter(owner, method, topic);
       }
@@ -122,7 +122,7 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
      *
      ******************************************************************************************************************/
     @Override
-    public void publish (final @Nonnull Object message)
+    public void publish (@Nonnull final Object message)
       {
         messageBus.publish(message);
       }
@@ -133,7 +133,7 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void publish (final @Nonnull Class<Topic> topic, final @Nonnull Topic message)
+    public <Topic> void publish (@Nonnull final Class<Topic> topic, @Nonnull final Topic message)
       {
         messageBus.publish(topic, message);
       }

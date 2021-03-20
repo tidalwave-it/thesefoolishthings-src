@@ -53,7 +53,7 @@ public class DefaultPresentable implements Presentable
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public PresentationModel createPresentationModel (final @Nonnull Collection<Object> localRolesOrFactories)
+    public PresentationModel createPresentationModel (@Nonnull final Collection<Object> localRolesOrFactories)
       {
         return PresentationModel.of(datum, localRolesOrFactories);
       }

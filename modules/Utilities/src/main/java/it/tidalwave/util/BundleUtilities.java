@@ -54,9 +54,9 @@ public final class BundleUtilities
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static String getMessage (final @Nonnull Class<?> ownerClass,
-                                     final @Nonnull String resourceName,
-                                     final @Nonnull Object ... params)
+    public static String getMessage (@Nonnull final Class<?> ownerClass,
+                                     @Nonnull final String resourceName,
+                                     @Nonnull final Object ... params)
       {
         return getMessage(ownerClass, Locale.getDefault(), resourceName, params);
       }
@@ -74,10 +74,10 @@ public final class BundleUtilities
      *
      ******************************************************************************************************************/
       @Nonnull
-      public static String getMessage (final @Nonnull Class<?> ownerClass,
-                                       final @Nonnull Locale locale,
-                                       final @Nonnull String resourceName,
-                                       final @Nonnull Object ... params)
+      public static String getMessage (@Nonnull final Class<?> ownerClass,
+                                       @Nonnull final Locale locale,
+                                       @Nonnull final String resourceName,
+                                       @Nonnull final Object ... params)
       {
         final String packageName = ownerClass.getPackage().getName();
         final ResourceBundle bundle = ResourceBundle.getBundle(packageName + ".Bundle", locale);

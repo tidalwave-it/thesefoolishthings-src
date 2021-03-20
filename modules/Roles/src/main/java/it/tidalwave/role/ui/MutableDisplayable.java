@@ -45,13 +45,13 @@ import java.util.Map;
  **********************************************************************************************************************/
 public interface MutableDisplayable extends Displayable
   {
-    public final static Class<MutableDisplayable> _MutableDisplayable_ = MutableDisplayable.class;
+    public static final Class<MutableDisplayable> _MutableDisplayable_ = MutableDisplayable.class;
 
     /** The property name for displayName */
-    public final static String PROP_DISPLAY_NAME = "displayName";
+    public static final String PROP_DISPLAY_NAME = "displayName";
 
     /** The property name for displayNames */
-    public final static String PROP_DISPLAY_NAMES = "displayNames";
+    public static final String PROP_DISPLAY_NAMES = "displayNames";
 
     /*******************************************************************************************************************
      *
@@ -108,7 +108,7 @@ public interface MutableDisplayable extends Displayable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static MutableDisplayable of (final @Nonnull String displayName)
+    public static MutableDisplayable of (@Nonnull final String displayName)
       {
         return of(displayName, "???");
       }
@@ -124,7 +124,7 @@ public interface MutableDisplayable extends Displayable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static MutableDisplayable of (final @Nonnull String displayName, final @Nonnull String toStringName)
+    public static MutableDisplayable of (@Nonnull final String displayName, @Nonnull final String toStringName)
       {
         return new DefaultMutableDisplayable(displayName, toStringName);
       }

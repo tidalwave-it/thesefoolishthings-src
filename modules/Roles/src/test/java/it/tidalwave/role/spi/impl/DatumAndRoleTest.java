@@ -43,7 +43,7 @@ import static it.tidalwave.role.spi.impl.Mocks.*;
 public class DatumAndRoleTest
   {
     @Test(dataProvider = "provider")
-    public void testGetSuper (final @Nonnull DatumAndRole underTest, final @Nonnull List<DatumAndRole> expected)
+    public void testGetSuper (@Nonnull final DatumAndRole underTest, @Nonnull final List<DatumAndRole> expected)
       {
         // when
         final List<DatumAndRole> actual = underTest.getSuper();

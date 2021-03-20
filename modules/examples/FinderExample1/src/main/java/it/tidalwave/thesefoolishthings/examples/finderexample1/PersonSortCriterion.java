@@ -39,21 +39,9 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
  **********************************************************************************************************************/
 public final class PersonSortCriterion
   {
-    public final static SortCriterion BY_FIRST_NAME = new DefaultFilterSortCriterion<Person>(
-        new Comparator<Person>()
-          {
-            public int compare (final @Nonnull Person p1, final @Nonnull Person p2)
-              {
-                return p1.getFirstName().compareTo(p2.getFirstName());
-              }
-          }, "BY_FIRST_NAME");
+    public static final SortCriterion BY_FIRST_NAME = new DefaultFilterSortCriterion<Person>(
+            (p1, p2) -> p1.getFirstName().compareTo(p2.getFirstName()), "BY_FIRST_NAME");
 
-    public final static SortCriterion BY_LAST_NAME = new DefaultFilterSortCriterion<Person>(
-        new Comparator<Person>()
-          {
-            public int compare (final @Nonnull Person p1, final @Nonnull Person p2)
-              {
-                return p1.getLastName().compareTo(p2.getLastName());
-              }
-          }, "BY_LAST_NAME");
+    public static final SortCriterion BY_LAST_NAME = new DefaultFilterSortCriterion<Person>(
+            (p1, p2) -> p1.getLastName().compareTo(p2.getLastName()), "BY_LAST_NAME");
   }

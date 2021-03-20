@@ -48,13 +48,13 @@ public class DefaultPersonPresentationControl implements PersonPresentationContr
 
     private final Action okAction = new AbstractAction("Ok")
       {
-        public void actionPerformed (final @Nonnull ActionEvent event)
+        public void actionPerformed (@Nonnull final ActionEvent event)
           {
             presentation.dispose();
           }
       };
 
-    public DefaultPersonPresentationControl (final @Nonnull PersonPresentation presentation)
+    public DefaultPersonPresentationControl (@Nonnull final PersonPresentation presentation)
       {
         this.presentation = presentation;
         final PersonRegistry personRegistry = new DefaultPersonRegistry();

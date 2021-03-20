@@ -29,7 +29,6 @@ package it.tidalwave.util.impl;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -50,7 +49,7 @@ import it.tidalwave.util.TypeSafeMap;
 @Immutable
 public class TypeSafeHashMap implements TypeSafeMap, Serializable
   {
-    private final static long serialVersionUID = 564564576856746L;
+    private static final long serialVersionUID = 564564576856746L;
 
     @Nonnull
     private final Map<Key<?>, Object> map;
@@ -59,9 +58,9 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      *
      *
      ******************************************************************************************************************/
-    public TypeSafeHashMap (final @Nonnull Map<Key<?>, Object> map)
+    public TypeSafeHashMap (@Nonnull final Map<Key<?>, Object> map)
       {
-        this(new HashMap<Key<?>, Object>(), false);
+        this(new HashMap<>(), false);
         this.map.putAll(map);
       }
 
@@ -70,7 +69,7 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      *
      *
      ******************************************************************************************************************/
-    /* package */ TypeSafeHashMap (final @Nonnull Map<Key<?>, Object> map, final boolean dummy)
+    /* package */ TypeSafeHashMap (@Nonnull final Map<Key<?>, Object> map, final boolean dummy)
       {
         this.map = map;
       }
@@ -80,8 +79,8 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Nonnull
-    public <T> T get (final @Nonnull Key<T> key)
+    @Nonnull @SuppressWarnings("unchecked")
+    public <T> T get (@Nonnull final Key<T> key)
       throws NotFoundException
       {
         return NotFoundException.throwWhenNull((T)map.get(key), "not found: %s", key);
@@ -92,7 +91,7 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    public boolean containsKey (final @Nonnull Key<?> key)
+    public boolean containsKey (@Nonnull final Key<?> key)
       {
         return map.containsKey(key);
       }
@@ -103,7 +102,7 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> TypeSafeMap with (final @Nonnull Key<T> key, final @Nonnull T value)
+    public <T> TypeSafeMap with (@Nonnull final Key<T> key, @Nonnull final T value)
       {
         final Map<Key<?>, Object> map = asMap();
         map.put(key, value);
@@ -151,7 +150,7 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
     @Nonnull
     public Map<Key<?>, Object> asMap()
       {
-        return new HashMap<Key<?>, Object>(map);
+        return new HashMap<>(map);
       }
 
     /*******************************************************************************************************************

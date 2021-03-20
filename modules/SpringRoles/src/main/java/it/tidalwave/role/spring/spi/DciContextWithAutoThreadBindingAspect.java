@@ -50,7 +50,7 @@ import static it.tidalwave.role.spi.impl.LogUtil.shortId;
 public class DciContextWithAutoThreadBindingAspect
   {
     @Around("within(@it.tidalwave.dci.annotation.DciContext *) && execution(* *(..))")
-    public Object advice (final @Nonnull ProceedingJoinPoint pjp)
+    public Object advice (@Nonnull final ProceedingJoinPoint pjp)
       throws Throwable
       {
         final Object context = pjp.getTarget();

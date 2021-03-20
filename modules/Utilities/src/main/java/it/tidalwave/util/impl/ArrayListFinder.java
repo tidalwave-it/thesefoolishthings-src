@@ -52,12 +52,12 @@ public class ArrayListFinder<T> extends SimpleFinderSupport<T>
     @Nonnull
     private final Collection<T> items;
 
-    public ArrayListFinder (final @Nonnull Collection<T> items)
+    public ArrayListFinder (@Nonnull final Collection<T> items)
       {
         this.items = Collections.unmodifiableCollection(new ArrayList<>(items));
       }
 
-    public ArrayListFinder (final @Nonnull ArrayListFinder<T> other, @Nonnull Object override)
+    public ArrayListFinder (@Nonnull final ArrayListFinder<T> other, @Nonnull final Object override)
       {
         super(other, override);
         final ArrayListFinder<T> source = getSource(ArrayListFinder.class, other, override);

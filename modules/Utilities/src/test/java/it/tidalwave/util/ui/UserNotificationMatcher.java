@@ -56,7 +56,7 @@ public class UserNotificationMatcher implements ArgumentMatcher<UserNotification
      *
      ******************************************************************************************************************/
     @Override
-    public boolean matches (final @Nullable UserNotification notification)
+    public boolean matches (@Nullable final UserNotification notification)
       {
         return (notification != null)
                 && Pattern.matches(captionRegex, notification.getCaption())

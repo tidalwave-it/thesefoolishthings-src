@@ -48,12 +48,12 @@ public class DefaultStyleable implements Styleable
   {
     private final List<String> styles = new ArrayList<>();
     
-    public DefaultStyleable (final @Nonnull Collection<String> styles)
+    public DefaultStyleable (@Nonnull final Collection<String> styles)
       {
         this.styles.addAll(styles);
       }
     
-    public DefaultStyleable (final @Nonnull String ... styles)
+    public DefaultStyleable (@Nonnull final String ... styles)
       {
         this(Arrays.asList(styles));
       }

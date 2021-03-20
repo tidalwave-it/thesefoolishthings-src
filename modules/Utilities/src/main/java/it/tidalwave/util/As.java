@@ -58,19 +58,19 @@ public interface As
      *
      *
      ******************************************************************************************************************/
-    public final static class Defaults
+    public static final class Defaults
       {
         private Defaults()
           {
           }
 
-        public static <X> NotFoundBehaviour<X> throwAsException (final @Nonnull Class<X> clazz)
+        public static <X> NotFoundBehaviour<X> throwAsException (@Nonnull final Class<X> clazz)
           {
             return new NotFoundBehaviour<X>()
               {
 //                @Override
                 @Nonnull
-                public X run (final @Nonnull Throwable t)
+                public X run (@Nonnull final Throwable t)
                   {
                     throw new AsException(clazz, t);
                   }
@@ -115,7 +115,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    default <T> Optional<T> maybeAs (final @Nonnull Class<T> type)
+    default <T> Optional<T> maybeAs (@Nonnull final Class<T> type)
       {
         return Optional.ofNullable(as(type, throwable -> null));
       }
@@ -126,7 +126,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull @Deprecated
-    default <T> Optional<T> asOptional (final @Nonnull Class<T> type)
+    default <T> Optional<T> asOptional (@Nonnull final Class<T> type)
       {
         return maybeAs(type);
       }

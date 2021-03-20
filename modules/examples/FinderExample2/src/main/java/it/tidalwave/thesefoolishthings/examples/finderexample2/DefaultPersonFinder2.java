@@ -51,14 +51,14 @@ import lombok.RequiredArgsConstructor;
     @Nonnull
     private final String lastName; 
 
-    public DefaultPersonFinder2 (final @Nonnull List<Person> persons)
+    public DefaultPersonFinder2 (@Nonnull final List<Person> persons)
       {
         this.persons = persons;
         this.firstName = ".*";
         this.lastName = ".*";
       }
     
-    public DefaultPersonFinder2 (final @Nonnull DefaultPersonFinder2 other, final @Nonnull Object override)
+    public DefaultPersonFinder2 (@Nonnull final DefaultPersonFinder2 other, @Nonnull final Object override)
       {
         super(other, override);
         this.persons = new ArrayList<Person>(other.persons);
@@ -68,13 +68,13 @@ import lombok.RequiredArgsConstructor;
       }
 
     @Override @Nonnull
-    public PersonFinder withFirstName (final @Nonnull String firstName)
+    public PersonFinder withFirstName (@Nonnull final String firstName)
       {
         return clone(new DefaultPersonFinder2(persons, firstName, lastName));
       }
 
     @Override @Nonnull
-    public PersonFinder withLastName (final @Nonnull String lastName)
+    public PersonFinder withLastName (@Nonnull final String lastName)
       {
         return clone(new DefaultPersonFinder2(persons, firstName, lastName));
       }

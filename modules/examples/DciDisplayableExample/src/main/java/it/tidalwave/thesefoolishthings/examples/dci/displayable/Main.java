@@ -37,7 +37,7 @@ import org.springframework.beans.factory.BeanFactory;
  **********************************************************************************************************************/
 public class Main
   {
-    public static void main (final @Nonnull String ... args)
+    public static void main (@Nonnull final String ... args)
       throws Exception
       {
         final String beans = "it/tidalwave/thesefoolishthings/examples/dci/displayable/Beans.xml";

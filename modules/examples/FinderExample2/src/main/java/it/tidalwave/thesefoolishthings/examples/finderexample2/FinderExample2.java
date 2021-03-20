@@ -39,7 +39,7 @@ import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSort
  **********************************************************************************************************************/
 public class FinderExample2
   {
-    public static void main (final @Nonnull String ... args)
+    public static void main (@Nonnull final String ... args)
       throws NotFoundException
       {
         final PersonRegistry2 registry = new DefaultPersonRegistry2();

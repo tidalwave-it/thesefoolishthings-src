@@ -57,17 +57,14 @@ public class SwingPersonPresentation extends JPanel implements PersonPresentatio
      *
      ******************************************************************************************************************/
     @Override
-    public void bind (final @Nonnull Action okAction, final @Nonnull PersonRegistry personRegistry)
+    public void bind (@Nonnull final Action okAction, @Nonnull final PersonRegistry personRegistry)
       {
-        EventQueue.invokeLater(new Runnable()
+        EventQueue.invokeLater(() ->
           {
-            public void run()
-              {
-                Bindings.bind(bindings, personRegistry, liPeople);
-                Bindings.bind(bindings, personRegistry, taPeople);
-                bindings.bind();
-                btOk.setAction(okAction);
-              }
+            Bindings.bind(bindings, personRegistry, liPeople);
+            Bindings.bind(bindings, personRegistry, taPeople);
+            bindings.bind();
+            btOk.setAction(okAction);
           });
       }
 
@@ -77,13 +74,10 @@ public class SwingPersonPresentation extends JPanel implements PersonPresentatio
     @Override
     public void dispose()
       {
-        EventQueue.invokeLater(new Runnable()
+        EventQueue.invokeLater(() ->
           {
-            public void run()
-              {
-                bindings.unbind();
-                ((JFrame)(SwingUtilities.getAncestorOfClass(JFrame.class, SwingPersonPresentation.this))).dispose();
-              }
+            bindings.unbind();
+            ((JFrame)(SwingUtilities.getAncestorOfClass(JFrame.class, SwingPersonPresentation.this))).dispose();
           });
       }
 
@@ -127,14 +121,14 @@ public class SwingPersonPresentation extends JPanel implements PersonPresentatio
         jScrollPane2.setName("jScrollPane2"); // NOI18N
 
         liPeople.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            final String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(final int i) { return strings[i]; }
         });
         liPeople.setName("liPeople"); // NOI18N
         jScrollPane2.setViewportView(liPeople);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -36,6 +36,6 @@ import it.tidalwave.role.ContextManager;
  **********************************************************************************************************************/
 public interface ContextManagerProvider
   {
-    @Nonnull
+    @Nonnull @SuppressWarnings("UnusedReturnValue")
     public ContextManager getContextManager();
   }
