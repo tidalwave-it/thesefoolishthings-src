@@ -13,7 +13,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings</artifactId>
     <packaging>pom</packaging>
-    <version>3.2-ALPHA-5</version>
+    <version>3.2-ALPHA-6-SNAPSHOT</version>
     <name>TheseFoolishThings</name>
     <inceptionYear>2009</inceptionYear>
     <url>http://thesefoolishthings.tidalwave.it</url>
@@ -57,7 +57,7 @@
         <connection>scm:git:${scm.repo.readonly.url}</connection>
         <developerConnection>scm:git:${scm.repo.effective.url}</developerConnection>
         <url>${scm.repo.browse.url}</url>
-        <tag>3.2-ALPHA-5</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <dependencyManagement>
@@ -65,28 +65,28 @@
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-actor</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-role</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-role</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
@@ -97,28 +97,28 @@
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-test</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus-spring</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-role-spring</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -135,42 +135,42 @@
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-data</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-displayable</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-swing</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample1</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample2</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample3</artifactId>
-                <version>3.2-ALPHA-5</version>
+                <version>3.2-ALPHA-6-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
