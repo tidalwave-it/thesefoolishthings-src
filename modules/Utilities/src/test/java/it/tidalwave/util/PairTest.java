@@ -44,13 +44,13 @@ import static org.hamcrest.CoreMatchers.is;
  **********************************************************************************************************************/
 public class PairTest
   {
-    private final static String[] array = { "one", "two", "three", "four", "five" };
+    private static final String[] array = {"one", "two", "three", "four", "five" };
 
-    private final static Iterable<String> iterable = Arrays.asList(array);
+    private static final Iterable<String> iterable = Arrays.asList(array);
 
-    private final static IntFunction<String> indexTransformer = i -> String.format("%d", i + 1);
+    private static final IntFunction<String> indexTransformer = i -> String.format("%d", i + 1);
 
-    private final static IntFunction<String> valueSupplier = i -> String.format("#%d", i);
+    private static final IntFunction<String> valueSupplier = i -> String.format("#%d", i);
 
     /*******************************************************************************************************************
      *
