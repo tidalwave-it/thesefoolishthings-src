@@ -67,7 +67,7 @@ public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default <T> Optional<T> getOptional (@Nonnull final Key<T> key)
+    public default <T> Optional<T> getOptional (@Nonnull final Key<? extends T> key)
       {
         try
           {
@@ -178,7 +178,7 @@ public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static TypeSafeMap ofCloned (@Nonnull final Map<Key<?>, Object> map)
+    public static TypeSafeMap ofCloned (@Nonnull final Map<? extends Key<?>, Object> map)
       {
         return new TypeSafeHashMap(map);
       }

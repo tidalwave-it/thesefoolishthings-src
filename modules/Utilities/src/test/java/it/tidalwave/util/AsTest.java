@@ -59,13 +59,14 @@ public class AsTest
         private final AsDelegate delegate;
 
         @Override @Nonnull
-        public <T> T as (@Nonnull final Class<T> type)
+        public <T> T as (@Nonnull final Class<? extends T> type)
           {
             return as(type, As.Defaults.throwAsException(type));
           }
 
         @Override @Nonnull
-        public <T> T as (@Nonnull final Class<T> type, @Nonnull final NotFoundBehaviour<T> notFoundBehaviour)
+        public <T> T as (@Nonnull final Class<? extends T> type,
+                         @Nonnull final NotFoundBehaviour<? extends T> notFoundBehaviour)
           {
             final Collection<T> roles = asMany(type);
 
@@ -73,7 +74,7 @@ public class AsTest
           }
 
         @Override @Nonnull
-        public <T> Collection<T> asMany (@Nonnull final Class<T> type)
+        public <T> Collection<T> asMany (@Nonnull final Class<? extends T> type)
           {
             return (Collection)delegate.as(type);
           }

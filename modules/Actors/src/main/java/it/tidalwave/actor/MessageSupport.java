@@ -174,7 +174,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> T as (@Nonnull final Class<T> type)
+    public <T> T as (@Nonnull final Class<? extends T> type)
       {
         return as(type, new As.NotFoundBehaviour<T>()
           {

@@ -92,13 +92,13 @@ public class SimpleCompositePresentableTest
           }
 
         @Override @Nonnull
-        public <T> T as (@Nonnull final Class<T> roleType)
+        public <T> T as (@Nonnull final Class<? extends T> roleType)
           {
             return as(roleType, As.Defaults.throwAsException(roleType));
           }
 
-        @Override @Nonnull
-        public <T> T as (@Nonnull final Class<T> roleType, @Nonnull final NotFoundBehaviour<T> notFoundBehaviour)
+        @Nonnull
+        public <T> T as (@Nonnull final Class<? extends T> roleType, @Nonnull final NotFoundBehaviour<? extends T> notFoundBehaviour)
           {
             if (roleType.equals(SimpleComposite.class) && (composite != null))
               {
@@ -109,7 +109,7 @@ public class SimpleCompositePresentableTest
           }
 
         @Override @Nonnull
-        public <T> Collection<T> asMany (@Nonnull final Class<T> roleType)
+        public <T> Collection<T> asMany (@Nonnull final Class<? extends T> roleType)
           {
             if (roleType.equals(SimpleComposite.class) && (composite != null))
               {

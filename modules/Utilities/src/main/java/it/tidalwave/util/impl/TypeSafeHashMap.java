@@ -59,7 +59,7 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      *
      *
      ******************************************************************************************************************/
-    public TypeSafeHashMap (@Nonnull final Map<Key<?>, Object> map)
+    public TypeSafeHashMap (@Nonnull final Map<? extends Key<?>, Object> map)
       {
         this(new HashMap<>(), false);
         this.map.putAll(map);

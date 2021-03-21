@@ -41,5 +41,5 @@ public interface AsDelegate
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> Collection<? extends T> as (@Nonnull Class<T> clazz);
+    public <T> Collection<? extends T> as (@Nonnull Class<? extends T> clazz);
   }

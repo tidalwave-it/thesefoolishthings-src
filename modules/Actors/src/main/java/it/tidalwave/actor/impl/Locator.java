@@ -52,7 +52,7 @@ public class Locator
       }
 
     @Nonnull
-    public static <T> Provider<T> createProviderFor (@Nonnull final Class<T> serviceClass)
+    public static <T> Provider<T> createProviderFor (@Nonnull final Class<? extends T> serviceClass)
       {
         return new Provider<T>()
           {

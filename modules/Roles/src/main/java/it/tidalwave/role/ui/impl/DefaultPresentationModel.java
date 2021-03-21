@@ -74,7 +74,7 @@ public class DefaultPresentationModel implements PresentationModel
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> T as (@Nonnull final Class<T> roleType)
+    public <T> T as (@Nonnull final Class<? extends T> roleType)
       {
         return as(roleType, As.Defaults.throwAsException(roleType));
       }
@@ -85,7 +85,8 @@ public class DefaultPresentationModel implements PresentationModel
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> T as (@Nonnull final Class<T> roleType, @Nonnull final NotFoundBehaviour<T> notFoundBehaviour)
+    public <T> T as (@Nonnull final Class<? extends T> roleType,
+                     @Nonnull final NotFoundBehaviour<? extends T> notFoundBehaviour)
       {
         // Undocumented feature: for instance Zephyr needs to fire property events
         if (roleType.equals(PropertyChangeSupport.class))
@@ -120,7 +121,7 @@ public class DefaultPresentationModel implements PresentationModel
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> Collection<T> asMany (@Nonnull final Class<T> roleType)
+    public <T> Collection<T> asMany (@Nonnull final Class<? extends T> roleType)
       {
         final Collection<T> result = asSupport.asMany(roleType);
 

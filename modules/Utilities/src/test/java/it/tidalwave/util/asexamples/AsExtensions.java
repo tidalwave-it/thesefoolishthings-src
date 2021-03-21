@@ -39,15 +39,15 @@ public class AsExtensions
   {
     @Nonnull
     public static <T> T as (@Nonnull final Object datum,
-                            @Nonnull final Class<T> roleClass)
+                            @Nonnull final Class<? extends T> roleClass)
       {
         return as(datum, roleClass, As.Defaults.throwAsException(roleClass));
       }
 
     @Nonnull
     public static <T> T as (@Nonnull final Object datum,
-                            @Nonnull final Class<T> roleClass,
-                            @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
+                            @Nonnull final Class<? extends T> roleClass,
+                            @Nonnull final As.NotFoundBehaviour<? extends T> notFoundBehaviour)
       {
         try
           {
@@ -64,7 +64,7 @@ public class AsExtensions
 
     @Nonnull
     public static <T> Collection<T> asMany (@Nonnull final Object datum,
-                                            @Nonnull final Class<T> roleClass)
+                                            @Nonnull final Class<? extends T> roleClass)
       {
         throw new UnsupportedOperationException();
       }

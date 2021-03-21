@@ -61,10 +61,10 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     static class Sorter<Type>
       {
-        private final FilterSortCriterion<Type> sortCriterion;
+        private final FilterSortCriterion<? super Type> sortCriterion;
         private final SortDirection sortDirection;
 
-        public Sorter (@Nonnull final FilterSortCriterion<Type> sortCriterion,
+        public Sorter (@Nonnull final FilterSortCriterion<? super Type> sortCriterion,
                        @Nonnull final SortDirection sortDirection)
           {
             this.sortCriterion = sortCriterion;
@@ -372,7 +372,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      *
      ******************************************************************************************************************/
     @Nonnull
-    private static <T> List<T> concat (@Nonnull final List<T> list, @Nonnull final T item)
+    private static <T> List<T> concat (@Nonnull final List<? extends T> list, @Nonnull final T item)
       {
         final List<T> result = new ArrayList<>(list);
         result.add(item);

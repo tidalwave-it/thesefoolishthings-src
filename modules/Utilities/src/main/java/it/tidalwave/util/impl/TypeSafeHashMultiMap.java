@@ -58,7 +58,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
      *
      *
      ******************************************************************************************************************/
-    public TypeSafeHashMultiMap (@Nonnull final Map<Key<?>, Collection<?>> map)
+    public TypeSafeHashMultiMap (@Nonnull final Map<? extends Key<?>, ? extends Collection<?>> map)
       {
         this(new HashMap<>(), true);
         this.map.putAll(map);

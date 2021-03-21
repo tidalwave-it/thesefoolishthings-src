@@ -42,19 +42,20 @@ public class Datum1 implements As
     final String status;
 
     @Nonnull
-    public <T> T as (@Nonnull final Class<T> clazz)
+    public <T> T as (@Nonnull final Class<? extends T> clazz)
       {
         return AsExtensions.as(this, clazz);
       }
 
     @Nonnull
-    public <T> T as (@Nonnull final Class<T> clazz, @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
+    public <T> T as (@Nonnull final Class<? extends T> clazz,
+                     @Nonnull final NotFoundBehaviour<? extends T> notFoundBehaviour)
       {
         return AsExtensions.as(this, clazz, notFoundBehaviour);
       }
 
     @Nonnull
-    public <T> Collection<T> asMany (@Nonnull final Class<T> clazz)
+    public <T> Collection<T> asMany (@Nonnull final Class<? extends T> clazz)
       {
         return AsExtensions.asMany(this, clazz);
       }

@@ -59,7 +59,7 @@ public class ConcurrentHashMapWithOptionals<K, V> extends ConcurrentHashMap<K, V
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Optional<K> putIfAbsentAndGetNewKey (@Nonnull final Optional<K> optionalKey, @Nonnull final V value)
+    public Optional<K> putIfAbsentAndGetNewKey (@Nonnull final Optional<? extends K> optionalKey, @Nonnull final V value)
       {
         return optionalKey.flatMap(key -> putIfAbsentAndGetNewKey(key, value));
       }

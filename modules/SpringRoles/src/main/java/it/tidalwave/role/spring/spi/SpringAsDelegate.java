@@ -88,7 +88,7 @@ class SpringAsDelegate implements AsDelegate
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> Collection<? extends T> as (@Nonnull final Class<T> roleType)
+    public <T> Collection<? extends T> as (@Nonnull final Class<? extends T> roleType)
       {
         log.trace("as({}) for {}", shortName(roleType), shortId(owner));
         log.trace(">>>> contexts: {}", contextSampler);

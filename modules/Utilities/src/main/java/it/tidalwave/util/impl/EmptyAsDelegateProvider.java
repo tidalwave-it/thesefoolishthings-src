@@ -45,7 +45,7 @@ public class EmptyAsDelegateProvider implements AsDelegateProvider
         return new AsDelegate()
           {
             @Override @Nonnull
-            public <T> Collection<T> as (final Class<T> type)
+            public <T> Collection<T> as (final Class<? extends T> type)
               {
                 return new ArrayList<>(); // must be mutable
               }

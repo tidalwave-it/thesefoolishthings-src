@@ -46,8 +46,8 @@ public class AsExtensionsBean
     private RoleManager roleManager;
 
     public <T> T as (@Nonnull final Object datum,
-                     @Nonnull final Class<T> roleType,
-                     @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
+                     @Nonnull final Class<? extends T> roleType,
+                     @Nonnull final As.NotFoundBehaviour<? extends T> notFoundBehaviour)
       {
         final List<? extends T> roles = asMany(datum, roleType);
 

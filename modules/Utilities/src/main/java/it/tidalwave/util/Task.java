@@ -116,7 +116,7 @@ public abstract class Task<T, E extends Throwable>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Task<T, Exception> ofCallable (@Nonnull final Callable<T> callable)
+    public static <T> Task<T, Exception> ofCallable (@Nonnull final Callable<? extends T> callable)
       {
         return new Task<T, Exception>()
           {

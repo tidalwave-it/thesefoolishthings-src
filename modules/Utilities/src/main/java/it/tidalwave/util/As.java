@@ -64,7 +64,7 @@ public interface As
           {
           }
 
-        public static <X> NotFoundBehaviour<X> throwAsException (@Nonnull final Class<X> clazz)
+        public static <X> NotFoundBehaviour<X> throwAsException (@Nonnull final Class<? extends X> clazz)
           {
             return new NotFoundBehaviour<X>()
               {
@@ -89,7 +89,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> T as (@Nonnull Class<T> type);
+    public <T> T as (@Nonnull Class<? extends T> type);
 
     /*******************************************************************************************************************
      *
@@ -102,7 +102,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> T as (@Nonnull Class<T> type, @Nonnull NotFoundBehaviour<T> notFoundBehaviour);
+    public <T> T as (@Nonnull Class<? extends T> type, @Nonnull NotFoundBehaviour<? extends T> notFoundBehaviour);
 
     /*******************************************************************************************************************
      *
@@ -115,7 +115,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    default <T> Optional<T> maybeAs (@Nonnull final Class<T> type)
+    default <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> type)
       {
         return Optional.ofNullable(as(type, throwable -> null));
       }
@@ -126,7 +126,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull @Deprecated
-    default <T> Optional<T> asOptional (@Nonnull final Class<T> type)
+    default <T> Optional<T> asOptional (@Nonnull final Class<? extends T> type)
       {
         return maybeAs(type);
       }
@@ -140,5 +140,5 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> Collection<T> asMany (@Nonnull Class<T> type);
+    public <T> Collection<T> asMany (@Nonnull Class<? extends T> type);
   }
