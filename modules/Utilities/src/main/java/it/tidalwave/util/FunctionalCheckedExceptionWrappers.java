@@ -92,6 +92,7 @@ public final class FunctionalCheckedExceptionWrappers
      *
      * @param <T>         the type of the function argument
      * @param <R>         the type of the function return value
+     * @hidden
      *
      ******************************************************************************************************************/
     @FunctionalInterface
@@ -107,6 +108,7 @@ public final class FunctionalCheckedExceptionWrappers
      * it's defined to let the compiler infer functional equivalence.
      *
      * @param <T>         the type of the {@code Consumer} argument
+     * @hidden
      *
      ******************************************************************************************************************/
     @FunctionalInterface
@@ -122,6 +124,7 @@ public final class FunctionalCheckedExceptionWrappers
      * it's defined to let the compiler infer functional equivalence.
      *
      * @param <T>         the type of the {@code Supplier} argument
+     * @hidden
      *
      ******************************************************************************************************************/
     @FunctionalInterface
@@ -137,6 +140,7 @@ public final class FunctionalCheckedExceptionWrappers
      * it's defined to let the compiler infer functional equivalence.
      *
      * @param <T>         the type of the {@code Predicate} argument
+     * @hidden
      *
      ******************************************************************************************************************/
     @FunctionalInterface
