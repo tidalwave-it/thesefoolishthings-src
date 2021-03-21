@@ -29,7 +29,6 @@ package it.tidalwave.util.ui;
 import javax.annotation.Nonnull;
 import java.awt.EventQueue;
 import lombok.NoArgsConstructor;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import lombok.extern.slf4j.Slf4j;
 import static lombok.AccessLevel.*;

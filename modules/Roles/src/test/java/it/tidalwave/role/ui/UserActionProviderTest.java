@@ -104,7 +104,6 @@ public class UserActionProviderTest
 
     @Test
     public void works_with_no_actions()
-      throws NotFoundException
       {
         // whem
         final UserActionProvider underTest = UserActionProvider.of(NO_ACTIONS);
