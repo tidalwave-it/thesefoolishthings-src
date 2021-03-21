@@ -24,22 +24,21 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.role.spi;
+package it.tidalwave.role.impl;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
-import lombok.RequiredArgsConstructor;
 import java.io.Serializable;
 import it.tidalwave.util.Id;
 import it.tidalwave.role.Identifiable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * A default implementation of {@link Identifiable} which wraps a given id.
+ * A default implementation of {@link Identifiable} which wraps a given id. This class is not part of the public API.
  *
  * @author  Fabrizio Giudici
- * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
 @Immutable @RequiredArgsConstructor
