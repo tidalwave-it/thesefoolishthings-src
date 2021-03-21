@@ -61,8 +61,8 @@ public class TypeSafeMultiMapTest
         // when
         final TypeSafeMultiMap underTest = TypeSafeMultiMap.newInstance();
         // then
-        assertThat(underTest.getSize(), is(0));
-        assertThat(underTest.getKeys(), is(Collections.emptySet()));
+        assertThat(underTest.size(), is(0));
+        assertThat(underTest.keySet(), is(Collections.emptySet()));
         assertThat(underTest.asMap(), is(Collections.emptyMap()));
       }
 
@@ -77,8 +77,8 @@ public class TypeSafeMultiMapTest
         // when
         final TypeSafeMultiMap underTest = TypeSafeMultiMap.ofCloned(map);
         // then
-        assertThat(underTest.getSize(), is(3));
-        assertThat(underTest.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
+        assertThat(underTest.size(), is(3));
+        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
         assertThat(underTest.asMap(), is(map));
         assertThat(underTest.get(K_STRING), is(Collections.singletonList("1")));
         assertThat(underTest.get(K_INTEGER), is(Collections.singletonList(2)));
@@ -103,10 +103,10 @@ public class TypeSafeMultiMapTest
         final TypeSafeMultiMap underTest = firstMap.with(K_STRING2, "2");
         // then
         assertThat(underTest, is(not(sameInstance(firstMap))));
-        assertThat(firstMap.getSize(), is(3));
-        assertThat(underTest.getSize(), is(4));
-        assertThat(firstMap.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
-        assertThat(underTest.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME, K_STRING2))));
+        assertThat(firstMap.size(), is(3));
+        assertThat(underTest.size(), is(4));
+        assertThat(firstMap.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
+        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME, K_STRING2))));
         map.put(K_STRING2, Collections.singletonList("2"));
         assertThat(underTest.asMap(), is(map));
         assertThat(underTest.get(K_STRING2), is(Collections.singletonList("2")));
@@ -126,10 +126,10 @@ public class TypeSafeMultiMapTest
         final TypeSafeMultiMap underTest = firstMap.with(K_STRING, "1+"); // STRING key is already present
         // then
         assertThat(underTest, is(not(sameInstance(firstMap))));
-        assertThat(firstMap.getSize(), is(3));
-        assertThat(underTest.getSize(), is(3));
-        assertThat(firstMap.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
-        assertThat(underTest.getKeys(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
+        assertThat(firstMap.size(), is(3));
+        assertThat(underTest.size(), is(3));
+        assertThat(firstMap.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
+        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
         map.put(K_STRING, Arrays.asList("1", "1+"));
         assertThat(underTest.asMap(), is(map));
         assertThat(firstMap.get(K_STRING), is(Collections.singletonList("1")));
@@ -151,7 +151,7 @@ public class TypeSafeMultiMapTest
         map1.clear();
         // then
         assertThat(map1, is(not(sameInstance(map2))));
-        assertThat(underTest.getSize(), is(not(0)));
+        assertThat(underTest.size(), is(not(0)));
       }
 
     /*******************************************************************************************************************
@@ -164,12 +164,12 @@ public class TypeSafeMultiMapTest
         final Map<Key<?>, Collection<?>> map = createSampleMap();
         // when
         final TypeSafeMultiMap underTest = TypeSafeMultiMap.ofCloned(map);
-        final Set<Key<?>> set1 = underTest.getKeys();
-        final Set<Key<?>> set2 = underTest.getKeys();
+        final Set<Key<?>> set1 = underTest.keySet();
+        final Set<Key<?>> set2 = underTest.keySet();
         set1.clear();
         // then
         assertThat(set1, is(not(sameInstance(set2))));
-        assertThat(underTest.getSize(), is(not(0)));
+        assertThat(underTest.size(), is(not(0)));
       }
 
     /*******************************************************************************************************************

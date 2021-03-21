@@ -28,6 +28,7 @@ package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.util.Id;
+import it.tidalwave.role.impl.DefaultIdentifiable;
 
 /***********************************************************************************************************************
  *
@@ -48,9 +49,24 @@ public interface Identifiable
      *
      * Returns the identifier.
      *
-     * @return               the id
+     * @return              the id
      *
      ******************************************************************************************************************/
     @Nonnull
     public Id getId();
+
+    /*******************************************************************************************************************
+     *
+     * Returns a default instance which returns the given idr.
+     *
+     * @param         id    the id
+     * @return              the identifiable
+     * @since               3.2-ALPHA-6
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Identifiable of (@Nonnull final Id id)
+      {
+        return new DefaultIdentifiable(id);
+      }
   }

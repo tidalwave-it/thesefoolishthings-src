@@ -38,7 +38,6 @@ import org.springframework.beans.factory.BeanFactory;
 public class Main
   {
     public static void main (@Nonnull final String ... args)
-      throws Exception
       {
         final String beans = "it/tidalwave/thesefoolishthings/examples/dci/displayable/Beans.xml";
         final BeanFactory context = new ClassPathXmlApplicationContext(beans);

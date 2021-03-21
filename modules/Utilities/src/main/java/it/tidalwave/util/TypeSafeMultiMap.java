@@ -42,7 +42,7 @@ import it.tidalwave.util.impl.TypeSafeHashMultiMap;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public interface TypeSafeMultiMap extends Iterable<Collection<?>>
+public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<?>>>
   {
     /*******************************************************************************************************************
      *
@@ -74,7 +74,29 @@ public interface TypeSafeMultiMap extends Iterable<Collection<?>>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Set<Key<?>> getKeys();
+    public Set<Key<?>> keySet();
+
+    /*******************************************************************************************************************
+     *
+     * Returns a set of all the contained values.
+     *
+     * @return  the values as a mutable collection
+     * @since   3.2-ALPHA-6
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public Collection<Collection<?>> values();
+
+    /*******************************************************************************************************************
+     *
+     * Returns a set of all the contained (key, value) pairs.
+     *
+     * @return  the pairs as a mutable collection
+     * @since   3.2-ALPHA-6
+     *
+     ******************************************************************************************************************/
+     @Nonnull
+     public Set<Map.Entry<Key<?>, Collection<?>>> entrySet();
 
     /*******************************************************************************************************************
      *
@@ -84,7 +106,7 @@ public interface TypeSafeMultiMap extends Iterable<Collection<?>>
      *
      ******************************************************************************************************************/
     @Nonnegative
-    public int getSize();
+    public int size();
 
     /*******************************************************************************************************************
      *
@@ -95,6 +117,19 @@ public interface TypeSafeMultiMap extends Iterable<Collection<?>>
      ******************************************************************************************************************/
     @Nonnull
     public Map<Key<?>, Collection<?>> asMap();
+
+    /*******************************************************************************************************************
+     *
+     * Create a new instance with an additional pair (key, value=
+     *
+     * @param   key   the key
+     * @param   value the value
+     * @return  the new instance
+     * @since 3.2-ALPHA-2
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public <T> TypeSafeMultiMap with (@Nonnull final Key<T> key, @Nonnull final T value);
 
     /*******************************************************************************************************************
      *
@@ -125,16 +160,17 @@ public interface TypeSafeMultiMap extends Iterable<Collection<?>>
         return new TypeSafeHashMultiMap(Collections.emptyMap());
       }
 
-    /*******************************************************************************************************************
-     *
-     * Create a new instance with an additional pair (key, value=
-     *
-     * @param   key   the key
-     * @param   value the value
-     * @return  the new instance
-     * @since 3.2-ALPHA-2
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public <T> TypeSafeMultiMap with (@Nonnull final Key<T> key, @Nonnull final T value);
+    /** @deprecated Use {@link #keySet()} instead. */
+    @Nonnull @Deprecated
+    public default Set<Key<?>> getKeys()
+      {
+        return keySet();
+      }
+
+    /** @deprecated Use {@link #size()} instead. */
+    @Nonnull @Deprecated
+    public default int getSize()
+      {
+        return size();
+      }
   }

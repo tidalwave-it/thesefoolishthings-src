@@ -27,9 +27,13 @@
 package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.role.ui.impl.DefaultDisplayable;
+import java.util.Comparator;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import it.tidalwave.util.As;
+import it.tidalwave.role.ui.impl.AsDisplayableComparator;
+import it.tidalwave.role.ui.impl.DefaultDisplayable;
+import it.tidalwave.role.ui.impl.DisplayableComparator;
 import static it.tidalwave.util.BundleUtilities.getMessage;
 
 /***********************************************************************************************************************
@@ -145,5 +149,34 @@ public interface Displayable
     public static LocalizedDisplayable fromBundle (@Nonnull final Class<?> ownerClass, @Nonnull final String key)
       {
         return new DefaultDisplayable(getMessage(ownerClass, key));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a {@link Comparator} for comparing two instances of {@code Displayable}.
+     *
+     * @return  the {@code Comparator}
+     * @since   3.2-ALPHA-6
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Comparator<Displayable> comparing()
+      {
+        return DisplayableComparator.getInstance();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a {@link Comparator} for comparing two instances of objects implementing {@code As} that contain the
+     * {@code Displayable} role.
+     *
+     * @return  the {@code Comparator}
+     * @since   3.2-ALPHA-6
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Comparator<As> asComparing()
+      {
+        return AsDisplayableComparator.getInstance();
       }
   }

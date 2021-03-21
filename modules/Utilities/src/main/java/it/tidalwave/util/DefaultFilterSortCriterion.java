@@ -27,7 +27,6 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.io.Serializable;

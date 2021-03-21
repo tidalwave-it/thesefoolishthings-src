@@ -24,38 +24,39 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.text;
+package it.tidalwave.role.impl;
 
 import javax.annotation.Nonnull;
-import java.util.Comparator;
-import java.text.Collator;
-import it.tidalwave.util.As;
-import it.tidalwave.role.ui.Displayable;
-import static it.tidalwave.role.ui.Displayable._Displayable_;
+import javax.annotation.concurrent.Immutable;
+import java.io.Serializable;
+import it.tidalwave.util.Id;
+import it.tidalwave.role.Identifiable;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * A {@link Comparator} for classes implementing the {@link As} interface containing a {@link Displayable} role.
+ * A default implementation of {@link Identifiable} which wraps a given id. This class is not part of the public API.
  *
  * @author  Fabrizio Giudici
- * @it.tidalwave.javadoc.draft Will be moved to a different package
  *
  **********************************************************************************************************************/
-public final class AsDisplayableComparator implements Comparator<As>
+@Immutable @RequiredArgsConstructor
+public class DefaultIdentifiable implements Identifiable, Serializable
   {
-    private static final AsDisplayableComparator INSTANCE = new AsDisplayableComparator();
+    private static final long serialVersionUID = 45654634423793043L;
 
-    private final Collator collator = Collator.getInstance();
+    @Getter @Nonnull
+    private final Id id;
 
-    @Nonnull
-    public static AsDisplayableComparator getInstance()
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public String toString()
       {
-        return INSTANCE;
-      }
-
-    @Override
-    public int compare (@Nonnull final As object1, @Nonnull final As object2)
-      {
-        return collator.compare(object1.as(_Displayable_).getDisplayName(), object2.as(_Displayable_).getDisplayName());
+        return String.format("DefaultIdentifiable@%x[%s]", System.identityHashCode(this), id);
       }
   }

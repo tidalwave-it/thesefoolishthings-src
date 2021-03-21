@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import it.tidalwave.util.As;
-import it.tidalwave.util.As.NotFoundBehaviour;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.RoleFactory;

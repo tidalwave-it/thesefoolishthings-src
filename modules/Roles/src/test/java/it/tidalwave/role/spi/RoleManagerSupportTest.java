@@ -123,7 +123,7 @@ public class RoleManagerSupportTest
     public void setup()
       {
         contextManager = mock(ContextManager.class);
-        ContextManager.Locator.set((ContextManagerProvider)() -> contextManager);
+        ContextManager.Locator.set(() -> contextManager);
       }
 
     /*******************************************************************************************************************

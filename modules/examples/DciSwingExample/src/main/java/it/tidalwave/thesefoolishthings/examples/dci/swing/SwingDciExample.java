@@ -41,7 +41,6 @@ import lombok.experimental.ExtensionMethod;
 public class SwingDciExample
   {
     public void run()
-      throws Exception
       {
         final SwingPersonPresentation personPresentation = new SwingPersonPresentation();
         final DefaultPersonPresentationControl control = new DefaultPersonPresentationControl(personPresentation);

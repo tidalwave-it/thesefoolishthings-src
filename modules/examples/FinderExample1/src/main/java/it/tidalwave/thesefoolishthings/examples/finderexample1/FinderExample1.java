@@ -27,7 +27,6 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.NotFoundException;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 import static it.tidalwave.util.Finder.SortDirection.*;
 import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
