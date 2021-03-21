@@ -90,8 +90,7 @@ public class DefaultContextManager implements ContextManager
     @Override @Nonnull
     public List<Object> getContexts()
       {
-        final List<Object> contexts = new ArrayList<>();
-        contexts.addAll(localContexts.get());
+        final List<Object> contexts = new ArrayList<>(localContexts.get());
         Collections.reverse(contexts);
         contexts.addAll(0, globalContexts);
         return contexts;
