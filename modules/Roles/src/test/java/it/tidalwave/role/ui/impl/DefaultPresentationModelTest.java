@@ -36,6 +36,7 @@ import org.testng.annotations.Test;
 import static it.tidalwave.util.Parameters.r;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
@@ -50,6 +51,10 @@ public class DefaultPresentationModelTest
       }
 
     public static interface Role2
+      {
+      }
+
+    public static interface Role3
       {
       }
 
@@ -147,5 +152,20 @@ public class DefaultPresentationModelTest
         final Role2 role2 = underTest.as(Role2.class);
         // then
         assertThat(role2, is(sameInstance(localRole2)));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_invoke_default_behaviour_when_as_not_found() // See TFT-248
+      {
+        // given
+        final DefaultPresentationModel underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
+        final As.NotFoundBehaviour notFoundBehaviour = mock(As.NotFoundBehaviour.class);
+        // when
+        final Role3 role3 = underTest.as(Role3.class, notFoundBehaviour);
+        // then
+        verify(notFoundBehaviour).run(any());
       }
   }
