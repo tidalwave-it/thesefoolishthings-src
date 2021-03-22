@@ -32,6 +32,7 @@ import java.util.Optional;
 import it.tidalwave.role.Aggregate;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /***********************************************************************************************************************
  *
@@ -42,7 +43,7 @@ import lombok.RequiredArgsConstructor;
  * @since 3.2-ALPHA-3
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE) @ToString
 public class PresentationModelAggregate implements Aggregate<PresentationModel>
   {
     @Nonnull
@@ -98,5 +99,16 @@ public class PresentationModelAggregate implements Aggregate<PresentationModel>
     public Optional<PresentationModel> getByName (@Nonnull final String name)
       {
         return delegate.getByName(name);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public Collection<String> getNames()
+      {
+        return delegate.getNames();
       }
   }

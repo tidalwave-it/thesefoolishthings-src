@@ -33,6 +33,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import it.tidalwave.role.ui.Styleable;
+import lombok.ToString;
 
 /***********************************************************************************************************************
  *
@@ -43,7 +44,7 @@ import it.tidalwave.role.ui.Styleable;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Nonnull
+@Nonnull @ToString
 public class DefaultStyleable implements Styleable
   {
     private final List<String> styles = new ArrayList<>();
