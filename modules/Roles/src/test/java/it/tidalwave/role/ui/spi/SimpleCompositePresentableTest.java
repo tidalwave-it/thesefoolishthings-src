@@ -31,6 +31,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
@@ -47,9 +48,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
+import static it.tidalwave.role.SimpleComposite._SimpleComposite_;
 import static it.tidalwave.util.Parameters.r;
+import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.testng.Assert.fail;
 
 /***********************************************************************************************************************
  *
@@ -207,8 +211,17 @@ public class SimpleCompositePresentableTest
 
         assertThat(role.getDatum(), is(sameInstance(datum)));
 
-        final SimpleComposite<PresentationModel> composite = pm.as(SimpleComposite.class);
-        final List<? extends PresentationModel> childrenPm = composite.findChildren().results();
+        final List<? extends PresentationModel> childrenPm =
+                pm.maybeAs(_SimpleComposite_).map(c -> c.findChildren().results()).orElse(emptyList());
+
+        final List<Object> notPMs = new ArrayList<>(childrenPm);
+        notPMs.removeIf(object -> object instanceof PresentationModel);
+
+        if (!notPMs.isEmpty())
+          {
+            fail("Unexpected objects that are not PresentationModel: " + notPMs);
+          }
+
         final List<MockDatum> childrenData = datum.getChildren();
 
         assertThat(childrenPm.size(), is(childrenData.size()));
