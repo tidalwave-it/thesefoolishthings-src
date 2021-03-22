@@ -8,12 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="Fix for TFT-239.">
-      <change beforePath="$PROJECT_DIR$/modules/Utilities/src/main/java/it/tidalwave/util/FunctionalCheckedExceptionWrappers.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Utilities/src/main/java/it/tidalwave/util/FunctionalCheckedExceptionWrappers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/Roles/src/test/java/it/tidalwave/role/ui/impl/DefaultPresentationModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Roles/src/test/java/it/tidalwave/role/ui/impl/DefaultPresentationModelTest.java" afterDir="false" />
     </list>
-    <list id="917968aa-8b09-491a-b660-3785d2496475" name="Idea" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list id="917968aa-8b09-491a-b660-3785d2496475" name="Idea" comment="" />
     <list id="1d876ab4-03de-4b26-a4f7-b0bdc1ee28a7" name="other" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,10 +26,12 @@
     </option>
   </component>
   <component name="FindBugs-IDEA-Workspace">
+    <toolWindowEditorPreview>false</toolWindowEditorPreview>
     <toolWindowGroupBy>BugRank</toolWindowGroupBy>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="KEEP" />
   </component>
   <component name="GitRewordedCommitMessages">
     <option name="commitMessagesMapping">
@@ -89,7 +88,24 @@
       <recent name="it.tidalwave.util" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.PairTest">
+  <component name="RunManager" selected="TestNG.DefaultPresentationModelTest">
+    <configuration name="DefaultPresentationModelTest" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="it-tidalwave-role" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.tidalwave.role.ui.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.tidalwave.role.ui.impl" />
+      <option name="MAIN_CLASS_NAME" value="it.tidalwave.role.ui.impl.DefaultPresentationModelTest" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PairTest" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="it-tidalwave-util" />
       <extension name="coverage">
@@ -101,60 +117,6 @@
       <option name="PACKAGE_NAME" value="it.tidalwave.util" />
       <option name="MAIN_CLASS_NAME" value="it.tidalwave.util.PairTest" />
       <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PairTest.indexedPairStream2" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="it-tidalwave-util" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.tidalwave.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.tidalwave.util" />
-      <option name="MAIN_CLASS_NAME" value="it.tidalwave.util.PairTest" />
-      <option name="METHOD_NAME" value="indexedPairStream2" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PairTest.indexedPairStream5" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="it-tidalwave-util" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.tidalwave.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.tidalwave.util" />
-      <option name="MAIN_CLASS_NAME" value="it.tidalwave.util.PairTest" />
-      <option name="METHOD_NAME" value="indexedPairStream5" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PairTest.indexedPairStream6" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="it-tidalwave-util" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.tidalwave.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="it.tidalwave.util" />
-      <option name="MAIN_CLASS_NAME" value="it.tidalwave.util.PairTest" />
-      <option name="METHOD_NAME" value="indexedPairStream6" />
-      <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
       <method v="2">
@@ -179,13 +141,48 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SimpleCompositePresentableTest" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="it-tidalwave-role" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.tidalwave.role.ui.spi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.tidalwave.role.ui.spi" />
+      <option name="MAIN_CLASS_NAME" value="it.tidalwave.role.ui.spi.SimpleCompositePresentableTest" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SimpleCompositePresentableTest.must_create_a_PresentationModel_containing_the_proper_children" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="it-tidalwave-role" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.tidalwave.role.ui.spi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="it.tidalwave.role.ui.spi" />
+      <option name="MAIN_CLASS_NAME" value="it.tidalwave.role.ui.spi.SimpleCompositePresentableTest" />
+      <option name="METHOD_NAME" value="must_create_a_PresentationModel_containing_the_proper_children" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.DefaultPresentationModelTest" />
+        <item itemvalue="TestNG.SimpleCompositePresentableTest.must_create_a_PresentationModel_containing_the_proper_children" />
+        <item itemvalue="TestNG.SimpleCompositePresentableTest" />
         <item itemvalue="TestNG.PairTest" />
         <item itemvalue="TestNG.PairTest.indexedPairStream7" />
-        <item itemvalue="TestNG.PairTest.indexedPairStream6" />
-        <item itemvalue="TestNG.PairTest.indexedPairStream5" />
-        <item itemvalue="TestNG.PairTest.indexedPairStream2" />
       </list>
     </recent_temporary>
   </component>
@@ -199,104 +196,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1615721645836</updated>
-    </task>
-    <task id="LOCAL-00079" summary="EmptyInitializer is no more part of the public API.">
-      <created>1615988805044</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1615988805044</updated>
-    </task>
-    <task id="LOCAL-00080" summary="Updated Idea files.">
-      <created>1615988816183</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1615988816183</updated>
-    </task>
-    <task id="LOCAL-00081" summary="Added @FunctionalInterface where applicable.">
-      <created>1615989333452</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1615989333452</updated>
-    </task>
-    <task id="LOCAL-00082" summary="Updated Idea file.">
-      <created>1615989342308</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1615989342308</updated>
-    </task>
-    <task id="LOCAL-00083" summary="Fix for TFT-218.">
-      <created>1615991311542</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1615991311542</updated>
-    </task>
-    <task id="LOCAL-00084" summary="Fix for TFT-219.">
-      <created>1615991395871</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1615991395871</updated>
-    </task>
-    <task id="LOCAL-00085" summary="Updated Idea file.">
-      <created>1615991407553</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1615991407553</updated>
-    </task>
-    <task id="LOCAL-00086" summary="Fix for TFT-217.">
-      <created>1615991615216</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1615991615216</updated>
-    </task>
-    <task id="LOCAL-00087" summary="Updated Idea files.">
-      <created>1615991624639</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1615991624639</updated>
-    </task>
-    <task id="LOCAL-00088" summary="Fix for TFT-226.">
-      <created>1616060541701</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1616060541701</updated>
-    </task>
-    <task id="LOCAL-00089" summary="Fix for TFT-227.">
-      <created>1616061050665</created>
-      <option name="number" value="00089" />
-      <option name="presentableId" value="LOCAL-00089" />
-      <option name="project" value="LOCAL" />
-      <updated>1616061050665</updated>
-    </task>
-    <task id="LOCAL-00090" summary="Fix for TFT-228.">
-      <created>1616061142237</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1616061142237</updated>
-    </task>
-    <task id="LOCAL-00091" summary="Removed obsolete method, refactored.">
-      <created>1616064369129</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1616064369129</updated>
-    </task>
-    <task id="LOCAL-00092" summary="Fix for TFT-227.">
-      <created>1616065034883</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1616065034883</updated>
     </task>
     <task id="LOCAL-00093" summary="Fix for TFT-227.">
       <created>1616065134508</created>
@@ -543,7 +442,105 @@
       <option name="project" value="LOCAL" />
       <updated>1616342967777</updated>
     </task>
-    <option name="localTasksCounter" value="128" />
+    <task id="LOCAL-00128" summary="Upgraded Super POM.">
+      <created>1616442319956</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1616442319956</updated>
+    </task>
+    <task id="LOCAL-00129" summary="Added @ToString to two classes.">
+      <created>1616442366157</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1616442366157</updated>
+    </task>
+    <task id="LOCAL-00130" summary="Fix for TFT-250.">
+      <created>1616442570797</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1616442570797</updated>
+    </task>
+    <task id="LOCAL-00131" summary="Refactored.">
+      <created>1616447155612</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1616447155612</updated>
+    </task>
+    <task id="LOCAL-00132" summary="Refactored.">
+      <created>1616447240112</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1616447240112</updated>
+    </task>
+    <task id="LOCAL-00133" summary="Refactored.">
+      <created>1616447327425</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1616447327425</updated>
+    </task>
+    <task id="LOCAL-00134" summary="Refactored.">
+      <created>1616447581363</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1616447581363</updated>
+    </task>
+    <task id="LOCAL-00135" summary="Refactored.">
+      <created>1616447687217</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1616447687217</updated>
+    </task>
+    <task id="LOCAL-00136" summary="Refactored.">
+      <created>1616447788345</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1616447788345</updated>
+    </task>
+    <task id="LOCAL-00137" summary="Refactored.">
+      <created>1616448605914</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1616448605914</updated>
+    </task>
+    <task id="LOCAL-00138" summary="Refactored.">
+      <created>1616448984282</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1616448984283</updated>
+    </task>
+    <task id="LOCAL-00139" summary="Fix for TFT-252.">
+      <created>1616449915171</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1616449915171</updated>
+    </task>
+    <task id="LOCAL-00140" summary="Fix for TFT-253.">
+      <created>1616450502843</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1616450502843</updated>
+    </task>
+    <task id="LOCAL-00141" summary="Fix for TFT-250.">
+      <created>1616451288991</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1616451288991</updated>
+    </task>
+    <option name="localTasksCounter" value="142" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -559,11 +556,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="TFT-229: First varargs refactoring." />
-    <MESSAGE value="TFT-229: Fixed test, varargs refactoring." />
-    <MESSAGE value="TFT-229: added convenience methods." />
-    <MESSAGE value="TFT-229: fixed refactoring regression." />
-    <MESSAGE value="TFT-229: fixed code that deadlocks with SteelBlue." />
     <MESSAGE value="KEY." />
     <MESSAGE value="Improved logging." />
     <MESSAGE value="Fix for TFT-230." />
@@ -581,10 +573,15 @@
     <MESSAGE value="Fix for TFT-236." />
     <MESSAGE value="Fix for TFT-246." />
     <MESSAGE value="Cleam up ISSUE." />
-    <MESSAGE value="Refactored." />
     <MESSAGE value="Clean up." />
     <MESSAGE value="Javadoc clean up." />
-    <option name="LAST_COMMIT_MESSAGE" value="Javadoc clean up." />
+    <MESSAGE value="Upgraded Super POM." />
+    <MESSAGE value="Added @ToString to two classes." />
+    <MESSAGE value="Refactored." />
+    <MESSAGE value="Fix for TFT-252." />
+    <MESSAGE value="Fix for TFT-248." />
+    <MESSAGE value="Fix for TFT-250." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix for TFT-250." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
