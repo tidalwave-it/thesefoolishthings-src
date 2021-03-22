@@ -324,8 +324,8 @@ public class RoleManagerSupportTest
             { ca3,       R3.class, asList(new RI3A(ca3)) },
 
             { new CB1(), R1.class, asList()           },
-            // RI2C beause Context2 is present
-            { new CB1(), R2.class, asList(new RI2B(bean1, bean2), new RI2C(context2, bean1)) },
+            // RI2C because Context2 is present
+            { new CB1(), R2.class, asList(new RI2B(bean1, bean2, "a"), new RI2C(context2, bean1)) },
             { new CB1(), R3.class, asList()           },
 
             { new CB2(), R1.class, asList(new RI1A()) },
@@ -334,7 +334,7 @@ public class RoleManagerSupportTest
 
             { new CB3(), R1.class, asList(new RI1A()) },
             // no RI2A because Context1 is not present
-            { new CB3(), R2.class, asList(new RI2B(bean1, bean2)) },
+            { new CB3(), R2.class, asList(new RI2B(bean1, bean2, "a")) },
             { new CB3(), R3.class, asList()           },
           };
       }
