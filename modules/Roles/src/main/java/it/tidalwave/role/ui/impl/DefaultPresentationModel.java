@@ -30,6 +30,7 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.beans.PropertyChangeSupport;
 import it.tidalwave.util.As;
+import it.tidalwave.util.AsException;
 import it.tidalwave.util.Callback;
 import it.tidalwave.util.NamedCallback;
 import it.tidalwave.util.spi.AsSupport;
@@ -101,11 +102,18 @@ public class DefaultPresentationModel implements PresentationModel
               {
                 if (owner instanceof As)
                   {
-                    final T role = ((As)owner).as(roleType);
-
-                    if (role != null) // do check it for improper implementations or partial mocks
+                    try
                       {
-                        return role;
+                        final T role = ((As)owner).as(roleType);
+
+                        if (role != null) // do check it for improper implementations or partial mocks
+                          {
+                            return role;
+                          }
+                      }
+                    catch (AsException e)
+                      {
+                        // fallback
                       }
                   }
 
