@@ -18,7 +18,7 @@
     <properties>
         <betterbeansbinding.version>1.3.0</betterbeansbinding.version>
         <javax.persistence>1.0</javax.persistence>
-        <xstream.version>1.4.15</xstream.version>
+        <xstream.version>1.4.16</xstream.version>
     </properties>
     <description>
         A set of examples demonstrating the features of this project.
