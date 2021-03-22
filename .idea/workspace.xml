@@ -10,10 +10,7 @@
     <list default="true" id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="Fix for TFT-239.">
       <change beforePath="$PROJECT_DIR$/modules/Roles/src/test/java/it/tidalwave/role/ui/impl/DefaultPresentationModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Roles/src/test/java/it/tidalwave/role/ui/impl/DefaultPresentationModelTest.java" afterDir="false" />
     </list>
-    <list id="917968aa-8b09-491a-b660-3785d2496475" name="Idea" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list id="917968aa-8b09-491a-b660-3785d2496475" name="Idea" comment="" />
     <list id="1d876ab4-03de-4b26-a4f7-b0bdc1ee28a7" name="other" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +31,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="KEEP" />
   </component>
   <component name="GitRewordedCommitMessages">
     <option name="commitMessagesMapping">
@@ -581,7 +579,7 @@
     <MESSAGE value="Added @ToString to two classes." />
     <MESSAGE value="Refactored." />
     <MESSAGE value="Fix for TFT-252." />
-    <MESSAGE value="Fix for TFT-253." />
+    <MESSAGE value="Fix for TFT-248." />
     <MESSAGE value="Fix for TFT-250." />
     <option name="LAST_COMMIT_MESSAGE" value="Fix for TFT-250." />
   </component>
