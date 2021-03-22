@@ -39,7 +39,6 @@ import it.tidalwave.role.ui.Presentable;
 import it.tidalwave.role.ui.PresentationModel;
 import it.tidalwave.role.ui.PresentationModelFactory;
 import it.tidalwave.role.spi.ContextSampler;
-import it.tidalwave.role.impl.DefaultSimpleComposite;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 import static it.tidalwave.role.SimpleComposite._SimpleComposite_;
@@ -161,7 +160,12 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
             public PresentationModel run()
               {
                 final List<Object> roles = resolveRoles(datum, rolesOrFactories);
-                roles.add(SimpleComposite.of(pmFinder));
+
+                if (datum.maybeAs(_SimpleComposite_).isPresent())
+                  {
+                    roles.add(SimpleComposite.of(pmFinder));
+                  }
+
                 log.trace(">>>> roles for {}: {}", shortId(datum), shortIds(roles));
 
                 return defaultPresentationModelFactory.createPresentationModel(datum, roles);
