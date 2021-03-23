@@ -56,7 +56,7 @@ import static java.util.stream.Collectors.toList;
  *
  **********************************************************************************************************************/
 @Slf4j
-public class SimpleCompositePresentable<T extends As> implements Presentable
+public class SimpleCompositePresentable implements Presentable
   {
     @RequiredArgsConstructor
     static class SCPFinder extends SimpleFinderSupport<PresentationModel>
@@ -64,7 +64,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
         private static final long serialVersionUID = -3235827383866946732L;
 
         @Nonnull
-        private final SimpleCompositePresentable<?> scp;
+        private final SimpleCompositePresentable scp;
 
         @Nonnull
         private final Collection<Object> rolesOrFactories;
@@ -89,7 +89,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
                                                       .map(c -> c.findChildren().results()).orElse(emptyList());
                     return children.stream()
                                    .map(child -> child.maybeAs(_Presentable_)
-                                                      .orElseGet(() -> new SimpleCompositePresentable<>(child)))
+                                                      .orElseGet(() -> new SimpleCompositePresentable(child)))
                                    .map(presentable -> presentable.createPresentationModel(rolesOrFactories))
                                    .collect(toList());
                   }
@@ -100,7 +100,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
     private static final long serialVersionUID = 324646965695684L;
 
     @Nonnull
-    private final T datum;
+    private final As datum;
 
     // This is not @Injected to avoid a dependency on Spring AOP
     @Nonnull
@@ -113,7 +113,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
      *
      *
      ******************************************************************************************************************/
-    public SimpleCompositePresentable (@Nonnull final T datum)
+    public SimpleCompositePresentable (@Nonnull final As datum)
       {
         this(datum, new DefaultPresentationModelFactory());
       }
@@ -123,7 +123,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
      *
      *
      ******************************************************************************************************************/
-    public SimpleCompositePresentable (@Nonnull final T datum,
+    public SimpleCompositePresentable (@Nonnull final As datum,
                                        @Nonnull final PresentationModelFactory defaultPresentationModelFactory)
       {
         this.datum = datum;
@@ -148,10 +148,10 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
      *
      ******************************************************************************************************************/
     @Nonnull
-    private PresentationModel internalCreatePresentationModel (@Nonnull final T datum,
+    private PresentationModel internalCreatePresentationModel (@Nonnull final As datum,
                                                                @Nonnull final Collection<Object> rolesOrFactories)
       {
-        final SimpleCompositePresentable<T> this2 = this; // shorten up
+        final SimpleCompositePresentable this2 = this; // shorten up
         final SCPFinder pmFinder = new SCPFinder(this, rolesOrFactories);
 
         return contextSampler.runWithContexts(new Task<PresentationModel, RuntimeException>()
@@ -179,7 +179,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
      *
      ******************************************************************************************************************/
     @Nonnull
-    private List<Object> resolveRoles (@Nonnull final T datum, @Nonnull final Collection<Object> rolesOrFactories)
+    private List<Object> resolveRoles (@Nonnull final As datum, @Nonnull final Collection<Object> rolesOrFactories)
       {
         final List<Object> roles = new ArrayList<>();
 
@@ -187,7 +187,7 @@ public class SimpleCompositePresentable<T extends As> implements Presentable
           {
             if (roleOrFactory instanceof RoleFactory)
               {
-                roles.add(((RoleFactory<T>)roleOrFactory).createRoleFor(datum));
+                roles.add(((RoleFactory<As>)roleOrFactory).createRoleFor(datum));
               }
             else
               {
