@@ -40,13 +40,14 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.io.Serializable;
 import it.tidalwave.util.Key;
 import it.tidalwave.util.TypeSafeMultiMap;
+import lombok.EqualsAndHashCode;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable
+@Immutable @EqualsAndHashCode
 public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
   {
     private static final long serialVersionUID = 759233572056L;
