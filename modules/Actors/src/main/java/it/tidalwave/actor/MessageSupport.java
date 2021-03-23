@@ -111,7 +111,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
 
     /*******************************************************************************************************************
      *
-     * Sends this message, eventually performing a replacement (see {@link MessageReplacer} for further info).
+     * Sends this message, eventually performing a replacement (see {@link MessageDecorator} for further info).
      *
      * @return  the {@code Collaboration} that this message is part of
      *
@@ -125,7 +125,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
 
     /*******************************************************************************************************************
      *
-     * Sends this message directly, not performing any replacement (see {@link MessageReplacer} for further info).
+     * Sends this message directly, not performing any replacement (see {@link MessageDecorator} for further info).
      *
      * @return  the {@code Collaboration} that this message is part of
      *
@@ -141,7 +141,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
 
     /*******************************************************************************************************************
      *
-     * Sends this message after a delay, eventually performing a replacement (see {@link MessageReplacer} for
+     * Sends this message after a delay, eventually performing a replacement (see {@link MessageDecorator} for
      * further info).
      *
      * @param   delay     the delay

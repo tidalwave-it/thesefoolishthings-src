@@ -151,7 +151,6 @@ public class SimpleCompositePresentable implements Presentable
     private PresentationModel internalCreatePresentationModel (@Nonnull final As datum,
                                                                @Nonnull final Collection<Object> rolesOrFactories)
       {
-        final SimpleCompositePresentable this2 = this; // shorten up
         final SCPFinder pmFinder = new SCPFinder(this, rolesOrFactories);
 
         return contextSampler.runWithContexts(new Task<PresentationModel, RuntimeException>()
