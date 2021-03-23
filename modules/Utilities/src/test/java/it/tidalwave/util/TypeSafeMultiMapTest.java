@@ -94,6 +94,29 @@ public class TypeSafeMultiMapTest
      *
      ******************************************************************************************************************/
     @Test
+    public void test_with_from_empty_map()
+      {
+        // given
+        final TypeSafeMultiMap firstMap = TypeSafeMultiMap.newInstance();
+        // when
+        final TypeSafeMultiMap underTest = firstMap.with(K_STRING2, "2");
+        // then
+        assertThat(underTest, is(not(sameInstance(firstMap))));
+        assertThat(firstMap.size(), is(0));
+        assertThat(underTest.size(), is(1));
+        assertThat(firstMap.keySet(), is(Collections.emptySet()));
+        assertThat(underTest.keySet(), is(Collections.singleton(K_STRING2)));
+        final Map<Key<?>, Object> map = new HashMap<>();
+        map.put(K_STRING2, Collections.singletonList("2"));
+        assertThat(underTest.asMap(), is(map));
+        assertThat(underTest.get(K_STRING2), is(Collections.singletonList("2")));
+        assertThat(underTest.containsKey(K_STRING2), is(true));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
     public void test_with()
       {
         // given
