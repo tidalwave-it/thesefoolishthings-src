@@ -72,7 +72,7 @@ public class DefaultPresentationModelTest
     public void setup()
       {
         // Not called by tests, we only need it's there
-        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider());
+        AsDelegateProvider.Locator.set(AsDelegateProvider.empty());
 
         localRole1 = mock(Role1.class);
         localRole2 = mock(Role2.class);
