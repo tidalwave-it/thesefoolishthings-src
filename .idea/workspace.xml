@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AnalysisUIOptions">
-    <option name="GROUP_BY_SEVERITY" value="true" />
-  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="Fix for TFT-239.">
-      <change beforePath="$PROJECT_DIR$/modules/Roles/src/test/java/it/tidalwave/role/ui/impl/DefaultPresentationModelTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Roles/src/test/java/it/tidalwave/role/ui/impl/DefaultPresentationModelTest.java" afterDir="false" />
+    <list default="true" id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="Removed bogus println in tests.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="917968aa-8b09-491a-b660-3785d2496475" name="Idea" comment="" />
-    <list id="1d876ab4-03de-4b26-a4f7-b0bdc1ee28a7" name="other" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,12 +32,12 @@
   <component name="GitRewordedCommitMessages">
     <option name="commitMessagesMapping">
       <RewordedCommitMessageMapping>
-        <option name="originalMessage" value="Cleam up ISSUE." />
-        <option name="rewordedMessage" value="Clean up ISSUE." />
+        <option name="originalMessage" value="Improved logging." />
+        <option name="rewordedMessage" value="Improved logging." />
       </RewordedCommitMessageMapping>
     </option>
     <option name="currentCommit" value="1" />
-    <option name="onto" value="fe66df9437726cd89360f006b44f5b8973807878" />
+    <option name="onto" value="349f24a6d0df698787855fe0173f43c8a94dc3d8" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -88,7 +84,7 @@
       <recent name="it.tidalwave.util" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.DefaultPresentationModelTest">
+  <component name="RunManager" selected="TestNG.PresentationModelTest">
     <configuration name="DefaultPresentationModelTest" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="it-tidalwave-role" />
       <extension name="coverage">
@@ -106,16 +102,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PairTest" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="it-tidalwave-util" />
+    <configuration name="PresentationModelTest" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="it-tidalwave-role" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.tidalwave.util.*" />
+          <option name="PATTERN" value="it.tidalwave.role.ui.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="it.tidalwave.util" />
-      <option name="MAIN_CLASS_NAME" value="it.tidalwave.util.PairTest" />
+      <option name="PACKAGE_NAME" value="it.tidalwave.role.ui" />
+      <option name="MAIN_CLASS_NAME" value="it.tidalwave.role.ui.PresentationModelTest" />
       <option name="TEST_OBJECT" value="CLASS" />
       <properties />
       <listeners />
@@ -123,17 +119,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PairTest.indexedPairStream7" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="it-tidalwave-util" />
+    <configuration name="PresentationModelTest.test1" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="it-tidalwave-role" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.tidalwave.util.*" />
+          <option name="PATTERN" value="it.tidalwave.role.ui.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="it.tidalwave.util" />
-      <option name="MAIN_CLASS_NAME" value="it.tidalwave.util.PairTest" />
-      <option name="METHOD_NAME" value="indexedPairStream7" />
+      <option name="PACKAGE_NAME" value="it.tidalwave.role.ui" />
+      <option name="MAIN_CLASS_NAME" value="it.tidalwave.role.ui.PresentationModelTest" />
+      <option name="METHOD_NAME" value="test1" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -141,17 +137,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SimpleCompositePresentableTest" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="PresentationModelTest.test_ofMaybePresentable_with_Presentable" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="it-tidalwave-role" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="it.tidalwave.role.ui.spi.*" />
+          <option name="PATTERN" value="it.tidalwave.role.ui.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="it.tidalwave.role.ui.spi" />
-      <option name="MAIN_CLASS_NAME" value="it.tidalwave.role.ui.spi.SimpleCompositePresentableTest" />
-      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="PACKAGE_NAME" value="it.tidalwave.role.ui" />
+      <option name="MAIN_CLASS_NAME" value="it.tidalwave.role.ui.PresentationModelTest" />
+      <option name="METHOD_NAME" value="test_ofMaybePresentable_with_Presentable" />
+      <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
       <method v="2">
@@ -178,11 +175,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.PresentationModelTest" />
+        <item itemvalue="TestNG.PresentationModelTest.test_ofMaybePresentable_with_Presentable" />
+        <item itemvalue="TestNG.PresentationModelTest.test1" />
         <item itemvalue="TestNG.DefaultPresentationModelTest" />
         <item itemvalue="TestNG.SimpleCompositePresentableTest.must_create_a_PresentationModel_containing_the_proper_children" />
-        <item itemvalue="TestNG.SimpleCompositePresentableTest" />
-        <item itemvalue="TestNG.PairTest" />
-        <item itemvalue="TestNG.PairTest.indexedPairStream7" />
       </list>
     </recent_temporary>
   </component>
@@ -191,130 +188,10 @@
     <task active="true" id="Default" summary="Default task">
       <changelist id="905a57d9-06e9-478e-961d-b815a0b0f4c5" name="Default Changelist" comment="" />
       <changelist id="917968aa-8b09-491a-b660-3785d2496475" name="Idea" comment="" />
-      <changelist id="1d876ab4-03de-4b26-a4f7-b0bdc1ee28a7" name="other" comment="" />
       <created>1615721645836</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1615721645836</updated>
-    </task>
-    <task id="LOCAL-00093" summary="Fix for TFT-227.">
-      <created>1616065134508</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1616065134508</updated>
-    </task>
-    <task id="LOCAL-00094" summary="First varargs refactoring (FIXME: ISSUE?)">
-      <created>1616069342211</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1616069342211</updated>
-    </task>
-    <task id="LOCAL-00095" summary="Fixed test, varargs refactoring (FIXME: ISSUE?)">
-      <created>1616069568528</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1616069568528</updated>
-    </task>
-    <task id="LOCAL-00096" summary="TFT-229: added convenience methods.">
-      <created>1616084120075</created>
-      <option name="number" value="00096" />
-      <option name="presentableId" value="LOCAL-00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1616084120075</updated>
-    </task>
-    <task id="LOCAL-00097" summary="TFT-229: fixed refactoring regression.">
-      <created>1616084723599</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1616084723599</updated>
-    </task>
-    <task id="LOCAL-00098" summary="TFT-229: fixed code that deadlocks with SteelBlue.">
-      <created>1616086104295</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1616086104295</updated>
-    </task>
-    <task id="LOCAL-00099" summary="KEY.">
-      <created>1616090799020</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1616090799020</updated>
-    </task>
-    <task id="LOCAL-00100" summary="Improved logging.">
-      <created>1616100099844</created>
-      <option name="number" value="00100" />
-      <option name="presentableId" value="LOCAL-00100" />
-      <option name="project" value="LOCAL" />
-      <updated>1616100099844</updated>
-    </task>
-    <task id="LOCAL-00101" summary="Improved logging.">
-      <created>1616100123992</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1616100123992</updated>
-    </task>
-    <task id="LOCAL-00102" summary="Fix for TFT-230.">
-      <created>1616102311500</created>
-      <option name="number" value="00102" />
-      <option name="presentableId" value="LOCAL-00102" />
-      <option name="project" value="LOCAL" />
-      <updated>1616102311500</updated>
-    </task>
-    <task id="LOCAL-00103" summary="Round of clean up and quality.">
-      <created>1616188279701</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1616188279702</updated>
-    </task>
-    <task id="LOCAL-00104" summary="Clean up.">
-      <created>1616188510658</created>
-      <option name="number" value="00104" />
-      <option name="presentableId" value="LOCAL-00104" />
-      <option name="project" value="LOCAL" />
-      <updated>1616188510658</updated>
-    </task>
-    <task id="LOCAL-00105" summary="Big round of quality.">
-      <created>1616196972200</created>
-      <option name="number" value="00105" />
-      <option name="presentableId" value="LOCAL-00105" />
-      <option name="project" value="LOCAL" />
-      <updated>1616196972200</updated>
-    </task>
-    <task id="LOCAL-00106" summary="Further round of quality.">
-      <created>1616198497578</created>
-      <option name="number" value="00106" />
-      <option name="presentableId" value="LOCAL-00106" />
-      <option name="project" value="LOCAL" />
-      <updated>1616198497579</updated>
-    </task>
-    <task id="LOCAL-00107" summary="Partial fix for TFT-241: Spring XML files clean up.">
-      <created>1616239205424</created>
-      <option name="number" value="00107" />
-      <option name="presentableId" value="LOCAL-00107" />
-      <option name="project" value="LOCAL" />
-      <updated>1616239205424</updated>
-    </task>
-    <task id="LOCAL-00108" summary="Partial fix for TFT-241: Spring XML files clean up.">
-      <created>1616239238621</created>
-      <option name="number" value="00108" />
-      <option name="presentableId" value="LOCAL-00108" />
-      <option name="project" value="LOCAL" />
-      <updated>1616239238621</updated>
-    </task>
-    <task id="LOCAL-00109" summary="Partial fix for TFT-241: Spring XML files clean up.">
-      <created>1616239391989</created>
-      <option name="number" value="00109" />
-      <option name="presentableId" value="LOCAL-00109" />
-      <option name="project" value="LOCAL" />
-      <updated>1616239391989</updated>
     </task>
     <task id="LOCAL-00110" summary="Partial fix for TFT-241: minor clean up.">
       <created>1616239416692</created>
@@ -540,7 +417,126 @@
       <option name="project" value="LOCAL" />
       <updated>1616451288991</updated>
     </task>
-    <option name="localTasksCounter" value="142" />
+    <task id="LOCAL-00142" summary="APICHANGE: SimpleCompositePresentable no more generified.">
+      <created>1616458613868</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1616458613868</updated>
+    </task>
+    <task id="LOCAL-00143" summary="Code clean up.">
+      <created>1616489890585</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1616489890585</updated>
+    </task>
+    <task id="LOCAL-00144" summary="Code clean up.">
+      <created>1616510947157</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1616510947157</updated>
+    </task>
+    <task id="LOCAL-00145" summary="Improved logging.">
+      <created>1616542646312</created>
+      <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
+      <option name="project" value="LOCAL" />
+      <updated>1616542646312</updated>
+    </task>
+    <task id="LOCAL-00146" summary="Fix for TFT-256.">
+      <created>1616542758980</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1616542758980</updated>
+    </task>
+    <task id="LOCAL-00147" summary="Clean up.">
+      <created>1616542765654</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1616542765654</updated>
+    </task>
+    <task id="LOCAL-00148" summary="Added test.">
+      <created>1616543833955</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1616543833955</updated>
+    </task>
+    <task id="LOCAL-00149" summary="FIXED REGR">
+      <created>1616543870662</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1616543870662</updated>
+    </task>
+    <task id="LOCAL-00150" summary="MORE ANSWERS.">
+      <created>1616581371414</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1616581371414</updated>
+    </task>
+    <task id="LOCAL-00151" summary="Improved diagnostics for missing AsDelegateProvider.">
+      <created>1616588051161</created>
+      <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
+      <option name="project" value="LOCAL" />
+      <updated>1616588051161</updated>
+    </task>
+    <task id="LOCAL-00152" summary="Improved diagnostics for missing AsDelegateProvider.">
+      <created>1616588340581</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
+      <option name="project" value="LOCAL" />
+      <updated>1616588340581</updated>
+    </task>
+    <task id="LOCAL-00153" summary="Added MockSimpleAsDelegateProvider.">
+      <created>1616588411187</created>
+      <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
+      <option name="project" value="LOCAL" />
+      <updated>1616588411187</updated>
+    </task>
+    <task id="LOCAL-00154" summary="ADDEDE PresentationModel.ofMaybePresentable().">
+      <created>1616588593240</created>
+      <option name="number" value="00154" />
+      <option name="presentableId" value="LOCAL-00154" />
+      <option name="project" value="LOCAL" />
+      <updated>1616588593240</updated>
+    </task>
+    <task id="LOCAL-00155" summary="MockSimpleAsDelegateProvider">
+      <created>1616589139923</created>
+      <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
+      <option name="project" value="LOCAL" />
+      <updated>1616589139923</updated>
+    </task>
+    <task id="LOCAL-00156" summary="Improved logging.">
+      <created>1616589152071</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1616589152071</updated>
+    </task>
+    <task id="LOCAL-00157" summary="Commented.">
+      <created>1616589165083</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
+      <option name="project" value="LOCAL" />
+      <updated>1616589165083</updated>
+    </task>
+    <task id="LOCAL-00158" summary="Removed bogus println in tests.">
+      <created>1616590586750</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1616590586751</updated>
+    </task>
+    <option name="localTasksCounter" value="159" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -556,24 +552,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="KEY." />
-    <MESSAGE value="Improved logging." />
-    <MESSAGE value="Fix for TFT-230." />
-    <MESSAGE value="Partial fix for TFT-241." />
-    <MESSAGE value="Partial fix for TFT-241." />
-    <MESSAGE value="Partial fix for TFT-241." />
-    <MESSAGE value="Partial fix for TFT-241." />
-    <MESSAGE value="Partial fix for TFT-241: Spring XML files clean up." />
-    <MESSAGE value="Partial fix for TFT-241: minor clean up." />
-    <MESSAGE value="Partial fix for TFT-241: some more fixes." />
-    <MESSAGE value="Partial fix for TFT-241: added Idea files." />
-    <MESSAGE value="Fix for TFT-241." />
-    <MESSAGE value="Fix for TFT-244." />
     <MESSAGE value="Fix for TFT-239." />
     <MESSAGE value="Fix for TFT-236." />
     <MESSAGE value="Fix for TFT-246." />
     <MESSAGE value="Cleam up ISSUE." />
-    <MESSAGE value="Clean up." />
     <MESSAGE value="Javadoc clean up." />
     <MESSAGE value="Upgraded Super POM." />
     <MESSAGE value="Added @ToString to two classes." />
@@ -581,7 +563,21 @@
     <MESSAGE value="Fix for TFT-252." />
     <MESSAGE value="Fix for TFT-248." />
     <MESSAGE value="Fix for TFT-250." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix for TFT-250." />
+    <MESSAGE value="Fix for TFT-255." />
+    <MESSAGE value="Code clean up." />
+    <MESSAGE value="Fix for TFT-256." />
+    <MESSAGE value="Clean up." />
+    <MESSAGE value="Added test." />
+    <MESSAGE value="FIXED REGR" />
+    <MESSAGE value="Fix for TFT-258." />
+    <MESSAGE value="Improved diagnostics for missing AsDelegateProvider." />
+    <MESSAGE value="Added MockSimpleAsDelegateProvider." />
+    <MESSAGE value="Fix for TFT-257." />
+    <MESSAGE value="MockSimpleAsDelegateProvider" />
+    <MESSAGE value="Improved logging." />
+    <MESSAGE value="Commented." />
+    <MESSAGE value="Removed bogus println in tests." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed bogus println in tests." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
