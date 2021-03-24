@@ -36,7 +36,7 @@ import lombok.ToString;
 
 /***********************************************************************************************************************
  *
- * A specialisation of {@link Aggregate<PresentationModel>} which offers a convenience method for aggregating
+ * A specialisation of {@link Aggregate}{@code <PresentationModel>} which offers a convenience method for aggregating
  * its contained objects.
  *
  * @author  Fabrizio Giudici
@@ -59,13 +59,13 @@ public class PresentationModelAggregate implements Aggregate<PresentationModel>
     @Nonnull
     public static PresentationModelAggregate newInstance()
       {
-        return new PresentationModelAggregate(it.tidalwave.role.Aggregate.newInstance());
+        return new PresentationModelAggregate(Aggregate.newInstance());
       }
 
     /*******************************************************************************************************************
      *
      * Adds another {@link PresentationModel} with the given roles, associated to the given name. With a plain
-     * {@link Aggregate<PresentationModel>} the code would be:
+     * {@link Aggregate}{@code <PresentationModel>} the code would be:
      *
      * <pre>
      *   Aggregate&lt;PresentationModel&gt; aggregate = Aggregate.newInstance()

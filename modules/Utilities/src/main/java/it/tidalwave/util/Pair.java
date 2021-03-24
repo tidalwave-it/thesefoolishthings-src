@@ -268,7 +268,7 @@ public class Pair<A, B>
      * @param       from              the first index (included)
      * @param       to                the last index (excluded)
      * @param       valueSupplier     the supplier of values
-     * @param       rebaser           the rebaser of the index (pass i -> i+1 to have a 1-based collection)
+     * @param       rebaser           the rebaser of the index (BASE_0, BASE_1 or a similar function)
      * @param       indexTransformer  the transformer of the index
      * @return                        the stream
      *

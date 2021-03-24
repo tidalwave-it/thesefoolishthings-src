@@ -193,10 +193,10 @@ public interface Collaboration
      * external piece of software that is not part of the {@code Collaboration} model. In this case, it can be marked
      * as 'suspended' and in this case it won't be considered completed, even though there are no related pending
      * messages or working threads. When the external event occurs, call
-     * {@link #resume(java.lang.Object, java.lang.Runnable)).
+     * {@link #resume(java.lang.Object, java.lang.Runnable)}.
      *
      * In order to support multiple reasons for suspension, a token is generated and returned. It must be passed to
-     * {@code resume()) for resuming.
+     * {@code resume()} for resuming.
      *
      * @see #resume(java.lang.Object, java.lang.Runnable)
      * @see #isSuspended()

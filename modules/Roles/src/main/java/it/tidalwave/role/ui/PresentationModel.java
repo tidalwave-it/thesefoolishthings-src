@@ -34,6 +34,7 @@ import it.tidalwave.util.As;
 import it.tidalwave.util.NamedCallback;
 import it.tidalwave.role.ui.impl.DefaultPresentationModel;
 import it.tidalwave.util.Parameters;
+import static it.tidalwave.role.ui.Presentable._Presentable_;
 import static it.tidalwave.util.Parameters.r;
 
 /***********************************************************************************************************************
@@ -184,5 +185,43 @@ public interface PresentationModel extends As
         // TODO: cache a singleton, but don't do eager initialization (e.g. a final static), as it would deadlock with
         // SteelBlue.
         return of("", Displayable.of("<empty presentation model>"));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance from an owner which might have the {@link Presentable} role. If it is present, it is called
+     * to create the {@code PresentationModel}; otherwise a default one is created. Additional roles are added.
+     *
+     * @param   owner   the owner
+     * @param   roles   roles or {@link it.tidalwave.util.RoleFactory} instances
+     * @return          the new instance
+     * @it.tidalwave.javadoc.experimental TODO: perhaps it could be merged to of().
+     * @since 3.2-ALPHA-8
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static PresentationModel ofMaybePresentable (@Nonnull final As owner, @Nonnull final Collection<Object> roles)
+      {
+        Parameters.mustNotBeArrayOrCollection(owner, "owner");
+        return owner.maybeAs(_Presentable_)
+                    .map(p -> p.createPresentationModel(roles))
+                    .orElseGet(() -> of(owner, roles));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance from an owner which might have the {@link Presentable} role. If it is present, it is called
+     * to create the {@code PresentationModel}; otherwise a default one is created.
+     *
+     * @param   owner   the owner
+     * @return          the new instance
+     * @it.tidalwave.javadoc.experimental TODO: perhaps it could be merged to of().
+     * @since 3.2-ALPHA-8
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static PresentationModel ofMaybePresentable (@Nonnull final As owner)
+      {
+        return ofMaybePresentable(owner, Collections.emptyList());
       }
   }
