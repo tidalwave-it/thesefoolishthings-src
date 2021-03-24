@@ -78,7 +78,6 @@ public class KeyTest
         assertEquals(key1c.getType(), LocalDateTime.class);
         assertThat(key1b, is(sameInstance(key1)));
         assertThat(key1c, is(not(sameInstance(key1))));
-        System.err.println(allKeys);
         assertThat(allKeys.stream().map(Key::getName).collect(toList()),
                    is(Arrays.asList("key1", "key1", "key2", "key3")));
         assertThat(allKeys.stream().map(Key::getType).collect(toList()),
