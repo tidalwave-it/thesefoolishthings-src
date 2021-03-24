@@ -57,7 +57,7 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
     
     /*******************************************************************************************************************
      *
-     * A {@link Collector} which collects a {@link Stream} of {@link PresentationModel}s into a single
+     * A {@link java.util.stream.Collector} which collects a {@link Stream} of {@link PresentationModel}s into a single
      * {@code PresentationModel} with a {@link Composite} role containing them. In other words:
      * 
      * <pre>

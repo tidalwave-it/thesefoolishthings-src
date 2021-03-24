@@ -39,6 +39,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import it.tidalwave.util.Key;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.TypeSafeMap;
+import lombok.EqualsAndHashCode;
 
 /***********************************************************************************************************************
  *
@@ -47,7 +48,7 @@ import it.tidalwave.util.TypeSafeMap;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable
+@Immutable @EqualsAndHashCode
 public class TypeSafeHashMap implements TypeSafeMap, Serializable
   {
     private static final long serialVersionUID = 564564576856746L;
@@ -84,7 +85,7 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
     public <T> T get (@Nonnull final Key<T> key)
       throws NotFoundException
       {
-        return NotFoundException.throwWhenNull((T)map.get(key), "not found: %s", key);
+        return NotFoundException.throwWhenNull(key.getType().cast(map.get(key)), "not found: %s", key);
       }
 
     /*******************************************************************************************************************

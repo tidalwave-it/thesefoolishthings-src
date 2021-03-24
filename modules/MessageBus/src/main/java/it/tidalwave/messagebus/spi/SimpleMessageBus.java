@@ -158,7 +158,7 @@ public class SimpleMessageBus implements MessageBus
     protected <TOPIC> void dispatchMessage (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)
       {
         final HashSet<Map.Entry<Class<?>, List<WeakReference<MessageBus.Listener<?>>>>> clone =
-                new HashSet<>(listenersMapByTopic.entrySet());
+                new HashSet<>(listenersMapByTopic.entrySet()); // FIXME: marked as dubious by SpotBugs
 
         for (final Map.Entry<Class<?>, List<WeakReference<MessageBus.Listener<?>>>> e : clone)
           {

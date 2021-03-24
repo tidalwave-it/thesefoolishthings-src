@@ -58,7 +58,12 @@ public interface AsDelegateProvider
 
                 if (!i.hasNext())
                   {
-                    throw new RuntimeException("No ServiceProvider for AsDelegateProvider");
+                    final String message = "No ServiceProvider for AsDelegateProvider found in a ServiceLoader - if " +
+                                           "you are running tests perhaps you should first call " +
+                                           "AsDelegateProvider.Locator.set(AsDelegateProvider.empty()) or " +
+                                           "AsDelegateProvider.Locator.set(new MockSimpleAsDelegateProvider()) or " +
+                                           "another appropriate AsDelegateProvider";
+                    throw new RuntimeException(message);
                   }
 
                 asSpiProvider = i.next();
@@ -71,6 +76,12 @@ public interface AsDelegateProvider
         public static void set (@Nonnull final AsDelegateProvider provider)
           {
             asSpiProvider = provider;
+          }
+
+        /** For testing */
+        public static void reset()
+          {
+            asSpiProvider = null;
           }
       }
 
