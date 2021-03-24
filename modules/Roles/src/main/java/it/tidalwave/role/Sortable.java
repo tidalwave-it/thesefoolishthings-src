@@ -47,7 +47,7 @@ public interface Sortable
     /*******************************************************************************************************************
      *
      * A default {@code Sortable} which does nothing (useful for implementing the NullObject pattern). This object
-     * always returns {@link SortCriterion.UNSORTED} as {@code sortCriterion} and {@link SortDirection.ASCENDING} as
+     * always returns {@link SortCriterion#UNSORTED} as {@code sortCriterion} and {@link SortDirection#ASCENDING} as
      * {@code sortDirection}.
      *
      ******************************************************************************************************************/

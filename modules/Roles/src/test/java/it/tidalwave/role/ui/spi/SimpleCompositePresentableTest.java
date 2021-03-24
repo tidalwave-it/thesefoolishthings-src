@@ -186,8 +186,8 @@ public class SimpleCompositePresentableTest
 
         final MockDatum a = new MockDatum("a").withChildren(b1, b2, b3);
 
-        final SimpleCompositePresentable<MockDatum> underTest
-                = new SimpleCompositePresentable<>(a, new DefaultPresentationModelFactory());
+        final SimpleCompositePresentable underTest
+                = new SimpleCompositePresentable(a, new DefaultPresentationModelFactory());
 
         final MockRole1 role1 = new MockRole1();
         final MockRoleFactory roleFactory = new MockRoleFactory();

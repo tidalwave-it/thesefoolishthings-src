@@ -50,7 +50,7 @@ import static it.tidalwave.messagebus.spi.ReflectionUtils.*;
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor @Slf4j
-public class CollaborationAwareMessageBusAdapter implements ReflectionUtils.MethodProcessor
+public class CollaborationAwareMessageBusAdapter implements MethodProcessor
   {
     @Nonnull
     private final Object owner;

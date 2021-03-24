@@ -29,6 +29,8 @@ package it.tidalwave.role.spi.impl;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import it.tidalwave.role.Identifiable;
+import java.util.Arrays;
+import static java.util.stream.Collectors.joining;
 
 /***********************************************************************************************************************
  *
@@ -40,6 +42,12 @@ public class LogUtil
     @Nonnull
     public static String shortName (@Nonnull final Class<?> clazz)
       {
+        return shortName(clazz, false);
+      }
+
+    @Nonnull
+    public static String shortName (@Nonnull final Class<?> clazz, final boolean expandInterfaces)
+        {
         String className = clazz.getName();
         String prefix = "";
 
@@ -50,14 +58,26 @@ public class LogUtil
           }
 
         final String[] parts = className.split("\\.");
-        final StringBuilder result = new StringBuilder();
+        final StringBuilder s = new StringBuilder();
 
         for (int i = 0; i < parts.length; i++)
           {
-            result.append((i < parts.length - 1) ? parts[i].charAt(0) + "." : parts[i]);
+            s.append((i < parts.length - 1) ? parts[i].charAt(0) + "." : parts[i]);
           }
 
-        return prefix + result;
+        if (expandInterfaces)
+          {
+            final Class<?>[] interfaces = clazz.getInterfaces();
+
+            if (interfaces.length > 0)
+              {
+                s.append(Arrays.stream(interfaces)
+                               .filter(i -> !i.getPackage().getName().startsWith("java"))
+                               .map(i -> shortName(i)).collect(joining(", ", "{", "}")));
+              }
+          }
+
+        return prefix + s;
       }
 
     @Nonnull
@@ -83,18 +103,19 @@ public class LogUtil
             return "null";
           }
 
-        String s = String.format("%s@%x", shortName(object.getClass()),
-                                                          System.identityHashCode(object));
+        final StringBuilder s = new StringBuilder();
+        s.append(String.format("%s@%x", shortName(object.getClass()), System.identityHashCode(object)));
+
         if (object instanceof Identifiable)
           {
-            s += "/" + ((Identifiable)object).getId();
+            s.append("/" + ((Identifiable)object).getId());
           }
 
-        return s;
+        return s.toString();
       }
 
     @Nonnull
-    public static String shortIds (@Nonnull final Iterable<Object> objects)
+    public static String shortIds (@Nonnull final Iterable<?> objects)
       {
         final StringBuilder result = new StringBuilder();
         String separator = "";

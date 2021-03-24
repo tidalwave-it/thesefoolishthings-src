@@ -54,13 +54,13 @@ public class MessageBusHelper
     public static interface Adapter
       {
         @Nonnull
-        public <Topic> MethodAdapter<Topic> createMethodAdapter (@Nonnull Object object,
+        public <TOPIC> MethodAdapter<TOPIC> createMethodAdapter (@Nonnull Object object,
                                                                  @Nonnull Method method,
-                                                                 @Nonnull Class<Topic> topic);
+                                                                 @Nonnull Class<TOPIC> topic);
 
         public void publish (@Nonnull Object message);
 
-        public <Topic> void publish (Class<Topic> topic, @Nonnull Topic message);
+        public <TOPIC> void publish (Class<TOPIC> topic, @Nonnull TOPIC message);
       }
 
     /*******************************************************************************************************************
@@ -68,7 +68,7 @@ public class MessageBusHelper
      *
      *
      ******************************************************************************************************************/
-    public static interface MethodAdapter<Topic>
+    public static interface MethodAdapter<TOPIC>
       {
         public void subscribe();
 
@@ -139,7 +139,7 @@ public class MessageBusHelper
      *
      *
      ******************************************************************************************************************/
-    public <Topic> void publish (@Nonnull final Class<Topic> topicType, @Nonnull final Topic topic)
+    public <TOPIC> void publish (@Nonnull final Class<TOPIC> topicType, @Nonnull final TOPIC topic)
       {
         methodAdapterFactory.publish(topicType, topic);
       }
@@ -149,12 +149,12 @@ public class MessageBusHelper
      *
      *
      ******************************************************************************************************************/
-    private <Topic> void registerMessageListener (@Nonnull final Method method)
+    private <TOPIC> void registerMessageListener (@Nonnull final Method method)
       {
         log.trace("registerMessageListener({})", method);
 
-        final Class<Topic> topic = (Class<Topic>)method.getParameterTypes()[0];
-        final MethodAdapter<Topic> methodAdapter = methodAdapterFactory.createMethodAdapter(owner, method, topic);
+        final Class<TOPIC> topic = (Class<TOPIC>)method.getParameterTypes()[0];
+        final MethodAdapter<TOPIC> methodAdapter = methodAdapterFactory.createMethodAdapter(owner, method, topic);
         methodAdapters.add(methodAdapter);
         methodAdapter.subscribe();
       }

@@ -101,8 +101,8 @@ public interface Displayable
 
     /*******************************************************************************************************************
      *
-     * Creates an instance from a {@link Supplier<String>}. The supplier is invoked each time {@link #getDisplayName()}
-     * is called.
+     * Creates an instance from a {@link Supplier}{@code <String>}. The supplier is invoked each time
+     * {@link #getDisplayName()} is called.
      *
      * @param   supplier    the {@code Supplier}
      * @return              the instance
@@ -118,8 +118,8 @@ public interface Displayable
 
     /*******************************************************************************************************************
      *
-     * Creates an instance from a {@link Function<T, String>} and a generic object that the function is applied to.
-     * The function is invoked each time {@link #getDisplayName()} is called.
+     * Creates an instance from a {@link Function}{@code <T, String>} and a generic object that the function is applied
+     * to. The function is invoked each time {@link #getDisplayName()} is called.
      *
      * @param   function    the {@code Function}
      * @param   object      the object

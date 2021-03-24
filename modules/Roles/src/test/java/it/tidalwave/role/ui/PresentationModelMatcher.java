@@ -30,11 +30,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import it.tidalwave.util.AsException;
+import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.Matcher;
 import org.mockito.ArgumentMatcher;
 import lombok.NoArgsConstructor;
+import static it.tidalwave.role.spi.impl.LogUtil.*;
+import static java.util.stream.Collectors.toList;
 
 /***********************************************************************************************************************
  *
@@ -45,7 +49,7 @@ import lombok.NoArgsConstructor;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@NotThreadSafe @NoArgsConstructor(staticName = "presentationModel")
+@NotThreadSafe @NoArgsConstructor(staticName = "presentationModel") @Slf4j
 public class PresentationModelMatcher implements ArgumentMatcher<PresentationModel>
   {
     private final StringBuilder pmDescription = new StringBuilder("PresentationModel");
@@ -63,7 +67,7 @@ public class PresentationModelMatcher implements ArgumentMatcher<PresentationMod
     public PresentationModelMatcher withRole (@Nonnull final Class<?> roleType)
       {
         expectedRoleTypes.add(roleType);
-        pmDescription.append(separator).append(" with role ").append(roleType.getName());
+        pmDescription.append(separator).append(" with role ").append(shortName(roleType));
         separator = ", ";
         return this;
       }
@@ -89,6 +93,17 @@ public class PresentationModelMatcher implements ArgumentMatcher<PresentationMod
               }
             catch (AsException e)
               {
+                final Collection<Object> actualRoles = pm.asMany(Object.class);
+                final Collection<Class<?>> actualRoleTypes =
+                        actualRoles.stream().map(Object::getClass).collect(toList());
+
+                log.error("Failed matching: expected roles types:");
+                expectedRoleTypes.forEach(ert -> log.error("        {}", shortName(ert)));
+                log.error("Failed matching: actual roles types:");
+                actualRoleTypes.forEach(art -> log.error("        {}", shortName(art, true)));
+                log.error("Failed matching: actual roles:");
+                actualRoles.forEach(ar -> log.error("        {}", shortId(ar)));
+
                 return false;
               }
           }

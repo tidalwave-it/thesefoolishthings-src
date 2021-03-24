@@ -56,7 +56,7 @@ public interface ContextManager
 
     /*******************************************************************************************************************
      *
-     * A locator for the {@link ContextManager} which uses the {@link ServiceProvider} facility to be independent of
+     * A locator for the {@link ContextManager} which uses the {@link ServiceLoader} facility to be independent of
      * any DI framework.
      *
      * This locator caches the internal reference and this is ok for production use; during tests, since multiple
