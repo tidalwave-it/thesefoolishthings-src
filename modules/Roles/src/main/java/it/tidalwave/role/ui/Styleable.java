@@ -32,7 +32,7 @@ import it.tidalwave.role.ui.impl.DefaultStyleable;
 
 /***********************************************************************************************************************
  *
- * A role which carries styles.
+ * A role which declares a set of styles for rendering.
  * 
  * @stereotype Role
  * 
@@ -49,7 +49,11 @@ public interface Styleable
 
     /*******************************************************************************************************************
      *
-     * @since         3.2-ALPHA-2
+     * Creates a new instance from a collection of strings
+     *
+     * @param   styles    the style names
+     * @return            the new instance
+     * @since             3.2-ALPHA-2
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -60,7 +64,11 @@ public interface Styleable
 
     /*******************************************************************************************************************
      *
-     * @since         3.2-ALPHA-2
+     * Creates a new instance from a collection of strings
+     *
+     * @param   styles    the style names
+     * @return            the new instance
+     * @since             3.2-ALPHA-2
      *
      ******************************************************************************************************************/
     @Nonnull

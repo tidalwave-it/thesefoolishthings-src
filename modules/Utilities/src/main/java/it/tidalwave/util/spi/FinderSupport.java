@@ -135,6 +135,9 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      *
      * Clone constructor for subclasses.
      *
+     * @param   other       the other instance to clone
+     * @param   override    the overriding object
+     *
      ******************************************************************************************************************/
     protected FinderSupport (@Nonnull final FinderSupport<TYPE, EXTENDED_FINDER> other, @Nonnull final Object override)
       {
@@ -149,6 +152,11 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     /*******************************************************************************************************************
      *
+     * @param <T>       the static type of the source
+     * @param clazz     the dynamic type of the source
+     * @param other     the other finder
+     * @param override  the override object
+     * @return          the source to use
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -170,6 +178,10 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     /*******************************************************************************************************************
      *
+     * Create a clone of this object calling the special clone constructor by reflection.
+     *
+     * @param   override  the override object
+     * @return            the clone
      *
      ******************************************************************************************************************/
     @Nonnull

@@ -289,7 +289,9 @@ public class Pair<A, B>
      * A {@link Collector} that produces a {@link Map} whose key is field {@code a} and value field {@code b}. Use
      * with {@link Stream#collect(Collector)}.
      *
-     * @return    the {@code Collector}
+     * @param <A>   the type of the former element of the pair
+     * @param <B>   the type of the latter element of the pair
+     * @return      the {@code Collector}
      *
      ******************************************************************************************************************/
     @Nonnull

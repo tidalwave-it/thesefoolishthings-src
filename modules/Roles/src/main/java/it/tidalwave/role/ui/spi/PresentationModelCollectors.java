@@ -86,15 +86,15 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
 
     /*******************************************************************************************************************
      *
-     * A facility method that creates a composite {@link PresentationModel} out of a stream of objects. For each object
-     * in the stream, its {@code PresentationModel} is created by means of invoking its
-     * {@link it.tidalwave.role.ui.Presentable} role. Then all the {@code PresentationModel}s are aggregated into the
-     * composite.
+     * A facility method that creates a composite {@link PresentationModel} out of an iterable (which means an array,
+     * a collection or a stream) of objects implementing {@link As}. For each  object in the iterable, its {@code
+     * PresentationModel} is created by means of invoking its {@link it.tidalwave.role.ui.Presentable} role. Then all
+     * the {@code PresentationModel}s are aggregated into the composite.
      * 
-     * This method accepts an {@link Iterable}. A function which creates specific roles for each 
-     * {@code PresentationModel} can be supplied. The function can return a single role or multiple roles in form of
-     * an {@code Object[]}.
-     * 
+     * A function which creates specific roles for each {@code PresentationModel} can be specified. The function can
+     * return a single role or multiple roles in form of an array {@code Object[]}.
+     *
+     * @param   <T>             the type of the objects
      * @param   i               the {@code Iterable}
      * @param   roleCreator     the function to create roles
      * @return                  the composite {@code PresentationModel}
@@ -113,9 +113,9 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
     /*******************************************************************************************************************
      *
      * A facility simplified version of 
-     * {@link #toCompositePresentationModel(java.lang.Iterable, java.util.function.Function)} without a function to
-     * supply additional roles.
-     * 
+     * {@link #toCompositePresentationModel(java.lang.Iterable, java.util.function.Function)}.
+     *
+     * @param   <T>             the type of the objects
      * @param   i               the {@code Iterable}
      * @return                  the composite {@code PresentationModel}
      * 

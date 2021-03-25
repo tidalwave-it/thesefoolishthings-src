@@ -36,14 +36,26 @@ import java.beans.PropertyChangeListener;
  **********************************************************************************************************************/
 public interface ChangingSource<T>
   {
+    @Nonnull
+    public PropertyChangeListener[] getPropertyChangeListeners();
+
     public void addPropertyChangeListener (@Nonnull PropertyChangeListener listener);
 
     public void removePropertyChangeListener (@Nonnull PropertyChangeListener listener);
 
-    @Nonnull
-    public PropertyChangeListener[] getPropertyChangeListeners();
-
+    /*******************************************************************************************************************
+     *
+     * Removes all the bindings of this object.
+     *
+     ******************************************************************************************************************/
     public void unbindAll();
 
+    /*******************************************************************************************************************
+     *
+     * Returns the value of this object.
+     *
+     * @return    the value
+     *
+     ******************************************************************************************************************/
     public T get();
   }

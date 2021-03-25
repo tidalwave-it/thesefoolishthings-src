@@ -178,16 +178,16 @@ public class AsSupport implements As
      *
      * Resolve the factories: if found, they are invoked and the produced role is added to the list.
      *
-     * @param  rolesOrFactories  the list of roles or factory roles
+     * @param  roles  the list of roles or factory roles
      * @return                   a list of roles
      *
      ******************************************************************************************************************/
     @Nonnull
-    private List<Object> resolveFactories (@Nonnull final Collection<Object> rolesOrFactories)
+    private List<Object> resolveFactories (@Nonnull final Collection<Object> roles)
       {
         final List<Object> result = new ArrayList<>();
 
-        for (final Object roleOrFactory : rolesOrFactories)
+        for (final Object roleOrFactory : roles)
           {
             if (roleOrFactory instanceof RoleFactory)
               {

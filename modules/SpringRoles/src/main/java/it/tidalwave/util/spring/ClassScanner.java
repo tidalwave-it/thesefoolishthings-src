@@ -80,7 +80,8 @@ public class ClassScanner
      *
      * Adds an "include" filter.
      *
-     * @param  filter  the filter
+     * @param  filter   the filter
+     * @return          itself for method chaining
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -95,6 +96,7 @@ public class ClassScanner
      * Adds a filter for an annotation.
      *
      * @param  annotationClass  the annotation class
+     * @return                  itself for method chaining
      *
      ******************************************************************************************************************/
     @Nonnull

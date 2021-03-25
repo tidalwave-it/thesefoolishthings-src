@@ -52,7 +52,7 @@ public final class MockAs
      *
      * @param   clazz               the mock class
      * @return                      the mock
-     * @since   3.2-ALPHA-3 (refactored)
+     * @since                       3.2-ALPHA-3 (refactored)
      *
      **********************************************************************************************************************/
     @Nonnull
@@ -66,17 +66,17 @@ public final class MockAs
      * Creates a mock with Mockito that fully supports {@link As}.
      *
      * @param   clazz               the mock class
-     * @param   rolesOrFactories    a collection of roles or factories for roles
+     * @param   roles               a collection of roles or factories for roles
      * @return                      the mock
-     * @since   3.2-ALPHA-3 (refactored)
+     * @since                       3.2-ALPHA-3 (refactored)
      *
      **********************************************************************************************************************/
     @Nonnull
     public static <T extends As> T mockWithAsSupport (@Nonnull final Class<T> clazz,
-                                                      @Nonnull final Collection<Object> rolesOrFactories)
+                                                      @Nonnull final Collection<Object> roles)
       {
         final T mock = mock(clazz);
-        final AsSupport asSupport = new AsSupport(mock, rolesOrFactories);
+        final AsSupport asSupport = new AsSupport(mock, roles);
         when(mock.as(any(Class.class))).thenAnswer(new Answer<Object>()
           {
             @Override @Nonnull

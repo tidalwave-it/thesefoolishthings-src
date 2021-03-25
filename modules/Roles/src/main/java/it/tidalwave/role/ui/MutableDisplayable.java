@@ -34,8 +34,8 @@ import java.util.Map;
 
 /***********************************************************************************************************************
  *
- * A specialized {@link it.tidalwave.role.ui.Displayable} which is mutable (that is, its display name can be changed) and fires
- * {@code PropertyChangeEvent}s.
+ * A specialized {@link it.tidalwave.role.ui.Displayable} which is mutable (that is, its display name can be changed)
+ * and fires {@code PropertyChangeEvent}s.
  *
  * @stereotype Role
  *
@@ -103,8 +103,9 @@ public interface MutableDisplayable extends Displayable
      *
      * Creates an instance with an initial given display name in {@code Locale.ENGLISH}.
      *
-     * @param  displayName   the display name
-     * @since 3.2-ALPHA-1
+     * @param  displayName    the display name
+     * @return                the new instance
+     * @since                 3.2-ALPHA-1
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -118,9 +119,10 @@ public interface MutableDisplayable extends Displayable
      * Creates an instance with an initial given display name in {@code Locale.ENGLISH} and an explicit identifier for
      * {@code toString()}.
      *
-     * @param  displayName   the display name
-     * @param  toStringName  the name to be rendered when {@code toString()} is called
-     * @since 3.2-ALPHA-1
+     * @param  displayName    the display name
+     * @param  toStringName   the name to be rendered when {@code toString()} is called
+     * @return                the new instance
+     * @since                 3.2-ALPHA-1
      *
      ******************************************************************************************************************/
     @Nonnull

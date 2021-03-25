@@ -30,6 +30,8 @@ import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
  *
+ * A strategy for message delivery in the {@link SimpleMessageBus}.
+ *
  * @author  Fabrizio Giudici
  * @since   2.2
  *
@@ -38,12 +40,20 @@ public interface MessageDelivery
   {
     /*******************************************************************************************************************
      *
+     * Initializes this object.
+     *
+     * @param     messageBus   the message bus
      *
      ******************************************************************************************************************/
-    public void initialize (@Nonnull SimpleMessageBus messageBusSupport); 
+    public void initialize (@Nonnull SimpleMessageBus messageBus);
     
     /*******************************************************************************************************************
      *
+     * Delivers a message.
+     *
+     * @param <TOPIC>   the static type of the topic
+     * @param topic     the dynamic type of the topic
+     * @param message   the message
      *
      ******************************************************************************************************************/
     public <TOPIC> void deliverMessage (@Nonnull Class<TOPIC> topic, @Nonnull TOPIC message);

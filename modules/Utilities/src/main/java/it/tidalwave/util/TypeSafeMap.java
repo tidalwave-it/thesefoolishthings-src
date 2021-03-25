@@ -63,6 +63,13 @@ public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
 
     /*******************************************************************************************************************
      *
+     * Returns an optional value given its key.
+     *
+     * @param   <T>   the type
+     * @param   key   the key
+     * @return        the value
+     * @deprecated    Use {@link #getOptional(Key)} instead
+     *
      * @since 3.2-ALPHA-1
      *
      ******************************************************************************************************************/
@@ -135,7 +142,7 @@ public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
      *
      * Returns the contents as a plain {@link Map}.
      *
-     * @return    the contents as a mutable map
+     * @return        the contents as a mutable map
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -145,10 +152,11 @@ public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
      *
      * Create a new instance with an additional pair (key, value=
      *
+     * @param   <T>   the type
      * @param   key   the key
      * @param   value the value
-     * @return  the new instance
-     * @since 3.2-ALPHA-2
+     * @return        the new instance
+     * @since         3.2-ALPHA-2
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -158,8 +166,8 @@ public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
      *
      * Creates a new empty instance.
      *
-     * @return  the new instance
-     * @since 3.2-ALPHA-2
+     * @return        the new instance
+     * @since         3.2-ALPHA-2
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -173,8 +181,8 @@ public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
      * Creates an instance cloning the given map.
      *
      * @param   map   the map to clone
-     * @return  the new instance
-     * @since 3.2-ALPHA-2
+     * @return        the new instance
+     * @since         3.2-ALPHA-2
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -183,14 +191,16 @@ public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
         return new TypeSafeHashMap(map);
       }
 
-    /** @deprecated Use {@link #keySet()} instead. */
+    /** @deprecated Use {@link #keySet()} instead.
+     * @return - */
     @Nonnull @Deprecated
     public default Set<Key<?>> getKeys()
       {
         return keySet();
       }
 
-    /** @deprecated Use {@link #size()} instead. */
+    /** @deprecated Use {@link #size()} instead.
+     * @return - */
     @Nonnull @Deprecated
     public default int getSize()
       {

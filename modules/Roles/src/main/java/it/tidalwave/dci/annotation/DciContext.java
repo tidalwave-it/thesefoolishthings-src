@@ -49,6 +49,10 @@ public @interface DciContext
      * If this attribute is true, all the methods of the annotated class will be executed with their instance as a
      * context.
      *
+     * MUST BE CLARIFIED. WHAT IS ITS PURPOSE?
+     *
+     * @return {@code true} if auto thread binding needs to be activated
+     *
      ******************************************************************************************************************/
     public boolean autoThreadBinding() default false;
   }

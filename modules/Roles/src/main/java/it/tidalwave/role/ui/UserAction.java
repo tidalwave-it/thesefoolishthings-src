@@ -53,27 +53,39 @@ public interface UserAction extends As
 
     /*******************************************************************************************************************
      *
+     * Returns the property describing the enabled status of this action.
      *
+     * @return      the enabled property
      *
      ******************************************************************************************************************/
     @Nonnull
-    public BoundProperty<Boolean> enabled();
+    public BoundProperty<Boolean> enabled(); // TODO: rename to enabledProperty()
 
     /*******************************************************************************************************************
      *
-     * @since 3.2-ALPHA-1 (replaces {@code new UserActionSupport()}
-     * @since 3.2-ALPHA-3 (refactored}
+     * Creates a new instance out of a callback and a collection of roles.
+     *
+     * @param   callback    the callback
+     * @param   roles       the roles (or role factories)
+     * @return              the new instance
+     * @since               3.2-ALPHA-1 (replaces {@code new UserActionSupport()}
+     * @since               3.2-ALPHA-3 (refactored}
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static UserAction of (@Nonnull final Callback callback, @Nonnull final Collection<Object> rolesOrFactories)
+    public static UserAction of (@Nonnull final Callback callback, @Nonnull final Collection<Object> roles)
       {
-        return new DefaultUserAction(callback, rolesOrFactories);
+        return new DefaultUserAction(callback, roles);
       }
 
     /*******************************************************************************************************************
      *
-     * @since 3.2-ALPHA-3
+     * Creates a new instance out of a callback and a role (typically a {@link Displayable}.
+     *
+     * @param   callback    the callback
+     * @param   role        the role (or role factory)
+     * @return              the new instance
+     * @since               3.2-ALPHA-3
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -85,6 +97,10 @@ public interface UserAction extends As
 
     /*******************************************************************************************************************
      *
+     * Creates a new instance out of a callback.
+     *
+     * @param   callback    the callback
+     * @return              the new instance
      * @since 3.2-ALPHA-3
      *
      ******************************************************************************************************************/

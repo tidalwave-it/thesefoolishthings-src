@@ -59,49 +59,64 @@ public interface PresentationModel extends As
 
     /*******************************************************************************************************************
      *
-     *
+     * Disposes this object.
      *
      ******************************************************************************************************************/
     public void dispose();
 
     /*******************************************************************************************************************
      *
+     * Adds a {@link PropertyChangeListener}.
      *
+     * @param listener    the listener
      *
      ******************************************************************************************************************/
     public void addPropertyChangeListener (@Nonnull PropertyChangeListener listener);
 
     /*******************************************************************************************************************
      *
+     * Adds a {@link PropertyChangeListener} for the given property.
      *
+     * @param propertyName  the name of the property
+     * @param listener      the listener
      *
      ******************************************************************************************************************/
     public void addPropertyChangeListener (@Nonnull String propertyName, @Nonnull PropertyChangeListener listener);
 
     /*******************************************************************************************************************
      *
+     * Removes a {@link PropertyChangeListener}.
      *
+     * @param listener    the listener
      *
      ******************************************************************************************************************/
     public void removePropertyChangeListener (@Nonnull PropertyChangeListener listener);
 
     /*******************************************************************************************************************
      *
+     * Removes a {@link PropertyChangeListener} for the given property.
      *
+     * @param propertyName  the name of the property
+     * @param listener      the listener
      *
      ******************************************************************************************************************/
     public void removePropertyChangeListener (@Nonnull String propertyName, @Nonnull PropertyChangeListener listener);
 
     /*******************************************************************************************************************
      *
+     * Checks whether the given property has been bound to listeners.
      *
+     * @param propertyName  the name of the property
+     * @return              {@code true} if the property is bound
      *
      ******************************************************************************************************************/
     public boolean hasListeners (@Nonnull String propertyName);
 
     /*******************************************************************************************************************
      *
+     * Returns all the bound {@link PropertyChangeListener}s.
      *
+     * @return              the listeners
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -109,7 +124,10 @@ public interface PresentationModel extends As
 
     /*******************************************************************************************************************
      *
+     * Returns the bound {@link PropertyChangeListener}s for the given property.
      *
+     * @param propertyName  the name of the property
+     * @return              the listeners
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -121,8 +139,7 @@ public interface PresentationModel extends As
      *
      * @param   owner   the owner
      * @return          the new instance
-     *
-     * @since   3.2-ALPHA-3
+     * @since           3.2-ALPHA-3
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -139,8 +156,7 @@ public interface PresentationModel extends As
      * @param   owner   the owner
      * @param   role    the role (or a {@link it.tidalwave.util.RoleFactory})
      * @return          the new instance
-     *
-     * @since   3.2-ALPHA-3
+     * @since           3.2-ALPHA-3
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -158,9 +174,8 @@ public interface PresentationModel extends As
      * @param   owner   the owner
      * @param   roles   roles or {@link it.tidalwave.util.RoleFactory} instances
      * @return          the new instance
-     *
-     * @since 3.2-ALPHA-1
-     * @since   3.2-ALPHA-3 (refactored)
+     * @since           3.2-ALPHA-1
+     * @since           3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -172,11 +187,10 @@ public interface PresentationModel extends As
 
     /*******************************************************************************************************************
      *
-     * Returns an empty instance (no roles with the exception of a dummy {@link Displayable}.
+     * Returns an empty instance (no roles with the exception of a dummy {@link Displayable}).
      *
      * @return          the empty instance
-     *
-     * @since   3.2-ALPHA-3
+     * @since           3.2-ALPHA-3
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -195,8 +209,8 @@ public interface PresentationModel extends As
      * @param   owner   the owner
      * @param   roles   roles or {@link it.tidalwave.util.RoleFactory} instances
      * @return          the new instance
+     * @since           3.2-ALPHA-8
      * @it.tidalwave.javadoc.experimental TODO: perhaps it could be merged to of().
-     * @since 3.2-ALPHA-8
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -215,8 +229,8 @@ public interface PresentationModel extends As
      *
      * @param   owner   the owner
      * @return          the new instance
+     * @since           3.2-ALPHA-8
      * @it.tidalwave.javadoc.experimental TODO: perhaps it could be merged to of().
-     * @since 3.2-ALPHA-8
      *
      ******************************************************************************************************************/
     @Nonnull

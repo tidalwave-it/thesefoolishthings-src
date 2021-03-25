@@ -38,7 +38,7 @@ import static it.tidalwave.role.spi.impl.LogUtil.*;
 
 /***********************************************************************************************************************
  *
- * A facility that samples the current contexts at creation time and make them available later.
+ * A facility that samples the contexts that are current at creation time and make them available later.
  *
  * @author  Fabrizio Giudici
  *
@@ -55,6 +55,9 @@ public class ContextSampler
 
     /*******************************************************************************************************************
      *
+     * Creates a new instance and samples the currently available contexts.
+     *
+     * @param owner     the owner
      *
      ******************************************************************************************************************/
     public ContextSampler (@Nonnull final Object owner)
@@ -69,6 +72,9 @@ public class ContextSampler
 
     /*******************************************************************************************************************
      *
+     * Returns the previously sampled contexts.
+     *
+     * @return    the contexts
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -81,7 +87,11 @@ public class ContextSampler
      *
      * Runs a {@link Task} associated with a the samples contexts.
      *
-     * @param  task                the task
+     * @param  <V>      the type of the result value
+     * @param  <T>      the type of the exception
+     * @param  task     the task
+     * @return          the value produced by the task
+     * @throws T        the exception(s) thrown by the task
      *
      ******************************************************************************************************************/
     public <V, T extends Throwable> V runWithContexts (@Nonnull final Task<V, T> task)

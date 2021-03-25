@@ -42,11 +42,12 @@ public interface RoleManager
      *
      * Retrieves the roles of the given class for the given owner object.
      *
-     * @param   owner      the owner object
-     * @param   roleType   the role type
-     * @return             a list of roles
+     * @param <T>           the static type of the roles
+     * @param   owner       the owner object
+     * @param   roleType    the dynamic type of the roles
+     * @return              a list of roles
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <ROLE> List<? extends ROLE> findRoles (@Nonnull Object owner, @Nonnull Class<ROLE> roleType);
+    public <T> List<? extends T> findRoles (@Nonnull Object owner, @Nonnull Class<T> roleType);
   }

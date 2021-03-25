@@ -70,7 +70,7 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
      *
      * Returns a set of all the contained keys.
      *
-     * @return  the keys as a mutable set
+     * @return        the keys as a mutable set
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -80,8 +80,8 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
      *
      * Returns a set of all the contained values.
      *
-     * @return  the values as a mutable collection
-     * @since   3.2-ALPHA-6
+     * @return        the values as a mutable collection
+     * @since         3.2-ALPHA-6
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -91,8 +91,8 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
      *
      * Returns a set of all the contained (key, value) pairs.
      *
-     * @return  the pairs as a mutable collection
-     * @since   3.2-ALPHA-6
+     * @return        the pairs as a mutable collection
+     * @since         3.2-ALPHA-6
      *
      ******************************************************************************************************************/
      @Nonnull
@@ -102,7 +102,7 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
      *
      * Returns the size of this map.
      *
-     * @return    the size
+     * @return        the size
      *
      ******************************************************************************************************************/
     @Nonnegative
@@ -112,7 +112,7 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
      *
      * Returns the contents as a plain {@link Map}.
      *
-     * @return    the contents as a mutable map
+     * @return        the contents as a mutable map
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -120,12 +120,13 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
 
     /*******************************************************************************************************************
      *
-     * Create a new instance with an additional pair (key, value=
+     * Creates a new instance with an additional pair (key, value).
      *
+     * @param   <T>   the type
      * @param   key   the key
      * @param   value the value
-     * @return  the new instance
-     * @since 3.2-ALPHA-2
+     * @return        the new instance
+     * @since         3.2-ALPHA-2
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -136,8 +137,8 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
      * Creates an instance cloning the given map.
      *
      * @param   map   the map to clone
-     * @return  the new instance
-     * @since 3.2-ALPHA-2
+     * @return        the new instance
+     * @since         3.2-ALPHA-2
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -150,8 +151,8 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
      *
      * Creates a new empty instance.
      *
-     * @return  the new instance
-     * @since 3.2-ALPHA-2
+     * @return        the new instance
+     * @since         3.2-ALPHA-2
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -160,14 +161,16 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
         return new TypeSafeHashMultiMap(Collections.emptyMap());
       }
 
-    /** @deprecated Use {@link #keySet()} instead. */
+    /** @deprecated Use {@link #keySet()} instead.
+     * @return - */
     @Nonnull @Deprecated
     public default Set<Key<?>> getKeys()
       {
         return keySet();
       }
 
-    /** @deprecated Use {@link #size()} instead. */
+    /** @deprecated Use {@link #size()} instead.
+     * @return - */
     @Nonnull @Deprecated
     public default int getSize()
       {

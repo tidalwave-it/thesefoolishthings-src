@@ -47,9 +47,12 @@ public @interface Message
      * Out of band messages are processed with priority, that is they are posted at the head of a queue rather than at
      * the tail.
      *
+     * @return  {@code true}  if this message is out of band
+     *
      ******************************************************************************************************************/
     public boolean outOfBand() default false;
 
-    /** Doesn't work, don't use */
+    /** Doesn't work, don't use it
+     * @return true */
     public boolean daemon() default true;
   }

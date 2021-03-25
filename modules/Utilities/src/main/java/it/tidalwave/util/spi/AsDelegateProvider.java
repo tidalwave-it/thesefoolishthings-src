@@ -72,13 +72,28 @@ public interface AsDelegateProvider
             return asSpiProvider;
           }
 
-        /** For testing */
+        /***************************************************************************************************************
+         *
+         * <b>This method is for testing only.</b> Sets the global {@link AsDelegateProvider}.
+         *
+         * @param   provider    the provider
+         * @see     #reset() 
+         *
+         **************************************************************************************************************/
         public static void set (@Nonnull final AsDelegateProvider provider)
           {
             asSpiProvider = provider;
           }
 
-        /** For testing */
+        /***************************************************************************************************************
+         *
+         * <b>This method is for testing only.</b> Resets the global {@link AsDelegateProvider}; it must be called at
+         * the test completion whenever {@link #set(AsDelegateProvider)} has been called, to avoid polluting the
+         * context of further tests.
+         * 
+         * @see     #set(AsDelegateProvider)
+         *
+         **************************************************************************************************************/
         public static void reset()
           {
             asSpiProvider = null;
@@ -87,6 +102,10 @@ public interface AsDelegateProvider
 
     /*******************************************************************************************************************
      *
+     * Creates an {@link AsDelegate} for the given object
+     *
+     * @param     datum   the object
+     * @return            {@code AsDelegate}
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -100,7 +119,8 @@ public interface AsDelegateProvider
      * AsDelegateProvider.Locator.set(AsDelegateProvider.empty());
      * </pre>
      *
-     * @since 3.2-ALPHA-1
+     * @return    the empty implementation
+     * @since     3.2-ALPHA-1
      *
      ******************************************************************************************************************/
     @Nonnull

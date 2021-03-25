@@ -63,10 +63,10 @@ public class DefaultPresentationModel implements PresentationModel
      *
      *
      ******************************************************************************************************************/
-    public DefaultPresentationModel (@Nonnull final Object owner, @Nonnull final Collection<Object> rolesOrFactories)
+    public DefaultPresentationModel (@Nonnull final Object owner, @Nonnull final Collection<Object> roles)
       {
         this.owner = owner;
-        asSupport = new AsSupport(owner, rolesOrFactories);
+        asSupport = new AsSupport(owner, roles);
       }
 
     /*******************************************************************************************************************

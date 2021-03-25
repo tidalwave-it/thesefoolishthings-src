@@ -56,6 +56,8 @@ public @interface DciRole
      *
      * The datum type to which this role can be associated. Multiple data types can be specified.
      *
+     * @return    the datum type
+     *
      ******************************************************************************************************************/
     @Nonnull
     public Class<?>[] datumType();
@@ -64,6 +66,8 @@ public @interface DciRole
      *
      * The context type to which this role is restricted. If no context is specified, this role will be always
      * associated.
+     *
+     * @return    the context type
      *
      ******************************************************************************************************************/
     public Class<?> context() default NoContext.class;

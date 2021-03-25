@@ -38,8 +38,11 @@ public interface AsDelegate
   {
     /*******************************************************************************************************************
      *
+     * @param   <T>       the static type of the role
+     * @param   roleType  the dynamic type of the role
+     * @return            a collection of roles
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> Collection<? extends T> as (@Nonnull Class<T> clazz);
+    public <T> Collection<? extends T> as (@Nonnull Class<T> roleType);
   }

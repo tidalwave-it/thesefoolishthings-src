@@ -63,10 +63,10 @@ public class DefaultUserAction implements UserAction
      * @since  3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
-    public DefaultUserAction (@Nonnull final Callback callback, @Nonnull final Collection<Object> rolesOrFactories)
+    public DefaultUserAction (@Nonnull final Callback callback, @Nonnull final Collection<Object> roles)
       {
         this.callback = callback;
-        this.asSupport = new AsSupport(this, rolesOrFactories);
+        this.asSupport = new AsSupport(this, roles);
       }
 
     /*******************************************************************************************************************
@@ -76,9 +76,9 @@ public class DefaultUserAction implements UserAction
      *
      ******************************************************************************************************************/
     @Nonnull
-    public DefaultUserAction withRoles (@Nonnull final Collection<Object> rolesOrFactories)
+    public DefaultUserAction withRoles (@Nonnull final Collection<Object> roles)
       {
-        return new DefaultUserAction(callback, rolesOrFactories);
+        return new DefaultUserAction(callback, roles);
       }
 
     @Override

@@ -190,7 +190,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      *
      * @param   datumType       the type of the datum
      * @param   roleType        the type of the role to find
-     * @param                   the types of role implementations
+     * @return                  the types of role implementations
      *
      ******************************************************************************************************************/
     @Nonnull

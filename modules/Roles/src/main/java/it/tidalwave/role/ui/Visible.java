@@ -28,11 +28,11 @@ package it.tidalwave.role.ui;
 
 /***********************************************************************************************************************
  *
- * The role of an object that can be visible or not..
+ * The role of an object that can be visible or not.
  *
- * @stereotype Role
- * @since     3.2-ALPHA-7
- * @author  Fabrizio Giudici
+ * @stereotype  Role
+ * @author      Fabrizio Giudici
+ * @since       3.2-ALPHA-7
  *
  **********************************************************************************************************************/
 @FunctionalInterface
@@ -42,15 +42,23 @@ public interface Visible
 
     /*******************************************************************************************************************
      *
+     * A role that is always visible.
+     *
      ******************************************************************************************************************/
     public static final Visible VISIBLE = () -> true;
 
     /*******************************************************************************************************************
      *
+     * A role that is always invisible.
+     *
      ******************************************************************************************************************/
     public static final Visible INVISIBLE = () -> false;
 
     /*******************************************************************************************************************
+     *
+     * Returns the current visibility status.
+     *
+     * @return            {@code true} if the object is visible
      *
      ******************************************************************************************************************/
     @SuppressWarnings("UnusedReturnValue")

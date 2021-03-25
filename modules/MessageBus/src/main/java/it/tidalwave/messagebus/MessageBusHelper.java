@@ -126,7 +126,9 @@ public class MessageBusHelper
 
     /*******************************************************************************************************************
      *
+     * Publishes a message.
      *
+     * @param message     the message to deliver
      *
      ******************************************************************************************************************/
     public void publish (@Nonnull final Object message)
@@ -136,7 +138,11 @@ public class MessageBusHelper
 
     /*******************************************************************************************************************
      *
+     * Publishes a message.
      *
+     * @param <TOPIC>       the static type of the topic
+     * @param topicType     the dynamic type of the topic
+     * @param topic         the topic
      *
      ******************************************************************************************************************/
     public <TOPIC> void publish (@Nonnull final Class<TOPIC> topicType, @Nonnull final TOPIC topic)
@@ -145,8 +151,6 @@ public class MessageBusHelper
       }
 
     /*******************************************************************************************************************
-     *
-     *
      *
      ******************************************************************************************************************/
     private <TOPIC> void registerMessageListener (@Nonnull final Method method)

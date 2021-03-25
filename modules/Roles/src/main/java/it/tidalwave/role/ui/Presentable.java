@@ -52,7 +52,7 @@ public interface Presentable
      * Creates a {@link PresentationModel}.
      *
      * @return                  the {@code PresentationModel}
-     * @since   3.2-ALPHA-3 (refactored)
+     * @since                   3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
     public default PresentationModel createPresentationModel()
@@ -66,7 +66,7 @@ public interface Presentable
      *
      * @param  instanceRoles    the roles
      * @return                  the {@code PresentationModel}
-     * @since   3.2-ALPHA-3 (refactored)
+     * @since                   3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -78,7 +78,7 @@ public interface Presentable
      *
      * @param  instanceRole     the role
      * @return                  the {@code PresentationModel}
-     * @since   3.2-ALPHA-3
+     * @since                   3.2-ALPHA-3
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -90,7 +90,11 @@ public interface Presentable
 
     /*******************************************************************************************************************
      *
-     * @since         3.2-ALPHA-2
+     * Creates a default {@link Presentable} for the given object.
+     *
+     * @param   owner           the object
+     * @return                  the new instance
+     * @since                   3.2-ALPHA-2
      *
      ******************************************************************************************************************/
     @Nonnull

@@ -53,7 +53,12 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
 
     /*******************************************************************************************************************
      *
-     * @since 3.2-ALPHA-2
+     * Creates a new {@code BoundProperty} with the given initial value.
+     *
+     * @param <T>     the type of the property
+     * @param value   the initial value
+     * @return        the property
+     * @since         3.2-ALPHA-2
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -64,7 +69,8 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
 
     /*******************************************************************************************************************
      *
-     *
+     * {@inheritDoc}
+     *  This method fires a property change event associated to {@link #PROP_VALUE}.
      *
      ******************************************************************************************************************/
     @Override
@@ -77,7 +83,7 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
 
     /*******************************************************************************************************************
      *
-     *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override
@@ -88,7 +94,11 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
 
     /*******************************************************************************************************************
      *
+     * Binds this property to a {@link ChangingSource}. Every change in the value of the source will be synchronized to
+     * the value of this property. If the source is a {@link Changeable} binding will be bidirectional, that is the
+     * object will be set to the current value of this property and will be kept in sync.
      *
+     * @param     source    the source
      *
      ******************************************************************************************************************/
     public void bind (@Nonnull final ChangingSource<T> source)
@@ -105,7 +115,7 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
 
     /*******************************************************************************************************************
      *
-     *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override

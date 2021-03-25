@@ -88,7 +88,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
 
     /*******************************************************************************************************************
      *
-     *
+     * @param   collaboration   the collaboration
      *
      ******************************************************************************************************************/
     protected MessageSupport (@Nonnull final Collaboration collaboration)

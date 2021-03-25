@@ -50,7 +50,9 @@ public class Id implements Serializable, Comparable<Id>, StringValue
 
     /*******************************************************************************************************************
      *
-     * @since 3.2-ALPHA-2
+     * @param value   the id value
+     * @return        the new instance
+     * @since         3.2-ALPHA-2
      *
      ******************************************************************************************************************/
     @Nonnull

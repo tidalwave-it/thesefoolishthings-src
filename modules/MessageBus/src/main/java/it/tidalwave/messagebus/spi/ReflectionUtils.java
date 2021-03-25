@@ -75,7 +75,11 @@ public class ReflectionUtils
 
     /*******************************************************************************************************************
      *
+     * Navigates the hierarchy of the given object, top down, and applies the {@link MethodProcessor} to all the
+     * methods of each class, if not filtered out by the processor itself.
      *
+     * @param object            the object at the bottom of the hierarchy
+     * @param processor         the processor
      *
      ******************************************************************************************************************/
     public static void forEachMethodInTopDownHierarchy (@Nonnull final Object object,
@@ -92,7 +96,11 @@ public class ReflectionUtils
 
     /*******************************************************************************************************************
      *
+     * Navigates the hierarchy of the given object, bottom up, and applies the {@link MethodProcessor} to all the
+     * methods of each class, if not filtered out by the processor itself.
      *
+     * @param object            the object at the bottom of the hierarchy
+     * @param processor         the processor
      *
      ******************************************************************************************************************/
     public static void forEachMethodInBottomUpHierarchy (@Nonnull final Object object,
@@ -115,7 +123,10 @@ public class ReflectionUtils
 
     /*******************************************************************************************************************
      *
-     * Returns the hierarchy of the given class, starting from the highest.
+     * Returns the hierarchy of the given class, top down.
+     *
+     * @param   clazz               the clazz at the bottom of the hierarchy
+     * @return                      the hierarchy
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -133,7 +144,11 @@ public class ReflectionUtils
 
     /*******************************************************************************************************************
      *
+     * Checks whether an array of annotations contains an annotation of the given type.
      *
+     * @param   annotations         the annotations to check
+     * @param   annotationClass     the type of the required annotation
+     * @return                      true if the annotation is found
      *
      ******************************************************************************************************************/
     public static boolean containsAnnotation (@Nonnull final Annotation[] annotations,

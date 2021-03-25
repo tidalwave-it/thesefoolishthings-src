@@ -61,7 +61,8 @@ public class SimpleMessageBus implements MessageBus
     
     /*******************************************************************************************************************
      *
-     * 
+     * Creates a new instance with a {@link SimpleAsyncMessageDelivery} strategy for delivery. It will use its own
+     * thread pool.
      *
      ******************************************************************************************************************/
     public SimpleMessageBus() 
@@ -71,7 +72,9 @@ public class SimpleMessageBus implements MessageBus
 
     /*******************************************************************************************************************
      *
-     * 
+     * Creates a new instance given an executor and a {@link SimpleAsyncMessageDelivery} strategy for delivery.
+     *
+     * @param   executor          the {@link Executor}
      *
      ******************************************************************************************************************/
     public SimpleMessageBus (@Nonnull final Executor executor)
@@ -81,7 +84,10 @@ public class SimpleMessageBus implements MessageBus
     
     /*******************************************************************************************************************
      *
-     * 
+     * Creates a new instance given an executor and a strategy for delivery.
+     *
+     * @param   executor          the {@link Executor}
+     * @param   messageDelivery   the strategy for delivery
      *
      ******************************************************************************************************************/
     public SimpleMessageBus (@Nonnull final Executor executor, @Nonnull final MessageDelivery messageDelivery)
@@ -145,6 +151,11 @@ public class SimpleMessageBus implements MessageBus
 
     /*******************************************************************************************************************
      *
+     * Dispatches a message.
+     *
+     * @param   <TOPIC>   the static type of the topic
+     * @param   topic     the dynamic type of the topic
+     * @param   message   the message
      *
      ******************************************************************************************************************/
     protected <TOPIC> void dispatchMessage (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)

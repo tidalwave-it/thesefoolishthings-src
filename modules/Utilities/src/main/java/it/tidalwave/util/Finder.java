@@ -156,12 +156,13 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      * Tells the {@code Finder} that the specified type of results is expected.
      *
-     * @param   type      the expected type of results
-     * @return            the {@code Finder}
+     * @param <ANOTHER_TYPE>  the static type
+     * @param   type          the dynamic type
+     * @return                the {@code Finder}
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <AnotherType> Finder<AnotherType> ofType (@Nonnull Class<AnotherType> type);
+    public <ANOTHER_TYPE> Finder<ANOTHER_TYPE> ofType (@Nonnull Class<ANOTHER_TYPE> type);
 
     /*******************************************************************************************************************
      *

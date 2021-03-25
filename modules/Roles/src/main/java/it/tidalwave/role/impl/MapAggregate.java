@@ -40,7 +40,7 @@ import lombok.ToString;
 /***********************************************************************************************************************
  *
  * A map-based implementation of {@link Aggregate}.
- * This is no more a public class; use {@link Aggregate.of()} instead.
+ * This is no more a public class; use {@link Aggregate#of(String, Object)} instead.
  * @stereotype Role
  *
  * @param <TYPE>    the type of the aggregate

@@ -46,7 +46,7 @@ public @interface Actor
   {
     /*******************************************************************************************************************
      *
-     *
+     * @return  {@code true} if the actor is thread-safe
      *
      ******************************************************************************************************************/
     // Too bad @ThreadSafe doesn't have runtime retention
@@ -55,6 +55,8 @@ public @interface Actor
     /*******************************************************************************************************************
      *
      * The initial priority for the threads that will execute the code of the annotated actor.
+     *
+     * @return  the initial priority of the actor
      *
      ******************************************************************************************************************/
     public int initialPriority() default Thread.NORM_PRIORITY;

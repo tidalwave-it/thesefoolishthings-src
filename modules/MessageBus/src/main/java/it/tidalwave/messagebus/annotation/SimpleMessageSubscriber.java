@@ -54,6 +54,8 @@ public @interface SimpleMessageSubscriber
      *
      * The name of the source that this annotation refers to.
      *
+     * @return  the source name
+     *
      ******************************************************************************************************************/
     @Nonnull
     String source() default DEFAULT_SOURCE;
