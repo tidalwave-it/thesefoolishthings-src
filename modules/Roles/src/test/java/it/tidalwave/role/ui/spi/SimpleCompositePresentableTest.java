@@ -31,7 +31,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;

@@ -30,13 +30,11 @@ import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.MockAs;
 import it.tidalwave.util.spi.AsDelegateProvider;
-import it.tidalwave.util.impl.EmptyAsDelegateProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static it.tidalwave.util.Parameters.r;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************

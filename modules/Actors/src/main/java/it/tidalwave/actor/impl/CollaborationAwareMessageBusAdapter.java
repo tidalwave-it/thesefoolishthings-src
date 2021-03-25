@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 import it.tidalwave.messagebus.MessageBus;
 import it.tidalwave.messagebus.annotation.ListensTo;
-import it.tidalwave.messagebus.spi.ReflectionUtils;
 import it.tidalwave.actor.annotation.OriginatedBy;
 import it.tidalwave.actor.CollaborationCompletedMessage;
 import it.tidalwave.actor.CollaborationStartedMessage;
