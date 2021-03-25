@@ -88,10 +88,22 @@
         <dependency>
             <groupId>it.tidalwave.betterbeansbinding</groupId>
             <artifactId>betterbeansbinding-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>it.tidalwave.betterbeansbinding</groupId>
             <artifactId>betterbeansbinding-swingbinding</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>
