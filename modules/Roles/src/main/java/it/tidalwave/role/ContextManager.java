@@ -105,7 +105,8 @@ public interface ContextManager
 
         /***************************************************************************************************************
          *
-         * <b>This method is for testing only.</b> Sets the global {@link ContextManagerProvider}.
+         * <b>This method is for testing only.</b> Sets the global {@link ContextManagerProvider}. See note about
+         * {@link #reset()}.
          *
          * @param   provider    the provider
          * @see     #reset()
@@ -115,6 +116,21 @@ public interface ContextManager
           {
             contextManager = null;
             contextManagerProvider = provider;
+          }
+
+        /***************************************************************************************************************
+         *
+         * <b>This method is for testing only.</b> Resets the global {@link ContextManagerProvider}; it must be called
+         * at the test completion whenever {@link #set(ContextManagerProvider)} has been called, to avoid polluting the
+         * context of further tests.
+         *
+         * @see     #set(ContextManagerProvider)
+         *
+         **************************************************************************************************************/
+        public static void reset()
+          {
+            contextManager = null;
+            contextManagerProvider = null;
           }
       }
 
