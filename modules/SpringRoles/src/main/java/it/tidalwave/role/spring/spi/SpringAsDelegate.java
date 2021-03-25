@@ -108,7 +108,7 @@ class SpringAsDelegate implements AsDelegate
             roles.add(roleType.cast(owner));
           }
 
-        log.trace(">>>> as() returning {}", shortIds((List)roles));
+        log.trace(">>>> as() returning {}", shortIds(roles));
 
         return roles;
       }

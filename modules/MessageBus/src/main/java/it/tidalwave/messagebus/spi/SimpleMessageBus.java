@@ -139,15 +139,7 @@ public class SimpleMessageBus implements MessageBus
 
         for (final List<WeakReference<Listener<?>>> list : listenersMapByTopic.values())
           {
-            for (final Iterator<WeakReference<Listener<?>>> i = list.iterator(); i.hasNext(); )
-              {
-                final WeakReference<?> ref = i.next();
-
-                if ((ref.get() == null) || (ref.get() == listener))
-                  {
-                    i.remove();
-                  }
-              }
+            list.removeIf(ref -> (ref.get() == null) || (ref.get() == listener));
           }
       }
 

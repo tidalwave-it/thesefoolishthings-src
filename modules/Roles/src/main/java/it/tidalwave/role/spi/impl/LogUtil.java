@@ -73,7 +73,7 @@ public class LogUtil
               {
                 s.append(Arrays.stream(interfaces)
                                .filter(i -> !i.getPackage().getName().startsWith("java"))
-                               .map(i -> shortName(i)).collect(joining(", ", "{", "}")));
+                               .map(LogUtil::shortName).collect(joining(", ", "{", "}")));
               }
           }
 
@@ -108,7 +108,7 @@ public class LogUtil
 
         if (object instanceof Identifiable)
           {
-            s.append("/" + ((Identifiable)object).getId());
+            s.append("/").append(((Identifiable)object).getId());
           }
 
         return s.toString();

@@ -133,7 +133,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
 
         if (log.isTraceEnabled())
           {
-            log.trace(">>>> findRoles() returning: {}", shortIds((Collection)roles));
+            log.trace(">>>> findRoles() returning: {}", shortIds(roles));
           }
 
         return roles;
