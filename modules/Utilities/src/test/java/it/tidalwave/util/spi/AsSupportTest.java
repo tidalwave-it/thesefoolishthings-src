@@ -115,7 +115,7 @@ public class AsSupportTest
     @BeforeMethod
     public void setup()
       {
-        AsDelegateProvider.Locator.set(new EmptyAsDelegateProvider()); // reset
+        AsDelegateProvider.Locator.set(AsDelegateProvider.empty()); // reset
         owner = new Object();
         localRole1 = mock(Role1.class);
         localRole2 = mock(Role2.class);
