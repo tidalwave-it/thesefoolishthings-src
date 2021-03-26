@@ -15,12 +15,12 @@
     <packaging>jar</packaging>
     <name>TheseFoolishThings - Utilities</name>
     <description>
-        A collection of commmon utilities.
+        A collection of common utilities.
     </description>
 
     <properties>
         <stableAPI>true</stableAPI>
-        <!-- TestLogger is defined here and Surefire can't find it -->
+        <!-- TestLogger is defined here, so Surefire can't find it -->
         <tft.test.listeners />
     </properties>
 

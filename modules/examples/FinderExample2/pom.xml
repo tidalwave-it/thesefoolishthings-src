@@ -17,6 +17,10 @@
         A more complex example of Finder usage.
     </description>
 
+    <properties>
+        <tft.mainClass>it.tidalwave.thesefoolishthings.examples.finderexample2.FinderExample2</tft.mainClass>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -36,6 +40,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it-tidalwave-util</artifactId>

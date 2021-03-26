@@ -17,6 +17,10 @@
         A simple example of Finder usage.
     </description>
 
+    <properties>
+        <tft.mainClass>it.tidalwave.thesefoolishthings.examples.finderexample1.FinderExample1</tft.mainClass>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
