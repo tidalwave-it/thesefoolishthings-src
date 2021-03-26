@@ -34,8 +34,10 @@ import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+// START SNIPPET: finder
 public interface PersonRegistry2 extends PersonRegistry
   {
     @Override @Nonnull
-    public PersonFinder findPerson();    
+    public PersonFinder findPerson();
   }
+// END SNIPPET: finder

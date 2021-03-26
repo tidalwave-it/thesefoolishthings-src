@@ -35,11 +35,15 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+// START SNIPPET: person-finder
 public interface PersonFinder extends ExtendedFinderSupport<Person, PersonFinder>
   {
+    // START SNIPPET: new-methods
     @Nonnull
-    public PersonFinder withFirstName (@Nonnull String firstName);
+    public PersonFinder withFirstName (@Nonnull String regex);
 
     @Nonnull
-    public PersonFinder withLastName (@Nonnull String firstName);
+    public PersonFinder withLastName (@Nonnull String regex);
+    // END SNIPPET: new-methods
   }
+// END SNIPPET: person-finder

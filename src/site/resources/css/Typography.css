@@ -1,0 +1,320 @@
+body
+  {
+    font-family:     Muli, sans-serif;
+    font-size:       120%;
+    line-height:     1em;
+  }
+ 
+code, pre 
+  {
+    font-family:     "Andale Mono", "Courier New", monospace;
+  }
+ 
+pre 
+  {
+    font-size:       0.55em;
+  } 
+  
+code
+  {
+    background-color: #f0f0f0;
+  }
+  
+pre.prettyprint
+  {
+    /* background:       #EFF9EF url("/css/tab-code.png") no-repeat left top !important; */
+    background:       #EFEFF9; 
+    border-width:     0 !important;
+    padding-left:     50px !important;
+    padding-top:      10px !important;
+    padding-bottom:   10px !important;
+    padding-right:    10px !important;
+    margin-top:       20px !important;
+    margin-bottom:    20px !important;
+    border-radius:    8px !important;
+  }
+
+blockquote, div.note, div.tip, div.alert
+  {
+    padding-left:     50px;
+    padding-top:      10px;
+    padding-bottom:   10px;
+    padding-right:    10px;
+    margin-top:       20px;
+    margin-bottom:    20px;
+    border-radius:    8px;
+  }
+  
+blockquote 
+  {
+    background:       #f0f0f0;
+  }
+
+div.note 
+  {
+    background:       #fffce0 url("/css/tab-note.png") no-repeat left top;
+  }
+
+div.tip 
+  {
+    background:       #f8eaff url("/css/tab-pin.png") no-repeat left top;
+  }
+
+div.alert
+  {
+    background:       #F9D9D8 url("/css/tab-alert.png") no-repeat left top;
+  }
+
+/**************** CONTENT **********************************************************************************************/
+
+.container
+  {
+    font-size:       105%;
+    text-align:      justify;
+  }
+  
+.container a, 
+.container a:active, 
+.container a:link, 
+.container a:visited,
+.container a:hover
+  {
+    font-weight:     bold;
+  }
+  
+.container a:active 
+  {
+    outline:         none;
+  }
+
+.nw-blog-post-content p
+  {
+    text-indent: 1.8em;
+  }
+
+.container blockquote p, .note p, .tip p, .alert p
+  {
+    text-indent: 0;
+  }
+
+/*.container p -- for debugging purpose about the wrong right margin of text - it's cause by the merryweather font
+  {
+    border: 1px solid black;
+  }*/
+  
+.container p,
+/*.container blockquote,*/
+.container blockquote p,
+.container li
+  {
+    font-size:       70%;   
+    font-weight:     300;
+    line-height:     1.7em;
+  }
+
+.container blockquote
+  {
+    font-style:      italic;  
+  }
+
+.container h1,
+.container h2,
+.container h3,
+.container h4,
+.container h5,
+.container h6
+  {
+    font-family:     Questrial, Arial, sans-serif;
+    font-weight:     normal;
+  }
+  
+.container h2
+  {
+    font-size:       145%;
+    padding-bottom:  80px;
+  }
+
+.container h3 
+  {
+    font-size:       110%;
+  }
+
+.container h4
+  {
+    font-size:       95%;
+    padding-top:     40px;
+    padding-bottom:  20px;
+  }
+  
+.container h5
+  {
+    font-size:       85%;
+    padding-top:     20px;
+    padding-bottom:  10px;
+  }
+  
+.container h5 code
+  {
+    background:      none;  
+    font-size:       85%;
+  }
+  
+.container footer p
+  {
+    font-size:       52%;
+    font-style:      italic;
+    text-align:      left;
+    color:           black;
+  }
+
+/* We've hidden the <h2> Blog header, and blog title is replacing it. */
+div.nw-blog-post h3
+  {
+    font-size:       160%;
+    margin-bottom:   0.4em;
+  }
+
+.nw-blog-post-meta
+  {
+    font-family:     'PT Sans Narrow', Arial, sans-serif;
+    font-size:       60%;
+  }
+  
+.tags 
+  {
+    font-family:     'PT Sans Narrow', Arial, sans-serif;
+    font-size:       70%;
+  }
+  
+.nw-breadcrumb 
+  {
+    font-family:     Arial, sans-serif;
+    font-size:       80%;
+  }
+
+/**************** TOPBAR **********************************************************************************************/
+
+.topbar a, 
+.topbar p
+  {  
+    font-family:     "Arial", sans-serif;
+    font-size:       11pt;
+    font-weight:     normal !important;
+  }
+
+/**************** SIDEBAR *********************************************************************************************/
+
+.sidebar
+  {
+    font-size:       97%;
+  }
+
+.sidebar li 
+  {
+    font-family:     'PT Sans Narrow', Arial, sans-serif;
+  }
+
+.sidebar a, 
+.sidebar a:active, 
+.sidebar a:link, 
+.sidebar a:visited,
+.sidebar a:hover
+  {
+    font-family:     'PT Sans Narrow', Arial, sans-serif;
+    text-align:      left;
+    font-size:       120%;
+    font-weight:     bold;
+    text-decoration: none;
+  }
+
+.sidebar a:hover
+  {
+    text-decoration: underline;
+  }
+
+.sidebar h2
+  {
+    font-family:     "Arial", sans-serif;  
+    padding-bottom:  0px;
+    font-size:       100%;
+  }
+  
+.sidebar div.nw-sidebarSlot3 li
+  {
+    font-family:     "Arial", sans-serif !important;  
+    font-size:       83%;  
+  }
+  
+/****************        **********************************************************************************************/
+
+.nw-tags a,
+.nw-tags a:link,
+.nw-tags a:visited 
+  {
+    font-family: 'PT Sans Narrow', Arial, sans-serif;
+    font-size: 70%;
+  }
+
+/*.nw-content 
+.nw-content blockquote
+  {
+    font-style: italic;
+  }*/
+
+.firstLetter
+  {
+    font-size    : 3.4em;
+    display      : block;
+    float        : left;
+    margin-top   : 0.28em;
+    margin-left  : 0em;
+    margin-right : 0.04em;
+    height       : 0.6em;
+  }
+
+.firstLetter span
+  {
+    font-size    : 5.6em;   /* use 3.33em for two lines */
+    line-height  : 1.0em;
+  }
+
+.firstLetter + span
+  {
+    margin-left  : -0.5em;
+  }
+  
+.right-note
+  {
+    font-size:       60%;
+    text-align:      right;
+    margin-top:      1.0em;
+    margin-bottom:   1.0em;
+    font-family:     Muli, serif;
+  }
+  
+
+  
+div.diagram
+  {
+    margin-top:    60px;
+    margin-bottom: 60px;
+    text-align:    center;
+  }
+
+div.diagram p.caption
+  {
+    font-family:   Arial, sans-serif;
+    font-size:     65%;
+    font-style:    italic;
+    text-align:    center;
+    color:         #818181;
+    margin-top:    10px;
+    margin-bottom: 5px;
+  }
+
+pre strong
+  {
+    font-size:     110% !important;
+    font-weight:   900 !important;
+  }
+

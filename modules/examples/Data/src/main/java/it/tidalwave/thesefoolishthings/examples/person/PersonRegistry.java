@@ -34,12 +34,12 @@ import javax.annotation.Nonnull;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+// START SNIPPET: finder
 public interface PersonRegistry
   {
-    public static final Class<PersonRegistry> _PersonRegistry_ = PersonRegistry.class;
-
     @Nonnull
     public Finder<Person> findPerson();
 
     public void add (@Nonnull Person person);
   }
+// END SNIPPET: finder

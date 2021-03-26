@@ -32,11 +32,11 @@ import it.tidalwave.util.Finder;
 
 /***********************************************************************************************************************
  *
- * A utility interface for creating extended {@link Finder}s, it provides automatic covariant return types. MAke your
+ * A utility interface for creating extended {@link Finder}s, it provides automatic covariant return types. Make your
  * extended {@code Finder} interface to extend from this. For instance, a custom {@code Date} finder can be declared as:
  *
  * <pre>
- * public class DateFinder extends ExtendedFinderSupport&lt;Date, DateFinder&gt;
+ * public interface DateFinder extends ExtendedFinderSupport&lt;SomeClass, DateFinder&gt;
  *   {
  *     public DateFinder before (Date date);
  *
@@ -48,45 +48,28 @@ import it.tidalwave.util.Finder;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
+// START SNIPPET: declaration
 public interface ExtendedFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> extends Finder<TYPE>
   {
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
+    /** {@inheritDoc} */
     @Override @Nonnull
     public EXTENDED_FINDER from (@Nonnegative int firstResult);
 
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
+    /** {@inheritDoc} */
     @Override @Nonnull
     public EXTENDED_FINDER max (@Nonnegative int maxResults);
 
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public EXTENDED_FINDER withContext (@Nonnull Object context);
-    
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
+    /** {@inheritDoc} */
     @Override @Nonnull
     public EXTENDED_FINDER sort (@Nonnull SortCriterion criterion);
 
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
+    /** {@inheritDoc} */
     @Override @Nonnull
     public EXTENDED_FINDER sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
+
+    /** {@inheritDoc} */
+    @Override @Nonnull
+    public EXTENDED_FINDER withContext (@Nonnull Object context);
   }
+// END SNIPPET: declaration
+

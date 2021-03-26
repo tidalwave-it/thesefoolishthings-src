@@ -37,8 +37,7 @@ import lombok.Getter;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable
-@AllArgsConstructor @Getter
+@Immutable @AllArgsConstructor @Getter
 public class Person
   {
     final Id id;

@@ -126,8 +126,10 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @return                 the {@code Finder}
      *
      ******************************************************************************************************************/
+    // START SNIPPET: from
     @Nonnull
     public Finder<TYPE> from (@Nonnegative int firstResult);
+    // END SNIPPET: from
 
     /*******************************************************************************************************************
      *
@@ -137,9 +139,11 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @return                the {@code Finder}
      *
      ******************************************************************************************************************/
+    // START SNIPPET: max
     @Nonnull
     public Finder<TYPE> max (@Nonnegative int maxResults);
-    
+    // END SNIPPET: max
+
     /*******************************************************************************************************************
      *
      * Tells the {@code Finder} that results should be created with the given context. This method can be called 
@@ -222,8 +226,10 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @return            the searched items
      *
      ******************************************************************************************************************/
+    // START SNIPPET: results
     @Nonnull
     public List<? extends TYPE> results();
+    // END SNIPPET: results
 
     /*******************************************************************************************************************
      *
@@ -232,8 +238,10 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @return            the count of found items
      *
      ******************************************************************************************************************/
+    // START SNIPPET: count
     @Nonnegative
     public int count();
+    // END SNIPPET: count
 
     /*******************************************************************************************************************
      *
@@ -246,8 +254,10 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @since 3.2-ALPHA-1 (previously in Finder8)
      *
      ******************************************************************************************************************/
+    // START SNIPPET: optionalResult
     @Nonnull
     public default Optional<TYPE> optionalResult()
+    // END SNIPPET: optionalResult
       {
         try
           {
