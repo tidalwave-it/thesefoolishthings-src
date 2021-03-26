@@ -72,13 +72,11 @@ class DefaultPersonFinder2 extends FinderSupport<Person, PersonFinder> implement
     // END SNIPPET: private-constructor
 
     // START SNIPPET: clone-constructor
-    // other is the original object to be cloned
-    // holder is a holder of attributes
-    public DefaultPersonFinder2 (@Nonnull final DefaultPersonFinder2 other, @Nonnull final Object holder)
+    public DefaultPersonFinder2 (@Nonnull final DefaultPersonFinder2 other, @Nonnull final Object override)
       {
-        super(other, holder);
-        final DefaultPersonFinder2 source = getSource(DefaultPersonFinder2.class, other, holder);
-        this.persons = new ArrayList<Person>(source.persons);
+        super(other, override);
+        final DefaultPersonFinder2 source = getSource(DefaultPersonFinder2.class, other, override);
+        this.persons = source.persons;
         this.firstNameRegex = source.firstNameRegex;
         this.lastNameRegex = source.lastNameRegex;
       }
@@ -88,13 +86,13 @@ class DefaultPersonFinder2 extends FinderSupport<Person, PersonFinder> implement
     @Override @Nonnull
     public PersonFinder withFirstName (@Nonnull final String regex)
       {
-        return clone(new DefaultPersonFinder2(persons, regex, lastNameRegex));
+        return clonedWithOverride(new DefaultPersonFinder2(persons, regex, lastNameRegex));
       }
 
     @Override @Nonnull
     public PersonFinder withLastName (@Nonnull final String regex)
       {
-        return clone(new DefaultPersonFinder2(persons, firstNameRegex, regex));
+        return clonedWithOverride(new DefaultPersonFinder2(persons, firstNameRegex, regex));
       }
     // END SNIPPET: new-methods
 
