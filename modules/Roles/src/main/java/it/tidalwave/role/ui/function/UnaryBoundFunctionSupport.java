@@ -46,7 +46,7 @@ public abstract class UnaryBoundFunctionSupport<DOMAIN_TYPE, CODOMAIN_TYPE>
     protected UnaryBoundFunctionSupport (@Nonnull final ChangingSource<DOMAIN_TYPE> source)
       {
         this.source = source;
-        source.addPropertyChangeListener((PropertyChangeListener)event ->
+        source.addPropertyChangeListener(event ->
                 onSourceChange((DOMAIN_TYPE)event.getOldValue(), (DOMAIN_TYPE)event.getNewValue()));
       }
 
