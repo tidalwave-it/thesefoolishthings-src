@@ -152,21 +152,6 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     /*******************************************************************************************************************
      *
-     * @param <T>       the static type of the source
-     * @param type      the dynamic type of the source
-     * @param other     the other finder
-     * @param holder    the holder object
-     * @return          the source to use
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    protected static <T> T getSource (final Class<T> type, @Nonnull final T other, @Nonnull final Object holder)
-      {
-        return holder.getClass().equals(type) ? (T)holder : other;
-      }
-
-    /*******************************************************************************************************************
-     *
      * @deprecated
      *
      ******************************************************************************************************************/
@@ -178,7 +163,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     /*******************************************************************************************************************
      *
-     * Create a clone of this object calling the special clone constructor by reflection.
+     * Create a clone of this object calling the special copy constructor by reflection.
      *
      * @param   override  the override object
      * @return            the clone
@@ -397,7 +382,25 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
         return results;
       }
-    
+
+    /*******************************************************************************************************************
+     *
+     * An utility method used by the copy constructor (see general documentation). If the override object is strictly
+     * of the specified type, it is returned; otherwise the other object is returned.
+     *
+     * @param <T>       the static type of the source
+     * @param type      the dynamic type of the source
+     * @param other     the other finder
+     * @param override  the holder object
+     * @return          the override or other
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    protected static <T> T getSource (final Class<T> type, @Nonnull final T other, @Nonnull final Object override)
+      {
+        return override.getClass().equals(type) ? type.cast(override) : other;
+      }
+
     /*******************************************************************************************************************
      *
      *
