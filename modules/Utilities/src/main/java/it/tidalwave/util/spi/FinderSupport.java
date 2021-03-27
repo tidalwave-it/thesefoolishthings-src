@@ -55,7 +55,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  **********************************************************************************************************************/
 @Slf4j @AllArgsConstructor(access = AccessLevel.PRIVATE) @ToString
-public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implements Finder<TYPE>, Cloneable
+public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implements Finder<TYPE>
   {
     private static final long serialVersionUID = 2467809593956684L;
 
@@ -152,6 +152,10 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     /*******************************************************************************************************************
      *
+     * This method throws an exception since a {@code Finder} eztending this class must be cloned with 
+     * {@link #clonedWithOverride(Object)}.
+     * 
+     * @see #clonedWithOverride(Object) 
      * @deprecated
      *
      ******************************************************************************************************************/
@@ -194,7 +198,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      *
      ******************************************************************************************************************/
     @Nonnull @Deprecated
-    protected EXTENDED_FINDER clone2 (@Nonnull final Object override)
+    protected EXTENDED_FINDER clone (@Nonnull final Object override)
       {
         return clonedWithOverride(override);
       }
