@@ -28,20 +28,21 @@ package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.util.Finder;
+import lombok.NoArgsConstructor;
 
 /***********************************************************************************************************************
+ *
+ * A starting point for implementing a custom {@link Finder} that is not an extended finder. This class provides a
+ * dummy copy constructor.
  *
  * @author Fabrizio Giudici
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
+@NoArgsConstructor
 public abstract class SimpleFinderSupport<T> extends FinderSupport<T, Finder<T>>
   {
     private static final long serialVersionUID = 743059684933055L;
-
-    protected SimpleFinderSupport()
-      {
-      }
 
     protected SimpleFinderSupport (@Nonnull final String name)
       {
