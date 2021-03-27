@@ -55,8 +55,9 @@ public class JPAExampleFinderTest
     @Test
     public void testSimpleQuery()
       {
+        // when
         final List<? extends String> results = underTest.results();
-
+        // then
         assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p"));
         assertThat(emmh.firstResult, is(0));
         assertThat(emmh.maxResults, is(Integer.MAX_VALUE));
@@ -65,8 +66,9 @@ public class JPAExampleFinderTest
     @Test
     public void testQueryWithAscendingSortAndFirstMax()
       {
+        // when
         final List<? extends String> results = underTest.sort(BY_FIRST_NAME).from(2).max(4).results();
-
+        // then
         assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p ORDER BY p.firstName"));
         assertThat(emmh.firstResult, is(2));
         assertThat(emmh.maxResults, is(4));
@@ -75,8 +77,9 @@ public class JPAExampleFinderTest
     @Test
     public void testQueryWithDesccendingSortAndFirstMax()
       {
+        // when
         final List<? extends String> results = underTest.sort(BY_LAST_NAME, DESCENDING).from(2).max(4).results();
-
+        // then
         assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p ORDER BY p.lastName DESC"));
         assertThat(emmh.firstResult, is(2));
         assertThat(emmh.maxResults, is(4));
@@ -85,8 +88,9 @@ public class JPAExampleFinderTest
     @Test
     public void testQueryWithCount()
       {
+        // when
         final int count = underTest.count();
-
+        // then
         assertThat(emmh.sqlQuery, is("SELECT COUNT(*) FROM Person p"));
         assertThat(emmh.firstResult, is(0));
         assertThat(emmh.maxResults, is(Integer.MAX_VALUE));
