@@ -14,18 +14,22 @@ ${project.description}
 ${project.name} is **licensed** with the XYZ license.
 
 
+#[[##]]# Table of contents
+
+<!-- MACRO{toc|section=2|fromDepth=1|toDepth=4} -->
+
+
 #[[##]]# Modules
-
-+ [Actors](modules/it-tidalwave-actor/index.html)               [(Javadoc)](modules/it-tidalwave-actor/apidocs/index.html)
-<!-- MACRO{snippet|id=description|file=modules/Actors/pom.xml} -->
-
-+ [MessageBus](modules/it-tidalwave-messagebus/index.html)      [(Javadoc)](modules/it-tidalwave-messagebus/apidocs/index.html)
-
-+ [Roles](modules/it-tidalwave-role/index.html)                 [(Javadoc)](modules/it-tidalwave-role/apidocs/index.html)
 
 + [Utilities](modules/it-tidalwave-util/index.html)             [(Javadoc)](modules/it-tidalwave-util/apidocs/index.html)
 
++ [Roles](modules/it-tidalwave-role/index.html)                 [(Javadoc)](modules/it-tidalwave-role/apidocs/index.html)
+
 + [Test Utilities](modules/it-tidalwave-util-test/index.html)   [(Javadoc)](modules/it-tidalwave-util-test/apidocs/index.html)
+
++ [MessageBus](modules/it-tidalwave-messagebus/index.html)      [(Javadoc)](modules/it-tidalwave-messagebus/apidocs/index.html)
+
++ [Actors](modules/it-tidalwave-actor/index.html)               [(Javadoc)](modules/it-tidalwave-actor/apidocs/index.html)
 
 #[[##]]# General information
 #[[###]]# Maven dependency
@@ -68,6 +72,3 @@ There are also other **quality analysis tools** available:
 
 [Aggregate Javadoc](apidocs/index.html)
 
-#[[##]]# Table of contents
-
-<!-- MACRO{toc|section=1|fromDepth=1|toDepth=4} -->

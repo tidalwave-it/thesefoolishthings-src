@@ -8,7 +8,7 @@ The module ${project.name} is released with the XYZ license, as for the whole pr
 [Javadoc](apidocs/index.html)
 
 To use this component in your Maven project, add this snippet to your POM. Snippets for other build tool (such as Gradle) are available
-[here](dependency-info.html). The dependencies of this module are described [here](dependencies.html).
+[here](dependency-info.html). The dependencies of this module are described [here](dependency-info.html).
 
 ```xml
 <dependency>
@@ -22,7 +22,7 @@ To use this component in your Maven project, add this snippet to your POM. Snipp
 
 #[[##]]# Table of contents
 
-<!-- MACRO{toc|section=1|fromDepth=1|toDepth=3} -->
+<!-- MACRO{toc|section=2|fromDepth=1|toDepth=3} -->
 
 
 
@@ -36,11 +36,14 @@ A [```Finder```](apidocs/Finder) is a **factory for creating a query that extrac
 of persons to get some records according to certain **criteria**. The data source can be in-memory or a more sophisticated entity such a database. ```Finder``` has
 been designed with these main purposes:
 
-1. To provide a **fluent** and **extensible** API to **declutter** che available methods.
+1. To provide a **fluent** and **extensible** API to **declutter** the exposed methods.
 2. To possibly **cooperate with the data source and optimize the query**, for speed and memory (minimizing the amount of data to bring in memory).
 3. To provide a design pattern in which the parameters that drive the search can be **composed in different parts of the application**; for instance, code in
 the presentation tier might rely upon a half-baked query provided in the business tier and specify additional criteria (sorting, filtering, pagination).
 4. To provide a decoupling abstraction from the implementation of the data source.
+
+![UML](apidocs/it/tidalwave/util/Finder.svg)
+
 
 ```Finder```'s methods can be either **intermediate** or **termination**:
 
@@ -115,6 +118,8 @@ To address this problem a specific interface named ```ExtendedFinderSupport``` i
 overriding their return value type (in our example to ```PersonFinder``` in place of ```Finder<Person>```). This is possible thanks to the fact that Java features
 [covariant return type](https://www.baeldung.com/java-covariant-return-type).
 
+![UML](apidocs/it/tidalwave/util/spi/ExtendedFinderSupport.svg)
+
 ```ExtendedFinderSupport``` takes two generics: the type of the managed object (```Person```) and type of the new ```Finder``` (```PersonFinder```). To better
 understand this, have a look at the```ExtendedFinderSupport``` source:
 
@@ -145,8 +150,11 @@ Let's now focus on intermediate methods. They usually don't do anything smart, b
 a ```Finder``` must be immutable, they can't change the internal state: they rather must **create and return a cloned ```Finder```** with the original state
 and only a single field changed. This is a typical approach for immutable objects.
 
-If one doesn't want to reimplement from scratch the basic behaviour of a ```Finder```, the class ```FinderSupport``` can be extended. In this case the intermediate
-methods need to call a predefined ```clone()``` method by passing an **incomplete finder** populated with the changed field:
+If one doesn't want to reimplement from scratch the basic behaviour of a ```Finder```, the class ```FinderSupport``` can be extended.
+
+![UML](apidocs/it/tidalwave/util/spi/FinderSupport.svg)
+
+In this case the intermediate methods need to call a predefined ```clone()``` method by passing an **incomplete finder** populated with the changed field:
 
 <!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/DefaultPersonFinder2.java} -->
 
