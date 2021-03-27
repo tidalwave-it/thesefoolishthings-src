@@ -7,16 +7,16 @@
 ${project.name}
 ==================
 
+#[[##]]# Table of contents
+
+<!-- MACRO{toc|section=0|fromDepth=1|toDepth=4} -->
+
+
 #[[##]]# Introduction
 
 ${project.description}
 
 ${project.name} is **licensed** with the XYZ license.
-
-
-#[[##]]# Table of contents
-
-<!-- MACRO{toc|section=0|fromDepth=1|toDepth=4} -->
 
 
 #[[##]]# Modules
