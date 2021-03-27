@@ -21,7 +21,7 @@
         <tft.javac.release>11</tft.javac.release>
 
         <betterbeansbinding.version>1.3.0</betterbeansbinding.version>
-        <javax.persistence>1.0</javax.persistence>
+        <javax.persistence>2.2</javax.persistence>
         <xstream.version>1.4.15</xstream.version>
     </properties>
     <description>
@@ -37,7 +37,7 @@
             </dependency>
             <dependency>
                 <groupId>javax.persistence</groupId>
-                <artifactId>persistence-api</artifactId>
+                <artifactId>javax.persistence-api</artifactId>
                 <version>${javax.persistence}</version>
             </dependency>
             <dependency>

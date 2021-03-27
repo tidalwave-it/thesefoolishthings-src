@@ -30,6 +30,8 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import static org.mockito.Mockito.*;
@@ -43,7 +45,7 @@ public class EntityManagerMockHolder
   {
     public final EntityManager em = mock(EntityManager.class);
     
-    private final Query query = mock(Query.class);
+    private final TypedQuery query = mock(TypedQuery.class);
     
     public String sqlQuery;
     
@@ -53,10 +55,10 @@ public class EntityManagerMockHolder
 
     public EntityManagerMockHolder() 
       {
-        when(em.createQuery(anyString())).thenAnswer(new Answer<Query>() 
+        when(em.createQuery(anyString(), any())).thenAnswer(new Answer<TypedQuery<?>>()
           {
             @Nonnull
-            public Query answer (@Nonnull final InvocationOnMock invocation)
+            public TypedQuery<?> answer (@Nonnull final InvocationOnMock invocation)
               {
                 sqlQuery = (String)invocation.getArguments()[0];
                 return query;  
@@ -66,7 +68,7 @@ public class EntityManagerMockHolder
         when(query.setFirstResult(anyInt())).thenAnswer(new Answer<Query>() 
           {
             @Nonnull
-            public Query answer (@Nonnull final InvocationOnMock invocation)
+            public TypedQuery<?> answer (@Nonnull final InvocationOnMock invocation)
               {
                 firstResult = (Integer)invocation.getArguments()[0];
                 return query;
@@ -76,14 +78,14 @@ public class EntityManagerMockHolder
         when(query.setMaxResults(anyInt())).thenAnswer(new Answer<Query>() 
           {
             @Nonnull
-            public Query answer (@Nonnull final InvocationOnMock invocation)
+            public TypedQuery<?> answer (@Nonnull final InvocationOnMock invocation)
               {
                 maxResults = (Integer)invocation.getArguments()[0];
                 return query;
               }
           });
         
-        when(query.getResultList()).thenReturn(new ArrayList<String>());
+        when(query.getResultList()).thenReturn(new ArrayList<Person>());
         when(query.getSingleResult()).thenReturn(1);
       }
   }

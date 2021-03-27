@@ -28,15 +28,20 @@ package it.tidalwave.thesefoolishthings.examples.finderexample3;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.SortDirection;
-import it.tidalwave.util.NotFoundException;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
+import it.tidalwave.util.Pair;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
@@ -44,21 +49,18 @@ import lombok.AllArgsConstructor;
  *
  **********************************************************************************************************************/
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class JPAExampleFinder implements Finder<String>
+public class JPAExampleFinder implements Finder<Person>
   {
-    private static class JpaqlSortCriterion implements SortCriterion
+    @RequiredArgsConstructor
+    public static class JpaqlSortCriterion implements SortCriterion
       {
         @Nonnull
         private final String field;
 
-        public JpaqlSortCriterion (@Nonnull final String field)
-          {
-            this.field = field;
-          }
-        
         public String processSql (@Nonnull final String sql, @Nonnull final SortDirection sortDirection)
           {
-            return sql + " ORDER BY " + field + ((sortDirection == SortDirection.DESCENDING) ? " DESC" : "");  
+            final String orderBy = sql.contains("ORDER BY") ? ", " : " ORDER BY ";
+            return sql + orderBy + field + ((sortDirection == SortDirection.DESCENDING) ? " DESC" : "");
           }
       }
     
@@ -67,87 +69,93 @@ public class JPAExampleFinder implements Finder<String>
             
     @Nonnull
     private final EntityManager em;
-    
+
+    @Nonnegative
     private final int firstResult;
+
+    @Nonnegative
     private final int maxResults;
+
+    @Nonnull
     private final String sql;
+
+    @Nonnull
+    private final List<Pair<JpaqlSortCriterion, SortDirection>> sortCriteria;
+
 
     public JPAExampleFinder (@Nonnull final EntityManager em)
       {
-        this.em = em;
-        sql = " FROM Person p";
-        firstResult = 0;
-        maxResults = Integer.MAX_VALUE;
+        this(em, 0, Integer.MAX_VALUE, " FROM Person p", new ArrayList<>());
       }
 
-    @Nonnull
-    public Finder<String> from (@Nonnegative final int firstResult)
+    @Override @Nonnull
+    public Finder<Person> from (@Nonnegative final int firstResult)
       {
-        return new JPAExampleFinder(em, firstResult, maxResults, sql);
+        return new JPAExampleFinder(em, firstResult, maxResults, sql, sortCriteria);
       }
 
-    @Nonnull
-    public Finder<String> max (@Nonnegative final int maxResults)
+    @Override @Nonnull
+    public Finder<Person> max (@Nonnegative final int maxResults)
       {
-        return new JPAExampleFinder(em, firstResult, maxResults, sql);
+        return new JPAExampleFinder(em, firstResult, maxResults, sql, sortCriteria);
       }
 
-    @Nonnull
-    public Finder<String> sort (@Nonnull final SortCriterion criterion)
+    @Override @Nonnull
+    public Finder<Person> sort (@Nonnull final SortCriterion criterion)
       {
         return sort(criterion, SortDirection.ASCENDING);
       }
 
-    @Nonnull
-    public Finder<String> sort (@Nonnull final SortCriterion criterion,
-                                @Nonnull final SortDirection direction)
+    @Override @Nonnull
+    public Finder<Person> sort (@Nonnull final SortCriterion criterion, @Nonnull final SortDirection direction)
       {
-        if (criterion instanceof JpaqlSortCriterion)
-          {
-            final String newSql = ((JpaqlSortCriterion)criterion).processSql(this.sql, direction);
-            return new JPAExampleFinder(em, firstResult, maxResults, newSql);
-          }
-        else
+        if (!(criterion instanceof JpaqlSortCriterion))
           {
             throw new IllegalArgumentException("Can't sort by " + criterion);
           }
+
+        final List<Pair<JpaqlSortCriterion, SortDirection>> temp = new ArrayList<>(sortCriteria);
+        temp.add(Pair.of((JpaqlSortCriterion)criterion, direction));
+        return new JPAExampleFinder(em, firstResult, maxResults, sql, temp);
       }
 
-    @Nonnull
-    public String result() 
-      throws NotFoundException 
+    @Override @Nonnull
+    public Optional<Person> optionalResult()
       {
-        if (count() > 1)
+        final List<? extends Person> results = results();
+
+        if (results.size() > 1)
           {
-            throw new RuntimeException("More than one single result");  
+            throw new RuntimeException("More than a single result");
           }
-        
-        return firstResult();
+
+        return (Optional<Person>)results.stream().findFirst();
       }
 
-    @Nonnull
-    public String firstResult() throws NotFoundException
+    @Override @Nonnull
+    public Optional<Person> optionalFirstResult()
       {
-        return NotFoundException.throwWhenNull((String)createQuery("SELECT p.firstName").getSingleResult(), "");
+        return Optional.of(createQuery(Person.class, "SELECT p.firstName").getSingleResult());
       }
 
-    @Nonnull
-    public List<? extends String> results() 
+    @Override @Nonnull
+    public List<? extends Person> results()
       {
-        return createQuery("SELECT p.firstName").getResultList();
+        return createQuery(Person.class,"SELECT p.firstName").getResultList();
       }
 
-    @Nonnegative
-    public int count() 
+    @Override @Nonnegative
+    public int count()
       {
-        return (Integer)createQuery("SELECT COUNT(*)").getSingleResult();
+        return createQuery(Integer.class, "SELECT COUNT(*)").getSingleResult();
       }
     
     @Nonnull
-    private Query createQuery (@Nonnull final String sqlPrefix)
+    private <S> TypedQuery<S> createQuery (@Nonnull final Class<S> type, @Nonnull final String jpaqlPrefix)
       {
-        return em.createQuery(sqlPrefix + sql).setMaxResults(maxResults)
-                                              .setFirstResult(firstResult);
-        
+        final AtomicReference<String> temp = new AtomicReference<>(sql);
+        sortCriteria.forEach(p -> temp.set(p.a.processSql(temp.get(), p.b)));
+        final String jpaql = jpaqlPrefix + temp.get();
+        return em.createQuery(jpaql, type).setMaxResults(maxResults).setFirstResult(firstResult);
       }
   }

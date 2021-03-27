@@ -27,6 +27,7 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample3;
 
 import java.util.List;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import static it.tidalwave.util.Finder.SortDirection.*;
@@ -56,7 +57,7 @@ public class JPAExampleFinderTest
     public void testSimpleQuery()
       {
         // when
-        final List<? extends String> results = underTest.results();
+        final List<? extends Person> results = underTest.results();
         // then
         assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p"));
         assertThat(emmh.firstResult, is(0));
@@ -67,7 +68,7 @@ public class JPAExampleFinderTest
     public void testQueryWithAscendingSortAndFirstMax()
       {
         // when
-        final List<? extends String> results = underTest.sort(BY_FIRST_NAME).from(2).max(4).results();
+        final List<? extends Person> results = underTest.sort(BY_FIRST_NAME).from(2).max(4).results();
         // then
         assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p ORDER BY p.firstName"));
         assertThat(emmh.firstResult, is(2));
@@ -78,11 +79,24 @@ public class JPAExampleFinderTest
     public void testQueryWithDesccendingSortAndFirstMax()
       {
         // when
-        final List<? extends String> results = underTest.sort(BY_LAST_NAME, DESCENDING).from(2).max(4).results();
+        final List<? extends Person> results = underTest.sort(BY_LAST_NAME, DESCENDING).from(2).max(4).results();
         // then
         assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p ORDER BY p.lastName DESC"));
         assertThat(emmh.firstResult, is(2));
         assertThat(emmh.maxResults, is(4));
+      }
+
+    @Test
+    public void testQueryWithDoubleSortAndFirstMax()
+      {
+        // when
+        final List<? extends Person> results = underTest.sort(BY_LAST_NAME, DESCENDING)
+                                                        .sort(BY_FIRST_NAME, ASCENDING)
+                                                        .results();
+        // then
+        assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p ORDER BY p.lastName DESC, p.firstName"));
+        assertThat(emmh.firstResult, is(0));
+        assertThat(emmh.maxResults, is(Integer.MAX_VALUE));
       }
 
     @Test
