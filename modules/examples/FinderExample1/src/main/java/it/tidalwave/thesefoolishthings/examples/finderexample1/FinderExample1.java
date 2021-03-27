@@ -27,15 +27,14 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
-import static it.tidalwave.util.Finder.SortDirection.*;
-import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
-import it.tidalwave.thesefoolishthings.examples.person.Utils;
-import it.tidalwave.util.Finder;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import it.tidalwave.util.Finder;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
+import it.tidalwave.thesefoolishthings.examples.person.Utils;
+import static it.tidalwave.util.Finder.SortDirection.*;
+import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
 
 /***********************************************************************************************************************
  *

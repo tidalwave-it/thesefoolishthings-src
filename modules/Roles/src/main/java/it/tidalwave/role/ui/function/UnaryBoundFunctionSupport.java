@@ -27,7 +27,6 @@
 package it.tidalwave.role.ui.function;
 
 import javax.annotation.Nonnull;
-import java.beans.PropertyChangeListener;
 import it.tidalwave.role.ui.ChangingSource;
 
 /***********************************************************************************************************************

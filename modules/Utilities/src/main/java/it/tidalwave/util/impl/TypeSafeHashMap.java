@@ -81,7 +81,7 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Override @Nonnull @SuppressWarnings("unchecked")
+    @Override @Nonnull
     public <T> T get (@Nonnull final Key<T> key)
       throws NotFoundException
       {
