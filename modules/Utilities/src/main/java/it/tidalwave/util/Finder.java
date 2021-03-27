@@ -259,34 +259,6 @@ public interface Finder<TYPE> extends Cloneable, Serializable
 
     /*******************************************************************************************************************
      *
-     * Performs the search assuming that it will return a single item and returns it. This method fails if the search
-     * returns more than one single item.
-     *
-     * @return                    the found item
-     * @throws NotFoundException  if the search didn't find anything
-     * @throws RuntimeException   if the search returned more than one single item
-     * @deprecated                Use {@link #optionalResult()} instead
-     *
-     ******************************************************************************************************************/
-    @Nonnull @Deprecated
-    public TYPE result()
-      throws NotFoundException, RuntimeException;
-
-    /*******************************************************************************************************************
-     *
-     * Performs the search and returns only the first found item.
-     *
-     * @return                    the first found item
-     * @throws NotFoundException  if the search didn't find anything
-     * @deprecated                Use {@link #optionalFirstResult()} ()} instead
-     *
-     ******************************************************************************************************************/
-    @Nonnull @Deprecated
-    public TYPE firstResult()
-      throws NotFoundException;
-
-    /*******************************************************************************************************************
-     *
      * Performs the search and returns the found items.
      *
      * @return            the searched items
@@ -323,17 +295,17 @@ public interface Finder<TYPE> extends Cloneable, Serializable
     // START SNIPPET: optionalResult
     @Nonnull
     public default Optional<TYPE> optionalResult()
-    // END SNIPPET: optionalResult
       {
-        try
+        final List<TYPE> results = (List<TYPE>)results();
+
+        if (results.size() > 1)
           {
-            return Optional.of(result());
+            throw new RuntimeException("" + results.size() + " results, expected only one");
           }
-        catch (NotFoundException e)
-          {
-            return Optional.empty();
-          }
+
+        return results.stream().findFirst();
       }
+    // END SNIPPET: optionalResult
 
     /*******************************************************************************************************************
      *
@@ -346,14 +318,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
     @Nonnull
     public default Optional<TYPE> optionalFirstResult()
       {
-        try
-          {
-            return Optional.of(firstResult());
-          }
-        catch (NotFoundException e)
-          {
-            return Optional.empty();
-          }
+        return stream().findFirst();
       }
 
     /*******************************************************************************************************************
@@ -382,6 +347,40 @@ public interface Finder<TYPE> extends Cloneable, Serializable
     public default Iterator<TYPE> iterator()
       {
         return ((List<TYPE>)results()).iterator();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Performs the search assuming that it will return a single item and returns it. This method fails if the search
+     * returns more than one single item.
+     *
+     * @return                    the found item
+     * @throws NotFoundException  if the search didn't find anything
+     * @throws RuntimeException   if the search returned more than one single item
+     * @deprecated                Use {@link #optionalResult()} instead
+     *
+     ******************************************************************************************************************/
+    @Nonnull @Deprecated
+    public default TYPE result()
+            throws NotFoundException, RuntimeException
+      {
+        return optionalResult().orElseThrow(NotFoundException::new);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Performs the search and returns only the first found item.
+     *
+     * @return                    the first found item
+     * @throws NotFoundException  if the search didn't find anything
+     * @deprecated                Use {@link #optionalFirstResult()} ()} instead
+     *
+     ******************************************************************************************************************/
+    @Nonnull @Deprecated
+    public default TYPE firstResult()
+            throws NotFoundException
+      {
+        return optionalFirstResult().orElseThrow(NotFoundException::new);
       }
 
     /*******************************************************************************************************************
