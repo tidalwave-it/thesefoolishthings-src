@@ -27,19 +27,20 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import it.tidalwave.util.Finder.SortCriterion;
-import it.tidalwave.util.DefaultFilterSortCriterion;
+import it.tidalwave.util.Finder.InMemorySortCriterion;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
+import static java.util.Comparator.comparing;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public final class PersonSortCriterion
+public final class PersonSortCriteria
   {
-    public static final SortCriterion BY_FIRST_NAME = new DefaultFilterSortCriterion<Person>(
-            (p1, p2) -> p1.getFirstName().compareTo(p2.getFirstName()), "BY_FIRST_NAME");
+    public static final SortCriterion BY_FIRST_NAME =
+            InMemorySortCriterion.of(comparing(Person::getFirstName), "BY_FIRST_NAME");
 
-    public static final SortCriterion BY_LAST_NAME = new DefaultFilterSortCriterion<Person>(
-            (p1, p2) -> p1.getLastName().compareTo(p2.getLastName()), "BY_LAST_NAME");
+    public static final SortCriterion BY_LAST_NAME =
+            InMemorySortCriterion.of(comparing(Person::getLastName), "BY_LAST_NAME");
   }

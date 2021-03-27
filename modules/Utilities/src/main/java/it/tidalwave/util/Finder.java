@@ -30,12 +30,19 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 import java.io.Serializable;
 import it.tidalwave.util.impl.ArrayListFinder;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /***********************************************************************************************************************
  *
@@ -52,19 +59,17 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * A tag interface to mark objects which are meaningful sort criteria that can be passed to
      * {@link Finder#sort(it.tidalwave.util.Finder.SortCriterion)}. In general, a {@code SortCriterion} is just a
      * behaviourless and methodless object, that should be specifically handled by concrete implementations of
-     * {@link Finder}. The only exceptions are {@link FilterSortCriterion} objects.
+     * {@link Finder}. The only exceptions are {@link InMemorySortCriterion} objects.
      *
      ******************************************************************************************************************/
     public static interface SortCriterion
       {
-        //@bluebook-ignore-begin
         public static final Class<SortCriterion> _SortCriterion_ = SortCriterion.class;
 
         /** A special {@link SortCriterion} which indicates that no sort has been performed. */
-        public static final SortCriterion UNSORTED = (FilterSortCriterion<Object>)(results, sortDirection) -> {};
+        public static final SortCriterion UNSORTED = (InMemorySortCriterion<Object>)(results, sortDirection) -> {};
 
         public static final SortCriterion DEFAULT = UNSORTED;
-        //@bluebook-ignore-end
       }
 
     /*******************************************************************************************************************
@@ -73,13 +78,23 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * by themselves the sorting of objects, by post-processing an existing collection of objects. While this is often
      * convenient, it is possible for it to be inefficient in cases in which the original source of objects is capable
      * to perform the sort in an optimized way (e.g. a SQL database by means of {@code ORDER BY}}. The facility class
-     * {@link it.tidalwave.util.spi.FinderSupport} supports {@code FilterSortCriterion} objects out of the box. A
-     * convenient partial
-     * implementation of {@code FilterSortCriterion} is {@link DefaultFilterSortCriterion}.
+     * {@link it.tidalwave.util.spi.FinderSupport} supports {@code FilterSortCriterion} objects out of the box.
      *
      ******************************************************************************************************************/
-    public static interface FilterSortCriterion<TYPE> extends SortCriterion
+    public static interface InMemorySortCriterion<TYPE> extends SortCriterion
       {
+        /***************************************************************************************************************
+         *
+         * Performs the sort of results.
+         *
+         * @param  results        the list of objects to be sorted in place
+         *
+         **************************************************************************************************************/
+        public default void sort (@Nonnull List<? extends TYPE> results)
+          {
+            sort(results, SortDirection.ASCENDING);
+          }
+
         /***************************************************************************************************************
          *
          * Performs the sort of results.
@@ -89,6 +104,58 @@ public interface Finder<TYPE> extends Cloneable, Serializable
          *
          **************************************************************************************************************/
         public void sort (@Nonnull List<? extends TYPE> results, @Nonnull SortDirection sortDirection);
+
+        /***************************************************************************************************************
+         *
+         * Creates a new in-memory {@code SortCriterion} based on a {@link Comparator}.
+         *
+         * @param <T>           the type of the objects to compare
+         * @param comparator    the {@code Comparator}
+         * @return              the new {@code SortCriterion}
+         *
+         **************************************************************************************************************/
+        @Nonnull
+        public static <T> SortCriterion of (@Nonnull final Comparator<? super T> comparator)
+          {
+            return new DefaultInMemorySortCriterion<>(comparator, comparator.getClass().getSimpleName());
+          }
+
+        /***************************************************************************************************************
+         *
+         * Creates a new in-memory {@code SortCriterion} based on a {@link Comparator}.
+         *
+         * @param <T>           the type of the objects to compare
+         * @param comparator    the {@code Comparator}
+         * @param name          a name
+         * @return              the new {@code SortCriterion}
+         *
+         **************************************************************************************************************/
+        @Nonnull
+        public static <T> SortCriterion of (@Nonnull final Comparator<? super T> comparator, @Nonnull final String name)
+          {
+            return new DefaultInMemorySortCriterion<>(comparator, name);
+          }
+
+        /***************************************************************************************************************
+         *
+         **************************************************************************************************************/
+        @AllArgsConstructor @ToString @EqualsAndHashCode
+        static class DefaultInMemorySortCriterion<T> implements Finder.InMemorySortCriterion<T>, Serializable
+          {
+            private static final long serialVersionUID = 76093596048395982L;
+
+            @Nonnull
+            private final Comparator<? super T> comparator;
+
+            @Nonnull
+            private final String name;
+
+            @Override
+            public void sort (@Nonnull final List<? extends T> results, @Nonnull final SortDirection sortDirection)
+              {
+                results.sort((Comparator<T>)(o1, o2) -> comparator.compare(o1, o2) * sortDirection.intValue());
+              }
+          }
       }
 
     /*******************************************************************************************************************
@@ -98,24 +165,18 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @it.tidalwave.javadoc.stable
      *
      ******************************************************************************************************************/
+    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
     public static enum SortDirection
       {
         ASCENDING(+1), DESCENDING(-1);
-        //@bluebook-ignore-begin
 
         private final int intValue;
-
-        private SortDirection (final int intValue)
-          {
-            this.intValue = intValue;
-          }
 
         /** @return  +1 for ascending direction, -1 for descending */
         public int intValue()
           {
             return intValue;
           }
-        //@bluebook-ignore-end
       }
 
     /*******************************************************************************************************************

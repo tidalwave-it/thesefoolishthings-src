@@ -33,7 +33,7 @@ import it.tidalwave.thesefoolishthings.examples.person.Utils;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import static it.tidalwave.util.Finder.SortDirection.*;
-import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
+import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriteria.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 

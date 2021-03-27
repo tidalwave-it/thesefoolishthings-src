@@ -34,7 +34,7 @@ import it.tidalwave.util.NotFoundException;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.person.Utils;
 import static it.tidalwave.util.Finder.SortDirection.*;
-import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriterion.*;
+import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriteria.*;
 
 /***********************************************************************************************************************
  *

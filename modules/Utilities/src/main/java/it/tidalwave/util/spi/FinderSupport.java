@@ -61,10 +61,10 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     static class Sorter<Type>
       {
-        private final FilterSortCriterion<Type> sortCriterion;
+        private final InMemorySortCriterion<Type> sortCriterion;
         private final SortDirection sortDirection;
 
-        public Sorter (@Nonnull final FilterSortCriterion<Type> sortCriterion,
+        public Sorter (@Nonnull final InMemorySortCriterion<Type> sortCriterion,
                        @Nonnull final SortDirection sortDirection)
           {
             this.sortCriterion = sortCriterion;
@@ -257,15 +257,15 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     public EXTENDED_FINDER sort (@Nonnull final SortCriterion criterion,
                                  @Nonnull final SortDirection direction)
       {
-        if (criterion instanceof FilterSortCriterion)
+        if (criterion instanceof Finder.InMemorySortCriterion)
           {
             final List<Sorter<TYPE>> sorters = concat(this.sorters,
-                                                      new Sorter<>((FilterSortCriterion<TYPE>)criterion, direction));
+                                                      new Sorter<>((InMemorySortCriterion<TYPE>)criterion, direction));
             return clonedWithOverride(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
           }
 
         final String template = "%s does not implement %s - you need to subclass Finder and override sort()";
-        final String message = String.format(template, criterion, FilterSortCriterion.class);
+        final String message = String.format(template, criterion, InMemorySortCriterion.class);
         throw new UnsupportedOperationException(message);
       }
 
