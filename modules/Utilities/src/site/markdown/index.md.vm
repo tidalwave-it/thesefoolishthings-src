@@ -22,7 +22,7 @@ To use this component in your Maven project, add this snippet to your POM. Snipp
 
 #[[##]]# Table of contents
 
-<!-- MACRO{toc|section=2|fromDepth=1|toDepth=3} -->
+<!-- MACRO{toc|section=0|fromDepth=1|toDepth=3} -->
 
 
 
@@ -188,6 +188,8 @@ the ```override``` object: if it is our same type, it's the incomplete ```Finder
 initialize as in a regular clone constructor, from the ```other``` object. A convenience method ```getSource()``` performs the decision for us. Of course we
 need to call the ```super()``` constructor to make sure everything is fine (but no details of the super class are exposed by it).
 
+![UML](${project.basedir}/../../modules/examples/FinderExample2/apidocs/it/tidalwave/thesefoolishthings/examples/finderexample2/package.svg)
+
 Is it a bit clumsy? Admittedly it is, even though the code is simple and clean: once the concept is clear, it's easy to write a copy constructor for a new
 extended ```Finder```. Part of the clumsiness derives from the complexity of inheritance, that we are trying to work around. If you don't like this approach,
 you aren't forced to extend ```FinderSupport``` and you can provide your own implementation. One based on composition (partially delegating to
@@ -195,7 +197,7 @@ you aren't forced to extend ```FinderSupport``` and you can provide your own imp
 TheseFoolishThings nature to explore unusual ways of designing things.
 
 Note: if you are perplexed by the concept of “incomplete” ```Finder``` (which is a curious thing indeed, a short-lived object used for a purpose that differs
-from its actual purpose, even though it's not far from the PROTOYPE? patter) you can use a simpler value object just holding the required values. Since
+from its actual purpose, even though it's not far from the PROTOYPE? pattern) you can use a simpler value object just holding the required values. Since
 ```override``` is a generic ```Object```, it will work. Again, this approach requires some more code to write; but here
 [```@Data```](https://projectlombok.org/features/Data) annotation from Lombok or
 [Java 16 records](https://mail.openjdk.java.net/pipermail/amber-spec-experts/2020-July/002254.html) might be useful.*
