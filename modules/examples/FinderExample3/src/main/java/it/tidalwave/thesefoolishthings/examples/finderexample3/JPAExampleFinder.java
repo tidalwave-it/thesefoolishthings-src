@@ -93,18 +93,6 @@ public class JPAExampleFinder implements Finder<String>
       }
 
     @Nonnull
-    public Finder<String> withContext(@Nonnull final Object context)
-      {
-        throw new UnsupportedOperationException("Not supported.");
-      }
-    
-    @Nonnull
-    public <AnotherType> Finder<AnotherType> ofType (@Nonnull final Class<AnotherType> type)
-      {
-        throw new UnsupportedOperationException("Not supported.");
-      }
-
-    @Nonnull
     public Finder<String> sort (@Nonnull final SortCriterion criterion)
       {
         return sort(criterion, SortDirection.ASCENDING);

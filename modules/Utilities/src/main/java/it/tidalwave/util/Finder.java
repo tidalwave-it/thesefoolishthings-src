@@ -154,7 +154,10 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Finder<TYPE> withContext (@Nonnull Object context);
+    public default Finder<TYPE> withContext (@Nonnull final Object context)
+      {
+        throw new UnsupportedOperationException("Not implemented yet.");
+      }
 
     /*******************************************************************************************************************
      *
@@ -166,7 +169,10 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <ANOTHER_TYPE> Finder<ANOTHER_TYPE> ofType (@Nonnull Class<ANOTHER_TYPE> type);
+    public default <ANOTHER_TYPE> Finder<ANOTHER_TYPE> ofType (@Nonnull final Class<ANOTHER_TYPE> type)
+      {
+        throw new UnsupportedOperationException("Not implemented yet.");
+      }
 
     /*******************************************************************************************************************
      *
