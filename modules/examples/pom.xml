@@ -16,6 +16,10 @@
     <name>TheseFoolishThings Examples (master)</name>
 
     <properties>
+        <tft.javac.source>11</tft.javac.source>
+        <tft.javac.target>11</tft.javac.target>
+        <tft.javac.release>11</tft.javac.release>
+
         <betterbeansbinding.version>1.3.0</betterbeansbinding.version>
         <javax.persistence>1.0</javax.persistence>
         <xstream.version>1.4.15</xstream.version>
