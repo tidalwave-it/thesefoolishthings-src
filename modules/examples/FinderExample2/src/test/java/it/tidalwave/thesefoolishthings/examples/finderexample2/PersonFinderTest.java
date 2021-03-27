@@ -47,7 +47,7 @@ public class PersonFinderTest
     @BeforeMethod
     public void setup()
       {
-        final PersonRegistry2 registry = new DefaultPersonRegistry2();
+        final PersonRegistry2 registry = new PersonRegistryImpl2();
         Utils.populatePresidents(registry);
         finder = registry.findPerson();
       }

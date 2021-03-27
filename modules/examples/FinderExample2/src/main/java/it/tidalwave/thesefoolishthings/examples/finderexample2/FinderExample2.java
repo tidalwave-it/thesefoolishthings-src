@@ -39,6 +39,7 @@ import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSort
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
+ * @hidden
  *
  **********************************************************************************************************************/
 public class FinderExample2
@@ -46,7 +47,7 @@ public class FinderExample2
     public static void main (@Nonnull final String ... args)
       throws NotFoundException
       {
-        final PersonRegistry2 registry = new DefaultPersonRegistry2();
+        final PersonRegistry2 registry = new PersonRegistryImpl2();
         Utils.populatePresidents(registry);
 
         System.out.println("All: "

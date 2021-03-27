@@ -36,7 +36,7 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class DefaultPersonRegistry2 implements PersonRegistry2
+public class PersonRegistryImpl2 implements PersonRegistry2
   {
     private final List<Person> persons = new ArrayList<Person>();
 
@@ -49,6 +49,6 @@ public class DefaultPersonRegistry2 implements PersonRegistry2
     @Override @Nonnull
     public PersonFinder findPerson()
       {
-        return new DefaultPersonFinder2(persons);
+        return new PersonFinderImpl2(persons);
       }
   }

@@ -7,33 +7,33 @@ TheseFoolishThings
 ================================
 
 This project was born, several years ago, as the classic “kitchen sink” of stuff from other projects that was deemed of being reusable.
-        Sometimes it grew in a disordered way, other times it was reviewed and cleaned up accurately. It contains different sort of things: from
-        simple stuff such as a **```TimeProvider```** that can be mocked (for time-based tests), to **type safe ```Map```s** (following
-        advice of Joshua Bloch); up to some more structured things such an extensible **```Finder```** to manipulate queries from a generic data
-        source; **a facility for working with the DCI (Data, Context and Interactions) architectural pattern**; a **simple ```MessageBus```** suitable for using
-        the Publish and Subscribe pattern inside an application.
+Sometimes it grew in a disordered way, other times it was reviewed and cleaned up accurately. It contains different sorts of things: from
+simple stuff such as a **```TimeProvider```** that can be mocked (for time-based tests), to **type safe ```Map```s** (following
+advice of Joshua Bloch); up to some more structured things such an extensible **```Finder```** to manipulate queries from a generic data
+source; **a facility for working with the DCI (Data, Context and Interactions) architectural pattern**; a **simple ```MessageBus```** suitable for using
+the Publish and Subscribe pattern inside an application.
 
-        There is also some really exotic stuff, such as small implementation of **collaborative
-        Actors** (working, but designed basically for didactic purposes). Actually this whole project is often used in Java classes to show things
-        that are reasonably contextualized in a real-world scenario (the core parts of this project are used by working pet projects; something is
-        also part of industrial project). There is good stuff and some strange stuff - in general an attitude of this project is to also try things
-        in a different way than the standard.
+There is also some really exotic stuff, such as small implementation of **collaborative
+Actors** (working, but designed basically for didactic purposes). Actually this whole project is often used in Java classes to show things
+that are reasonably contextualized in a real-world scenario (the core parts of this project are used by working pet projects; something is
+also part of industrial project). There is good stuff and some strange stuff - in general an attitude of this project is to also try things
+in a different way than the standard.
 
-        To guess whether the project is in a reasonably stable phase look at it version number: if it contains ALPHA it is undergoing a
-        wild refactoring (which usually happens when it is updated to a major JDK release). Other than this, most of the Javadoc contains tags:
+To guess whether the project is in a reasonably stable phase look at it version number: if it contains ALPHA it is undergoing a
+wild refactoring (which usually happens when it is updated to a major JDK release). Other than this, most of the Javadoc contains tags:
 
-        + experimental: to designate things that are really raw and might go away soon, or perhaps mutate dramatically;
-        + draft: to designate things that are going to stabilise;
-        + stable: to designate things with a certain degree of maturity.
++ experimental: to designate things that are really raw and might go away soon, or perhaps mutate dramatically;
++ draft: to designate things that are going to stabilise;
++ stable: to designate things with a certain degree of maturity.
 
-        In the past Clirr was used to enforce backward compatibility of stable things, but it was dropped after the JDK 8 upgrade. Up to now
-        it hasn't been replaced by another tool yet. So perhaps at the moment TheseFoolishThings might be of your interest more for inspiration
-        than for an effective use.
+In the past Clirr was used to enforce backward compatibility of stable things, but it was dropped after the JDK 8 upgrade. Up to now
+it hasn't been replaced by another tool yet. So perhaps at the moment TheseFoolishThings might be of your interest more for inspiration
+than for an effective use.
 
-        To learn more about the things of this project, please have a look at its site - http://tidalwave.it/projects/thesefoolishthings - where more documentation, javadoc
-        and build reports are provided.
+To learn more about the things of this project, please have a look at its site - http://tidalwave.it/projects/thesefoolishthings - where more documentation, javadoc
+and build reports are provided.
 
-        TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
+TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
 
 
 Bootstrapping

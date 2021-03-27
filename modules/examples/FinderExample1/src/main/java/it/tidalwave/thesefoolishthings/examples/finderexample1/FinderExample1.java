@@ -53,7 +53,7 @@ public class FinderExample1
                            + Finder.ofCloned(names).from(10).max(5).results());
         // END SNIPPET: ofCloned
 
-        final PersonRegistry registry = new DefaultPersonRegistry1();
+        final PersonRegistry registry = new PersonRegistryImpl1();
         Utils.populatePresidents(registry);
 
         // START SNIPPET: basic-example

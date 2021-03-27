@@ -38,7 +38,7 @@ import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class DefaultPersonRegistry1 implements PersonRegistry
+public class PersonRegistryImpl1 implements PersonRegistry
   {
     private final List<Person> persons = new ArrayList<Person>();
 
@@ -51,6 +51,6 @@ public class DefaultPersonRegistry1 implements PersonRegistry
     @Override @Nonnull
     public Finder<Person> findPerson()
       {
-        return new DefaultPersonFinder1(persons);
+        return Finder.ofCloned(persons);
       }
   }

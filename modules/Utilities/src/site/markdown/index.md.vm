@@ -136,7 +136,7 @@ In this way the new methods can be freely mixed with the existing ones:
 So far for the interface. Now let's look at how this new ```Finder``` might be implemented. First we have to declare fields for the internal state and a
 public constructor to initialize the object with reasonable defaults:
 
-<!-- MACRO{snippet|id=public-constructor-and-fields|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/DefaultPersonFinder2.java} -->
+<!-- MACRO{snippet|id=public-constructor-and-fields|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/PersonFinderImpl2.java} -->
 
 *Note: to keep this example simple, this ```Finder``` works in memory (which from a practical point of view makes it less attractive), thus we are giving to it
 the whole list of ```Person```s it manages. In a real world application instead of ```List<Person> persons``` we would have a reference to a business object or
@@ -144,7 +144,7 @@ a DAO. Below in this document a more realistic example that uses SQL will be ill
 
 A private constructor to initialize everything to arbitrary values is also needed:
 
-<!-- MACRO{snippet|id=private-constructor|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/DefaultPersonFinder2.java} -->
+<!-- MACRO{snippet|id=private-constructor|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/PersonFinderImpl2.java} -->
 
 Let's now focus on intermediate methods. They usually don't do anything smart, but just accumulate the required parameters for later performing the query. Since
 a ```Finder``` must be immutable, they can't change the internal state: they rather must **create and return a cloned ```Finder```** with the original state
@@ -154,9 +154,10 @@ If one doesn't want to reimplement from scratch the basic behaviour of a ```Find
 
 ![UML](apidocs/it/tidalwave/util/spi/FinderSupport.svg)
 
-In this case the intermediate methods need to call a predefined ```clone()``` method by passing an **incomplete finder** populated with the changed field:
+In this case the intermediate methods need to call a predefined ```clonedWithOverride()``` method by passing an **incomplete finder** populated with the changed
+field:
 
-<!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/DefaultPersonFinder2.java} -->
+<!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/PersonFinderImpl2.java} -->
 
 Why are we calling it “incomplete”? Because the constructor shown in the previous code snippet
 is not explicitly calling ```super()```: this means a default constructor is being called instead;
@@ -170,7 +171,7 @@ correctly propagating them, the introduction of a third parameter would force us
 To make things work as they should, ```FinderSupport``` provides the specific method ```clonedWithOverride()``` that is being shown in the previous code
 snippet. It requires the presence of a special copy constructor like this:
 
-<!-- MACRO{snippet|id=clone-constructor|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/DefaultPersonFinder2.java} -->
+<!-- MACRO{snippet|id=clone-constructor|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/PersonFinderImpl2.java} -->
 
 *Note: having this special copy constructor is a requirement of any subclass of ```FinderSupport```. The ```FinderSupport``` constructor makes a runtime check by introspection and
 throws an exception if the copy constructor is not found.*
@@ -221,7 +222,7 @@ This method would return **all** the objects of pertinence, without filtering or
 take care of that. Since this implies to work in memory after having loaded/created all the objects, this approach is easier to write but less efficient. It's
 ok for mocks or simple cases. The implementation of our example is:
 
-<!-- MACRO{snippet|id=computeResults|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/DefaultPersonFinder2.java} -->
+<!-- MACRO{snippet|id=computeResults|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/PersonFinderImpl2.java} -->
 
 
 #[[###]]# Predefined ```Finder```
