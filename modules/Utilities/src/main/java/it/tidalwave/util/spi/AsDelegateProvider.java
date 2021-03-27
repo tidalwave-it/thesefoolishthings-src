@@ -27,9 +27,10 @@
 package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.ServiceLoader;
-import it.tidalwave.util.impl.EmptyAsDelegateProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -127,5 +128,24 @@ public interface AsDelegateProvider
     public static AsDelegateProvider empty()
       {
         return new EmptyAsDelegateProvider();
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    static class EmptyAsDelegateProvider implements AsDelegateProvider
+      {
+        @Override @Nonnull
+        public AsDelegate createAsDelegate (@Nonnull final Object owner)
+          {
+            return new AsDelegate()
+              {
+                @Override @Nonnull
+                public <T> Collection<T> as (final Class<T> type)
+                  {
+                    return new ArrayList<>(); // must be mutable
+                  }
+              };
+          }
       }
   }

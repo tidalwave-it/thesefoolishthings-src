@@ -26,7 +26,6 @@
  */
 package it.tidalwave.util;
 
-import it.tidalwave.util.impl.DefaultTimeProvider;
 import javax.annotation.Nonnull;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -122,6 +121,18 @@ public interface TimeProvider extends Supplier<Instant>
               }
 
             return __INSTANCE.get();
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    static class DefaultTimeProvider implements TimeProvider
+      {
+        @Override @Nonnull
+        public Instant currentInstant()
+          {
+            return Instant.now();
           }
       }
   }

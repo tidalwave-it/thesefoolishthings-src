@@ -27,7 +27,7 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.impl.EmptyInitializer;
+import java.io.Serializable;
 
 /***********************************************************************************************************************
  *
@@ -57,5 +57,19 @@ public interface Initializer<T>
     public static <T> Initializer<T> empty()
       {
         return new EmptyInitializer<>();
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    static final class EmptyInitializer<K> implements Initializer<K>, Serializable
+      {
+        private static final long serialVersionUID = 6039459583930596L;
+
+        @Override @Nonnull
+        public K initialize (@Nonnull final K entity)
+          {
+            return entity;
+          }
       }
   }
