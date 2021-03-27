@@ -85,13 +85,13 @@ public class PersonFinderImpl2 extends FinderSupport<Person, PersonFinder> imple
     @Override @Nonnull
     public PersonFinder withFirstName (@Nonnull final String regex)
       {
-        return clonedWithOverride(new PersonFinderImpl2(persons, regex, lastNameRegex));
+        return clonedWith(new PersonFinderImpl2(persons, regex, lastNameRegex));
       }
 
     @Override @Nonnull
     public PersonFinder withLastName (@Nonnull final String regex)
       {
-        return clonedWithOverride(new PersonFinderImpl2(persons, firstNameRegex, regex));
+        return clonedWith(new PersonFinderImpl2(persons, firstNameRegex, regex));
       }
     // END SNIPPET: new-methods
 

@@ -38,6 +38,7 @@ import it.tidalwave.util.NotFoundException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,17 +60,14 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
   {
     private static final long serialVersionUID = 2467809593956684L;
 
+    @RequiredArgsConstructor
     static class Sorter<Type>
       {
+        @Nonnull
         private final InMemorySortCriterion<Type> sortCriterion;
-        private final SortDirection sortDirection;
 
-        public Sorter (@Nonnull final InMemorySortCriterion<Type> sortCriterion,
-                       @Nonnull final SortDirection sortDirection)
-          {
-            this.sortCriterion = sortCriterion;
-            this.sortDirection = sortDirection;
-          }
+        @Nonnull
+        private final SortDirection sortDirection;
 
         public void sort (@Nonnull final List<? extends Type> results)
           {
@@ -153,9 +151,9 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     /*******************************************************************************************************************
      *
      * This method throws an exception since a {@code Finder} eztending this class must be cloned with 
-     * {@link #clonedWithOverride(Object)}.
+     * {@link #clonedWith(Object)}.
      * 
-     * @see #clonedWithOverride(Object) 
+     * @see #clonedWith(Object)
      * @deprecated
      *
      ******************************************************************************************************************/
@@ -174,7 +172,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected EXTENDED_FINDER clonedWithOverride (@Nonnull final Object override)
+    protected EXTENDED_FINDER clonedWith (@Nonnull final Object override)
       {
         try
           {
@@ -194,13 +192,13 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      *
      * @param   override  the override object
      * @return            the clone
-     * @deprecated        Use {@link #clonedWithOverride(Object)} instead.
+     * @deprecated        Use {@link #clonedWith(Object)} instead.
      *
      ******************************************************************************************************************/
     @Nonnull @Deprecated
     protected EXTENDED_FINDER clone (@Nonnull final Object override)
       {
-        return clonedWithOverride(override);
+        return clonedWith(override);
       }
 
     /*******************************************************************************************************************
@@ -211,7 +209,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Override @Nonnull
     public EXTENDED_FINDER from (@Nonnegative final int firstResult)
       {
-        return clonedWithOverride(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+        return clonedWith(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -222,7 +220,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Override @Nonnull
     public EXTENDED_FINDER max (@Nonnegative final int maxResults)
       {
-        return clonedWithOverride(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+        return clonedWith(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -234,7 +232,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     public EXTENDED_FINDER withContext (@Nonnull final Object context)
       {
         final List<Object> contexts = concat(this.contexts, context);
-        return clonedWithOverride(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+        return clonedWith(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -254,14 +252,13 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public EXTENDED_FINDER sort (@Nonnull final SortCriterion criterion,
-                                 @Nonnull final SortDirection direction)
+    public EXTENDED_FINDER sort (@Nonnull final SortCriterion criterion, @Nonnull final SortDirection direction)
       {
         if (criterion instanceof Finder.InMemorySortCriterion)
           {
             final List<Sorter<TYPE>> sorters = concat(this.sorters,
                                                       new Sorter<>((InMemorySortCriterion<TYPE>)criterion, direction));
-            return clonedWithOverride(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+            return clonedWith(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
           }
 
         final String template = "%s does not implement %s - you need to subclass Finder and override sort()";
