@@ -201,7 +201,7 @@ public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
 
     /** @deprecated Use {@link #size()} instead.
      * @return - */
-    @Nonnull @Deprecated
+    @Deprecated
     public default int getSize()
       {
         return size();

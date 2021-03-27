@@ -85,14 +85,14 @@ class UnderTest extends RoleManagerSupport
       }
 
     @Override @Nonnull
-    protected Class<?> findContextTypeForRole (final Class<?> roleImplementationClass)
+    protected Class<?> findContextTypeForRole (@Nonnull final Class<?> roleImplementationClass)
       throws NotFoundException
       {
         return NotFoundException.throwWhenNull(contextClassMapByRoleClass.get(roleImplementationClass), "No context");
       }
 
     @Override @Nonnull
-    protected Class<?>[] findDatumTypesForRole (final Class<?> roleImplementationClass)
+    protected Class<?>[] findDatumTypesForRole (@Nonnull final Class<?> roleImplementationClass)
       {
         final Class<?>[] result = ownerClassesMapByRoleClass.get(roleImplementationClass);
         return (result == null) ? new Class<?>[0] : result;

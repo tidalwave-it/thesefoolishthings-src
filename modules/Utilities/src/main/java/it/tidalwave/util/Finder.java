@@ -40,7 +40,6 @@ import it.tidalwave.util.impl.ArrayListFinder;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 

@@ -171,7 +171,7 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
 
     /** @deprecated Use {@link #size()} instead.
      * @return - */
-    @Nonnull @Deprecated
+    @Deprecated
     public default int getSize()
       {
         return size();

@@ -35,7 +35,6 @@ import java.util.ServiceLoader;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.Task;
 import it.tidalwave.role.spi.ContextManagerProvider;
-import it.tidalwave.util.spi.AsDelegateProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

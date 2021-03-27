@@ -56,7 +56,7 @@ public interface MutableIconProvider extends IconProvider
      * @param  icon  the icon
      *
      ******************************************************************************************************************/
-    @Nonnull @SuppressWarnings("EmptyMethod")
+    @SuppressWarnings("EmptyMethod")
     public void setIcon (@Nonnull Icon icon);
 
     /*******************************************************************************************************************

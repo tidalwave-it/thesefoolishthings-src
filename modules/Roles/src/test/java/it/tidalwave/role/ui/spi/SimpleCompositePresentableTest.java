@@ -199,7 +199,6 @@ public class SimpleCompositePresentableTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Nonnull
     private void assertProperPresentationModel (@Nonnull final String indent,
                                                 @Nonnull final PresentationModel pm,
                                                 @Nonnull final MockDatum datum)

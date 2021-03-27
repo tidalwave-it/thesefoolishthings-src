@@ -48,14 +48,14 @@ public class NonEmptyFunction extends UnaryBoundFunctionSupport<String, Boolean>
       }
 
     @Override
-    protected void onSourceChange (final String oldSourceValue, final String newSourceValue)
+    protected void onSourceChange (@Nonnull final String oldSourceValue, @Nonnull final String newSourceValue)
       {
         final boolean oldValue = function(oldSourceValue);
         value = function(newSourceValue);
         fireValueChanged(oldValue, (boolean)value);
       }
 
-    @Override
+    @Override @Nonnull
     protected Boolean function (final String value)
       {
         return (value != null) && !"".equals(value.trim());
