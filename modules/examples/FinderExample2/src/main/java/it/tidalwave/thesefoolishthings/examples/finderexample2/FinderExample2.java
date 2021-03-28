@@ -80,8 +80,8 @@ public class FinderExample2
 
         System.out.println("Whose first name starts with B, sorted by first name: "
                            + registry.findPerson()
-                                     .withFirstName("B.*")
                                      .sort(BY_FIRST_NAME)
+                                     .withFirstName("B.*")
                                      .results());
         // END SNIPPET: extended-example
 

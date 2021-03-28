@@ -38,10 +38,10 @@ import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+// START SNIPPET: ofCloned
 public class InMemoryPersonRegistry implements PersonRegistry
   {
     private final List<Person> persons = new ArrayList<Person>();
-
 
     @Override
     public void add (@Nonnull final Person person)
@@ -49,11 +49,10 @@ public class InMemoryPersonRegistry implements PersonRegistry
         persons.add(person);
       }
 
-    // START SNIPPET: ofCloned
     @Override @Nonnull
     public Finder<Person> findPerson()
       {
         return Finder.ofCloned(persons);
       }
-    // END SNIPPET: ofCloned
   }
+// END SNIPPET: ofCloned

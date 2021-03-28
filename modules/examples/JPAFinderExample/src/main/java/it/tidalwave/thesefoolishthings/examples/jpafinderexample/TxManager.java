@@ -38,9 +38,13 @@ import javax.persistence.EntityManager;
  **********************************************************************************************************************/
 public interface TxManager extends AutoCloseable
   {
+    // START SNIPPET: methods
+    public <T> T computeInTx (@Nonnull Function<EntityManager, T> task);
+
     public default void runInTx (@Nonnull Consumer<EntityManager> task)
+    // END SNIPPET: methods
       {
-        runInTx2(em ->
+        computeInTx(em ->
           {
             task.accept(em);
             return null;
@@ -51,6 +55,4 @@ public interface TxManager extends AutoCloseable
             throws Exception
       {
       }
-
-    public <T> T runInTx2 (@Nonnull Function<EntityManager, T> task);
   }

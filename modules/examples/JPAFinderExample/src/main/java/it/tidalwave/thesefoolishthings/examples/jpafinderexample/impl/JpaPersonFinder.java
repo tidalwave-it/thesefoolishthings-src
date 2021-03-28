@@ -55,16 +55,16 @@ public class JpaPersonFinder implements Finder<Person>
   {
     // START SNIPPET: sort-criterion
     @RequiredArgsConstructor
-    public static class JpaqlSortCriterion implements SortCriterion
+    static final class JpaqlSortCriterion implements SortCriterion
       {
         @Nonnull
         private final String field;
 
         @Nonnull
-        public String processSql (@Nonnull final String sql, @Nonnull final SortDirection sortDirection)
+        public String processSql (@Nonnull final String jpaql, @Nonnull final SortDirection sortDirection)
           {
-            final String orderBy = sql.contains("ORDER BY") ? ", " : " ORDER BY ";
-            return sql + orderBy + field + ((sortDirection == SortDirection.DESCENDING) ? " DESC" : "");
+            final String orderBy = jpaql.contains("ORDER BY") ? ", " : " ORDER BY ";
+            return jpaql + orderBy + field + ((sortDirection == SortDirection.DESCENDING) ? " DESC" : "");
           }
       }
     
@@ -83,28 +83,25 @@ public class JpaPersonFinder implements Finder<Person>
     private final int maxResults;
 
     @Nonnull
-    private final String sql;
-
-    @Nonnull
     private final List<Pair<JpaqlSortCriterion, SortDirection>> sortCriteria;
     // END SNIPPET: fields
 
     public JpaPersonFinder (@Nonnull final TxManager txManager)
       {
-        this(txManager, 0, Integer.MAX_VALUE, " FROM PersonEntity p", new ArrayList<>());
+        this(txManager, 0, Integer.MAX_VALUE, new ArrayList<>());
       }
 
     // START SNIPPET: intermediate-methods
     @Override @Nonnull
     public Finder<Person> from (@Nonnegative final int firstResult)
       {
-        return new JpaPersonFinder(txManager, firstResult, maxResults, sql, sortCriteria);
+        return new JpaPersonFinder(txManager, firstResult, maxResults, sortCriteria);
       }
 
     @Override @Nonnull
     public Finder<Person> max (@Nonnegative final int maxResults)
       {
-        return new JpaPersonFinder(txManager, firstResult, maxResults, sql, sortCriteria);
+        return new JpaPersonFinder(txManager, firstResult, maxResults, sortCriteria);
       }
     // END SNIPPET: intermediate-methods
 
@@ -117,9 +114,10 @@ public class JpaPersonFinder implements Finder<Person>
             throw new IllegalArgumentException("Can't sort by " + criterion);
           }
 
-        final List<Pair<JpaqlSortCriterion, SortDirection>> temp = new ArrayList<>(sortCriteria);
-        temp.add(Pair.of((JpaqlSortCriterion)criterion, direction));
-        return new JpaPersonFinder(txManager, firstResult, maxResults, sql, temp);
+        return new JpaPersonFinder(txManager,
+                                   firstResult,
+                                   maxResults,
+                                   concat(sortCriteria, Pair.of((JpaqlSortCriterion)criterion, direction)));
       }
     // END SNIPPET: sort-method
 
@@ -141,7 +139,7 @@ public class JpaPersonFinder implements Finder<Person>
     public Optional<Person> optionalFirstResult()
       {
         // Warning: the stream must be consumed *within* runInTx2()
-        return txManager.runInTx2(em -> createQuery(em, PersonEntity.class, "SELECT p")
+        return txManager.computeInTx(em -> createQuery(em, PersonEntity.class, "SELECT p")
                 .getResultStream()
                 .findFirst()
                 .map(JpaPersonRegistry::fromEntity));
@@ -151,7 +149,7 @@ public class JpaPersonFinder implements Finder<Person>
     public List<? extends Person> results()
       {
         // Warning: the stream must be consumed *within* runInTx2()
-        return txManager.runInTx2(em -> createQuery(em, PersonEntity.class, "SELECT p")
+        return txManager.computeInTx(em -> createQuery(em, PersonEntity.class, "SELECT p")
                 .getResultStream()
                 .map(JpaPersonRegistry::fromEntity)
                 .collect(Collectors.toList()));
@@ -160,7 +158,7 @@ public class JpaPersonFinder implements Finder<Person>
     @Override @Nonnegative
     public int count()
       {
-        return txManager.runInTx2(em -> createQuery(em, Long.class, "SELECT COUNT(p)").getSingleResult()).intValue();
+        return txManager.computeInTx(em -> createQuery(em, Long.class, "SELECT COUNT(p)").getSingleResult()).intValue();
       }
     // END SNIPPET: termination-methods
 
@@ -170,14 +168,23 @@ public class JpaPersonFinder implements Finder<Person>
                                            @Nonnull final Class<S> type,
                                            @Nonnull final String jpaqlPrefix)
       {
-        final AtomicReference<String> temp = new AtomicReference<>(sql);
+        final AtomicReference<String> temp = new AtomicReference<>(jpaqlPrefix + " FROM PersonEntity p");
         sortCriteria.forEach(p -> temp.set(p.a.processSql(temp.get(), p.b)));
-        final String jpaql = jpaqlPrefix + temp.get();
+        final String jpaql = temp.get();
         log.info(">>>> {}", jpaql);
-        // START SNIPPET: createQuery
-        return em.createQuery(jpaql, type).setFirstResult(firstResult).setMaxResults(maxResults);
-        // END SNIPPET: createQuery
+        return
+                // START SNIPPET: createQuery
+                em.createQuery(jpaql, type).setFirstResult(firstResult).setMaxResults(maxResults);
+                // END SNIPPET: createQuery
       }
     // END SNIPPET: createQueryFull
+
+    @Nonnull
+    private static <X> List<X> concat (@Nonnull final List<X> list, @Nonnull final X object)
+      {
+        final List<X> temp = new ArrayList<>(list);
+        temp.add(object);
+        return temp;
+      }
   }
 // END SNIPPET: JPAExampleFinder

@@ -38,9 +38,9 @@ import static java.util.Comparator.comparing;
  **********************************************************************************************************************/
 public final class PersonSortCriteria
   {
-    public static final SortCriterion BY_FIRST_NAME =
-            InMemorySortCriterion.of(comparing(Person::getFirstName), "BY_FIRST_NAME");
+    // START SNIPPET: sort-criteria
+    public static final SortCriterion BY_FIRST_NAME = InMemorySortCriterion.of(comparing(Person::getFirstName));
 
-    public static final SortCriterion BY_LAST_NAME =
-            InMemorySortCriterion.of(comparing(Person::getLastName), "BY_LAST_NAME");
+    public static final SortCriterion BY_LAST_NAME = InMemorySortCriterion.of(comparing(Person::getLastName));
+    // END SNIPPET: sort-criteria
   }

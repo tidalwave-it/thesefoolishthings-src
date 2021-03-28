@@ -46,28 +46,6 @@ In order to build the project, run from the command line:
 The project can be opened and built by a recent version of the NetBeans, Eclipse or Idea IDEs.
 
 
-Documentation
--------------
-
-More information can be found on the [homepage](http://tidalwave.it/projects/thesefoolishthings) of the project.
-
-
-Where can I get the latest release?
------------------------------------
-
-You can download source and binaries from the [download page](https://bitbucket.org/tidalwave/thesefoolishthings-src/src).
-
-Alternatively you can pull it from the central Maven repositories:
-
-```xml
-<dependency>
-    <groupId>it.tidalwave.thesefoolishthings<groupId>
-    <artifactId>thesefoolishthings</artifactId>
-    <version>-- version --</version>
-</dependency>
-```
-
-
 Contributing
 ------------
 

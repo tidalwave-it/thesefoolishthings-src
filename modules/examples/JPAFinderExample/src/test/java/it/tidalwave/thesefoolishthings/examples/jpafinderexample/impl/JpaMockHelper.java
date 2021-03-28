@@ -51,7 +51,7 @@ public class JpaMockHelper
     public final TxManager mockTxManager = new TxManager()
       {
         @Override
-        public <T> T runInTx2 (@Nonnull Function<EntityManager, T> task)
+        public <T> T computeInTx (@Nonnull Function<EntityManager, T> task)
           {
             return task.apply(em);
           }
