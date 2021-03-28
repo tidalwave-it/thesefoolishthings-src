@@ -24,29 +24,36 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.Id;
-import lombok.NoArgsConstructor;
-import static lombok.AccessLevel.*;
+import java.util.ArrayList;
+import java.util.List;
+import it.tidalwave.util.Finder;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@NoArgsConstructor(access = PRIVATE)
-public final class Utils
+public class InMemoryPersonRegistry implements PersonRegistry
   {
-    public static void populatePresidents (@Nonnull final PersonRegistry registry)
+    private final List<Person> persons = new ArrayList<Person>();
+
+
+    @Override
+    public void add (@Nonnull final Person person)
       {
-        registry.add(new Person(new Id("1"), "Richard", "Nixon"));
-        registry.add(new Person(new Id("2"), "Jimmy", "Carter"));
-        registry.add(new Person(new Id("3"), "Ronald", "Reagan"));
-        registry.add(new Person(new Id("4"), "George", "Bush"));
-        registry.add(new Person(new Id("5"), "Bill", "Clinton"));
-        registry.add(new Person(new Id("6"), "George Walker", "Bush"));
-        registry.add(new Person(new Id("7"), "Barack", "Obama"));
+        persons.add(person);
       }
+
+    // START SNIPPET: ofCloned
+    @Override @Nonnull
+    public Finder<Person> findPerson()
+      {
+        return Finder.ofCloned(persons);
+      }
+    // END SNIPPET: ofCloned
   }

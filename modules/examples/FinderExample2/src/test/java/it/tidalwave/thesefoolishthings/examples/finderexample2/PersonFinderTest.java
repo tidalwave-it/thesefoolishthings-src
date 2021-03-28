@@ -27,7 +27,7 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample2;
 
 import it.tidalwave.util.NotFoundException;
-import it.tidalwave.thesefoolishthings.examples.person.Utils;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import static it.tidalwave.util.Finder.SortDirection.*;
@@ -42,67 +42,67 @@ import static org.hamcrest.MatcherAssert.*;
  **********************************************************************************************************************/
 public class PersonFinderTest
   {
-    private PersonFinder finder;
+    private PersonFinder underTest;
 
     @BeforeMethod
     public void setup()
       {
         final PersonRegistry2 registry = new PersonRegistryImpl2();
-        Utils.populatePresidents(registry);
-        finder = registry.findPerson();
+        PersonRegistryHelper.populate(registry);
+        underTest = registry.findPerson();
       }
 
     @Test
     public void testAllPersons()
       {
-        assertThat(finder.results().toString(),
-                   is("[Richard Nixon, Jimmy Carter, Ronald Reagan, George Bush, "
-                    + "Bill Clinton, George Walker Bush, Barack Obama]"));
+        assertThat(underTest.results().toString(),
+                   is("[Michelangelo Buonarroti, Lorenzo Bernini, Leonardo Da Vinci, Pietro Perugino, " +
+                      "Paolo Uccello, Andrea Mantegna, Ambrogio Lorenzetti, Piero della Francesca, Giotto da Bondone]"));
       }
 
 
     @Test
     public void testAllPersonsSortedByFirstName()
       {
-        assertThat(finder.sort(BY_FIRST_NAME).results().toString(),
-                   is("[Barack Obama, Bill Clinton, George Bush, George Walker Bush, "
-                    + "Jimmy Carter, Richard Nixon, Ronald Reagan]"));
+        assertThat(underTest.sort(BY_FIRST_NAME).results().toString(),
+                   is("[Ambrogio Lorenzetti, Andrea Mantegna, Giotto da Bondone, Leonardo Da Vinci, " +
+                      "Lorenzo Bernini, Michelangelo Buonarroti, Paolo Uccello, Piero della Francesca, Pietro Perugino]"));
       }
 
     @Test
     public void testAllPersonsSortedByLastNameDescending()
       {
-        assertThat(finder.sort(BY_LAST_NAME, DESCENDING).results().toString(),
-                   is("[Ronald Reagan, Barack Obama, Richard Nixon, Bill Clinton, "
-                    + "Jimmy Carter, George Bush, George Walker Bush]"));
+        assertThat(underTest.sort(BY_LAST_NAME, DESCENDING).results().toString(),
+                   is("[Piero della Francesca, Giotto da Bondone, Paolo Uccello, Pietro Perugino, " +
+                      "Andrea Mantegna, Ambrogio Lorenzetti, Leonardo Da Vinci, Michelangelo Buonarroti, Lorenzo Bernini]"));
       }
 
     @Test
     public void testPersonRange()
       {
-        assertThat(finder.from(3).max(2).results().toString(),
-                   is("[George Bush, Bill Clinton]"));
+        assertThat(underTest.from(3).max(2).results().toString(),
+                   is("[Pietro Perugino, Paolo Uccello]"));
       }
 
     @Test
-    public void testFirstNameStartingWithB()
+    public void testLastNameStartingWithB()
       {
-        assertThat(finder.withFirstName("B.*").results().toString(),
-                   is("[Bill Clinton, Barack Obama]"));
+        assertThat(underTest.withLastName("B.*").results().toString(),
+                   is("[Michelangelo Buonarroti, Lorenzo Bernini]"));
       }
 
     @Test
-    public void testFirstNameStartingWithBSortedByFirstName()
+    public void testLastNameStartingWithBSortedByFirstName()
       {
-        assertThat(finder.withFirstName("B.*").sort(BY_FIRST_NAME).results().toString(),
-                   is("[Barack Obama, Bill Clinton]"));
+        assertThat(underTest.withLastName("B.*").sort(BY_FIRST_NAME).results().toString(),
+                   is("[Lorenzo Bernini, Michelangelo Buonarroti]"));
       }
 
     @Test
-    public void testLastNameIsBushFirstResult()
+    public void testLastNameIsBerniniFirstResult()
       throws NotFoundException
       {
-        assertThat(finder.withLastName("Bush").firstResult().toString(),
-                   is("George Bush"));
+        assertThat(underTest.withLastName("Bernini").optionalFirstResult().get().toString(),
+                   is("Lorenzo Bernini"));
       }
   }

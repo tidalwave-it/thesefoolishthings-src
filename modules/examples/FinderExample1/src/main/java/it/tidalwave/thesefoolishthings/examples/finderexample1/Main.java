@@ -27,12 +27,9 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import it.tidalwave.util.Finder;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
-import it.tidalwave.thesefoolishthings.examples.person.Utils;
+import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.util.Finder.SortDirection.*;
 import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSortCriteria.*;
 
@@ -41,43 +38,31 @@ import static it.tidalwave.thesefoolishthings.examples.finderexample1.PersonSort
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class FinderExample1
+@Slf4j
+public class Main
   {
     public static void main (@Nonnull final String ... args)
       {
-        // START SNIPPET: ofCloned
-        final List<String> names = IntStream.range(0, 100)
-                                            .mapToObj(n -> String.format("Item #%d", n))
-                                            .collect(Collectors.toList());
-        System.out.println("From in memory: "
-                           + Finder.ofCloned(names).from(10).max(5).results());
-        // END SNIPPET: ofCloned
-
-        final PersonRegistry registry = new PersonRegistryImpl1();
-        Utils.populatePresidents(registry);
+        final PersonRegistry registry = new InMemoryPersonRegistry();
+        PersonRegistryHelper.populate(registry);
 
         // START SNIPPET: basic-example
-        System.out.println("All: "
-                           + registry.findPerson()
-                                     .results());
+        log.info("All: {}", registry.findPerson().results());
 
-        System.out.println("Two persons from the 3rd position: "
-                           + registry.findPerson()
-                                     .from(3)
-                                     .max(2)
-                                     .results());
+        log.info("Two persons from the 3rd position: {}", registry.findPerson()
+                                                                  .from(3)
+                                                                  .max(2)
+                                                                  .results());
         // END SNIPPET: basic-example
 
         // START SNIPPET: sort-example
-        System.out.println("All, sorted by first name: "
-                           + registry.findPerson()
-                                     .sort(BY_FIRST_NAME)
-                                     .results());
+        log.info("All, sorted by first name: {}", registry.findPerson()
+                                                          .sort(BY_FIRST_NAME)
+                                                          .results());
 
-        System.out.println("All, sorted by last name, descending: "
-                           + registry.findPerson()
-                                     .sort(BY_LAST_NAME, DESCENDING)
-                                     .results());
+        log.info("All, sorted by last name, descending: {}", registry.findPerson()
+                                                                     .sort(BY_LAST_NAME, DESCENDING)
+                                                                     .results());
         // END SNIPPET: sort-example
       }
   }

@@ -27,9 +27,9 @@
 package it.tidalwave.thesefoolishthings.examples.finderexample1;
 
 import it.tidalwave.util.Finder;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
-import it.tidalwave.thesefoolishthings.examples.person.Utils;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import static it.tidalwave.util.Finder.SortDirection.*;
@@ -44,44 +44,44 @@ import static org.hamcrest.MatcherAssert.*;
  **********************************************************************************************************************/
 public class PersonFinderTest
   {
-    private Finder<Person> finder;
+    private Finder<Person> underTest;
 
     @BeforeMethod
     public void setup()
       {
-        final PersonRegistry registry = new PersonRegistryImpl1();
-        Utils.populatePresidents(registry);
-        finder = registry.findPerson();
+        final PersonRegistry registry = new InMemoryPersonRegistry();
+        PersonRegistryHelper.populate(registry);
+        underTest = registry.findPerson();
       }
 
     @Test
     public void testAllPersons()
       {
-        assertThat(finder.results().toString(),
-                   is("[Richard Nixon, Jimmy Carter, Ronald Reagan, George Bush, "
-                    + "Bill Clinton, George Walker Bush, Barack Obama]"));
+        assertThat(underTest.results().toString(),
+                   is("[Michelangelo Buonarroti, Lorenzo Bernini, Leonardo Da Vinci, Pietro Perugino, " +
+                      "Paolo Uccello, Andrea Mantegna, Ambrogio Lorenzetti, Piero della Francesca, Giotto da Bondone]"));
       }
 
     @Test
     public void testAllPersonsSortedByFirstName()
       {
-        assertThat(finder.sort(BY_FIRST_NAME).results().toString(),
-                   is("[Barack Obama, Bill Clinton, George Bush, George Walker Bush, "
-                    + "Jimmy Carter, Richard Nixon, Ronald Reagan]"));
+        assertThat(underTest.sort(BY_FIRST_NAME).results().toString(),
+                   is("[Ambrogio Lorenzetti, Andrea Mantegna, Giotto da Bondone, Leonardo Da Vinci, " +
+                      "Lorenzo Bernini, Michelangelo Buonarroti, Paolo Uccello, Piero della Francesca, Pietro Perugino]"));
       }
 
     @Test
     public void testAllPersonsSortedByLastNameDescending()
       {
-        assertThat(finder.sort(BY_LAST_NAME, DESCENDING).results().toString(),
-                   is("[Ronald Reagan, Barack Obama, Richard Nixon, Bill Clinton, "
-                    + "Jimmy Carter, George Bush, George Walker Bush]"));
+        assertThat(underTest.sort(BY_LAST_NAME, DESCENDING).results().toString(),
+                   is("[Piero della Francesca, Giotto da Bondone, Paolo Uccello, Pietro Perugino, Andrea Mantegna, " +
+                      "Ambrogio Lorenzetti, Leonardo Da Vinci, Michelangelo Buonarroti, Lorenzo Bernini]"));
       }
 
     @Test
     public void testPersonRange()
       {
-        assertThat(finder.from(3).max(2).results().toString(),
-                   is("[George Bush, Bill Clinton]"));
+        assertThat(underTest.from(3).max(2).results().toString(),
+                   is("[Pietro Perugino, Paolo Uccello]"));
       }
   }

@@ -295,6 +295,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
     // START SNIPPET: optionalResult
     @Nonnull
     public default Optional<TYPE> optionalResult()
+    // END SNIPPET: optionalResult
       {
         final List<TYPE> results = (List<TYPE>)results();
 
@@ -305,7 +306,6 @@ public interface Finder<TYPE> extends Cloneable, Serializable
 
         return results.stream().findFirst();
       }
-    // END SNIPPET: optionalResult
 
     /*******************************************************************************************************************
      *
@@ -315,8 +315,10 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @since 3.2-ALPHA-1 (previously in Finder8)
      *
      ******************************************************************************************************************/
+    // START SNIPPET: optionalFirstResult
     @Nonnull
     public default Optional<TYPE> optionalFirstResult()
+    // END SNIPPET: optionalFirstResult
       {
         return stream().findFirst();
       }

@@ -32,7 +32,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
-import it.tidalwave.thesefoolishthings.examples.person.Utils;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 
 /***********************************************************************************************************************
  *
@@ -58,7 +58,7 @@ public class DefaultPersonPresentationControl implements PersonPresentationContr
       {
         this.presentation = presentation;
         final PersonRegistry personRegistry = new DefaultPersonRegistry();
-        Utils.populatePresidents(personRegistry);
+        PersonRegistryHelper.populate(personRegistry);
 
         presentation.bind(okAction, personRegistry);
       }

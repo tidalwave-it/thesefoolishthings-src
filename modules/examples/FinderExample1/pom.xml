@@ -18,7 +18,7 @@
     </description>
 
     <properties>
-        <tft.mainClass>it.tidalwave.thesefoolishthings.examples.finderexample1.FinderExample1</tft.mainClass>
+        <tft.mainClass>it.tidalwave.thesefoolishthings.examples.finderexample1.Main</tft.mainClass>
     </properties>
 
     <dependencies>
