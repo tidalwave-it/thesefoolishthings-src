@@ -53,6 +53,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor(access = AccessLevel.PRIVATE) @Slf4j
 public class JpaPersonFinder implements Finder<Person>
   {
+    // START SNIPPET: sort-criterion
     @RequiredArgsConstructor
     public static class JpaqlSortCriterion implements SortCriterion
       {
@@ -69,7 +70,9 @@ public class JpaPersonFinder implements Finder<Person>
     
     public static final SortCriterion BY_FIRST_NAME = new JpaqlSortCriterion("p.firstName");
     public static final SortCriterion BY_LAST_NAME  = new JpaqlSortCriterion("p.lastName");
-            
+    // END SNIPPET: sort-criterion
+
+    // START SNIPPET: fields
     @Nonnull
     private final TxManager txManager;
 
@@ -84,12 +87,14 @@ public class JpaPersonFinder implements Finder<Person>
 
     @Nonnull
     private final List<Pair<JpaqlSortCriterion, SortDirection>> sortCriteria;
+    // END SNIPPET: fields
 
     public JpaPersonFinder (@Nonnull final TxManager txManager)
       {
         this(txManager, 0, Integer.MAX_VALUE, " FROM PersonEntity p", new ArrayList<>());
       }
 
+    // START SNIPPET: intermediate-methods
     @Override @Nonnull
     public Finder<Person> from (@Nonnegative final int firstResult)
       {
@@ -101,13 +106,9 @@ public class JpaPersonFinder implements Finder<Person>
       {
         return new JpaPersonFinder(txManager, firstResult, maxResults, sql, sortCriteria);
       }
+    // END SNIPPET: intermediate-methods
 
-    @Override @Nonnull
-    public Finder<Person> sort (@Nonnull final SortCriterion criterion)
-      {
-        return sort(criterion, SortDirection.ASCENDING);
-      }
-
+    // START SNIPPET: sort-method
     @Override @Nonnull
     public Finder<Person> sort (@Nonnull final SortCriterion criterion, @Nonnull final SortDirection direction)
       {
@@ -120,7 +121,9 @@ public class JpaPersonFinder implements Finder<Person>
         temp.add(Pair.of((JpaqlSortCriterion)criterion, direction));
         return new JpaPersonFinder(txManager, firstResult, maxResults, sql, temp);
       }
+    // END SNIPPET: sort-method
 
+    // START SNIPPET: termination-methods
     @Override @Nonnull
     public Optional<Person> optionalResult()
       {
@@ -159,7 +162,9 @@ public class JpaPersonFinder implements Finder<Person>
       {
         return txManager.runInTx2(em -> createQuery(em, Long.class, "SELECT COUNT(p)").getSingleResult()).intValue();
       }
-    
+    // END SNIPPET: termination-methods
+
+    // START SNIPPET: createQueryFull
     @Nonnull
     private <S> TypedQuery<S> createQuery (@Nonnull final EntityManager em,
                                            @Nonnull final Class<S> type,
@@ -173,5 +178,6 @@ public class JpaPersonFinder implements Finder<Person>
         return em.createQuery(jpaql, type).setFirstResult(firstResult).setMaxResults(maxResults);
         // END SNIPPET: createQuery
       }
+    // END SNIPPET: createQueryFull
   }
 // END SNIPPET: JPAExampleFinder

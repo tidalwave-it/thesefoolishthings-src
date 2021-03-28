@@ -102,7 +102,9 @@ public interface Finder<TYPE> extends Cloneable, Serializable
          * @param  sortDirection  the sort direction
          *
          **************************************************************************************************************/
+        // START SNIPPET: sort
         public void sort (@Nonnull List<? extends TYPE> results, @Nonnull SortDirection sortDirection);
+        // END SNIPPET: sort
 
         /***************************************************************************************************************
          *
@@ -114,7 +116,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
          *
          **************************************************************************************************************/
         @Nonnull
-        public static <T> SortCriterion of (@Nonnull final Comparator<? super T> comparator)
+        public static <T> InMemorySortCriterion<T> of (@Nonnull final Comparator<? super T> comparator)
           {
             return new DefaultInMemorySortCriterion<>(comparator, comparator.getClass().getSimpleName());
           }
@@ -243,7 +245,11 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Finder<TYPE> sort (@Nonnull SortCriterion criterion);
+    public default Finder<TYPE> sort (@Nonnull SortCriterion criterion)
+      {
+        return sort(criterion, SortDirection.ASCENDING);
+      }
+
 
     /*******************************************************************************************************************
      *

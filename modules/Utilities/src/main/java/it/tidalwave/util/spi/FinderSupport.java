@@ -283,42 +283,6 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public TYPE result()
-      throws NotFoundException
-      {
-        final List<? extends TYPE> result = computeNeededResults();
-
-        switch (result.size())
-          {
-            case 0:
-              throw new NotFoundException(name);
-
-            case 1:
-              return result.get(0);
-
-            default:
-              throw new RuntimeException("More than one result, " + name + ": " + result);
-          }
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public TYPE firstResult()
-      throws NotFoundException
-      {
-        return NotFoundException.throwWhenEmpty(computeNeededResults(), "Empty result").get(0);
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
     public List<? extends TYPE> results()
       {
         return computeNeededResults();
