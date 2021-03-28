@@ -29,6 +29,7 @@ package it.tidalwave.util;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.Nonnull;
 import java.io.Serializable;
+import java.util.UUID;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
@@ -59,6 +60,18 @@ public class Id implements Serializable, Comparable<Id>, StringValue
     public static Id of (@Nonnull final Object value)
       {
         return new Id(value);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * @return        the new instance
+     * @since         3.2-ALPHA-9
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Id ofUuid()
+      {
+        return Id.of(UUID.randomUUID().toString());
       }
 
     /*******************************************************************************************************************
