@@ -24,14 +24,14 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.thesefoolishthings.examples.finderexample3;
+package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
 import java.util.List;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import static it.tidalwave.util.Finder.SortDirection.*;
-import static it.tidalwave.thesefoolishthings.examples.finderexample3.JPAExampleFinder.*;
+import static it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.JpaPersonFinder.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -40,63 +40,70 @@ import static org.hamcrest.MatcherAssert.*;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class JPAExampleFinderTest
+public class JpaPersonFinderTest
   {
-    private EntityManagerMockHolder emmh;
+    private JpaMockHelper jpaMock;
 
-    private JPAExampleFinder underTest;
+    private JpaPersonFinder underTest;
 
     @BeforeMethod
     public void setup()
       {
-        emmh = new EntityManagerMockHolder();
-        underTest = new JPAExampleFinder(emmh.em);
+        jpaMock = new JpaMockHelper();
+        underTest = new JpaPersonFinder(jpaMock.mockTxManager);
       }
 
+    // START SNIPPET: tests
     @Test
     public void testSimpleQuery()
       {
         // when
         final List<? extends Person> results = underTest.results();
         // then
-        assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p"));
-        assertThat(emmh.firstResult, is(0));
-        assertThat(emmh.maxResults, is(Integer.MAX_VALUE));
+        assertThat(jpaMock.sqlQuery, is("SELECT p FROM PersonEntity p"));
+        assertThat(jpaMock.firstResult, is(0));
+        assertThat(jpaMock.maxResults, is(Integer.MAX_VALUE));
       }
 
     @Test
     public void testQueryWithAscendingSortAndFirstMax()
       {
         // when
-        final List<? extends Person> results = underTest.sort(BY_FIRST_NAME).from(2).max(4).results();
+        final List<? extends Person> results = underTest.sort(BY_FIRST_NAME)
+                                                        .from(2)
+                                                        .max(4)
+                                                        .results();
         // then
-        assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p ORDER BY p.firstName"));
-        assertThat(emmh.firstResult, is(2));
-        assertThat(emmh.maxResults, is(4));
+        assertThat(jpaMock.sqlQuery, is("SELECT p FROM PersonEntity p ORDER BY p.firstName"));
+        assertThat(jpaMock.firstResult, is(2));
+        assertThat(jpaMock.maxResults, is(4));
       }
 
     @Test
-    public void testQueryWithDesccendingSortAndFirstMax()
+    public void testQueryWithDescendingSortAndFirstMax()
       {
         // when
-        final List<? extends Person> results = underTest.sort(BY_LAST_NAME, DESCENDING).from(2).max(4).results();
+        final List<? extends Person> results = underTest.sort(BY_LAST_NAME, DESCENDING)
+                                                        .from(3)
+                                                        .max(7)
+                                                        .results();
         // then
-        assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p ORDER BY p.lastName DESC"));
-        assertThat(emmh.firstResult, is(2));
-        assertThat(emmh.maxResults, is(4));
+        assertThat(jpaMock.sqlQuery, is("SELECT p FROM PersonEntity p ORDER BY p.lastName DESC"));
+        assertThat(jpaMock.firstResult, is(3));
+        assertThat(jpaMock.maxResults, is(7));
       }
 
     @Test
-    public void testQueryWithDoubleSortAndFirstMax()
+    public void testQueryWithDoubleSort()
       {
         // when
         final List<? extends Person> results = underTest.sort(BY_LAST_NAME, DESCENDING)
                                                         .sort(BY_FIRST_NAME, ASCENDING)
                                                         .results();
         // then
-        assertThat(emmh.sqlQuery, is("SELECT p.firstName FROM Person p ORDER BY p.lastName DESC, p.firstName"));
-        assertThat(emmh.firstResult, is(0));
-        assertThat(emmh.maxResults, is(Integer.MAX_VALUE));
+        assertThat(jpaMock.sqlQuery, is("SELECT p FROM PersonEntity p ORDER BY p.lastName DESC, p.firstName"));
+        assertThat(jpaMock.firstResult, is(0));
+        assertThat(jpaMock.maxResults, is(Integer.MAX_VALUE));
       }
 
     @Test
@@ -105,8 +112,9 @@ public class JPAExampleFinderTest
         // when
         final int count = underTest.count();
         // then
-        assertThat(emmh.sqlQuery, is("SELECT COUNT(*) FROM Person p"));
-        assertThat(emmh.firstResult, is(0));
-        assertThat(emmh.maxResults, is(Integer.MAX_VALUE));
+        assertThat(jpaMock.sqlQuery, is("SELECT COUNT(p) FROM PersonEntity p"));
+        assertThat(jpaMock.firstResult, is(0));
+        assertThat(jpaMock.maxResults, is(Integer.MAX_VALUE));
       }
+    // END SNIPPET: tests
   }

@@ -1,62 +1,56 @@
 /*
  * #%L
  * *********************************************************************************************************************
- * 
+ *
  * These Foolish Things - Miscellaneous utilities
  * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
  * %%
  * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
  * %%
  * *********************************************************************************************************************
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * *********************************************************************************************************************
- * 
- * 
+ *
+ *
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.jpafinderexample;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.Id;
-import javax.annotation.concurrent.Immutable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import java.util.UUID;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import javax.persistence.EntityManager;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable @AllArgsConstructor @Getter
-public class Person
+public interface TxManager extends AutoCloseable
   {
-    public Person (@Nonnull final String firstName, @Nonnull final String lastName)
+    public default void runInTx (@Nonnull Consumer<EntityManager> task)
       {
-        this(Id.of(UUID.randomUUID().toString()), firstName, lastName);
+        runInTx2(em ->
+          {
+            task.accept(em);
+            return null;
+          });
       }
 
-    final Id id;
-
-    @Nonnull
-    final String firstName;
-
-    @Nonnull
-    final String lastName;
-
-    @Override @Nonnull
-    public String toString()
+    public default void close()
+            throws Exception
       {
-        return firstName + " " + lastName;
       }
+
+    public <T> T runInTx2 (@Nonnull Function<EntityManager, T> task);
   }

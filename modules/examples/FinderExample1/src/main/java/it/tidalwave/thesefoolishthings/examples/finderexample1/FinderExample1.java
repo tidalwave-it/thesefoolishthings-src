@@ -79,6 +79,5 @@ public class FinderExample1
                                      .sort(BY_LAST_NAME, DESCENDING)
                                      .results());
         // END SNIPPET: sort-example
-
       }
   }

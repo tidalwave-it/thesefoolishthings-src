@@ -24,14 +24,15 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.thesefoolishthings.examples.finderexample3;
+package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.function.Function;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import it.tidalwave.thesefoolishthings.examples.person.Person;
+import it.tidalwave.thesefoolishthings.examples.jpafinderexample.TxManager;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import static org.mockito.Mockito.*;
@@ -41,19 +42,28 @@ import static org.mockito.Mockito.*;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class EntityManagerMockHolder 
+public class JpaMockHelper
   {
     public final EntityManager em = mock(EntityManager.class);
     
     private final TypedQuery query = mock(TypedQuery.class);
     
+    public final TxManager mockTxManager = new TxManager()
+      {
+        @Override
+        public <T> T runInTx2 (@Nonnull Function<EntityManager, T> task)
+          {
+            return task.apply(em);
+          }
+      };
+
     public String sqlQuery;
-    
+
     public int firstResult;
-    
+
     public int maxResults;
 
-    public EntityManagerMockHolder() 
+    public JpaMockHelper ()
       {
         when(em.createQuery(anyString(), any())).thenAnswer(new Answer<TypedQuery<?>>()
           {
@@ -65,7 +75,7 @@ public class EntityManagerMockHolder
               }
           });
 
-        when(query.setFirstResult(anyInt())).thenAnswer(new Answer<Query>() 
+        when(query.setFirstResult(anyInt())).thenAnswer(new Answer<Query>()
           {
             @Nonnull
             public TypedQuery<?> answer (@Nonnull final InvocationOnMock invocation)
@@ -75,7 +85,7 @@ public class EntityManagerMockHolder
               }
           });
 
-        when(query.setMaxResults(anyInt())).thenAnswer(new Answer<Query>() 
+        when(query.setMaxResults(anyInt())).thenAnswer(new Answer<Query>()
           {
             @Nonnull
             public TypedQuery<?> answer (@Nonnull final InvocationOnMock invocation)
@@ -85,7 +95,8 @@ public class EntityManagerMockHolder
               }
           });
         
-        when(query.getResultList()).thenReturn(new ArrayList<Person>());
-        when(query.getSingleResult()).thenReturn(1);
+        when(query.getResultList()).thenReturn(new ArrayList<PersonEntity>());
+        // in the test class it's used for count()
+        when(query.getSingleResult()).thenReturn(1L);
       }
   }

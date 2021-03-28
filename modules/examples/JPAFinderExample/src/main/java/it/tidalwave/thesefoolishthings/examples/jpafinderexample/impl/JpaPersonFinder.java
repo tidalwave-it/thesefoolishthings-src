@@ -24,32 +24,34 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.thesefoolishthings.examples.finderexample3;
+package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import java.util.stream.Collectors;
 import it.tidalwave.util.Finder;
-import it.tidalwave.util.Finder.SortCriterion;
-import it.tidalwave.util.Finder.SortDirection;
-import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.util.Pair;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
+import it.tidalwave.thesefoolishthings.examples.jpafinderexample.TxManager;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class JPAExampleFinder implements Finder<Person>
+// START SNIPPET: JPAExampleFinder
+@AllArgsConstructor(access = AccessLevel.PRIVATE) @Slf4j
+public class JpaPersonFinder implements Finder<Person>
   {
     @RequiredArgsConstructor
     public static class JpaqlSortCriterion implements SortCriterion
@@ -57,6 +59,7 @@ public class JPAExampleFinder implements Finder<Person>
         @Nonnull
         private final String field;
 
+        @Nonnull
         public String processSql (@Nonnull final String sql, @Nonnull final SortDirection sortDirection)
           {
             final String orderBy = sql.contains("ORDER BY") ? ", " : " ORDER BY ";
@@ -68,7 +71,7 @@ public class JPAExampleFinder implements Finder<Person>
     public static final SortCriterion BY_LAST_NAME  = new JpaqlSortCriterion("p.lastName");
             
     @Nonnull
-    private final EntityManager em;
+    private final TxManager txManager;
 
     @Nonnegative
     private final int firstResult;
@@ -82,22 +85,21 @@ public class JPAExampleFinder implements Finder<Person>
     @Nonnull
     private final List<Pair<JpaqlSortCriterion, SortDirection>> sortCriteria;
 
-
-    public JPAExampleFinder (@Nonnull final EntityManager em)
+    public JpaPersonFinder (@Nonnull final TxManager txManager)
       {
-        this(em, 0, Integer.MAX_VALUE, " FROM Person p", new ArrayList<>());
+        this(txManager, 0, Integer.MAX_VALUE, " FROM PersonEntity p", new ArrayList<>());
       }
 
     @Override @Nonnull
     public Finder<Person> from (@Nonnegative final int firstResult)
       {
-        return new JPAExampleFinder(em, firstResult, maxResults, sql, sortCriteria);
+        return new JpaPersonFinder(txManager, firstResult, maxResults, sql, sortCriteria);
       }
 
     @Override @Nonnull
     public Finder<Person> max (@Nonnegative final int maxResults)
       {
-        return new JPAExampleFinder(em, firstResult, maxResults, sql, sortCriteria);
+        return new JpaPersonFinder(txManager, firstResult, maxResults, sql, sortCriteria);
       }
 
     @Override @Nonnull
@@ -116,7 +118,7 @@ public class JPAExampleFinder implements Finder<Person>
 
         final List<Pair<JpaqlSortCriterion, SortDirection>> temp = new ArrayList<>(sortCriteria);
         temp.add(Pair.of((JpaqlSortCriterion)criterion, direction));
-        return new JPAExampleFinder(em, firstResult, maxResults, sql, temp);
+        return new JpaPersonFinder(txManager, firstResult, maxResults, sql, temp);
       }
 
     @Override @Nonnull
@@ -135,27 +137,41 @@ public class JPAExampleFinder implements Finder<Person>
     @Override @Nonnull
     public Optional<Person> optionalFirstResult()
       {
-        return Optional.of(createQuery(Person.class, "SELECT p.firstName").getSingleResult());
+        // Warning: the stream must be consumed *within* runInTx2()
+        return txManager.runInTx2(em -> createQuery(em, PersonEntity.class, "SELECT p")
+                .getResultStream()
+                .findFirst()
+                .map(JpaPersonRegistry::fromEntity));
       }
 
     @Override @Nonnull
     public List<? extends Person> results()
       {
-        return createQuery(Person.class,"SELECT p.firstName").getResultList();
+        // Warning: the stream must be consumed *within* runInTx2()
+        return txManager.runInTx2(em -> createQuery(em, PersonEntity.class, "SELECT p")
+                .getResultStream()
+                .map(JpaPersonRegistry::fromEntity)
+                .collect(Collectors.toList()));
       }
 
     @Override @Nonnegative
     public int count()
       {
-        return createQuery(Integer.class, "SELECT COUNT(*)").getSingleResult();
+        return txManager.runInTx2(em -> createQuery(em, Long.class, "SELECT COUNT(p)").getSingleResult()).intValue();
       }
     
     @Nonnull
-    private <S> TypedQuery<S> createQuery (@Nonnull final Class<S> type, @Nonnull final String jpaqlPrefix)
+    private <S> TypedQuery<S> createQuery (@Nonnull final EntityManager em,
+                                           @Nonnull final Class<S> type,
+                                           @Nonnull final String jpaqlPrefix)
       {
         final AtomicReference<String> temp = new AtomicReference<>(sql);
         sortCriteria.forEach(p -> temp.set(p.a.processSql(temp.get(), p.b)));
         final String jpaql = jpaqlPrefix + temp.get();
-        return em.createQuery(jpaql, type).setMaxResults(maxResults).setFirstResult(firstResult);
+        log.info(">>>> {}", jpaql);
+        // START SNIPPET: createQuery
+        return em.createQuery(jpaql, type).setFirstResult(firstResult).setMaxResults(maxResults);
+        // END SNIPPET: createQuery
       }
   }
+// END SNIPPET: JPAExampleFinder

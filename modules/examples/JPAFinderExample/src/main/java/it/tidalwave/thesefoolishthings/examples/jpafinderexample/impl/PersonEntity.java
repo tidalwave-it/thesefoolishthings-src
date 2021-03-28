@@ -24,35 +24,39 @@
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
-import javax.annotation.Nonnull;
-import it.tidalwave.util.Id;
-import javax.annotation.concurrent.Immutable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import java.util.UUID;
+import javax.annotation.Nonnull;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable @AllArgsConstructor @Getter
-public class Person
+@NoArgsConstructor @AllArgsConstructor @Getter @Setter @EqualsAndHashCode
+@Entity @Table(name = "PERSON")
+public class PersonEntity
   {
-    public Person (@Nonnull final String firstName, @Nonnull final String lastName)
+    public PersonEntity (@Nonnull final String firstName, @Nonnull final String lastName)
       {
-        this(Id.of(UUID.randomUUID().toString()), firstName, lastName);
+        this(UUID.randomUUID().toString(), firstName, lastName);
       }
 
-    final Id id;
+    @Id
+    private String id;
 
-    @Nonnull
-    final String firstName;
+    private String firstName;
 
-    @Nonnull
-    final String lastName;
+    private String lastName;
 
     @Override @Nonnull
     public String toString()

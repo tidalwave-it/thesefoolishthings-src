@@ -1,62 +1,43 @@
 /*
  * #%L
  * *********************************************************************************************************************
- * 
+ *
  * These Foolish Things - Miscellaneous utilities
  * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
  * %%
  * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
  * %%
  * *********************************************************************************************************************
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * *********************************************************************************************************************
- * 
- * 
+ *
+ *
  * *********************************************************************************************************************
  * #L%
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.jpafinderexample;
 
-import javax.annotation.Nonnull;
-import it.tidalwave.util.Id;
-import javax.annotation.concurrent.Immutable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import java.util.UUID;
+import it.tidalwave.util.Finder;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
+import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.JpaPersonFinder;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable @AllArgsConstructor @Getter
-public class Person
+public interface PersonRegistry3 extends PersonRegistry
   {
-    public Person (@Nonnull final String firstName, @Nonnull final String lastName)
-      {
-        this(Id.of(UUID.randomUUID().toString()), firstName, lastName);
-      }
+    public static final Finder.SortCriterion BY_FIRST_NAME = JpaPersonFinder.BY_FIRST_NAME;
 
-    final Id id;
-
-    @Nonnull
-    final String firstName;
-
-    @Nonnull
-    final String lastName;
-
-    @Override @Nonnull
-    public String toString()
-      {
-        return firstName + " " + lastName;
-      }
+    public static final Finder.SortCriterion BY_LAST_NAME  = JpaPersonFinder.BY_LAST_NAME;
   }

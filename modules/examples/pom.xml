@@ -20,6 +20,10 @@
         <tft.javac.target>11</tft.javac.target>
         <tft.javac.release>11</tft.javac.release>
 
+        <h2.version>1.4.200</h2.version>
+        <hibernate.version>5.4.27.Final</hibernate.version>
+        <jboss-logging.version>3.4.1.Final</jboss-logging.version>
+        <byte-buddy.version>1.10.20</byte-buddy.version>
         <betterbeansbinding.version>1.3.0</betterbeansbinding.version>
         <javax.persistence>2.2</javax.persistence>
         <xstream.version>1.4.15</xstream.version>
@@ -50,8 +54,46 @@
                 <artifactId>betterbeansbinding-swingbinding</artifactId>
                 <version>${betterbeansbinding.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging</artifactId>
+                <version>${jboss-logging.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <defaultGoal>clean install exec:java</defaultGoal>
@@ -65,7 +107,7 @@
         <module>DciSwingExample</module>
         <module>FinderExample1</module>
         <module>FinderExample2</module>
-        <module>FinderExample3</module>
+        <module>JPAFinderExample</module>
     </modules>
 
 </project>
