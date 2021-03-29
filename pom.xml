@@ -62,7 +62,7 @@ in a different way than the standard.
 To guess whether the project is in a reasonably stable phase look at it version number: if it contains ALPHA it is undergoing a
 wild refactoring (which usually happens when it is updated to a major JDK release). Other than this, most of the Javadoc contains tags:
 
-+ **xperimental**: to designate things that are really raw and might go away soon, or perhaps mutate dramatically;
++ **experimental**: to designate things that are really raw and might go away soon, or perhaps mutate dramatically;
 + **draft**: to designate things that are going to stabilise;
 + **stable**: to designate things with a certain degree of maturity.
 

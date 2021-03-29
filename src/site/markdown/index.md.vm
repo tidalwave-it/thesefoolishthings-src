@@ -60,7 +60,7 @@ ${project.name} is **licensed** with the XYZ license.
 #[[##]]# General information
 #[[###]]# Maven dependency
 
-Since most modules can be used independently, Maven dependency information are available in their specific documentation.
+Since most modules can be used independently, Maven dependency information is available in their specific documentation.
 
 #[[###]]# Sources, issue tracker and continuous integration
 

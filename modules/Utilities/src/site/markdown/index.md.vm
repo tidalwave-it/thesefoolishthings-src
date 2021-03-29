@@ -29,12 +29,12 @@ Introduction
 
 ${project.description}
 
-This module is mostly composed of small utilities that lives on their own; please refer to their [Javadoc](apidocs/index.html). Below there are information
+This module is mostly composed of small utilities that lives on their own; please refer to their [Javadoc](apidocs/index.html). Below there is information
 about a few classes that are more complex and require a design/architectural view.
 
 The module ${project.name} is released with the PENDING license, as the whole project. To use it in your Maven project, add this snippet to your POM.
 Snippets for other build tool (such as Gradle) are available [here](dependency-info.html). The dependencies of this module are described
-[here](dependencies.html). Information about quality and continuous integration are available at the [main project page](../../index.html).
+[here](dependencies.html). Information about quality and continuous integration is available at the [main project page](../../index.html).
 
 ```xml
 <dependency>
@@ -172,7 +172,7 @@ A convenience method ```of()``` makes it possible to easily create a working ```
 
 <!-- MACRO{snippet|id=sort-criteria|file=${project.basedir}/../../modules/examples/FinderExample1/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample1/PersonSortCriteria.java} -->
 
-The intermediate method ```Finder.sort()``` behaves as other intermediate methods and just collects the information for a later use:
+The intermediate method ```Finder.sort()``` behaves as other intermediate methods and just collects data for a later use:
 
 <!-- MACRO{snippet|id=sort-method|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
 
