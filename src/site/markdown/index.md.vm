@@ -42,7 +42,18 @@ ${project.name}
 
 ${project.description}
 
-${project.name} is **licensed** with the XYZ license.
+To guess whether the project is in a reasonably stable phase look at it version number: if it contains ALPHA it is undergoing a
+wild refactoring (which usually happens when it is updated to a major JDK release). Other than this, most of the Javadoc contains tags:
+
++ **experimental**: to designate things that are really raw and might go away soon, or perhaps mutate dramatically;
++ **draft**: to designate things that are going to stabilise;
++ **stable**: to designate things with a certain degree of maturity.
+
+In the past Clirr was used to enforce backward compatibility of stable things, but it was dropped after the JDK 8 upgrade. Up to now
+it hasn't been replaced by another tool yet. So perhaps at the moment TheseFoolishThings might be of your interest more for inspiration
+than for an effective use.
+
+${project.name} is **licensed** with the Apache license.
 
 
 #[[##]]# Modules
@@ -64,20 +75,19 @@ Since most modules can be used independently, Maven dependency information is av
 
 #[[###]]# Sources, issue tracker and continuous integration
 
-The primary source repository is on **[Bitbucket](${project.scm.repo.browse.url})**, a secondary repository (synced in real time) is available on
-**[GitHub](${tidalwave.github.browse.url})**.
+The primary source repository is on **[Bitbucket]($context.get("scm.repo.browse.url"))**, a secondary repository (synchronized in real time) is available on
+**[GitHub]($context.get("tidalwave.github.browse.url"))**.
 
 To checkout sources from Bitbucket:
 
 ```shell
-> git clone ${project.scm.repo.readonly.url}
+> git clone $context.get("scm.repo.readonly.url")
 ```
 
 To checkout sources from GitHub:
 
 ```shell
-> git clone ${tidalwave.github.readonly.url}
-> git clone ${tidalwave.github.readonly.url}
+> git clone $context.get("tidalwave.github.readonly.url")
 ```
 
 The issue tracker is hosted on the Atlassian Jira Cloud:

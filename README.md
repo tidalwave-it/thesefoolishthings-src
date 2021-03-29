@@ -19,20 +19,6 @@ that are reasonably contextualized in a real-world scenario (the core parts of t
 also part of industrial project). There is good stuff and some strange stuff - in general an attitude of this project is to also try things
 in a different way than the standard.
 
-To guess whether the project is in a reasonably stable phase look at it version number: if it contains ALPHA it is undergoing a
-wild refactoring (which usually happens when it is updated to a major JDK release). Other than this, most of the Javadoc contains tags:
-
-+ **experimental**: to designate things that are really raw and might go away soon, or perhaps mutate dramatically;
-+ **draft**: to designate things that are going to stabilise;
-+ **stable**: to designate things with a certain degree of maturity.
-
-In the past Clirr was used to enforce backward compatibility of stable things, but it was dropped after the JDK 8 upgrade. Up to now
-it hasn't been replaced by another tool yet. So perhaps at the moment TheseFoolishThings might be of your interest more for inspiration
-than for an effective use.
-
-To learn more about the things of this project, please have a look at its site - http://tidalwave.it/projects/thesefoolishthings - where more documentation, javadoc
-and build reports are provided.
-
 TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
 
 
