@@ -44,7 +44,7 @@ public class TxManagerImpl implements TxManager
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("example");
 
     @Override
-    public <T> T computeInTx (@Nonnull Function<EntityManager, T> task)
+    public <T> T computeInTx (@Nonnull final Function<EntityManager, T> task)
       {
         EntityManager em = null;
         EntityTransaction tx = null;

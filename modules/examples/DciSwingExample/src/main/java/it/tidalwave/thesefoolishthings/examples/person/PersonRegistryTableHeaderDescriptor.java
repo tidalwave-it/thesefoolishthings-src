@@ -49,7 +49,7 @@ public class PersonRegistryTableHeaderDescriptor implements TableHeaderDescripto
     @Override @Nonnull
     public List<TableColumnDescriptor> getColumnDescriptors()
       {
-        final List<TableColumnDescriptor> columnDescriptors = new ArrayList<TableColumnDescriptor>();
+        final List<TableColumnDescriptor> columnDescriptors = new ArrayList<>();
         columnDescriptors.add(new TableColumnDescriptor("firstName", "First Name"));
         columnDescriptors.add(new TableColumnDescriptor("lastName", "Last Name"));
 

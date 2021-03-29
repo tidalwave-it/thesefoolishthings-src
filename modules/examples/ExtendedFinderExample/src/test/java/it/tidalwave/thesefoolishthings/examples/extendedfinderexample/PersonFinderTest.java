@@ -26,7 +26,6 @@
  */
 package it.tidalwave.thesefoolishthings.examples.extendedfinderexample;
 
-import it.tidalwave.util.NotFoundException;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
@@ -100,7 +99,6 @@ public class PersonFinderTest
 
     @Test
     public void testLastNameIsBerniniFirstResult()
-      throws NotFoundException
       {
         assertThat(underTest.withLastName("Bernini").optionalFirstResult().get().toString(),
                    is("Lorenzo Bernini"));

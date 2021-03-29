@@ -41,7 +41,7 @@ import lombok.NoArgsConstructor;
 public class ListOfPersons implements List<Person>
   {
     @Delegate
-    private final List<Person> persons = new ArrayList<Person>();
+    private final List<Person> persons = new ArrayList<>();
 
     public ListOfPersons (@Nonnull final List<Person> persons)
       {

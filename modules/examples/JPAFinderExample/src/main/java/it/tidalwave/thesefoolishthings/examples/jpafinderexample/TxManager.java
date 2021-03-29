@@ -41,7 +41,7 @@ public interface TxManager extends AutoCloseable
     // START SNIPPET: methods
     public <T> T computeInTx (@Nonnull Function<EntityManager, T> task);
 
-    public default void runInTx (@Nonnull Consumer<EntityManager> task)
+    public default void runInTx (@Nonnull final Consumer<EntityManager> task)
     // END SNIPPET: methods
       {
         computeInTx(em ->

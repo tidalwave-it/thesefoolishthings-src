@@ -89,7 +89,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
          * @param  results        the list of objects to be sorted in place
          *
          **************************************************************************************************************/
-        public default void sort (@Nonnull List<? extends TYPE> results)
+        public default void sort (@Nonnull final List<? extends TYPE> results)
           {
             sort(results, SortDirection.ASCENDING);
           }
@@ -245,7 +245,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default Finder<TYPE> sort (@Nonnull SortCriterion criterion)
+    public default Finder<TYPE> sort (@Nonnull final SortCriterion criterion)
       {
         return sort(criterion, SortDirection.ASCENDING);
       }

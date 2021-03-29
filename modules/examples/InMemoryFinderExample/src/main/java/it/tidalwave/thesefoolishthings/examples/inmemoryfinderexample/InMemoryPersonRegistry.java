@@ -41,7 +41,7 @@ import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 // START SNIPPET: ofCloned
 public class InMemoryPersonRegistry implements PersonRegistry
   {
-    private final List<Person> persons = new ArrayList<Person>();
+    private final List<Person> persons = new ArrayList<>();
 
     @Override
     public void add (@Nonnull final Person person)

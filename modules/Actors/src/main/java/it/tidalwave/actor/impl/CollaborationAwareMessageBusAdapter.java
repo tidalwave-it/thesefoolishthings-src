@@ -60,7 +60,7 @@ public class CollaborationAwareMessageBusAdapter implements MethodProcessor
     @Nonnull
     private final ActorActivatorStats stats;
 
-    private final List<MessageBus.Listener<?>> messageBusListeners = new ArrayList<MessageBus.Listener<?>>();
+    private final List<MessageBus.Listener<?>> messageBusListeners = new ArrayList<>();
 
     private final Provider<CollaborationAwareMessageBus> messageBus =
             Locator.createProviderFor(CollaborationAwareMessageBus.class);
@@ -120,7 +120,7 @@ public class CollaborationAwareMessageBusAdapter implements MethodProcessor
         log.info("registerMessageListener({})", method);
 
         final Class<Topic> topic = (Class<Topic>)method.getParameterTypes()[0];
-        addListener(method, new MessageListenerAdapter<Topic>(owner, method, executor, stats), topic);
+        addListener(method, new MessageListenerAdapter<>(owner, method, executor, stats), topic);
       }
 
     /*******************************************************************************************************************

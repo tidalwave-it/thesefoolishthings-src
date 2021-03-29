@@ -68,7 +68,6 @@ public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
      * @param   <T>   the type
      * @param   key   the key
      * @return        the value
-     * @deprecated    Use {@link #getOptional(Key)} instead
      *
      * @since 3.2-ALPHA-1
      *

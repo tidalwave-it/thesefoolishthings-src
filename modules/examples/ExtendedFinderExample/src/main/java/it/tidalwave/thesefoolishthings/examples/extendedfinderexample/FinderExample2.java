@@ -31,7 +31,6 @@ import java.util.Comparator;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
-import it.tidalwave.util.NotFoundException;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import static it.tidalwave.util.Finder.SortDirection.*;
 import static it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample.PersonSortCriteria.*;
@@ -45,7 +44,6 @@ import static it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample.Per
 public class FinderExample2
   {
     public static void main (@Nonnull final String ... args)
-      throws NotFoundException
       {
         final PersonRegistry2 registry = new PersonRegistryImpl2();
         PersonRegistryHelper.populate(registry);

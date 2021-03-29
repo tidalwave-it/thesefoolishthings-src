@@ -38,7 +38,7 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
  **********************************************************************************************************************/
 public class PersonRegistryImpl2 implements PersonRegistry2
   {
-    private final List<Person> persons = new ArrayList<Person>();
+    private final List<Person> persons = new ArrayList<>();
 
     @Override
     public void add (@Nonnull final Person person)
