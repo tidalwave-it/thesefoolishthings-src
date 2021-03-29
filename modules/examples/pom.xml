@@ -133,8 +133,8 @@
         <module>DciMarshalXStreamExample</module>
         <module>DciPersistenceJpaExample</module>
         <module>DciSwingExample</module>
-        <module>FinderExample1</module>
-        <module>FinderExample2</module>
+        <module>ExtendedFinderExample</module>
+        <module>InMemoryFinderExample</module>
         <module>JPAFinderExample</module>
     </modules>
 

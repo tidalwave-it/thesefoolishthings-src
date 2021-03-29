@@ -93,11 +93,11 @@ For the following examples of ```Finder``` usage we will make reference to a reg
 
 Data can be queried as:
 
-<!-- MACRO{snippet|id=basic-example|file=${project.basedir}/../../modules/examples/FinderExample1/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample1/Main.java} -->
+<!-- MACRO{snippet|id=basic-example|file=${project.basedir}/../../modules/examples/InMemoryFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/InMemoryFinderExample/Main.java} -->
 
 They can be sorted in some basic way:
 
-<!-- MACRO{snippet|id=sort-example|file=${project.basedir}/../../modules/examples/FinderExample1/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample1/Main.java} -->
+<!-- MACRO{snippet|id=sort-example|file=${project.basedir}/../../modules/examples/InMemoryFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/InMemoryFinderExample/Main.java} -->
 
 Intermediate methods can be freely mixed. This first example shows the utility of ```Finder``` to offer a clean API that doesn't
 inflate with lots of methods only to provide variants of the query (it's the typical advantage of a fluent interface). It will be shown that this API can
@@ -112,7 +112,7 @@ be extended with new methods without changing the general concepts.
 If the whole collection of objects to query is already in memory, a predefined wrapping ```Finder``` can be created with the factory method ```ofCloned()```;
 it is used by a first example implementation of ```PersonRegistry```:
 
-<!-- MACRO{snippet|id=ofCloned|file=${project.basedir}/../../modules/examples/FinderExample1/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample1/InMemoryPersonRegistry.java} -->
+<!-- MACRO{snippet|id=ofCloned|file=${project.basedir}/../../modules/examples/InMemoryFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/InMemoryFinderExample/InMemoryPersonRegistry.java} -->
 
 As the name of the method says, the collection is cloned (shallow clone) at construction time, so any change made after the ```Finder``` creation won't be seen.
 
@@ -170,7 +170,7 @@ In both cases sorting criteria are defined by means of the interfaces ```SortCri
 
 A convenience method ```of()``` makes it possible to easily create a working ```SortCriterion``` by wrapping a ```Comparator```:
 
-<!-- MACRO{snippet|id=sort-criteria|file=${project.basedir}/../../modules/examples/FinderExample1/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample1/PersonSortCriteria.java} -->
+<!-- MACRO{snippet|id=sort-criteria|file=${project.basedir}/../../modules/examples/InMemoryFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/inmemoryfinderexample/PersonSortCriteria.java} -->
 
 The intermediate method ```Finder.sort()``` behaves as other intermediate methods and just collects data for a later use:
 
@@ -203,11 +203,11 @@ An **extended ```Finder```** is a subclass of ```Finder``` that **exposes additi
 ```PersonFinder``` for the previous ```PersonRegistry``` that extends ```Finder<Person>``` and offers two new methods that filter by first or last name with a
 regular expression:
 
-<!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/PersonFinder.java} -->
+<!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinder.java} -->
 
 The registry now would return a ```PersonFinder``` instead of the general ```Finder<Person>```, like this:
 
-<!-- MACRO{snippet|id=finder|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/PersonRegistry2.java} -->
+<!-- MACRO{snippet|id=finder|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonRegistry2.java} -->
 
 There is a first problem to address: to make it possible to freely mix all the intermediate methods, both the new ones and those defined in the base
 ```Finder```. This cannot be achieved by merely extending the ```Finder``` interface (i. e. ```interface PersonFinder extends Finder<Person>```), as the
@@ -240,11 +240,11 @@ understand this, have a look at the```ExtendedFinderSupport``` source:
 
 So a properly designed ```PersonFinder``` must extend ```ExtendedFinderSupport<Person, PersonFinder>``` in place of ```Finder<Person>```:
 
-<!-- MACRO{snippet|id=person-finder|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/PersonFinder.java} -->
+<!-- MACRO{snippet|id=person-finder|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinder.java} -->
 
 In this way the new methods can be freely mixed with the ones inherited by the super interface:
 
-<!-- MACRO{snippet|id=extended-example|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/FinderExample2.java} -->
+<!-- MACRO{snippet|id=extended-example|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/ExtendedFinderExample.java} -->
 
 
 #[[###]]# Hierarchic ```Finder```s
@@ -265,11 +265,11 @@ done (in-memory, to keep things simpler).
 
 First we have to declare fields for the internal state and a public constructor to initialize the object with reasonable defaults:
 
-<!-- MACRO{snippet|id=public-constructor-and-fields|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/PersonFinderImpl2.java} -->
+<!-- MACRO{snippet|id=public-constructor-and-fields|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
 
 A private constructor to initialize everything to arbitrary values is also needed:
 
-<!-- MACRO{snippet|id=private-constructor|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/PersonFinderImpl2.java} -->
+<!-- MACRO{snippet|id=private-constructor|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
 
 As it was explained above, intermediate methods must create copies of the ```Finder``` to comply with the immutability constraint. In a normal class this would be
 performed by a copy constructor that takes *all the fields*, including those of the superclass(es); but since we decided to make them ```private``` they can't
@@ -278,11 +278,11 @@ the ```super``` default constructor, this means that **the state of the super cl
 methods implemented in the super class(es) will be lost. Obviously this is not how things are supposed to work: that's why ```FinderSupport``` offers a
 ```clonedWithOverride()``` method that fixes everything.
 
-<!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/PersonFinderImpl2.java} -->
+<!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
 
 How does it work? It relies on the the presence of a special copy constructor that looks like this:
 
-<!-- MACRO{snippet|id=clone-constructor|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/PersonFinderImpl2.java} -->
+<!-- MACRO{snippet|id=clone-constructor|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
 
 *Note: having this special copy constructor is a requirement of any subclass of ```FinderSupport```. The ```FinderSupport``` constructor makes a runtime check
 by introspection and throws an exception if the proper copy constructor is not found.*
@@ -300,7 +300,7 @@ the ```override``` object: if it is our same type, it's the incomplete ```Finder
 initialize as in a regular clone constructor, from the ```other``` object. A convenience method ```getSource()``` performs the decision for us. Of course we
 need to call the ```super()``` constructor to make sure everything is fine (but no details of the super class are exposed by it).
 
-![UML](${project.basedir}/../../modules/examples/FinderExample2/apidocs/it/tidalwave/thesefoolishthings/examples/finderexample2/package.svg)
+![UML](${project.basedir}/../../modules/examples/ExtendedFinderExample/apidocs/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/package.svg)
 
 Is it a bit clumsy? Admittedly it is, even though the code is simple and clean: once the concept is clear, it's easy to write a copy constructor for a new
 extended ```Finder```. Part of the clumsiness derives from the complexity of inheritance, that we are trying to work around. If you don't like this approach,
@@ -333,7 +333,7 @@ This method would return **all** the objects of pertinence, without filtering or
 take care of that. Since this implies to work in memory after having loaded/created all the objects, this approach is easier to write but less efficient. It's
 ok for mocks or simple cases. The implementation of our example is:
 
-<!-- MACRO{snippet|id=computeResults|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/PersonFinderImpl2.java} -->
+<!-- MACRO{snippet|id=computeResults|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
 
 
 
@@ -362,7 +362,7 @@ the data source and prepare an optimised query.
 ```Finder```s can be effectively be used in synergy with ```Stream``` by chaining the appropriated methods: this allows to choose which part of the processing
 must be performed by the data source and which part in memory, after data have been retrieved.
 
-<!-- MACRO{snippet|id=stream-example|file=${project.basedir}/../../modules/examples/FinderExample2/src/main/java/it/tidalwave/thesefoolishthings/examples/finderexample2/FinderExample2.java} -->
+<!-- MACRO{snippet|id=stream-example|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/ExtendedFinderExample.java} -->
 
 This explains why ```Finder``` doesn't offer methods such as ```filter(Predicate<T>)```: because in no way from a compiled Java function it could understand
 how to prepare a query for a generic data source. Such a method would be only useful to post-process data once they have been loaded in memory, but it's more
