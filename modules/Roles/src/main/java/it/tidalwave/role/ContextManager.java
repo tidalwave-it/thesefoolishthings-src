@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-role
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.role;
 
@@ -74,7 +74,7 @@ public interface ContextManager
         private static ContextManagerProvider contextManagerProvider;
 
         @Nonnull
-        public static synchronized ContextManager find()
+        public static synchronized ContextManager find ()
           {
             if (contextManager == null)
               {
@@ -90,7 +90,7 @@ public interface ContextManager
                       }
 
                     contextManagerProvider = Objects.requireNonNull(i.next());
-                    assert contextManagerProvider != null : "contextManagerProvider is null" ;
+                    assert contextManagerProvider != null : "contextManagerProvider is null";
                     log.trace("ContextManagerProvider instantiated from META-INF: {}", contextManagerProvider);
                   }
 
@@ -98,15 +98,38 @@ public interface ContextManager
                                                         "Cannot find ContextManager");
               }
 
-            assert contextManager != null : "contextManager is null" ;
+            assert contextManager != null : "contextManager is null";
             return contextManager;
           }
 
-        /** For testing. */
+        /***************************************************************************************************************
+         *
+         * <b>This method is for testing only.</b> Sets the global {@link ContextManagerProvider}. See note about
+         * {@link #reset()}.
+         *
+         * @param   provider    the provider
+         * @see     #reset()
+         *
+         **************************************************************************************************************/
         public static void set (@Nonnull final ContextManagerProvider provider)
           {
             contextManager = null;
             contextManagerProvider = provider;
+          }
+
+        /***************************************************************************************************************
+         *
+         * <b>This method is for testing only.</b> Resets the global {@link ContextManagerProvider}; it must be called
+         * at the test completion whenever {@link #set(ContextManagerProvider)} has been called, to avoid polluting the
+         * context of further tests.
+         *
+         * @see     #set(ContextManagerProvider)
+         *
+         **************************************************************************************************************/
+        public static void reset()
+          {
+            contextManager = null;
+            contextManagerProvider = null;
           }
       }
 
@@ -124,7 +147,8 @@ public interface ContextManager
      *
      * Finds a current context instance of the given type.
      *
-     * @param   contextType        the context type
+     * @param   <T>                the static context type
+     * @param   contextType        the dynamic context type
      * @return                     the requested context
      * @throws  NotFoundException  if no context of that type is found
      *
@@ -146,7 +170,7 @@ public interface ContextManager
      *
      * Removes a global context.
      *
-     * @param  context             the context
+     * @param  context            the context
      *
      ******************************************************************************************************************/
     public void removeGlobalContext (@Nonnull Object context);
@@ -155,7 +179,7 @@ public interface ContextManager
      *
      * Adds a local context.
      *
-     * @param  context             the new context
+     * @param  context            the new context
      *
      ******************************************************************************************************************/
     public void addLocalContext (@Nonnull Object context);
@@ -164,7 +188,7 @@ public interface ContextManager
      *
      * Removes a local context.
      *
-     * @param  context             the context
+     * @param  context            the context
      *
      ******************************************************************************************************************/
     public void removeLocalContext (@Nonnull Object context);
@@ -173,32 +197,40 @@ public interface ContextManager
      *
      * Runs a {@link Task} associated with a new local context.
      *
-     * @param  context             the context
-     * @param  task                the task
+     * @param  <V>                the type of the returned value
+     * @param  <T>                the type of the exception that can be thrown
+     * @param  context            the context
+     * @param  task               the task
+     * @return                    the value produced by the task
+     * @throws T                  the exception(s) thrown by the task
      *
      ******************************************************************************************************************/
-    public <V, T extends Throwable> V runWithContext (@Nonnull Object context,
-                                                      @Nonnull Task<V, T> task)
+    public <V, T extends Throwable> V runWithContext (@Nonnull Object context, @Nonnull Task<V, T> task)
       throws T;
 
     /*******************************************************************************************************************
      *
      * Runs a {@link Task} associated with a new bunch of local contexts.
      *
-     * @param  contexts            the contexts
-     * @param  task                the task
+     * @param  <V>                the type of the returned value
+     * @param  <T>                the type of the exception that can be thrown
+     * @param  contexts           the contexts
+     * @param  task               the task
+     * @return                    the value produced by the task
+     * @throws T                  the exception(s) thrown by the task
      *
      ******************************************************************************************************************/
-    public <V, T extends Throwable> V runWithContexts (@Nonnull List<Object> contexts,
-                                                       @Nonnull Task<V, T> task)
+    public <V, T extends Throwable> V runWithContexts (@Nonnull List<Object> contexts, @Nonnull Task<V, T> task)
       throws T;
 
     /*******************************************************************************************************************
      *
      * Runs a task associated with a new local context. This variant fits functional interfaces.
      *
-     * @param  context             the context
-     * @param  task                the task
+     * @param  <V>                the type of the returned value of the task
+     * @param  context            the context
+     * @param  task               the task
+     * @return                    the value produced by the task
      *
      ******************************************************************************************************************/
     public <V> V runWithContext (@Nonnull Object context, @Nonnull Supplier<V> task);
@@ -207,8 +239,10 @@ public interface ContextManager
      *
      * Runs a task associated with a new bunch of local contexts. This variant fits functional interfaces.
      *
-     * @param  contexts             the context
-     * @param  task                the task
+     * @param  <V>                the type of the returned value
+     * @param  contexts           the context
+     * @param  task               the task
+     * @return                    the value produced by the task
      *
      ******************************************************************************************************************/
     public <V> V runWithContexts (@Nonnull List<Object> contexts, @Nonnull Supplier<V> task);

@@ -6,22 +6,20 @@
 TheseFoolishThings
 ================================
 
-A kitchen sink of small libraries that are used by all projects by Tidalwave. It mostly contains:
+This project was born, several years ago, as the classic “kitchen sink” of stuff from other projects that was deemed of being reusable.
+Sometimes it grew in a disordered way, other times it was reviewed and cleaned up accurately. It contains different sort of things: from
+simple stuff such as a **```TimeProvider```** that can be mocked (for time-based tests), to **type safe ```Map```s** (following
+advice of Joshua Bloch); up to some more structured things such an extensible **```Finder```** to manipulate queries from a generic data
+source; **a facility for working with the DCI (Data, Context and Interactions) architectural pattern**; a **simple ```MessageBus```** suitable for using
+the Publish and Subscribe pattern inside an application.
 
-* a few generic stuff such as ```Id``` and ```IdFactory```;
-* the ```Finder``` API for fluent query builders;
-* support for the DCI pattern (Data Context and Interaction), with optional Spring integration;
-* a tiny but functional local Message Bus, with optional Spring integration;
-* a small, experimental Actor library;
-* some test utilities.
+There is also some really exotic stuff, such as small implementation of **collaborative
+Actors** (working, but designed basically for didactic purposes). Actually this whole project is often used in Java classes to show things
+that are reasonably contextualized in a real-world scenario (the core parts of this project are used by working pet projects; something is
+also part of industrial project). There is good stuff and some strange stuff - in general an attitude of this project is to also try things
+in a different way than the standard.
 
-TheseFoolishThings still supports JDK 7 and has got a small JDK 8 integration module.
-
-Since version 3.0 lots of old stuff have been dropped:
-
-* Support for Swing.
-* Support for the NetBeans Platform.
-* A very small support library for Vaadin.
+TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
 
 
 Bootstrapping
@@ -37,23 +35,7 @@ The project can be opened and built by a recent version of the NetBeans, Eclipse
 Documentation
 -------------
 
-More information can be found on the [homepage](http://thesefoolishthings.tidalwave.it) of the project.
-
-
-Where can I get the latest release?
------------------------------------
-
-You can download source and binaries from the [download page](https://bitbucket.org/tidalwave/thesefoolishthings-src/src).
-
-Alternatively you can pull it from the central Maven repositories:
-
-```xml
-<dependency>
-    <groupId>it.tidalwave.thesefoolishthings<groupId>
-    <artifactId>thesefoolishthings</artifactId>
-    <version>-- version --</version>
-</dependency>
-```
+More information can be found on the [homepage](http://tidalwave.it/projects/thesefoolishthings) of the project.
 
 
 Contributing
@@ -84,5 +66,3 @@ Additional Resources
 --------------------
 
 * [Tidalwave Homepage](http://tidalwave.it)
-* [Project Issue Tracker (Jira)](http://services.tidalwave.it/jira/browse/TFT)
-* [Project Continuous Integration (Jenkins)](http://services.tidalwave.it/ci/view/TheseFoolishThings)

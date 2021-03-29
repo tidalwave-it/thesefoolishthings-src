@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,16 +19,18 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.ServiceLoader;
-import it.tidalwave.util.impl.EmptyAsDelegateProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -72,13 +73,28 @@ public interface AsDelegateProvider
             return asSpiProvider;
           }
 
-        /** For testing */
+        /***************************************************************************************************************
+         *
+         * <b>This method is for testing only.</b> Sets the global {@link AsDelegateProvider}.
+         *
+         * @param   provider    the provider
+         * @see     #reset() 
+         *
+         **************************************************************************************************************/
         public static void set (@Nonnull final AsDelegateProvider provider)
           {
             asSpiProvider = provider;
           }
 
-        /** For testing */
+        /***************************************************************************************************************
+         *
+         * <b>This method is for testing only.</b> Resets the global {@link AsDelegateProvider}; it must be called at
+         * the test completion whenever {@link #set(AsDelegateProvider)} has been called, to avoid polluting the
+         * context of further tests.
+         * 
+         * @see     #set(AsDelegateProvider)
+         *
+         **************************************************************************************************************/
         public static void reset()
           {
             asSpiProvider = null;
@@ -87,6 +103,10 @@ public interface AsDelegateProvider
 
     /*******************************************************************************************************************
      *
+     * Creates an {@link AsDelegate} for the given object
+     *
+     * @param     datum   the object
+     * @return            {@code AsDelegate}
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -100,12 +120,32 @@ public interface AsDelegateProvider
      * AsDelegateProvider.Locator.set(AsDelegateProvider.empty());
      * </pre>
      *
-     * @since 3.2-ALPHA-1
+     * @return    the empty implementation
+     * @since     3.2-ALPHA-1
      *
      ******************************************************************************************************************/
     @Nonnull
     public static AsDelegateProvider empty()
       {
         return new EmptyAsDelegateProvider();
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    static class EmptyAsDelegateProvider implements AsDelegateProvider
+      {
+        @Override @Nonnull
+        public AsDelegate createAsDelegate (@Nonnull final Object owner)
+          {
+            return new AsDelegate()
+              {
+                @Override @Nonnull
+                public <T> Collection<T> as (@Nonnull final Class<T> type)
+                  {
+                    return new ArrayList<>(); // must be mutable
+                  }
+              };
+          }
       }
   }

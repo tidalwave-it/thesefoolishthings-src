@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/thesefoolishthings-examples/it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
 
@@ -64,19 +64,19 @@ public class DciMarshalXStreamExample
 
         final ByteArrayOutputStream os1 = new ByteArrayOutputStream();
         joe.as(_Marshallable_).marshal(os1);
-        log.info("******** (jos as Mashallable) marshalled: {}", new String(os1.toByteArray(), UTF_8));
+        log.info("******** (jos as Mashallable) marshalled: {}", os1.toString(UTF_8));
 
         final ByteArrayOutputStream os2 = new ByteArrayOutputStream();
         final ListOfPersons listOfPersons = new ListOfPersons(Arrays.asList(joe, luke));
         listOfPersons.as(_Marshallable_).marshal(os2);
-        log.info("******** (listOfPersons as Mashallable) marshalled: {}", new String(os2.toByteArray(), UTF_8));
+        log.info("******** (listOfPersons as Mashallable) marshalled: {}", os2.toString(UTF_8));
 
         final ByteArrayOutputStream os3 = new ByteArrayOutputStream();
         final DefaultPersonRegistry personRegistry = new DefaultPersonRegistry();
         personRegistry.add(joe);
         personRegistry.add(luke);
         personRegistry.as(_Marshallable_).marshal(os3);
-        log.info("******** (personRegistry as Mashallable) marshalled: {}", new String(os2.toByteArray(), UTF_8));
+        log.info("******** (personRegistry as Mashallable) marshalled: {}", os2.toString(UTF_8));
 
         contextManager.removeLocalContext(xStreamContext);
       }

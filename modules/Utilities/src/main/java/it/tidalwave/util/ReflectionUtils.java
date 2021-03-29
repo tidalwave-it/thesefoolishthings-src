@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.util;
 
@@ -47,13 +47,17 @@ import java.util.Map;
  **********************************************************************************************************************/
 public class ReflectionUtils
   {
-  /**
-   * Get the actual type arguments a child class has used to extend a generic base class.
-   *
-   * @param baseClass the base class
-   * @param childClass the child class
-   * @return a list of the raw classes for the actual type arguments.
-   */
+    /*******************************************************************************************************************
+     *
+     * Get the actual type arguments a subclass has used to extend a generic base class.
+     *
+     * @param   <T>           the static type of the base class
+     * @param   baseClass     the base class
+     * @param   childClass    the subclass
+     * @return                a list of the raw classes for the actual type arguments.
+     *
+     ******************************************************************************************************************/
+    @Nonnull
     public static <T> List<Class<?>> getTypeArguments (@Nonnull final Class<T> baseClass,
                                                        @Nonnull final Class<? extends T> childClass)
       {

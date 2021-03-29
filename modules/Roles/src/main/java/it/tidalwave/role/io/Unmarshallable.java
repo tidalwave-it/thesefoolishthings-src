@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-role
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.role.io;
 
@@ -48,6 +48,7 @@ public interface Unmarshallable
      *
      * Unmarshals the object from the given {@link InputStream}.
      *
+     * @param  <T>             the type of the returned value
      * @param   is             the {@code InputStream}
      * @return                 the unmarshalled object
      * @throws  IOException    when an error occurs

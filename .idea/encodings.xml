@@ -23,8 +23,9 @@
     <file url="file://$PROJECT_DIR$/modules/examples/DciPersistenceJpaExample/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/DciSwingExample/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/DciSwingExample/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/modules/examples/FinderExample1/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/modules/examples/FinderExample2/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/modules/examples/FinderExample3/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/examples/ExtendedFinderExample/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/examples/InMemoryFinderExample/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/examples/JPAFinderExample/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/examples/JPAFinderExample/src/main/resources" charset="UTF-8" />
   </component>
 </project>

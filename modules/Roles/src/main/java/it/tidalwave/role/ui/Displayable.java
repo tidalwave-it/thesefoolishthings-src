@@ -1,28 +1,28 @@
 /*
- * #%L
  * *********************************************************************************************************************
- * 
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ *
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-role
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * *********************************************************************************************************************
- * 
- * 
+ *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
+ *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.role.ui;
 
@@ -74,8 +74,9 @@ public interface Displayable
      *
      * Creates an instance with a given display name.
      *
-     * @param  displayName   the display name
-     * @since   3.2-ALPHA-1 (was {@code DefaultDisplayable}
+     * @param  displayName    the display name
+     * @return                the new instance
+     * @since                 3.2-ALPHA-1 (was {@code DefaultDisplayable}
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -88,9 +89,10 @@ public interface Displayable
      *
      * Creates an instance with a given display name iand an explicit label for  {@code toString()}.
      *
-     * @param  displayName   the display name
-     * @param  toStringName  the name to be rendered when {@code toString()} is called
-     * @since   3.2-ALPHA-1 (was {@code DefaultDisplayable}
+     * @param  displayName    the display name
+     * @param  toStringName   the name to be rendered when {@code toString()} is called
+     * @return                the new instance
+     * @since                 3.2-ALPHA-1 (was {@code DefaultDisplayable}
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -104,9 +106,9 @@ public interface Displayable
      * Creates an instance from a {@link Supplier}{@code <String>}. The supplier is invoked each time
      * {@link #getDisplayName()} is called.
      *
-     * @param   supplier    the {@code Supplier}
-     * @return              the instance
-     * @since   3.2-ALPHA-3
+     * @param   supplier      the {@code Supplier}
+     * @return                the new instance
+     * @since                 3.2-ALPHA-3
      * @it.tidalwave.javadoc.experimental
      *
      ******************************************************************************************************************/
@@ -121,10 +123,11 @@ public interface Displayable
      * Creates an instance from a {@link Function}{@code <T, String>} and a generic object that the function is applied
      * to. The function is invoked each time {@link #getDisplayName()} is called.
      *
-     * @param   function    the {@code Function}
-     * @param   object      the object
-     * @return              the instance
-     * @since   3.2-ALPHA-3
+     * @param   <T>           the type of the object
+     * @param   function      the {@code Function}
+     * @param   object        the object
+     * @return                the new instance
+     * @since                 3.2-ALPHA-3
      * @it.tidalwave.javadoc.experimental
      *
      ******************************************************************************************************************/
@@ -139,10 +142,10 @@ public interface Displayable
      * Creates a {@link LocalizedDisplayable} from a resource bundle. The bundle resource file is named
      * {@code Bundle.properties} and it should be placed in the same package as the owner class.
      *
-     * @param   ownerClass  the class that owns the bundle
-     * @param   key         the resource key
-     * @return              the {@code Displayable}
-     * @since   3.2-ALPHA-1 (was previously in {@code Displayable8}
+     * @param   ownerClass    the class that owns the bundle
+     * @param   key           the resource key
+     * @return                the new instance
+     * @since                 3.2-ALPHA-1 (was previously in {@code Displayable8}
      *
      ******************************************************************************************************************/
     @Nonnull
