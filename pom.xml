@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.superpom</groupId>
         <artifactId>superpom</artifactId>
-        <version>5.0-ALPHA-9</version>
+        <version>5.0-ALPHA-10</version>
         <relativePath />
     </parent>
 
@@ -57,11 +57,12 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
 
     <properties>
         <tft.maven.requiredJdk>[11, 12)</tft.maven.requiredJdk>
-        <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
-        <tidalwave.issues>TFT</tidalwave.issues>
         <scm.repo.url>ssh://git@bitbucket.org/tidalwave/thesefoolishthings-src.git</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
+        <tidalwave.slogan>TheseFoolishThings: Miscellaneous utilities</tidalwave.slogan>
+        <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
+        <tidalwave.issues>TFT</tidalwave.issues>
         <tidalwave.github.readonly.url>https://github.com/tidalwave-it/thesefoolishthings-src</tidalwave.github.readonly.url>
         <tidalwave.github.browse.url>https://github.com/tidalwave-it/thesefoolishthings-src</tidalwave.github.browse.url>
     </properties>
