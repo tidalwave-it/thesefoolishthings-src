@@ -40,7 +40,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample2</artifactId>
     <version>3.2-ALPHA-9-SNAPSHOT</version>
-    <name>TheseFoolishThings :: Examples :: Extended Finder Example</name>
+    <name>TheseFoolishThings :: Examples :: Finder :: Extended Finder</name>
     <description>
         A more complex example of Finder usage.
     </description>
