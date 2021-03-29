@@ -38,7 +38,7 @@
       <option name="IGNORE_JAVADOC_PERIOD" value="true" />
       <option name="IGNORE_DUPLICATED_THROWS" value="false" />
       <option name="IGNORE_POINT_TO_ITSELF" value="false" />
-      <option name="myAdditionalJavadocTags" value="stereotype,it.tidalwave.javadoc.stable,it.tidalwave.javadoc.draft,it.tidalwave.javadoc.experimental" />
+      <option name="myAdditionalJavadocTags" value="stereotype,it.tidalwave.javadoc.stable,it.tidalwave.javadoc.draft,it.tidalwave.javadoc.experimental,hidden" />
     </inspection_tool>
     <inspection_tool class="LiteralAsArgToStringEquals" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="LocalCanBeFinal" enabled="true" level="WARNING" enabled_by_default="true">

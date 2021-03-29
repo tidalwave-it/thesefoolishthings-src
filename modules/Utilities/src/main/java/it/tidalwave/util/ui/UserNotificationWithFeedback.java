@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.util.ui;
 
@@ -64,6 +64,9 @@ public class UserNotificationWithFeedback extends UserNotification
 
         /***************************************************************************************************************
          *
+         * Checks whether the current instance has a callback for confirmation.
+         *
+         * @return  {@code true} if the instance has the callback
          * @since   3.2-ALPHA-1
          *
          **************************************************************************************************************/
@@ -74,6 +77,9 @@ public class UserNotificationWithFeedback extends UserNotification
 
         /***************************************************************************************************************
          *
+         * Checks whether the current instance has a callback for cancellation.
+         *
+         * @return  {@code true} if the instance has the callback
          * @since   3.2-ALPHA-1
          *
          **************************************************************************************************************/
@@ -116,6 +122,9 @@ public class UserNotificationWithFeedback extends UserNotification
 
     /*******************************************************************************************************************
      *
+     * @param text          the notification text
+     * @param caption       the notification caption
+     * @param feedback      the feedback
      *
      ******************************************************************************************************************/
     protected UserNotificationWithFeedback (@Nonnull final String text,
@@ -245,8 +254,15 @@ public class UserNotificationWithFeedback extends UserNotification
 
     /*******************************************************************************************************************
      *
+     * Creates a new {@code Feedback} that does nothing. This method should be chained with {@code withOnConfirm()}
+     * and/or {@code withOnCancel(Callback)} to specify the relative callbacks.
      *
-     * @since 3.2-ALPHA-1 (was previously on {@code Feedback8}
+     * <pre>
+     *   feedback().withOnConfirm(this::doSomething).withOnCancel(this::doSomethingElse);
+     * </pre>
+     *
+     * @return    a feedback that does nothing in any case
+     * @since     3.2-ALPHA-1 (was previously on {@code Feedback8}
      *
      ******************************************************************************************************************/
     @Nonnull

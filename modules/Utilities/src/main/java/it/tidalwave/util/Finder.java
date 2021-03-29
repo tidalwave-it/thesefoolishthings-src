@@ -1,28 +1,28 @@
 /*
- * #%L
  * *********************************************************************************************************************
- * 
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ *
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * *********************************************************************************************************************
- * 
- * 
+ *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
+ *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.util;
 
@@ -30,12 +30,18 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 import java.io.Serializable;
 import it.tidalwave.util.impl.ArrayListFinder;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /***********************************************************************************************************************
  *
@@ -52,19 +58,17 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * A tag interface to mark objects which are meaningful sort criteria that can be passed to
      * {@link Finder#sort(it.tidalwave.util.Finder.SortCriterion)}. In general, a {@code SortCriterion} is just a
      * behaviourless and methodless object, that should be specifically handled by concrete implementations of
-     * {@link Finder}. The only exceptions are {@link FilterSortCriterion} objects.
+     * {@link Finder}. The only exceptions are {@link InMemorySortCriterion} objects.
      *
      ******************************************************************************************************************/
     public static interface SortCriterion
       {
-        //@bluebook-ignore-begin
         public static final Class<SortCriterion> _SortCriterion_ = SortCriterion.class;
 
         /** A special {@link SortCriterion} which indicates that no sort has been performed. */
-        public static final SortCriterion UNSORTED = (FilterSortCriterion<Object>)(results, sortDirection) -> {};
+        public static final SortCriterion UNSORTED = (InMemorySortCriterion<Object>)(results, sortDirection) -> {};
 
         public static final SortCriterion DEFAULT = UNSORTED;
-        //@bluebook-ignore-end
       }
 
     /*******************************************************************************************************************
@@ -73,13 +77,23 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * by themselves the sorting of objects, by post-processing an existing collection of objects. While this is often
      * convenient, it is possible for it to be inefficient in cases in which the original source of objects is capable
      * to perform the sort in an optimized way (e.g. a SQL database by means of {@code ORDER BY}}. The facility class
-     * {@link it.tidalwave.util.spi.FinderSupport} supports {@code FilterSortCriterion} objects out of the box. A
-     * convenient partial
-     * implementation of {@code FilterSortCriterion} is {@link DefaultFilterSortCriterion}.
+     * {@link it.tidalwave.util.spi.FinderSupport} supports {@code FilterSortCriterion} objects out of the box.
      *
      ******************************************************************************************************************/
-    public static interface FilterSortCriterion<TYPE> extends SortCriterion
+    public static interface InMemorySortCriterion<TYPE> extends SortCriterion
       {
+        /***************************************************************************************************************
+         *
+         * Performs the sort of results.
+         *
+         * @param  results        the list of objects to be sorted in place
+         *
+         **************************************************************************************************************/
+        public default void sort (@Nonnull final List<? extends TYPE> results)
+          {
+            sort(results, SortDirection.ASCENDING);
+          }
+
         /***************************************************************************************************************
          *
          * Performs the sort of results.
@@ -88,7 +102,61 @@ public interface Finder<TYPE> extends Cloneable, Serializable
          * @param  sortDirection  the sort direction
          *
          **************************************************************************************************************/
+        // START SNIPPET: sort
         public void sort (@Nonnull List<? extends TYPE> results, @Nonnull SortDirection sortDirection);
+        // END SNIPPET: sort
+
+        /***************************************************************************************************************
+         *
+         * Creates a new in-memory {@code SortCriterion} based on a {@link Comparator}.
+         *
+         * @param <T>           the type of the objects to compare
+         * @param comparator    the {@code Comparator}
+         * @return              the new {@code SortCriterion}
+         *
+         **************************************************************************************************************/
+        @Nonnull
+        public static <T> InMemorySortCriterion<T> of (@Nonnull final Comparator<? super T> comparator)
+          {
+            return new DefaultInMemorySortCriterion<>(comparator, comparator.getClass().getSimpleName());
+          }
+
+        /***************************************************************************************************************
+         *
+         * Creates a new in-memory {@code SortCriterion} based on a {@link Comparator}.
+         *
+         * @param <T>           the type of the objects to compare
+         * @param comparator    the {@code Comparator}
+         * @param name          a name
+         * @return              the new {@code SortCriterion}
+         *
+         **************************************************************************************************************/
+        @Nonnull
+        public static <T> SortCriterion of (@Nonnull final Comparator<? super T> comparator, @Nonnull final String name)
+          {
+            return new DefaultInMemorySortCriterion<>(comparator, name);
+          }
+
+        /***************************************************************************************************************
+         *
+         **************************************************************************************************************/
+        @AllArgsConstructor @ToString @EqualsAndHashCode
+        static class DefaultInMemorySortCriterion<T> implements Finder.InMemorySortCriterion<T>, Serializable
+          {
+            private static final long serialVersionUID = 76093596048395982L;
+
+            @Nonnull
+            private final Comparator<? super T> comparator;
+
+            @Nonnull
+            private final String name;
+
+            @Override
+            public void sort (@Nonnull final List<? extends T> results, @Nonnull final SortDirection sortDirection)
+              {
+                results.sort((Comparator<T>)(o1, o2) -> comparator.compare(o1, o2) * sortDirection.intValue());
+              }
+          }
       }
 
     /*******************************************************************************************************************
@@ -98,24 +166,18 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @it.tidalwave.javadoc.stable
      *
      ******************************************************************************************************************/
+    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
     public static enum SortDirection
       {
         ASCENDING(+1), DESCENDING(-1);
-        //@bluebook-ignore-begin
 
         private final int intValue;
-
-        private SortDirection (final int intValue)
-          {
-            this.intValue = intValue;
-          }
 
         /** @return  +1 for ascending direction, -1 for descending */
         public int intValue()
           {
             return intValue;
           }
-        //@bluebook-ignore-end
       }
 
     /*******************************************************************************************************************
@@ -126,8 +188,10 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @return                 the {@code Finder}
      *
      ******************************************************************************************************************/
+    // START SNIPPET: from
     @Nonnull
     public Finder<TYPE> from (@Nonnegative int firstResult);
+    // END SNIPPET: from
 
     /*******************************************************************************************************************
      *
@@ -137,9 +201,11 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @return                the {@code Finder}
      *
      ******************************************************************************************************************/
+    // START SNIPPET: max
     @Nonnull
     public Finder<TYPE> max (@Nonnegative int maxResults);
-    
+    // END SNIPPET: max
+
     /*******************************************************************************************************************
      *
      * Tells the {@code Finder} that results should be created with the given context. This method can be called 
@@ -150,18 +216,25 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Finder<TYPE> withContext (@Nonnull Object context);
+    public default Finder<TYPE> withContext (@Nonnull final Object context)
+      {
+        throw new UnsupportedOperationException("Not implemented yet.");
+      }
 
     /*******************************************************************************************************************
      *
      * Tells the {@code Finder} that the specified type of results is expected.
      *
-     * @param   type      the expected type of results
-     * @return            the {@code Finder}
+     * @param <ANOTHER_TYPE>  the static type
+     * @param   type          the dynamic type
+     * @return                the {@code Finder}
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <AnotherType> Finder<AnotherType> ofType (@Nonnull Class<AnotherType> type);
+    public default <ANOTHER_TYPE> Finder<ANOTHER_TYPE> ofType (@Nonnull final Class<ANOTHER_TYPE> type)
+      {
+        throw new UnsupportedOperationException("Not implemented yet.");
+      }
 
     /*******************************************************************************************************************
      *
@@ -172,7 +245,11 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Finder<TYPE> sort (@Nonnull SortCriterion criterion);
+    public default Finder<TYPE> sort (@Nonnull final SortCriterion criterion)
+      {
+        return sort(criterion, SortDirection.ASCENDING);
+      }
+
 
     /*******************************************************************************************************************
      *
@@ -188,41 +265,15 @@ public interface Finder<TYPE> extends Cloneable, Serializable
 
     /*******************************************************************************************************************
      *
-     * Performs the search assuming that it will return a single item and returns it. This method fails if the search
-     * returns more than one single item.
-     *
-     * @return                    the found item
-     * @throws NotFoundException  if the search didn't find anything
-     * @throws RuntimeException   if the search returned more than one single item
-     * @deprecated                Use {@link #optionalResult()} instead
-     *
-     ******************************************************************************************************************/
-    @Nonnull @Deprecated
-    public TYPE result()
-      throws NotFoundException, RuntimeException;
-
-    /*******************************************************************************************************************
-     *
-     * Performs the search and returns only the first found item.
-     *
-     * @return                    the first found item
-     * @throws NotFoundException  if the search didn't find anything
-     * @deprecated                Use {@link #optionalFirstResult()} ()} instead
-     *
-     ******************************************************************************************************************/
-    @Nonnull @Deprecated
-    public TYPE firstResult()
-      throws NotFoundException;
-
-    /*******************************************************************************************************************
-     *
      * Performs the search and returns the found items.
      *
      * @return            the searched items
      *
      ******************************************************************************************************************/
+    // START SNIPPET: results
     @Nonnull
     public List<? extends TYPE> results();
+    // END SNIPPET: results
 
     /*******************************************************************************************************************
      *
@@ -231,8 +282,10 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @return            the count of found items
      *
      ******************************************************************************************************************/
+    // START SNIPPET: count
     @Nonnegative
     public int count();
+    // END SNIPPET: count
 
     /*******************************************************************************************************************
      *
@@ -245,17 +298,19 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @since 3.2-ALPHA-1 (previously in Finder8)
      *
      ******************************************************************************************************************/
+    // START SNIPPET: optionalResult
     @Nonnull
     public default Optional<TYPE> optionalResult()
+    // END SNIPPET: optionalResult
       {
-        try
+        final List<TYPE> results = (List<TYPE>)results();
+
+        if (results.size() > 1)
           {
-            return Optional.of(result());
+            throw new RuntimeException("" + results.size() + " results, expected only one");
           }
-        catch (NotFoundException e)
-          {
-            return Optional.empty();
-          }
+
+        return results.stream().findFirst();
       }
 
     /*******************************************************************************************************************
@@ -266,17 +321,12 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * @since 3.2-ALPHA-1 (previously in Finder8)
      *
      ******************************************************************************************************************/
+    // START SNIPPET: optionalFirstResult
     @Nonnull
     public default Optional<TYPE> optionalFirstResult()
+    // END SNIPPET: optionalFirstResult
       {
-        try
-          {
-            return Optional.of(firstResult());
-          }
-        catch (NotFoundException e)
-          {
-            return Optional.empty();
-          }
+        return stream().findFirst();
       }
 
     /*******************************************************************************************************************
@@ -305,6 +355,40 @@ public interface Finder<TYPE> extends Cloneable, Serializable
     public default Iterator<TYPE> iterator()
       {
         return ((List<TYPE>)results()).iterator();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Performs the search assuming that it will return a single item and returns it. This method fails if the search
+     * returns more than one single item.
+     *
+     * @return                    the found item
+     * @throws NotFoundException  if the search didn't find anything
+     * @throws RuntimeException   if the search returned more than one single item
+     * @deprecated                Use {@link #optionalResult()} instead
+     *
+     ******************************************************************************************************************/
+    @Nonnull @Deprecated
+    public default TYPE result()
+            throws NotFoundException, RuntimeException
+      {
+        return optionalResult().orElseThrow(NotFoundException::new);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Performs the search and returns only the first found item.
+     *
+     * @return                    the first found item
+     * @throws NotFoundException  if the search didn't find anything
+     * @deprecated                Use {@link #optionalFirstResult()} ()} instead
+     *
+     ******************************************************************************************************************/
+    @Nonnull @Deprecated
+    public default TYPE firstResult()
+            throws NotFoundException
+      {
+        return optionalFirstResult().orElseThrow(NotFoundException::new);
       }
 
     /*******************************************************************************************************************

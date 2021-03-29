@@ -17,8 +17,8 @@
         <module name="it-tidalwave-messagebus" />
         <module name="it-tidalwave-util-test" />
         <module name="it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream" />
-        <module name="it-tidalwave-thesefoolishthings-examples-finderexample1" />
         <module name="project-archetype" />
+        <module name="it-tidalwave-thesefoolishthings-examples-finderexample1" />
         <module name="it-tidalwave-thesefoolishthings-examples-finderexample2" />
         <module name="it-tidalwave-thesefoolishthings-examples-finderexample3" />
         <module name="it-tidalwave-thesefoolishthings-examples-data" />
@@ -34,20 +34,20 @@
       <module name="it-tidalwave-messagebus-spring" target="1.8" />
       <module name="it-tidalwave-role" target="1.8" />
       <module name="it-tidalwave-role-spring" target="1.8" />
-      <module name="it-tidalwave-thesefoolishthings-examples-data" target="1.8" />
-      <module name="it-tidalwave-thesefoolishthings-examples-dci-displayable" target="1.8" />
-      <module name="it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream" target="1.8" />
-      <module name="it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa" target="1.8" />
-      <module name="it-tidalwave-thesefoolishthings-examples-dci-swing" target="1.8" />
-      <module name="it-tidalwave-thesefoolishthings-examples-finderexample1" target="1.8" />
-      <module name="it-tidalwave-thesefoolishthings-examples-finderexample2" target="1.8" />
-      <module name="it-tidalwave-thesefoolishthings-examples-finderexample3" target="1.8" />
+      <module name="it-tidalwave-thesefoolishthings-examples-data" target="11" />
+      <module name="it-tidalwave-thesefoolishthings-examples-dci-displayable" target="11" />
+      <module name="it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream" target="11" />
+      <module name="it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa" target="11" />
+      <module name="it-tidalwave-thesefoolishthings-examples-dci-swing" target="11" />
+      <module name="it-tidalwave-thesefoolishthings-examples-finderexample1" target="11" />
+      <module name="it-tidalwave-thesefoolishthings-examples-finderexample2" target="11" />
+      <module name="it-tidalwave-thesefoolishthings-examples-finderexample3" target="11" />
       <module name="it-tidalwave-util" target="1.8" />
       <module name="it-tidalwave-util-test" target="1.8" />
       <module name="modules" target="1.8" />
       <module name="project-archetype" target="1.8" />
       <module name="thesefoolishthings" target="1.8" />
-      <module name="thesefoolishthings-examples" target="1.8" />
+      <module name="thesefoolishthings-examples" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

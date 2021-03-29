@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.util.spi;
 
@@ -34,10 +34,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import it.tidalwave.util.Finder;
-import it.tidalwave.util.NotFoundException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,21 +55,18 @@ import lombok.extern.slf4j.Slf4j;
  *
  **********************************************************************************************************************/
 @Slf4j @AllArgsConstructor(access = AccessLevel.PRIVATE) @ToString
-public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implements Finder<TYPE>, Cloneable
+public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implements Finder<TYPE>
   {
     private static final long serialVersionUID = 2467809593956684L;
 
+    @RequiredArgsConstructor
     static class Sorter<Type>
       {
-        private final FilterSortCriterion<? super Type> sortCriterion;
-        private final SortDirection sortDirection;
+        @Nonnull
+        private final InMemorySortCriterion<Type> sortCriterion;
 
-        public Sorter (@Nonnull final FilterSortCriterion<? super Type> sortCriterion,
-                       @Nonnull final SortDirection sortDirection)
-          {
-            this.sortCriterion = sortCriterion;
-            this.sortDirection = sortDirection;
-          }
+        @Nonnull
+        private final SortDirection sortDirection;
 
         public void sort (@Nonnull final List<? extends Type> results)
           {
@@ -135,11 +132,14 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      *
      * Clone constructor for subclasses.
      *
+     * @param   other     the other instance to clone
+     * @param   holder    the holder object
+     *
      ******************************************************************************************************************/
-    protected FinderSupport (@Nonnull final FinderSupport<TYPE, EXTENDED_FINDER> other, @Nonnull final Object override)
+    protected FinderSupport (@Nonnull final FinderSupport<TYPE, EXTENDED_FINDER> other, @Nonnull final Object holder)
       {
-        log.trace("FinderSupport({}, {})", other, override);
-        final FinderSupport<TYPE, EXTENDED_FINDER> source = getSource(FinderSupport.class, other, override);
+        log.trace("FinderSupport({}, {})", other, holder);
+        final FinderSupport<TYPE, EXTENDED_FINDER> source = getSource(FinderSupport.class, other, holder);
         this.name = source.name;
         this.firstResult = source.firstResult;
         this.maxResults = source.maxResults;
@@ -149,16 +149,10 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     /*******************************************************************************************************************
      *
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    protected static <T> T getSource (final Class<T> clazz, @Nonnull final T other, @Nonnull final Object override)
-      {
-        return override.getClass().equals(clazz) ? (T)override : other;
-      }
-
-    /*******************************************************************************************************************
-     *
+     * This method throws an exception since a {@code Finder} eztending this class must be cloned with 
+     * {@link #clonedWith(Object)}.
+     * 
+     * @see #clonedWith(Object)
      * @deprecated
      *
      ******************************************************************************************************************/
@@ -170,10 +164,14 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     /*******************************************************************************************************************
      *
+     * Create a clone of this object calling the special copy constructor by reflection.
+     *
+     * @param   override  the override object
+     * @return            the clone
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected EXTENDED_FINDER clone (@Nonnull final Object override)
+    protected EXTENDED_FINDER clonedWith (@Nonnull final Object override)
       {
         try
           {
@@ -189,13 +187,28 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     /*******************************************************************************************************************
      *
+     * Create a clone of this object calling the special clone constructor by reflection.
+     *
+     * @param   override  the override object
+     * @return            the clone
+     * @deprecated        Use {@link #clonedWith(Object)} instead.
+     *
+     ******************************************************************************************************************/
+    @Nonnull @Deprecated
+    protected EXTENDED_FINDER clone (@Nonnull final Object override)
+      {
+        return clonedWith(override);
+      }
+
+    /*******************************************************************************************************************
+     *
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override @Nonnull
     public EXTENDED_FINDER from (@Nonnegative final int firstResult)
       {
-        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+        return clonedWith(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -206,7 +219,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Override @Nonnull
     public EXTENDED_FINDER max (@Nonnegative final int maxResults)
       {
-        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+        return clonedWith(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -218,7 +231,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     public EXTENDED_FINDER withContext (@Nonnull final Object context)
       {
         final List<Object> contexts = concat(this.contexts, context);
-        return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+        return clonedWith(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -238,18 +251,17 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public EXTENDED_FINDER sort (@Nonnull final SortCriterion criterion,
-                                 @Nonnull final SortDirection direction)
+    public EXTENDED_FINDER sort (@Nonnull final SortCriterion criterion, @Nonnull final SortDirection direction)
       {
-        if (criterion instanceof FilterSortCriterion)
+        if (criterion instanceof Finder.InMemorySortCriterion)
           {
             final List<Sorter<TYPE>> sorters = concat(this.sorters,
-                                                      new Sorter<>((FilterSortCriterion<TYPE>)criterion, direction));
-            return clone(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+                                                      new Sorter<>((InMemorySortCriterion<TYPE>)criterion, direction));
+            return clonedWith(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
           }
 
         final String template = "%s does not implement %s - you need to subclass Finder and override sort()";
-        final String message = String.format(template, criterion, FilterSortCriterion.class);
+        final String message = String.format(template, criterion, InMemorySortCriterion.class);
         throw new UnsupportedOperationException(message);
       }
 
@@ -262,42 +274,6 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     public final EXTENDED_FINDER sort (@Nonnull final SortCriterion criterion)
       {
         return sort(criterion, SortDirection.ASCENDING);
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public TYPE result()
-      throws NotFoundException
-      {
-        final List<? extends TYPE> result = computeNeededResults();
-
-        switch (result.size())
-          {
-            case 0:
-              throw new NotFoundException(name);
-
-            case 1:
-              return result.get(0);
-
-            default:
-              throw new RuntimeException("More than one result, " + name + ": " + result);
-          }
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public TYPE firstResult()
-      throws NotFoundException
-      {
-        return NotFoundException.throwWhenEmpty(computeNeededResults(), "Empty result").get(0);
       }
 
     /*******************************************************************************************************************
@@ -329,8 +305,10 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      * @return  the unprocessed results
      *
      ******************************************************************************************************************/
+    // START SNIPPET: computeResults
     @Nonnull
     protected List<? extends TYPE> computeResults()
+    // END SNIPPET: computeResults
       {
         throw new UnsupportedOperationException("You must implement me!");
       }
@@ -342,8 +320,10 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      * @return  the unprocessed results
      *
      ******************************************************************************************************************/
+    // START SNIPPET: computeNeededResults
     @Nonnull
     protected List<? extends TYPE> computeNeededResults()
+    // END SNIPPET: computeNeededResults
       {
         log.trace("computeNeededResults() - {}", this);
         List<? extends TYPE> results = computeResults();
@@ -366,7 +346,25 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
         return results;
       }
-    
+
+    /*******************************************************************************************************************
+     *
+     * An utility method used by the copy constructor (see general documentation). If the override object is strictly
+     * of the specified type, it is returned; otherwise the other object is returned.
+     *
+     * @param <T>       the static type of the source
+     * @param type      the dynamic type of the source
+     * @param other     the other finder
+     * @param override  the holder object
+     * @return          the override or other
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    protected static <T> T getSource (final Class<T> type, @Nonnull final T other, @Nonnull final Object override)
+      {
+        return override.getClass().equals(type) ? type.cast(override) : other;
+      }
+
     /*******************************************************************************************************************
      *
      *

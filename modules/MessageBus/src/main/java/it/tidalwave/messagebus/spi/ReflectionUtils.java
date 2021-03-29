@@ -1,28 +1,28 @@
 /*
- * #%L
  * *********************************************************************************************************************
- * 
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ *
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-messagebus
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * *********************************************************************************************************************
- * 
- * 
+ *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
+ *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.messagebus.spi;
 
@@ -75,7 +75,11 @@ public class ReflectionUtils
 
     /*******************************************************************************************************************
      *
+     * Navigates the hierarchy of the given object, top down, and applies the {@link MethodProcessor} to all the
+     * methods of each class, if not filtered out by the processor itself.
      *
+     * @param object            the object at the bottom of the hierarchy
+     * @param processor         the processor
      *
      ******************************************************************************************************************/
     public static void forEachMethodInTopDownHierarchy (@Nonnull final Object object,
@@ -92,7 +96,11 @@ public class ReflectionUtils
 
     /*******************************************************************************************************************
      *
+     * Navigates the hierarchy of the given object, bottom up, and applies the {@link MethodProcessor} to all the
+     * methods of each class, if not filtered out by the processor itself.
      *
+     * @param object            the object at the bottom of the hierarchy
+     * @param processor         the processor
      *
      ******************************************************************************************************************/
     public static void forEachMethodInBottomUpHierarchy (@Nonnull final Object object,
@@ -115,7 +123,10 @@ public class ReflectionUtils
 
     /*******************************************************************************************************************
      *
-     * Returns the hierarchy of the given class, starting from the highest.
+     * Returns the hierarchy of the given class, top down.
+     *
+     * @param   clazz               the clazz at the bottom of the hierarchy
+     * @return                      the hierarchy
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -133,7 +144,11 @@ public class ReflectionUtils
 
     /*******************************************************************************************************************
      *
+     * Checks whether an array of annotations contains an annotation of the given type.
      *
+     * @param   annotations         the annotations to check
+     * @param   annotationClass     the type of the required annotation
+     * @return                      true if the annotation is found
      *
      ******************************************************************************************************************/
     public static boolean containsAnnotation (@Nonnull final Annotation[] annotations,

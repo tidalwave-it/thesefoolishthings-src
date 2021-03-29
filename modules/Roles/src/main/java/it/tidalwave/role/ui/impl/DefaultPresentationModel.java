@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-role
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.role.ui.impl;
 
@@ -63,10 +63,10 @@ public class DefaultPresentationModel implements PresentationModel
      *
      *
      ******************************************************************************************************************/
-    public DefaultPresentationModel (@Nonnull final Object owner, @Nonnull final Collection<Object> rolesOrFactories)
+    public DefaultPresentationModel (@Nonnull final Object owner, @Nonnull final Collection<Object> roles)
       {
         this.owner = owner;
-        asSupport = new AsSupport(owner, rolesOrFactories);
+        asSupport = new AsSupport(owner, roles);
       }
 
     /*******************************************************************************************************************

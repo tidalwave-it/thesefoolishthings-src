@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.util.spi;
 
@@ -179,16 +179,16 @@ public class AsSupport implements As
      *
      * Resolve the factories: if found, they are invoked and the produced role is added to the list.
      *
-     * @param  rolesOrFactories  the list of roles or factory roles
+     * @param  roles  the list of roles or factory roles
      * @return                   a list of roles
      *
      ******************************************************************************************************************/
     @Nonnull
-    private List<Object> resolveFactories (@Nonnull final Collection<Object> rolesOrFactories)
+    private List<Object> resolveFactories (@Nonnull final Collection<Object> roles)
       {
         final List<Object> result = new ArrayList<>();
 
-        for (final Object roleOrFactory : rolesOrFactories)
+        for (final Object roleOrFactory : roles)
           {
             if (roleOrFactory instanceof RoleFactory)
               {

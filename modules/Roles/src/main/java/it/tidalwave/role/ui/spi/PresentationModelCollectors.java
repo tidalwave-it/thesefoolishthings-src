@@ -1,28 +1,28 @@
 /*
- * #%L
  * *********************************************************************************************************************
- * 
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ *
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-role
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * *********************************************************************************************************************
- * 
- * 
+ *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
+ *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.role.ui.spi;
 
@@ -86,15 +86,15 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
 
     /*******************************************************************************************************************
      *
-     * A facility method that creates a composite {@link PresentationModel} out of a stream of objects. For each object
-     * in the stream, its {@code PresentationModel} is created by means of invoking its
-     * {@link it.tidalwave.role.ui.Presentable} role. Then all the {@code PresentationModel}s are aggregated into the
-     * composite.
+     * A facility method that creates a composite {@link PresentationModel} out of an iterable (which means an array,
+     * a collection or a stream) of objects implementing {@link As}. For each  object in the iterable, its {@code
+     * PresentationModel} is created by means of invoking its {@link it.tidalwave.role.ui.Presentable} role. Then all
+     * the {@code PresentationModel}s are aggregated into the composite.
      * 
-     * This method accepts an {@link Iterable}. A function which creates specific roles for each 
-     * {@code PresentationModel} can be supplied. The function can return a single role or multiple roles in form of
-     * an {@code Object[]}.
-     * 
+     * A function which creates specific roles for each {@code PresentationModel} can be specified. The function can
+     * return a single role or multiple roles in form of an array {@code Object[]}.
+     *
+     * @param   <T>             the type of the objects
      * @param   i               the {@code Iterable}
      * @param   roleCreator     the function to create roles
      * @return                  the composite {@code PresentationModel}
@@ -113,9 +113,9 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
     /*******************************************************************************************************************
      *
      * A facility simplified version of 
-     * {@link #toCompositePresentationModel(java.lang.Iterable, java.util.function.Function)} without a function to
-     * supply additional roles.
-     * 
+     * {@link #toCompositePresentationModel(java.lang.Iterable, java.util.function.Function)}.
+     *
+     * @param   <T>             the type of the objects
      * @param   i               the {@code Iterable}
      * @return                  the composite {@code PresentationModel}
      * 

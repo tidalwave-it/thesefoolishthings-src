@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    *********************************************************************************************************************
+
+    TheseFoolishThings: Miscellaneous utilities
+    http://tidalwave.it/projects/thesefoolishthings
+
+    Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+
+    *********************************************************************************************************************
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+    an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations under the License.
+
+    *********************************************************************************************************************
+
+    git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+    git clone https://github.com/tidalwave-it/thesefoolishthings-src
+
+    *********************************************************************************************************************
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -6,7 +34,7 @@
     <parent>
         <groupId>it.tidalwave.superpom</groupId>
         <artifactId>superpom</artifactId>
-        <version>5.0-ALPHA-9</version>
+        <version>5.0-ALPHA-10</version>
         <relativePath />
     </parent>
 
@@ -16,24 +44,22 @@
     <version>3.2-ALPHA-9-SNAPSHOT</version>
     <name>TheseFoolishThings</name>
     <inceptionYear>2009</inceptionYear>
-    <url>http://thesefoolishthings.tidalwave.it</url>
+    <url>http://tidalwave.it/projects/thesefoolishthings</url>
     <description>
-        A kitchen sink of small libraries that are used by all projects by Tidalwave. It mostly contains:
+This project was born, several years ago, as the classic “kitchen sink” of stuff from other projects that was deemed of being reusable.
+Sometimes it grew in a disordered way, other times it was reviewed and cleaned up accurately. It contains different sort of things: from
+simple stuff such as a **```TimeProvider```** that can be mocked (for time-based tests), to **type safe ```Map```s** (following
+advice of Joshua Bloch); up to some more structured things such an extensible **```Finder```** to manipulate queries from a generic data
+source; **a facility for working with the DCI (Data, Context and Interactions) architectural pattern**; a **simple ```MessageBus```** suitable for using
+the Publish and Subscribe pattern inside an application.
 
-        * a few generic stuff such as ```Id``` and ```IdFactory```;
-        * the ```Finder``` API for fluent query builders;
-        * support for the DCI pattern (Data Context and Interaction), with optional Spring integration;
-        * a tiny but functional local Message Bus, with optional Spring integration;
-        * a small, experimental Actor library;
-        * some test utilities.
+There is also some really exotic stuff, such as small implementation of **collaborative
+Actors** (working, but designed basically for didactic purposes). Actually this whole project is often used in Java classes to show things
+that are reasonably contextualized in a real-world scenario (the core parts of this project are used by working pet projects; something is
+also part of industrial project). There is good stuff and some strange stuff - in general an attitude of this project is to also try things
+in a different way than the standard.
 
-        TheseFoolishThings supports JDK 7 and has got a small JDK 8 integration module.
-
-        Since version 3.0 lots of old stuff have been dropped:
-
-        * Support for Swing.
-        * Support for the NetBeans Platform.
-        * A very small support library for Vaadin.
+TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
     </description>
 
     <distributionManagement>
@@ -45,11 +71,14 @@
 
     <properties>
         <tft.maven.requiredJdk>[11, 12)</tft.maven.requiredJdk>
-        <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
-        <tidalwave.issues>TFT</tidalwave.issues>
         <scm.repo.url>ssh://git@bitbucket.org/tidalwave/thesefoolishthings-src.git</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
+        <tidalwave.slogan>TheseFoolishThings: Miscellaneous utilities</tidalwave.slogan>
+        <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
+        <tidalwave.issues>TFT</tidalwave.issues>
+        <tidalwave.github.readonly.url>https://github.com/tidalwave-it/thesefoolishthings-src</tidalwave.github.readonly.url>
+        <tidalwave.github.browse.url>https://github.com/tidalwave-it/thesefoolishthings-src</tidalwave.github.browse.url>
     </properties>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
