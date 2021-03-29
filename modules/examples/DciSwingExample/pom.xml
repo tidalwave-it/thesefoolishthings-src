@@ -40,7 +40,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-thesefoolishthings-examples-dci-swing</artifactId>
     <version>3.2-ALPHA-9-SNAPSHOT</version>
-    <name>TheseFoolishThings Examples - DCI Swing</name>
+    <name>TheseFoolishThings :: Examples :: DCI :: Swing</name>
     <description>
         An example of how DCI roles can be used for a Swing application (obsolete stuff).
     </description>

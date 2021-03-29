@@ -41,7 +41,7 @@
     <artifactId>it-tidalwave-role</artifactId>
     <version>3.2-ALPHA-9-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>TheseFoolishThings - Roles</name>
+    <name>TheseFoolishThings :: Roles</name>
     <description>
         Roles are a powerful way for designing complex behaviours while keeping good practices such as Single Responsibility, Dependency Inversion and
         Interface Segregation.

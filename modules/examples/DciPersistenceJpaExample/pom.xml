@@ -40,7 +40,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa</artifactId>
     <version>3.2-ALPHA-9-SNAPSHOT</version>
-    <name>TheseFoolishThings Examples - DCI Persistence JPA</name>
+    <name>TheseFoolishThings :: Examples :: DCI :: Persistence JPA</name>
     <description>
         An example of how persistence can be integrated by means of Roles.
     </description>

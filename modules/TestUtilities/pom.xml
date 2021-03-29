@@ -41,7 +41,7 @@
     <artifactId>it-tidalwave-util-test</artifactId>
     <packaging>jar</packaging>
     <version>3.2-ALPHA-9-SNAPSHOT</version>
-    <name>TheseFoolishThings - Test Utilities</name>
+    <name>TheseFoolishThings :: Test Utilities</name>
     <description>
         Miscellaneous utilities for testing.
     </description>

@@ -41,7 +41,7 @@
     <artifactId>it-tidalwave-util</artifactId>
     <version>3.2-ALPHA-9-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>TheseFoolishThings - Utilities</name>
+    <name>TheseFoolishThings :: Utilities</name>
     <description>
         A collection of common utilities.
     </description>

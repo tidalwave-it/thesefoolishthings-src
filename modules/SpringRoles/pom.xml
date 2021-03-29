@@ -42,7 +42,7 @@
     <artifactId>it-tidalwave-role-spring</artifactId>
     <version>3.2-ALPHA-9-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>TheseFoolishThings - Roles (Spring)</name>
+    <name>TheseFoolishThings :: Roles :: Spring</name>
     <description>
         Specific Spring support for DCI roles.
     </description>

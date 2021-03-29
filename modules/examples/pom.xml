@@ -41,7 +41,7 @@
     <artifactId>thesefoolishthings-examples</artifactId>
     <packaging>pom</packaging>
     <version>3.2-ALPHA-9-SNAPSHOT</version>
-    <name>TheseFoolishThings Examples (master)</name>
+    <name>TheseFoolishThings :: Examples (master)</name>
 
     <properties>
         <tft.javac.source>11</tft.javac.source>

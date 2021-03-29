@@ -40,7 +40,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream</artifactId>
     <version>3.2-ALPHA-9-SNAPSHOT</version>
-    <name>TheseFoolishThings Examples - DCI Marshal XStream</name>
+    <name>TheseFoolishThings :: Examples :: DCI :: Marshal XStream</name>
     <description>
         An example of how XStream can be integrated by means of Roles.
     </description>

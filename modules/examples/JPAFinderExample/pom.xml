@@ -41,7 +41,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample3</artifactId>
     <version>3.2-ALPHA-9-SNAPSHOT</version>
-    <name>TheseFoolishThings Examples - JPA Finder Example</name>
+    <name>TheseFoolishThings :: Examples :: JPA Finder Example</name>
     <description>
         An example of Finder integration with JPA.
     </description>
