@@ -1,28 +1,28 @@
 /*
- * #%L
  * *********************************************************************************************************************
- * 
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ *
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * *********************************************************************************************************************
- * 
- * 
+ *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
+ *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.util;
 
@@ -50,14 +50,14 @@ public final class Parameters
      * A convenience method for transforming a varargs of roles to a {@link Collection}. It supports concatenating
      * collections: that is, each varargs item that is a {@link Collection} is flattened.
      *
-     * @param   roles   the roles
-     * @return          the
-     * @since   3.2-ALPHA-3
+     * @param   roles                     the roles as varargs
+     * @return                            the roles as collection
+     * @since                             3.2-ALPHA-3
      * @it.tidalwave.javadoc.experimental
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Collection<Object> r (@Nonnull final Object ... roles)
+    public static Collection<Object> r (@Nonnull final Object... roles)
       {
         // Don't use streams() for performance reasons.
         final List<Object> result = new ArrayList<>();
@@ -82,17 +82,20 @@ public final class Parameters
      * Extracts a singled-value parameter of the given type from an array. If the parameter is not found, the default
      * value is returned. If more than a single parameter is found, an {@link IllegalArgumentException} is thrown.
      *
-     * @param  parameterClass           the class of the parameter to retrieve
-     * @param  defaultOption            the default value of the parameter
-     * @param  parameters               the array of parameters
-     * @throws IllegalArgumentException if more than a single value is found
+     * @param   <T>                       the static type of the parameter
+     * @param   <O>                       ?
+     * @param   parameterClass            the dynamic type of the parameter
+     * @param   defaultOption             the default value of the parameter
+     * @param   parameters                the array of parameters
+     * @return                            the value of the parameter
+     * @throws IllegalArgumentException   if more than a single value is found
      *
      ******************************************************************************************************************/
     @CheckForNull
     public static <T, O> T find (@Nonnull final Class<T> parameterClass,
                                  @CheckForNull final T defaultOption,
-                                 @Nonnull final O ... parameters)
-      throws IllegalArgumentException
+                                 @Nonnull final O... parameters)
+            throws IllegalArgumentException
       {
         // Don't use streams() for performance reasons.
         final Collection<T> c = find(parameterClass, parameters);
@@ -111,12 +114,15 @@ public final class Parameters
      * Extracts multiple-value parameters of the given type from an array. If the parameter is not found, an empty
      * collection is returned.
      *
-     * @param  parameterClass            the class of the parameter to retrieve
-     * @param  parameters                the array of parameters
+     * @param   <T>                       the static type of the parameter
+     * @param   <O>                       ?
+     * @param   parameterClass            the class of the parameter to retrieve
+     * @param   parameters                the array of parameters
+     * @return                            the value of the parameter
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T, O> Collection<T> find (@Nonnull final Class<T> parameterClass, @Nonnull final O ... parameters)
+    public static <T, O> Collection<T> find (@Nonnull final Class<T> parameterClass, @Nonnull final O... parameters)
       {
         // Don't use streams() for performance reasons.
         final Collection<T> result = new ArrayList<>();
@@ -133,6 +139,13 @@ public final class Parameters
       }
 
     /*******************************************************************************************************************
+     *
+     * <b>This method is for internal implementation only.</b> Ensures that a given object is neither an array nor a
+     * collection.
+     *
+     * @param   object    the object to check
+     * @param   message   the message to put in the exception
+     * @return            the object itself for calling this method as a function
      *
      ******************************************************************************************************************/
     @Nonnull

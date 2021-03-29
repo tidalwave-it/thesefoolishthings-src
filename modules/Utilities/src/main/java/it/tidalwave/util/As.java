@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.util;
 
@@ -83,7 +83,8 @@ public interface As
      * Returns an adapter to this object of the specified type. If the implementation can find multiple compliant
      * adapters, only one will be returned.
      *
-     * @param   type    the type
+     * @param   <T>     the static type
+     * @param   type    the dynamic type
      * @return          the adapter
      * @throws          AsException if no adapter is found
      *
@@ -97,8 +98,10 @@ public interface As
      * adapters, only one will be returned. If no adapter is found, the result provided by the given default
      * behaviour will be returned.
      *
-     * @param   type                the type
+     * @param   <T>                 the static type
+     * @param   type                the dynamic type
      * @param   notFoundBehaviour   the behaviour to apply when an adapter is not found
+     * @return                      the adapter
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -108,10 +111,10 @@ public interface As
      *
      * Returns the requested role or an empty {@link Optional}.
      *
-     * @param   <T>     the role type
-     * @param   type    the role type
-     * @return          the optional role
-     * @since           3.2-ALPHA-3
+     * @param   <T>                 the static type
+     * @param   type                the dynamic type
+     * @return                      the optional role
+     * @since                       3.2-ALPHA-3
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -122,7 +125,10 @@ public interface As
 
     /*******************************************************************************************************************
      *
-     * @deprecated  Use {@link #maybeAs(Class)}.
+     * @param   <T>     the static type
+     * @param   type    the dynamic type
+     * @return          the optional role
+     * @deprecated Use {@link #maybeAs(Class)}.
      *
      ******************************************************************************************************************/
     @Nonnull @Deprecated
@@ -135,7 +141,8 @@ public interface As
      *
      * Searches for multiple adapters of the given type and returns them.
      *
-     * @param  type     the adapter type
+     * @param   <T>     the static type
+     * @param   type    the dynamic type
      * @return          a collection of adapters, possibly empty
      *
      ******************************************************************************************************************/

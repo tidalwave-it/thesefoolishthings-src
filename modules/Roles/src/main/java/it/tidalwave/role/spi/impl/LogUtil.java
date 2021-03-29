@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-role
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.role.spi.impl;
 
@@ -73,7 +73,7 @@ public class LogUtil
               {
                 s.append(Arrays.stream(interfaces)
                                .filter(i -> !i.getPackage().getName().startsWith("java"))
-                               .map(i -> shortName(i)).collect(joining(", ", "{", "}")));
+                               .map(LogUtil::shortName).collect(joining(", ", "{", "}")));
               }
           }
 
@@ -108,7 +108,7 @@ public class LogUtil
 
         if (object instanceof Identifiable)
           {
-            s.append("/" + ((Identifiable)object).getId());
+            s.append("/").append(((Identifiable)object).getId());
           }
 
         return s.toString();

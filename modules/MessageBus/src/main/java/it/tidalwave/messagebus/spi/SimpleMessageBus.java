@@ -1,28 +1,28 @@
 /*
- * #%L
  * *********************************************************************************************************************
- * 
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ *
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-messagebus
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * *********************************************************************************************************************
- * 
- * 
+ *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
+ *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.messagebus.spi;
 
@@ -32,7 +32,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
@@ -61,7 +60,8 @@ public class SimpleMessageBus implements MessageBus
     
     /*******************************************************************************************************************
      *
-     * 
+     * Creates a new instance with a {@link SimpleAsyncMessageDelivery} strategy for delivery. It will use its own
+     * thread pool.
      *
      ******************************************************************************************************************/
     public SimpleMessageBus() 
@@ -71,7 +71,9 @@ public class SimpleMessageBus implements MessageBus
 
     /*******************************************************************************************************************
      *
-     * 
+     * Creates a new instance given an executor and a {@link SimpleAsyncMessageDelivery} strategy for delivery.
+     *
+     * @param   executor          the {@link Executor}
      *
      ******************************************************************************************************************/
     public SimpleMessageBus (@Nonnull final Executor executor)
@@ -81,7 +83,10 @@ public class SimpleMessageBus implements MessageBus
     
     /*******************************************************************************************************************
      *
-     * 
+     * Creates a new instance given an executor and a strategy for delivery.
+     *
+     * @param   executor          the {@link Executor}
+     * @param   messageDelivery   the strategy for delivery
      *
      ******************************************************************************************************************/
     public SimpleMessageBus (@Nonnull final Executor executor, @Nonnull final MessageDelivery messageDelivery)
@@ -139,20 +144,17 @@ public class SimpleMessageBus implements MessageBus
 
         for (final List<WeakReference<Listener<?>>> list : listenersMapByTopic.values())
           {
-            for (final Iterator<WeakReference<Listener<?>>> i = list.iterator(); i.hasNext(); )
-              {
-                final WeakReference<?> ref = i.next();
-
-                if ((ref.get() == null) || (ref.get() == listener))
-                  {
-                    i.remove();
-                  }
-              }
+            list.removeIf(ref -> (ref.get() == null) || (ref.get() == listener));
           }
       }
 
     /*******************************************************************************************************************
      *
+     * Dispatches a message.
+     *
+     * @param   <TOPIC>   the static type of the topic
+     * @param   topic     the dynamic type of the topic
+     * @param   message   the message
      *
      ******************************************************************************************************************/
     protected <TOPIC> void dispatchMessage (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)

@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util-test
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.util.test;
 
@@ -54,6 +54,11 @@ public final class FileComparisonUtils
 
     /*******************************************************************************************************************
      *
+     * Asserts that two files have the same contents.
+     *
+     * @param   expectedFile    the file with the expected contents
+     * @param   actualFile      the file with the contents to probe
+     * @throws  IOException     in case of error
      *
      ******************************************************************************************************************/
     public static void assertSameContents (@Nonnull final File expectedFile, @Nonnull final File actualFile)
@@ -71,6 +76,10 @@ public final class FileComparisonUtils
 
     /*******************************************************************************************************************
      *
+     * Asserts that two collections of strings have the same contents.
+     *
+     * @param   expected        the expected values
+     * @param   actual          the actual values
      *
      ******************************************************************************************************************/
     public static void assertSameContents (@Nonnull final List<String> expected, @Nonnull final List<String> actual)
@@ -117,6 +126,11 @@ public final class FileComparisonUtils
 
     /*******************************************************************************************************************
      *
+     * Converts a string which contains newlines into a list of strings.
+     *
+     * @param   string          the source
+     * @return                  the strings
+     * @throws  IOException     in case of error
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -129,6 +143,11 @@ public final class FileComparisonUtils
 
     /*******************************************************************************************************************
      *
+     * Reads a file into a list of strings.
+     *
+     * @param   file            the file
+     * @return                  the strings
+     * @throws  IOException     in case of error
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -140,6 +159,11 @@ public final class FileComparisonUtils
 
     /*******************************************************************************************************************
      *
+     * Reads a file into a list of strings.
+     *
+     * @param   path            the path of the file
+     * @return                  the strings
+     * @throws  IOException     in case of error
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -158,6 +182,11 @@ public final class FileComparisonUtils
 
     /*******************************************************************************************************************
      *
+     * Reads an input stream into a list of strings.
+     *
+     * @param   is              the input stream
+     * @return                  the strings
+     * @throws  IOException     in case of error
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -186,6 +215,12 @@ public final class FileComparisonUtils
 
     /*******************************************************************************************************************
      *
+     * Given a string that represent a path whose segments are separated by the standard separator of the platform,
+     * returns the common prefix - which means the common directory parents.
+     *
+     * @param   s1    the former string
+     * @param   s2    the latter string
+     * @return        the common prefix
      *
      ******************************************************************************************************************/
     @Nonnull

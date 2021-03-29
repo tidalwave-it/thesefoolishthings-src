@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-role
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,19 +19,20 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.role.ui;
 
 /***********************************************************************************************************************
  *
- * The role of an object that can be visible or not..
+ * The role of an object that can be visible or not.
  *
- * @stereotype Role
- * @since     3.2-ALPHA-7
- * @author  Fabrizio Giudici
+ * @stereotype  Role
+ * @author      Fabrizio Giudici
+ * @since       3.2-ALPHA-7
  *
  **********************************************************************************************************************/
 @FunctionalInterface
@@ -42,16 +42,25 @@ public interface Visible
 
     /*******************************************************************************************************************
      *
+     * A role that is always visible.
+     *
      ******************************************************************************************************************/
     public static final Visible VISIBLE = () -> true;
 
     /*******************************************************************************************************************
+     *
+     * A role that is always invisible.
      *
      ******************************************************************************************************************/
     public static final Visible INVISIBLE = () -> false;
 
     /*******************************************************************************************************************
      *
+     * Returns the current visibility status.
+     *
+     * @return            {@code true} if the object is visible
+     *
      ******************************************************************************************************************/
+    @SuppressWarnings("UnusedReturnValue")
     public boolean isVisible();
   }

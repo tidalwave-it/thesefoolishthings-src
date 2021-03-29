@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-role
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.role.ui.spi;
 
@@ -67,14 +67,14 @@ public class SimpleCompositePresentable implements Presentable
         private final SimpleCompositePresentable scp;
 
         @Nonnull
-        private final Collection<Object> rolesOrFactories;
+        private final Collection<Object> roles;
 
         public SCPFinder (@Nonnull final SCPFinder other, @Nonnull final Object override)
           {
             super(other, override);
             final SCPFinder source = getSource(SCPFinder.class, other, override);
             this.scp = source.scp;
-            this.rolesOrFactories = source.rolesOrFactories;
+            this.roles = source.roles;
           }
 
         @Override @Nonnull
@@ -86,11 +86,11 @@ public class SimpleCompositePresentable implements Presentable
                 public List<? extends PresentationModel> run()
                   {
                     final List<As> children = scp.datum.maybeAs(_SimpleComposite_)
-                                                      .map(c -> c.findChildren().results()).orElse(emptyList());
+                                                       .map(c -> c.findChildren().results()).orElse(emptyList());
                     return children.stream()
                                    .map(child -> child.maybeAs(_Presentable_)
                                                       .orElseGet(() -> new SimpleCompositePresentable(child)))
-                                   .map(presentable -> presentable.createPresentationModel(rolesOrFactories))
+                                   .map(presentable -> presentable.createPresentationModel(roles))
                                    .collect(toList());
                   }
               });
@@ -110,7 +110,7 @@ public class SimpleCompositePresentable implements Presentable
 
     /*******************************************************************************************************************
      *
-     *
+     * @param datum     the owner
      *
      ******************************************************************************************************************/
     public SimpleCompositePresentable (@Nonnull final As datum)
@@ -120,7 +120,8 @@ public class SimpleCompositePresentable implements Presentable
 
     /*******************************************************************************************************************
      *
-     *
+     * @param datum                             the owner
+     * @param defaultPresentationModelFactory   the {@code PresentationModelFactory}
      *
      ******************************************************************************************************************/
     public SimpleCompositePresentable (@Nonnull final As datum,
@@ -137,9 +138,9 @@ public class SimpleCompositePresentable implements Presentable
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public PresentationModel createPresentationModel (@Nonnull final Collection<Object> rolesOrFactories)
+    public PresentationModel createPresentationModel (@Nonnull final Collection<Object> roles)
       {
-        return internalCreatePresentationModel(datum, rolesOrFactories);
+        return internalCreatePresentationModel(datum, roles);
       }
 
     /*******************************************************************************************************************
@@ -149,25 +150,25 @@ public class SimpleCompositePresentable implements Presentable
      ******************************************************************************************************************/
     @Nonnull
     private PresentationModel internalCreatePresentationModel (@Nonnull final As datum,
-                                                               @Nonnull final Collection<Object> rolesOrFactories)
+                                                               @Nonnull final Collection<Object> roles)
       {
-        final SCPFinder pmFinder = new SCPFinder(this, rolesOrFactories);
+        final SCPFinder pmFinder = new SCPFinder(this, roles);
 
         return contextSampler.runWithContexts(new Task<PresentationModel, RuntimeException>()
           {
             @Override @Nonnull
             public PresentationModel run()
               {
-                final List<Object> roles = resolveRoles(datum, rolesOrFactories);
+                final List<Object> r = resolveRoles(datum, roles);
 
                 if (datum.maybeAs(_SimpleComposite_).isPresent())
                   {
-                    roles.add(SimpleComposite.of(pmFinder));
+                    r.add(SimpleComposite.of(pmFinder));
                   }
 
-                log.trace(">>>> roles for {}: {}", shortId(datum), shortIds(roles));
+                log.trace(">>>> r for {}: {}", shortId(datum), shortIds(r));
 
-                return defaultPresentationModelFactory.createPresentationModel(datum, roles);
+                return defaultPresentationModelFactory.createPresentationModel(datum, r);
               }
           });
       }
@@ -178,22 +179,22 @@ public class SimpleCompositePresentable implements Presentable
      *
      ******************************************************************************************************************/
     @Nonnull
-    private List<Object> resolveRoles (@Nonnull final As datum, @Nonnull final Collection<Object> rolesOrFactories)
+    private List<Object> resolveRoles (@Nonnull final As datum, @Nonnull final Collection<Object> roles)
       {
-        final List<Object> roles = new ArrayList<>();
+        final List<Object> r = new ArrayList<>();
 
-        for (final Object roleOrFactory : rolesOrFactories)
+        for (final Object roleOrFactory : roles)
           {
             if (roleOrFactory instanceof RoleFactory)
               {
-                roles.add(((RoleFactory<As>)roleOrFactory).createRoleFor(datum));
+                r.add(((RoleFactory<As>)roleOrFactory).createRoleFor(datum));
               }
             else
               {
-                roles.add(roleOrFactory);
+                r.add(roleOrFactory);
               }
           }
 
-        return roles;
+        return r;
       }
   }

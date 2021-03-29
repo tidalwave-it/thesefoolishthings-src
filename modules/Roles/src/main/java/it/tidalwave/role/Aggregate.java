@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-role
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.role;
 
@@ -43,7 +43,7 @@ import java.util.Optional;
  *
  **********************************************************************************************************************/
 @FunctionalInterface
-public interface Aggregate<TYPE>
+public interface Aggregate<T>
   {
     public static final Class<Aggregate> _Aggregate_ = Aggregate.class;
 
@@ -51,11 +51,12 @@ public interface Aggregate<TYPE>
      *
      * Returns an object given its name.
      *
-     * @return  the optional object
+     * @param   name      the name
+     * @return  the object
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Optional<TYPE> getByName (@Nonnull String name);
+    public Optional<T> getByName (@Nonnull String name);
 
     /*******************************************************************************************************************
      *
@@ -75,13 +76,14 @@ public interface Aggregate<TYPE>
      *
      * Returns a new instance with the specified (name, value) pairs.
      *
-     * @param   mapByName    the map containing the pairs
-     * @return  the new instance
-     * @since 3.2-ALPHA-1
+     * @param   <T>         the static type of the value
+     * @param   mapByName   the map containing the pairs
+     * @return              the new instance
+     * @since               3.2-ALPHA-1
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <TYPE> Aggregate<TYPE> of (@Nonnull final Map<String, TYPE> mapByName)
+    public static <T> Aggregate<T> of (@Nonnull final Map<String, T> mapByName)
       {
         return new MapAggregate<>(mapByName);
       }
@@ -90,12 +92,13 @@ public interface Aggregate<TYPE>
      *
      * Returns a new empty instance that will be populated by means of {@link #with(String, Object)}.
      *
-     * @return  the new instance
-     * @since 3.2-ALPHA-2
+     * @param   <T>         the static type of the aggregate
+     * @return  t           he new instance
+     * @since               3.2-ALPHA-2
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <TYPE> Aggregate<TYPE> newInstance()
+    public static <T> Aggregate<T> newInstance()
       {
         return new MapAggregate<>();
       }
@@ -104,31 +107,32 @@ public interface Aggregate<TYPE>
      *
      * Returns a new instance with the specified (name, value) pair.
      *
-     * @param   name    the name in the pair
-     * @param   value   the value in the pair
-     * @return  the new instance
-     * @since 3.2-ALPHA-1
+     * @param   <T>         the static type of the aggregate
+     * @param   name        the name in the pair
+     * @param   value       the value in the pair
+     * @return              the new instance
+     * @since               3.2-ALPHA-1
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <TYPE> Aggregate<TYPE> of (@Nonnull final String name, @Nonnull final TYPE value)
+    public static <T> Aggregate<T> of (@Nonnull final String name, @Nonnull final T value)
       {
-        return new MapAggregate<TYPE>().with(name, value);
+        return new MapAggregate<T>().with(name, value);
       }
 
     /*******************************************************************************************************************
      *
      * Returns a new instance with the specified (name, value) pair.
      *
-     * @param   name    the name in the pair
-     * @param   value   the value in the pair
-     * @return  the new instance
-     * @since 3.2-ALPHA-1
+     * @param   name        the name in the pair
+     * @param   value       the value in the pair
+     * @return              the new instance
+     * @since               3.2-ALPHA-1
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default Aggregate<TYPE> with (@Nonnull final String name, @Nonnull final TYPE value)
+    public default Aggregate<T> with (@Nonnull final String name, @Nonnull final T value)
       {
-        return new MapAggregate<TYPE>().with(name, value);
+        return new MapAggregate<T>().with(name, value);
       }
   }

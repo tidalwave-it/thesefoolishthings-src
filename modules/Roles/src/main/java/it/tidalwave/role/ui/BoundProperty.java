@@ -1,28 +1,28 @@
 /*
- * #%L
  * *********************************************************************************************************************
- * 
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ *
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-role
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * *********************************************************************************************************************
- * 
- * 
+ *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
+ *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.role.ui;
 
@@ -53,7 +53,12 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
 
     /*******************************************************************************************************************
      *
-     * @since 3.2-ALPHA-2
+     * Creates a new {@code BoundProperty} with the given initial value.
+     *
+     * @param <T>     the type of the property
+     * @param value   the initial value
+     * @return        the property
+     * @since         3.2-ALPHA-2
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -64,7 +69,8 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
 
     /*******************************************************************************************************************
      *
-     *
+     * {@inheritDoc}
+     *  This method fires a property change event associated to {@link #PROP_VALUE}.
      *
      ******************************************************************************************************************/
     @Override
@@ -77,7 +83,7 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
 
     /*******************************************************************************************************************
      *
-     *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override
@@ -88,7 +94,11 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
 
     /*******************************************************************************************************************
      *
+     * Binds this property to a {@link ChangingSource}. Every change in the value of the source will be synchronized to
+     * the value of this property. If the source is a {@link Changeable} binding will be bidirectional, that is the
+     * object will be set to the current value of this property and will be kept in sync.
      *
+     * @param     source    the source
      *
      ******************************************************************************************************************/
     public void bind (@Nonnull final ChangingSource<T> source)
@@ -105,7 +115,7 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
 
     /*******************************************************************************************************************
      *
-     *
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override

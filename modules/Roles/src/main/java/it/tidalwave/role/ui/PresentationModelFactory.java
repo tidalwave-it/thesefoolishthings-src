@@ -1,12 +1,11 @@
 /*
- * #%L
  * *********************************************************************************************************************
  *
- * These Foolish Things - Miscellaneous utilities
- * http://thesefoolishthings.tidalwave.it - git clone git@bitbucket.org:tidalwave/thesefoolishthings-src.git
- * %%
- * Copyright (C) 2009 - 2021 Tidalwave s.a.s. (http://tidalwave.it)
- * %%
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-role
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
  * *********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -20,9 +19,10 @@
  *
  * *********************************************************************************************************************
  *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- * #L%
  */
 package it.tidalwave.role.ui;
 
@@ -47,20 +47,22 @@ public interface PresentationModelFactory
      *
      * Creates a new instance of {@link PresentationModel} with some roles or role factories.
      *
-     * @param  datum              the related datum
-     * @param  rolesOrFactories   roles or {@link RoleFactory} instances to put in the presentation model
-     * @since 3.2-ALPHA-3 (refactored)
+     * @param  datum          the related datum
+     * @param  roles          roles or {@link RoleFactory} instances to put in the presentation model
+     * @return                the new instance
+     * @since                 3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
     @Nonnull
-    public PresentationModel createPresentationModel (@Nonnull Object datum, @Nonnull Collection<Object> rolesOrFactories);
+    public PresentationModel createPresentationModel (@Nonnull Object datum, @Nonnull Collection<Object> roles);
 
     /*******************************************************************************************************************
      *
      * Creates a new instance of {@link PresentationModel}.
      *
-     * @param  datum              the related datum
-     * @since 3.2-ALPHA-3
+     * @param  datum          the related datum
+     * @return                the new instance
+     * @since                 3.2-ALPHA-3
      *
      ******************************************************************************************************************/
     @Nonnull

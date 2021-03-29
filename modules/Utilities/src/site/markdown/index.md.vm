@@ -1,0 +1,593 @@
+#*
+ * *********************************************************************************************************************
+ *
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util
+ *
+ * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
+ * *********************************************************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ * *********************************************************************************************************************
+ *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
+ *
+ * *********************************************************************************************************************
+ *#
+Introduction
+============
+
+${project.description}
+
+This module is mostly composed of small utilities that lives on their own; please refer to their [Javadoc](apidocs/index.html). Below there is information
+about a few classes that are more complex and require a design/architectural view.
+
+The module ${project.name} is released with the PENDING license, as the whole project. To use it in your Maven project, add this snippet to your POM.
+Snippets for other build tool (such as Gradle) are available [here](dependency-info.html). The dependencies of this module are described
+[here](dependencies.html). Information about quality and continuous integration is available at the [main project page](../../index.html).
+
+```xml
+<dependency>
+    <groupId>${project.groupId}</groupId>
+    <artifactId>${project.artifactId}</artifactId>
+    <version>${project.version}</version>
+</dependency>
+```
+
+
+#[[##]]# Table of contents
+
+<!-- MACRO{toc|section=0|fromDepth=1|toDepth=3} -->
+
+
+
+#[[##]]# Finder
+
+A [```Finder```](apidocs/Finder) is a **factory for creating a query that extracts results from a data source**: for instance a query on a registry
+of persons to get some records according to certain **criteria**. The data source can be in-memory or a more sophisticated entity such a database. ```Finder``` has
+been designed with these main purposes:
+
+1. To provide a **fluent** and **extensible** API to **declutter** the exposed methods.
+2. To possibly **cooperate with the data source and optimize the query**, for speed and memory (minimizing the amount of data to bring in memory).
+3. To provide a design pattern in which the parameters that drive the search can be **composed in different parts of the application**; for instance, code in
+the presentation tier might rely upon a half-baked query provided in the business tier and specify additional criteria (sorting, filtering, pagination).
+4. To provide a decoupling abstraction from the implementation of the data source.
+
+![UML](apidocs/it/tidalwave/util/Finder.svg)
+
+
+```Finder```'s methods can be either **intermediate** or **termination**:
+
++ *intermediate* methods are presumed to work in a **chained style**, so they always return a ```Finder``` (even though not the same instance, since a ```Finder```
+**must be immutable**). They are used to set a number of parameter of the query **before the query is executed**.
++ *termination* methods are invoked when all parameters are set and they **actually perform the query** and retrieve results.
+
+For instance the intermediate methods shown below can be used to specify which section of the results we are interested into (pagination):
+
+<!-- MACRO{snippet|id=from|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+<!-- MACRO{snippet|id=max|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+
+The termination methods shown below, instead, perform the query, retrieve objects or provide a count of them:
+
+<!-- MACRO{snippet|id=optionalResult|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+<!-- MACRO{snippet|id=optionalFirstResult|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+<!-- MACRO{snippet|id=results|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+<!-- MACRO{snippet|id=count|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+
+*Note: at present time, there are some deprecated methods that were designed before Java 8 ```Optional```  was available; their signature declares a
+```NotFoundException```, which is a checked exception. They should not be used for new development as they will be removed in a future release.*
+
+For the following examples of ```Finder``` usage we will make reference to a registry of ```Person```s that exposes a method to query the contained records:
+
+<!-- MACRO{snippet|id=finder|file=${project.basedir}/../../modules/examples/Data/src/main/java/it/tidalwave/thesefoolishthings/examples/person/PersonRegistry.java} -->
+
+Data can be queried as:
+
+<!-- MACRO{snippet|id=basic-example|file=${project.basedir}/../../modules/examples/InMemoryFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/InMemoryFinderExample/Main.java} -->
+
+They can be sorted in some basic way:
+
+<!-- MACRO{snippet|id=sort-example|file=${project.basedir}/../../modules/examples/InMemoryFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/InMemoryFinderExample/Main.java} -->
+
+Intermediate methods can be freely mixed. This first example shows the utility of ```Finder``` to offer a clean API that doesn't
+inflate with lots of methods only to provide variants of the query (it's the typical advantage of a fluent interface). It will be shown that this API can
+be extended with new methods without changing the general concepts.
+
+
+#[[###]]# In-memory ```Finder```s
+
+```Finder```s can operate both **in memory** and with **more complex data sources**. Their core scenario is the latter, otherwise they could be replaced by Java 8 ```Stream```
+(a more detailed comparison with ```Stream```s is at the end of this chapter); but to start with simpler code let's have first a look at the in-memory approach.
+
+If the whole collection of objects to query is already in memory, a predefined wrapping ```Finder``` can be created with the factory method ```ofCloned()```;
+it is used by a first example implementation of ```PersonRegistry```:
+
+<!-- MACRO{snippet|id=ofCloned|file=${project.basedir}/../../modules/examples/InMemoryFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/InMemoryFinderExample/InMemoryPersonRegistry.java} -->
+
+As the name of the method says, the collection is cloned (shallow clone) at construction time, so any change made after the ```Finder``` creation won't be seen.
+
+In-memory ```Finder```s can be useful in some real-world cases, for instance when a controller or a DAO has cached data, or to create mocks for testing classes
+that use more complex ```Finder```s.
+
+
+
+#[[###]]# Data source ```Finder```s
+
+Now let's see how a ```Finder``` can work with a data source that is not in memory. A classic example is the relational database, so we will use JPA
+(Java Persistence API) as a reference. Of course similar examples could be made with other APIs for relational database as well as with other kinds of
+data sources, such as NoSQL databases, semantic databases, etc.
+
+The central class of JPA is ```EntityManager```: it's the facility that makes it possible to create and execute queries. What we want is make the
+```Finder``` execute for us code such as:
+
+<!-- MACRO{snippet|id=createQuery|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+
+where ```jpaql```, ```firstResult``` and ```maxResults``` have been properly set by intermediate methods previously called. In other words, if we had a test
+for the ```Finder``` we would like to have this kind of behaviour:
+
+<!-- MACRO{snippet|id=tests|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/test/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinderTest.java} -->
+
+Before going on, let's consider that transactions are managed by JPA in a few ways that, while not particularly complex in the context of a real application,
+require excessive set up for a simple example like the one we're dealing with. So we introduce a simple helper that executes a task in the context of a
+transaction:
+
+<!-- MACRO{snippet|id=methods|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/TxManager.java} -->
+
+In a real case the ```EntityManager``` would rather be injected.
+
+The first thing we need is to define the state of the ```Finder```, which must both model the parameters set by intermediate methods and contain a reference
+to the data source (which, in our case, is ```TxManager```).
+
+<!-- MACRO{snippet|id=fields|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+
+Let's now focus on the implementation of intermediate methods. They usually don't do anything smart, but just accumulate the required parameters for later
+performing the query. Since a ```Finder``` must be immutable, they can't change the internal state: they rather must **create and return a cloned ```Finder```**
+with the original state and only a single field changed. This is a typical approach for immutable objects.
+
+<!-- MACRO{snippet|id=intermediate-methods|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+
+Now let's deal with sorting. Sorting works in a different way in function of the ```Finder``` being “in memory” or associated to a data source:
+
++ **in-memory** happens by means of the sorting features of the Java Collection API, so there's nothing special about it; but it is to be pointed out
+that it is performed **before** pagination, so it's quite different calling ```from()```/```max()``` » ```results()``` » sorting and
+```sort()```/```from()```/```max()``` » ```results()```
++ **in the data source**, which allows to optimize the query (if the data source cooperates).
+
+In both cases sorting criteria are defined by means of the interfaces ```SortCriterion``` and ```InMemorySortCriterion```, which extends the former.
+```InMemorySortCriterion``` declares a method which will be called by the ```Finder``` to perform the sort:
+
+<!-- MACRO{snippet|id=sort|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+
+A convenience method ```of()``` makes it possible to easily create a working ```SortCriterion``` by wrapping a ```Comparator```:
+
+<!-- MACRO{snippet|id=sort-criteria|file=${project.basedir}/../../modules/examples/InMemoryFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/inmemoryfinderexample/PersonSortCriteria.java} -->
+
+The intermediate method ```Finder.sort()``` behaves as other intermediate methods and just collects data for a later use:
+
+<!-- MACRO{snippet|id=sort-method|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+
+Note that it usually rejects implementations of ```SortCriterion``` that it doesn't know.
+
+While the implementation of ```SortCriterion``` could be a simple ```enum``` that is later evaluated in a ```switch```, in a good design it provides its
+own behaviour (which is disclosed only to the ```Finder``` implementation). In case of JPA is to assemble the ```ORDER BY``` section of the query:
+
+<!-- MACRO{snippet|id=sort-criterion|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+
+The core part of the ```Finder``` is where it finalises and executes the query. It creates the JPAQL query and then it calls```EntityManager``` to execute it.
+
+<!-- MACRO{snippet|id=createQueryFull|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+
+At last we can implement termination methods: they run the query, extract the part of the results they need and convert them from a JPA entity to the
+desired class (this task may be needed or not in function of the architecture of the application: a ```Finder``` might expose JPA entities if desired).
+
+<!-- MACRO{snippet|id=termination-methods|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+
+A point that is worth mentioning is about how transactions are handled: it largely depends on the used technology, as one needs to respect the best or
+mandatory practices that come with it. In the case of JPA, it is required that the ```Stream``` of results produced by a query is consumed before the
+transaction is committed; in our case this means within the call to ```TxManager```.
+
+
+#[[###]]# Extended ```Finder```s
+
+An **extended ```Finder```** is a subclass of ```Finder``` that **exposes additional methods for filtering the results**. For instance we could write a
+```PersonFinder``` for the previous ```PersonRegistry``` that extends ```Finder<Person>``` and offers two new methods that filter by first or last name with a
+regular expression:
+
+<!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinder.java} -->
+
+The registry now would return a ```PersonFinder``` instead of the general ```Finder<Person>```, like this:
+
+<!-- MACRO{snippet|id=finder|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonRegistry2.java} -->
+
+There is a first problem to address: to make it possible to freely mix all the intermediate methods, both the new ones and those defined in the base
+```Finder```. This cannot be achieved by merely extending the ```Finder``` interface (i. e. ```interface PersonFinder extends Finder<Person>```), as the
+methods declared in ```Finder``` return a value which is statically typed as ```Finder```; so the compiler would not allow to call the new methods. In other
+words this would be possible:
+
+```java
+    List<Person> persons = findPerson().withLastName("B.*").max(5).results();
+```
+
+but this wouldn't compile:
+
+```java
+    List<Person> persons = findPerson().max(5).withLastName("B.*").results();
+```
+
+Free mixing of methods is mandatory to fulfill the flexibility target that allows a portion of the application to refine a query that has been partially
+constructed in another part of the application.
+
+To address this problem a specific interface named ```ExtendedFinderSupport``` is provided. It just re-declares the methods provided by ```Finder``` by
+overriding their return value type (in our example to ```PersonFinder``` in place of ```Finder<Person>```). This is possible thanks to the fact that Java features
+[covariant return type](https://www.baeldung.com/java-covariant-return-type).
+
+![UML](apidocs/it/tidalwave/util/spi/ExtendedFinderSupport.svg)
+
+```ExtendedFinderSupport``` takes two generics: the type of the managed object (```Person```) and type of the new ```Finder``` (```PersonFinder```). To better
+understand this, have a look at the```ExtendedFinderSupport``` source:
+
+<!-- MACRO{snippet|id=declaration|file=${project.basedir}//src/main/java/it/tidalwave/util/spi/ExtendedFinderSupport.java} -->
+
+So a properly designed ```PersonFinder``` must extend ```ExtendedFinderSupport<Person, PersonFinder>``` in place of ```Finder<Person>```:
+
+<!-- MACRO{snippet|id=person-finder|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinder.java} -->
+
+In this way the new methods can be freely mixed with the ones inherited by the super interface:
+
+<!-- MACRO{snippet|id=extended-example|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/ExtendedFinderExample.java} -->
+
+
+#[[###]]# Hierarchic ```Finder```s
+
+In a complex application it might be convenient to write a number of different ```Finder```s in form of a hierarchy, for instance because there is some common behaviour that
+can be effectively captured by means of the generalisation-specialisation relationship (even though composition often is a better approach). The ```Finder```
+API doesn't mandate anything in addition of respecting the contract declared in its interface and have an immutable implementation, so one can proceed with
+his favourite design strategy. Anyway the API provides a support class
+```FinderSupport``` which offers the capability of having a completely encapsulated status: that is with all fields ```private``` (rather than
+```protected```) and each level of the hierarchy doesn't know anything of the internal status of the others.
+This is a way to mitigate the tight coupling caused by inheritance, so one can make changes to the internal status to a Finder in an intermediate level of
+the hierarchy without forcing the subclasses to be adjusted.
+
+![UML](apidocs/it/tidalwave/util/spi/FinderSupport.svg)
+
+To explain how this works by examples, we are going to show how an implementation of the extended ```Finder``` we introduced in the previous section might be
+done (in-memory, to keep things simpler).
+
+First we have to declare fields for the internal state and a public constructor to initialize the object with reasonable defaults:
+
+<!-- MACRO{snippet|id=public-constructor-and-fields|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
+
+A private constructor to initialize everything to arbitrary values is also needed:
+
+<!-- MACRO{snippet|id=private-constructor|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
+
+As it was explained above, intermediate methods must create copies of the ```Finder``` to comply with the immutability constraint. In a normal class this would be
+performed by a copy constructor that takes *all the fields*, including those of the superclass(es); but since we decided to make them ```private``` they can't
+be accessed. So all we can do is to call the constructor shown in the above code snippet that only deals with the fields of the current class. Since it calls
+the ```super``` default constructor, this means that **the state of the super class(es) will be reset** to a default: i.e. any change applied by intermediate
+methods implemented in the super class(es) will be lost. Obviously this is not how things are supposed to work: that's why ```FinderSupport``` offers a
+```clonedWithOverride()``` method that fixes everything.
+
+<!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
+
+How does it work? It relies on the the presence of a special copy constructor that looks like this:
+
+<!-- MACRO{snippet|id=clone-constructor|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
+
+*Note: having this special copy constructor is a requirement of any subclass of ```FinderSupport```. The ```FinderSupport``` constructor makes a runtime check
+by introspection and throws an exception if the proper copy constructor is not found.*
+
+It takes two parameters:
+
+1. ```other``` is the usual parameter used in a clone constructor and references the instance being cloned.
+2. ```override``` is the incomplete finder we instantiated in our custom intermediate methods. It holds the variations to apply to the state of the new
+```Finder```.
+
+We need to initialize all the fields of our pertinence (that is, the ones declared in the current class) choosing from where to get their values. Aren't they
+in the ```override``` object? No, they aren't always there. If we are in a hierarchy of ```Finder```s all copy constructors will be called wherever a change
+is made; in other words, we aren't sure that our portion of state is the one that needs to be partially changed. We can tell by looking at the dynamic type of
+the ```override``` object: if it is our same type, it's the incomplete ```Finder``` with the new values, and we must initialize from it. Otherwise we must
+initialize as in a regular clone constructor, from the ```other``` object. A convenience method ```getSource()``` performs the decision for us. Of course we
+need to call the ```super()``` constructor to make sure everything is fine (but no details of the super class are exposed by it).
+
+![UML](${project.basedir}/../../modules/examples/ExtendedFinderExample/apidocs/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/package.svg)
+
+Is it a bit clumsy? Admittedly it is, even though the code is simple and clean: once the concept is clear, it's easy to write a copy constructor for a new
+extended ```Finder```. Part of the clumsiness derives from the complexity of inheritance, that we are trying to work around. If you don't like this approach,
+just forget ```FinderSupport```.
+
+Note: if you are perplexed by the concept of “incomplete” ```Finder``` (which is a curious thing indeed, a short-lived object “degraded“ to a value object)
+you can use a simpler value object just holding the required values. Since
+```override``` is a generic ```Object```, it will work. Again, this approach requires some more code to write; but here
+[```@Data```](https://projectlombok.org/features/Data) annotation from Lombok or
+[Java 16 records](https://mail.openjdk.java.net/pipermail/amber-spec-experts/2020-July/002254.html) might be useful.*
+
+
+#[[###]]# Marginal note to ```FinderSupport```
+
+*Note: this part of the API might go away in future: mention that after TFT-262 a Finder implementation only requires results().*
+
+If you decide to implement a ```Finder``` by subclassing ```FinderSupport``` there is an alternative way to implement the termination methods, as they have
+default implementations. You can rather implement **either** of these two methods:
+
+<!-- MACRO{snippet|id=computeNeededResults|file=${project.basedir}/../../modules/Utilities/src/main/java/it/tidalwave/util/spi/FinderSupport.java} -->
+
+This method is responsible **to produce the final results as they will be returned to the caller**. That is it must respect parameters concerning pagination
+(```from()``` or ```max()```), sorting and such. For instance, if the source is a relational database this method should prepare and execute a SQL query with
+all the relevant clauses (```WHERE```, ```ORDER BY```, ```LIMIT```, etc.). If this method is not overridden, it will call the method shown below and then
+apply pagination and sorting by itself (in memory).
+
+<!-- MACRO{snippet|id=computeResults|file=${project.basedir}/../../modules/Utilities/src/main/java/it/tidalwave/util/spi/FinderSupport.java} -->
+
+This method would return **all** the objects of pertinence, without filtering or sorting them; the default implementation of ```computeNeededResults()``` will
+take care of that. Since this implies to work in memory after having loaded/created all the objects, this approach is easier to write but less efficient. It's
+ok for mocks or simple cases. The implementation of our example is:
+
+<!-- MACRO{snippet|id=computeResults|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
+
+
+
+#[[###]]# Comparison with Java 8 ```Stream```
+
+A first look at ```Finder```, in particular the presence of *intermediate* and *termination* methods, sure recalls a similarity with Java 8
+[```Stream```](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/stream/Stream.html). ```Finder``` was designed before Java 8 existed
+and at that time it partly covered functions that were later made available with ```Stream```; but it has been conceived with **a different scope**:
+
++ ```Stream``` is a **library facility** that focuses on a functional and efficient way to navigate through an abstract sequence of objects; it can be
+customised via [```Spliterator```](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Spliterator.html) for integrating to unusual data
+sources, but it can't interact with them. In other words, a ```Spliterator``` can't receive from the ```Stream``` information about filtering or sorting:
+first data are extracted from the data source, then they are manipulated in memory. Last but not least, the API has a predefined set of exposed methods that
+can't be extended.
++ ```Finder```, instead, is a **business facility** that can interact with the data source and is well aware of the business model; so it can be extended with
+new methods that are related to the specific structure of model classes (in the previous example, by knowing that a ```Person``` has ```firstName``` and ```lastName```).
+
+*Furthermore it has been designed to integrate with another member of this library, which is named ```As``` and allows to use a particular implementation
+of the DCI architectural pattern.*
+
+A ```Stream``` can filter results by means of function composition: for instance ```filter(p -> Pattern.matches("B.*", p.getFirstName()))```; but in this
+case **filtering happens only *after* the objects have been loaded in memory** because the data source has no way to know what is happening and cannot optimise its
+behaviour. For instance, if the data source is a DAO to a database, it can't create an ad-hoc SQL statement; ```Finder``` instead can cooperate with
+the data source and prepare an optimised query.
+
+```Finder```s can be effectively be used in synergy with ```Stream``` by chaining the appropriated methods: this allows to choose which part of the processing
+must be performed by the data source and which part in memory, after data have been retrieved.
+
+<!-- MACRO{snippet|id=stream-example|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/ExtendedFinderExample.java} -->
+
+This explains why ```Finder``` doesn't offer methods such as ```filter(Predicate<T>)```: because in no way from a compiled Java function it could understand
+how to prepare a query for a generic data source. Such a method would be only useful to post-process data once they have been loaded in memory, but it's more
+effective to pass the results to a ```Stream``` and use the standard Java API.
+
+
+#[[##]]# As
+
+[```As```](apidocs/As) is a **factory for providing adapters** (in the meaning of the [Adapter pattern](https://en.wikipedia.org/wiki/Adapter_pattern)) of an
+object.
+
+*Terminology note: the object for which we are going to create an adapter will be called “datum” and the adapters “roles”. These terms are mutuated from the
+[DCI architectural pattern (Data, Context and Interaction)](https://en.wikipedia.org/wiki/Data,_context_and_interaction), even though ```As``` needn't to be
+used in that way. But TheseFoolishThings does provide explicit support for DCI, as will be explained in the relevant chapter.*
+
+Let's start again from a model class, that could be still the ```Person``` entity. In a typical application we might need to display it in a user interface
+and to save it to a file, for instance in the XML format. The first point is to decouple ```Person``` from the way we perform those two operations, also to comply
+with the [Dependency Inversion principle](https://martinfowler.com/articles/dipInTheWild.html): we want the UI and the XML subsystem to depend on the
+abstraction (```Person```), not the opposite way.
+
+We introduce two small interfaces: ```Displayable``` for computing the display name and ```Marshallable``` to serialize an object to an XML stream.
+
+```java
+interface Displayable
+  {
+    String getDisplayName();
+  }
+
+interface Marshallable
+  {
+    void writeTo (Path path)
+      throws IOException;
+  }
+```
+
+These two interfaces are very simple (made of a single method), so they are also in compliance with the Single Responsibility principle and the Interface
+Segregation principle.
+
+Having ```Person``` to implement the two interfaces is not an option, because would lead to tight coupling. Working with composition would slightly improve things:
+
+```java
+class Person
+  {
+    public Displayable getDisplayable() { ... }
+
+    public Marshallable getMarshallable() { ... }
+  }
+```
+
+even though a hardwired implementation of the two interfaces inside ```Person``` would still leave us not too far from the starting point. Introducing a
+```RoleFactory``` might be the next step:
+
+```java
+class RoleFactory
+  {
+    public static RoleFactory getInstance() { ... }
+
+    public Displayable createDisplayableFor (Person person) { ... }
+
+    public Marshallable createMarshallableFor (Person person) { ... }
+  }
+
+class Person
+  {
+    public Displayable getDisplayable()
+      {
+        return RoleFactory.getInstance().createDisplayableFor(this);
+      }
+
+    public Marshallable getMarshallable()
+      {
+        return RoleFactory.getInstance().createMarshallableeFor(this);
+      }
+  }
+```
+
+Since in a real world application we are going to deal with multiple entities, ```RoleFactory``` must be generic:
+
+```java
+class RoleFactory
+  {
+    public static RoleFactory getInstance() { ... }
+
+    public Displayable createDisplayableFor (Object datum) { ... }
+
+    public Marshallable createMarshallableFor (Object datum) { ... }
+  }
+```
+
+But it's no good to have a fixed, limited set of roles. Who knows what we are going to need in a user interface?
+
+PENDING: Open Close principle?
+
+For instance, a ```Selectable``` role might
+be used to execute a task whenever a ```Person``` representation is double-clicked in a UI widget. ```RoleFactory``` can be further generalised as:
+
+```java
+class RoleFactory
+  {
+    public static RoleFactory getInstance() { ... }
+
+    public <T> T createRoleFor (Object datum, Class<T> roleType) { ... }
+  }
+```
+
+so ```Person``` becomes:
+
+```java
+class Person
+  {
+    public Displayable getDisplayable()
+      {
+        return RoleFactory.getInstance().createRoleFor(this, Displayable.class);
+      }
+
+    public Marshallable getMarshallable()
+      {
+        return RoleFactory.getInstance().createRoleFor(this, Marshallable.class);
+      }
+  }
+```
+
+But, again, there is still too much coupling involving ```Person```: any new role would require a new method and after all we don't want ```Person``` to depend even on the
+```RoleFactory``` infrastructure; it might be a legacy code as well that we can't or don't want to change. Let's move the responsibility of retrieving the
+adapter from the adaptee class to the client code that requires the adapter (it does make sense):
+
+```java
+class UserInterface
+  {
+    private final RoleFactory roleFactory = RoleFactory.getInstance();
+
+    public void renderPerson (Person person)
+      {
+        String displayName = roleFactory.createRoleFor(person, Displayable.class).getDisplayName();
+      }
+  }
+```
+
+So now we are back to the pristine ```Person``` totally unaware of the roles:
+
+```java
+class Person
+  {
+    ...
+  }
+```
+
+Now the design is good and we can introduce some syntactic sugar. Since the operation might be read like «given a Person treat it **as**
+it were a Displayable» we can rename ```createRoleFor()``` to ```as()``` (short names with a proper meaning improve readability) and, with a bit of
+rearranging methods and using static imports, get to this code:
+
+```java
+import static RoleFactory.as;
+
+class UserInterface
+  {
+    public void renderPerson (Person person)
+      {
+        String displayName = as(person, Displayable.class).getDisplayName();
+      }
+  }
+```
+
+If on the other hand we can apply a small change to ```Person``` (the bare minimum), we could think of an interface
+
+```java
+interface As
+  {
+    public <T> T as (Class<T> roleType);
+  }
+```
+
+and have ```Person``` to implement that interface:
+
+```java
+class Person implements As
+  {
+    ...
+  }
+```
+
+So we now have another version of our code:
+
+```java
+class UserInterface
+  {
+    public void renderPerson (Person person)
+      {
+        String displayName = person.as(Displayable.class).getDisplayName();
+      }
+  }
+
+class Persistence
+  {
+    public void storePerson (Person person, Path path)
+      throws IOException
+      {
+        person.as(Marshallable.class).writeTo(path);
+      }
+  }
+```
+
+If you got up to here, you have understood what ```As``` is for. Now it's time to deal with implementation details.
+
+TBD FROM HERE
+
+Static roles
+
+Most straighy way is to have the detum implement the role interface, even though this is in many case a bad approach; unless the relevant role express a
+behaviour that is inherently part of the datum, up to the point that it couldn't been thought of without it. But this seldom happens.
+
+Dynamic roles
+
+Decoupling the datum from the role makes also possible to have alternatives in the implementation of the same role. For instance, Person might be reused
+in different applications that need to render it in different ways; inside the same application there might be many ways to render it: for instance with
+internationalisation or brief/verbose modalities (full name, only last name, abbreviated first name and last name, etc...). That is the specific implementation
+of the same role might depend on a **context**.
+
+Contextual roles
+
+...
+
+The Tell don't Ask principle says that ... It's one of the way we can make our design really strong and resistant to change. Unfortunately a few people use it;
+furthermore designers who really wish to use it have to deal with a number of frameworks that have been made in an incompatible way (e.g. following the
+getter/setter idiom). This is typical of persistence frameworks (e.g. JPA), serialisation frameworks (e.g. JAXB) and practically all GUI frameworks.
+
+Roles can be useful in this scenario as they can adapt a business model designed following the TDA principle to an external world that follows other design
+strategies.
