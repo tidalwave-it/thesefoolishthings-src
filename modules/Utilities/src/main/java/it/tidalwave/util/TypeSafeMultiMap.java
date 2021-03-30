@@ -32,6 +32,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import it.tidalwave.util.impl.TypeSafeHashMultiMap;
 
 /***********************************************************************************************************************
@@ -107,6 +108,16 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
      ******************************************************************************************************************/
     @Nonnegative
     public int size();
+
+    /*******************************************************************************************************************
+     *
+     * Performs the given action on all the pairs (key, value) contained in this map.
+     *
+     * @param action  the action
+     * @since         3.2-ALPHA-10
+     *
+     ******************************************************************************************************************/
+    public void forEach (@Nonnull BiConsumer<? super Key<?>, ? super Collection<?>> action);
 
     /*******************************************************************************************************************
      *
