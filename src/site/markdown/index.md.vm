@@ -24,11 +24,25 @@
  *
  * *********************************************************************************************************************
  *#
-![Maven Central](https://img.shields.io/maven-central/v/it.tidalwave.thesefoolishthings/thesefoolishthings.svg)
-[![Build Status](https://img.shields.io/jenkins/s/http/services.tidalwave.it/ci/job/TheseFoolishThings_Build_from_Scratch.svg)](http://services.tidalwave.it/ci/job/TheseFoolishThings)
-[![Test Status](https://img.shields.io/jenkins/t/http/services.tidalwave.it/ci/job/TheseFoolishThings.svg)](http://services.tidalwave.it/ci/job/TheseFoolishThings/)
-[![Coverage](https://img.shields.io/jenkins/c/http/services.tidalwave.it/ci/job/TheseFoolishThings.svg)](http://services.tidalwave.it/ci/job/TheseFoolishThings)
-[![Total alerts](https://img.shields.io/lgtm/alerts/b/tidalwave/thesefoolishthings-src.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/b/tidalwave/thesefoolishthings-src/alerts/)
+#set ($project_cc = $context.get("tidalwave.ci.view"))
+#set ($project_lc = ${project_cc.toLowerCase()})
+#set ($build_status = "https://img.shields.io/jenkins/s/http/services.tidalwave.it/ci/job/" + $project_cc + "_Build_from_Scratch.svg")
+#set ($ci_view = "http://services.tidalwave.it/ci/job/" + $project_cc)
+#set ($test_status = "https://img.shields.io/jenkins/t/http/services.tidalwave.it/ci/job/" + $project_cc + ".svg")
+#set ($coverage_status = "https://img.shields.io/jenkins/c/http/services.tidalwave.it/ci/job/" + $project_cc + ".svg")
+#set ($grade = "https://badgen.net/lgtm/grade/bitbucket/tidalwave/" + $project_lc + "-src/java")
+#set ($lines = "https://badgen.net/lgtm/lines/bitbucket/tidalwave/" + $project_lc + "-src/java")
+#set ($sec_alerts = "https://badgen.net/lgtm/alerts/bitbucket/tidalwave/" + $project_lc + "-src/java")
+#set ($lgtm = "https://lgtm.com/projects/b/tidalwave/" + $project_lc + "-src/")
+#set ($lgtm_alerts = "https://lgtm.com/projects/b/tidalwave/" + $project_lc + "-src/alerts/")
+
+[![Maven Central](https://img.shields.io/maven-central/v/${project.groupId}/thesefoolishthings.svg)]()
+[![Build Status]($build_status)]($ci_view)
+[![Test Status]($test_status)]($ci_view)
+[![Coverage]($coverage_status)]($ci_view)
+[![Lines]($lines)]($lgtm)
+[![Grade]($grade)]($lgtm)
+[![Total alerts]($sec_alerts)]($lgtm_alerts)
 
 ${project.name}
 ==================
