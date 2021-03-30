@@ -65,7 +65,7 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
     <distributionManagement>
         <site>
             <id>thesefoolishthings-site</id>
-            <url>http://tidalwave.it/projects/thesefoolishthings</url>
+            <url>${tidalwave.project.url}</url>
         </site>
     </distributionManagement>
 
@@ -74,6 +74,7 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
         <scm.repo.url>ssh://git@bitbucket.org/tidalwave/thesefoolishthings-src.git</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
+        <tidalwave.project.url>http://tidalwave.it/projects/thesefoolishthings</tidalwave.project.url>
         <tidalwave.slogan>TheseFoolishThings: Miscellaneous utilities</tidalwave.slogan>
         <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
         <tidalwave.issues>TFT</tidalwave.issues>
