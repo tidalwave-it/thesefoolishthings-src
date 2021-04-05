@@ -318,7 +318,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
         THREAD_LOCAL.remove();
         notifyAll();
         log();
-        eventuallySendCompletionMessage(null);
+        eventuallySendCompletionMessage();
       }
 
     /*******************************************************************************************************************
@@ -371,7 +371,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
             deliveringMessages.remove(message);
             notifyAll();
             log();
-            eventuallySendCompletionMessage(message);
+            eventuallySendCompletionMessage();
           }
       }
 
@@ -411,7 +411,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
             pendingMessages.remove(new IdentityWrapper(message));
             notifyAll();
             log();
-            eventuallySendCompletionMessage(message);
+            eventuallySendCompletionMessage();
           }
       }
 
@@ -420,10 +420,8 @@ public class DefaultCollaboration implements Serializable, Collaboration
      * If this {@link Collaboration} has been completed (that is, there are no more messages around for it), sends a
      * {@link CollaborationCompletedMessage}.
      *
-     * @param  message  the {@code Message} - FIXME: seems to be useless
-     *
      ******************************************************************************************************************/
-    private void eventuallySendCompletionMessage (final Object message)
+    private void eventuallySendCompletionMessage()
       {
         final int enqueuedMessageCount = deliveringMessages.size()
                                        + pendingMessages.size()
