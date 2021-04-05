@@ -32,6 +32,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
+import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.util.Finder.SortDirection.*;
 import static it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample.PersonSortCriteria.*;
 
@@ -41,6 +42,7 @@ import static it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample.Per
  * @hidden
  *
  **********************************************************************************************************************/
+@Slf4j
 public class FinderExample2
   {
     public static void main (@Nonnull final String ... args)
@@ -48,70 +50,65 @@ public class FinderExample2
         final PersonRegistry2 registry = new PersonRegistryImpl2();
         PersonRegistryHelper.populate(registry);
 
-        System.out.println("All: "
-                           + registry.findPerson()
-                                     .results());
+        log.info("All: {}", registry.findPerson().results());
 
-        System.out.println("All, sorted by first name: "
-                           + registry.findPerson()
-                                     .sort(BY_FIRST_NAME)
-                                     .results());
+        log.info("All, sorted by first name: {}",
+                 registry.findPerson()
+                         .sort(BY_FIRST_NAME)
+                         .results());
 
-        System.out.println("All, sorted by last name, descending: "
-                           + registry.findPerson()
-                                     .sort(BY_LAST_NAME, DESCENDING)
-                                     .results());
+        log.info("All, sorted by last name, descending: {}",
+                 registry.findPerson()
+                         .sort(BY_LAST_NAME, DESCENDING)
+                         .results());
 
-        System.out.println("Two persons from the 3rd position: "
-                           + registry.findPerson()
-                                     .from(3)
-                                     .max(2)
-                                     .results());
-
-        final PersonFinder withFirstNameStartingWithB = registry.findPerson();
+        log.info("Two persons from the 3rd position: {}",
+                 registry.findPerson()
+                         .from(3)
+                         .max(2)
+                         .results());
 
         // START SNIPPET: extended-example
-        System.out.println("Whose first name starts with B: "
-                           + registry.findPerson()
-                                     .withFirstName("B.*")
-                                     .results());
+        log.info("Whose first name starts with B: {}",
+                 registry.findPerson()
+                         .withFirstName("B.*")
+                         .results());
 
-        System.out.println("Whose first name starts with B, sorted by first name: "
-                           + registry.findPerson()
-                                     .sort(BY_FIRST_NAME)
-                                     .withFirstName("B.*")
-                                     .results());
+        log.info("Whose first name starts with B, sorted by first name: {}",
+                 registry.findPerson()
+                         .sort(BY_FIRST_NAME)
+                         .withFirstName("B.*")
+                         .results());
         // END SNIPPET: extended-example
 
-        System.out.println("The first found whose last name is Bush: "
-                           + registry.findPerson()
-                                     .withFirstName("B.*")
-                                     .withLastName("Bush")
-                                     .optionalFirstResult());
+        log.info("The first found whose last name is Bernini: {}",
+                 registry.findPerson()
+                         .withLastName("Bernini")
+                         .optionalFirstResult());
 
         // START SNIPPET: stream-example
         // Here both filtering and sorting are performed by the Finder, which could make it happen in the data source.
-        System.out.println("Whose first name starts with B, sorted by first name: "
-                           + registry.findPerson()
-                                     .withFirstName("B.*")
-                                     .sort(BY_FIRST_NAME)
-                                     .results());
+        log.info("Whose first name starts with B, sorted by first name: {}",
+                 registry.findPerson()
+                         .withFirstName("B.*")
+                         .sort(BY_FIRST_NAME)
+                         .results());
 
         // Here filtering is performed as above, but sorting is done in memory after all data have been retrieved.
-        System.out.println("Whose first name starts with B, sorted by first name: "
-                           + registry.findPerson()
-                                     .withFirstName("B.*")
-                                     .stream()
-                                     .sorted(Comparator.comparing(Person::getFirstName))
-                                     .collect(Collectors.toList()));
+        log.info("Whose first name starts with B, sorted by first name: {}",
+                 registry.findPerson()
+                         .withFirstName("B.*")
+                         .stream()
+                         .sorted(Comparator.comparing(Person::getFirstName))
+                         .collect(Collectors.toList()));
 
         // Here both filtering and sorting are performed in memory.
-        System.out.println("Whose first name starts with B, sorted by first name: "
-                           + registry.findPerson()
-                                     .stream()
-                                     .filter(p -> Pattern.matches("B.*", p.getFirstName()))
-                                     .sorted(Comparator.comparing(Person::getFirstName))
-                                     .collect(Collectors.toList()));
+        log.info("Whose first name starts with B, sorted by first name: {}",
+                 registry.findPerson()
+                         .stream()
+                         .filter(p -> Pattern.matches("B.*", p.getFirstName()))
+                         .sorted(Comparator.comparing(Person::getFirstName))
+                         .collect(Collectors.toList()));
         // END SNIPPET: stream-example
      }
   }
