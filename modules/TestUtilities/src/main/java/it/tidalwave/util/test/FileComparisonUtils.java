@@ -39,14 +39,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
-import it.tidalwave.util.Pair;
 import com.github.difflib.DiffUtils;
 import com.github.difflib.patch.AbstractDelta;
 import com.github.difflib.text.DiffRowGenerator;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.UtilityClass;
 import static java.util.stream.Collectors.toList;
 import static java.nio.charset.StandardCharsets.*;
+import static it.tidalwave.util.Pair.indexedPairStream;
 import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
@@ -59,11 +61,17 @@ import static org.junit.Assert.*;
 @UtilityClass @Slf4j
 public class FileComparisonUtils
   {
-    public static final String P_TABULAR_OUTPUT = FileComparisonUtils.class.getName() + ".tabularOutput";
-    public static final String P_TABULAR_LIMIT = FileComparisonUtils.class.getName() + ".tabularLimit";
+    @Data @RequiredArgsConstructor(staticName = "of")
+    static class Tuple { public final String a, b; }
+
+    private static final String P_BASE_NAME = FileComparisonUtils.class.getName();
+
+    public static final String P_TABULAR_OUTPUT = P_BASE_NAME + ".tabularOutput";
+    public static final String P_TABULAR_LIMIT = P_BASE_NAME + ".tabularLimit";
 
     private static final boolean TABULAR_OUTPUT = Boolean.getBoolean(P_TABULAR_OUTPUT);
     private static final int TABULAR_LIMIT = Integer.getInteger(P_TABULAR_LIMIT, 500);
+    private static final String TF = "TEST FAILED";
 
     /*******************************************************************************************************************
      *
@@ -259,34 +267,13 @@ public class FileComparisonUtils
                 logPaths(expectedPath, actualPath, "TEST FAILED ");
               }
 
-            deltas.forEach(delta ->
-              {
-                final String actMiss = String.format("TEST FAILED -act[%d]", delta.getSource().getPosition());
-                final String actNExp = String.format("TEST FAILED +act[%d]", delta.getTarget().getPosition());
-                final String expLine = String.format("TEST FAILED  exp[%d]", delta.getSource().getPosition());
-                final String actLine = String.format("TEST FAILED  act[%d]", delta.getTarget().getPosition());
-
-                switch (delta.getType())
-                  {
-                    case CHANGE:
-                      delta.getSource().getLines().forEach(line -> log.error("{} *{}*", expLine, line));
-                      delta.getTarget().getLines().forEach(line -> log.error("{} *{}*", actLine, line));
-                      break;
-
-                    case DELETE:
-                      delta.getSource().getLines().forEach(line -> log.error("{} *{}*", actMiss, line));
-                      break;
-
-                    case INSERT:
-                      delta.getTarget().getLines().forEach(line -> log.error("{} *{}*", actNExp, line));
-                      break;
-                  }
-              });
+            final List<String> strings = toStrings(deltas);
+            strings.forEach(log::error);
 
             if (!TABULAR_OUTPUT)
               {
-                log.error("TEST FAILED You can set -D{}=true for extra tabular output; -D{}=<num> to set max table size",
-                         P_TABULAR_OUTPUT, P_TABULAR_LIMIT);
+                log.error("{} You can set -D{}=true for tabular output; -D{}=<num> to set max table size",
+                          TF, P_TABULAR_OUTPUT, P_TABULAR_LIMIT);
               }
             else
               {
@@ -295,26 +282,71 @@ public class FileComparisonUtils
                         .inlineDiffByWord(true)
                         .lineNormalizer(l -> l)
                         .build();
-                final List<Pair<String, String>> pairs = generator.generateDiffRows(expected, actual)
+                final List<Tuple> tuples = generator.generateDiffRows(expected, actual)
                         .stream()
                         .filter(row -> !row.getNewLine().equals(row.getOldLine()))
-                        .map(row -> Pair.of(row.getOldLine().trim(), row.getNewLine().trim()))
+                        .map(row -> Tuple.of(row.getOldLine().trim(), row.getNewLine().trim()))
                         .limit(TABULAR_LIMIT)
                         .collect(toList());
 
-                final int padA = pairs.stream().mapToInt(p -> p.a.length()).max().getAsInt();
-                final int padB = pairs.stream().mapToInt(p -> p.b.length()).max().getAsInt();
-                log.error("TEST FAILED Tabular text is trimmed; row limit set to -D{}={}",
-                          P_TABULAR_LIMIT, TABULAR_LIMIT);
-                log.error("TEST FAILED |-{}-+-{}-|", pad("--------", padA, '-'), pad("--------", padB, '-'));
-                log.error("TEST FAILED | {} | {} |", pad("expected", padA, ' '), pad("actual  ", padB, ' '));
-                log.error("TEST FAILED |-{}-+-{}-|", pad("--------", padA, '-'), pad("--------", padB, '-'));
-                pairs.forEach(p -> log.error("TEST FAILED | {} | {} |", pad(p.a, padA, ' '), pad(p.b, padB,' ')));
-                log.error("TEST FAILED |-{}-+-{}-|", pad("--------", padA, '-'), pad("--------", padB, '-'));
+                final int padA = tuples.stream().mapToInt(p -> p.a.length()).max().getAsInt();
+                final int padB = tuples.stream().mapToInt(p -> p.b.length()).max().getAsInt();
+                log.error("{} Tabular text is trimmed; row limit set to -D{}={}",
+                          TF, P_TABULAR_LIMIT, TABULAR_LIMIT);
+                log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
+                log.error("{} | {} | {} |", TF, pad("expected", padA, ' '), pad("actual  ", padB, ' '));
+                log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
+                tuples.forEach(p -> log.error("{} | {} | {} |", TF, pad(p.a, padA, ' '), pad(p.b, padB,' ')));
+                log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
               }
 
-            fail("Unexpected contents: see log above (you can grep 'TEST FAILED')");
+            strings.add(0, "Unexpected contents: see log above (you can grep '" + TF + "')");
+            fail(String.join(System.lineSeparator(), strings));
           }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Converts deltas to output as a list of strings.
+     *
+     * @param   deltas  the deltas
+     * @return          the strings
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    private static List<String> toStrings (@Nonnull final Iterable<AbstractDelta<String>> deltas)
+      {
+        final List<String> strings = new ArrayList<>();
+
+        deltas.forEach(delta ->
+          {
+            final List<String> sourceLines = delta.getSource().getLines();
+            final List<String> targetLines = delta.getTarget().getLines();
+            final int sourcePosition = delta.getSource().getPosition() + 1;
+            final int targetPosition = delta.getTarget().getPosition() + 1;
+
+            switch (delta.getType())
+              {
+                case CHANGE:
+                  indexedPairStream(sourceLines).forEach(p -> strings.add(
+                          String.format("%s  exp[%d] *%s*", TF, sourcePosition + p.a, p.b)));
+                  indexedPairStream(targetLines).forEach(p -> strings.add(
+                          String.format("%s  act[%d] *%s*", TF, targetPosition + p.a, p.b)));
+                  break;
+
+                case DELETE:
+                  indexedPairStream(sourceLines).forEach(p -> strings.add(
+                          String.format("%s -act[%d] *%s*", TF, sourcePosition + p.a, p.b)));
+                  break;
+
+                case INSERT:
+                  indexedPairStream(targetLines).forEach(p -> strings.add(
+                          String.format("%s +act[%d] *%s*", TF, targetPosition + p.a, p.b)));
+                  break;
+              }
+          });
+
+        return strings;
       }
 
     /*******************************************************************************************************************

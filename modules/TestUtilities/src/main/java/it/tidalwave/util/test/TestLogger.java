@@ -193,6 +193,7 @@ public class TestLogger extends TestListenerAdapter
     @Nonnull
     private static String getMessage (@Nullable final Throwable throwable)
       {
-        return (throwable == null) ? "" : throwable.toString().replaceAll("\n*", "");
+        return (throwable == null) ? "" : throwable.toString();
+//        return (throwable == null) ? "" : throwable.toString().replaceAll("\n*", "");
       }
   }
