@@ -30,7 +30,6 @@ import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -39,7 +38,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import org.testng.annotations.Test;
-import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -188,7 +186,7 @@ public class TypeSafeMapTest
         assertThat(pairs, containsInAnyOrder(underTest.entrySet()
                                                       .stream()
                                                       .map(e -> Pair.of(e.getKey(), e.getValue()))
-                                                      .collect(toList()).toArray()));
+                                                      .toArray()));
       }
 
     /*******************************************************************************************************************

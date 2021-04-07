@@ -38,7 +38,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nonnull;
-import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -215,7 +214,7 @@ public class TypeSafeMultiMapTest
         assertThat(pairs, containsInAnyOrder(underTest.entrySet()
                                                       .stream()
                                                       .map(e -> Pair.of(e.getKey(), e.getValue()))
-                                                      .collect(toList()).toArray()));
+                                                      .toArray()));
       }
 
     /*******************************************************************************************************************
