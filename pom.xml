@@ -41,7 +41,7 @@
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings</artifactId>
     <packaging>pom</packaging>
-    <version>3.2-ALPHA-10-SNAPSHOT</version>
+    <version>3.2-ALPHA-11-SNAPSHOT</version>
     <name>TheseFoolishThings</name>
     <inceptionYear>2009</inceptionYear>
     <url>http://tidalwave.it/projects/thesefoolishthings</url>
@@ -70,7 +70,7 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
     </distributionManagement>
 
     <properties>
-        <tft.maven.requiredJdk>[11, 12)</tft.maven.requiredJdk>
+        <tft.maven.requiredJdk>[11, 16]</tft.maven.requiredJdk>
         <scm.repo.url>ssh://git@bitbucket.org/tidalwave/thesefoolishthings-src.git</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
@@ -95,28 +95,28 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-actor</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-role</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-role</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
@@ -127,28 +127,28 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-test</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus-spring</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-role-spring</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
@@ -165,42 +165,42 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-data</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-displayable</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-swing</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample1</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample2</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample3</artifactId>
-                <version>3.2-ALPHA-10-SNAPSHOT</version>
+                <version>3.2-ALPHA-11-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
