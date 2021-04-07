@@ -118,7 +118,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
         @Nonnull
         public static <T> InMemorySortCriterion<T> of (@Nonnull final Comparator<? super T> comparator)
           {
-            return new DefaultInMemorySortCriterion<>(comparator, comparator.getClass().getSimpleName());
+            return of(comparator, comparator.getClass().getSimpleName());
           }
 
         /***************************************************************************************************************
@@ -132,7 +132,8 @@ public interface Finder<TYPE> extends Cloneable, Serializable
          *
          **************************************************************************************************************/
         @Nonnull
-        public static <T> SortCriterion of (@Nonnull final Comparator<? super T> comparator, @Nonnull final String name)
+        public static <T> InMemorySortCriterion of (@Nonnull final Comparator<? super T> comparator,
+                                                    @Nonnull final String name)
           {
             return new DefaultInMemorySortCriterion<>(comparator, name);
           }
