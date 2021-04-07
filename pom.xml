@@ -59,7 +59,7 @@ that are reasonably contextualized in a real-world scenario (the core parts of t
 also part of industrial project). There is good stuff and some strange stuff - in general an attitude of this project is to also try things
 in a different way than the standard.
 
-TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
+TheseFoolishThings supports JDK 8, but requires JDK 11 or 16 to be compiled.
     </description>
 
     <distributionManagement>
