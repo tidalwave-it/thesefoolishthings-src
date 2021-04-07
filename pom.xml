@@ -70,7 +70,7 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
     </distributionManagement>
 
     <properties>
-        <tft.maven.requiredJdk>[11, 12)</tft.maven.requiredJdk>
+        <tft.maven.requiredJdk>[11, 16]</tft.maven.requiredJdk>
         <scm.repo.url>ssh://git@bitbucket.org/tidalwave/thesefoolishthings-src.git</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
