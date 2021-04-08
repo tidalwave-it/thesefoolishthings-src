@@ -4,7 +4,7 @@
     *********************************************************************************************************************
 
     TheseFoolishThings: Miscellaneous utilities
-    http://tidalwave.it/projects/thesefoolishthings/modules
+    http://tidalwave.it/projects/thesefoolishthings
 
     Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
 
@@ -52,7 +52,7 @@
         <tft.javac.target>1.8</tft.javac.target>
         <tft.javac.release>8</tft.javac.release>
 
-        <incava.version>1.1.0</incava.version>
+        <java-diff-utils.version>4.9</java-diff-utils.version>
         <joda-time.version>1.6.2</joda-time.version>
         <tft.spring.version>4.3.30.RELEASE</tft.spring.version>
         <uuid.version>2.1.5</uuid.version>
@@ -79,9 +79,9 @@
             </dependency>
 
             <dependency>
-                <groupId>org.incava</groupId>
-                <artifactId>org.incava.util.diff</artifactId>
-                <version>${incava.version}</version>
+                <groupId>io.github.java-diff-utils</groupId>
+                <artifactId>java-diff-utils</artifactId>
+                <version>${java-diff-utils.version}</version>
             </dependency>
 
             <!--

@@ -34,7 +34,7 @@
     <parent>
         <groupId>it.tidalwave.superpom</groupId>
         <artifactId>superpom</artifactId>
-        <version>5.0-ALPHA-10</version>
+        <version>5.0-ALPHA-11</version>
         <relativePath />
     </parent>
 
@@ -59,13 +59,13 @@ that are reasonably contextualized in a real-world scenario (the core parts of t
 also part of industrial project). There is good stuff and some strange stuff - in general an attitude of this project is to also try things
 in a different way than the standard.
 
-TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
+TheseFoolishThings supports JDK 8, but requires JDK 11 or 16 to be compiled.
     </description>
 
     <distributionManagement>
         <site>
             <id>thesefoolishthings-site</id>
-            <url>http://tidalwave.it/projects/thesefoolishthings</url>
+            <url>${tidalwave.project.url}</url>
         </site>
     </distributionManagement>
 
@@ -74,6 +74,7 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 to be compiled.
         <scm.repo.url>ssh://git@bitbucket.org/tidalwave/thesefoolishthings-src.git</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/thesefoolishthings-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/thesefoolishthings-src/src</scm.repo.browse.url>
+        <tidalwave.project.url>http://tidalwave.it/projects/thesefoolishthings</tidalwave.project.url>
         <tidalwave.slogan>TheseFoolishThings: Miscellaneous utilities</tidalwave.slogan>
         <tidalwave.ci.view>TheseFoolishThings</tidalwave.ci.view>
         <tidalwave.issues>TFT</tidalwave.issues>

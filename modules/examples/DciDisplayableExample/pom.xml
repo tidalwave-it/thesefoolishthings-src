@@ -3,7 +3,7 @@
     *********************************************************************************************************************
 
     TheseFoolishThings: Miscellaneous utilities
-    http://tidalwave.it/projects/thesefoolishthings/modules/thesefoolishthings-examples/it-tidalwave-thesefoolishthings-examples-dci-displayable
+    http://tidalwave.it/projects/thesefoolishthings
 
     Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
 
@@ -70,7 +70,6 @@
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.3.1</version> <!-- FIXME -->
         </dependency>
 
         <dependency>

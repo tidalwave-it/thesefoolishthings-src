@@ -2,7 +2,7 @@
  * *********************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
- * http://tidalwave.it/projects/thesefoolishthings/modules/thesefoolishthings-examples/it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa
+ * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
  *

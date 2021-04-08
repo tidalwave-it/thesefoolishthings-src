@@ -3,7 +3,7 @@
     *********************************************************************************************************************
 
     TheseFoolishThings: Miscellaneous utilities
-    http://tidalwave.it/projects/thesefoolishthings/modules/thesefoolishthings-examples
+    http://tidalwave.it/projects/thesefoolishthings
 
     Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
 
@@ -54,7 +54,7 @@
         <byte-buddy.version>1.10.20</byte-buddy.version>
         <betterbeansbinding.version>1.3.0</betterbeansbinding.version>
         <javax.persistence>2.2</javax.persistence>
-        <xstream.version>1.4.15</xstream.version>
+        <xstream.version>1.4.16</xstream.version>
     </properties>
     <description>
         A set of examples demonstrating the features of this project.
