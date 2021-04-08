@@ -2,7 +2,7 @@
  * *********************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
- * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util
+ * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
  *
@@ -38,6 +38,7 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.io.Serializable;
+import java.util.function.BiConsumer;
 import it.tidalwave.util.Key;
 import it.tidalwave.util.TypeSafeMultiMap;
 import lombok.EqualsAndHashCode;
@@ -176,6 +177,17 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
     public Map<Key<?>, Collection<?>> asMap()
       {
         return new HashMap<>(map);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    public void forEach (@Nonnull final BiConsumer<? super Key<?>, ? super Collection<?>> action)
+      {
+        map.forEach(action);
       }
 
     /*******************************************************************************************************************

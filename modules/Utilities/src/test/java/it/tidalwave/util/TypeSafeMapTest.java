@@ -2,7 +2,7 @@
  * *********************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
- * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util
+ * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
  *
@@ -26,18 +26,21 @@
  */
 package it.tidalwave.util;
 
-import org.testng.annotations.Test;
+import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import javax.annotation.Nonnull;
+import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.testng.Assert.fail;
 
 /***********************************************************************************************************************
@@ -170,8 +173,27 @@ public class TypeSafeMapTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
+    @Test
+    public void test_forEach()
+      {
+        // given
+        final Map<Key<?>, Object> map = createSampleMap();
+        // when
+        final TypeSafeMap underTest = TypeSafeMap.ofCloned(map);
+        final List<Pair<Key<?>, Object>> pairs = new ArrayList<>();
+        underTest.forEach((k, v) -> pairs.add(Pair.of(k, v)));
+        // then
+        assertThat(pairs, containsInAnyOrder(underTest.entrySet()
+                                                      .stream()
+                                                      .map(e -> Pair.of(e.getKey(), e.getValue()))
+                                                      .toArray()));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
     @Nonnull
-    private static Map<Key<?>, Object> createSampleMap ()
+    private static Map<Key<?>, Object> createSampleMap()
       {
         final Map<Key<?>, Object> map = new HashMap<>();
         map.put(K_STRING, "1");
