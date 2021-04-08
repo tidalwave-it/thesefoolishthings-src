@@ -2,7 +2,7 @@
  * *********************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
- * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util-test
+ * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
  *
@@ -77,11 +77,11 @@ public class TestLogger extends TestListenerAdapter
         super.onConfigurationSkip(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
         final Throwable throwable = result.getThrowable();
-        log.info("CONFIGURATION SKIPPED {}", getMessage(throwable));
+        log.warn("CONFIGURATION SKIPPED {}", getMessage(throwable));
 
         if (throwable != null)
           {
-            log.info("CONFIGURATION SKIPPED", result.getThrowable());
+            log.warn("CONFIGURATION SKIPPED", result.getThrowable());
           }
       }
 
@@ -91,11 +91,11 @@ public class TestLogger extends TestListenerAdapter
         super.onConfigurationFailure(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
         final Throwable throwable = result.getThrowable();
-        log.info("CONFIGURATION FAILED {}", getMessage(throwable));
+        log.error("CONFIGURATION FAILED {}", getMessage(throwable));
 
         if (throwable != null)
           {
-            log.info("CONFIGURATION FAILED", result.getThrowable());
+            log.error("CONFIGURATION FAILED", result.getThrowable());
           }
       }
 
@@ -103,15 +103,7 @@ public class TestLogger extends TestListenerAdapter
     public void onTestStart (@Nonnull final ITestResult result)
       {
         super.onTestStart(result);
-        String args = "";
-
-        final Object[] parameters = result.getParameters();
-
-        if ((parameters != null) && parameters.length > 0)
-          {
-            args = Arrays.toString(parameters);
-          }
-
+        final String args = getArgs(result);
         final int max = Math.max(args.length() + 5, result.getName().length() + 7);
         final String separator = SEPARATOR.substring(0, Math.min(max, SEPARATOR.length()));
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
@@ -133,14 +125,20 @@ public class TestLogger extends TestListenerAdapter
         super.onTestFailure(result);
         final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
         final Throwable throwable = result.getThrowable();
-        log.info("TEST FAILED in {} msec - {}", result.getEndMillis() - result.getStartMillis(),
-                                                getMessage(throwable));
+        final String args = getArgs(result);
+
+        log.error("TEST FAILED in {} msec - {}{} - {}",
+                 result.getEndMillis() - result.getStartMillis(),
+                 result.getName().replace('_', ' '),
+                 "".equals(args) ? "" : " " + args,
+                 getMessage(throwable));
+
         if (throwable != null)
           {
-            log.info("TEST FAILED", result.getThrowable());
+            log.error("TEST FAILED", result.getThrowable());
           }
 
-        log.info("");
+        log.error("");
       }
 
     @Override
@@ -178,8 +176,24 @@ public class TestLogger extends TestListenerAdapter
       }
 
     @Nonnull
+    private String getArgs (@Nonnull final ITestResult result)
+      {
+        String args = "";
+
+        final Object[] parameters = result.getParameters();
+
+        if ((parameters != null) && parameters.length > 0)
+          {
+            args = Arrays.toString(parameters);
+          }
+
+        return args;
+      }
+
+    @Nonnull
     private static String getMessage (@Nullable final Throwable throwable)
       {
-        return (throwable == null) ? "" : throwable.toString().replaceAll("\n*", "");
+        return (throwable == null) ? "" : throwable.toString();
+//        return (throwable == null) ? "" : throwable.toString().replaceAll("\n*", "");
       }
   }

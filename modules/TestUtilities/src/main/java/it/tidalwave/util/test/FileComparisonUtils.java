@@ -2,7 +2,7 @@
  * *********************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
- * http://tidalwave.it/projects/thesefoolishthings/modules/it-tidalwave-util-test
+ * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
  *
@@ -26,31 +26,67 @@
  */
 package it.tidalwave.util.test;
 
-import java.io.InputStream;
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import org.incava.util.diff.Diff;
-import org.incava.util.diff.Difference;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import static org.junit.Assert.*;
+import java.nio.file.Path;
+import com.github.difflib.DiffUtils;
+import com.github.difflib.patch.AbstractDelta;
+import com.github.difflib.text.DiffRowGenerator;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import lombok.experimental.UtilityClass;
+import static java.util.stream.Collectors.toList;
 import static java.nio.charset.StandardCharsets.*;
+import static it.tidalwave.util.Pair.indexedPairStream;
+import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
+ *
+ * A utility class to compare two text files and assert that they have the same contents.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public final class FileComparisonUtils
+@UtilityClass @Slf4j
+public class FileComparisonUtils
   {
-    private static final Logger log = LoggerFactory.getLogger(FileComparisonUtils.class);
+    @Data @RequiredArgsConstructor(staticName = "of")
+    static class Tuple { public final String a, b; }
+
+    private static final String P_BASE_NAME = FileComparisonUtils.class.getName();
+
+    public static final String P_TABULAR_OUTPUT = P_BASE_NAME + ".tabularOutput";
+    public static final String P_TABULAR_LIMIT = P_BASE_NAME + ".tabularLimit";
+
+    private static final boolean TABULAR_OUTPUT = Boolean.getBoolean(P_TABULAR_OUTPUT);
+    private static final int TABULAR_LIMIT = Integer.getInteger(P_TABULAR_LIMIT, 500);
+    private static final String TF = "TEST FAILED";
+
+    /*******************************************************************************************************************
+     *
+     * Asserts that two files have the same contents.
+     *
+     * @param   expectedFile    the file with the expected contents
+     * @param   actualFile      the file with the contents to probe
+     * @throws  IOException     in case of error
+     *
+     ******************************************************************************************************************/
+    public static void assertSameContents (@Nonnull final Path expectedFile, @Nonnull final Path actualFile)
+      throws IOException
+      {
+        assertSameContents(expectedFile.toFile(), actualFile.toFile());
+      }
 
     /*******************************************************************************************************************
      *
@@ -66,12 +102,9 @@ public final class FileComparisonUtils
       {
         final String expectedPath = expectedFile.getAbsolutePath();
         final String actualPath = actualFile.getAbsolutePath();
-        final String commonPath = commonPrefix(expectedPath, actualPath);
         log.info("******** Comparing files:");
-        log.info(">>>> path is: {}", commonPath);
-        log.info(">>>> exp is:  {}", expectedPath.substring(commonPath.length()));
-        log.info(">>>> act is:  {}", actualPath.substring(commonPath.length()));
-        assertSameContents(fileToStrings(expectedFile), fileToStrings(actualFile));
+        logPaths(expectedPath, actualPath, "");
+        assertSameContents(fileToStrings(expectedFile), fileToStrings(actualFile), expectedPath, actualPath);
       }
 
     /*******************************************************************************************************************
@@ -84,44 +117,7 @@ public final class FileComparisonUtils
      ******************************************************************************************************************/
     public static void assertSameContents (@Nonnull final List<String> expected, @Nonnull final List<String> actual)
       {
-        final Diff diff = new Diff(expected, actual);
-        final List<Difference> differences = diff.diff();
-
-        if (!differences.isEmpty())
-          {
-            final StringBuilder buffer = new StringBuilder();
-
-            for (final Difference difference : differences)
-              {
-                final int addedStart = difference.getAddedStart();
-                int addedEnd = difference.getAddedEnd();
-                final int deletedStart = difference.getDeletedStart();
-                int deletedEnd = difference.getDeletedEnd();
-
-                if (addedStart >= 0)
-                  {
-                    addedEnd = (addedEnd >= 0) ? addedEnd : actual.size() - 1;
-
-                    for (int i = addedStart; i <= addedEnd; i++)
-                      {
-                        buffer.append(String.format("-act: %3d: *%s*%n", i + 1, actual.get(i)));
-                      }
-                  }
-
-                if (deletedStart >= 0)
-                  {
-                    deletedEnd = (deletedEnd >= 0) ? deletedEnd : expected.size() - 1;
-
-                    for (int i = deletedStart; i <= deletedEnd; i++)
-                      {
-                        buffer.append(String.format("+exp: %3d: *%s*%n", i + 1, expected.get(i)));
-                      }
-                  }
-              }
-
-            log.info("{}", buffer);
-            fail("Unexpected contents:\n" + buffer);
-          }
+        assertSameContents(expected, actual, null, null);
       }
 
     /*******************************************************************************************************************
@@ -159,9 +155,9 @@ public final class FileComparisonUtils
 
     /*******************************************************************************************************************
      *
-     * Reads a file into a list of strings.
+     * Reads a classpath resource into a list of strings.
      *
-     * @param   path            the path of the file
+     * @param   path            the path of the classpath resource
      * @return                  the strings
      * @throws  IOException     in case of error
      *
@@ -193,29 +189,29 @@ public final class FileComparisonUtils
     public static List<String> fileToStrings (@Nonnull final InputStream is)
       throws IOException
       {
-        final BufferedReader br = new BufferedReader(new InputStreamReader(is, UTF_8));
-        final List<String> result = new ArrayList<>();
-
-        for (;;)
+        try (final BufferedReader br = new BufferedReader(new InputStreamReader(is, UTF_8)))
           {
-            final String s = br.readLine();
+            final List<String> result = new ArrayList<>();
 
-            if (s == null)
+            for (;;)
               {
-                break;
+                final String s = br.readLine();
+
+                if (s == null)
+                  {
+                    break;
+                  }
+
+                result.add(s);
               }
 
-            result.add(s);
+            return result;
           }
-
-        br.close();
-
-        return result;
       }
 
     /*******************************************************************************************************************
      *
-     * Given a string that represent a path whose segments are separated by the standard separator of the platform,
+     * Given a string that represents a path whose segments are separated by the standard separator of the platform,
      * returns the common prefix - which means the common directory parents.
      *
      * @param   s1    the former string
@@ -245,5 +241,145 @@ public final class FileComparisonUtils
           }
 
         return s1.substring(0, min);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Asserts that two collections of strings have the same contents.
+     *
+     * @param   expected        the expected values
+     * @param   actual          the actual values
+     * @param   expectedPath    an optional path for expected values
+     * @param   actualPath      an optional path for actual values
+     *
+     ******************************************************************************************************************/
+    private static void assertSameContents (@Nonnull final List<String> expected,
+                                            @Nonnull final List<String> actual,
+                                            @Nullable final String expectedPath,
+                                            @Nullable final String actualPath)
+      {
+        final List<AbstractDelta<String>> deltas = DiffUtils.diff(expected, actual).getDeltas();
+
+        if (!deltas.isEmpty())
+          {
+            if ((expectedPath != null) && (actualPath != null))
+              {
+                logPaths(expectedPath, actualPath, "TEST FAILED ");
+              }
+
+            final List<String> strings = toStrings(deltas);
+            strings.forEach(log::error);
+
+            if (!TABULAR_OUTPUT)
+              {
+                log.error("{} You can set -D{}=true for tabular output; -D{}=<num> to set max table size",
+                          TF, P_TABULAR_OUTPUT, P_TABULAR_LIMIT);
+              }
+            else
+              {
+                final DiffRowGenerator generator = DiffRowGenerator.create()
+                        .showInlineDiffs(false)
+                        .inlineDiffByWord(true)
+                        .lineNormalizer(l -> l)
+                        .build();
+                final List<Tuple> tuples = generator.generateDiffRows(expected, actual)
+                        .stream()
+                        .filter(row -> !row.getNewLine().equals(row.getOldLine()))
+                        .map(row -> Tuple.of(row.getOldLine().trim(), row.getNewLine().trim()))
+                        .limit(TABULAR_LIMIT)
+                        .collect(toList());
+
+                final int padA = tuples.stream().mapToInt(p -> p.a.length()).max().getAsInt();
+                final int padB = tuples.stream().mapToInt(p -> p.b.length()).max().getAsInt();
+                log.error("{} Tabular text is trimmed; row limit set to -D{}={}",
+                          TF, P_TABULAR_LIMIT, TABULAR_LIMIT);
+                log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
+                log.error("{} | {} | {} |", TF, pad("expected", padA, ' '), pad("actual  ", padB, ' '));
+                log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
+                tuples.forEach(p -> log.error("{} | {} | {} |", TF, pad(p.a, padA, ' '), pad(p.b, padB,' ')));
+                log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
+              }
+
+            strings.add(0, "Unexpected contents: see log above (you can grep '" + TF + "')");
+            fail(String.join(System.lineSeparator(), strings));
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Converts deltas to output as a list of strings.
+     *
+     * @param   deltas  the deltas
+     * @return          the strings
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    private static List<String> toStrings (@Nonnull final Iterable<AbstractDelta<String>> deltas)
+      {
+        final List<String> strings = new ArrayList<>();
+
+        deltas.forEach(delta ->
+          {
+            final List<String> sourceLines = delta.getSource().getLines();
+            final List<String> targetLines = delta.getTarget().getLines();
+            final int sourcePosition = delta.getSource().getPosition() + 1;
+            final int targetPosition = delta.getTarget().getPosition() + 1;
+
+            switch (delta.getType())
+              {
+                case CHANGE:
+                  indexedPairStream(sourceLines).forEach(p -> strings.add(
+                          String.format("%s  exp[%d] *%s*", TF, sourcePosition + p.a, p.b)));
+                  indexedPairStream(targetLines).forEach(p -> strings.add(
+                          String.format("%s  act[%d] *%s*", TF, targetPosition + p.a, p.b)));
+                  break;
+
+                case DELETE:
+                  indexedPairStream(sourceLines).forEach(p -> strings.add(
+                          String.format("%s -act[%d] *%s*", TF, sourcePosition + p.a, p.b)));
+                  break;
+
+                case INSERT:
+                  indexedPairStream(targetLines).forEach(p -> strings.add(
+                          String.format("%s +act[%d] *%s*", TF, targetPosition + p.a, p.b)));
+                  break;
+              }
+          });
+
+        return strings;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Logs info about file comparison paths.
+     *
+     * @param expectedPath      the expected path
+     * @param actualPath        the actual path
+     * @param prefix            a log prefix
+     *
+     ******************************************************************************************************************/
+    private static void logPaths (@Nonnull final String expectedPath,
+                                  @Nonnull final String actualPath,
+                                  @Nonnull final String prefix)
+      {
+        final String commonPath = commonPrefix(expectedPath, actualPath);
+        log.info("{}>>>> path is: {}", prefix, commonPath);
+        log.info("{}>>>> exp is:  {}", prefix, expectedPath.substring(commonPath.length()));
+        log.info("{}>>>> act is:  {}", prefix, actualPath.substring(commonPath.length()));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Pads a string to left to fit the given width.
+     *
+     * @param   string    the string
+     * @param   width     the width
+     * @return            the padded string
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    private static String pad (@Nonnull final String string, @Nonnegative final int width, final char padding)
+      {
+        return String.format("%-" + width + "s", string).replace(' ', padding);
       }
   }
