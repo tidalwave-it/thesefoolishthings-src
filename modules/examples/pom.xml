@@ -33,14 +33,14 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>3.2-ALPHA-11-SNAPSHOT</version>
+        <version>3.2-ALPHA-12-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings-examples</artifactId>
     <packaging>pom</packaging>
-    <version>3.2-ALPHA-11-SNAPSHOT</version>
+    <version>3.2-ALPHA-12-SNAPSHOT</version>
     <name>TheseFoolishThings :: Examples (master)</name>
 
     <properties>
