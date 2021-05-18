@@ -54,7 +54,7 @@
         <byte-buddy.version>1.10.20</byte-buddy.version>
         <betterbeansbinding.version>1.3.0</betterbeansbinding.version>
         <javax.persistence>2.2</javax.persistence>
-        <xstream.version>1.4.16</xstream.version>
+        <xstream.version>1.4.17</xstream.version>
     </properties>
     <description>
         A set of examples demonstrating the features of this project.
