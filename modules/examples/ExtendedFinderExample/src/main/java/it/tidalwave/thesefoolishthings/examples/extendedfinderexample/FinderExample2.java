@@ -47,7 +47,7 @@ public class FinderExample2
   {
     public static void main (@Nonnull final String ... args)
       {
-        final PersonRegistry2 registry = new PersonRegistryImpl2();
+        final PersonRegistry2 registry = new PersonRegistryImpl2a();
         PersonRegistryHelper.populate(registry);
 
         log.info("All: {}", registry.findPerson().results());

@@ -265,11 +265,11 @@ done (in-memory, to keep things simpler).
 
 First we have to declare fields for the internal state and a public constructor to initialize the object with reasonable defaults:
 
-<!-- MACRO{snippet|id=public-constructor-and-fields|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
+<!-- MACRO{snippet|id=public-constructor-and-fields|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2a.java} -->
 
 A private constructor to initialize everything to arbitrary values is also needed:
 
-<!-- MACRO{snippet|id=private-constructor|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
+<!-- MACRO{snippet|id=private-constructor|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2a.java} -->
 
 As it was explained above, intermediate methods must create copies of the ```Finder``` to comply with the immutability constraint. In a normal class this would be
 performed by a copy constructor that takes *all the fields*, including those of the superclass(es); but since we decided to make them ```private``` they can't
@@ -278,11 +278,11 @@ the ```super``` default constructor, this means that **the state of the super cl
 methods implemented in the super class(es) will be lost. Obviously this is not how things are supposed to work: that's why ```FinderSupport``` offers a
 ```clonedWithOverride()``` method that fixes everything.
 
-<!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
+<!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2a.java} -->
 
 How does it work? It relies on the the presence of a special copy constructor that looks like this:
 
-<!-- MACRO{snippet|id=clone-constructor|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
+<!-- MACRO{snippet|id=clone-constructor|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2a.java} -->
 
 *Note: having this special copy constructor is a requirement of any subclass of ```FinderSupport```. The ```FinderSupport``` constructor makes a runtime check
 by introspection and throws an exception if the proper copy constructor is not found.*
@@ -306,11 +306,33 @@ Is it a bit clumsy? Admittedly it is, even though the code is simple and clean: 
 extended ```Finder```. Part of the clumsiness derives from the complexity of inheritance, that we are trying to work around. If you don't like this approach,
 just forget ```FinderSupport```.
 
-Note: if you are perplexed by the concept of “incomplete” ```Finder``` (which is a curious thing indeed, a short-lived object “degraded“ to a value object)
+#[[####]]# Alternate take
+
+If you really don't like the concept of “incomplete” ```Finder``` (which is a curious thing indeed, a short-lived object “degraded“ to a value object)
 you can use a simpler value object just holding the required values. Since
 ```override``` is a generic ```Object```, it will work. Again, this approach requires some more code to write; but here
 [```@Data```](https://projectlombok.org/features/Data) annotation from Lombok or
-[Java 16 records](https://mail.openjdk.java.net/pipermail/amber-spec-experts/2020-July/002254.html) might be useful.*
+[Java 16 records](https://mail.openjdk.java.net/pipermail/amber-spec-experts/2020-July/002254.html) might be useful.
+
+For instance, an alternate implementation can encapsulate its parameters in a special inner class:
+
+<!-- MACRO{snippet|id=public-constructor-and-fields|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2b.java} -->
+
+so the private constructor becomes:
+
+<!-- MACRO{snippet|id=private-constructor|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2b.java} -->
+
+The new copy constructor now is:
+
+<!-- MACRO{snippet|id=clone-constructor|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2b.java} -->
+
+And the methods to specify parameters are:
+
+<!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2b.java} -->
+
+
+
+
 
 
 #[[###]]# Marginal note to ```FinderSupport```
@@ -333,7 +355,7 @@ This method would return **all** the objects of pertinence, without filtering or
 take care of that. Since this implies to work in memory after having loaded/created all the objects, this approach is easier to write but less efficient. It's
 ok for mocks or simple cases. The implementation of our example is:
 
-<!-- MACRO{snippet|id=computeResults|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2.java} -->
+<!-- MACRO{snippet|id=computeResults|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2a.java} -->
 
 
 
