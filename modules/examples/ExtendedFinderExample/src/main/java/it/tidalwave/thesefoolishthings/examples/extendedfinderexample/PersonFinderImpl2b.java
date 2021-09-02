@@ -47,22 +47,22 @@ public class PersonFinderImpl2b extends FinderSupport<Person, PersonFinder> impl
     static class Status
       {
         Status (@Nonnull final List<Person> persons,
-                @Nonnull final String firstNameRegex,
-                @Nonnull final String lastNameRegex)
+                @Nonnull final Pattern firstNamePattern,
+                @Nonnull final Pattern lastNamePattern)
           {
             this.persons = persons;
-            this.firstNameRegex = firstNameRegex;
-            this.lastNameRegex = lastNameRegex;
+            this.firstNamePattern = firstNamePattern;
+            this.lastNamePattern = lastNamePattern;
           }
 
         @Nonnull
         final List<Person> persons;
 
         @Nonnull
-        final String firstNameRegex;
+        final Pattern firstNamePattern;
 
         @Nonnull
-        final String lastNameRegex;
+        final Pattern lastNamePattern;
       }
 
     @Nonnull
@@ -71,7 +71,7 @@ public class PersonFinderImpl2b extends FinderSupport<Person, PersonFinder> impl
     // This is for public use
     public PersonFinderImpl2b (@Nonnull final List<Person> persons)
       {
-        this(new Status(persons, ".*",  ".*"));
+        this(new Status(persons, Pattern.compile(".*"),  Pattern.compile(".*")));
       }
     // END SNIPPET: public-constructor-and-fields
 
@@ -89,7 +89,7 @@ public class PersonFinderImpl2b extends FinderSupport<Person, PersonFinder> impl
       {
         super(other, override);
         final Status source = getSource(Status.class, other.status, override);
-        this.status = new Status(source.persons, source.firstNameRegex, source.lastNameRegex);
+        this.status = new Status(source.persons, source.firstNamePattern, source.lastNamePattern);
       }
     // END SNIPPET: clone-constructor
 
@@ -97,13 +97,13 @@ public class PersonFinderImpl2b extends FinderSupport<Person, PersonFinder> impl
     @Override @Nonnull
     public PersonFinder withFirstName (@Nonnull final String regex)
       {
-        return clonedWith(new Status(status.persons, regex, status.lastNameRegex));
+        return clonedWith(new Status(status.persons, Pattern.compile(regex), status.lastNamePattern));
       }
 
     @Override @Nonnull
     public PersonFinder withLastName (@Nonnull final String regex)
       {
-        return clonedWith(new Status(status.persons, status.firstNameRegex, regex));
+        return clonedWith(new Status(status.persons, status.firstNamePattern, Pattern.compile(regex)));
       }
     // END SNIPPET: new-methods
 
@@ -111,12 +111,9 @@ public class PersonFinderImpl2b extends FinderSupport<Person, PersonFinder> impl
     @Override @Nonnull
     protected List<? extends Person> computeResults()
       {
-        final Pattern firstNamePattern = Pattern.compile(status.firstNameRegex);
-        final Pattern lastNamePattern = Pattern.compile(status.lastNameRegex);
-
         return status.persons.stream()
-                             .filter(p -> firstNamePattern.matcher(p.getFirstName()).matches()
-                                       && lastNamePattern.matcher(p.getLastName()).matches())
+                             .filter(p -> status.firstNamePattern.matcher(p.getFirstName()).matches()
+                                       && status.lastNamePattern.matcher(p.getLastName()).matches())
                              .collect(Collectors.toList());
       }
     // END SNIPPET: computeResults
