@@ -26,14 +26,14 @@
  */
 package it.tidalwave.role.spi.impl;
 
-import java.util.List;
 import javax.annotation.Nonnull;
+import java.util.List;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static java.util.Arrays.*;
+import static java.util.Arrays.asList;
+import static it.tidalwave.role.spi.impl.Mocks.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
-import static it.tidalwave.role.spi.impl.Mocks.*;
 
 /***********************************************************************************************************************
  *

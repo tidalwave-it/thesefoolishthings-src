@@ -33,9 +33,9 @@ import java.util.function.IntFunction;
 import java.util.stream.Stream;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.toList;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
+import static java.util.stream.Collectors.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *

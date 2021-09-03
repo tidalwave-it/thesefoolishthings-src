@@ -32,10 +32,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.JpaPersistenceContext;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /***********************************************************************************************************************
  *

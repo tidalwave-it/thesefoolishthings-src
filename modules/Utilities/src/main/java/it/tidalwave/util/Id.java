@@ -26,10 +26,10 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.concurrent.Immutable;
 import javax.annotation.Nonnull;
-import java.io.Serializable;
+import javax.annotation.concurrent.Immutable;
 import java.util.UUID;
+import java.io.Serializable;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 

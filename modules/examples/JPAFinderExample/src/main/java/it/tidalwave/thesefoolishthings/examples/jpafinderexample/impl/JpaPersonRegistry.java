@@ -29,9 +29,9 @@ package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 import javax.annotation.Nonnull;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.Id;
-import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.PersonRegistry3;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.TxManager;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************

@@ -26,9 +26,9 @@
  */
 package it.tidalwave.messagebus.spi;
 
+import java.lang.ref.WeakReference;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,7 +37,6 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import it.tidalwave.messagebus.MessageBus;
-import it.tidalwave.messagebus.MessageBus.Listener;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 

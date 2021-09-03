@@ -33,12 +33,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import it.tidalwave.util.AsException;
-import lombok.extern.slf4j.Slf4j;
-import org.hamcrest.Matcher;
-import org.mockito.ArgumentMatcher;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.mockito.ArgumentMatcher;
+import org.hamcrest.Matcher;
+import static java.util.stream.Collectors.*;
 import static it.tidalwave.role.spi.impl.LogUtil.*;
-import static java.util.stream.Collectors.toList;
 
 /***********************************************************************************************************************
  *

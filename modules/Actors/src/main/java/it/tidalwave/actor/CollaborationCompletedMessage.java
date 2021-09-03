@@ -29,10 +29,10 @@ package it.tidalwave.actor;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import it.tidalwave.actor.annotation.Message;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /***********************************************************************************************************************
  *

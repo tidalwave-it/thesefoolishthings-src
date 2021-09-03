@@ -27,10 +27,10 @@
 package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
+import java.util.Comparator;
 import it.tidalwave.role.ui.Displayable;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import java.util.Comparator;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 

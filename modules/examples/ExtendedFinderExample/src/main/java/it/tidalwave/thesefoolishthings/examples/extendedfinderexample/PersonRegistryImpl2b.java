@@ -26,11 +26,10 @@
  */
 package it.tidalwave.thesefoolishthings.examples.extendedfinderexample;
 
-import it.tidalwave.thesefoolishthings.examples.person.Person;
-
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 
 /***********************************************************************************************************************
  *

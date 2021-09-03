@@ -27,10 +27,10 @@
 package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.role.ui.impl.DefaultPresentable;
-import it.tidalwave.util.Parameters;
 import java.util.Collection;
 import java.util.Collections;
+import it.tidalwave.util.Parameters;
+import it.tidalwave.role.ui.impl.DefaultPresentable;
 import static it.tidalwave.util.Parameters.r;
 
 /***********************************************************************************************************************

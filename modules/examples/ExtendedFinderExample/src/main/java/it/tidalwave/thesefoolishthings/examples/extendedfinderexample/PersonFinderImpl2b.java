@@ -26,12 +26,12 @@
  */
 package it.tidalwave.thesefoolishthings.examples.extendedfinderexample;
 
-import it.tidalwave.thesefoolishthings.examples.person.Person;
-import it.tidalwave.util.spi.FinderSupport;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import it.tidalwave.util.spi.FinderSupport;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 
 /***********************************************************************************************************************
  *

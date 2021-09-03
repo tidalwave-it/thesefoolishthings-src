@@ -27,8 +27,8 @@
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample;
 
 import it.tidalwave.util.Finder;
-import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.JpaPersonFinder;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 
 /***********************************************************************************************************************
  *

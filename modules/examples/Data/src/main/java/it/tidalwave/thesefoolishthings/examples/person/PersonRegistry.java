@@ -26,8 +26,8 @@
  */
 package it.tidalwave.thesefoolishthings.examples.person;
 
-import it.tidalwave.util.Finder;
 import javax.annotation.Nonnull;
+import it.tidalwave.util.Finder;
 
 /***********************************************************************************************************************
  *

@@ -28,8 +28,8 @@ package it.tidalwave.util.test;
 
 import javax.annotation.Nonnull;
 import java.time.Instant;
-import lombok.Setter;
 import it.tidalwave.util.TimeProvider;
+import lombok.Setter;
 
 /***********************************************************************************************************************
  *

@@ -26,10 +26,10 @@
  */
 package it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample;
 
-import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.util.Finder.InMemorySortCriterion;
+import it.tidalwave.util.Finder.SortCriterion;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
-import static java.util.Comparator.comparing;
+import static java.util.Comparator.*;
 
 /***********************************************************************************************************************
  *

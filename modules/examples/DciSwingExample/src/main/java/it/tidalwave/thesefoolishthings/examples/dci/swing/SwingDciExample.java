@@ -29,8 +29,8 @@ package it.tidalwave.thesefoolishthings.examples.dci.swing;
 import javax.swing.JFrame;
 import it.tidalwave.role.AsExtensions;
 import it.tidalwave.thesefoolishthings.examples.dci.swing.swing.SwingPersonPresentation;
-import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.ExtensionMethod;
+import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *

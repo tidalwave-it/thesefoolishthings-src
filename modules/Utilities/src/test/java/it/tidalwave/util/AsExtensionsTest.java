@@ -33,7 +33,7 @@ import it.tidalwave.util.asexamples.RenderingContext;
 import lombok.experimental.ExtensionMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import static it.tidalwave.util.asexamples.Renderable.*;
+import static it.tidalwave.util.asexamples.Renderable._Renderable_;
 import static org.mockito.Mockito.*;
 
 /***********************************************************************************************************************

@@ -33,7 +33,7 @@ import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import static it.tidalwave.role.spi.impl.LogUtil.*;
+import static it.tidalwave.role.spi.impl.LogUtil.shortName;
 
 /***********************************************************************************************************************
  *

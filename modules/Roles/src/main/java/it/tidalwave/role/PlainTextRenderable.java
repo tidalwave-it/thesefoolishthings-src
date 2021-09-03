@@ -26,8 +26,8 @@
  */
 package it.tidalwave.role;
 
-import java.io.PrintWriter;
 import javax.annotation.Nonnull;
+import java.io.PrintWriter;
 
 /***********************************************************************************************************************
  *

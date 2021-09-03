@@ -33,14 +33,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import java.io.Serializable;
+import it.tidalwave.actor.impl.DefaultCollaboration;
+import it.tidalwave.actor.impl.Locator;
+import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.spi.AsSupport;
-import it.tidalwave.actor.impl.Locator;
-import it.tidalwave.actor.impl.DefaultCollaboration;
-import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
-import lombok.experimental.Delegate;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.actor.MessageDecorator._MessageDecorator_;
 
