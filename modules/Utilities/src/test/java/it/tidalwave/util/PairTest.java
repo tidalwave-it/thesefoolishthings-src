@@ -88,38 +88,6 @@ public class PairTest
      *
      ******************************************************************************************************************/
     @Test
-    public void test_indexedPairStream_from_iterable()
-      {
-        // when
-        final Stream<Pair<Integer, String>> underTest = Pair.indexedPairStream(iterable);
-        // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "one"),
-                                                          Pair.of(1, "two"),
-                                                          Pair.of(2, "three"),
-                                                          Pair.of(3, "four"),
-                                                          Pair.of(4, "five"))));
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @Test
-    public void test_indexedPairStream_from_iterable_and_rebaser()
-      {
-        // when
-        final Stream<Pair<Integer, String>> underTest = Pair.indexedPairStream(iterable, Pair.BASE_1);
-        // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(1, "one"),
-                                                          Pair.of(2, "two"),
-                                                          Pair.of(3, "three"),
-                                                          Pair.of(4, "four"),
-                                                          Pair.of(5, "five"))));
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @Test
     public void test_indexedPairStream__from_array_with_index_transformer()
       {
         // when
@@ -136,7 +104,39 @@ public class PairTest
      *
      ******************************************************************************************************************/
     @Test
-    public void test_indexedPairStream__from_iterable_with_index_transformer()
+    public void test_indexedPairStream_from_list_as_iterable()
+      {
+        // when
+        final Stream<Pair<Integer, String>> underTest = Pair.indexedPairStream(iterable);
+        // then
+        assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "one"),
+                                                          Pair.of(1, "two"),
+                                                          Pair.of(2, "three"),
+                                                          Pair.of(3, "four"),
+                                                          Pair.of(4, "five"))));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void test_indexedPairStream_from_list_as_iterable_and_rebaser()
+      {
+        // when
+        final Stream<Pair<Integer, String>> underTest = Pair.indexedPairStream(iterable, Pair.BASE_1);
+        // then
+        assertThat(underTest.collect(toList()), is(asList(Pair.of(1, "one"),
+                                                          Pair.of(2, "two"),
+                                                          Pair.of(3, "three"),
+                                                          Pair.of(4, "four"),
+                                                          Pair.of(5, "five"))));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void test_indexedPairStream__from_list_as_iterable_with_index_transformer()
       {
         // when
         final Stream<Pair<String, String>> underTest = Pair.indexedPairStream(iterable, Pair.BASE_0, indexTransformer);
