@@ -218,6 +218,84 @@ public class Pair<A, B>
 
     /*******************************************************************************************************************
      *
+     * Returns a {@link Stream} out of the elements in a given {@link Stream} made of {@link Pair}s {@code (index,
+     * value)}.
+     *
+     * @param       <T>             the type of the elements
+     * @param       stream          the stream
+     * @return                      the stream
+     * @since       3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> Stream<Pair<Integer, T>> indexedPairStream (@Nonnull final Stream<T> stream)
+      {
+        return Pair.indexedPairStream(stream::iterator);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a {@link Stream} out of the elements in a given {@link Stream} made of {@link Pair}s {@code (index,
+     * value)}. The index can be rebased.
+     *
+     * @param       <T>               the type of the elements
+     * @param       stream            the stream
+     * @param       rebaser           the rebaser of the index (BASE_0, BASE_1 or a similar function)
+     * @return                        the stream
+     * @since       3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> Stream<Pair<Integer, T>> indexedPairStream (@Nonnull final Stream<T> stream,
+                                                                  @Nonnull final IntUnaryOperator rebaser)
+      {
+        return Pair.indexedPairStream(stream::iterator, rebaser);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a {@link Stream} out of the elements in a given {@link Stream} made of {@link Pair}s {@code (index,
+     * value)}. The index is transformed with the given function.
+     *
+     * @param       <I>               the type of the transformed index
+     * @param       <T>               the type of the elements
+     * @param       stream            the stream
+     * @param       indexTransformer  the transformer of the index
+     * @return                        the stream
+     * @since       3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <I, T> Stream<Pair<I, T>> indexedPairStream (@Nonnull final Stream<T> stream,
+                                                               @Nonnull final IntFunction<I> indexTransformer)
+      {
+        return Pair.indexedPairStream(stream::iterator, indexTransformer);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a {@link Stream} out of the elements returned by a Stream, made of {@link Pair}s
+     * {@code (index, value)}. The index is rebased and transformed with specific functions.
+     *
+     * @param       <T>               the type of the elements
+     * @param       <I>               the type of the transformed index
+     * @param       stream            the stream
+     * @param       rebaser           the rebaser of the index (BASE_0, BASE_1 or a similar function)
+     * @param       indexTransformer  the transformer of the index
+     * @return                        the stream
+     * @since       3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <I, T> Stream<Pair<I, T>> indexedPairStream (@Nonnull final Stream<T> stream,
+                                                               @Nonnull final IntUnaryOperator rebaser,
+                                                               @Nonnull final IntFunction<I> indexTransformer)
+      {
+        return Pair.indexedPairStream(stream::iterator, rebaser, indexTransformer);
+      }
+
+    /*******************************************************************************************************************
+     *
      * Returns a {@link Stream} out of the elements returned by a supplier, made of {@link Pair}s
      * {@code (index, value)}.
      *
