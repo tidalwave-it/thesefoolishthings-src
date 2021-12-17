@@ -26,8 +26,8 @@
  */
 package it.tidalwave.role.spring.spi;
 
-import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -36,14 +36,15 @@ import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.ContextManagerProvider;
 import it.tidalwave.dci.annotation.DciContext;
 import lombok.extern.slf4j.Slf4j;
-import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *

@@ -24,39 +24,31 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.io.spi;
+package it.tidalwave.thesefoolishthings.examples.extendedfinderexample;
 
 import javax.annotation.Nonnull;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import it.tidalwave.role.io.BinaryWritable;
-import lombok.RequiredArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 
 /***********************************************************************************************************************
  *
- * An implementation of {@link BinaryWritable} which delegates to a {@link File}.
- *
  * @author  Fabrizio Giudici
- * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor
-public class FileBinaryWritable implements BinaryWritable
+public class PersonRegistryImpl2a implements PersonRegistry2
   {
-    @Nonnull
-    private final File file;
+    private final List<Person> persons = new ArrayList<>();
 
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public OutputStream openStream()
-      throws IOException
+    @Override
+    public void add (@Nonnull final Person person)
       {
-        return new FileOutputStream(file);
+        persons.add(person);
+      }
+
+    @Override @Nonnull
+    public PersonFinder findPerson()
+      {
+        return new PersonFinderImpl2a(persons);
       }
   }

@@ -26,8 +26,8 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.swing.role;
 
-import java.util.List;
 import javax.annotation.Nonnull;
+import java.util.List;
 
 /***********************************************************************************************************************
  *

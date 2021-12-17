@@ -36,7 +36,7 @@ import it.tidalwave.role.AsExtensions;
 import it.tidalwave.role.HtmlRenderable;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.role.HtmlRenderable.*;
+import static it.tidalwave.role.HtmlRenderable._HtmlRenderable_;
 
 /***********************************************************************************************************************
  *

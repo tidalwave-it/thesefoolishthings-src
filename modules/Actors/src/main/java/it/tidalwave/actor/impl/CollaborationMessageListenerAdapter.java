@@ -26,11 +26,11 @@
  */
 package it.tidalwave.actor.impl;
 
-import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
-import it.tidalwave.messagebus.MessageBus;
+import javax.annotation.Nonnull;
 import it.tidalwave.actor.Collaboration;
 import it.tidalwave.actor.spi.ActorActivatorStats;
+import it.tidalwave.messagebus.MessageBus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

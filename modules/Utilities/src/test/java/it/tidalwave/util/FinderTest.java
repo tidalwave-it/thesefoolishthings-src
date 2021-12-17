@@ -31,12 +31,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
-import it.tidalwave.util.spi.FinderSupport;
 import it.tidalwave.util.spi.ExtendedFinderSupport;
+import it.tidalwave.util.spi.FinderSupport;
 import org.testng.annotations.Test;
-import static java.util.stream.Collectors.toList;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static java.util.stream.Collectors.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *

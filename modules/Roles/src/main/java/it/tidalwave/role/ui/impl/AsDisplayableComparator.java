@@ -27,8 +27,8 @@
 package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
-import java.util.Comparator;
 import java.text.Collator;
+import java.util.Comparator;
 import it.tidalwave.util.As;
 import it.tidalwave.role.ui.Displayable;
 import static it.tidalwave.role.ui.Displayable._Displayable_;

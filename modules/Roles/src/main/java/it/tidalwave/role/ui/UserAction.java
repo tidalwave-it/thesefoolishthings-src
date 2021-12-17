@@ -29,10 +29,10 @@ package it.tidalwave.role.ui;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
-import it.tidalwave.role.ui.impl.DefaultUserAction;
 import it.tidalwave.util.As;
 import it.tidalwave.util.Callback;
 import it.tidalwave.util.Parameters;
+import it.tidalwave.role.ui.impl.DefaultUserAction;
 // import javafx.beans.property.BooleanProperty;
 
 /***********************************************************************************************************************

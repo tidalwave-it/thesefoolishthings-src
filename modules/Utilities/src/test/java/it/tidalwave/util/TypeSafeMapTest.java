@@ -38,10 +38,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import org.testng.annotations.Test;
+import static org.testng.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.testng.Assert.fail;
 
 /***********************************************************************************************************************
  *

@@ -27,12 +27,12 @@
 package it.tidalwave.role.io.spi;
 
 import javax.annotation.Nonnull;
-import lombok.RequiredArgsConstructor;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import it.tidalwave.role.io.TextWritable;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *

@@ -28,10 +28,10 @@ package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
 import java.util.List;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
-import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
-import static it.tidalwave.util.Finder.SortDirection.*;
+import org.testng.annotations.Test;
 import static it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.JpaPersonFinder.*;
+import static it.tidalwave.util.Finder.SortDirection.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 

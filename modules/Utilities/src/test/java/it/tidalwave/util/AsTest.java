@@ -33,11 +33,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import it.tidalwave.util.spi.AsDelegate;
-import org.testng.annotations.Test;
 import lombok.RequiredArgsConstructor;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.testng.annotations.Test;
 import static org.mockito.Mockito.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *

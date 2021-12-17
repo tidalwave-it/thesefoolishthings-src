@@ -27,8 +27,8 @@
 package it.tidalwave.role.io;
 
 import javax.annotation.Nonnull;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /***********************************************************************************************************************
  *

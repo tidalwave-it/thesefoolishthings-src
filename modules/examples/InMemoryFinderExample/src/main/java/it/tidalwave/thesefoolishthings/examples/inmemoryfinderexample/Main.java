@@ -27,11 +27,11 @@
 package it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.util.Finder.SortDirection.*;
 import static it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample.PersonSortCriteria.*;
+import static it.tidalwave.util.Finder.SortDirection.DESCENDING;
 
 /***********************************************************************************************************************
  *

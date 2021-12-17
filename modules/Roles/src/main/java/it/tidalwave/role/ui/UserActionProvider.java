@@ -27,8 +27,8 @@
 package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Optional;
 import it.tidalwave.util.NotFoundException;
 

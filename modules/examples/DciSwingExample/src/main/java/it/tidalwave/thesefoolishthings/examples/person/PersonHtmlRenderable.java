@@ -27,8 +27,8 @@
 package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.role.HtmlRenderable;
+import it.tidalwave.dci.annotation.DciRole;
 import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************

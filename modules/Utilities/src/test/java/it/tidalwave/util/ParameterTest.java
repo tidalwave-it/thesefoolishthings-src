@@ -26,11 +26,11 @@
  */
 package it.tidalwave.util;
 
-import org.testng.annotations.Test;
 import java.util.Arrays;
 import java.util.Collection;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
+import org.testng.annotations.Test;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *

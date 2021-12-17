@@ -26,13 +26,13 @@
  */
 package it.tidalwave.role.ui.spi;
 
-import it.tidalwave.role.ui.UserAction;
-import it.tidalwave.util.NotFoundException;
 import java.util.Collection;
+import it.tidalwave.util.NotFoundException;
+import it.tidalwave.role.ui.UserAction;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *
