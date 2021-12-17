@@ -26,10 +26,13 @@
  */
 package it.tidalwave.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.IntFunction;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
@@ -51,6 +54,87 @@ public class PairTest
     private static final IntFunction<String> indexTransformer = i -> String.format("%d", i + 1);
 
     private static final IntFunction<String> valueSupplier = i -> String.format("#%d", i);
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void test_pairStream()
+      {
+        // given
+        final String value = "value";
+        // when
+        final Stream<Pair<String, Integer>> underTest = Pair.pairStream(value, IntStream.rangeClosed(1, 5).boxed());
+        // then
+        assertThat(underTest.collect(toList()), is(asList(Pair.of(value, 1),
+                                                          Pair.of(value, 2),
+                                                          Pair.of(value, 3),
+                                                          Pair.of(value, 4),
+                                                          Pair.of(value, 5))));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void test_pairRange()
+      {
+        // given
+        final String value = "value";
+        // when
+        final Stream<Pair<String, Integer>> underTest = Pair.pairRange(value, 1, 5);
+        // then
+        assertThat(underTest.collect(toList()), is(asList(Pair.of(value, 1),
+                                                          Pair.of(value, 2),
+                                                          Pair.of(value, 3),
+                                                          Pair.of(value, 4))));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void test_pairRangeClosed()
+      {
+        // given
+        final String value = "value";
+        // when
+        final Stream<Pair<String, Integer>> underTest = Pair.pairRangeClosed(value, 1, 5);
+        // then
+        assertThat(underTest.collect(toList()), is(asList(Pair.of(value, 1),
+                                                          Pair.of(value, 2),
+                                                          Pair.of(value, 3),
+                                                          Pair.of(value, 4),
+                                                          Pair.of(value, 5))));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void testDoubleNestedLoops()
+      {
+        // given
+        final int limit = 20;
+        // when
+        final List<Pair<Integer, Integer>> actual =
+                IntStream.rangeClosed(1, limit)
+                         .boxed()
+                         .flatMap(a -> Pair.pairRangeClosed(a, a + 1, limit))
+                         .collect(toList());
+        // then
+        final List<Pair<Integer, Integer>> expected = new ArrayList<>();
+
+        for (int a = 1; a <= limit; a++)
+          {
+            for (int b = a + 1; b <= limit; b++)
+              {
+                expected.add(Pair.of(a, b));
+              }
+          }
+
+        assertThat(actual, is(expected));
+      }
 
     /*******************************************************************************************************************
      *

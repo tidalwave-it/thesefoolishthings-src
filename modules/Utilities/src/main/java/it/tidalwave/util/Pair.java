@@ -71,6 +71,65 @@ public class Pair<A, B>
 
     /*******************************************************************************************************************
      *
+     * Creates a {@link Stream} of {@code Pair}s composed of a given fixed value and another element taken from another
+     * {@link Stream}.
+     *
+     * @param   <T>     the type of the value
+     * @param   <U>     the type of the {@code Stream}
+     * @param   value   the value
+     * @param   stream  the {@code Stream}
+     * @return          the {@code Stream} of {@code Pair}s
+     * @since           3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T, U> Stream<Pair<T, U>> pairStream (@Nonnull final T value, @Nonnull final Stream<U> stream)
+      {
+        return stream.map(object -> Pair.of(value, object));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates a {@link Stream} of {@code Pair}s composed of a given fixed value and an integer in the given range.
+     *
+     * @param   <T>     the type of the value
+     * @param   value   the value
+     * @param   from    the first value of the integer {@code Stream} (included)
+     * @param   to      the last value of the integer {@code Stream} (excluded)
+     * @return          the {@code Stream} of {@code Pair}s
+     * @since           3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> Stream<Pair<T, Integer>> pairRange (@Nonnull final T value,
+                                                          @Nonnegative final int from,
+                                                          @Nonnegative final int to)
+      {
+        return pairStream(value, IntStream.range(from, to).boxed());
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates a {@link Stream} of {@code Pair}s composed of a given fixed value and an integer in the given range.
+     *
+     * @param   <T>     the type of the value
+     * @param   value   the value
+     * @param   from    the first value of the integer {@code Stream} (included)
+     * @param   to      the last value of the integer {@code Stream} (included)
+     * @return          the {@code Stream} of {@code Pair}s
+     * @since           3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> Stream<Pair<T, Integer>> pairRangeClosed (@Nonnull final T value,
+                                                                @Nonnegative final int from,
+                                                                @Nonnegative final int to)
+      {
+        return pairStream(value, IntStream.rangeClosed(from, to).boxed());
+      }
+
+    /*******************************************************************************************************************
+     *
      * Returns a {@link Stream} out of the elements in a given array made of {@link Pair}s {@code (index, value)}.
      *
      * @param       <T>             the type of the elements
