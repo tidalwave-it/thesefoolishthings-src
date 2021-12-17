@@ -26,19 +26,19 @@
  */
 package it.tidalwave.actor.impl;
 
-import javax.annotation.Nonnull;
-import javax.inject.Provider;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import javax.annotation.Nonnull;
+import javax.inject.Provider;
 import java.util.ArrayList;
 import java.util.List;
-import it.tidalwave.messagebus.MessageBus;
-import it.tidalwave.messagebus.annotation.ListensTo;
-import it.tidalwave.actor.annotation.OriginatedBy;
 import it.tidalwave.actor.CollaborationCompletedMessage;
 import it.tidalwave.actor.CollaborationStartedMessage;
+import it.tidalwave.actor.annotation.OriginatedBy;
 import it.tidalwave.actor.spi.ActorActivatorStats;
 import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
+import it.tidalwave.messagebus.MessageBus;
+import it.tidalwave.messagebus.annotation.ListensTo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.messagebus.spi.ReflectionUtils.*;

@@ -26,84 +26,59 @@
  */
 package it.tidalwave.util;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.UUID;
-import java.io.Serializable;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+import org.testng.annotations.Test;
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
-/***********************************************************************************************************************
- *
- * An opaque wrapper for identifiers.
- *
- * @author  Fabrizio Giudici
- * @it.tidalwave.javadoc.stable
- *
- **********************************************************************************************************************/
-@Immutable @RequiredArgsConstructor @EqualsAndHashCode
-public class Id implements Serializable, Comparable<Id>, StringValue
+public class StreamOperationsTest
   {
-    private static final long serialVersionUID = 3309234234279593043L;
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void zipTest1()
+      {
+        // when
+        final Stream<String> underTest = StreamOperations.zip(IntStream.range(0, 7).boxed(),
+                                                              stringStream( 5),
+                                                              (n, s) -> String.format("%d - %s", n, s));
+        // then
+        assertThat(underTest.collect(toList()), is(asList("0 - string-a",
+                                                          "1 - string-b",
+                                                          "2 - string-c",
+                                                          "3 - string-d",
+                                                          "4 - string-e")));
+      }
 
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void zipPairTest1()
+      {
+        // when
+        final Stream<Pair<Integer, String>> underTest = StreamOperations.zip(IntStream.range(0, 7).boxed(),
+                                                                             stringStream( 5));
+        // then
+        assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "string-a"),
+                                                          Pair.of(1, "string-b"),
+                                                          Pair.of(2, "string-c"),
+                                                          Pair.of(3, "string-d"),
+                                                          Pair.of(4, "string-e"))));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
     @Nonnull
-    private final Object value;
-
-    /*******************************************************************************************************************
-     *
-     * @param value   the id value
-     * @return        the new instance
-     * @since         3.2-ALPHA-2
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public static Id of (@Nonnull final Object value)
+    private static Stream<String> stringStream (@Nonnegative final int size)
       {
-        return new Id(value);
-      }
-
-    /*******************************************************************************************************************
-     *
-     * @return        the new instance
-     * @since         3.2-ALPHA-9
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public static Id ofUuid()
-      {
-        return Id.of(UUID.randomUUID().toString());
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public String stringValue()
-      {
-        return (value instanceof StringValue) ? ((StringValue)value).stringValue() : value.toString();
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-//    @Override
-    public int compareTo (final Id other)
-      {
-        return stringValue().compareTo(other.stringValue());
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public String toString()
-      {
-        return stringValue();
+        return IntStream.range(0, size).mapToObj(n -> "string-" + (char)('a' + n));
       }
   }

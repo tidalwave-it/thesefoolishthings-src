@@ -31,18 +31,17 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.IntStream;
 import it.tidalwave.util.NotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.testng.annotations.Test;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
-import lombok.RequiredArgsConstructor;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
-import static java.util.stream.Collectors.toList;
-import static org.hamcrest.CoreMatchers.sameInstance;
+import static java.util.stream.Collectors.*;
 import static org.testng.FileAssert.fail;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *

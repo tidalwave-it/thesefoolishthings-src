@@ -27,12 +27,12 @@
 package it.tidalwave.role.io.spi;
 
 import javax.annotation.Nonnull;
-import lombok.RequiredArgsConstructor;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import it.tidalwave.role.io.BinaryReadable;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *

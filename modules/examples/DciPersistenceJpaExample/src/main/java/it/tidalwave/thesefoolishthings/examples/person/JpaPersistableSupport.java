@@ -28,8 +28,8 @@ package it.tidalwave.thesefoolishthings.examples.person;
 
 import java.io.Serializable;
 import javax.persistence.Transient;
-import it.tidalwave.role.io.Persistable;
 import it.tidalwave.role.Removable;
+import it.tidalwave.role.io.Persistable;
 import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.JpaPersistenceContext;
 import lombok.AllArgsConstructor;

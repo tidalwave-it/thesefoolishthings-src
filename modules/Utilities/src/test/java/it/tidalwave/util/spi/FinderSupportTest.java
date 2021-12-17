@@ -29,8 +29,8 @@ package it.tidalwave.util.spi;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import org.testng.annotations.Test;
 import lombok.NoArgsConstructor;
+import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 

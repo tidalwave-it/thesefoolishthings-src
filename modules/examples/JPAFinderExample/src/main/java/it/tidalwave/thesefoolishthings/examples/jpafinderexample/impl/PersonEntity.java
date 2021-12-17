@@ -26,8 +26,8 @@
  */
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
-import java.util.UUID;
 import javax.annotation.Nonnull;
+import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;

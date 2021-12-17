@@ -28,8 +28,8 @@ package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,14 +42,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.mockito.Mockito.when;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
 import static it.tidalwave.role.spi.impl.LogUtil.*;
 import static it.tidalwave.role.spi.impl.Mocks.*;
+import static org.testng.AssertJUnit.assertEquals;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 class XCA1 extends CA1 {}
 class YCA1 extends XCA1 {}

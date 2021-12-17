@@ -35,8 +35,8 @@ import org.springframework.beans.factory.annotation.Configurable;
 import it.tidalwave.util.As;
 import it.tidalwave.util.Task;
 import it.tidalwave.util.spi.AsDelegate;
-import it.tidalwave.role.spi.RoleManager;
 import it.tidalwave.role.spi.ContextSampler;
+import it.tidalwave.role.spi.RoleManager;
 import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.role.spi.impl.LogUtil.*;
 

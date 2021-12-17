@@ -24,39 +24,17 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.io.spi;
-
-import javax.annotation.Nonnull;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import it.tidalwave.role.io.BinaryWritable;
-import lombok.RequiredArgsConstructor;
+package it.tidalwave.thesefoolishthings.examples.extendedfinderexample;
 
 /***********************************************************************************************************************
  *
- * An implementation of {@link BinaryWritable} which delegates to a {@link File}.
- *
  * @author  Fabrizio Giudici
- * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor
-public class FileBinaryWritable implements BinaryWritable
+public class PersonRegistryImpl2bTest extends PersonFinderTestSupport
   {
-    @Nonnull
-    private final File file;
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public OutputStream openStream()
-      throws IOException
+    public PersonRegistryImpl2bTest()
       {
-        return new FileOutputStream(file);
+        super(PersonRegistryImpl2b::new);
       }
   }

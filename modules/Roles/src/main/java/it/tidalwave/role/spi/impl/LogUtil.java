@@ -28,9 +28,9 @@ package it.tidalwave.role.spi.impl;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import it.tidalwave.role.Identifiable;
 import java.util.Arrays;
-import static java.util.stream.Collectors.joining;
+import it.tidalwave.role.Identifiable;
+import static java.util.stream.Collectors.*;
 
 /***********************************************************************************************************************
  *

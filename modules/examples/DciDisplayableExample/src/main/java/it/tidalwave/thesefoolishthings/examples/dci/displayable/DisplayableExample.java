@@ -32,8 +32,8 @@ import it.tidalwave.util.Id;
 import it.tidalwave.role.AsExtensions;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
-import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.ExtensionMethod;
+import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.role.ui.Displayable._Displayable_;
 
 /***********************************************************************************************************************

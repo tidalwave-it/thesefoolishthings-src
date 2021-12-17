@@ -26,8 +26,8 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
 
-import it.tidalwave.util.Id;
 import com.thoughtworks.xstream.converters.SingleValueConverter;
+import it.tidalwave.util.Id;
 
 /***********************************************************************************************************************
  *

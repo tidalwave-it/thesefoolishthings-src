@@ -40,19 +40,19 @@ import it.tidalwave.util.spi.AsDelegateProvider;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.Identifiable;
 import it.tidalwave.role.SimpleComposite;
-import it.tidalwave.role.ui.PresentationModel;
 import it.tidalwave.role.spi.DefaultContextManagerProvider;
+import it.tidalwave.role.ui.PresentationModel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
-import static it.tidalwave.role.SimpleComposite._SimpleComposite_;
-import static it.tidalwave.util.Parameters.r;
+import org.testng.annotations.Test;
 import static java.util.Collections.emptyList;
-import static org.hamcrest.MatcherAssert.*;
+import static it.tidalwave.util.Parameters.r;
+import static it.tidalwave.role.SimpleComposite._SimpleComposite_;
+import static org.testng.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
-import static org.testng.Assert.fail;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *

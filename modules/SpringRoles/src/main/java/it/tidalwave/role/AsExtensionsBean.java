@@ -29,10 +29,10 @@ package it.tidalwave.role;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Configurable;
 import it.tidalwave.util.As;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.role.spi.RoleManager;
-import org.springframework.beans.factory.annotation.Configurable;
 
 /***********************************************************************************************************************
  *

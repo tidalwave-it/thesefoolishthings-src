@@ -28,11 +28,11 @@ package it.tidalwave.messagebus.impl.spring;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import org.springframework.beans.factory.annotation.Configurable;
-import it.tidalwave.messagebus.MessageBusHelper;
-import it.tidalwave.messagebus.MessageBus;
-import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Configurable;
+import it.tidalwave.messagebus.MessageBus;
+import it.tidalwave.messagebus.MessageBusHelper;
+import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
 
 /***********************************************************************************************************************
  *

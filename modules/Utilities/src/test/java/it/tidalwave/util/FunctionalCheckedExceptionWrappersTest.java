@@ -27,16 +27,16 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
-import lombok.extern.slf4j.Slf4j;
-import org.testng.annotations.Test;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import lombok.extern.slf4j.Slf4j;
+import org.testng.annotations.Test;
 import static it.tidalwave.util.FunctionalCheckedExceptionWrappers.*;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.MatcherAssert.*;
 
 @SuppressWarnings({"SameReturnValue", "RedundantThrows"}) @Slf4j
 public class FunctionalCheckedExceptionWrappersTest

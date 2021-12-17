@@ -26,10 +26,10 @@
  */
 package it.tidalwave.actor.impl;
 
-import javax.annotation.Nonnull;
-import javax.annotation.PreDestroy;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import javax.annotation.Nonnull;
+import javax.annotation.PreDestroy;
 import it.tidalwave.messagebus.spi.ReflectionUtils;
 import lombok.RequiredArgsConstructor;
 

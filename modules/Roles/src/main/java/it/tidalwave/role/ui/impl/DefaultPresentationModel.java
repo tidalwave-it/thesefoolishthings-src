@@ -27,17 +27,17 @@
 package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Collection;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.Callback;
 import it.tidalwave.util.NamedCallback;
 import it.tidalwave.util.spi.AsSupport;
 import it.tidalwave.role.ui.PresentationModel;
-import java.beans.PropertyChangeListener;
-import lombok.experimental.Delegate;
 import lombok.ToString;
+import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************

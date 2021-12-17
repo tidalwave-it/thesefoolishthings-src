@@ -34,10 +34,10 @@ import java.util.Set;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
+import static org.testng.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
-import static org.testng.Assert.assertEquals;
 
 /***********************************************************************************************************************
  *

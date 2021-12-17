@@ -31,7 +31,7 @@ import java.util.List;
 import it.tidalwave.util.Finder;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *

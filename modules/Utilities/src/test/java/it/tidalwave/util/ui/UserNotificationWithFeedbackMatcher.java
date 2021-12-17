@@ -29,9 +29,9 @@ package it.tidalwave.util.ui;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.regex.Pattern;
-import org.mockito.ArgumentMatcher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mockito.ArgumentMatcher;
 import static lombok.AccessLevel.PACKAGE;
 
 /***********************************************************************************************************************

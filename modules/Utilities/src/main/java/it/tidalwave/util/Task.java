@@ -26,8 +26,8 @@
  */
 package it.tidalwave.util;
 
-import java.util.concurrent.Callable;
 import javax.annotation.Nonnull;
+import java.util.concurrent.Callable;
 
 /***********************************************************************************************************************
  *

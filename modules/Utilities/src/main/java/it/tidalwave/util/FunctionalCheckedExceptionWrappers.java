@@ -27,12 +27,12 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import lombok.NoArgsConstructor;
 import static lombok.AccessLevel.PRIVATE;
 

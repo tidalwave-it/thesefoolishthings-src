@@ -26,20 +26,19 @@
  */
 package it.tidalwave.role.ui;
 
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import it.tidalwave.util.As;
 import it.tidalwave.util.spi.AsDelegateProvider;
-import static it.tidalwave.role.ui.Presentable._Presentable_;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import static it.tidalwave.util.test.MoreAnswers.CALLS_DEFAULT_METHODS;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static it.tidalwave.role.ui.Presentable._Presentable_;
 import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 /***********************************************************************************************************************
  *

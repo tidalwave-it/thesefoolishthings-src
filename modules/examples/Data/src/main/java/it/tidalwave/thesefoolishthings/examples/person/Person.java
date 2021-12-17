@@ -27,11 +27,11 @@
 package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.util.Id;
 import javax.annotation.concurrent.Immutable;
+import java.util.UUID;
+import it.tidalwave.util.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import java.util.UUID;
 
 /***********************************************************************************************************************
  *
