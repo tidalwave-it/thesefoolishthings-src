@@ -29,8 +29,8 @@ package it.tidalwave.thesefoolishthings.examples.person;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.experimental.Delegate;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Delegate;
 
 /***********************************************************************************************************************
  *

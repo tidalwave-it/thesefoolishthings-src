@@ -30,11 +30,11 @@ import javax.annotation.Nonnull;
 import java.util.Comparator;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.util.Finder.SortDirection.*;
 import static it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample.PersonSortCriteria.*;
+import static it.tidalwave.util.Finder.SortDirection.DESCENDING;
 
 /***********************************************************************************************************************
  *
@@ -47,7 +47,7 @@ public class FinderExample2
   {
     public static void main (@Nonnull final String ... args)
       {
-        final PersonRegistry2 registry = new PersonRegistryImpl2();
+        final PersonRegistry2 registry = new PersonRegistryImpl2a();
         PersonRegistryHelper.populate(registry);
 
         log.info("All: {}", registry.findPerson().results());

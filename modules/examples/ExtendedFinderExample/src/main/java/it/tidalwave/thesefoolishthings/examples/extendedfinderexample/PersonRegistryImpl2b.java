@@ -33,10 +33,12 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
 
 /***********************************************************************************************************************
  *
+ * A variant of {@link PersonRegistryImpl2a} that uses {@link PersonRegistryImpl2b}.
+ *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class PersonRegistryImpl2 implements PersonRegistry2
+public class PersonRegistryImpl2b implements PersonRegistry2
   {
     private final List<Person> persons = new ArrayList<>();
 
@@ -49,6 +51,6 @@ public class PersonRegistryImpl2 implements PersonRegistry2
     @Override @Nonnull
     public PersonFinder findPerson()
       {
-        return new PersonFinderImpl2(persons);
+        return new PersonFinderImpl2b(persons);
       }
   }

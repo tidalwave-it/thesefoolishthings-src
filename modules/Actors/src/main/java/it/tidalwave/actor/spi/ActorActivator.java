@@ -26,6 +26,7 @@
  */
 package it.tidalwave.actor.spi;
 
+import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import it.tidalwave.actor.annotation.Actor;
@@ -36,7 +37,6 @@ import it.tidalwave.actor.impl.PostConstructInvoker;
 import it.tidalwave.actor.impl.PreDestroyInvoker;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import java.lang.reflect.InvocationTargetException;
 import static it.tidalwave.messagebus.spi.ReflectionUtils.*;
 
 /***********************************************************************************************************************

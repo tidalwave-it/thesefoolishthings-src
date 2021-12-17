@@ -33,6 +33,7 @@ import it.tidalwave.util.spi.AsDelegateProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static it.tidalwave.util.Parameters.r;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;

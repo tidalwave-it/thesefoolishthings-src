@@ -27,20 +27,20 @@
 package it.tidalwave.role.ui.spi;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.function.Function;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-import java.util.function.Function;
-import it.tidalwave.role.SimpleComposite;
 import it.tidalwave.util.As;
 import it.tidalwave.util.spi.ArrayListCollectorSupport;
 import it.tidalwave.role.Composite;
+import it.tidalwave.role.SimpleComposite;
 import it.tidalwave.role.ui.PresentationModel;
-import static it.tidalwave.role.ui.Presentable._Presentable_;
 import static it.tidalwave.util.Parameters.r;
+import static it.tidalwave.role.ui.Presentable._Presentable_;
 
 /***********************************************************************************************************************
  *

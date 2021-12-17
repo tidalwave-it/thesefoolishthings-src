@@ -27,12 +27,12 @@
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.JpaPersonRegistry;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.TxManagerImpl;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.util.Finder.SortDirection.DESCENDING;
 import static it.tidalwave.thesefoolishthings.examples.jpafinderexample.PersonRegistry3.*;
+import static it.tidalwave.util.Finder.SortDirection.DESCENDING;
 
 /***********************************************************************************************************************
  *

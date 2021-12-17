@@ -27,8 +27,8 @@
 package it.tidalwave.thesefoolishthings.examples.dci.swing;
 
 import javax.annotation.Nonnull;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /***********************************************************************************************************************
  *

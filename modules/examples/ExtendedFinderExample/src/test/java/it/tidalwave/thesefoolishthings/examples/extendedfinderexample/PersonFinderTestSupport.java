@@ -26,11 +26,13 @@
  */
 package it.tidalwave.thesefoolishthings.examples.extendedfinderexample;
 
+import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
-import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
-import static it.tidalwave.util.Finder.SortDirection.*;
+import org.testng.annotations.Test;
 import static it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample.PersonSortCriteria.*;
+import static it.tidalwave.util.Finder.SortDirection.DESCENDING;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -39,14 +41,21 @@ import static org.hamcrest.MatcherAssert.*;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class PersonFinderTest
+public class PersonFinderTestSupport
   {
+    private final Supplier<PersonRegistry2> personRegistry2Supplier;
+
     private PersonFinder underTest;
+
+    public PersonFinderTestSupport (@Nonnull final Supplier<PersonRegistry2> personRegistry2Supplier)
+      {
+        this.personRegistry2Supplier = personRegistry2Supplier;
+      }
 
     @BeforeMethod
     public void setup()
       {
-        final PersonRegistry2 registry = new PersonRegistryImpl2();
+        final PersonRegistry2 registry = personRegistry2Supplier.get();
         PersonRegistryHelper.populate(registry);
         underTest = registry.findPerson();
       }

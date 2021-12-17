@@ -27,13 +27,13 @@
 package it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample;
 
 import it.tidalwave.util.Finder;
-import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
-import org.testng.annotations.Test;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import org.testng.annotations.BeforeMethod;
-import static it.tidalwave.util.Finder.SortDirection.*;
+import org.testng.annotations.Test;
 import static it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample.PersonSortCriteria.*;
+import static it.tidalwave.util.Finder.SortDirection.DESCENDING;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 

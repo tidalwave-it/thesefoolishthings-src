@@ -26,8 +26,8 @@
  */
 package it.tidalwave.role.ui;
 
-import java.util.Collection;
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import it.tidalwave.role.ui.impl.DefaultStyleable;
 
 /***********************************************************************************************************************

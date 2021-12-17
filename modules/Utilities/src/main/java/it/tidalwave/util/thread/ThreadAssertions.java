@@ -28,7 +28,7 @@ package it.tidalwave.util.thread;
 
 import javax.annotation.Nonnull;
 import lombok.NoArgsConstructor;
-import static lombok.AccessLevel.*;
+import static lombok.AccessLevel.PRIVATE;
 
 /***********************************************************************************************************************
  *

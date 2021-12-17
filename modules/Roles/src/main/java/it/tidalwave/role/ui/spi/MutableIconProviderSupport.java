@@ -26,11 +26,11 @@
  */
 package it.tidalwave.role.ui.spi;
 
-import it.tidalwave.role.ui.MutableIconProvider;
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import javax.swing.Icon;
+import it.tidalwave.role.ui.MutableIconProvider;
 
 /***********************************************************************************************************************
  *

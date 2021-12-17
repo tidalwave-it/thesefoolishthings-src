@@ -26,11 +26,11 @@
  */
 package it.tidalwave.role.ui;
 
-import it.tidalwave.role.ui.impl.DefaultMutableDisplayable;
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
 import java.util.Locale;
 import java.util.Map;
+import it.tidalwave.role.ui.impl.DefaultMutableDisplayable;
 
 /***********************************************************************************************************************
  *

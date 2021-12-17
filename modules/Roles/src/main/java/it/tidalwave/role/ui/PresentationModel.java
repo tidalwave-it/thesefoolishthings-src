@@ -32,10 +32,10 @@ import java.util.Collection;
 import java.util.Collections;
 import it.tidalwave.util.As;
 import it.tidalwave.util.NamedCallback;
-import it.tidalwave.role.ui.impl.DefaultPresentationModel;
 import it.tidalwave.util.Parameters;
-import static it.tidalwave.role.ui.Presentable._Presentable_;
+import it.tidalwave.role.ui.impl.DefaultPresentationModel;
 import static it.tidalwave.util.Parameters.r;
+import static it.tidalwave.role.ui.Presentable._Presentable_;
 
 /***********************************************************************************************************************
  *

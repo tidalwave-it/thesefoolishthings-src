@@ -27,18 +27,16 @@
 package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.role.ui.BoundProperty;
+import java.util.Collection;
 import it.tidalwave.util.Callback;
 import it.tidalwave.util.spi.AsSupport;
+import it.tidalwave.role.ui.BoundProperty;
 import it.tidalwave.role.ui.UserAction;
-// import javafx.beans.property.SimpleBooleanProperty;
-// import javafx.beans.value.ChangeListener;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
-import java.util.Collection;
 
 /***********************************************************************************************************************
  *

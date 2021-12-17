@@ -35,16 +35,16 @@ import it.tidalwave.util.RoleFactory;
 import it.tidalwave.util.Task;
 import it.tidalwave.util.spi.SimpleFinderSupport;
 import it.tidalwave.role.SimpleComposite;
+import it.tidalwave.role.spi.ContextSampler;
 import it.tidalwave.role.ui.Presentable;
 import it.tidalwave.role.ui.PresentationModel;
 import it.tidalwave.role.ui.PresentationModelFactory;
-import it.tidalwave.role.spi.ContextSampler;
-import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import static java.util.Collections.emptyList;
+import static java.util.stream.Collectors.*;
 import static it.tidalwave.role.SimpleComposite._SimpleComposite_;
 import static it.tidalwave.role.spi.impl.LogUtil.*;
-import static java.util.Collections.emptyList;
-import static java.util.stream.Collectors.toList;
 
 /***********************************************************************************************************************
  *

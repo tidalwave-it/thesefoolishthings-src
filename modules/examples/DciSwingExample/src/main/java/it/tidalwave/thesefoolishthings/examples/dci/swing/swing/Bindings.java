@@ -29,9 +29,9 @@ package it.tidalwave.thesefoolishthings.examples.dci.swing.swing;
 import javax.annotation.Nonnull;
 import javax.swing.JList;
 import javax.swing.JTable;
-import org.jdesktop.observablecollections.ObservableList;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.BindingGroup;
+import org.jdesktop.observablecollections.ObservableList;
 import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
 import it.tidalwave.role.AsExtensions;
@@ -41,9 +41,9 @@ import it.tidalwave.thesefoolishthings.examples.dci.swing.role.TableHeaderDescri
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.experimental.ExtensionMethod;
+import static it.tidalwave.thesefoolishthings.examples.dci.swing.role.ObservableListProvider._ObservableListProvider_;
+import static it.tidalwave.thesefoolishthings.examples.dci.swing.role.TableHeaderDescriptor._TableHeaderDescriptor_;
 import static org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.*;
-import static it.tidalwave.thesefoolishthings.examples.dci.swing.role.ObservableListProvider.*;
-import static it.tidalwave.thesefoolishthings.examples.dci.swing.role.TableHeaderDescriptor.*;
 
 /***********************************************************************************************************************
  *

@@ -26,9 +26,9 @@
  */
 package it.tidalwave.messagebus.spi;
 
-import javax.annotation.Nonnull;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

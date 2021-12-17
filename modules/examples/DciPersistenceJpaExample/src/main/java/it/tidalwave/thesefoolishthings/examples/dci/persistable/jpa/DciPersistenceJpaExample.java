@@ -30,8 +30,8 @@ import it.tidalwave.util.Id;
 import it.tidalwave.role.AsExtensions;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.role.io.Persistable.*;
-import static it.tidalwave.role.Removable.*;
+import static it.tidalwave.role.Removable._Removable_;
+import static it.tidalwave.role.io.Persistable._Persistable_;
 
 /***********************************************************************************************************************
  *

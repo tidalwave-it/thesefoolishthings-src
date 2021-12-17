@@ -27,8 +27,8 @@
 package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
