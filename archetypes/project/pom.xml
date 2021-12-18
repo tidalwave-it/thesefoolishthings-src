@@ -65,12 +65,12 @@
         <repository>
             <id>staging-oss.sonatype.org</id>
             <name>SonaType Release Repository</name>
-            <url>dav:http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+            <url>dav:https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </repository>
         <snapshotRepository>
             <id>snapshots-oss.sonatype.org</id>
             <name>SonaType Snapshot Repository</name>
-            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
