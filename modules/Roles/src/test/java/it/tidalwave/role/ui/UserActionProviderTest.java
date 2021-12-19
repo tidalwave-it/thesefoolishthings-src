@@ -93,7 +93,7 @@ public class UserActionProviderTest
     public void works_with_actions()
       throws NotFoundException
       {
-        // whem
+        // when
         final UserActionProvider underTest = UserActionProvider.of(ACTIONS);
         // then
         assertThat(underTest.getActions(), is(InstanceMatcher.sameInstances(asList(ACTIONS))));
@@ -104,7 +104,7 @@ public class UserActionProviderTest
     @Test
     public void works_with_no_actions()
       {
-        // whem
+        // when
         final UserActionProvider underTest = UserActionProvider.of(NO_ACTIONS);
         // then
         assertThat(underTest.getActions(), is(emptyList()));

@@ -33,7 +33,7 @@ import lombok.ToString;
 
 /***********************************************************************************************************************
  *
- * This role should be injected into a message to decorated it a the moment of sending. This technique is experimental
+ * This role should be injected into a message to decorated it at the moment of sending. This technique is experimental
  * and represents the function of a Decorator Pattern in a message-oriented design.
  *
  * @stereotype Role

@@ -34,7 +34,7 @@ import org.joda.time.Duration;
 
 /***********************************************************************************************************************
  *
- * Represents a single task that is possibly decomposed in multiple subtasks and provides support for waiting for it
+ * Represents a single task that is possibly decomposed in multiple subtasks and provides support for waiting for its
  * completion.
  *
  * @author  Fabrizio Giudici

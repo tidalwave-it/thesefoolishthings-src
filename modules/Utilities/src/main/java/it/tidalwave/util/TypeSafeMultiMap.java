@@ -37,7 +37,7 @@ import it.tidalwave.util.impl.TypeSafeHashMultiMap;
 
 /***********************************************************************************************************************
  *
- * A map that is type safe, i.e the pairs (key, value) are type-checked, and can contain multiple values, i.e. it's
+ * A map that is type safe, i.e. the pairs (key, value) are type-checked, and can contain multiple values, i.e. it's
  * associated to collections (key, collection of values). It's immutable.
  *
  * @author  Fabrizio Giudici

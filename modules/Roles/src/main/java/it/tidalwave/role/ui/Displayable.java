@@ -49,7 +49,6 @@ import static it.tidalwave.util.BundleUtilities.getMessage;
 @FunctionalInterface
 public interface Displayable
   {
-    //@bluebook-begin other
     public static final Class<Displayable> _Displayable_ = Displayable.class;
 
     /*******************************************************************************************************************
@@ -59,7 +58,6 @@ public interface Displayable
      ******************************************************************************************************************/
     public static final Displayable DEFAULT = new DefaultDisplayable("", "DEFAULT");
 
-    //@bluebook-end other
     /*******************************************************************************************************************
      *
      * Returns the display name in the current {@link java.util.Locale}.

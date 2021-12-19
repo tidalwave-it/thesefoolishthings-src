@@ -32,7 +32,7 @@ import it.tidalwave.role.impl.DefaultIdentifiable;
 
 /***********************************************************************************************************************
  *
- * The role of an object that can expose an unique identifier.
+ * The role of an object that can expose a unique identifier.
  *
  * @stereotype Role
  *

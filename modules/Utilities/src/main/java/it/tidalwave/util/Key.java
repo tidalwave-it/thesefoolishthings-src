@@ -80,7 +80,7 @@ public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
      *
      * Creates an instance with the given name and type. If an identical key already exists, that existing instance is
      * returned. It is allowed to have two keys with the same name and different types (e.g. {@code Key.of("foo",
-     * String.class)} and {@code Key.of("foo", Integer.class)}: they are considered as two distinct keys. This feature
+     * String.class)} and {@code Key.of("foo", Integer.class)}): they are considered as two distinct keys. This feature
      * allows to treat the same data both as typed and type-agnostic at the same time; for instance, a collection of
      * properties could be read from a configuration file in type-agnostic way (if there is no type information in
      * the file) and later managed as typed only when needed.
@@ -102,8 +102,8 @@ public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
 
     /*******************************************************************************************************************
      *
-     * Creates an instance with the given name. Type is considere as unknown (and assumed as {@link Object}. Please see
-     * {@link #of(String, Class)} for more information.
+     * Creates an instance with the given name. Type is considered as unknown (and assumed as {@link Object}). Please
+     * see {@link #of(String, Class)} for more information.
      *
      * @param name    the name
      * @return        the key
