@@ -149,7 +149,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     /*******************************************************************************************************************
      *
-     * This method throws an exception since a {@code Finder} eztending this class must be cloned with 
+     * This method throws an exception since a {@code Finder} extending this class must be cloned with
      * {@link #clonedWith(Object)}.
      * 
      * @see #clonedWith(Object)
@@ -349,7 +349,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
     /*******************************************************************************************************************
      *
-     * An utility method used by the copy constructor (see general documentation). If the override object is strictly
+     * A utility method used by the copy constructor (see general documentation). If the override object is strictly
      * of the specified type, it is returned; otherwise the other object is returned.
      *
      * @param <T>       the static type of the source

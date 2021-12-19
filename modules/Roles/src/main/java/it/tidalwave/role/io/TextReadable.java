@@ -41,7 +41,6 @@ import java.io.Reader;
 @FunctionalInterface
 public interface TextReadable
   {
-    //@bluebook-begin other
     public static final Class<TextReadable> _TextReadable_ = TextReadable.class;
 
     /*******************************************************************************************************************
@@ -67,7 +66,6 @@ public interface TextReadable
      * @throws  IOException  if the operation can't be performed
      *
      ******************************************************************************************************************/
-    //@bluebook-end other
     @Nonnull
     public Reader openReader()
       throws IOException;

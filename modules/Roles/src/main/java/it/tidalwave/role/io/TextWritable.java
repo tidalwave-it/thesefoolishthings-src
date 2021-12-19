@@ -41,7 +41,6 @@ import java.io.Writer;
 @FunctionalInterface
 public interface TextWritable
   {
-    //@bluebook-begin other
     public static final Class<TextWritable> _TextWritable_ = TextWritable.class;
 
     /*******************************************************************************************************************
@@ -59,7 +58,6 @@ public interface TextWritable
           }
       };
 
-    //@bluebook-end other
     /*******************************************************************************************************************
      *
      * Returns a {@link Writer} to write into the object.

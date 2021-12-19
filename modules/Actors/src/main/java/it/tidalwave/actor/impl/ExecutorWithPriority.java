@@ -116,7 +116,7 @@ public class ExecutorWithPriority
               }
           };
 
-        // first parameter should be 0, but in this case it goes monothread
+        // first parameter should be 0, but in this case it goes single thread
         executor = new ThreadPoolExecutor(poolSize, poolSize, 2, TimeUnit.SECONDS,
                                           new LinkedBlockingQueue<>(), threadFactory);
 //        executor = new ThreadPoolExecutor(poolSize, poolSize, 2, TimeUnit.SECONDS, runnableQueue, threadFactory);

@@ -43,7 +43,6 @@ import java.io.OutputStream;
 @FunctionalInterface
 public interface BinaryWritable
   {
-    //@bluebook-begin other
     public static final Class<BinaryWritable> _BinaryWritable_ = BinaryWritable.class;
 
     /*******************************************************************************************************************
@@ -69,7 +68,6 @@ public interface BinaryWritable
      * @throws  IOException  if the operation can't be performed
      *
      ******************************************************************************************************************/
-    //@bluebook-end other
     @Nonnull
     public OutputStream openStream()
       throws IOException;

@@ -85,7 +85,7 @@ public class ContextSampler
 
     /*******************************************************************************************************************
      *
-     * Runs a {@link Task} associated with a the samples contexts.
+     * Runs a {@link Task} associated with the sampled contexts.
      *
      * @param  <V>      the type of the result value
      * @param  <T>      the type of the exception

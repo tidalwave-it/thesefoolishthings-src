@@ -46,7 +46,7 @@ import lombok.ToString;
 
 /***********************************************************************************************************************
  *
- * A value object that contains a pair of values. Some factory methods allow to create pairs out of existing collections
+ * A value object that contains a pair of values. Some factory methods allow creating pairs out of existing collections
  * or arrays associating an index.
  *
  * @author  Fabrizio Giudici

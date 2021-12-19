@@ -207,7 +207,7 @@ public final class FunctionalCheckedExceptionWrappers
      *
      * @param supplier    the {@code Supplier} to wrap.
      * @param <T>         the type of the {@code Supplier} argument
-     * @return            åthe wrapped {@code Supplier}
+     * @return            the wrapped {@code Supplier}
      *
      ******************************************************************************************************************/
     @Nonnull
@@ -232,7 +232,7 @@ public final class FunctionalCheckedExceptionWrappers
      *
      * @param predicate   the {@code Predicate} to wrap.
      * @param <T>         the type of the {@code Predicate} argument
-     * @return            åthe wrapped {@code Predicate}
+     * @return            the wrapped {@code Predicate}
      *
      ******************************************************************************************************************/
     @Nonnull

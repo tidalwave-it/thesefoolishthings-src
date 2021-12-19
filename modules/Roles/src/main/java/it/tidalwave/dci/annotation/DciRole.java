@@ -64,7 +64,7 @@ public @interface DciRole
 
     /*******************************************************************************************************************
      *
-     * The context type to which this role is restricted. If no context is specified, this role will be always
+     * The context type to which this role is restricted. If no context is specified, this role will always be
      * associated.
      *
      * @return    the context type

@@ -187,7 +187,7 @@ public interface PresentationModel extends As
 
     /*******************************************************************************************************************
      *
-     * Returns an empty instance (no roles with the exception of a dummy {@link Displayable}).
+     * Returns an empty instance (no roles, with the exception of a dummy {@link Displayable}).
      *
      * @return          the empty instance
      * @since           3.2-ALPHA-3

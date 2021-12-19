@@ -69,7 +69,7 @@ public interface UserAction extends As
      * @param   roles       the roles (or role factories)
      * @return              the new instance
      * @since               3.2-ALPHA-1 (replaces {@code new UserActionSupport()}
-     * @since               3.2-ALPHA-3 (refactored}
+     * @since               3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
     @Nonnull

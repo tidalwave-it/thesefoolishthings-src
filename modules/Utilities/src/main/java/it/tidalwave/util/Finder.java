@@ -76,7 +76,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * An interface that should be implemented by specific {@link SortCriterion} objects which are capable to implement
      * by themselves the sorting of objects, by post-processing an existing collection of objects. While this is often
      * convenient, it is possible for it to be inefficient in cases in which the original source of objects is capable
-     * to perform the sort in an optimized way (e.g. a SQL database by means of {@code ORDER BY}}. The facility class
+     * to perform the sort in an optimized way (e.g. an SQL database by means of {@code ORDER BY}). The facility class
      * {@link it.tidalwave.util.spi.FinderSupport} supports {@code FilterSortCriterion} objects out of the box.
      *
      ******************************************************************************************************************/
@@ -382,7 +382,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      * @return                    the first found item
      * @throws NotFoundException  if the search didn't find anything
-     * @deprecated                Use {@link #optionalFirstResult()} ()} instead
+     * @deprecated                Use {@link #optionalFirstResult()} instead
      *
      ******************************************************************************************************************/
     @Nonnull @Deprecated
