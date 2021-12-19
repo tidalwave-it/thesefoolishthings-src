@@ -64,19 +64,19 @@ public class DciMarshalXStreamExample
 
         final ByteArrayOutputStream os1 = new ByteArrayOutputStream();
         joe.as(_Marshallable_).marshal(os1);
-        log.info("******** (jos as Mashallable) marshalled: {}", os1.toString(UTF_8));
+        log.info("******** (jos as Marshallable) marshalled: {}", os1.toString(UTF_8));
 
         final ByteArrayOutputStream os2 = new ByteArrayOutputStream();
         final ListOfPersons listOfPersons = new ListOfPersons(Arrays.asList(joe, luke));
         listOfPersons.as(_Marshallable_).marshal(os2);
-        log.info("******** (listOfPersons as Mashallable) marshalled: {}", os2.toString(UTF_8));
+        log.info("******** (listOfPersons as Marshallable) marshalled: {}", os2.toString(UTF_8));
 
         final ByteArrayOutputStream os3 = new ByteArrayOutputStream();
         final DefaultPersonRegistry personRegistry = new DefaultPersonRegistry();
         personRegistry.add(joe);
         personRegistry.add(luke);
         personRegistry.as(_Marshallable_).marshal(os3);
-        log.info("******** (personRegistry as Mashallable) marshalled: {}", os2.toString(UTF_8));
+        log.info("******** (personRegistry as Marshallable) marshalled: {}", os2.toString(UTF_8));
 
         contextManager.removeLocalContext(xStreamContext);
       }

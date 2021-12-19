@@ -39,7 +39,7 @@ import static it.tidalwave.role.spi.impl.LogUtil.shortId;
 /***********************************************************************************************************************
  *
  * An aspect which implements {@link DciContext} with {@code autoThreadBinding=true}. This class must not be used
- * directly. Instead, add the library which contains it as a depenency of your project and make it visible to the
+ * directly. Instead, add the library which contains it as a dependency of your project and make it visible to the
  * AspectJ compiler.
  *
  * @author  Fabrizio Giudici

@@ -91,7 +91,7 @@ public class NotFoundException extends Exception
     /*******************************************************************************************************************
      *
      * Throws the {@code NotFoundException} when the passed object is {@code null}. The method returns the object
-     * itself and thus it can be used with fluent interfaces.
+     * itself, so it can be used with fluent interfaces.
      *
      * @param  <T>                the type of the object
      * @param  object             the object to be tested
@@ -115,7 +115,7 @@ public class NotFoundException extends Exception
     /*******************************************************************************************************************
      *
      * Throws the {@code NotFoundException} when the passed object is {@code null}. The method returns the object
-     * itself and thus it can be used with fluent interfaces.
+     * itself, so it can be used with fluent interfaces.
      *
      * @param  <T>                the type of the object
      * @param  object             the object to be tested
@@ -142,7 +142,7 @@ public class NotFoundException extends Exception
     /*******************************************************************************************************************
      *
      * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the
-     * collection itself and thus it can be used with fluent interfaces.
+     * collection itself, so it can be used with fluent interfaces.
      *
      * @param  <T>                the type of collection items
      * @param  collection         the collection to be tested
@@ -167,7 +167,7 @@ public class NotFoundException extends Exception
     /*******************************************************************************************************************
      *
      * Throws the {@code NotFoundException} when the passed collection is {@code null} or empty. The method returns the
-     * collection itself and thus it can be used with fluent interfaces.
+     * collection itself, so it can be used with fluent interfaces.
      *
      * @param  <T>                the type of collection items
      * @param  collection         the collection to be tested

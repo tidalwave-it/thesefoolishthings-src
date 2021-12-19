@@ -93,7 +93,7 @@ public interface Aggregate<T>
      * Returns a new empty instance that will be populated by means of {@link #with(String, Object)}.
      *
      * @param   <T>         the static type of the aggregate
-     * @return  t           he new instance
+     * @return              the new instance
      * @since               3.2-ALPHA-2
      *
      ******************************************************************************************************************/

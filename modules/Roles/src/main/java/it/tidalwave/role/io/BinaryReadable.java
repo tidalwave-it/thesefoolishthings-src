@@ -43,7 +43,6 @@ import java.io.InputStream;
 @FunctionalInterface
 public interface BinaryReadable
   {
-    //@bluebook-begin other
     public static final Class<BinaryReadable> _BinaryReadable_ = BinaryReadable.class;
 
     /*******************************************************************************************************************
@@ -61,7 +60,6 @@ public interface BinaryReadable
           }
       };
 
-    //@bluebook-end other
     /*******************************************************************************************************************
      *
      * Returns an {@link InputStream} to read from the object.

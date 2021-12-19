@@ -44,7 +44,7 @@ public @interface Message
   {
     /*******************************************************************************************************************
      *
-     * Out of band messages are processed with priority, that is they are posted at the head of a queue rather than at
+     * Out of band messages are processed with priority, i.e. they are posted at the head of a queue rather than at
      * the tail.
      *
      * @return  {@code true}  if this message is out of band

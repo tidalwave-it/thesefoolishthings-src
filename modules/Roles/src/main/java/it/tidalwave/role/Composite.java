@@ -44,7 +44,6 @@ import it.tidalwave.util.NotFoundException;
 @FunctionalInterface
 public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYPE>>
   {
-    //@bluebook-begin other
     public static final Class<Composite> _Composite_ = Composite.class;
 
     /*******************************************************************************************************************
@@ -61,7 +60,6 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
           }
       };
 
-    //@bluebook-end other
     /*******************************************************************************************************************
      *
      * Returns the children of this object.
@@ -71,8 +69,6 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
      ******************************************************************************************************************/
     @Nonnull
     public SPECIALIZED_FINDER findChildren();
-    //@bluebook-begin other
-    //@bluebook-begin visitor
 
     /*******************************************************************************************************************
      *
@@ -121,7 +117,6 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
         public R getValue()
           throws NotFoundException;
       }
-    //@bluebook-end visitor
 
     /*******************************************************************************************************************
      *
@@ -156,5 +151,4 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
             throw new NotFoundException("Must be implemented by subclasses");
           }
       }
-    //@bluebook-end other
   }

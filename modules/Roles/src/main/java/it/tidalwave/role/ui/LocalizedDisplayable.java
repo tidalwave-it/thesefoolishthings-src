@@ -43,10 +43,8 @@ import java.util.SortedSet;
  **********************************************************************************************************************/
 public interface LocalizedDisplayable extends Displayable
   {
-    //@bluebook-begin other
     public static final Class<LocalizedDisplayable> _LocalizedDisplayable_ = LocalizedDisplayable.class;
 
-    //@bluebook-end other
     /*******************************************************************************************************************
      *
      * Returns the display name in the given {@link Locale}.
