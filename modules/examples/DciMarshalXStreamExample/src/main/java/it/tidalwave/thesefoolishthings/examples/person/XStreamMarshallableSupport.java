@@ -27,7 +27,6 @@
 package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
-import java.io.IOException;
 import java.io.OutputStream;
 import it.tidalwave.role.io.Marshallable;
 import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.XStreamContext;
@@ -52,7 +51,6 @@ public abstract class XStreamMarshallableSupport<D> implements Marshallable
 
     @Override
     public final void marshal (@Nonnull final OutputStream os)
-      throws IOException
       {
         xStreamContext.getXStream().toXML(getMarshallingObject(datum), os);
       }

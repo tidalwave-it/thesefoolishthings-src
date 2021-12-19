@@ -452,7 +452,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
      ******************************************************************************************************************/
     @Override @Nonnull
     public DefaultProcessExecutor waitForCompletion()
-      throws IOException, InterruptedException
+            throws InterruptedException
       {
         if (process.waitFor() != 0)
           {

@@ -52,6 +52,7 @@ public interface Marshallable
      * @throws   IOException  in case of errors
      *
      ******************************************************************************************************************/
+    @SuppressWarnings("RedundantThrows")
     public void marshal (@Nonnull OutputStream os)
       throws IOException;
   }
