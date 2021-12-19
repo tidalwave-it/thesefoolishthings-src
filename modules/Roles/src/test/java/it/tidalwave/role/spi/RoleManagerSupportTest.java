@@ -45,7 +45,6 @@ import static java.util.Arrays.asList;
 import static it.tidalwave.role.spi.impl.LogUtil.*;
 import static it.tidalwave.role.spi.impl.Mocks.*;
 import static org.testng.AssertJUnit.assertEquals;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -323,7 +322,7 @@ public class RoleManagerSupportTest
             { ca3,       R3.class, asList(new RI3A(ca3)) },
 
             { new CB1(), R1.class, asList()           },
-            // RI2C beause Context2 is present
+            // RI2C because Context2 is present
             { new CB1(), R2.class, asList(new RI2B(bean1, bean2), new RI2C(context2, bean1)) },
             { new CB1(), R3.class, asList()           },
 
