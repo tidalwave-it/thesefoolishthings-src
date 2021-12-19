@@ -48,7 +48,7 @@ public class MoreAnswers
      *
      * Mockito's {@link org.mockito.Answers#CALLS_REAL_METHODS} actually behaves the same when used with interfaces,
      * but it has been designed for mixed mocking, which is a practice that is supposed to be used only with corner
-     * cases an legacy stuff.
+     * cases a legacy stuff.
      *
      * @it.tidalwave.javadoc.experimental
      *

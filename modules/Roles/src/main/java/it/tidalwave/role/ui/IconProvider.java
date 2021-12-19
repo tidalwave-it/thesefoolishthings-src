@@ -45,12 +45,11 @@ import javax.swing.ImageIcon;
 @FunctionalInterface
 public interface IconProvider
   {
-    //@bluebook-begin other
     public static final Class<IconProvider> _IconProvider_ = IconProvider.class;
 
     /*******************************************************************************************************************
      *
-     * A default {@code IconProvider} with a empty icon.
+     * A default {@code IconProvider} with an empty icon.
      *
      ******************************************************************************************************************/
     public static final IconProvider DEFAULT = new IconProvider()
@@ -64,7 +63,6 @@ public interface IconProvider
           }
       };
 
-    //@bluebook-end other
     /*******************************************************************************************************************
      *
      * Returns the icon for this object. Note that the {@code size} parameter is just a hint to allow implementations

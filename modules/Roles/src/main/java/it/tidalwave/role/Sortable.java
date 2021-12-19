@@ -41,7 +41,6 @@ import it.tidalwave.util.Finder.SortDirection;
  **********************************************************************************************************************/
 public interface Sortable
   {
-    //@bluebook-begin others
     public static final Class<Sortable> _Sortable_ = Sortable.class;
 
     /*******************************************************************************************************************
@@ -76,7 +75,6 @@ public interface Sortable
           }
       };
 
-    //@bluebook-end others
     /*******************************************************************************************************************
      *
      * Sets the sort criterion.

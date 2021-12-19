@@ -45,7 +45,6 @@ import static java.util.Arrays.asList;
 import static it.tidalwave.role.spi.impl.LogUtil.*;
 import static it.tidalwave.role.spi.impl.Mocks.*;
 import static org.testng.AssertJUnit.assertEquals;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
