@@ -67,6 +67,7 @@
       <module name="it-tidalwave-thesefoolishthings-examples-finderexample3" options="-Xlint:all" />
       <module name="it-tidalwave-util" options="-Xlint:all" />
       <module name="it-tidalwave-util-test" options="-Xlint:all" />
+      <module name="modules" options="-Xlint:all" />
       <module name="project-archetype" options="-Xlint:all" />
     </option>
   </component>
