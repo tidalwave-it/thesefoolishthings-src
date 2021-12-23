@@ -26,6 +26,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.swing;
 
+import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnull;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -38,6 +39,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main
   {
     public static void main (@Nonnull final String ... args)
+            throws InterruptedException, InvocationTargetException
       {
         final String beans = "it/tidalwave/thesefoolishthings/examples/dci/swing/Beans.xml";
         final BeanFactory context = new ClassPathXmlApplicationContext(beans);

@@ -26,28 +26,34 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.swing;
 
+import java.lang.reflect.InvocationTargetException;
+import javax.annotation.Nonnull;
 import javax.swing.JFrame;
-import it.tidalwave.role.AsExtensions;
+import javax.swing.SwingUtilities;
 import it.tidalwave.thesefoolishthings.examples.dci.swing.swing.SwingPersonPresentation;
-import lombok.experimental.ExtensionMethod;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@ExtensionMethod(AsExtensions.class) @Slf4j
+@RequiredArgsConstructor
 public class SwingDciExample
   {
+    @Nonnull
+    private final SwingPersonPresentation personPresentation;
+
     public void run()
+            throws InterruptedException, InvocationTargetException
       {
-        final SwingPersonPresentation personPresentation = new SwingPersonPresentation();
-        final DefaultPersonPresentationControl control = new DefaultPersonPresentationControl(personPresentation);
-        final JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(personPresentation);
-        frame.setSize(800, 600);
-        frame.setVisible(true);
+        SwingUtilities.invokeAndWait(() ->
+          {
+            final JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.add(personPresentation);
+            frame.setSize(800, 600);
+            frame.setVisible(true);
+          });
       }
   }

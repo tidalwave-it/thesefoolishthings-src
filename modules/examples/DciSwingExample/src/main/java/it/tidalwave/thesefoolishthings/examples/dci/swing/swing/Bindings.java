@@ -27,6 +27,7 @@
 package it.tidalwave.thesefoolishthings.examples.dci.swing.swing;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 import javax.swing.JList;
 import javax.swing.JTable;
 import org.jdesktop.beansbinding.BeanProperty;
@@ -36,7 +37,6 @@ import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
 import it.tidalwave.role.AsExtensions;
 import it.tidalwave.thesefoolishthings.examples.dci.swing.role.ObservableListProvider;
-import it.tidalwave.thesefoolishthings.examples.dci.swing.role.TableColumnDescriptor;
 import it.tidalwave.thesefoolishthings.examples.dci.swing.role.TableHeaderDescriptor;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -93,18 +93,15 @@ public final class Bindings
      * @param  jTable    the {@code JTable}
      *
      ******************************************************************************************************************/
-    public static void bind (@Nonnull final BindingGroup bindings,
-                             @Nonnull final Object datum,
-                             @Nonnull final JTable jTable)
+    public static <T> void bind (@Nonnull final BindingGroup bindings,
+                                 @Nonnull final Object datum,
+                                 @Nonnull final JTable jTable)
       {
-        final ObservableList<?> ol = datum.as(_ObservableListProvider_).createObservableList();
-        final JTableBinding tb = SwingBindings.createJTableBinding(READ_WRITE, ol, jTable);
+        final ObservableList<T> ol = datum.as(_ObservableListProvider_).createObservableList();
+        final JTableBinding<T, List<T>, JTable> tb = SwingBindings.createJTableBinding(READ_WRITE, ol, jTable);
 
-        for (final TableColumnDescriptor columnDescriptor : datum.as(_TableHeaderDescriptor_).getColumnDescriptors())
-          {
-            final BeanProperty property = BeanProperty.create(columnDescriptor.getPropertyName());
-            tb.addColumnBinding(property).setColumnName(columnDescriptor.getHeaderName());
-          }
+        datum.as(_TableHeaderDescriptor_).getColumnDescriptors().forEach(cd ->
+              tb.addColumnBinding(BeanProperty.create(cd.getPropertyName())).setColumnName(cd.getHeaderName()));
 
         bindings.addBinding(tb);
       }

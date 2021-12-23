@@ -54,6 +54,20 @@
     <bean id="contextManager"
           class="it.tidalwave.role.spi.DefaultContextManager"/>
 
-    <bean class="it.tidalwave.thesefoolishthings.examples.dci.swing.SwingDciExample"/>
+    <bean name="personRegistry"
+          class="it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry" />
+
+    <bean name="personPresentation"
+          class="it.tidalwave.thesefoolishthings.examples.dci.swing.swing.SwingPersonPresentation" />
+
+    <bean name="personPresentationControl"
+            class="it.tidalwave.thesefoolishthings.examples.dci.swing.DefaultPersonPresentationControl">
+        <constructor-arg ref="personPresentation" />
+        <constructor-arg ref="personRegistry" />
+    </bean>
+
+    <bean class="it.tidalwave.thesefoolishthings.examples.dci.swing.SwingDciExample">
+        <constructor-arg ref="personPresentation" />
+    </bean>
 
 </beans>
