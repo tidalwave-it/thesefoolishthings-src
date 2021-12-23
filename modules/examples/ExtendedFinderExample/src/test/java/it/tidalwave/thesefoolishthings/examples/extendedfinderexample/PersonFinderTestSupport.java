@@ -64,7 +64,7 @@ public class PersonFinderTestSupport
     public void testAllPersons()
       {
         assertThat(underTest.results().toString(),
-                   is("[Michelangelo Buonarroti, Lorenzo Bernini, Leonardo Da Vinci, Pietro Perugino, " +
+                   is("[Michelangelo Buonarroti, Lorenzo Bernini, Leonardo da Vinci, Pietro Perugino, " +
                       "Paolo Uccello, Andrea Mantegna, Ambrogio Lorenzetti, Piero della Francesca, Giotto da Bondone]"));
       }
 
@@ -73,7 +73,7 @@ public class PersonFinderTestSupport
     public void testAllPersonsSortedByFirstName()
       {
         assertThat(underTest.sort(BY_FIRST_NAME).results().toString(),
-                   is("[Ambrogio Lorenzetti, Andrea Mantegna, Giotto da Bondone, Leonardo Da Vinci, " +
+                   is("[Ambrogio Lorenzetti, Andrea Mantegna, Giotto da Bondone, Leonardo da Vinci, " +
                       "Lorenzo Bernini, Michelangelo Buonarroti, Paolo Uccello, Piero della Francesca, Pietro Perugino]"));
       }
 
@@ -81,8 +81,9 @@ public class PersonFinderTestSupport
     public void testAllPersonsSortedByLastNameDescending()
       {
         assertThat(underTest.sort(BY_LAST_NAME, DESCENDING).results().toString(),
-                   is("[Piero della Francesca, Giotto da Bondone, Paolo Uccello, Pietro Perugino, " +
-                      "Andrea Mantegna, Ambrogio Lorenzetti, Leonardo Da Vinci, Michelangelo Buonarroti, Lorenzo Bernini]"));
+                   is("[Piero della Francesca, Leonardo da Vinci, Giotto da Bondone, Paolo Uccello, " +
+                      "Pietro Perugino, Andrea Mantegna, Ambrogio Lorenzetti, Michelangelo Buonarroti, " +
+                      "Lorenzo Bernini]"));
       }
 
     @Test
