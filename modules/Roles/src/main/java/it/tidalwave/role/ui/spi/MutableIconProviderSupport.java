@@ -81,7 +81,7 @@ public abstract class MutableIconProviderSupport implements MutableIconProvider
 
     /*******************************************************************************************************************
      *
-     * Fires the event notifying that {@link PROP_ICON} has been changed.
+     * Fires the event notifying that {@link #PROP_ICON} has been changed.
      *
      * @param  oldIcon   the old value of the property
      * @param  newIcon   the new value of the property
