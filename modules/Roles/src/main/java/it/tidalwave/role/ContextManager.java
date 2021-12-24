@@ -240,10 +240,68 @@ public interface ContextManager
      * Runs a task associated with a new bunch of local contexts. This variant fits functional interfaces.
      *
      * @param  <V>                the type of the returned value
-     * @param  contexts           the context
+     * @param  contexts           the contexts
      * @param  task               the task
      * @return                    the value produced by the task
      *
      ******************************************************************************************************************/
     public <V> V runWithContexts (@Nonnull List<Object> contexts, @Nonnull Supplier<V> task);
+
+    /*******************************************************************************************************************
+     *
+     * Creates a binder that makes it possible to bind a local context by means of a try-with-resources instead of a
+     * try/finally.
+     *
+     * <pre>
+     * try (final ContextManager.Binder binder = contextManager.binder(context))
+     *   {
+     *     ...
+     *   }
+     * </pre>
+     *
+     * @param   contexts          the contexts
+     * @return                    a binder that can be used in try-with-resources
+     * @since   3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public default Binder binder (@Nonnull final Object ... contexts)
+      {
+        return new Binder(this, contexts);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Used by
+     * @since   3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    public static class Binder implements AutoCloseable
+      {
+        @Nonnull
+        private final ContextManager contextManager;
+
+        @Nonnull
+        private final Object[] contexts;
+
+        private Binder (@Nonnull final ContextManager contextManager, @Nonnull final Object[] contexts)
+          {
+            this.contextManager = contextManager;
+            this.contexts = contexts;
+
+            for (final Object context : contexts)
+              {
+                this.contextManager.addLocalContext(context);
+              }
+          }
+
+        @Override
+        public void close()
+          {
+            for (final Object context : contexts)
+              {
+                this.contextManager.removeLocalContext(context);
+              }
+          }
+      }
   }

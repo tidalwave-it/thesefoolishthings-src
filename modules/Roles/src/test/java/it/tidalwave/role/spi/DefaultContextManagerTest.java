@@ -34,9 +34,11 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import it.tidalwave.util.Task;
+import it.tidalwave.role.ContextManager;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
+import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -276,5 +278,58 @@ public class DefaultContextManagerTest
                                                localContext3, localContext2, localContext1)));
         assertThat(contextsAfter, is(contextsBefore));
         assertThat(result, is("result"));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_properly_remove_local_contexts()
+      {
+        // given
+        final DefaultContextManager underTest = spy(DefaultContextManager.class);
+        final Runnable body = mock(Runnable.class);
+        // when
+        try (ContextManager.Binder binder = underTest.binder(localContext1, localContext2, localContext3))
+          {
+            body.run();
+          }
+        // then
+        verify(underTest).addLocalContext(same(localContext1));
+        verify(underTest).addLocalContext(same(localContext2));
+        verify(underTest).addLocalContext(same(localContext3));
+        verify(body).run();
+        verify(underTest).removeLocalContext(same(localContext1));
+        verify(underTest).removeLocalContext(same(localContext2));
+        verify(underTest).removeLocalContext(same(localContext3));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_properly_remove_local_contexts_when_exception_throw()
+      {
+        // given
+        final DefaultContextManager underTest = spy(DefaultContextManager.class);
+        final Runnable body = mock(Runnable.class);
+        // when
+        try (ContextManager.Binder binder = underTest.binder(localContext1, localContext2, localContext3))
+          {
+            body.run();
+            throw new RuntimeException("Purportedly generated exception");
+          }
+        catch (RuntimeException e)
+          {
+            // caught
+          }
+        // then
+        verify(underTest).addLocalContext(same(localContext1));
+        verify(underTest).addLocalContext(same(localContext2));
+        verify(underTest).addLocalContext(same(localContext3));
+        verify(body).run();
+        verify(underTest).removeLocalContext(same(localContext1));
+        verify(underTest).removeLocalContext(same(localContext2));
+        verify(underTest).removeLocalContext(same(localContext3));
       }
   }
