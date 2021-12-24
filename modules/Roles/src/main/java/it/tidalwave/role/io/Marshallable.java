@@ -32,7 +32,7 @@ import java.io.OutputStream;
 
 /***********************************************************************************************************************
  *
- * The role of an object that can be marshalled.
+ * The role of an object that can be marshalled to an {@link OutputStream}.
  *
  * @stereotype Role
  *

@@ -24,45 +24,24 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.UUID;
-import it.tidalwave.util.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.thoughtworks.xstream.XStream;
+import it.tidalwave.dci.annotation.DciContext;
 
 /***********************************************************************************************************************
+ *
+ * A DCI local Context that provides an {@link XStream} for a few datum classes.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable @AllArgsConstructor @Getter
-public class Person
+// START SNIPPET: xstreamcontext
+@DciContext
+public interface XStreamContext
   {
     @Nonnull
-    public static Person prototype()
-      {
-        return new Person("", "");
-      }
-
-    public Person (@Nonnull final String firstName, @Nonnull final String lastName)
-      {
-        this(Id.of(UUID.randomUUID().toString()), firstName, lastName);
-      }
-
-    final Id id;
-
-    @Nonnull
-    final String firstName;
-
-    @Nonnull
-    final String lastName;
-
-    @Override @Nonnull
-    public String toString()
-      {
-        return firstName + " " + lastName;
-      }
+    public XStream getXStream();
   }
+// END SNIPPET: xstreamcontext

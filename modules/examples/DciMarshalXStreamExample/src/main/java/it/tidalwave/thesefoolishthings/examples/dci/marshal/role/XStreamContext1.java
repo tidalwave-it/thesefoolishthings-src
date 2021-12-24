@@ -24,40 +24,44 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
-import javax.annotation.Nonnull;
-import java.io.OutputStream;
-import it.tidalwave.role.io.Marshallable;
-import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.XStreamContext;
-import lombok.RequiredArgsConstructor;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
+import com.thoughtworks.xstream.security.AnyTypePermission;
+import it.tidalwave.dci.annotation.DciContext;
+import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.converter.IdXStreamConverter;
+import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.converter.PersonConverter;
+import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
+import lombok.Getter;
 
 /***********************************************************************************************************************
  *
- * A facility class for implementing a {@link Marshallable} using XStream. Subclass properly and eventually override
- * {@link #getMarshallingObject(java.lang.Object)} when only a part of the datum must be considered by XStream.
- * 
+ * A DCI local Context that provides an {@link XStream} for a few datum classes.
+ *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor
-public abstract class XStreamMarshallableSupport<D> implements Marshallable
+// START SNIPPET: xstreamcontext
+@DciContext
+public class XStreamContext1 implements XStreamContext
   {
-    @Nonnull
-    private final D datum;
+    @Getter
+    private final XStream xStream = new XStream(new StaxDriver());
 
-    @Nonnull
-    private final XStreamContext xStreamContext;
-
-    @Override
-    public final void marshal (@Nonnull final OutputStream os)
+    public XStreamContext1()
       {
-        xStreamContext.getXStream().toXML(getMarshallingObject(datum), os);
-      }
+        xStream.alias("person", PersonConverter.MutablePerson.class);
+        xStream.aliasField("first-name", PersonConverter.MutablePerson.class, "firstName");
+        xStream.aliasField("last-name", PersonConverter.MutablePerson.class, "lastName");
+        xStream.useAttributeFor(PersonConverter.MutablePerson.class, "id");
+        xStream.registerConverter(new IdXStreamConverter());
+        xStream.registerConverter(new PersonConverter());
 
-    @Nonnull
-    protected Object getMarshallingObject (@Nonnull final D datum)
-      {
-        return datum;
+        xStream.alias("persons", ListOfPersons.class);
+        xStream.addImplicitCollection(ListOfPersons.class, "persons");
+
+        xStream.addPermission(AnyTypePermission.ANY);
       }
   }
+// END SNIPPET: xstreamcontext

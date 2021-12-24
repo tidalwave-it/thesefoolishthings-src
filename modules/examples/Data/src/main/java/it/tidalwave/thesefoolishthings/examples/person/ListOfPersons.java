@@ -28,6 +28,7 @@ package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
@@ -43,8 +44,20 @@ public class ListOfPersons implements List<Person>
     @Delegate
     private final List<Person> persons = new ArrayList<>();
 
+    @Nonnull
+    public static ListOfPersons of (@Nonnull final Person ... persons)
+      {
+        return new ListOfPersons(Arrays.asList(persons));
+      }
+
     public ListOfPersons (@Nonnull final List<Person> persons)
       {
         this.persons.addAll(persons);
+      }
+
+    @Override @Nonnull
+    public String toString()
+      {
+        return persons.toString();
       }
   }

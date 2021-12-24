@@ -24,29 +24,22 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.dci.annotation.DciRole;
-import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.XStreamContext;
+import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@DciRole(datumType = DefaultPersonRegistry.class, context = XStreamContext.class)
-public class DefaultPersonRegistryXStreamMarshallable extends XStreamMarshallableSupport<DefaultPersonRegistry>
+@DciRole(datumType = ListOfPersons.class, context = XStreamContext.class)
+public final class ListOfPersonsXStreamUnmarshallable extends XStreamUnmarshallableSupport<ListOfPersons>
   {
-    public DefaultPersonRegistryXStreamMarshallable (@Nonnull final DefaultPersonRegistry datum,
-                                                     @Nonnull final XStreamContext context)
+    public ListOfPersonsXStreamUnmarshallable (@Nonnull final ListOfPersons datum, @Nonnull final XStreamContext context)
       {
         super(datum, context);
-      }
-
-    @Override @Nonnull
-    protected Object getMarshallingObject (@Nonnull final DefaultPersonRegistry datum)
-      {
-        return datum.persons;
       }
   }

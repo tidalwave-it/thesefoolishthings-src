@@ -24,33 +24,32 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
-import com.thoughtworks.xstream.converters.SingleValueConverter;
-import it.tidalwave.util.Id;
+import javax.annotation.Nonnull;
+import java.io.InputStream;
+import it.tidalwave.role.io.Unmarshallable;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
+ * A facility class for implementing a {@link Unmarshallable} using XStream.
+ * 
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-class IdXStreamConverter implements SingleValueConverter
+@RequiredArgsConstructor
+public abstract class XStreamUnmarshallableSupport<T> implements Unmarshallable
   {
-    @Override
-    public String toString (final Object object)
-      {
-        return ((Id)object).stringValue();
-      }
+    @Nonnull
+    private final T datum;
 
-    @Override
-    public Object fromString (final String string)
-      {
-        return new Id(string);
-      }
+    @Nonnull
+    private final XStreamContext xStreamContext;
 
-    @Override
-    public boolean canConvert (final Class type)
+    @Override @Nonnull
+    public final T unmarshal (@Nonnull final InputStream is)
       {
-        return type.equals(Id.class);
+        return (T)xStreamContext.getXStream().fromXML(is);
       }
   }
