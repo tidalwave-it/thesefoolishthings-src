@@ -152,6 +152,21 @@ public final class FunctionalCheckedExceptionWrappers
 
     /*******************************************************************************************************************
      *
+     * A variant of {@link Runnable} that might throw an {@link Exception}. This interface must not be directly used,
+     * it's defined to let the compiler infer functional equivalence.
+     *
+     * @hidden
+     *
+     ******************************************************************************************************************/
+    @FunctionalInterface
+    public static interface RunnableWithException
+      {
+        public void run()
+                throws Exception;
+      }
+
+    /*******************************************************************************************************************
+     *
      * A wrapper for a {@link Function} that catches exceptions and wraps them into {@link RuntimeException}s.
      *
      * @param function    the {@code Function} to wrap.
@@ -253,10 +268,36 @@ public final class FunctionalCheckedExceptionWrappers
 
     /*******************************************************************************************************************
      *
+     * A wrapper for an equivalent of {@link Runnable} that catches exceptions and wraps them into
+     * {@link RuntimeException}s.
+     *
+     * @param runnable    the {@code Runnable} to wrap.
+     * @return            the wrapped {@code Predicate}
+     * @since             3.2-ALPHA-12
      *
      ******************************************************************************************************************/
     @Nonnull
-    static RuntimeException wrappedException (@Nonnull final Exception e)
+    public static Runnable _r (@Nonnull final RunnableWithException runnable)
+      {
+        return () ->
+          {
+          try
+            {
+              runnable.run();
+            }
+          catch (Exception e)
+            {
+              throw wrappedException(e);
+            }
+          };
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static RuntimeException wrappedException (@Nonnull final Throwable e)
       {
         if (e instanceof RuntimeException)
           {
