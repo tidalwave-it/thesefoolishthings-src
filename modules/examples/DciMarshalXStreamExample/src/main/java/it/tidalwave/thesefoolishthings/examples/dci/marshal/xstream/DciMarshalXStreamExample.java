@@ -36,8 +36,8 @@ import it.tidalwave.role.AsExtensions;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
-import it.tidalwave.thesefoolishthings.examples.person.XStreamContext1;
-import it.tidalwave.thesefoolishthings.examples.person.XStreamContext2;
+import it.tidalwave.thesefoolishthings.examples.dci.marshal.role.XStreamContext1;
+import it.tidalwave.thesefoolishthings.examples.dci.marshal.role.XStreamContext2;
 import lombok.experimental.ExtensionMethod;
 import lombok.extern.slf4j.Slf4j;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -99,6 +99,7 @@ public class DciMarshalXStreamExample
       {
         contextManager.runEWithContexts(this::codeThatUsesMarshalling, new XStreamContext2());
         final String s = contextManager.runEWithContexts(this::codeThatUsesMarshalling2, new XStreamContext2());
+        log.info("{}", s);
       }
 
     private void codeThatUsesMarshalling()

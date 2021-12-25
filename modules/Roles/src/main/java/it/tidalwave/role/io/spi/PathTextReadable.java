@@ -27,26 +27,56 @@
 package it.tidalwave.role.io.spi;
 
 import javax.annotation.Nonnull;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
-import it.tidalwave.role.io.TextWritable;
-import lombok.RequiredArgsConstructor;
+import java.io.Reader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import it.tidalwave.role.io.TextReadable;
 
 /***********************************************************************************************************************
  *
- * An implementation of {@link TextWritable} which delegates to a {@link File}.
+ * An implementation of {@link TextReadable} which delegates to a {@link Path}.
  *
  * @author  Fabrizio Giudici
- * @deprecated Use PathTextReadable instead
+ * @since   3.2-ALPHA-12
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor @Deprecated
-public class FileTextWritable implements TextWritable
+public class PathTextReadable implements TextReadable
   {
     @Nonnull
-    private final File file;
+    private final Path path;
+
+    @Nonnull
+    private final Charset charset;
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with the given path and options.
+     *
+     * @param   path          the path to open
+     *
+     ******************************************************************************************************************/
+    public PathTextReadable (@Nonnull final Path path)
+      {
+        this(path, StandardCharsets.UTF_8);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with the given path and options.
+     *
+     * @param   path          the path to open
+     * @param   charset       the character set
+     *
+     ******************************************************************************************************************/
+    public PathTextReadable (@Nonnull final Path path, @Nonnull final Charset charset)
+      {
+        this.path = path;
+        this.charset = charset;
+      }
 
     /*******************************************************************************************************************
      *
@@ -54,9 +84,9 @@ public class FileTextWritable implements TextWritable
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Writer openWriter()
+    public Reader openReader()
       throws IOException
       {
-        return new FileWriter(file);
+        return Files.newBufferedReader(path, charset);
       }
   }

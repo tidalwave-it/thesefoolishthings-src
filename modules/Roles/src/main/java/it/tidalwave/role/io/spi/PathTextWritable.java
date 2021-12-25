@@ -27,26 +27,64 @@
 package it.tidalwave.role.io.spi;
 
 import javax.annotation.Nonnull;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
 import it.tidalwave.role.io.TextWritable;
-import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * An implementation of {@link TextWritable} which delegates to a {@link File}.
+ * An implementation of {@link TextWritable} which delegates to a {@link Path}.
  *
  * @author  Fabrizio Giudici
- * @deprecated Use PathTextReadable instead
+ * @since   3.2-ALPHA-12
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor @Deprecated
-public class FileTextWritable implements TextWritable
+public class PathTextWritable implements TextWritable
   {
     @Nonnull
-    private final File file;
+    private final Path path;
+
+    @Nonnull
+    private final Charset charset;
+
+    @Nonnull
+    private final OpenOption[] openOptions;
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with the given path and options.
+     *
+     * @param   path          the path to open
+     *
+     ******************************************************************************************************************/
+    public PathTextWritable (@Nonnull final Path path)
+      {
+        this(path, StandardCharsets.UTF_8);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with the given path and options.
+     *
+     * @param   path          the path to open
+     * @param   charset       the character set
+     * @param   openOptions   open options
+     *
+     ******************************************************************************************************************/
+    public PathTextWritable (@Nonnull final Path path,
+                             @Nonnull final Charset charset,
+                             @Nonnull final OpenOption... openOptions)
+      {
+        this.path = path;
+        this.charset = charset;
+        this.openOptions = openOptions;
+      }
 
     /*******************************************************************************************************************
      *
@@ -57,6 +95,6 @@ public class FileTextWritable implements TextWritable
     public Writer openWriter()
       throws IOException
       {
-        return new FileWriter(file);
+        return Files.newBufferedWriter(path, charset, openOptions);
       }
   }

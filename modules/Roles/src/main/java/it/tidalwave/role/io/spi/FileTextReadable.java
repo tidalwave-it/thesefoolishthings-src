@@ -39,10 +39,10 @@ import lombok.RequiredArgsConstructor;
  * An implementation of {@link TextReadable} which delegates to a {@link File}.
  *
  * @author  Fabrizio Giudici
- * @it.tidalwave.javadoc.stable
+ * @deprecated Use PathTextReadable instead
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor
+@RequiredArgsConstructor @Deprecated
 public class FileTextReadable implements TextReadable
   {
     @Nonnull
