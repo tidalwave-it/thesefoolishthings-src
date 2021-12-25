@@ -31,6 +31,7 @@ import javax.inject.Inject;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
 import it.tidalwave.util.Id;
 import it.tidalwave.role.AsExtensions;
 import it.tidalwave.role.ContextManager;
@@ -40,6 +41,8 @@ import it.tidalwave.thesefoolishthings.examples.dci.marshal.role.XStreamContext1
 import it.tidalwave.thesefoolishthings.examples.dci.marshal.role.XStreamContext2;
 import lombok.experimental.ExtensionMethod;
 import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.thesefoolishthings.examples.dci.marshal.role.Loadable._Loadable_;
+import static it.tidalwave.thesefoolishthings.examples.dci.marshal.role.Savable._Savable_;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static it.tidalwave.role.io.Marshallable._Marshallable_;
 import static it.tidalwave.role.io.Unmarshallable._Unmarshallable_;
@@ -105,6 +108,8 @@ public class DciMarshalXStreamExample
     private void codeThatUsesMarshalling()
             throws IOException
       {
+        final Path path1 = Path.of("target/Person.xml");
+        final Path path2 = Path.of("target/People.xml");
         // START SNIPPET: xstreamcontext-example1
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
         final Person luke = new Person(new Id("2"), "Luke", "Skywalker");
@@ -138,6 +143,15 @@ public class DciMarshalXStreamExample
             log.info("******** Unmarshalled persons: {}\n", listOfPersons);
           }
         // END SNIPPET: xstreamcontext-example2
+
+        // START SNIPPET: xstreamcontext-savable-loadable
+        joe.as(_Savable_).saveTo(path1);
+        ListOfPersons.of(joe, luke).as(_Savable_).saveTo(path2);
+        final Person p = Person.prototype().as(_Loadable_).loadFrom(path1);
+        final ListOfPersons lp = new ListOfPersons().as(_Loadable_).loadFrom(path2);
+        // END SNIPPET: xstreamcontext-savable-loadable
+        log.info("******** Loaded person: {}\n", p);
+        log.info("******** Loaded persons: {}\n", lp);
       }
 
     @Nonnull
