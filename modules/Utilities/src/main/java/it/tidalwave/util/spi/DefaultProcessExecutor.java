@@ -38,6 +38,7 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.File;
@@ -47,7 +48,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import it.tidalwave.util.ProcessExecutor;
 import lombok.AccessLevel;
-import lombok.Cleanup;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -83,7 +83,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
 
         private volatile String latestLine;
 
-        private volatile int li = 0;
+        private final AtomicInteger li = new AtomicInteger(0);
 
         private final AtomicBoolean started = new AtomicBoolean();
         
@@ -125,12 +125,12 @@ public class DefaultProcessExecutor implements ProcessExecutor
                   {
                     try
                       {
-                        if ((l != li) && (latestLine != null))
+                        if ((l != li.get()) && (latestLine != null))
                           {
                             log.trace(">>>>>>>> {} {}", name, latestLine);
                           }
 
-                        l = li;
+                        l = li.get();
                         Thread.sleep(500);
                       }
                     catch (Throwable e)
@@ -279,51 +279,52 @@ public class DefaultProcessExecutor implements ProcessExecutor
         private void read()
           throws IOException
           {
-            @Cleanup final InputStreamReader is = new InputStreamReader(input);
-            StringBuilder l = new StringBuilder();
-
-            for (;;)
+            try (final InputStreamReader is = new InputStreamReader(input))
               {
-                final int c = is.read();
+                StringBuilder l = new StringBuilder();
 
-                if (c < 0)
+                for (;;)
                   {
-                    break;
-                  }
+                    final int c = is.read();
 
-//                if (c == 10)
-//                  {
-//                    continue;
-//                  }
-
-                if ((c == 13) || (c == 10))
-                  {
-                    latestLine = l.toString();
-                    li++;
-                    content.add(latestLine);
-                    l = new StringBuilder();
-                    log.trace(">>>>>>>> {} {}", name, latestLine);
-                    
-                    if (listener != null)
+                    if (c < 0)
                       {
-                        listener.onReceived(latestLine);
+                        break;
+                      }
+
+                    //                if (c == 10)
+                    //                  {
+                    //                    continue;
+                    //                  }
+
+                    if ((c == 13) || (c == 10))
+                      {
+                        latestLine = l.toString();
+                        li.incrementAndGet();
+                        content.add(latestLine);
+                        l = new StringBuilder();
+                        log.trace(">>>>>>>> {} {}", name, latestLine);
+
+                        if (listener != null)
+                          {
+                            listener.onReceived(latestLine);
+                          }
+                      }
+                    else
+                      {
+                        l.append((char)c);
+                        latestLine = l.toString();
+                        li.incrementAndGet();
+                      }
+
+                    synchronized (this)
+                      {
+                        notifyAll();
                       }
                   }
-                else
-                  {
-                    l.append((char)c);
-                    latestLine = l.toString();
-                    li++;
-                  }
 
-                synchronized (this)
-                  {
-                    notifyAll();
-                  }
+                log.debug(">>>>>> {} closed", name);
               }
-
-            log.debug(">>>>>> {} closed", name);
-            is.close();
           }
       }
 
