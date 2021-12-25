@@ -83,7 +83,6 @@ public final class Parameters
      * value is returned. If more than a single parameter is found, an {@link IllegalArgumentException} is thrown.
      *
      * @param   <T>                       the static type of the parameter
-     * @param   <O>                       ?
      * @param   parameterClass            the dynamic type of the parameter
      * @param   defaultOption             the default value of the parameter
      * @param   parameters                the array of parameters
@@ -92,9 +91,9 @@ public final class Parameters
      *
      ******************************************************************************************************************/
     @CheckForNull
-    public static <T, O> T find (@Nonnull final Class<T> parameterClass,
-                                 @CheckForNull final T defaultOption,
-                                 @Nonnull final O... parameters)
+    public static <T> T find (@Nonnull final Class<T> parameterClass,
+                              @CheckForNull final T defaultOption,
+                              @Nonnull final Object... parameters)
             throws IllegalArgumentException
       {
         // Don't use streams() for performance reasons.
@@ -115,14 +114,13 @@ public final class Parameters
      * collection is returned.
      *
      * @param   <T>                       the static type of the parameter
-     * @param   <O>                       ?
      * @param   parameterClass            the class of the parameter to retrieve
      * @param   parameters                the array of parameters
      * @return                            the value of the parameter
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T, O> Collection<T> find (@Nonnull final Class<T> parameterClass, @Nonnull final O... parameters)
+    public static <T> Collection<T> find (@Nonnull final Class<T> parameterClass, @Nonnull final Object... parameters)
       {
         // Don't use streams() for performance reasons.
         final Collection<T> result = new ArrayList<>();
@@ -131,7 +129,7 @@ public final class Parameters
           {
             if (parameterClass.isAssignableFrom(parameter.getClass()))
               {
-                result.add((T)parameter);
+                result.add(parameterClass.cast(parameter));
               }
           }
 

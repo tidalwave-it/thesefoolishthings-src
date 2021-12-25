@@ -24,35 +24,66 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.ui.spi;
+package it.tidalwave.role.io.spi;
 
 import javax.annotation.Nonnull;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import javax.swing.Icon;
-import it.tidalwave.role.ui.MutableIconProvider;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import it.tidalwave.role.io.TextWritable;
 
 /***********************************************************************************************************************
  *
- * A convenient support for implementing a {@link it.tidalwave.role.ui.MutableIconProvider}.
+ * An implementation of {@link TextWritable} which delegates to a {@link Path}.
  *
  * @author  Fabrizio Giudici
- * @it.tidalwave.javadoc.draft
+ * @since   3.2-ALPHA-12
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-public abstract class MutableIconProviderSupport implements MutableIconProvider
+public class PathTextWritable implements TextWritable
   {
-    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    @Nonnull
+    private final Path path;
+
+    @Nonnull
+    private final Charset charset;
+
+    @Nonnull
+    private final OpenOption[] openOptions;
 
     /*******************************************************************************************************************
      *
-     * {@inheritDoc}
+     * Creates an instance with the given path and options.
+     *
+     * @param   path          the path to open
      *
      ******************************************************************************************************************/
-    @Override
-    public void addPropertyChangeListener (@Nonnull final PropertyChangeListener listener)
+    public PathTextWritable (@Nonnull final Path path)
       {
-        pcs.addPropertyChangeListener(listener);
+        this(path, StandardCharsets.UTF_8);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with the given path and options.
+     *
+     * @param   path          the path to open
+     * @param   charset       the character set
+     * @param   openOptions   open options
+     *
+     ******************************************************************************************************************/
+    public PathTextWritable (@Nonnull final Path path,
+                             @Nonnull final Charset charset,
+                             @Nonnull final OpenOption... openOptions)
+      {
+        this.path = path;
+        this.charset = charset;
+        this.openOptions = openOptions;
       }
 
     /*******************************************************************************************************************
@@ -60,35 +91,10 @@ public abstract class MutableIconProviderSupport implements MutableIconProvider
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    @Override
-    public void removePropertyChangeListener (@Nonnull final PropertyChangeListener listener)
+    @Override @Nonnull
+    public Writer openWriter()
+      throws IOException
       {
-        pcs.removePropertyChangeListener(listener);
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     * FIXME: this method does nothing. Probably this is inconsistent with DefaultMutableDisplayable? But that is
-     * a Default*, we're just a *Support...
-     *
-     ******************************************************************************************************************/
-    @Override
-    public void setIcon (@Nonnull final Icon icon)
-      {
-      }
-
-    /*******************************************************************************************************************
-     *
-     * Fires the event notifying that {@link #PROP_ICON} has been changed.
-     *
-     * @param  oldIcon   the old value of the property
-     * @param  newIcon   the new value of the property
-     *
-     ******************************************************************************************************************/
-    protected void fireIconChange (@Nonnull final Icon oldIcon, @Nonnull final Icon newIcon)
-      {
-        pcs.firePropertyChange(PROP_ICON, oldIcon, newIcon); // FIXME: should be in the EDT?
+        return Files.newBufferedWriter(path, charset, openOptions);
       }
   }

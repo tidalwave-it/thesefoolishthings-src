@@ -24,33 +24,56 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
+package it.tidalwave.role.io.spi;
 
-import com.thoughtworks.xstream.converters.SingleValueConverter;
-import it.tidalwave.util.Id;
+import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import it.tidalwave.role.io.BinaryWritable;
 
 /***********************************************************************************************************************
  *
+ * An implementation of {@link BinaryWritable} which delegates to a {@link Path}.
+ *
  * @author  Fabrizio Giudici
+ * @since   3.2-ALPHA-12
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-class IdXStreamConverter implements SingleValueConverter
+public class PathBinaryWritable implements BinaryWritable
   {
-    @Override
-    public String toString (final Object object)
+    @Nonnull
+    private final Path path;
+
+    @Nonnull
+    private final OpenOption[] openOptions;
+
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with the given path and options.
+     *
+     * @param   path          the path to open
+     * @param   openOptions   open options
+     *
+     ******************************************************************************************************************/
+    public PathBinaryWritable (@Nonnull final Path path, @Nonnull final OpenOption... openOptions)
       {
-        return ((Id)object).stringValue();
+        this.path = path;
+        this.openOptions = openOptions;
       }
 
-    @Override
-    public Object fromString (final String string)
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public OutputStream openStream()
+      throws IOException
       {
-        return new Id(string);
-      }
-
-    @Override
-    public boolean canConvert (final Class type)
-      {
-        return type.equals(Id.class);
+        return Files.newOutputStream(path, openOptions);
       }
   }

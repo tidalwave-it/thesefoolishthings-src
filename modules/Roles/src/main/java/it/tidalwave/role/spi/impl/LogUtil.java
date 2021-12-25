@@ -128,4 +128,10 @@ public class LogUtil
 
         return "[" + result + "]";
       }
+
+    @Nonnull
+    public static String shortIds (@Nonnull final Object... objects)
+      {
+        return shortIds(Arrays.asList(objects));
+      }
   }

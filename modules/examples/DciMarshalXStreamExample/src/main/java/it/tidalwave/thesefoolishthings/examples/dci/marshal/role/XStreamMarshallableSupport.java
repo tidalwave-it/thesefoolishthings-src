@@ -24,45 +24,34 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.UUID;
-import it.tidalwave.util.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import java.io.OutputStream;
+import it.tidalwave.role.io.Marshallable;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
+ *
+ * A facility class for implementing a {@link Marshallable} using XStream.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable @AllArgsConstructor @Getter
-public class Person
+// START SNIPPET: xstreammarshallablesupport
+@RequiredArgsConstructor
+public abstract class XStreamMarshallableSupport<T> implements Marshallable
   {
     @Nonnull
-    public static Person prototype()
-      {
-        return new Person("", "");
-      }
-
-    public Person (@Nonnull final String firstName, @Nonnull final String lastName)
-      {
-        this(Id.of(UUID.randomUUID().toString()), firstName, lastName);
-      }
-
-    final Id id;
+    private final T datum;
 
     @Nonnull
-    final String firstName;
+    private final XStreamContext xStreamContext;
 
-    @Nonnull
-    final String lastName;
-
-    @Override @Nonnull
-    public String toString()
+    @Override
+    public final void marshal (@Nonnull final OutputStream os)
       {
-        return firstName + " " + lastName;
+        xStreamContext.getXStream().toXML(datum, os);
       }
   }
+// END SNIPPET: xstreammarshallablesupport

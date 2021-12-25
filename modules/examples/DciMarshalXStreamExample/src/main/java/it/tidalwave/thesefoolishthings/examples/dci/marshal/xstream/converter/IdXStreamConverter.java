@@ -24,22 +24,33 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.converter;
 
-import javax.annotation.Nonnull;
-import it.tidalwave.dci.annotation.DciRole;
-import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.XStreamContext;
+import com.thoughtworks.xstream.converters.SingleValueConverter;
+import it.tidalwave.util.Id;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@DciRole(datumType = Person.class, context = XStreamContext.class)
-public final class PersonXStreamMarshallable extends XStreamMarshallableSupport<Person>
+public class IdXStreamConverter implements SingleValueConverter
   {
-    public PersonXStreamMarshallable (@Nonnull final Person datum, @Nonnull final XStreamContext context)
+    @Override
+    public String toString (final Object object)
       {
-        super(datum, context);
+        return ((Id)object).stringValue();
+      }
+
+    @Override
+    public Object fromString (final String string)
+      {
+        return new Id(string);
+      }
+
+    @Override
+    public boolean canConvert (final Class type)
+      {
+        return type.equals(Id.class);
       }
   }

@@ -41,7 +41,7 @@ public class PersonRegistryHelper
     private static final List<Person> PEOPLE = List.of(
         new Person("Michelangelo", "Buonarroti"),
         new Person("Lorenzo", "Bernini"),
-        new Person("Leonardo", "Da Vinci"),
+        new Person("Leonardo", "da Vinci"),
         new Person("Pietro", "Perugino"),
         new Person("Paolo", "Uccello"),
         new Person("Andrea", "Mantegna"),

@@ -50,5 +50,5 @@ public interface ObservableListProvider
      *
      ******************************************************************************************************************/
     @Nonnull
-    public ObservableList<?> createObservableList();
+    public <T> ObservableList<T> createObservableList();
   }

@@ -39,10 +39,10 @@ import lombok.RequiredArgsConstructor;
  * An implementation of {@link BinaryWritable} which delegates to a {@link File}.
  *
  * @author  Fabrizio Giudici
- * @it.tidalwave.javadoc.stable
+ * @deprecated Use PathBinaryWritable instead
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor
+@RequiredArgsConstructor @Deprecated
 public class FileBinaryWritable implements BinaryWritable
   {
     @Nonnull

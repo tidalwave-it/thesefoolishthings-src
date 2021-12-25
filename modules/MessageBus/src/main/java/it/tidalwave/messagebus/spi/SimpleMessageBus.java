@@ -102,9 +102,9 @@ public class SimpleMessageBus implements MessageBus
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void publish (@Nonnull final Topic message)
+    public <TOPIC> void publish (@Nonnull final TOPIC message)
       {
-        publish((Class<Topic>)message.getClass(), message);
+        publish((Class<TOPIC>)message.getClass(), message);
       }
 
     /*******************************************************************************************************************
@@ -113,7 +113,7 @@ public class SimpleMessageBus implements MessageBus
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void publish (@Nonnull final Class<Topic> topic, @Nonnull final Topic message)
+    public <TOPIC> void publish (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)
       {
         log.trace("publish({}, {})", topic, message);
         messageDelivery.deliverMessage(topic, message);
@@ -125,7 +125,7 @@ public class SimpleMessageBus implements MessageBus
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void subscribe (@Nonnull final Class<Topic> topic, @Nonnull final Listener<Topic> listener)
+    public <TOPIC> void subscribe (@Nonnull final Class<TOPIC> topic, @Nonnull final Listener<TOPIC> listener)
       {
         log.debug("subscribe({}, {})", topic, listener);
         findListenersByTopic(topic).add(new WeakReference<>(listener));
@@ -192,9 +192,9 @@ public class SimpleMessageBus implements MessageBus
      *
      ******************************************************************************************************************/
     @Nonnull
-    private <Topic> List<WeakReference<Listener<Topic>>> findListenersByTopic (@Nonnull final Class<Topic> topic)
+    private <TOPIC> List<WeakReference<Listener<TOPIC>>> findListenersByTopic (@Nonnull final Class<TOPIC> topic)
       {
-        List<WeakReference<Listener<Topic>>> listeners = (List)listenersMapByTopic.get(topic);
+        List<WeakReference<Listener<TOPIC>>> listeners = (List)listenersMapByTopic.get(topic);
 
         if (listeners == null)
           {

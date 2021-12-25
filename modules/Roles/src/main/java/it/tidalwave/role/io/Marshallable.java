@@ -32,7 +32,7 @@ import java.io.OutputStream;
 
 /***********************************************************************************************************************
  *
- * The role of an object that can be marshalled.
+ * The role of an object that can be marshalled to an {@link OutputStream}.
  *
  * @stereotype Role
  *
@@ -52,6 +52,7 @@ public interface Marshallable
      * @throws   IOException  in case of errors
      *
      ******************************************************************************************************************/
+    @SuppressWarnings("RedundantThrows")
     public void marshal (@Nonnull OutputStream os)
       throws IOException;
   }
