@@ -659,6 +659,7 @@ object must be created. It is immediately discarded, as the relevant object is t
 The code in example also demonstrates how to invoke the same code binding to an alternate context `XStreamContext2` that uses a different marshalling
 configuration.
 
+PENDING: use of `Ref` for roles with a generic.
 
 #[[###]]# Composite roles
 

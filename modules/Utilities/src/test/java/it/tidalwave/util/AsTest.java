@@ -106,4 +106,49 @@ public class AsTest
         final Optional<Role> result = underTest.maybeAs(Role.class);
         assertThat(result.isPresent(), is(false));
       }
+
+    static interface RoleWithGeneric<T>
+      {
+      }
+
+    private static final As.Ref<RoleWithGeneric<String>> _roleOfStrings_ = As.ref(RoleWithGeneric.class);
+
+    @Test
+    public void as_with_ref_must_properly_work()
+      {
+        // given
+        final RoleWithGeneric<String> role = mock(RoleWithGeneric.class);
+        final As underTest = mock(As.class);
+        when(underTest.as(_roleOfStrings_)).thenReturn(role);
+        // when
+        final RoleWithGeneric<String> actualRole = underTest.as(_roleOfStrings_);
+        // then
+        assertThat(actualRole, is(role));
+      }
+
+    @Test
+    public void maybeAs_with_ref_must_properly_work()
+      {
+        // given
+        final RoleWithGeneric<String> role = mock(RoleWithGeneric.class);
+        final As underTest = mock(As.class);
+        when(underTest.maybeAs(_roleOfStrings_)).thenReturn(Optional.of(role));
+        // when
+        final Optional<RoleWithGeneric<String>> actualRole = underTest.maybeAs(_roleOfStrings_);
+        // then
+        assertThat(actualRole.get(), is(role));
+      }
+
+    @Test
+    public void asMany_with_ref_must_properly_work()
+      {
+        // given
+        final RoleWithGeneric<String> role = mock(RoleWithGeneric.class);
+        final As underTest = mock(As.class);
+        when(underTest.asMany(_roleOfStrings_)).thenReturn(Arrays.asList(role));
+        // when
+        final Collection<RoleWithGeneric<String>> actualRoles = underTest.asMany(_roleOfStrings_);
+        // then
+        assertThat(actualRoles, is(Arrays.asList(role)));
+      }
   }
