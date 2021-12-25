@@ -51,6 +51,47 @@ Snippets for other build tool (such as Gradle) are available [here](dependency-i
 
 
 
+#[[##]]# Pair and Triple
+
+`Pair` and `Triple` are immutable heterogeneous tuples (for n=2,3) that can be simply used to hold values together:
+
+<!-- MACRO{snippet|id=pair1|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+<!-- MACRO{snippet|id=triple1|file=${project.basedir}/src/test/java/it/tidalwave/util/TripleTest.java} -->
+
+Both `Pair` and `Triple` offer methods to generate special `Stream`s. For instance, this code:
+
+<!-- MACRO{snippet|id=pairRangeClosed|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+generates pairs `["foo bar", 1], ["foo bar", 2], ["foo bar", 3]`. The following code:
+
+<!-- MACRO{snippet|id=indexedPairStream|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+generates pairs `[0, "foo"], [1, "bar"]`. Variants allow to start from custom `Stream`s, `Collection`s and `Iterable`s, or
+to pick a different value for the starting index.
+
+`Pair` can be used to easily implement a two-level nested loop with `Stream`s. For instance, the following code:
+
+<!-- MACRO{snippet|id=loop2a|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+is equivalent to this two-levels nested loop:
+
+<!-- MACRO{snippet|id=loop2b|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+In a similar way, this code with `Triple`:
+
+<!-- MACRO{snippet|id=loop2a|file=${project.basedir}/src/test/java/it/tidalwave/util/TripleTest.java} -->
+
+is equivalent to this three-levels nested loop:
+
+<!-- MACRO{snippet|id=loop2b|file=${project.basedir}/src/test/java/it/tidalwave/util/TripleTest.java} -->
+
+![UML](apidocs/it/tidalwave/util/Pair.svg)
+![UML](apidocs/it/tidalwave/util/Triple.svg)
+
+
+
+
 #[[##]]# Finder
 
 A [```Finder```](apidocs/Finder) is a **factory for creating a query that extracts results from a data source**: for instance a query on a registry
