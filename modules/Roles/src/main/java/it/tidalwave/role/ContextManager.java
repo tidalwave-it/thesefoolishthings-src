@@ -85,16 +85,16 @@ public interface ContextManager
                         throw new RuntimeException("No ServiceProvider for ContextManagerProvider");
                       }
 
-                    contextManagerProvider = Objects.requireNonNull(i.next());
-                    assert contextManagerProvider != null : "contextManagerProvider is null";
-                    log.trace("ContextManagerProvider instantiated from META-INF: {}", contextManagerProvider);
+                    contextManagerProvider = Objects.requireNonNull(i.next(), "contextManagerProvider is null");
+                    assert contextManagerProvider != null; // for SpotBugs
+                    log.info("ContextManagerProvider instantiated from META-INF: {}", contextManagerProvider);
                   }
 
                 contextManager = Objects.requireNonNull(contextManagerProvider.getContextManager(),
                                                         "Cannot find ContextManager");
               }
 
-            assert contextManager != null : "contextManager is null";
+            assert contextManager != null; // for SpotBugs
             return contextManager;
           }
 
@@ -217,7 +217,8 @@ public interface ContextManager
      *
      ******************************************************************************************************************/
     @Deprecated
-    default public <V, T extends Throwable> V runWithContext (@Nonnull Object context, @Nonnull Task<V, T> task)
+    public default <V, T extends Throwable> V runWithContext (@Nonnull final Object context,
+                                                              @Nonnull final Task<V, T> task)
       throws T
       {
         return runWithContexts(Collections.singletonList(context), task);
@@ -237,8 +238,8 @@ public interface ContextManager
      *
      ******************************************************************************************************************/
     @Deprecated
-    default public <V, T extends Throwable> V runWithContexts (@Nonnull List<Object> contexts,
-                                                               @Nonnull Task<V, T> task)
+    public default <V, T extends Throwable> V runWithContexts (@Nonnull final List<Object> contexts,
+                                                               @Nonnull final Task<V, T> task)
       throws T
       {
         return runEWithContexts(task::run, contexts.toArray());
@@ -256,7 +257,7 @@ public interface ContextManager
      *
      ******************************************************************************************************************/
     @Deprecated
-    default public <V> V runWithContext (@Nonnull Object context, @Nonnull Supplier<V> task)
+    public default <V> V runWithContext (@Nonnull final Object context, @Nonnull final Supplier<V> task)
       {
         return runWithContexts(task, context);
       }
@@ -273,7 +274,7 @@ public interface ContextManager
      *
      ******************************************************************************************************************/
     @Deprecated
-    default public <V> V runWithContexts (@Nonnull List<Object> contexts, @Nonnull Supplier<V> task)
+    public default <V> V runWithContexts (@Nonnull final List<Object> contexts, @Nonnull final Supplier<V> task)
       {
         return runWithContexts(task, contexts.toArray());
       }
@@ -287,7 +288,7 @@ public interface ContextManager
      * @since   3.2-ALPHA-12
      *
      ******************************************************************************************************************/
-    default public void runWithContexts (@Nonnull Runnable runnable, @Nonnull Object ... contexts)
+    public default void runWithContexts (@Nonnull final Runnable runnable, @Nonnull final Object ... contexts)
       {
         final SupplierWithException<Void, RuntimeException> se = () ->{ runnable.run(); return null; };
         runEWithContexts(se, contexts);
@@ -305,9 +306,9 @@ public interface ContextManager
      *
      ******************************************************************************************************************/
     @Nonnull
-    default public <T> T runWithContexts (@Nonnull Supplier<T> supplier, @Nonnull Object ... contexts)
+    public default <T> T runWithContexts (@Nonnull final Supplier<T> supplier, @Nonnull final Object ... contexts)
       {
-        final SupplierWithException<T, RuntimeException> se = () -> supplier.get();
+        final SupplierWithException<T, RuntimeException> se = supplier::get;
         return runEWithContexts(se, contexts);
       }
 
@@ -322,8 +323,8 @@ public interface ContextManager
      * @since   3.2-ALPHA-12
      *
      ******************************************************************************************************************/
-    default public <E extends Throwable> void runEWithContexts (@Nonnull RunnableWithException<E> runnable,
-                                                                @Nonnull Object ... contexts)
+    public default <E extends Throwable> void runEWithContexts (@Nonnull final RunnableWithException<E> runnable,
+                                                                @Nonnull final Object ... contexts)
       throws E
       {
         final SupplierWithException<Void, E> se = () ->{ runnable.run(); return null; };
@@ -366,7 +367,7 @@ public interface ContextManager
      *
      ******************************************************************************************************************/
     @Nonnull
-    default public Binder binder (@Nonnull final Object ... contexts)
+    public default Binder binder (@Nonnull final Object ... contexts)
       {
         return new Binder(this, contexts);
       }

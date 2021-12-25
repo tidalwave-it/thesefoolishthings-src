@@ -294,6 +294,11 @@ public final class FunctionalCheckedExceptionWrappers
 
     /*******************************************************************************************************************
      *
+     * Wraps a throwable with a {@link RuntimeException}. Unchecked exceptions are not wrapped; {@link IOException}
+     * is wrapped with {@link UncheckedIOException}.
+     *
+     * @param   e   the exception to wrap
+     * @return      the wrapped exception
      *
      ******************************************************************************************************************/
     @Nonnull
