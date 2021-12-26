@@ -42,6 +42,9 @@
     <packaging>pom</packaging>
     <version>3.2-ALPHA-12-SNAPSHOT</version>
     <name>TheseFoolishThings :: Examples (master)</name>
+    <description>
+        A set of examples demonstrating the features of this project.
+    </description>
 
     <properties>
         <tft.javac.source>11</tft.javac.source>
@@ -55,10 +58,9 @@
         <betterbeansbinding.version>1.3.0</betterbeansbinding.version>
         <javax.persistence>2.2</javax.persistence>
         <xstream.version>1.4.18</xstream.version>
+
+        <tft.defaultGoal>install java:exec</tft.defaultGoal>
     </properties>
-    <description>
-        A set of examples demonstrating the features of this project.
-    </description>
 
     <dependencyManagement>
         <dependencies>
