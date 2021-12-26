@@ -46,7 +46,7 @@
     </description>
 
     <properties>
-        <mainClass>it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.Main</mainClass>
+        <tft.mainClass>it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.Main</tft.mainClass>
     </properties>
 
     <dependencies>

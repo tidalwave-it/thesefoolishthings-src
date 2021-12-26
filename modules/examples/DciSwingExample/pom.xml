@@ -46,7 +46,7 @@
     </description>
 
     <properties>
-        <mainClass>it.tidalwave.thesefoolishthings.examples.dci.swing.Main</mainClass>
+        <tft.mainClass>it.tidalwave.thesefoolishthings.examples.dci.swing.Main</tft.mainClass>
     </properties>
 
     <dependencies>
