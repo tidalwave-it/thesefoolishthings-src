@@ -24,25 +24,16 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
-
-import javax.annotation.Nonnull;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import it.tidalwave.role.spring.RoleSpringConfiguration;
+package it.tidalwave.role.spring;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class Main
+public class RoleSpringConfiguration
   {
-    public static void main (@Nonnull final String ... args)
-      throws Exception
-      {
-        final String beans = "it/tidalwave/thesefoolishthings/examples/dci/persistable/jpa/Beans.xml";
-        final BeanFactory context = new ClassPathXmlApplicationContext(RoleSpringConfiguration.BEANS, beans);
-        context.getBean(DciPersistenceJpaExample.class).run();
-      }
+    /** The path of the Spring configuration supporting roles to pass e.g. to a
+        @code ClassPathXmlApplicationContext}. */
+    public static final String BEANS = "classpath*:/META-INF/SpringRoleBeans.xml";
   }
