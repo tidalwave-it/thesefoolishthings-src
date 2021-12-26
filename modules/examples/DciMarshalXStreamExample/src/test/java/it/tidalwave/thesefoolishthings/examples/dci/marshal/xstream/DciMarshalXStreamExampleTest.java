@@ -26,8 +26,6 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
 
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.annotations.Test;
 
 /***********************************************************************************************************************
@@ -35,14 +33,12 @@ import org.testng.annotations.Test;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class DciMarshalXStreamExampleNGTest 
+public class DciMarshalXStreamExampleTest
   {
     @Test
     public void must_not_crash() 
       throws Exception 
       {
-        final String beans = "it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/Beans.xml";
-        final BeanFactory context = new ClassPathXmlApplicationContext(beans);
-        context.getBean(DciMarshalXStreamExample.class).run();
+        Main.main();
       }
   }
