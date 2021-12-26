@@ -27,7 +27,15 @@
 package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
 
 import javax.annotation.Nonnull;
+
+import it.tidalwave.role.ContextManager;
+import it.tidalwave.role.spi.DefaultContextManager;
+import it.tidalwave.role.spi.RoleManager;
+import it.tidalwave.role.spring.spi.AnnotationSpringRoleManager;
+import it.tidalwave.role.spring.spi.SpringContextManagerProvider;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /***********************************************************************************************************************
@@ -35,13 +43,43 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@Configuration
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class Main
   {
+    // @Bean
+    public AutowiredAnnotationBeanPostProcessor aabpp()
+      {
+        return new AutowiredAnnotationBeanPostProcessor();
+      }
+
+    @Bean
+    public RoleManager roleManager()
+      {
+        return new AnnotationSpringRoleManager();
+      }
+
+    @Bean
+    public ContextManager contextManager()
+      {
+        return new DefaultContextManager();
+      }
+
+    @Bean
+    public DciMarshalXStreamExample example()
+      {
+        return new DciMarshalXStreamExample();
+      }
+
+//    <context:annotation-config/>
+//    <context:spring-configured/>
+
     public static void main (@Nonnull final String ... args)
       throws Exception
       {
-        final String beans = "it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/Beans.xml";
-        final BeanFactory context = new ClassPathXmlApplicationContext(beans);
+        // final String beans = "it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/Beans.xml";
+        // final BeanFactory context = new ClassPathXmlApplicationContext(beans);
+        final BeanFactory context = new AnnotationConfigApplicationContext(Main.class);
         context.getBean(DciMarshalXStreamExample.class).run();
       }
   }
