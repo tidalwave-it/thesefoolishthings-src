@@ -26,53 +26,19 @@
  */
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample;
 
-import javax.annotation.Nonnull;
-import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.JpaPersonRegistry;
-import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.TxManagerImpl;
-import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
-import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.thesefoolishthings.examples.jpafinderexample.PersonRegistry3.*;
-import static it.tidalwave.util.Finder.SortDirection.DESCENDING;
+import org.testng.annotations.Test;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Slf4j
-public class Main
+public class MainTest
   {
-    public static void main (@Nonnull final String... args)
+    @Test
+    public void must_not_crash()
             throws Exception
       {
-        try (final TxManager txManager = new TxManagerImpl())
-          {
-            final PersonRegistry3 registry = new JpaPersonRegistry(txManager);
-            PersonRegistryHelper.populate(registry);
-
-            log.info("All: {}",
-                     registry.findPerson()
-                             .results());
-
-            log.info("Count: {}",
-                     registry.findPerson()
-                             .count());
-
-            log.info("Two persons from the 3rd position: {}",
-                     registry.findPerson()
-                             .from(3)
-                             .max(2)
-                             .results());
-
-            log.info("All, sorted by first name: {}",
-                     registry.findPerson()
-                             .sort(BY_FIRST_NAME)
-                             .results());
-
-            log.info("All, sorted by last name, descending: {}",
-                     registry.findPerson()
-                             .sort(BY_LAST_NAME, DESCENDING)
-                             .results());
-          }
+        Main.main();
       }
   }
