@@ -24,25 +24,16 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.dci.displayable;
-
-import javax.annotation.Nonnull;
-
-import it.tidalwave.role.spring.Configuration;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+package it.tidalwave.role.spring;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class Main
+public class Configuration
   {
-    public static void main (@Nonnull final String ... args)
-      {
-        final String beans = "it/tidalwave/thesefoolishthings/examples/dci/displayable/Beans.xml";
-        final BeanFactory context = new ClassPathXmlApplicationContext(Configuration.BEANS, beans);
-        context.getBean(DisplayableExample.class).run();
-      }
+    /** The path of the Spring configuration supporting roles to pass e.g. to a
+        @code ClassPathXmlApplicationContext}. */
+    public static final String BEANS = "classpath*:/META-INF/SpringRoleBeans.xml";
   }

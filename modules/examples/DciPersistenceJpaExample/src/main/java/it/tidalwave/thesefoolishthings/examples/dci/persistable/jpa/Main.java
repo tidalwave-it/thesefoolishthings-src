@@ -29,6 +29,7 @@ package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
 import javax.annotation.Nonnull;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import it.tidalwave.role.spring.Configuration;
 
 /***********************************************************************************************************************
  *
@@ -41,7 +42,7 @@ public class Main
       throws Exception
       {
         final String beans = "it/tidalwave/thesefoolishthings/examples/dci/persistable/jpa/Beans.xml";
-        final BeanFactory context = new ClassPathXmlApplicationContext(beans);
+        final BeanFactory context = new ClassPathXmlApplicationContext(Configuration.BEANS, beans);
         context.getBean(DciPersistenceJpaExample.class).run();
       }
   }
