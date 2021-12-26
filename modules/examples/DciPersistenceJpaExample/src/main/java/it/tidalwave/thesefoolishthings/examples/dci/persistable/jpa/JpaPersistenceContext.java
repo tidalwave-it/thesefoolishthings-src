@@ -35,8 +35,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@DciContext
-@Slf4j
+@DciContext @Slf4j
 public class JpaPersistenceContext
   {
 //    @PersistenceContext
