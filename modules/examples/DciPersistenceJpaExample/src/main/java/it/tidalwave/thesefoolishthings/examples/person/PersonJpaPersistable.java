@@ -27,15 +27,8 @@
 package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.JpaPersistenceContext;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 /***********************************************************************************************************************
  *
@@ -43,24 +36,11 @@ import lombok.ToString;
  *
  **********************************************************************************************************************/
 @DciRole(datumType = Person.class, context = JpaPersistenceContext.class)
-@Entity @NoArgsConstructor @Getter @Setter @ToString
 public class PersonJpaPersistable extends JpaPersistableSupport
   {
-    @Id
-    private String id;
-
-    @Column
-    private String firstName;
-
-    @Column
-    private String lastName;
-
     public PersonJpaPersistable (@Nonnull final Person datum, @Nonnull final JpaPersistenceContext context)
       {
-        super(context);
-        this.id = datum.id.stringValue();
-        this.firstName = datum.firstName;
-        this.lastName = datum.lastName;
+        super(new PersonEntity(datum), context);
       }
 
 //    @Nonnull
@@ -68,5 +48,4 @@ public class PersonJpaPersistable extends JpaPersistableSupport
 //      {
 //        return new Person(new it.tidalwave.util.Id(id), firstName, lastName);
 //      }
-
   }

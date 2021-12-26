@@ -26,8 +26,11 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
 
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import it.tidalwave.util.Id;
 import it.tidalwave.role.AsExtensions;
+import it.tidalwave.role.ContextManager;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.role.Removable._Removable_;
@@ -41,12 +44,23 @@ import static it.tidalwave.role.io.Persistable._Persistable_;
 @ExtensionMethod(AsExtensions.class)
 public class DciPersistenceJpaExample 
   {
+    @Inject
+    private ContextManager contextManager;
+
+    @Inject
+    private JpaPersistenceContext jpaPersistenceContext;
+
     public void run()
       throws Exception
       {
         final Person joe = new Person(new Id("1"), "Joe", "Smith");
+        contextManager.runEWithContexts(() -> doSomething(joe), jpaPersistenceContext);
+      }
 
-        joe.as(_Persistable_).persist();
-        joe.as(_Removable_).remove();
+    private void doSomething (@Nonnull final Person person)
+      throws Exception
+      {
+        person.as(_Persistable_).persist();
+        person.as(_Removable_).remove();
       } 
   }
