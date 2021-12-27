@@ -63,10 +63,10 @@ public interface ContextManager
     @Slf4j @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Locator
       {
-        private final static LazyReference<ContextManager> CONTEXT_MANAGER_REF =
+        private static final LazyReference<ContextManager> CONTEXT_MANAGER_REF =
                 LazyReference.of(Locator::findContextManager);
 
-        private final static LazyReference<ContextManagerProvider> CONTEXT_MANAGER_PROVIDER_REF =
+        private static final LazyReference<ContextManagerProvider> CONTEXT_MANAGER_PROVIDER_REF =
                 LazyReference.of(Locator::findContextManagerProvider);
 
         /***************************************************************************************************************

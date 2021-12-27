@@ -50,7 +50,7 @@ public interface AsDelegateProvider
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Locator
       {
-        private final static LazyReference<AsDelegateProvider> AS_DELEGATE_PROVIDER_REF =
+        private static final LazyReference<AsDelegateProvider> AS_DELEGATE_PROVIDER_REF =
                 LazyReference.of(Locator::findAsSpiProvider);
 
         @Nonnull

@@ -54,10 +54,10 @@ public interface RoleManager
     @Slf4j @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Locator
       {
-        private final static LazyReference<RoleManager> ROLE_MANAGER_REF =
+        private static final LazyReference<RoleManager> ROLE_MANAGER_REF =
                 LazyReference.of(RoleManager.Locator::findRoleManager);
 
-        private final static LazyReference<RoleManagerProvider> ROLE_MANAGER_PROVIDER_REF =
+        private static final LazyReference<RoleManagerProvider> ROLE_MANAGER_PROVIDER_REF =
                 LazyReference.of(RoleManager.Locator::findRoleManagerProvider);
 
         /***************************************************************************************************************
