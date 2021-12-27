@@ -24,37 +24,46 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.impl;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.role.Removable;
-import it.tidalwave.role.io.Persistable;
-import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.JpaPersistenceContext;
-import lombok.AllArgsConstructor;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@AllArgsConstructor
-public abstract class JpaPersistableSupport implements Persistable, Removable
+@Entity @NoArgsConstructor @Getter @Setter @ToString
+public class PersonEntity implements Serializable
   {
-    @Nonnull
-    private final Object entity;
+    @Id
+    private String id;
 
-    @Nonnull
-    private final JpaPersistenceContext context;
+    @Column
+    private String firstName;
 
-    @Override
-    public void persist()
+    @Column
+    private String lastName;
+
+    public PersonEntity (@Nonnull final Person datum)
       {
-        context.persist(entity);
+        this.id = datum.getId().stringValue();
+        this.firstName = datum.getFirstName();
+        this.lastName = datum.getLastName();
       }
 
-    @Override
-    public void remove()
+    @Nonnull
+    public Person toPerson()
       {
-        context.remove(entity);
+        return new Person(new it.tidalwave.util.Id(id), firstName, lastName);
       }
   }

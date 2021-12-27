@@ -24,28 +24,39 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.impl;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.dci.annotation.DciRole;
-import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.JpaPersistenceContext;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import it.tidalwave.dci.annotation.DciContext;
+import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@DciRole(datumType = Person.class, context = JpaPersistenceContext.class)
-public class PersonJpaPersistable extends JpaPersistableSupport
+@DciContext @Slf4j
+public class JpaPersistenceContext
   {
-    public PersonJpaPersistable (@Nonnull final Person datum, @Nonnull final JpaPersistenceContext context)
+    @PersistenceContext
+    private EntityManager em;
+
+    public void persist (@Nonnull final Object entity)
       {
-        super(new PersonEntity(datum), context);
+        em.persist(entity);
       }
 
-//    @Nonnull
-//    public Person toPerson()
-//      {
-//        return new Person(new it.tidalwave.util.Id(id), firstName, lastName);
-//      }
+    public void remove (@Nonnull final Object entity)
+      {
+        em.remove(entity);
+      }
+
+    @Nonnull
+    public <T> TypedQuery<T> createQuery (@Nonnull final String query, @Nonnull final Class<T> entityClass)
+      {
+        return em.createQuery(query, entityClass);
+      }
   }

@@ -24,32 +24,25 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
+package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.dci.annotation.DciContext;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.Optional;
+import it.tidalwave.util.Id;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@DciContext @Slf4j
-public class JpaPersistenceContext
+public interface Findable<T>
   {
-//    @PersistenceContext
-//    private EntityManager em;
+    public static final Class<Findable> _Findable_ = Findable.class;
 
-    public void persist (@Nonnull final Object object)
-      {
-        log.info("******** PERSIST {}", object);
-//        em.persist(object);
-      }
+    @Nonnull
+    public List<T> findAll();
 
-    public void remove (@Nonnull final Object object)
-      {
-        log.info("******** REMOVE {}", object);
-//        em.remove(object);
-      }
+    @Nonnull
+    public Optional<T> findById (@Nonnull Id id);
   }

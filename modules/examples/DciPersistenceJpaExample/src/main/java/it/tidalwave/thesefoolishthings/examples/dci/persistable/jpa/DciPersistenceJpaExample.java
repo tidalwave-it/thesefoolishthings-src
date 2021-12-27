@@ -26,23 +26,24 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
 
-import javax.annotation.Nonnull;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import it.tidalwave.util.Id;
-import it.tidalwave.role.AsExtensions;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import it.tidalwave.role.ContextManager;
+import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.impl.JpaPersistenceContext;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
-import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.role.Removable._Removable_;
-import static it.tidalwave.role.io.Persistable._Persistable_;
+import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
+import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@ExtensionMethod(AsExtensions.class)
-public class DciPersistenceJpaExample 
+@Slf4j
+public class DciPersistenceJpaExample
   {
     @Inject
     private ContextManager contextManager;
@@ -50,17 +51,29 @@ public class DciPersistenceJpaExample
     @Inject
     private JpaPersistenceContext jpaPersistenceContext;
 
+    @Inject
+    private TransactionalProcessor transactionalProcessor;
+
+    @PostConstruct
     public void run()
-      throws Exception
+            throws Exception
       {
-        final Person joe = new Person(new Id("1"), "Joe", "Smith");
-        contextManager.runEWithContexts(() -> doSomething(joe), jpaPersistenceContext);
+        contextManager.runEWithContexts(this::process, jpaPersistenceContext);
       }
 
-    private void doSomething (@Nonnull final Person person)
-      throws Exception
+    private void process()
+            throws Exception
       {
-        person.as(_Persistable_).persist();
-        person.as(_Removable_).remove();
-      } 
+        final List<Person> people = new ArrayList<>();
+        PersonRegistryHelper.populate(people);
+
+        log.info("******** INSERTING PEOPLE...\n");
+        transactionalProcessor.persistPeople(people);
+
+        final List<Person> qPeople = transactionalProcessor.retrievePeople();
+        log.info("******** RETRIEVED PEOPLE {}\n", qPeople);
+
+        final Optional<Person> person = transactionalProcessor.retrievePerson(qPeople.get(1).getId());
+        log.info("******** RETRIEVED PERSON {}\n", person.map(Person::toString).orElse("<not found>"));
+      }
   }

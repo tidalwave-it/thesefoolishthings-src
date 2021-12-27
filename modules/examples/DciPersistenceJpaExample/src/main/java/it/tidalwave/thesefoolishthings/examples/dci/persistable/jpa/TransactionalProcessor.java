@@ -27,43 +27,47 @@
 package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
 
 import javax.annotation.Nonnull;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Bean;
-import it.tidalwave.role.spring.RoleSpringConfiguration;
-import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.impl.JpaPersistenceContext;
+import java.util.List;
+import java.util.Optional;
+import javax.transaction.Transactional;
+import it.tidalwave.util.Id;
+import it.tidalwave.role.AsExtensions;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
+import lombok.experimental.ExtensionMethod;
+import static it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.Findable._Findable_;
+import static it.tidalwave.role.io.Persistable._Persistable_;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@SpringBootApplication
-@EntityScan(basePackages = "it.tidalwave")
-public class Main
+@ExtensionMethod(AsExtensions.class)
+public class TransactionalProcessor
   {
-    @Bean
-    public JpaPersistenceContext jpaPersistenceContext()
+    @Transactional
+    public void persistPeople (@Nonnull final Iterable<Person> persons)
+            throws Exception
       {
-        return new JpaPersistenceContext();
+        persons.forEach(person ->  person.as(_Persistable_).persist());
       }
 
-    @Bean
-    public DciPersistenceJpaExample example()
+//    @Transactional
+//    public void removePeople (@Nonnull final Iterable<Person> persons)
+//            throws Exception
+//      {
+//        persons.forEach(_r(person ->  person.as(_Removable_).remove()));
+//      }
+
+    @Transactional @Nonnull
+    public List<Person> retrievePeople()
       {
-        return new DciPersistenceJpaExample();
+        return Person.prototype().as(_Findable_).findAll();
       }
 
-    @Bean
-    public TransactionalProcessor transactionalProcessor()
+    @Transactional @Nonnull
+    public Optional<Person> retrievePerson (@Nonnull final Id id)
       {
-        return new TransactionalProcessor();
-      }
-
-    public static void main (@Nonnull final String ... args)
-      throws Exception
-      {
-        SpringApplication.run(new Class[] { RoleSpringConfiguration.class, Main.class }, args);
+        return Person.prototype().as(_Findable_).findById(id);
       }
   }

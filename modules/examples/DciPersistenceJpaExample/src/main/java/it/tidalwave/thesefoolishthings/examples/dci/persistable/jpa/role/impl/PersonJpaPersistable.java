@@ -24,46 +24,22 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.impl;
 
 import javax.annotation.Nonnull;
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import it.tidalwave.dci.annotation.DciRole;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Entity @NoArgsConstructor @Getter @Setter @ToString
-public class PersonEntity implements Serializable
+@DciRole(datumType = Person.class, context = JpaPersistenceContext.class)
+public class PersonJpaPersistable extends JpaPersistableSupport<Person, PersonEntity>
   {
-    @Id
-    private String id;
-
-    @Column
-    private String firstName;
-
-    @Column
-    private String lastName;
-
-    public PersonEntity (@Nonnull final Person datum)
+    public PersonJpaPersistable (@Nonnull final Person datum, @Nonnull final JpaPersistenceContext context)
       {
-        this.id = datum.id.stringValue();
-        this.firstName = datum.firstName;
-        this.lastName = datum.lastName;
+        super(datum, PersonEntity.class, PersonEntity::toPerson, PersonEntity::new, context);
       }
-
-//    @Nonnull
-//    public Person toPerson()
-//      {
-//        return new Person(new it.tidalwave.util.Id(id), firstName, lastName);
-//      }
-
   }

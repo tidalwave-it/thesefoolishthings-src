@@ -24,46 +24,72 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
+package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.impl;
 
 import javax.annotation.Nonnull;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Bean;
-import it.tidalwave.role.spring.RoleSpringConfiguration;
-import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.impl.JpaPersistenceContext;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import it.tidalwave.util.Id;
+import it.tidalwave.role.Removable;
+import it.tidalwave.role.io.Persistable;
+import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.Findable;
+import lombok.AllArgsConstructor;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@SpringBootApplication
-@EntityScan(basePackages = "it.tidalwave")
-public class Main
+@AllArgsConstructor
+public abstract class JpaPersistableSupport<T, E> implements Persistable, Removable, Findable<T>
   {
-    @Bean
-    public JpaPersistenceContext jpaPersistenceContext()
+    @Nonnull
+    private final T datum;
+
+    @Nonnull
+    private final Class<E> entityClass;
+
+    @Nonnull
+    private final Function<E, T> fromEntity;
+
+    @Nonnull
+    private final Function<T, E> toEntity;
+
+    @Nonnull
+    private final JpaPersistenceContext context;
+
+    @Override
+    public void persist()
       {
-        return new JpaPersistenceContext();
+        context.persist(toEntity.apply(datum));
       }
 
-    @Bean
-    public DciPersistenceJpaExample example()
+    @Override
+    public void remove()
       {
-        return new DciPersistenceJpaExample();
+        context.remove(toEntity.apply(datum));
       }
 
-    @Bean
-    public TransactionalProcessor transactionalProcessor()
+    @Override @Nonnull
+    public List<T> findAll()
       {
-        return new TransactionalProcessor();
+        final String query = "SELECT p FROM %s p";
+        return context.createQuery(String.format(query, entityClass.getSimpleName()), entityClass)
+                      .getResultStream()
+                      .map(fromEntity)
+                      .collect(Collectors.toList());
       }
 
-    public static void main (@Nonnull final String ... args)
-      throws Exception
+    @Override @Nonnull
+    public Optional<T> findById (@Nonnull final Id id)
       {
-        SpringApplication.run(new Class[] { RoleSpringConfiguration.class, Main.class }, args);
+        final String query = "SELECT p FROM %s p WHERE p.id = :id";
+        return context.createQuery(String.format(query, entityClass.getSimpleName()), entityClass)
+                      .setParameter("id", id.stringValue())
+                      .getResultStream()
+                      .map(fromEntity)
+                      .findFirst();
       }
   }
