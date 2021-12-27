@@ -77,7 +77,7 @@ public class SwingPersonPresentation extends JPanel implements PersonPresentatio
         EventQueue.invokeLater(() ->
           {
             bindings.unbind();
-            ((JFrame)(SwingUtilities.getAncestorOfClass(JFrame.class, SwingPersonPresentation.this))).dispose();
+            ((JFrame)(SwingUtilities.getAncestorOfClass(JFrame.class, this))).dispose();
           });
       }
 
