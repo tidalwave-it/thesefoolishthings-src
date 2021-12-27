@@ -27,7 +27,6 @@
 package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.List;
 import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.thesefoolishthings.examples.dci.swing.role.TableColumnDescriptor;
@@ -49,10 +48,7 @@ public class PersonRegistryTableHeaderDescriptor implements TableHeaderDescripto
     @Override @Nonnull
     public List<TableColumnDescriptor> getColumnDescriptors()
       {
-        final List<TableColumnDescriptor> columnDescriptors = new ArrayList<>();
-        columnDescriptors.add(new TableColumnDescriptor("firstName", "First Name"));
-        columnDescriptors.add(new TableColumnDescriptor("lastName", "Last Name"));
-
-        return columnDescriptors;
+        return List.of(new TableColumnDescriptor("firstName", "First Name"),
+                       new TableColumnDescriptor("lastName", "Last Name"));
       }
   }

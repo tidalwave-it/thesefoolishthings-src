@@ -24,45 +24,44 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.UUID;
-import it.tidalwave.util.Id;
-import lombok.AllArgsConstructor;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
+import com.thoughtworks.xstream.security.AnyTypePermission;
+import it.tidalwave.dci.annotation.DciContext;
+import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.converter.IdXStreamConverter;
+import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.converter.PersonConverter;
+import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
 import lombok.Getter;
 
 /***********************************************************************************************************************
  *
+ * A DCI local Context that provides an {@link XStream} for a few datum classes.
+ *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable @AllArgsConstructor @Getter
-public class Person
+// START SNIPPET: xstreamcontext
+@DciContext
+public class XStreamContext1 implements XStreamContext
   {
-    @Nonnull
-    public static Person prototype()
+    @Getter
+    private final XStream xStream = new XStream(new StaxDriver());
+
+    public XStreamContext1()
       {
-        return new Person("", "");
-      }
+        xStream.alias("person", PersonConverter.MutablePerson.class);
+        xStream.aliasField("first-name", PersonConverter.MutablePerson.class, "firstName");
+        xStream.aliasField("last-name", PersonConverter.MutablePerson.class, "lastName");
+        xStream.useAttributeFor(PersonConverter.MutablePerson.class, "id");
+        xStream.registerConverter(new IdXStreamConverter());
+        xStream.registerConverter(new PersonConverter());
 
-    public Person (@Nonnull final String firstName, @Nonnull final String lastName)
-      {
-        this(Id.of(UUID.randomUUID().toString()), firstName, lastName);
-      }
+        xStream.alias("persons", ListOfPersons.class);
+        xStream.addImplicitCollection(ListOfPersons.class, "persons");
 
-    final Id id;
-
-    @Nonnull
-    final String firstName;
-
-    @Nonnull
-    final String lastName;
-
-    @Override @Nonnull
-    public String toString()
-      {
-        return firstName + " " + lastName;
+        xStream.addPermission(AnyTypePermission.ANY);
       }
   }
+// END SNIPPET: xstreamcontext

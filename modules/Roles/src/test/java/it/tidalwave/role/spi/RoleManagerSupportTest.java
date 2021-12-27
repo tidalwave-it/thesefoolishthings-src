@@ -375,7 +375,7 @@ public class RoleManagerSupportTest
      * To get rid of generics problems.
      *
      ******************************************************************************************************************/
-    private static <T> void assertSetEquals (final Set actual, final Set expected)
+    private static void assertSetEquals (final Set<?> actual, final Set<?> expected)
       {
         assertThat(actual, is(expected));
       }
@@ -385,9 +385,9 @@ public class RoleManagerSupportTest
      * To get rid of generics problems.
      *
      ******************************************************************************************************************/
-    private static <T> void assertListEquals (@Nonnull final String message,
-                                              @Nonnull final List actual,
-                                              @Nonnull final List expected)
+    private static void assertListEquals (@Nonnull final String message,
+                                          @Nonnull final List<?> actual,
+                                          @Nonnull final List<?> expected)
       {
         sort(actual);
         sort(expected);

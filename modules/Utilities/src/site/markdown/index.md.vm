@@ -51,6 +51,47 @@ Snippets for other build tool (such as Gradle) are available [here](dependency-i
 
 
 
+#[[##]]# Pair and Triple
+
+`Pair` and `Triple` are immutable heterogeneous tuples (for n=2,3) that can be simply used to hold values together:
+
+<!-- MACRO{snippet|id=pair1|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+<!-- MACRO{snippet|id=triple1|file=${project.basedir}/src/test/java/it/tidalwave/util/TripleTest.java} -->
+
+Both `Pair` and `Triple` offer methods to generate special `Stream`s. For instance, this code:
+
+<!-- MACRO{snippet|id=pairRangeClosed|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+generates pairs `["foo bar", 1], ["foo bar", 2], ["foo bar", 3]`. The following code:
+
+<!-- MACRO{snippet|id=indexedPairStream|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+generates pairs `[0, "foo"], [1, "bar"]`. Variants allow to start from custom `Stream`s, `Collection`s and `Iterable`s, or
+to pick a different value for the starting index.
+
+`Pair` can be used to easily implement a two-level nested loop with `Stream`s. For instance, the following code:
+
+<!-- MACRO{snippet|id=loop2a|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+is equivalent to this two-levels nested loop:
+
+<!-- MACRO{snippet|id=loop2b|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+In a similar way, this code with `Triple`:
+
+<!-- MACRO{snippet|id=loop2a|file=${project.basedir}/src/test/java/it/tidalwave/util/TripleTest.java} -->
+
+is equivalent to this three-levels nested loop:
+
+<!-- MACRO{snippet|id=loop2b|file=${project.basedir}/src/test/java/it/tidalwave/util/TripleTest.java} -->
+
+![UML](apidocs/it/tidalwave/util/Pair.svg)
+![UML](apidocs/it/tidalwave/util/Triple.svg)
+
+
+
+
 #[[##]]# Finder
 
 A [```Finder```](apidocs/Finder) is a **factory for creating a query that extracts results from a data source**: for instance a query on a registry
@@ -591,21 +632,99 @@ If you got up to here, you have understood what ```As``` is for. Now it's time t
 
 TBD FROM HERE
 
-Static roles
+#[[###]]# Static roles
 
-Most straighy way is to have the detum implement the role interface, even though this is in many case a bad approach; unless the relevant role express a
+Most straight way is to have the detum implement the role interface, even though this is in many case a bad approach; unless the relevant role express a
 behaviour that is inherently part of the datum, up to the point that it couldn't been thought of without it. But this seldom happens.
 
-Dynamic roles
+
+#[[###]]# Dynamic roles
 
 Decoupling the datum from the role makes also possible to have alternatives in the implementation of the same role. For instance, Person might be reused
 in different applications that need to render it in different ways; inside the same application there might be many ways to render it: for instance with
 internationalisation or brief/verbose modalities (full name, only last name, abbreviated first name and last name, etc...). That is the specific implementation
 of the same role might depend on a **context**.
 
-Contextual roles
 
-...
+#[[###]]# Role contexts
+
+The example named "DciMarshalXStreamExample" illustrates how role contexts work, using the popular serialization framework named XStream. A characteristic
+of this framework is a class named `XStream` that acts as a factory for creating marshalling/unmarshalling streams, starting from a bag
+of configuration information. For instance in our example an `XStream` is instantiated and encapsulated in an `XStreamContext1`, where it is also configured:
+
+<!-- MACRO{snippet|id=xstreamcontext|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/XStreamContext1.java} -->
+
+The configuration makes XStream capable of marshalling the classes `Person` and `ListOfPersons` as desired.
+
+`XStreamContext` is just a marker interface that makes it possible to inject different implementations.
+
+<!-- MACRO{snippet|id=xstreamcontext|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/XStreamContext.java} -->
+
+Note: `ListOfPersons` is basically an implementation of `List<Person>` that delegates all methods to an `ArrayList`. While it doesn't offer any specific
+additional behaviour, it is required to use dynamic roles as they are bound to a specific `Class`; because of Java type erasure a `List<Person>`
+cannot be distinguished from a `List` of any other kind, such as `List<String>`. Having a specific subclass fixes this problem, acting as a sort of
+"reification".
+
+One can think of multiple ways of configuring `XStream`, each one with different marshalling parameters; having turned that class into a DCI context, we can
+totally decouple them from the code that invokes marshalling. A DCI context can be bound and unbound to the current thread by specific calls to
+`ContextManager`. Note the `try/finally` pattern to ensure that the context is unbound even in case of exception:
+
+<!-- MACRO{snippet|id=xstreamcontext-contextmanager|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/DciMarshalXStreamExample.java} -->
+
+A shorter syntax using `try-with-resources` is:
+
+<!-- MACRO{snippet|id=xstreamcontext-contextmanager2|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/DciMarshalXStreamExample.java} -->
+
+Alternate variants with lambdas are also supported (PENDING: include examples).
+
+At this point the method `as()` can be called to retrieve the proper `Marshallable` and invoke it:
+
+<!-- MACRO{snippet|id=xstreamcontext-example1|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/DciMarshalXStreamExample.java} -->
+
+A generic support implementation for the `Marshallable` role is as follows:
+
+<!-- MACRO{snippet|id=xstreammarshallablesupport|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/XStreamMarshallableSupport.java} -->
+
+Two subclasses are required to bear the relevant annotations that bind them with their owners (`Person` and `ListOfPersons`). Note that `XStreamContext` is
+declared as a context by means of the `@DciRole` annotation and is injected in the constructor together with the associated datum instance.
+
+<!-- MACRO{snippet|id=personxstreammarshallable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/PersonXStreamMarshallable.java} -->
+
+<!-- MACRO{snippet|id=listofpersonsxstreammarshallable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/ListOfPersonsXStreamMarshallable.java} -->
+
+The implementation of unmarshallers is similar. Just note that in the client code, since `as()` must be called on an instantiated object, a "prototype" empty
+object must be created. It is immediately discarded, as the relevant object is the one returned by the `unmarshall()` call.
+
+<!-- MACRO{snippet|id=xstreamcontext-example2|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/DciMarshalXStreamExample.java} -->
+
+The code in example also demonstrates how to invoke the same code binding to an alternate context `XStreamContext2` that uses a different marshalling
+configuration.
+
+PENDING: use of `Ref` for roles with a generic.
+
+#[[###]]# Composite roles
+
+A role can be implemented by referring other roles. For instance, let's introduce two example roles that save/load an object to/from a `Path`:
+
+<!-- MACRO{snippet|id=savable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/Savable.java} -->
+
+<!-- MACRO{snippet|id=loadable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/Loadable.java} -->
+
+They can be used as follows:
+
+<!-- MACRO{snippet|id=xstreamcontext-savable-loadable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/DciMarshalXStreamExample.java} -->
+
+We can provide implementations relying upon the `Marshallable` / `Unmarshallable` roles:
+
+<!-- MACRO{snippet|id=marshallablesavable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/MarshallableSavable.java} -->
+
+<!-- MACRO{snippet|id=marshallableloadable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/MarshallableLoadable.java} -->
+
+As a side note, the role can be applied to any kind of datum, neither requiring that it implements `As` nor by making use of Lombok `ExtensionMethod`:
+`AsSupport` does the trick working as an adapter.
+
+
+#[[###]]# Other notes to expand
 
 The Tell don't Ask principle says that ... It's one of the way we can make our design really strong and resistant to change. Unfortunately a few people use it;
 furthermore designers who really wish to use it have to deal with a number of frameworks that have been made in an incompatible way (e.g. following the

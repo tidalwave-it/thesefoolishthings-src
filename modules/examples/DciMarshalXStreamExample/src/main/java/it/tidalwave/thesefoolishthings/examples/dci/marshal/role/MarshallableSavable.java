@@ -24,45 +24,48 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.UUID;
-import it.tidalwave.util.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import it.tidalwave.util.As;
+import it.tidalwave.util.spi.AsSupport;
+import it.tidalwave.dci.annotation.DciRole;
+import static it.tidalwave.role.io.Marshallable._Marshallable_;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable @AllArgsConstructor @Getter
-public class Person
+// START SNIPPET: marshallablesavable
+@DciRole(datumType = Object.class)
+public class MarshallableSavable implements Savable
   {
     @Nonnull
-    public static Person prototype()
+    private final As datum;
+
+    public MarshallableSavable (@Nonnull final Object datum)
       {
-        return new Person("", "");
+        this.datum = new AsSupport(datum);
       }
 
-    public Person (@Nonnull final String firstName, @Nonnull final String lastName)
+    @Override
+    public void saveTo (@Nonnull final Path path, @Nonnull final Charset charset, @Nonnull OpenOption ... openOptions)
+            throws IOException
       {
-        this(Id.of(UUID.randomUUID().toString()), firstName, lastName);
-      }
+        assert charset.equals(StandardCharsets.UTF_8);
 
-    final Id id;
-
-    @Nonnull
-    final String firstName;
-
-    @Nonnull
-    final String lastName;
-
-    @Override @Nonnull
-    public String toString()
-      {
-        return firstName + " " + lastName;
+        try (final OutputStream os = Files.newOutputStream(path, openOptions))
+          {
+            datum.as(_Marshallable_).marshal(os);
+          }
       }
   }
+// END SNIPPET: marshallablesavable

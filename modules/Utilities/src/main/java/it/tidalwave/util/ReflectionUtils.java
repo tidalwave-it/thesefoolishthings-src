@@ -75,7 +75,7 @@ public class ReflectionUtils
             else
               {
                 final ParameterizedType parameterizedType = (ParameterizedType) type;
-                final Class<?> rawType = (Class) parameterizedType.getRawType();
+                final Class<?> rawType = (Class<?>) parameterizedType.getRawType();
                 final Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
                 final TypeVariable<?>[] typeParameters = rawType.getTypeParameters();
 
@@ -97,7 +97,7 @@ public class ReflectionUtils
 
         if (type instanceof Class)
           {
-            actualTypeArguments = ((Class)type).getTypeParameters();
+            actualTypeArguments = ((Class<?>)type).getTypeParameters();
           }
         else
           {

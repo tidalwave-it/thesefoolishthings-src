@@ -24,45 +24,24 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.UUID;
-import it.tidalwave.util.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import it.tidalwave.dci.annotation.DciRole;
+import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable @AllArgsConstructor @Getter
-public class Person
+// START SNIPPET: listofpersonsxstreammarshallable
+@DciRole(datumType = ListOfPersons.class, context = XStreamContext.class)
+public final class ListOfPersonsXStreamMarshallable extends XStreamMarshallableSupport<ListOfPersons>
   {
-    @Nonnull
-    public static Person prototype()
+    public ListOfPersonsXStreamMarshallable (@Nonnull final ListOfPersons datum, @Nonnull final XStreamContext context)
       {
-        return new Person("", "");
-      }
-
-    public Person (@Nonnull final String firstName, @Nonnull final String lastName)
-      {
-        this(Id.of(UUID.randomUUID().toString()), firstName, lastName);
-      }
-
-    final Id id;
-
-    @Nonnull
-    final String firstName;
-
-    @Nonnull
-    final String lastName;
-
-    @Override @Nonnull
-    public String toString()
-      {
-        return firstName + " " + lastName;
+        super(datum, context);
       }
   }
+// END SNIPPET: listofpersonsxstreammarshallable

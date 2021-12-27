@@ -24,22 +24,32 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.dci.annotation.DciRole;
-import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.XStreamContext;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@DciRole(datumType = ListOfPersons.class, context = XStreamContext.class)
-public class ListOfPersonsXStreamMarshallable extends XStreamMarshallableSupport<ListOfPersons>
+// START SNIPPET: savable
+public interface Savable
   {
-    public ListOfPersonsXStreamMarshallable (@Nonnull final ListOfPersons datum, @Nonnull final XStreamContext context)
+    public final static Class<Savable> _Savable_ = Savable.class;
+
+    public default void saveTo (@Nonnull final Path path)
+            throws IOException
       {
-        super(datum, context);
+        saveTo(path, StandardCharsets.UTF_8);
       }
+
+    public void saveTo (@Nonnull final Path path, @Nonnull final Charset charset, @Nonnull OpenOption... openOptions)
+            throws IOException;
   }
+// END SNIPPET: savable

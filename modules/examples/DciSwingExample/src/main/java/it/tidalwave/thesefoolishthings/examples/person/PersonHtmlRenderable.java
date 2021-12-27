@@ -28,6 +28,7 @@ package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.role.HtmlRenderable;
+import it.tidalwave.role.StringRenderable;
 import it.tidalwave.dci.annotation.DciRole;
 import lombok.RequiredArgsConstructor;
 
@@ -42,8 +43,7 @@ import lombok.RequiredArgsConstructor;
  **********************************************************************************************************************/
 @DciRole(datumType = Person.class)
 @RequiredArgsConstructor
-public class PersonHtmlRenderable implements HtmlRenderable,
-        it.tidalwave.role.StringRenderable
+public class PersonHtmlRenderable implements HtmlRenderable, StringRenderable
   {
     @Nonnull
     private final Person datum;

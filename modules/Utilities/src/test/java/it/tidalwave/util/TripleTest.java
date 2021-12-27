@@ -45,6 +45,25 @@ public class TripleTest
      *
      ******************************************************************************************************************/
     @Test
+    public void test_Triple()
+      {
+        // when
+        // START SNIPPET: triple1
+        final Triple<String, Integer, Boolean> t = Triple.of("foo bar", 7, false);
+        final String fooBar = t.a;
+        final int seven = t.b;
+        final boolean bool = t.c;
+        // END SNIPPET: triple1
+        // then
+        assertThat(fooBar, is("foo bar"));
+        assertThat(seven, is(7));
+        assertThat(bool, is(false));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
     public void test_tripleStream()
       {
         // given
@@ -104,13 +123,16 @@ public class TripleTest
         // given
         final int limit = 20;
         // when
+        // START SNIPPET: loop2a
         final List<Triple<Integer, Integer, Integer>> actual =
             IntStream.rangeClosed(1, limit)
                      .boxed()
                      .flatMap(a -> Pair.pairRangeClosed(a, a + 1, limit))
                      .flatMap(p -> Triple.tripleRangeClosed(p, p.b + 1, limit))
                      .collect(toList());
+        // END SNIPPET: loop2a
         // then
+        // START SNIPPET: loop2b
         final List<Triple<Integer, Integer, Integer>> expected = new ArrayList<>();
 
         for (int a = 1; a <= limit; a++)
@@ -123,6 +145,7 @@ public class TripleTest
                   }
               }
           }
+        // END SNIPPET: loop2b
 
         assertThat(actual, is(expected));
       }

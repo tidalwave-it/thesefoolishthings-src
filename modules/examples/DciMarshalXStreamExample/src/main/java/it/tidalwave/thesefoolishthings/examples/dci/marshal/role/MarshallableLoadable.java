@@ -24,42 +24,48 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.io.OutputStream;
-import it.tidalwave.role.io.Marshallable;
-import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.XStreamContext;
-import lombok.RequiredArgsConstructor;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import it.tidalwave.util.As;
+import it.tidalwave.util.spi.AsSupport;
+import it.tidalwave.dci.annotation.DciRole;
+import static it.tidalwave.role.io.Unmarshallable._Unmarshallable_;
 
 /***********************************************************************************************************************
  *
- * A facility class for implementing a {@link Marshallable} using XStream. Subclass properly and eventually override
- * {@link #getMarshallingObject(java.lang.Object)} when only a part of the datum must be considered by XStream.
- * 
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor
-public abstract class XStreamMarshallableSupport<D> implements Marshallable
+// START SNIPPET: marshallableloadable
+@DciRole(datumType = Object.class)
+public class MarshallableLoadable implements Loadable
   {
     @Nonnull
-    private final D datum;
+    private final As datum;
 
-    @Nonnull
-    private final XStreamContext xStreamContext;
+    public MarshallableLoadable (@Nonnull final Object datum)
+      {
+        this.datum = new AsSupport(datum);
+      }
 
     @Override
-    public final void marshal (@Nonnull final OutputStream os)
-      throws IOException
+    public <T> T loadFrom (@Nonnull final Path path, @Nonnull final Charset charset, @Nonnull OpenOption ... openOptions)
+            throws IOException
       {
-        xStreamContext.getXStream().toXML(getMarshallingObject(datum), os);
-      }
+        assert charset.equals(StandardCharsets.UTF_8);
 
-    @Nonnull
-    protected Object getMarshallingObject (@Nonnull final D datum)
-      {
-        return datum;
+        try (final InputStream is = Files.newInputStream(path, openOptions))
+          {
+            return datum.as(_Unmarshallable_).unmarshal(is);
+          }
       }
   }
+// END SNIPPET: marshallableloadable

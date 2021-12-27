@@ -24,45 +24,32 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.UUID;
-import it.tidalwave.util.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import java.io.InputStream;
+import it.tidalwave.role.io.Unmarshallable;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
+ * A facility class for implementing a {@link Unmarshallable} using XStream.
+ * 
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable @AllArgsConstructor @Getter
-public class Person
+@RequiredArgsConstructor
+public abstract class XStreamUnmarshallableSupport<T> implements Unmarshallable
   {
     @Nonnull
-    public static Person prototype()
-      {
-        return new Person("", "");
-      }
-
-    public Person (@Nonnull final String firstName, @Nonnull final String lastName)
-      {
-        this(Id.of(UUID.randomUUID().toString()), firstName, lastName);
-      }
-
-    final Id id;
+    private final T datum;
 
     @Nonnull
-    final String firstName;
-
-    @Nonnull
-    final String lastName;
+    private final XStreamContext xStreamContext;
 
     @Override @Nonnull
-    public String toString()
+    public final T unmarshal (@Nonnull final InputStream is)
       {
-        return firstName + " " + lastName;
+        return (T)xStreamContext.getXStream().fromXML(is);
       }
   }
