@@ -28,7 +28,7 @@ package it.tidalwave.thesefoolishthings.examples.dci.displayable;
 
 import javax.annotation.Nonnull;
 
-import it.tidalwave.role.spring.Configuration;
+import it.tidalwave.role.spring.RoleSpringConfiguration;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -42,7 +42,7 @@ public class Main
     public static void main (@Nonnull final String ... args)
       {
         final String beans = "it/tidalwave/thesefoolishthings/examples/dci/displayable/Beans.xml";
-        final BeanFactory context = new ClassPathXmlApplicationContext(Configuration.BEANS, beans);
+        final BeanFactory context = new ClassPathXmlApplicationContext(RoleSpringConfiguration.BEANS, beans);
         context.getBean(DisplayableExample.class).run();
       }
   }

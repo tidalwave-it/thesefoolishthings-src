@@ -28,10 +28,11 @@ package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
 
 import javax.annotation.Nonnull;
 
-import it.tidalwave.role.ContextManager;
-import it.tidalwave.role.spi.RoleManager;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import it.tidalwave.role.spring.RoleSpringConfiguration;
 
 /***********************************************************************************************************************
  *
@@ -39,21 +40,8 @@ import org.springframework.context.annotation.*;
  *
  **********************************************************************************************************************/
 @Configuration
-@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class Main
   {
-    @Bean
-    public RoleManager roleManager()
-      {
-        return RoleManager.Locator.find();
-      }
-
-    @Bean
-    public ContextManager contextManager()
-      {
-        return ContextManager.Locator.find();
-      }
-
     @Bean
     public DciMarshalXStreamExample example()
       {
@@ -63,7 +51,7 @@ public class Main
     public static void main (@Nonnull final String ... args)
       throws Exception
       {
-        final BeanFactory context = new AnnotationConfigApplicationContext(Main.class);
+        final BeanFactory context = new AnnotationConfigApplicationContext(RoleSpringConfiguration.class, Main.class);
         context.getBean(DciMarshalXStreamExample.class).run();
       }
   }
