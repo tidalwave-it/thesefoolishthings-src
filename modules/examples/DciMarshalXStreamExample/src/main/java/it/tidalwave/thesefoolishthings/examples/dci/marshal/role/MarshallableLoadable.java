@@ -57,7 +57,7 @@ public class MarshallableLoadable implements Loadable
       }
 
     @Override
-    public <T> T loadFrom (@Nonnull final Path path, @Nonnull final Charset charset, @Nonnull OpenOption ... openOptions)
+    public <T> T loadFrom (@Nonnull final Path path, @Nonnull final Charset charset, @Nonnull final OpenOption ... openOptions)
             throws IOException
       {
         assert charset.equals(StandardCharsets.UTF_8);

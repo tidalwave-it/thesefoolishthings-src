@@ -57,7 +57,7 @@ public class MarshallableSavable implements Savable
       }
 
     @Override
-    public void saveTo (@Nonnull final Path path, @Nonnull final Charset charset, @Nonnull OpenOption ... openOptions)
+    public void saveTo (@Nonnull final Path path, @Nonnull final Charset charset, @Nonnull final OpenOption ... openOptions)
             throws IOException
       {
         assert charset.equals(StandardCharsets.UTF_8);

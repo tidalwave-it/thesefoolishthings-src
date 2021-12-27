@@ -67,7 +67,7 @@ public class LazyReferenceTest
         // given
         final LazyReference<Object> underTest = LazyReference.of(Object::new);
         // when
-        long count = IntStream.range(0, 10_000_000).parallel().mapToObj(__ -> underTest.get()).distinct().count();
+        final long count = IntStream.range(0, 10_000_000).parallel().mapToObj(__ -> underTest.get()).distinct().count();
         // then
         assertThat(count, is(1L));
       }

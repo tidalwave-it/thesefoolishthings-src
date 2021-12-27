@@ -37,7 +37,6 @@ public class FinderExample2Test
   {
     @Test
     public void must_not_crash()
-            throws Exception
       {
         FinderExample2.main();
       }
