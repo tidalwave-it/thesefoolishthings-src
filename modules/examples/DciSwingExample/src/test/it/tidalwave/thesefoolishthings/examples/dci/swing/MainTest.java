@@ -37,7 +37,6 @@ public class MainTest
   {
     @Test
     public void must_not_crash()
-            throws Exception
       {
         // Main.main(); FIXME: disabled because it blocks
       }
