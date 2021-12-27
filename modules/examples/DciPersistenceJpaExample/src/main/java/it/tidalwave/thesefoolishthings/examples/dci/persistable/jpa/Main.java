@@ -28,7 +28,9 @@ package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
 
 import javax.annotation.Nonnull;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import it.tidalwave.role.spring.RoleSpringConfiguration;
 
 /***********************************************************************************************************************
@@ -36,13 +38,25 @@ import it.tidalwave.role.spring.RoleSpringConfiguration;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@Configuration
 public class Main
   {
+    @Bean
+    public JpaPersistenceContext jpaPersistenceContext()
+      {
+        return new JpaPersistenceContext();
+      }
+
+    @Bean
+    public DciPersistenceJpaExample example()
+      {
+        return new DciPersistenceJpaExample();
+      }
+
     public static void main (@Nonnull final String ... args)
       throws Exception
       {
-        final String beans = "it/tidalwave/thesefoolishthings/examples/dci/persistable/jpa/Beans.xml";
-        final BeanFactory context = new ClassPathXmlApplicationContext(RoleSpringConfiguration.BEANS, beans);
+        final BeanFactory context = new AnnotationConfigApplicationContext(RoleSpringConfiguration.class, Main.class);
         context.getBean(DciPersistenceJpaExample.class).run();
       }
   }

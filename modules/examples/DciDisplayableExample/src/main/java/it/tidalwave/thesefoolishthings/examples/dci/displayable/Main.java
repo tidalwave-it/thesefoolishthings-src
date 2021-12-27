@@ -30,19 +30,27 @@ import javax.annotation.Nonnull;
 
 import it.tidalwave.role.spring.RoleSpringConfiguration;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@Configuration
 public class Main
   {
+    @Bean
+    public DisplayableExample displayableExample()
+      {
+        return new DisplayableExample();
+      }
+
     public static void main (@Nonnull final String ... args)
       {
-        final String beans = "it/tidalwave/thesefoolishthings/examples/dci/displayable/Beans.xml";
-        final BeanFactory context = new ClassPathXmlApplicationContext(RoleSpringConfiguration.BEANS, beans);
+        final BeanFactory context = new AnnotationConfigApplicationContext(RoleSpringConfiguration.class, Main.class);
         context.getBean(DisplayableExample.class).run();
       }
   }
