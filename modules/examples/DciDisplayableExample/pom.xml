@@ -33,13 +33,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings-examples</artifactId>
-        <version>3.2-ALPHA-12-SNAPSHOT</version>
+        <version>3.2-ALPHA-13-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-thesefoolishthings-examples-dci-displayable</artifactId>
-    <version>3.2-ALPHA-12-SNAPSHOT</version>
+    <version>3.2-ALPHA-13-SNAPSHOT</version>
     <name>TheseFoolishThings :: Examples :: DCI :: Displayable</name>
     <description>
         An example of DCI for the Displayable role in a DCI environment.
