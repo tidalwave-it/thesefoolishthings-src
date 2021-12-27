@@ -69,7 +69,7 @@
       <module name="it-tidalwave-util-test" options="-Xlint:all" />
       <module name="modules" options="" />
       <module name="project-archetype" options="-Xlint:all" />
-      <module name="thesefoolishthings-examples" options="-Xlint:all" />
+      <module name="thesefoolishthings-examples" options="" />
     </option>
   </component>
 </project>

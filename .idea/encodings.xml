@@ -16,11 +16,8 @@
     <file url="file://$PROJECT_DIR$/modules/examples/Data/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/Data/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/DciDisplayableExample/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/modules/examples/DciDisplayableExample/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/DciMarshalXStreamExample/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/modules/examples/DciMarshalXStreamExample/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/DciPersistenceJpaExample/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/modules/examples/DciPersistenceJpaExample/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/DciSwingExample/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/DciSwingExample/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/ExtendedFinderExample/src/main/java" charset="UTF-8" />
