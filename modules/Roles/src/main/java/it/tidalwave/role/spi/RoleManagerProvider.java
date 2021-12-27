@@ -24,28 +24,17 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.spring.spi;
+package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.role.ContextManager;
-import it.tidalwave.role.spi.ContextManagerProvider;
-import it.tidalwave.role.spi.DefaultContextManager;
 
 /***********************************************************************************************************************
- *
- * Since the whole library must be independent of Spring or any other DI framework, the {@link ContextManager} is always
- * retrieved by means of {@link ContextManagerProvider} that, in turn, searches for a {@code META-INF/services}
- * registered class.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-// Registered in META-INF/services
-public class SpringContextManagerProvider implements ContextManagerProvider
+public interface RoleManagerProvider
   {
-    @Override @Nonnull
-    public ContextManager getContextManager()
-      {
-        return new DefaultContextManager();
-      }
+    @Nonnull
+    public RoleManager getRoleManager();
   }

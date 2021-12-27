@@ -27,11 +27,9 @@
 package it.tidalwave.role.spring.spi;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Configurable;
 import it.tidalwave.util.As;
 import it.tidalwave.util.Task;
 import it.tidalwave.util.spi.AsDelegate;
@@ -47,12 +45,9 @@ import static it.tidalwave.role.spi.impl.LogUtil.*;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Configurable(preConstruction = true) @Slf4j
+@Slf4j
 class SpringAsDelegate implements AsDelegate
   {
-    @Inject @Nonnull
-    private RoleManager roleManager;
-
     @Nonnull
     private final Object owner;
 
@@ -99,7 +94,7 @@ class SpringAsDelegate implements AsDelegate
                     @Override @Nonnull
                     public List<? extends T> run ()
                       {
-                        return roleManager.findRoles(owner, roleType);
+                        return RoleManager.Locator.find().findRoles(owner, roleType);
                       }
                   }));
 

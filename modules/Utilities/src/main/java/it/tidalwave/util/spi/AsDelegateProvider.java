@@ -44,6 +44,9 @@ public interface AsDelegateProvider
   {
     public static final Class<AsDelegateProvider> _AsDelegateProvider_ = AsDelegateProvider.class;
 
+    public static final LazyReference<EmptyAsDelegateProvider> EMPTY_REF =
+            LazyReference.of(EmptyAsDelegateProvider::new);
+
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Locator
       {
@@ -130,7 +133,7 @@ public interface AsDelegateProvider
     @Nonnull
     public static AsDelegateProvider empty()
       {
-        return LazyReference.of(EmptyAsDelegateProvider::new).get();
+        return EMPTY_REF.get();
       }
 
     /*******************************************************************************************************************

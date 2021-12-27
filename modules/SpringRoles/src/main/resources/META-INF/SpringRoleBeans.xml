@@ -49,9 +49,11 @@
 
     <!-- DCI role injector -->
     <bean id="roleManager"
-          class="it.tidalwave.role.spring.spi.AnnotationSpringRoleManager"/>
+          class="it.tidalwave.role.spi.RoleManager.Locator"
+          factory-method="find"/>
 
     <bean id="contextManager"
-          class="it.tidalwave.role.spi.DefaultContextManager"/>
+          class="it.tidalwave.role.ContextManager.Locator"
+          factory-method="find"/>
 
 </beans>

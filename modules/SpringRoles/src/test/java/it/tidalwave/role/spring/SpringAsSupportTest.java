@@ -60,7 +60,7 @@ public class SpringAsSupportTest // FIXME: tests are genera, move to a AsSupport
     @BeforeMethod
     public void setup()
       {
-        context = new ClassPathXmlApplicationContext("SpringRoleTestBeans.xml");
+        context = new ClassPathXmlApplicationContext(Configuration.BEANS);
         datum1 = new MockDatum1();
         datum2 = new MockDatum2();
       }
