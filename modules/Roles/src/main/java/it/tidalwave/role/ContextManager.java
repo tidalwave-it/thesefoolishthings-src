@@ -28,10 +28,12 @@ package it.tidalwave.role;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.ServiceLoader;
+import java.util.function.Supplier;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.Task;
 import it.tidalwave.role.spi.ContextManagerProvider;
@@ -48,12 +50,6 @@ import lombok.extern.slf4j.Slf4j;
  **********************************************************************************************************************/
 public interface ContextManager
   {
-    // We must compile with Java 7
-    public static interface Supplier<V>
-      {
-        public V get();
-      }
-
     /*******************************************************************************************************************
      *
      * A locator for the {@link ContextManager} which uses the {@link ServiceLoader} facility to be independent of
@@ -89,16 +85,16 @@ public interface ContextManager
                         throw new RuntimeException("No ServiceProvider for ContextManagerProvider");
                       }
 
-                    contextManagerProvider = Objects.requireNonNull(i.next());
-                    assert contextManagerProvider != null : "contextManagerProvider is null";
-                    log.trace("ContextManagerProvider instantiated from META-INF: {}", contextManagerProvider);
+                    contextManagerProvider = Objects.requireNonNull(i.next(), "contextManagerProvider is null");
+                    assert contextManagerProvider != null; // for SpotBugs
+                    log.info("ContextManagerProvider instantiated from META-INF: {}", contextManagerProvider);
                   }
 
                 contextManager = Objects.requireNonNull(contextManagerProvider.getContextManager(),
                                                         "Cannot find ContextManager");
               }
 
-            assert contextManager != null : "contextManager is null";
+            assert contextManager != null; // for SpotBugs
             return contextManager;
           }
 
@@ -131,6 +127,20 @@ public interface ContextManager
             contextManager = null;
             contextManagerProvider = null;
           }
+      }
+
+    @FunctionalInterface
+    public static interface RunnableWithException<E extends Throwable>
+      {
+        public void run()
+                throws E;
+      }
+
+    @FunctionalInterface
+    public static interface SupplierWithException<T, E extends Throwable>
+      {
+        public T get()
+                throws E;
       }
 
     /*******************************************************************************************************************
@@ -203,10 +213,16 @@ public interface ContextManager
      * @param  task               the task
      * @return                    the value produced by the task
      * @throws T                  the exception(s) thrown by the task
+     * @deprecated Use {@link #runWithContexts(Runnable, Object...)} or {@link #runWithContexts(Supplier, Object...)}
      *
      ******************************************************************************************************************/
-    public <V, T extends Throwable> V runWithContext (@Nonnull Object context, @Nonnull Task<V, T> task)
-      throws T;
+    @Deprecated
+    public default <V, T extends Throwable> V runWithContext (@Nonnull final Object context,
+                                                              @Nonnull final Task<V, T> task)
+      throws T
+      {
+        return runWithContexts(Collections.singletonList(context), task);
+      }
 
     /*******************************************************************************************************************
      *
@@ -218,10 +234,16 @@ public interface ContextManager
      * @param  task               the task
      * @return                    the value produced by the task
      * @throws T                  the exception(s) thrown by the task
+     * @deprecated Use {@link #runWithContexts(Runnable, Object...)} or {@link #runWithContexts(Supplier, Object...)}
      *
      ******************************************************************************************************************/
-    public <V, T extends Throwable> V runWithContexts (@Nonnull List<Object> contexts, @Nonnull Task<V, T> task)
-      throws T;
+    @Deprecated
+    public default <V, T extends Throwable> V runWithContexts (@Nonnull final List<Object> contexts,
+                                                               @Nonnull final Task<V, T> task)
+      throws T
+      {
+        return runEWithContexts(task::run, contexts.toArray());
+      }
 
     /*******************************************************************************************************************
      *
@@ -231,19 +253,157 @@ public interface ContextManager
      * @param  context            the context
      * @param  task               the task
      * @return                    the value produced by the task
+     * @deprecated Use {@link #runWithContexts(Runnable, Object...)} or {@link #runWithContexts(Supplier, Object...)}
      *
      ******************************************************************************************************************/
-    public <V> V runWithContext (@Nonnull Object context, @Nonnull Supplier<V> task);
+    @Deprecated
+    public default <V> V runWithContext (@Nonnull final Object context, @Nonnull final Supplier<V> task)
+      {
+        return runWithContexts(task, context);
+      }
 
     /*******************************************************************************************************************
      *
      * Runs a task associated with a new bunch of local contexts. This variant fits functional interfaces.
      *
      * @param  <V>                the type of the returned value
-     * @param  contexts           the context
+     * @param  contexts           the contexts
      * @param  task               the task
      * @return                    the value produced by the task
+     * @deprecated Use {@link #runWithContexts(Runnable, Object...)} or {@link #runWithContexts(Supplier, Object...)}
      *
      ******************************************************************************************************************/
-    public <V> V runWithContexts (@Nonnull List<Object> contexts, @Nonnull Supplier<V> task);
+    @Deprecated
+    public default <V> V runWithContexts (@Nonnull final List<Object> contexts, @Nonnull final Supplier<V> task)
+      {
+        return runWithContexts(task, contexts.toArray());
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Calls a runnable with some local contexts. This method fits functional interfaces.
+     *
+     * @param   runnable          the runnable
+     * @param   contexts          the contexts
+     * @since   3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    public default void runWithContexts (@Nonnull final Runnable runnable, @Nonnull final Object ... contexts)
+      {
+        final SupplierWithException<Void, RuntimeException> se = () ->{ runnable.run(); return null; };
+        runEWithContexts(se, contexts);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Calls a supplier with some local contexts. This method fits functional interfaces.
+     *
+     * @param   <T>               the type of the result
+     * @param   supplier          the supplier
+     * @param   contexts          the contexts
+     * @return                    the value returned by the supplier
+     * @since   3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public default <T> T runWithContexts (@Nonnull final Supplier<T> supplier, @Nonnull final Object ... contexts)
+      {
+        final SupplierWithException<T, RuntimeException> se = supplier::get;
+        return runEWithContexts(se, contexts);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Calls a runnable with some local contexts. This method fits functional interfaces.
+     *
+     * @param   <E>               the type of the thrown exception
+     * @param   runnable          the runnable to call
+     * @param   contexts          the contexts
+     * @throws  E                 the original exception thrown by task
+     * @since   3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    public default <E extends Throwable> void runEWithContexts (@Nonnull final RunnableWithException<E> runnable,
+                                                                @Nonnull final Object ... contexts)
+      throws E
+      {
+        final SupplierWithException<Void, E> se = () ->{ runnable.run(); return null; };
+        runEWithContexts(se, contexts);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Calls a task with some local contexts. This method fits functional interfaces.
+     *
+     * @param   <T>               the type of the returned value
+     * @param   <E>               the type of the thrown exception
+     * @param   task              the task to call
+     * @param   contexts          the contexts
+     * @return                    the value returned by the supplier
+     * @throws  E                 the original exception thrown by task
+     * @since   3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public <T, E extends Throwable> T runEWithContexts (@Nonnull SupplierWithException<T, E> task,
+                                                        @Nonnull Object ... contexts)
+      throws E;
+
+    /*******************************************************************************************************************
+     *
+     * Creates a binder that makes it possible to bind a local context by means of a try-with-resources instead of a
+     * try/finally.
+     *
+     * <pre>
+     * try (final ContextManager.Binder binder = contextManager.binder(context))
+     *   {
+     *     ...
+     *   }
+     * </pre>
+     *
+     * @param   contexts          the contexts
+     * @return                    a binder that can be used in try-with-resources
+     * @since   3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public default Binder binder (@Nonnull final Object ... contexts)
+      {
+        return new Binder(this, contexts);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Used by
+     * @since   3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    public static class Binder implements AutoCloseable
+      {
+        @Nonnull
+        private final ContextManager contextManager;
+
+        @Nonnull
+        private final Object[] contexts;
+
+        private Binder (@Nonnull final ContextManager contextManager, @Nonnull final Object[] contexts)
+          {
+            this.contextManager = contextManager;
+            this.contexts = contexts;
+
+            for (final Object context : contexts)
+              {
+                this.contextManager.addLocalContext(context);
+              }
+          }
+
+        @Override
+        public void close()
+          {
+            for (final Object context : contexts)
+              {
+                this.contextManager.removeLocalContext(context);
+              }
+          }
+      }
   }

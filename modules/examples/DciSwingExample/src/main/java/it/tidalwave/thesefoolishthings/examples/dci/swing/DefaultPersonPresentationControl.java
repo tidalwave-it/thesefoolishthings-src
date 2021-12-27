@@ -27,12 +27,13 @@
 package it.tidalwave.thesefoolishthings.examples.dci.swing;
 
 import javax.annotation.Nonnull;
+import javax.annotation.PostConstruct;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import it.tidalwave.thesefoolishthings.examples.person.DefaultPersonRegistry;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
@@ -41,10 +42,14 @@ import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@RequiredArgsConstructor
 public class DefaultPersonPresentationControl implements PersonPresentationControl
   {
     @Nonnull
     private final PersonPresentation presentation;
+
+    @Nonnull
+    private final PersonRegistry personRegistry;
 
     private final Action okAction = new AbstractAction("Ok")
       {
@@ -54,12 +59,10 @@ public class DefaultPersonPresentationControl implements PersonPresentationContr
           }
       };
 
-    public DefaultPersonPresentationControl (@Nonnull final PersonPresentation presentation)
+    @PostConstruct
+    private void initialize()
       {
-        this.presentation = presentation;
-        final PersonRegistry personRegistry = new DefaultPersonRegistry();
         PersonRegistryHelper.populate(personRegistry);
-
         presentation.bind(okAction, personRegistry);
       }
   }

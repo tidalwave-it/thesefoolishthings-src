@@ -343,6 +343,8 @@ public class FileComparisonUtils
                   indexedPairStream(targetLines).forEach(p -> strings.add(
                           String.format("%s +act[%d] *%s*", TF, targetPosition + p.a, p.b)));
                   break;
+
+                default:
               }
           });
 

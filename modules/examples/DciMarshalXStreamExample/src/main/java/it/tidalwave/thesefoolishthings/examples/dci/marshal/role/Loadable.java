@@ -24,45 +24,32 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.UUID;
-import it.tidalwave.util.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable @AllArgsConstructor @Getter
-public class Person
+// START SNIPPET: loadable
+public interface Loadable
   {
-    @Nonnull
-    public static Person prototype()
+    public final static Class<Loadable> _Loadable_ = Loadable.class;
+
+    public default <T> T loadFrom (@Nonnull final Path path)
+            throws IOException
       {
-        return new Person("", "");
+        return loadFrom(path, StandardCharsets.UTF_8);
       }
 
-    public Person (@Nonnull final String firstName, @Nonnull final String lastName)
-      {
-        this(Id.of(UUID.randomUUID().toString()), firstName, lastName);
-      }
-
-    final Id id;
-
-    @Nonnull
-    final String firstName;
-
-    @Nonnull
-    final String lastName;
-
-    @Override @Nonnull
-    public String toString()
-      {
-        return firstName + " " + lastName;
-      }
+    public <T> T loadFrom (@Nonnull final Path path, @Nonnull final Charset charset, @Nonnull OpenOption... openOptions)
+            throws IOException;
   }
+// END SNIPPET: loadable

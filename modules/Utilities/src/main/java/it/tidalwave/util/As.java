@@ -30,6 +30,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Optional;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /***********************************************************************************************************************
  *
@@ -75,6 +78,24 @@ public interface As
                     throw new AsException(clazz, t);
                   }
               };
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * @since                       3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @RequiredArgsConstructor @EqualsAndHashCode @ToString
+    public static final class Ref<T>
+      {
+        @Nonnull
+        private final Class<?> type;
+
+        @Nonnull
+        public Class<T> getType()
+          {
+            return (Class<T>)type;
           }
       }
 
@@ -148,4 +169,69 @@ public interface As
      ******************************************************************************************************************/
     @Nonnull
     public <T> Collection<T> asMany (@Nonnull Class<? extends T> type);
+
+    /*******************************************************************************************************************
+     *
+     * Creates a role type reference.
+     *
+     * @param   <T>                 the static type
+     * @param   type                the dynamic type
+     * @return                      the type reference
+     * @since                       3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    static <T> Ref<T> ref (@Nonnull final Class<?> type) // FIXME: there's no static check of the argument
+      {
+        return new Ref<>(type);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a role for this object of the specified type. If the implementation can find multiple compliant
+     * roles, only one will be returned.
+     *
+     * @param   <T>                 the static type
+     * @param   ref                 the type reference
+     * @return                      the role
+     * @since                       3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    default <T> T as (@Nonnull final Ref<T> ref)
+      {
+        return as(ref.getType());
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns the requested role or an empty {@link Optional}.
+     *
+     * @param   <T>                 the static type
+     * @param   ref                 the type reference
+     * @return                      the optional role
+     * @since                       3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    default <T> Optional<T> maybeAs (@Nonnull final Ref<T> ref)
+      {
+        return maybeAs(ref.getType());
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns the requested role or an empty {@link Optional}.
+     *
+     * @param   <T>                 the static type
+     * @param   ref                 the type reference
+     * @return                      the roles
+     * @since                       3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    default <T> Collection<T> asMany (@Nonnull final Ref<T> ref)
+      {
+        return asMany(ref.getType());
+      }
   }

@@ -39,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
- * An executor that propagates the {@link Collaboration}.
+ * An executor that propagates the {@link it.tidalwave.actor.Collaboration}.
  *
  * @author  Fabrizio Giudici
  *

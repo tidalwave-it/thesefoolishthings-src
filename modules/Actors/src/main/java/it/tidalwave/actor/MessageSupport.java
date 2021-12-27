@@ -63,7 +63,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     @Nonnull
     protected final DefaultCollaboration collaboration;
 
-    private final MessageDecorator sameMessageDecorator = new MessageDecorator.Same(this);
+    private final MessageDecorator sameMessageDecorator = new MessageDecorator.Same<>(this);
 
 //    @Delegate // FIXME: use AsSupport
 //    private AsDelegate asDelegate = AsDelegateProvider.Locator.find().createAsDelegate(this);

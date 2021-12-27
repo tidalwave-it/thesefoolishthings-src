@@ -339,7 +339,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
 
         if (firstResult > toIndex)
           {
-            return new CopyOnWriteArrayList();
+            return new CopyOnWriteArrayList<>();
           }
 
         results = results.subList(firstResult, toIndex);

@@ -33,10 +33,13 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Supplier;
 import it.tidalwave.util.Task;
+import it.tidalwave.role.ContextManager;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
+import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -209,7 +212,7 @@ public class DefaultContextManagerTest
      ******************************************************************************************************************/
     @Test
     public void must_confine_local_contexts_in_their_thread()
-      throws InterruptedException
+            throws InterruptedException
       {
         // given
         final ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -217,23 +220,23 @@ public class DefaultContextManagerTest
 
         final Runnable r1 = () ->
           {
-            underTest.addGlobalContext(globalContext1);
-            underTest.addLocalContext(localContext1);
-            latch.countDown();
+          underTest.addGlobalContext(globalContext1);
+          underTest.addLocalContext(localContext1);
+          latch.countDown();
           };
 
         final Runnable r2 = () ->
           {
-            underTest.addGlobalContext(globalContext2);
-            underTest.addLocalContext(localContext2);
-            latch.countDown();
+          underTest.addGlobalContext(globalContext2);
+          underTest.addLocalContext(localContext2);
+          latch.countDown();
           };
 
         final Runnable r3 = () ->
           {
-            underTest.addGlobalContext(globalContext3);
-            underTest.addLocalContext(localContext3);
-            latch.countDown();
+          underTest.addGlobalContext(globalContext3);
+          underTest.addLocalContext(localContext3);
+          latch.countDown();
           };
         // when
         executorService.submit(r1);
@@ -260,15 +263,15 @@ public class DefaultContextManagerTest
         // when
         final List<Object> contextsInThread = new ArrayList<>();
         final String result = underTest.runWithContexts(asList(localContext1, localContext2, localContext3),
-            new Task<String, RuntimeException>()
-          {
-            @Override @Nonnull
-            public String run()
-              {
-                contextsInThread.addAll(underTest.getContexts());
-                return "result";
-              }
-          });
+                                                         new Task<String, RuntimeException>()
+                                                          {
+                                                            @Override @Nonnull
+                                                            public String run()
+                                                              {
+                                                                contextsInThread.addAll(underTest.getContexts());
+                                                                return "result";
+                                                              }
+                                                          });
         final List<Object> contextsAfter = underTest.getContexts();
         // then
         assertThat(contextsBefore, is(asList(globalContext1, globalContext2, globalContext3)));
@@ -276,5 +279,101 @@ public class DefaultContextManagerTest
                                                localContext3, localContext2, localContext1)));
         assertThat(contextsAfter, is(contextsBefore));
         assertThat(result, is("result"));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_properly_remove_local_contexts()
+      {
+        // given
+        final DefaultContextManager underTest = spy(DefaultContextManager.class);
+        final Runnable body = mock(Runnable.class);
+        // when
+        try (ContextManager.Binder binder = underTest.binder(localContext1, localContext2, localContext3))
+          {
+            body.run();
+          }
+        // then
+        verify(underTest).addLocalContext(same(localContext1));
+        verify(underTest).addLocalContext(same(localContext2));
+        verify(underTest).addLocalContext(same(localContext3));
+        verify(body).run();
+        verify(underTest).removeLocalContext(same(localContext1));
+        verify(underTest).removeLocalContext(same(localContext2));
+        verify(underTest).removeLocalContext(same(localContext3));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_properly_remove_local_contexts_when_exception_throw()
+      {
+        // given
+        final DefaultContextManager underTest = spy(DefaultContextManager.class);
+        final Runnable body = mock(Runnable.class);
+        // when
+        try (ContextManager.Binder binder = underTest.binder(localContext1, localContext2, localContext3))
+          {
+            body.run();
+            throw new RuntimeException("Purportedly generated exception");
+          }
+        catch (RuntimeException e)
+          {
+            // caught
+          }
+        // then
+        verify(underTest).addLocalContext(same(localContext1));
+        verify(underTest).addLocalContext(same(localContext2));
+        verify(underTest).addLocalContext(same(localContext3));
+        verify(body).run();
+        verify(underTest).removeLocalContext(same(localContext1));
+        verify(underTest).removeLocalContext(same(localContext2));
+        verify(underTest).removeLocalContext(same(localContext3));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_properly_remove_local_contexts_with_runnable()
+      {
+        // given
+        final DefaultContextManager underTest = spy(DefaultContextManager.class);
+        final Runnable body = mock(Runnable.class);
+        // when
+        underTest.runWithContexts(body::run, localContext1, localContext2, localContext3);
+        // then
+        verify(underTest).addLocalContext(same(localContext1));
+        verify(underTest).addLocalContext(same(localContext2));
+        verify(underTest).addLocalContext(same(localContext3));
+        verify(body).run();
+        verify(underTest).removeLocalContext(same(localContext1));
+        verify(underTest).removeLocalContext(same(localContext2));
+        verify(underTest).removeLocalContext(same(localContext3));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_properly_remove_local_contexts_with_supplier()
+      {
+        // given
+        final DefaultContextManager underTest = spy(DefaultContextManager.class);
+        final Runnable body = mock(Runnable.class);
+        final Supplier<String> s = () -> "foo bar";
+        // when
+        final String result = underTest.runWithContexts(s, localContext1, localContext2, localContext3);
+        // then
+        verify(underTest).addLocalContext(same(localContext1));
+        verify(underTest).addLocalContext(same(localContext2));
+        verify(underTest).addLocalContext(same(localContext3));
+        verify(underTest).removeLocalContext(same(localContext1));
+        verify(underTest).removeLocalContext(same(localContext2));
+        verify(underTest).removeLocalContext(same(localContext3));
+        assertThat(result, is("foo bar"));
       }
   }

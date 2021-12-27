@@ -24,37 +24,24 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
+package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
-import it.tidalwave.dci.annotation.DciContext;
-import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
+import javax.annotation.Nonnull;
+import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
-import lombok.Getter;
 
 /***********************************************************************************************************************
- *
- * A DCI local Context that provides an {@link XStream} for a few datum classes.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@DciContext
-public class XStreamContext
+// START SNIPPET: personxstreammarshallable
+@DciRole(datumType = Person.class, context = XStreamContext.class)
+public final class PersonXStreamMarshallable extends XStreamMarshallableSupport<Person>
   {
-    @Getter
-    private final XStream xStream = new XStream(new StaxDriver());
-
-    public XStreamContext()
+    public PersonXStreamMarshallable (@Nonnull final Person datum, @Nonnull final XStreamContext context)
       {
-        xStream.alias("person", Person.class);
-        xStream.aliasField("first-name", Person.class, "firstName");
-        xStream.aliasField("last-name", Person.class, "lastName");
-        xStream.useAttributeFor(Person.class, "id");
-        xStream.registerConverter(new IdXStreamConverter());
-
-        xStream.alias("persons", ListOfPersons.class);
-        xStream.addImplicitCollection(ListOfPersons.class, "persons");
+        super(datum, context);
       }
   }
+// END SNIPPET: personxstreammarshallable

@@ -28,6 +28,7 @@ package it.tidalwave.messagebus.impl.spring;
 
 import java.lang.reflect.Method;
 import javax.annotation.Nonnull;
+import it.tidalwave.util.annotation.VisibleForTesting;
 import it.tidalwave.messagebus.MessageBus;
 import it.tidalwave.messagebus.MessageBusHelper;
 import it.tidalwave.messagebus.MessageBusHelper.MethodAdapter;
@@ -52,8 +53,8 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
      *
      *
      ******************************************************************************************************************/
-    @Getter /* visible for testing */ @ToString(of = "method")
-    class MessageBusListenerAdapter<Topic> implements MethodAdapter<Topic>, MessageBus.Listener<Topic>
+    @Getter @VisibleForTesting @ToString(of = "method")
+    class MessageBusListenerAdapter<TOPIC> implements MethodAdapter<TOPIC>, MessageBus.Listener<TOPIC>
       {
         @Nonnull
         private final Object owner;
@@ -62,11 +63,11 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
         private final Method method;
 
         @Nonnull
-        private final Class<Topic> topic;
+        private final Class<TOPIC> topic;
 
         public MessageBusListenerAdapter (@Nonnull final Object owner,
                                           @Nonnull final Method method,
-                                          @Nonnull final Class<Topic> topic)
+                                          @Nonnull final Class<TOPIC> topic)
           {
             this.owner  = owner;
             this.method = method;
@@ -75,7 +76,7 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
           }
 
         @Override
-        public void notify (@Nonnull final Topic message)
+        public void notify (@Nonnull final TOPIC message)
           {
             log.trace("notify({})", message);
 
@@ -109,11 +110,11 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <Topic> MethodAdapter createMethodAdapter (@Nonnull final Object owner,
-                                                      @Nonnull final Method method,
-                                                      @Nonnull final Class<Topic> topic)
+    public <TOPIC> MethodAdapter<TOPIC> createMethodAdapter (@Nonnull final Object owner,
+                                                             @Nonnull final Method method,
+                                                             @Nonnull final Class<TOPIC> topic)
       {
-        return new MessageBusListenerAdapter(owner, method, topic);
+        return new MessageBusListenerAdapter<>(owner, method, topic);
       }
 
     /*******************************************************************************************************************
@@ -133,7 +134,7 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
      *
      ******************************************************************************************************************/
     @Override
-    public <Topic> void publish (@Nonnull final Class<Topic> topic, @Nonnull final Topic message)
+    public <TOPIC> void publish (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)
       {
         messageBus.publish(topic, message);
       }

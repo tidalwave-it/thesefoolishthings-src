@@ -24,45 +24,56 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.role.io.spi;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-import java.util.UUID;
-import it.tidalwave.util.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import it.tidalwave.role.io.BinaryReadable;
 
 /***********************************************************************************************************************
  *
+ * An implementation of {@link BinaryReadable} which delegates to a {@link Path}.
+ *
  * @author  Fabrizio Giudici
+ * @since   3.2-ALPHA-12
+ * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-@Immutable @AllArgsConstructor @Getter
-public class Person
+public class PathBinaryReadable implements BinaryReadable
   {
     @Nonnull
-    public static Person prototype()
-      {
-        return new Person("", "");
-      }
-
-    public Person (@Nonnull final String firstName, @Nonnull final String lastName)
-      {
-        this(Id.of(UUID.randomUUID().toString()), firstName, lastName);
-      }
-
-    final Id id;
+    private final Path path;
 
     @Nonnull
-    final String firstName;
+    private final OpenOption[] openOptions;
 
-    @Nonnull
-    final String lastName;
+    /*******************************************************************************************************************
+     *
+     * Creates an instance with the given path and options.
+     *
+     * @param   path          the path to open
+     * @param   openOptions   open options
+     *
+     ******************************************************************************************************************/
+    public PathBinaryReadable (@Nonnull final Path path, @Nonnull final OpenOption... openOptions)
+      {
+        this.path = path;
+        this.openOptions = openOptions;
+      }
 
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
     @Override @Nonnull
-    public String toString()
+    public InputStream openStream()
+      throws IOException
       {
-        return firstName + " " + lastName;
+        return Files.newInputStream(path, openOptions);
       }
   }

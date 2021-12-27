@@ -32,7 +32,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 import it.tidalwave.util.NotFoundException;
-import it.tidalwave.util.Task;
 import it.tidalwave.role.ContextManager;
 import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.role.spi.impl.LogUtil.*;
@@ -50,7 +49,7 @@ public class DefaultContextManager implements ContextManager
             DefaultContextManager.class.getName() + ".dumpStackAtCreation");
 
     /** The list of global contexts, ordered by priority. */
-    private final List<Object> globalContexts = new ArrayList<>();
+    private final List<Object> globalContexts = Collections.synchronizedList(new ArrayList<>());
 
     /** The list of local contexts, ordered by priority. */
     private final ThreadLocal<Stack<Object>> localContexts = new ThreadLocal<Stack<Object>>()
@@ -166,86 +165,22 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <V, T extends Throwable> V runWithContext (@Nonnull final Object context,
-                                                      @Nonnull final Task<V, T> task)
-      throws T
+    public <T, E extends Throwable> T runEWithContexts (@Nonnull SupplierWithException<T, E> supplier,
+                                                        @Nonnull final Object ... contexts)
+            throws E
       {
-        return runWithContexts(Collections.singletonList(context), task);
-      }
+        log.trace("runWithContexts({}, {})", shortId(supplier), shortIds(contexts));
 
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override @Nonnull
-    public <V, T extends Throwable> V runWithContexts (@Nonnull final List<Object> contexts,
-                                                       @Nonnull final Task<V, T> task)
-      throws T
-      {
-        final String taskId = shortId(task);
-        final String contextIds = shortIds(contexts);
-
-        try
+        try (final Binder __ = binder(contexts))
           {
-            log.trace("runWithContexts({}, {})", contextIds, taskId);
-
-            for (final Object context : contexts)
-              {
-                addLocalContext(context);
-              }
-
             if (log.isTraceEnabled())
               {
                 log.trace(">>>> contexts now: {} - {}", getContexts(), this);
               }
 
-            return task.run();
+            final T result = supplier.get();
+            log.trace(">>>> runWithContexts({}, {}) completed", shortId(supplier), shortIds(contexts));
+            return result;
           }
-        finally
-          {
-            for (final Object context : contexts)
-              {
-                removeLocalContext(context);
-              }
-
-            log.trace(">>>> runWithContexts({}, {}) completed", contextIds, taskId);
-          }
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override
-    public <V> V runWithContext (@Nonnull final Object context, @Nonnull final Supplier<V> task)
-      {
-        return runWithContext(context, new Task<V, RuntimeException>()
-          {
-            @Override
-            public V run()
-              {
-                return task.get();
-              }
-          });
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override
-    public <V> V runWithContexts (@Nonnull final List<Object> contexts, @Nonnull final Supplier<V> task)
-      {
-        return runWithContext(contexts, new Task<V, RuntimeException>()
-          {
-            @Override
-            public V run()
-              {
-                return task.get();
-              }
-          });
       }
   }

@@ -29,9 +29,11 @@ package it.tidalwave.thesefoolishthings.examples.person;
 import javax.annotation.Nonnull;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
+import it.tidalwave.util.Finder.InMemorySortCriterion;
 import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.thesefoolishthings.examples.dci.swing.role.ObservableListProvider;
 import lombok.RequiredArgsConstructor;
+import static java.util.Comparator.*;
 
 /***********************************************************************************************************************
  *
@@ -39,7 +41,7 @@ import lombok.RequiredArgsConstructor;
  *
  * @stereotype Role
  *
- * @author  Fabrizio Giudici
+ * @author Fabrizio Giudici
  *
  **********************************************************************************************************************/
 @DciRole(datumType = PersonRegistry.class)
@@ -49,9 +51,12 @@ public class PersonRegistryObservableListProvider implements ObservableListProvi
     @Nonnull
     private final PersonRegistry datum;
 
-    @Override @Nonnull
-    public ObservableList<?> createObservableList()
+    @Override  @Nonnull
+    public ObservableList<? extends Person> createObservableList()
       {
-        return ObservableCollections.observableList(datum.findPerson().results()); // FIXME: sort
+        return ObservableCollections.observableList(
+                datum.findPerson()
+                     .sort(InMemorySortCriterion.of(comparing(Person::getLastName).thenComparing(Person::getFirstName)))
+                     .results());
       }
   }

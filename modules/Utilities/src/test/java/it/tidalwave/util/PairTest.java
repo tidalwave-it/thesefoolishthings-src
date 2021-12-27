@@ -59,6 +59,23 @@ public class PairTest
      *
      ******************************************************************************************************************/
     @Test
+    public void test_Pair()
+      {
+        // when
+        // START SNIPPET: pair1
+        final Pair<String, Integer> p = Pair.of("foo bar", 7);
+        final String fooBar = p.a;
+        final int seven = p.b;
+        // END SNIPPET: pair1
+        // then
+        assertThat(fooBar, is("foo bar"));
+        assertThat(seven, is(7));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
     public void test_pairStream()
       {
         // given
@@ -117,12 +134,15 @@ public class PairTest
         // given
         final int limit = 20;
         // when
+        // START SNIPPET: loop2a
         final List<Pair<Integer, Integer>> actual =
                 IntStream.rangeClosed(1, limit)
                          .boxed()
                          .flatMap(a -> Pair.pairRangeClosed(a, a + 1, limit))
                          .collect(toList());
+        // END SNIPPET: loop2a
         // then
+        // START SNIPPET: loop2b
         final List<Pair<Integer, Integer>> expected = new ArrayList<>();
 
         for (int a = 1; a <= limit; a++)
@@ -132,6 +152,7 @@ public class PairTest
                 expected.add(Pair.of(a, b));
               }
           }
+        // END SNIPPET: loop2b
 
         assertThat(actual, is(expected));
       }
@@ -355,5 +376,19 @@ public class PairTest
         expected.put(3, "four");
         expected.put(4, "five");
         assertThat(actual, is(expected));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    private void examples()
+      {
+        // START SNIPPET: pairRangeClosed
+        final Stream<Pair<String, Integer>> stream1 = Pair.pairRangeClosed("foo bar", 1, 3);
+        // END SNIPPET: pairRangeClosed
+        // START SNIPPET: indexedPairStream
+        final Stream<Pair<Integer, String>> stream2 = Pair.indexedPairStream(Arrays.asList("foo", "bar"));
+        // END SNIPPET: indexedPairStream
+
       }
   }
