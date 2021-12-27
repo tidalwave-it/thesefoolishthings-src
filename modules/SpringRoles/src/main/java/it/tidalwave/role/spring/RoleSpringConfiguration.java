@@ -28,7 +28,6 @@ package it.tidalwave.role.spring;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.RoleManager;
 
@@ -38,7 +37,6 @@ import it.tidalwave.role.spi.RoleManager;
  *
  **********************************************************************************************************************/
 @Configuration
-@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class RoleSpringConfiguration
   {
     /** The path of the Spring configuration supporting roles to pass e.g. to a
