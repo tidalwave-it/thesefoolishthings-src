@@ -29,7 +29,6 @@ package it.tidalwave.util;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
-import it.tidalwave.util.spi.AsSupport;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.mockito.invocation.InvocationOnMock;
@@ -76,14 +75,14 @@ public final class MockAs
                                                       @Nonnull final Collection<Object> roles)
       {
         final T mock = mock(clazz);
-        final AsSupport asSupport = new AsSupport(mock, roles);
+        final As as = As.forObject(mock, roles);
         when(mock.as(any(Class.class))).thenAnswer(new Answer<Object>()
           {
             @Override @Nonnull
             public Object answer (@Nonnull final InvocationOnMock invocation)
               {
                 final Class<?> roleType = (Class<?>)invocation.getArguments()[0];
-                return asSupport.as(roleType);
+                return as.as(roleType);
               }
           });
 

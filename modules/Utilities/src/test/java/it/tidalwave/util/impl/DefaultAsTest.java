@@ -24,7 +24,7 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.spi;
+package it.tidalwave.util.impl;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -32,6 +32,8 @@ import java.util.Collection;
 import java.util.List;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.RoleFactory;
+import it.tidalwave.util.spi.AsDelegate;
+import it.tidalwave.util.spi.AsDelegateProvider;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.testng.annotations.BeforeMethod;
@@ -46,7 +48,7 @@ import static org.hamcrest.MatcherAssert.*;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class AsSupportTest
+public class DefaultAsTest
   {
     @RequiredArgsConstructor
     public static class FixedAsDelegateProvider implements AsDelegateProvider
@@ -129,8 +131,8 @@ public class AsSupportTest
     public void must_find_local_roles()
       {
         // given
-        final AsSupport underTest1 = new AsSupport(owner, r(localRole1));
-        final AsSupport underTest2 = new AsSupport(owner, r(localRole1, localRole2));
+        final DefaultAs underTest1 = new DefaultAs(owner, r(localRole1));
+        final DefaultAs underTest2 = new DefaultAs(owner, r(localRole1, localRole2));
         // when
         final Role1 ut1role1 = underTest1.as(Role1.class);
         final Role1 ut2Role1 = underTest2.as(Role1.class);
@@ -148,7 +150,7 @@ public class AsSupportTest
     public void must_create_role_from_factory()
       {
         // given
-        final AsSupport underTest = new AsSupport(owner, r(new RoleFactory3()));
+        final DefaultAs underTest = new DefaultAs(owner, r(new RoleFactory3()));
         // when
         final Role3 role = underTest.as(Role3.class);
         // then
@@ -163,7 +165,7 @@ public class AsSupportTest
     public void must_not_find_inexistent_role()
       {
         // given
-        final AsSupport underTest = new AsSupport(owner, r(localRole1));
+        final DefaultAs underTest = new DefaultAs(owner, r(localRole1));
         // when
         underTest.as(Role2.class);
       }
@@ -175,7 +177,7 @@ public class AsSupportTest
     public void must_not_find_inexistent_role_bis()
       {
         // given
-        final AsSupport underTest = new AsSupport(owner, r(localRole2));
+        final DefaultAs underTest = new DefaultAs(owner, r(localRole2));
         // when
         underTest.as(Role1.class);
       }
@@ -188,7 +190,7 @@ public class AsSupportTest
       {
         // given
         AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(r(delegateRole2)));
-        final AsSupport underTest = new AsSupport(owner);
+        final DefaultAs underTest = new DefaultAs(owner);
         // when
         final Role2 role = underTest.as(Role2.class);
         // then
@@ -203,7 +205,7 @@ public class AsSupportTest
       {
         // given
         AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(r(delegateRole2)));
-        final AsSupport underTest = new AsSupport(owner, r(localRole2));
+        final DefaultAs underTest = new DefaultAs(owner, r(localRole2));
         // when
         final Role2 role = underTest.as(Role2.class);
         // then
@@ -217,7 +219,7 @@ public class AsSupportTest
     public void must_retrieve_multiple_local_roles()
       {
         // given
-        final AsSupport underTest = new AsSupport(owner, r(localRole2, localRole2b));
+        final DefaultAs underTest = new DefaultAs(owner, r(localRole2, localRole2b));
         // when
         final Collection<Role2> roles = underTest.asMany(Role2.class);
         // then
@@ -234,7 +236,7 @@ public class AsSupportTest
       {
         // given
         AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(r(delegateRole2)));
-        final AsSupport underTest = new AsSupport(owner, r(localRole2, localRole2b));
+        final DefaultAs underTest = new DefaultAs(owner, r(localRole2, localRole2b));
         // when
         final Collection<Role2> roles = underTest.asMany(Role2.class);
         // then

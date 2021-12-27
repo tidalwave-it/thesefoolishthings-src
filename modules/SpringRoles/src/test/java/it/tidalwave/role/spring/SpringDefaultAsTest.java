@@ -46,7 +46,7 @@ import static org.hamcrest.MatcherAssert.*;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class SpringAsSupportTest // FIXME: tests are genera, move to a AsSupportTestSupport
+public class SpringDefaultAsTest // FIXME: tests are genera, move to a AsSupportTestSupport
   {
     private ApplicationContext context;
 

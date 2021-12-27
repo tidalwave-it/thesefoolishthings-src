@@ -721,7 +721,7 @@ We can provide implementations relying upon the `Marshallable` / `Unmarshallable
 <!-- MACRO{snippet|id=marshallableloadable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/MarshallableLoadable.java} -->
 
 As a side note, the role can be applied to any kind of datum, neither requiring that it implements `As` nor by making use of Lombok `ExtensionMethod`:
-`AsSupport` does the trick working as an adapter.
+`As.forObject` does the trick creating an adapter when needed.
 
 
 #[[###]]# Other notes to expand

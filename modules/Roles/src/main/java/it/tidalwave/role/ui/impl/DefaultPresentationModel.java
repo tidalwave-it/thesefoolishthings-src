@@ -34,7 +34,6 @@ import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.Callback;
 import it.tidalwave.util.NamedCallback;
-import it.tidalwave.util.spi.AsSupport;
 import it.tidalwave.role.ui.PresentationModel;
 import lombok.ToString;
 import lombok.experimental.Delegate;
@@ -47,7 +46,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@ToString(exclude = {"asSupport", "pcs"}) @Slf4j
+@ToString(exclude = {"as", "pcs"}) @Slf4j
 public class DefaultPresentationModel implements PresentationModel
   {
     @Nonnull
@@ -56,7 +55,7 @@ public class DefaultPresentationModel implements PresentationModel
     @Delegate
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-    private final AsSupport asSupport;
+    private final As as;
 
     /*******************************************************************************************************************
      *
@@ -66,7 +65,7 @@ public class DefaultPresentationModel implements PresentationModel
     public DefaultPresentationModel (@Nonnull final Object owner, @Nonnull final Collection<Object> roles)
       {
         this.owner = owner;
-        asSupport = new AsSupport(owner, roles);
+        as = As.forObject(owner, roles);
       }
 
     /*******************************************************************************************************************
@@ -94,7 +93,7 @@ public class DefaultPresentationModel implements PresentationModel
             return roleType.cast(pcs);
           }
 
-        return asSupport.as(roleType, new NotFoundBehaviour<T>()
+        return as.as(roleType, new NotFoundBehaviour<T>()
           {
             @SuppressWarnings("ConstantConditions")
             @Nonnull
@@ -130,7 +129,7 @@ public class DefaultPresentationModel implements PresentationModel
     @Override @Nonnull
     public <T> Collection<T> asMany (@Nonnull final Class<T> roleType)
       {
-        final Collection<T> result = asSupport.asMany(roleType);
+        final Collection<T> result = as.asMany(roleType);
 
         // The problem here is that we want only to add local roles in owner; but calling owner.as() will also
         // find again the global roles that were discovered by AsSupport.

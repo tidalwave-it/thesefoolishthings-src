@@ -24,7 +24,7 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.spi;
+package it.tidalwave.util.impl;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -35,6 +35,8 @@ import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.Parameters;
 import it.tidalwave.util.RoleFactory;
+import it.tidalwave.util.spi.AsDelegate;
+import it.tidalwave.util.spi.AsDelegateProvider;
 import static it.tidalwave.util.Parameters.r;
 
 /***********************************************************************************************************************
@@ -42,7 +44,7 @@ import static it.tidalwave.util.Parameters.r;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class AsSupport implements As
+public class DefaultAs implements As
   {
     @Nonnull
     private final AsDelegate delegate;
@@ -58,7 +60,7 @@ public class AsSupport implements As
      * Constructor for use in subclassing.
      *
      ******************************************************************************************************************/
-    protected AsSupport()
+    protected DefaultAs()
       {
         owner = this;
         delegate = AsDelegateProvider.Locator.find().createAsDelegate(this);
@@ -72,7 +74,7 @@ public class AsSupport implements As
      * @since  3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
-    public AsSupport (@Nonnull final Object owner)
+    public DefaultAs (@Nonnull final Object owner)
       {
         this(owner, Collections.emptyList());
       }
@@ -87,7 +89,7 @@ public class AsSupport implements As
      * @since  3.2-ALPHA-3
      *
      ******************************************************************************************************************/
-    public AsSupport (@Nonnull final Object owner, @Nonnull final Object role)
+    public DefaultAs (@Nonnull final Object owner, @Nonnull final Object role)
       {
         this(owner, r(Parameters.mustNotBeArrayOrCollection(role, "role")));
       }
@@ -102,7 +104,7 @@ public class AsSupport implements As
      * @since  3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
-    public AsSupport (@Nonnull final Object owner, @Nonnull final Collection<Object> roles)
+    public DefaultAs (@Nonnull final Object owner, @Nonnull final Collection<Object> roles)
       {
         delegate = AsDelegateProvider.Locator.find().createAsDelegate(owner);
         this.owner = owner;

@@ -30,7 +30,6 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Optional;
 import it.tidalwave.util.As;
-import it.tidalwave.util.spi.AsSupport;
 
 /***********************************************************************************************************************
  *
@@ -47,7 +46,7 @@ public class AsExtensions
     @Nonnull
     public static <T> T as (@Nonnull final Object datum, @Nonnull final Class<T> roleType)
       {
-        return asSupport(datum).as(roleType);
+        return adapter(datum).as(roleType);
       }
 
     @Nonnull
@@ -55,24 +54,24 @@ public class AsExtensions
                             @Nonnull final Class<T> roleType,
                             @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
       {
-        return asSupport(datum).as(roleType, notFoundBehaviour);
+        return adapter(datum).as(roleType, notFoundBehaviour);
       }
 
     @Nonnull
     public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final Class<T> type)
       {
-        return asSupport(datum).maybeAs(type);
+        return adapter(datum).maybeAs(type);
       }
 
     @Nonnull
     public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final Class<T> type)
       {
-        return asSupport(datum).asMany(type);
+        return adapter(datum).asMany(type);
       }
 
     @Nonnull
-    private static AsSupport asSupport (@Nonnull final Object datum)
+    private static As adapter (@Nonnull final Object datum)
       {
-        return new AsSupport(datum);
+        return As.forObject(datum);
       }
   }

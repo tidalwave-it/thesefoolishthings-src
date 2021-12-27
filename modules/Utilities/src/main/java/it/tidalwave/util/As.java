@@ -30,6 +30,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Optional;
+import it.tidalwave.util.impl.DefaultAs;
+import it.tidalwave.util.spi.AsDelegateProvider;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -97,6 +99,54 @@ public interface As
           {
             return (Class<T>)type;
           }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an {@code As} implementation for the given object (or returns the object itself if it is the default
+     * implementation of {@code As}).
+     *
+     * @param     object         the object
+     * @return                    the implementation
+     * @since     3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static As forObject (@Nonnull final Object object)
+      {
+        return (object instanceof DefaultAs) ? (As)object : new DefaultAs(object);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an {@code As} implementation for the given object. It accepts a single pre-instantiated role, or a
+     * {@link RoleFactory} that will be invoked to create additional roles.
+     *
+     * @param     object         the object
+     * @param     role           the role or {@link it.tidalwave.util.RoleFactory}
+     * @since     3.2-ALPHA-13
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static As forObject (@Nonnull final Object object, @Nonnull final Object role)
+      {
+        return new DefaultAs(object, role);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an {@code As} implementation for the given object. It accepts a collection of pre-instantiated roles,
+     * or instances of {@link RoleFactory} that will be invoked to create additional roles.
+     *
+     * @param     object         the object
+     * @param     roles          roles or {@link it.tidalwave.util.RoleFactory} instances
+     * @since     3.2-ALPHA-13
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static As forObject (@Nonnull final Object object, @Nonnull final Collection<Object> roles)
+      {
+        return new DefaultAs(object, roles);
       }
 
     /*******************************************************************************************************************
