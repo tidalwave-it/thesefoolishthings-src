@@ -30,24 +30,24 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Optional;
 import it.tidalwave.util.As;
+import it.tidalwave.util.spi.AsSupport;
 
 /***********************************************************************************************************************
  *
  * An extension to be used with Lombok in order to provide "as" support to classes that don't implement the {@link As}
  * interface. The typical usage is to retrofit legacy code.
  *
+ * FIXME: this class doesn't cache - every as*() call instantiates new objects.
+ *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
 public class AsExtensions
   {
-    private static final AsExtensionsBean bean = new AsExtensionsBean();
-
     @Nonnull
-    public static <T> T as (@Nonnull final Object datum,
-                            @Nonnull final Class<T> roleType)
+    public static <T> T as (@Nonnull final Object datum, @Nonnull final Class<T> roleType)
       {
-        return as(datum, roleType, As.Defaults.throwAsException(roleType));
+        return asSupport(datum).as(roleType);
       }
 
     @Nonnull
@@ -55,20 +55,24 @@ public class AsExtensions
                             @Nonnull final Class<T> roleType,
                             @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
       {
-        return bean.as(datum, roleType, notFoundBehaviour);
+        return asSupport(datum).as(roleType, notFoundBehaviour);
       }
 
     @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum,
-                                           @Nonnull final Class<T> type)
+    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final Class<T> type)
       {
-        return Optional.ofNullable(as(datum, type, throwable -> null));
+        return asSupport(datum).maybeAs(type);
       }
 
     @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum,
-                                            @Nonnull final Class<T> type)
+    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final Class<T> type)
       {
-        return (Collection<T>)bean.asMany(datum, type);
+        return asSupport(datum).asMany(type);
+      }
+
+    @Nonnull
+    private static AsSupport asSupport (@Nonnull final Object datum)
+      {
+        return new AsSupport(datum);
       }
   }

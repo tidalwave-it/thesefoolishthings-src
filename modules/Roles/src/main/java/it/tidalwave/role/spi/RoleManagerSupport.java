@@ -66,8 +66,6 @@ import static it.tidalwave.role.spi.impl.LogUtil.*;
 @Slf4j
 public abstract class RoleManagerSupport implements RoleManager
   {
-    private final ContextManager contextManager = ContextManager.Locator.find();
-
     /* VisibleForTesting */ final MultiMap<DatumAndRole, Class<?>> roleMapByDatumAndRole = new MultiMap<>();
 
     // FIXME: use ConcurrentHashMap// FIXME: use ConcurrentHashMap
@@ -99,6 +97,8 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
                 try
                   {
                     contextType = findContextTypeForRole(roleImplementationType);
+                    // With DI frameworks such as Spring it's better to avoid eager initializations of references
+                    final ContextManager contextManager = ContextManager.Locator.find();
                     log.trace(">>>> contexts: {}", shortIds(contextManager.getContexts()));
 
                     try

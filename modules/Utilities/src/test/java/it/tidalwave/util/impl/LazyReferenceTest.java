@@ -24,44 +24,51 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role;
+package it.tidalwave.util.impl;
 
-import javax.annotation.Nonnull;
-import javax.inject.Inject;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Configurable;
-import it.tidalwave.util.As;
-import it.tidalwave.util.NotFoundException;
-import it.tidalwave.role.spi.RoleManager;
+import java.util.stream.IntStream;
+import org.testng.annotations.Test;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Configurable
-public class AsExtensionsBean
+public class LazyReferenceTest
   {
-    @Inject @Nonnull
-    private RoleManager roleManager;
-
-    public <T> T as (@Nonnull final Object datum,
-                     @Nonnull final Class<T> roleType,
-                     @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
+    @Test
+    public void must_not_call_supplier_before_get()
       {
-        final List<? extends T> roles = asMany(datum, roleType);
-
-        if (roles.isEmpty())
-          {
-            return notFoundBehaviour.run(new NotFoundException("No " + roleType.getName() + " in " + datum));
-          }
-
-        return roles.get(0);
+        // when
+        final LazyReference<Object> underTest = LazyReference.of(Object::new);
+        // then
+        assertThat(underTest.ref, is((Object)null));
       }
 
-    public <T> List<? extends T> asMany (@Nonnull final Object datum, @Nonnull final Class<T> roleType)
+    @Test
+    public void must_call_supplier_only_once()
       {
-        assert roleManager != null : "roleManager not present or not injected";
-        return roleManager.findRoles(datum, roleType);
+        // given
+        final LazyReference<Object> underTest = LazyReference.of(Object::new);
+        // when
+        final Object o1 = underTest.get();
+        final Object o2 = underTest.get();
+        final Object o3 = underTest.get();
+        // then
+        assertThat(o2, sameInstance(o1));
+        assertThat(o3, sameInstance(o1));
+      }
+
+    @Test
+    public void must_call_supplier_only_once_multithreaded()
+      {
+        // given
+        final LazyReference<Object> underTest = LazyReference.of(Object::new);
+        // when
+        long count = IntStream.range(0, 10_000_000).parallel().mapToObj(__ -> underTest.get()).distinct().count();
+        // then
+        assertThat(count, is(1L));
       }
   }

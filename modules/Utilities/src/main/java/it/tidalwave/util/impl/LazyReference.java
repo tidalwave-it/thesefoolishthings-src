@@ -24,46 +24,52 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
+package it.tidalwave.util.impl;
 
 import javax.annotation.Nonnull;
-
-import it.tidalwave.role.ContextManager;
-import it.tidalwave.role.spi.RoleManager;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.annotation.*;
+import javax.annotation.concurrent.ThreadSafe;
+import java.util.function.Supplier;
+import it.tidalwave.util.annotation.VisibleForTesting;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
+ * A reference to an object that is lazily evaluated (when its value is requested for the first time). It warranties
+ * that the provided supplier is called only once.
+ *
  * @author  Fabrizio Giudici
+ * @since   3.2-ALPHA-12
  *
  **********************************************************************************************************************/
-@Configuration
-@EnableAspectJAutoProxy(proxyTargetClass = true)
-public class Main
+@ThreadSafe @RequiredArgsConstructor(staticName = "of")
+public class LazyReference<T> implements Supplier<T>
   {
-    @Bean
-    public RoleManager roleManager()
+    @Nonnull
+    private final Supplier<T> supplier;
+
+    @VisibleForTesting volatile T ref = null;
+
+    /** @inheritDoc  */
+    @Override @Nonnull
+    public synchronized T get()
       {
-        return RoleManager.Locator.find();
+        // AtomicReference.updateAndGet() not good because in case of contention it might call supplier multiple times
+        // We don't mess with double check for null since nowadays synchronized is fast
+        if (ref == null)
+          {
+            ref = supplier.get();
+          }
+
+        return ref;
       }
 
-    @Bean
-    public ContextManager contextManager()
+    public synchronized void clear()
       {
-        return ContextManager.Locator.find();
+        ref = null;
       }
 
-    @Bean
-    public DciMarshalXStreamExample example()
+    public void set (@Nonnull final T ref)
       {
-        return new DciMarshalXStreamExample();
-      }
-
-    public static void main (@Nonnull final String ... args)
-      throws Exception
-      {
-        final BeanFactory context = new AnnotationConfigApplicationContext(Main.class);
-        context.getBean(DciMarshalXStreamExample.class).run();
+        this.ref = ref;
       }
   }
