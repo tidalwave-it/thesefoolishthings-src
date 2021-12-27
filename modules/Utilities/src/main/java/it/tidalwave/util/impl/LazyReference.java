@@ -24,34 +24,52 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.spring;
+package it.tidalwave.util.impl;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import it.tidalwave.role.ContextManager;
-import it.tidalwave.role.spi.RoleManager;
+import javax.annotation.Nonnull;
+import javax.annotation.concurrent.ThreadSafe;
+import java.util.function.Supplier;
+import it.tidalwave.util.annotation.VisibleForTesting;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
+ * A reference to an object that is lazily evaluated (when its value is requested for the first time). It warranties
+ * that the provided supplier is called only once.
+ *
  * @author  Fabrizio Giudici
+ * @since   3.2-ALPHA-12
  *
  **********************************************************************************************************************/
-@Configuration
-public class RoleSpringConfiguration
+@ThreadSafe @RequiredArgsConstructor(staticName = "of")
+public class LazyReference<T> implements Supplier<T>
   {
-    /** The path of the Spring configuration supporting roles to pass e.g. to a
-        @code ClassPathXmlApplicationContext}. */
-    public static final String BEANS = "classpath*:/META-INF/SpringRoleBeans.xml";
+    @Nonnull
+    private final Supplier<T> supplier;
 
-    @Bean
-    public RoleManager roleManager()
+    @VisibleForTesting volatile T ref = null;
+
+    /** @inheritDoc  */
+    @Override @Nonnull
+    public synchronized T get()
       {
-        return RoleManager.Locator.find();
+        // AtomicReference.updateAndGet() not good because in case of contention it might call supplier multiple times
+        // We don't mess with double check for null since nowadays synchronized is fast
+        if (ref == null)
+          {
+            ref = supplier.get();
+          }
+
+        return ref;
       }
 
-    @Bean
-    public ContextManager contextManager()
+    public synchronized void clear()
       {
-        return ContextManager.Locator.find();
+        ref = null;
+      }
+
+    public void set (@Nonnull final T ref)
+      {
+        this.ref = ref;
       }
   }

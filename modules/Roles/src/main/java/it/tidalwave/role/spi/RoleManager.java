@@ -27,7 +27,14 @@
 package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
+import java.util.ServiceLoader;
+import it.tidalwave.util.impl.LazyReference;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
@@ -38,6 +45,63 @@ import java.util.List;
  **********************************************************************************************************************/
 public interface RoleManager
   {
+    /*******************************************************************************************************************
+     *
+     * A locator for the {@link RoleManager} which uses the {@link ServiceLoader} facility to be independent of
+     * any DI framework.
+     *
+     ******************************************************************************************************************/
+    @Slf4j @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static final class Locator
+      {
+        private final static LazyReference<RoleManager> ROLE_MANAGER_REF =
+                LazyReference.of(RoleManager.Locator::findRoleManager);
+
+        private final static LazyReference<RoleManagerProvider> ROLE_MANAGER_PROVIDER_REF =
+                LazyReference.of(RoleManager.Locator::findRoleManagerProvider);
+
+        /***************************************************************************************************************
+         *
+         **************************************************************************************************************/
+        @Nonnull
+        public static RoleManager find()
+          {
+            return ROLE_MANAGER_REF.get();
+          }
+
+        /***************************************************************************************************************
+         *
+         **************************************************************************************************************/
+        @Nonnull
+        private static RoleManager findRoleManager()
+          {
+            return Objects.requireNonNull(ROLE_MANAGER_PROVIDER_REF.get().getRoleManager(),
+                                          "Cannot find RoleManager");
+          }
+
+        /***************************************************************************************************************
+         *
+         **************************************************************************************************************/
+        @Nonnull
+        private static RoleManagerProvider findRoleManagerProvider()
+          {
+            final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            final Iterator<RoleManagerProvider> i =
+                    ServiceLoader.load(RoleManagerProvider.class, classLoader).iterator();
+
+            if (!i.hasNext())
+              {
+                throw new RuntimeException("No ServiceProvider for RoleManagerProvider");
+              }
+
+            final RoleManagerProvider roleManagerProvider = Objects.requireNonNull(i.next(),
+                                                                                         "roleManagerProvider is null");
+            assert roleManagerProvider != null; // for SpotBugs
+            log.info("RoleManagerProvider instantiated from META-INF: {}", roleManagerProvider);
+            return roleManagerProvider;
+          }
+      }
+
     /*******************************************************************************************************************
      *
      * Retrieves the roles of the given class for the given owner object.

@@ -24,34 +24,27 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.spring;
+package it.tidalwave.role.spring.spi;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import it.tidalwave.role.ContextManager;
+import javax.annotation.Nonnull;
 import it.tidalwave.role.spi.RoleManager;
+import it.tidalwave.role.spi.RoleManagerProvider;
 
 /***********************************************************************************************************************
+ *
+ * Since the whole library must be independent of Spring or any other DI framework, the {@link RoleManager} is always
+ * retrieved by means of {@link RoleManagerProvider} that, in turn, searches for a {@code META-INF/services}
+ * registered class.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Configuration
-public class RoleSpringConfiguration
+// Registered in META-INF/services
+public class SpringRoleManagerProvider implements RoleManagerProvider
   {
-    /** The path of the Spring configuration supporting roles to pass e.g. to a
-        @code ClassPathXmlApplicationContext}. */
-    public static final String BEANS = "classpath*:/META-INF/SpringRoleBeans.xml";
-
-    @Bean
-    public RoleManager roleManager()
+    @Override @Nonnull
+    public RoleManager getRoleManager()
       {
-        return RoleManager.Locator.find();
-      }
-
-    @Bean
-    public ContextManager contextManager()
-      {
-        return ContextManager.Locator.find();
+        return new AnnotationSpringRoleManager();
       }
   }

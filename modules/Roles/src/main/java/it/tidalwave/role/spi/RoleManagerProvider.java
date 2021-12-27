@@ -24,44 +24,17 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role;
+package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Configurable;
-import it.tidalwave.util.As;
-import it.tidalwave.util.NotFoundException;
-import it.tidalwave.role.spi.RoleManager;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Configurable
-public class AsExtensionsBean
+public interface RoleManagerProvider
   {
-    @Inject @Nonnull
-    private RoleManager roleManager;
-
-    public <T> T as (@Nonnull final Object datum,
-                     @Nonnull final Class<T> roleType,
-                     @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
-      {
-        final List<? extends T> roles = asMany(datum, roleType);
-
-        if (roles.isEmpty())
-          {
-            return notFoundBehaviour.run(new NotFoundException("No " + roleType.getName() + " in " + datum));
-          }
-
-        return roles.get(0);
-      }
-
-    public <T> List<? extends T> asMany (@Nonnull final Object datum, @Nonnull final Class<T> roleType)
-      {
-        assert roleManager != null : "roleManager not present or not injected";
-        return roleManager.findRoles(datum, roleType);
-      }
+    @Nonnull
+    public RoleManager getRoleManager();
   }

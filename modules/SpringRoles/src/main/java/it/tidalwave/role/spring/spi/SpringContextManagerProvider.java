@@ -27,34 +27,25 @@
 package it.tidalwave.role.spring.spi;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
-import java.util.Objects;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.ContextManagerProvider;
-import org.springframework.beans.factory.annotation.Configurable;
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+import it.tidalwave.role.spi.DefaultContextManager;
 
 /***********************************************************************************************************************
  *
  * Since the whole library must be independent of Spring or any other DI framework, the {@link ContextManager} is always
  * retrieved by means of {@link ContextManagerProvider} that, in turn, searches for a {@code META-INF/services}
- * registered class. When using Spring this is the registered class, that returns a Spring bean injected by means of
- * Aspect-J.
+ * registered class.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
 // Registered in META-INF/services
-@Configurable(preConstruction = true) @Slf4j
 public class SpringContextManagerProvider implements ContextManagerProvider
   {
-    @Getter @Inject @Nonnull
-    private ContextManager contextManager;
-
-    public SpringContextManagerProvider()
+    @Override @Nonnull
+    public ContextManager getContextManager()
       {
-        Objects.requireNonNull(contextManager, "ContextManager not injected");
-        log.info("Initialized - contextManager: {}", contextManager);
+        return new DefaultContextManager();
       }
   }

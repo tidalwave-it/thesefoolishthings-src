@@ -24,34 +24,51 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.spring;
+package it.tidalwave.util.impl;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import it.tidalwave.role.ContextManager;
-import it.tidalwave.role.spi.RoleManager;
+import java.util.stream.IntStream;
+import org.testng.annotations.Test;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Configuration
-public class RoleSpringConfiguration
+public class LazyReferenceTest
   {
-    /** The path of the Spring configuration supporting roles to pass e.g. to a
-        @code ClassPathXmlApplicationContext}. */
-    public static final String BEANS = "classpath*:/META-INF/SpringRoleBeans.xml";
-
-    @Bean
-    public RoleManager roleManager()
+    @Test
+    public void must_not_call_supplier_before_get()
       {
-        return RoleManager.Locator.find();
+        // when
+        final LazyReference<Object> underTest = LazyReference.of(Object::new);
+        // then
+        assertThat(underTest.ref, is((Object)null));
       }
 
-    @Bean
-    public ContextManager contextManager()
+    @Test
+    public void must_call_supplier_only_once()
       {
-        return ContextManager.Locator.find();
+        // given
+        final LazyReference<Object> underTest = LazyReference.of(Object::new);
+        // when
+        final Object o1 = underTest.get();
+        final Object o2 = underTest.get();
+        final Object o3 = underTest.get();
+        // then
+        assertThat(o2, sameInstance(o1));
+        assertThat(o3, sameInstance(o1));
+      }
+
+    @Test
+    public void must_call_supplier_only_once_multithreaded()
+      {
+        // given
+        final LazyReference<Object> underTest = LazyReference.of(Object::new);
+        // when
+        long count = IntStream.range(0, 10_000_000).parallel().mapToObj(__ -> underTest.get()).distinct().count();
+        // then
+        assertThat(count, is(1L));
       }
   }
