@@ -195,7 +195,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      *
      ******************************************************************************************************************/
     @Nonnull
-    /* VisibleForTesting */ synchronized <RT> Set<Class<? extends RT>> findRoleImplementationsFor (
+    @VisibleForTesting synchronized <RT> Set<Class<? extends RT>> findRoleImplementationsFor (
             @Nonnull final Class<?> datumType,
             @Nonnull final Class<RT> roleType)
       {
@@ -256,7 +256,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      *
      ******************************************************************************************************************/
     @Nonnull
-    /* VisibleForTesting */ static SortedSet<Class<?>> findAllImplementedInterfacesOf (@Nonnull final Class<?> clazz)
+    @VisibleForTesting static SortedSet<Class<?>> findAllImplementedInterfacesOf (@Nonnull final Class<?> clazz)
       {
         final SortedSet<Class<?>> interfaces = new TreeSet<>(Comparator.comparing(Class::getName));
         interfaces.addAll(Arrays.asList(clazz.getInterfaces()));
@@ -364,7 +364,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      *
      ******************************************************************************************************************/
     @Nonnull
-    /* VisibleForTesting */ static <T> Class<T> findTypeOf (@Nonnull final T object)
+    @VisibleForTesting static <T> Class<T> findTypeOf (@Nonnull final T object)
       {
         Class<?> ownerClass = object.getClass();
 
