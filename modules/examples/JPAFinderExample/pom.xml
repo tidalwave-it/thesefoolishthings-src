@@ -83,10 +83,5 @@
             <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>it.tidalwave.thesefoolishthings</groupId>
-            <artifactId>it-tidalwave-util-test</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 </project>

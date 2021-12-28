@@ -56,7 +56,7 @@
         <xstream.version>1.4.18</xstream.version>
         <tft.spring-boot.version>2.6.2</tft.spring-boot.version>
 
-        <tft.defaultGoal>install java:exec</tft.defaultGoal>
+        <tft.defaultGoal>clean install exec:java</tft.defaultGoal>
     </properties>
 
     <dependencyManagement>
@@ -104,11 +104,19 @@
             <artifactId>logback-core</artifactId>
             <scope>runtime</scope>
         </dependency>
-    </dependencies>
 
-    <build>
-        <defaultGoal>clean install exec:java</defaultGoal>
-    </build>
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it-tidalwave-util-test</artifactId>
+            <!-- FIXME: fixes the trouble with missing Hamcrest methods -->
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 
     <modules>
         <module>Data</module>
