@@ -24,12 +24,11 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role;
+package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Optional;
-import it.tidalwave.util.As;
 
 /***********************************************************************************************************************
  *
