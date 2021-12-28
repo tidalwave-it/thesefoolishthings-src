@@ -42,8 +42,6 @@ import lombok.NoArgsConstructor;
  **********************************************************************************************************************/
 public interface AsDelegateProvider
   {
-    public static final Class<AsDelegateProvider> _AsDelegateProvider_ = AsDelegateProvider.class;
-
     public static final LazyReference<EmptyAsDelegateProvider> EMPTY_REF =
             LazyReference.of(EmptyAsDelegateProvider::new);
 
