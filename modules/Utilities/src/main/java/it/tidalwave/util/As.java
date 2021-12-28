@@ -31,7 +31,6 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Optional;
 import it.tidalwave.util.impl.DefaultAs;
-import it.tidalwave.util.spi.AsDelegateProvider;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -53,6 +52,7 @@ public interface As
      * @it.tidalwave.javadoc.stable
      *
      ******************************************************************************************************************/
+    @Deprecated
     public static interface NotFoundBehaviour<T>
       {
         @Nonnull
@@ -63,6 +63,7 @@ public interface As
      *
      *
      ******************************************************************************************************************/
+    @Deprecated
     public static final class Defaults
       {
         private Defaults()
@@ -161,7 +162,10 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> T as (@Nonnull Class<T> type);
+    default <T> T as (@Nonnull final Class<T> type)
+      {
+        return maybeAs(type).orElseThrow(() -> new AsException(type));
+      }
 
     /*******************************************************************************************************************
      *
@@ -173,10 +177,14 @@ public interface As
      * @param   type                the dynamic type
      * @param   notFoundBehaviour   the behaviour to apply when an adapter is not found
      * @return                      the adapter
+     * @deprecated
      *
      ******************************************************************************************************************/
-    @Nonnull
-    public <T> T as (@Nonnull Class<T> type, @Nonnull NotFoundBehaviour<T> notFoundBehaviour);
+    @Nonnull @Deprecated
+    default <T> T as (@Nonnull final Class<T> type, @Nonnull final NotFoundBehaviour<T> notFoundBehaviour)
+      {
+        return maybeAs(type).orElseGet(() -> notFoundBehaviour.run(new AsException(type)));
+      }
 
     /*******************************************************************************************************************
      *
@@ -189,10 +197,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    default <T> Optional<T> maybeAs (@Nonnull final Class<T> type)
-      {
-        return Optional.ofNullable(as(type, throwable -> null));
-      }
+    public <T> Optional<T> maybeAs (@Nonnull final Class<T> type);
 
     /*******************************************************************************************************************
      *

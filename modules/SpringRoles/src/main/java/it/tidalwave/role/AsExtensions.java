@@ -49,7 +49,7 @@ public class AsExtensions
         return adapter(datum).as(roleType);
       }
 
-    @Nonnull
+    @Nonnull @Deprecated
     public static <T> T as (@Nonnull final Object datum,
                             @Nonnull final Class<T> roleType,
                             @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)

@@ -24,15 +24,16 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util;
+package it.tidalwave.util.mock;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
+import it.tidalwave.util.As;
+import it.tidalwave.util.impl.DefaultAs;
+import it.tidalwave.util.spi.AsDelegateProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import static org.mockito.Mockito.*;
 
 /***********************************************************************************************************************
@@ -43,9 +44,9 @@ import static org.mockito.Mockito.*;
  *
  **********************************************************************************************************************/
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class MockAs
+public final class MockAsFactory
   {
-    /***********************************************************************************************************************
+    /*******************************************************************************************************************
      *
      * Creates a mock with Mockito that fully supports {@link As}.
      *
@@ -53,38 +54,36 @@ public final class MockAs
      * @return                      the mock
      * @since                       3.2-ALPHA-3 (refactored)
      *
-     **********************************************************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
-    public static <T extends As> T mockWithAsSupport (@Nonnull final Class<T> clazz)
+    public static <T extends As> T mockWithAs (@Nonnull final Class<T> clazz)
       {
-        return mockWithAsSupport(clazz, Collections.emptyList());
+        return mockWithAs(clazz, Collections.emptyList());
       }
 
-    /***********************************************************************************************************************
+    /*******************************************************************************************************************
      *
-     * Creates a mock with Mockito that fully supports {@link As}.
+     * Creates a mock with Mockito that fully supports {@link As}. This method doesn't call
+     * {@link AsDelegateProvider.Locator#find()}.
      *
      * @param   clazz               the mock class
      * @param   roles               a collection of roles or factories for roles
      * @return                      the mock
      * @since                       3.2-ALPHA-3 (refactored)
      *
-     **********************************************************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
-    public static <T extends As> T mockWithAsSupport (@Nonnull final Class<T> clazz,
-                                                      @Nonnull final Collection<Object> roles)
+    public static <T extends As> T mockWithAs (@Nonnull final Class<T> clazz,
+                                               @Nonnull final Collection<Object> roles)
       {
         final T mock = mock(clazz);
-        final As as = As.forObject(mock, roles);
-        when(mock.as(any(Class.class))).thenAnswer(new Answer<Object>()
-          {
-            @Override @Nonnull
-            public Object answer (@Nonnull final InvocationOnMock invocation)
-              {
-                final Class<?> roleType = (Class<?>)invocation.getArguments()[0];
-                return as.as(roleType);
-              }
-          });
+        final As as = new DefaultAs(AsDelegateProvider.empty()::createAsDelegate, mock, roles);
+        when(mock.as(any(Class.class))).thenCallRealMethod();
+        when(mock.maybeAs(any(Class.class))).thenAnswer(i -> as.maybeAs((Class<?>)i.getArguments()[0]));
+        when(mock.asMany(any(Class.class))).thenAnswer(i -> as.asMany((Class<?>)i.getArguments()[0]));
+        when(mock.as(any(As.Ref.class))).thenCallRealMethod();
+        when(mock.maybeAs(any(As.Ref.class))).thenCallRealMethod();
+        when(mock.asMany(any(As.Ref.class))).thenCallRealMethod();
 
         return mock;
       }

@@ -28,6 +28,7 @@ package it.tidalwave.util.asexamples;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
+import java.util.Optional;
 import it.tidalwave.util.As;
 import lombok.RequiredArgsConstructor;
 
@@ -42,20 +43,14 @@ public class Datum1 implements As
     final String status;
 
     @Nonnull
-    public <T> T as (@Nonnull final Class<T> clazz)
+    public <T> Optional<T> maybeAs (@Nonnull final Class<T> roleType)
       {
-        return AsExtensions.as(this, clazz);
+        return AsExtensions.maybeAs(this, roleType);
       }
 
     @Nonnull
-    public <T> T as (@Nonnull final Class<T> clazz, @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
+    public <T> Collection<T> asMany (@Nonnull final Class<T> roleType)
       {
-        return AsExtensions.as(this, clazz, notFoundBehaviour);
-      }
-
-    @Nonnull
-    public <T> Collection<T> asMany (@Nonnull final Class<T> clazz)
-      {
-        return AsExtensions.asMany(this, clazz);
+        return AsExtensions.asMany(this, roleType);
       }
   }

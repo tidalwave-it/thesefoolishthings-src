@@ -30,6 +30,7 @@ import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
+import java.util.Optional;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.Callback;
@@ -76,7 +77,7 @@ public class DefaultPresentationModel implements PresentationModel
     @Override @Nonnull
     public <T> T as (@Nonnull final Class<T> roleType)
       {
-        return as(roleType, As.Defaults.throwAsException(roleType));
+        return maybeAs(roleType).orElseThrow(() -> new AsException(roleType));
       }
 
     /*******************************************************************************************************************
@@ -85,40 +86,39 @@ public class DefaultPresentationModel implements PresentationModel
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> T as (@Nonnull final Class<T> roleType, @Nonnull final NotFoundBehaviour<T> notFoundBehaviour)
+    public <T> Optional<T> maybeAs (@Nonnull final Class<T> roleType)
       {
         // Undocumented feature: for instance Zephyr needs to fire property events
         if (roleType.equals(PropertyChangeSupport.class))
           {
-            return roleType.cast(pcs);
+            return Optional.of(roleType.cast(pcs));
           }
 
-        return as.as(roleType, new NotFoundBehaviour<T>()
+        final Optional<T> t = as.maybeAs(roleType);
+
+        if (t.isPresent())
           {
-            @SuppressWarnings("ConstantConditions")
-            @Nonnull
-            public T run (final Throwable t)
+            return t;
+          }
+
+        if (owner instanceof As)
+          {
+            try
               {
-                if (owner instanceof As)
+                final T role = ((As)owner).as(roleType);
+
+                if (role != null) // do check it for improper implementations or partial mocks
                   {
-                    try
-                      {
-                        final T role = ((As)owner).as(roleType);
-
-                        if (role != null) // do check it for improper implementations or partial mocks
-                          {
-                            return role;
-                          }
-                      }
-                    catch (AsException e)
-                      {
-                        // fallback
-                      }
+                    return Optional.of(role);
                   }
-
-                return notFoundBehaviour.run(t);
               }
-          });
+            catch (AsException e)
+              {
+                // fallback
+              }
+          }
+
+        return Optional.empty();
       }
 
     /*******************************************************************************************************************

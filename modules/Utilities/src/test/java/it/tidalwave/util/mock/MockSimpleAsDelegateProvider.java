@@ -24,7 +24,7 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.ui.spi;
+package it.tidalwave.util.mock;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;

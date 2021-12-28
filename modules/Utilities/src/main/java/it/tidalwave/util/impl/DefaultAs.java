@@ -31,8 +31,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 import it.tidalwave.util.As;
-import it.tidalwave.util.AsException;
 import it.tidalwave.util.Parameters;
 import it.tidalwave.util.RoleFactory;
 import it.tidalwave.util.spi.AsDelegate;
@@ -106,20 +107,26 @@ public class DefaultAs implements As
      ******************************************************************************************************************/
     public DefaultAs (@Nonnull final Object owner, @Nonnull final Collection<Object> roles)
       {
-        delegate = AsDelegateProvider.Locator.find().createAsDelegate(owner);
-        this.owner = owner;
-        this.roles.addAll(resolveFactories(roles));
+        this(AsDelegateProvider.Locator.find()::createAsDelegate, owner, roles);
       }
 
     /*******************************************************************************************************************
      *
-     * {@inheritDoc}
+     * Constructor for use in tests. This constructor doesn't call {@link AsDelegateProvider.Locator#find()}.
+     *
+     * @param  asDelegateFactory  the factory
+     * @param  owner          the owner
+     * @param  roles          roles or {@link it.tidalwave.util.RoleFactory} instances
+     * @since  3.2-ALPHA-3 (refactored)
      *
      ******************************************************************************************************************/
-    @Nonnull
-    public <T> T as (@Nonnull final Class<T> type)
+    public DefaultAs (@Nonnull final Function<Object, AsDelegate> asDelegateFactory,
+                      @Nonnull final Object owner,
+                      @Nonnull final Collection<Object> roles)
       {
-        return as(type, As.Defaults.throwAsException(type));
+        delegate = asDelegateFactory.apply(owner);
+        this.owner = owner;
+        this.roles.addAll(resolveFactories(roles));
       }
 
     /*******************************************************************************************************************
@@ -130,25 +137,19 @@ public class DefaultAs implements As
      * the delegate is invoked.
      *
      ******************************************************************************************************************/
-    @Nonnull
-    public <T> T as (@Nonnull final Class<T> type, @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
+    @Override @Nonnull
+    public <T> Optional<T> maybeAs (@Nonnull final Class<T> type)
       {
         for (final Object role : roles)
           {
             if (type.isAssignableFrom(role.getClass()))
               {
-                return type.cast(role);
+                return Optional.of(type.cast(role));
               }
           }
 
         final Collection<? extends T> r = delegate.as(type);
-
-        if (r.isEmpty())
-          {
-            return notFoundBehaviour.run(new AsException(type));
-          }
-
-        return r.iterator().next();
+        return r.isEmpty() ? Optional.empty() : Optional.of(r.iterator().next());
       }
 
     /*******************************************************************************************************************
