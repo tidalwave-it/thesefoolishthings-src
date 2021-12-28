@@ -108,7 +108,7 @@ public interface As
      * implementation of {@code As}).
      *
      * @param     object         the object
-     * @return                    the implementation
+     * @return                   the implementation
      * @since     3.2-ALPHA-12
      *
      ******************************************************************************************************************/
@@ -125,6 +125,7 @@ public interface As
      *
      * @param     object         the object
      * @param     role           the role or {@link it.tidalwave.util.RoleFactory}
+     * @return                   the implementation
      * @since     3.2-ALPHA-13
      *
      ******************************************************************************************************************/
@@ -141,6 +142,7 @@ public interface As
      *
      * @param     object         the object
      * @param     roles          roles or {@link it.tidalwave.util.RoleFactory} instances
+     * @return                   the implementation
      * @since     3.2-ALPHA-13
      *
      ******************************************************************************************************************/
@@ -162,7 +164,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    default <T> T as (@Nonnull final Class<T> type)
+    public default <T> T as (@Nonnull final Class<T> type)
       {
         return maybeAs(type).orElseThrow(() -> new AsException(type));
       }
@@ -181,7 +183,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull @Deprecated
-    default <T> T as (@Nonnull final Class<T> type, @Nonnull final NotFoundBehaviour<T> notFoundBehaviour)
+    public default <T> T as (@Nonnull final Class<T> type, @Nonnull final NotFoundBehaviour<T> notFoundBehaviour)
       {
         return maybeAs(type).orElseGet(() -> notFoundBehaviour.run(new AsException(type)));
       }
@@ -197,7 +199,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> Optional<T> maybeAs (@Nonnull final Class<T> type);
+    public <T> Optional<T> maybeAs (@Nonnull Class<T> type);
 
     /*******************************************************************************************************************
      *
@@ -222,7 +224,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    static <T> Ref<T> ref (@Nonnull final Class<?> type) // FIXME: there's no static check of the argument
+    public static <T> Ref<T> ref (@Nonnull final Class<?> type) // FIXME: there's no static check of the argument
       {
         return new Ref<>(type);
       }
@@ -239,7 +241,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    default <T> T as (@Nonnull final Ref<T> ref)
+    public default <T> T as (@Nonnull final Ref<T> ref)
       {
         return as(ref.getType());
       }
@@ -255,7 +257,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    default <T> Optional<T> maybeAs (@Nonnull final Ref<T> ref)
+    public default <T> Optional<T> maybeAs (@Nonnull final Ref<T> ref)
       {
         return maybeAs(ref.getType());
       }
@@ -271,7 +273,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    default <T> Collection<T> asMany (@Nonnull final Ref<T> ref)
+    public default <T> Collection<T> asMany (@Nonnull final Ref<T> ref)
       {
         return asMany(ref.getType());
       }
