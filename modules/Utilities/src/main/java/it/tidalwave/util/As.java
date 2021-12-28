@@ -201,20 +201,6 @@ public interface As
 
     /*******************************************************************************************************************
      *
-     * @param   <T>     the static type
-     * @param   type    the dynamic type
-     * @return          the optional role
-     * @deprecated Use {@link #maybeAs(Class)}.
-     *
-     ******************************************************************************************************************/
-    @Nonnull @Deprecated
-    default <T> Optional<T> asOptional (@Nonnull final Class<T> type)
-      {
-        return maybeAs(type);
-      }
-
-    /*******************************************************************************************************************
-     *
      * Searches for multiple adapters of the given type and returns them.
      *
      * @param   <T>     the static type
