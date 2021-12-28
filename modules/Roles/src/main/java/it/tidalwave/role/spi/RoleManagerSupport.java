@@ -41,6 +41,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import it.tidalwave.util.NotFoundException;
+import it.tidalwave.util.annotation.VisibleForTesting;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.impl.DatumAndRole;
 import it.tidalwave.role.spi.impl.MultiMap;
@@ -66,10 +67,10 @@ import static it.tidalwave.role.spi.impl.LogUtil.*;
 @Slf4j
 public abstract class RoleManagerSupport implements RoleManager
   {
-    /* VisibleForTesting */ final MultiMap<DatumAndRole, Class<?>> roleMapByDatumAndRole = new MultiMap<>();
+    @VisibleForTesting final MultiMap<DatumAndRole, Class<?>> roleMapByDatumAndRole = new MultiMap<>();
 
-    // FIXME: use ConcurrentHashMap// FIXME: use ConcurrentHashMap
-    /* VisibleForTesting */ final Set<DatumAndRole> alreadyScanned = new HashSet<>();
+    // FIXME: use ConcurrentHashMap
+    @VisibleForTesting final Set<DatumAndRole> alreadyScanned = new HashSet<>();
 
     /*******************************************************************************************************************
      *
