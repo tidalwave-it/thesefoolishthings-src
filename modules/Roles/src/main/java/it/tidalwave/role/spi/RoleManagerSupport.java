@@ -78,15 +78,15 @@ public abstract class RoleManagerSupport implements RoleManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <ROLE_TYPE> List<? extends ROLE_TYPE> findRoles (@Nonnull final Object datum,
-                                                            @Nonnull final Class<ROLE_TYPE> roleType)
+    public synchronized <ROLE_TYPE> List<? extends ROLE_TYPE> findRoles (@Nonnull final Object datum,
+                                                                         @Nonnull final Class<ROLE_TYPE> roleType)
       {
         log.trace("findRoles({}, {})", shortId(datum), shortName(roleType));
         final Class<?> datumType = findTypeOf(datum);
         final List<ROLE_TYPE> roles = new ArrayList<>();
         final Set<Class<? extends ROLE_TYPE>> roleImplementationTypes = findRoleImplementationsFor(datumType, roleType);
 
-outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImplementationTypes)
+        outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImplementationTypes)
           {
             for (final Constructor<?> constructor : roleImplementationType.getDeclaredConstructors())
               {
@@ -125,7 +125,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
                     break;
                   }
                 catch (InstantiationException | IllegalAccessException
-                     | IllegalArgumentException | InvocationTargetException e)
+                        | IllegalArgumentException | InvocationTargetException e)
                   {
                     log.error("Could not instantiate role of type " + roleImplementationType, e);
                   }
@@ -225,7 +225,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      * @param   roleImplementationTypes     the types of role implementations to scan
      *
      ******************************************************************************************************************/
-    protected void scan (@Nonnull final Collection<Class<?>> roleImplementationTypes)
+    protected synchronized void scan (@Nonnull final Collection<Class<?>> roleImplementationTypes)
       {
         log.debug("scan({})", shortNames(roleImplementationTypes));
 
@@ -297,7 +297,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      ******************************************************************************************************************/
     @Nonnull
     protected abstract Class<?> findContextTypeForRole (@Nonnull Class<?> roleImplementationType)
-      throws NotFoundException;
+            throws NotFoundException;
 
     /*******************************************************************************************************************
      *
@@ -375,7 +375,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
             if (log.isTraceEnabled())
               {
                 log.trace(">>>> owner is a mock {} implementing {}",
-                        shortName(ownerClass), shortNames(Arrays.asList(ownerClass.getInterfaces())));
+                          shortName(ownerClass), shortNames(Arrays.asList(ownerClass.getInterfaces())));
                 log.trace(">>>> owner class replaced with {}", shortName(ownerClass));
               }
           }
