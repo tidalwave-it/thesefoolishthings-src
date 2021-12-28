@@ -30,7 +30,6 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import it.tidalwave.util.As;
 import it.tidalwave.util.Callback;
-import it.tidalwave.util.impl.DefaultAs;
 import it.tidalwave.role.ui.BoundProperty;
 import it.tidalwave.role.ui.UserAction;
 import lombok.Getter;
