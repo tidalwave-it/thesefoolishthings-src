@@ -171,12 +171,12 @@ data sources, such as NoSQL databases, semantic databases, etc.
 The central class of JPA is ```EntityManager```: it's the facility that makes it possible to create and execute queries. What we want is make the
 ```Finder``` execute for us code such as:
 
-<!-- MACRO{snippet|id=createQuery|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=createQuery|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 where ```jpaql```, ```firstResult``` and ```maxResults``` have been properly set by intermediate methods previously called. In other words, if we had a test
 for the ```Finder``` we would like to have this kind of behaviour:
 
-<!-- MACRO{snippet|id=tests|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/test/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinderTest.java} -->
+<!-- MACRO{snippet|id=tests|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/test/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinderTest.java} -->
 
 Before going on, let's consider that transactions are managed by JPA in a few ways that, while not particularly complex in the context of a real application,
 require excessive set up for a simple example like the one we're dealing with. So we introduce a simple helper that executes a task in the context of a
@@ -189,13 +189,13 @@ In a real case the ```EntityManager``` would rather be injected.
 The first thing we need is to define the state of the ```Finder```, which must both model the parameters set by intermediate methods and contain a reference
 to the data source (which, in our case, is ```TxManager```).
 
-<!-- MACRO{snippet|id=fields|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=fields|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 Let's now focus on the implementation of intermediate methods. They usually don't do anything smart, but just accumulate the required parameters for later
 performing the query. Since a ```Finder``` must be immutable, they can't change the internal state: they rather must **create and return a cloned ```Finder```**
 with the original state and only a single field changed. This is a typical approach for immutable objects.
 
-<!-- MACRO{snippet|id=intermediate-methods|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=intermediate-methods|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 Now let's deal with sorting. Sorting works in a different way in function of the ```Finder``` being “in memory” or associated to a data source:
 
@@ -215,23 +215,23 @@ A convenience method ```of()``` makes it possible to easily create a working ```
 
 The intermediate method ```Finder.sort()``` behaves as other intermediate methods and just collects data for a later use:
 
-<!-- MACRO{snippet|id=sort-method|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=sort-method|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 Note that it usually rejects implementations of ```SortCriterion``` that it doesn't know.
 
 While the implementation of ```SortCriterion``` could be a simple ```enum``` that is later evaluated in a ```switch```, in a good design it provides its
 own behaviour (which is disclosed only to the ```Finder``` implementation). In case of JPA is to assemble the ```ORDER BY``` section of the query:
 
-<!-- MACRO{snippet|id=sort-criterion|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=sort-criterion|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 The core part of the ```Finder``` is where it finalises and executes the query. It creates the JPAQL query and then it calls```EntityManager``` to execute it.
 
-<!-- MACRO{snippet|id=createQueryFull|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=createQueryFull|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 At last we can implement termination methods: they run the query, extract the part of the results they need and convert them from a JPA entity to the
 desired class (this task may be needed or not in function of the architecture of the application: a ```Finder``` might expose JPA entities if desired).
 
-<!-- MACRO{snippet|id=termination-methods|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=termination-methods|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 A point that is worth mentioning is about how transactions are handled: it largely depends on the used technology, as one needs to respect the best or
 mandatory practices that come with it. In the case of JPA, it is required that the ```Stream``` of results produced by a query is consumed before the

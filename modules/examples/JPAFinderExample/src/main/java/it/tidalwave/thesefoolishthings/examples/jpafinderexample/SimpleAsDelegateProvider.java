@@ -24,40 +24,45 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.jpafinderexample;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import lombok.experimental.UtilityClass;
+import it.tidalwave.util.spi.AsDelegate;
+import it.tidalwave.util.spi.AsDelegateProvider;
+import it.tidalwave.role.Removable;
+import it.tidalwave.role.io.Persistable;
+import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.PersonJpaPersistable;
+import it.tidalwave.thesefoolishthings.examples.jpafinderexample.role.Findable;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 
 /***********************************************************************************************************************
+ *
+ * This example doesn't use Spring integration, so we provide a simple quick-n-dirty {@code AsDelegateProvider} that
+ * finds the unique role available. This class is instantiated by {@code META-INF/services}.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@UtilityClass
-public class PersonRegistryHelper
+public class SimpleAsDelegateProvider implements AsDelegateProvider
   {
-    private static final List<Person> PEOPLE = List.of(
-        new Person("Michelangelo", "Buonarroti"),
-        new Person("Lorenzo", "Bernini"),
-        new Person("Leonardo", "da Vinci"),
-        new Person("Pietro", "Perugino"),
-        new Person("Paolo", "Uccello"),
-        new Person("Andrea", "Mantegna"),
-        new Person("Ambrogio", "Lorenzetti"),
-        new Person("Piero", "della Francesca"),
-        new Person("Giotto", "da Bondone")
-      );
+    private static final List<Class<?>> ROLES = Arrays.asList(Persistable.class, Removable.class, Findable.class);
 
-    public static void populate (@Nonnull final Collection<Person> collection)
+    @Override @Nonnull
+    public AsDelegate createAsDelegate (@Nonnull final Object datum)
       {
-        collection.addAll(PEOPLE);
-      }
-
-    public static void populate (@Nonnull final PersonRegistry registry)
-      {
-        PEOPLE.forEach(registry::add);
+        return new AsDelegate()
+          {
+            @Nonnull @Override
+            public <T> Collection<? extends T> as (@Nonnull final Class<T> roleType)
+              {
+                return ((datum instanceof Person) && ROLES.contains(roleType))
+                      ? Arrays.asList(roleType.cast(new PersonJpaPersistable((Person)datum)))
+                      : Collections.emptyList();
+              }
+        };
       }
   }

@@ -24,40 +24,30 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.jpafinderexample.role;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
 import java.util.List;
-import lombok.experimental.UtilityClass;
+import it.tidalwave.util.Finder;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@UtilityClass
-public class PersonRegistryHelper
+public interface Findable<T>
   {
-    private static final List<Person> PEOPLE = List.of(
-        new Person("Michelangelo", "Buonarroti"),
-        new Person("Lorenzo", "Bernini"),
-        new Person("Leonardo", "da Vinci"),
-        new Person("Pietro", "Perugino"),
-        new Person("Paolo", "Uccello"),
-        new Person("Andrea", "Mantegna"),
-        new Person("Ambrogio", "Lorenzetti"),
-        new Person("Piero", "della Francesca"),
-        new Person("Giotto", "da Bondone")
-      );
+    public static final Class<Findable> _Findable_ = Findable.class;
 
-    public static void populate (@Nonnull final Collection<Person> collection)
+    @Nonnull
+    public default List<T> findAll()
       {
-        collection.addAll(PEOPLE);
+        return (List<T>)find().results();
       }
 
-    public static void populate (@Nonnull final PersonRegistry registry)
-      {
-        PEOPLE.forEach(registry::add);
-      }
+    // @Nonnull
+    // public Optional<T> findById (@Nonnull Id id);
+
+    @Nonnull
+    public Finder<T> find();
   }

@@ -24,40 +24,22 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.List;
-import lombok.experimental.UtilityClass;
+import it.tidalwave.dci.annotation.DciRole;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@UtilityClass
-public class PersonRegistryHelper
+@DciRole(datumType = Person.class)
+public class PersonJpaPersistable extends JpaPersistableSupport<Person, PersonEntity>
   {
-    private static final List<Person> PEOPLE = List.of(
-        new Person("Michelangelo", "Buonarroti"),
-        new Person("Lorenzo", "Bernini"),
-        new Person("Leonardo", "da Vinci"),
-        new Person("Pietro", "Perugino"),
-        new Person("Paolo", "Uccello"),
-        new Person("Andrea", "Mantegna"),
-        new Person("Ambrogio", "Lorenzetti"),
-        new Person("Piero", "della Francesca"),
-        new Person("Giotto", "da Bondone")
-      );
-
-    public static void populate (@Nonnull final Collection<Person> collection)
+    public PersonJpaPersistable (@Nonnull final Person datum)
       {
-        collection.addAll(PEOPLE);
-      }
-
-    public static void populate (@Nonnull final PersonRegistry registry)
-      {
-        PEOPLE.forEach(registry::add);
+        super(datum, PersonEntity.class, PersonEntity::toPerson, PersonEntity::new);
       }
   }

@@ -24,13 +24,52 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.impl;
+package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
+
+import javax.annotation.Nonnull;
+import java.util.function.Function;
+import it.tidalwave.util.Finder;
+import it.tidalwave.role.Removable;
+import it.tidalwave.role.io.Persistable;
+import it.tidalwave.thesefoolishthings.examples.jpafinderexample.TxManager;
+import it.tidalwave.thesefoolishthings.examples.jpafinderexample.role.Findable;
+import lombok.AllArgsConstructor;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public abstract class TypeHolder<T>
+@AllArgsConstructor
+public abstract class JpaPersistableSupport<T, E> implements Persistable, Removable, Findable<T>
   {
+    @Nonnull
+    private final T datum;
+
+    @Nonnull
+    private final Class<E> entityClass;
+
+    @Nonnull
+    private final Function<E, T> fromEntity;
+
+    @Nonnull
+    private final Function<T, E> toEntity;
+
+    @Override
+    public void persist()
+      {
+        TxManager.getInstance().runInTx(em -> em.persist(toEntity.apply(datum)));
+      }
+
+    @Override
+    public void remove()
+      {
+        TxManager.getInstance().runInTx(em -> em.remove(toEntity.apply(datum)));
+      }
+
+    @Override @Nonnull
+    public Finder<T> find()
+      {
+        return new JpaFinder(entityClass, fromEntity, TxManager.getInstance());
+      }
   }

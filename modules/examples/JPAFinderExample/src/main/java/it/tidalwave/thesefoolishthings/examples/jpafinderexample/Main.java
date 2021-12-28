@@ -27,11 +27,17 @@
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample;
 
 import javax.annotation.Nonnull;
+import java.util.List;
+import it.tidalwave.util.As;
+import it.tidalwave.util.AsExtensions;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.JpaPersonRegistry;
-import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.TxManagerImpl;
+import it.tidalwave.thesefoolishthings.examples.jpafinderexample.role.Findable;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
+import lombok.experimental.ExtensionMethod;
 import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.thesefoolishthings.examples.jpafinderexample.PersonRegistry3.*;
+import static it.tidalwave.thesefoolishthings.examples.jpafinderexample.role.Findable._Findable_;
 import static it.tidalwave.util.Finder.SortDirection.DESCENDING;
 
 /***********************************************************************************************************************
@@ -39,40 +45,42 @@ import static it.tidalwave.util.Finder.SortDirection.DESCENDING;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@ExtensionMethod(AsExtensions.class)
 @Slf4j
 public class Main
   {
+    private static final As.Ref<Findable<Person>> _Findable_of_Person_ = As.ref(_Findable_);
+
     public static void main (@Nonnull final String... args)
             throws Exception
       {
-        try (final TxManager txManager = new TxManagerImpl())
+        try (final TxManager txManager = TxManager.getInstance())
           {
             final PersonRegistry3 registry = new JpaPersonRegistry(txManager);
             PersonRegistryHelper.populate(registry);
 
-            log.info("All: {}",
-                     registry.findPerson()
-                             .results());
+            final List<? extends Person> p1 = registry.findPerson().results();
+            log.info("******** All: {}", p1);
 
-            log.info("Count: {}",
-                     registry.findPerson()
-                             .count());
+            final int n1 = registry.findPerson().count();
+            log.info("******** Count: {}",  n1);
 
-            log.info("Two persons from the 3rd position: {}",
-                     registry.findPerson()
-                             .from(3)
-                             .max(2)
-                             .results());
+            final List<? extends Person> p2 = registry.findPerson().from(3).max(2).results();
+            log.info("******** wo persons from the 3rd position: {}", p2);
 
-            log.info("All, sorted by first name: {}",
-                     registry.findPerson()
-                             .sort(BY_FIRST_NAME)
-                             .results());
+            final List<? extends Person> p3 = registry.findPerson().sort(BY_FIRST_NAME).results();
+            log.info("******** All, sorted by first name: {}", p3);
 
-            log.info("All, sorted by last name, descending: {}",
-                     registry.findPerson()
-                             .sort(BY_LAST_NAME, DESCENDING)
-                             .results());
+            final List<? extends Person> p4 = registry.findPerson().sort(BY_LAST_NAME, DESCENDING).results();
+            log.info("******** All, sorted by last name, descending: {}", p4);
+
+            final List<? extends Person> p5 =
+                    Person.prototype().as(_Findable_of_Person_).find()
+                          .sort(BY_LAST_NAME, DESCENDING)
+                          .from(2)
+                          .max(3)
+                          .results();
+            log.info("******** Three persons from the 2nd position, with Person.as(): {}", p5);
           }
       }
   }
