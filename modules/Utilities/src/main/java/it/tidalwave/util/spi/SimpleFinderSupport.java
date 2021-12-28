@@ -40,7 +40,7 @@ import lombok.NoArgsConstructor;
  *
  **********************************************************************************************************************/
 @NoArgsConstructor
-public abstract class SimpleFinderSupport<T> extends FinderSupport<T, Finder<T>>
+public abstract class SimpleFinderSupport<T> extends HierarchicFinderSupport<T, Finder<T>>
   {
     private static final long serialVersionUID = 743059684933055L;
 

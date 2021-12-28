@@ -55,7 +55,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  **********************************************************************************************************************/
 @Slf4j @AllArgsConstructor(access = AccessLevel.PRIVATE) @ToString
-public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implements Finder<TYPE>
+public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implements Finder<TYPE>
   {
     private static final long serialVersionUID = 2467809593956684L;
 
@@ -103,7 +103,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      * @param  name   the name
      *
      ******************************************************************************************************************/
-    protected FinderSupport (@Nonnull final String name)
+    protected HierarchicFinderSupport (@Nonnull final String name)
       {
         this.name = name;
         this.firstResult = 0;
@@ -118,7 +118,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      * Default constructor.
      *
      ******************************************************************************************************************/
-    protected FinderSupport()
+    protected HierarchicFinderSupport()
       {
         this.name = getClass().getName();
         this.firstResult = 0;
@@ -136,10 +136,10 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      * @param   holder    the holder object
      *
      ******************************************************************************************************************/
-    protected FinderSupport (@Nonnull final FinderSupport<TYPE, EXTENDED_FINDER> other, @Nonnull final Object holder)
+    protected HierarchicFinderSupport (@Nonnull final HierarchicFinderSupport<TYPE, EXTENDED_FINDER> other, @Nonnull final Object holder)
       {
-        log.trace("FinderSupport({}, {})", other, holder);
-        final FinderSupport<TYPE, EXTENDED_FINDER> source = getSource(FinderSupport.class, other, holder);
+        log.trace("HierarchicFinderSupport({}, {})", other, holder);
+        final HierarchicFinderSupport<TYPE, EXTENDED_FINDER> source = getSource(HierarchicFinderSupport.class, other, holder);
         this.name = source.name;
         this.firstResult = source.firstResult;
         this.maxResults = source.maxResults;
@@ -157,9 +157,9 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public final FinderSupport<TYPE, EXTENDED_FINDER> clone()
+    public final HierarchicFinderSupport<TYPE, EXTENDED_FINDER> clone()
       {
-        throw new UnsupportedOperationException("\"FinderSupport.clone() no more supported");
+        throw new UnsupportedOperationException("\"HierarchicFinderSupport.clone() no more supported");
       }
 
     /*******************************************************************************************************************
@@ -175,7 +175,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
       {
         try
           {
-            final Constructor<? extends FinderSupport> constructor = getCloneConstructor();
+            final Constructor<? extends HierarchicFinderSupport> constructor = getCloneConstructor();
             constructor.setAccessible(true);
             return (EXTENDED_FINDER)constructor.newInstance(this, override);
           }
@@ -208,7 +208,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Override @Nonnull
     public EXTENDED_FINDER from (@Nonnegative final int firstResult)
       {
-        return clonedWith(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+        return clonedWith(new HierarchicFinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -219,7 +219,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     @Override @Nonnull
     public EXTENDED_FINDER max (@Nonnegative final int maxResults)
       {
-        return clonedWith(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+        return clonedWith(new HierarchicFinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -231,7 +231,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
     public EXTENDED_FINDER withContext (@Nonnull final Object context)
       {
         final List<Object> contexts = concat(this.contexts, context);
-        return clonedWith(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+        return clonedWith(new HierarchicFinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -257,7 +257,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
           {
             final List<Sorter<TYPE>> sorters = concat(this.sorters,
                                                       new Sorter<>((InMemorySortCriterion<TYPE>)criterion, direction));
-            return clonedWith(new FinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+            return clonedWith(new HierarchicFinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
           }
 
         final String template = "%s does not implement %s - you need to subclass Finder and override sort()";
@@ -382,7 +382,7 @@ public class FinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implement
      *
      ******************************************************************************************************************/
     @Nonnull
-    private Constructor<? extends FinderSupport> getCloneConstructor()
+    private Constructor<? extends HierarchicFinderSupport> getCloneConstructor()
       throws SecurityException, NoSuchMethodException
       {
         return getClass().getConstructor(getClass(), Object.class);
