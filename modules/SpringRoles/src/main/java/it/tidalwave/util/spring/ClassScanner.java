@@ -36,6 +36,7 @@ import org.springframework.context.annotation.ClassPathScanningCandidateComponen
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.util.ClassUtils;
+import it.tidalwave.role.spring.RoleSpringConfiguration;
 
 /***********************************************************************************************************************
  *
@@ -46,8 +47,8 @@ import org.springframework.util.ClassUtils;
  **********************************************************************************************************************/
 public class ClassScanner
   {
-    private final String basePackages = System.getProperty(ClassScanner.class.getCanonicalName() + ".basePackages",
-                                                           "com:org:it"); // FIME
+    private final String basePackages = System.getProperty(
+            ClassScanner.class.getCanonicalName() + ".basePackages", RoleSpringConfiguration.getBasePackages());
 
     private final ClassPathScanningCandidateComponentProvider scanner =
             new ClassPathScanningCandidateComponentProvider(false);

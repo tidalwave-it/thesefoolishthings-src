@@ -30,6 +30,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.RoleManager;
+import lombok.Getter;
+import lombok.Setter;
 
 /***********************************************************************************************************************
  *
@@ -42,6 +44,9 @@ public class RoleSpringConfiguration
     /** The path of the Spring configuration supporting roles to pass e.g. to a
         @code ClassPathXmlApplicationContext}. */
     public static final String BEANS = "classpath*:/META-INF/SpringRoleAutoBeans.xml";
+
+    @Getter @Setter
+    private static String basePackages = "com:org:it";
 
     @Bean
     public RoleManager roleManager()
