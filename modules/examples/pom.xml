@@ -48,7 +48,7 @@
         <tft.javac.target>11</tft.javac.target>
         <tft.javac.release>11</tft.javac.release>
 
-        <h2.version>2.0.202</h2.version>
+        <h2.version>2.1.210</h2.version>
         <hibernate.version>5.4.27.Final</hibernate.version>
         <jboss-logging.version>3.4.1.Final</jboss-logging.version>
         <byte-buddy.version>1.10.20</byte-buddy.version>
