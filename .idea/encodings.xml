@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/archetypes/project/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/archetypes/project/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/Actors/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/Actors/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/MessageBus/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/MessageBus/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/Roles/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/Roles/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/SpringMessageBus/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/SpringMessageBus/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/SpringRoles/src/main/java" charset="UTF-8" />
@@ -16,13 +20,24 @@
     <file url="file://$PROJECT_DIR$/modules/examples/Data/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/Data/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/DciDisplayableExample/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/examples/DciDisplayableExample/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/DciMarshalXStreamExample/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/examples/DciMarshalXStreamExample/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/DciPersistenceJpaExample/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/examples/DciPersistenceJpaExample/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/DciSwingExample/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/DciSwingExample/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/ExtendedFinderExample/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/examples/ExtendedFinderExample/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/InMemoryFinderExample/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/examples/InMemoryFinderExample/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/JPAFinderExample/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/examples/JPAFinderExample/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/examples/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/examples/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
 </project>
