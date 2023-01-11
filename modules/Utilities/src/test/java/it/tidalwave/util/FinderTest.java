@@ -32,7 +32,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 import it.tidalwave.util.spi.ExtendedFinderSupport;
-import it.tidalwave.util.spi.FinderSupport;
+import it.tidalwave.util.spi.HierarchicFinderSupport;
 import org.testng.annotations.Test;
 import static java.util.stream.Collectors.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -53,7 +53,7 @@ public class FinderTest
         public NameFinder startingWith (@Nonnull String prefix);
       }
 
-    static class NameFinderImplementation extends FinderSupport<String, NameFinderImplementation> implements NameFinder
+    static class NameFinderImplementation extends HierarchicFinderSupport<String, NameFinderImplementation> implements NameFinder
       {
         private String prefix = "";
 

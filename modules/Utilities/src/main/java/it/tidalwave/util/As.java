@@ -30,6 +30,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Optional;
+import it.tidalwave.util.impl.DefaultAs;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -51,6 +52,7 @@ public interface As
      * @it.tidalwave.javadoc.stable
      *
      ******************************************************************************************************************/
+    @Deprecated
     public static interface NotFoundBehaviour<T>
       {
         @Nonnull
@@ -61,6 +63,7 @@ public interface As
      *
      *
      ******************************************************************************************************************/
+    @Deprecated
     public static final class Defaults
       {
         private Defaults()
@@ -101,6 +104,56 @@ public interface As
 
     /*******************************************************************************************************************
      *
+     * Creates an {@code As} implementation for the given object (or returns the object itself if it is the default
+     * implementation of {@code As}).
+     *
+     * @param     object         the object
+     * @return                   the implementation
+     * @since     3.2-ALPHA-12
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static As forObject (@Nonnull final Object object)
+      {
+        return (object instanceof DefaultAs) ? (As)object : new DefaultAs(object);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an {@code As} implementation for the given object. It accepts a single pre-instantiated role, or a
+     * {@link RoleFactory} that will be invoked to create additional roles.
+     *
+     * @param     object         the object
+     * @param     role           the role or {@link it.tidalwave.util.RoleFactory}
+     * @return                   the implementation
+     * @since     3.2-ALPHA-13
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static As forObject (@Nonnull final Object object, @Nonnull final Object role)
+      {
+        return new DefaultAs(object, role);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Creates an {@code As} implementation for the given object. It accepts a collection of pre-instantiated roles,
+     * or instances of {@link RoleFactory} that will be invoked to create additional roles.
+     *
+     * @param     object         the object
+     * @param     roles          roles or {@link it.tidalwave.util.RoleFactory} instances
+     * @return                   the implementation
+     * @since     3.2-ALPHA-13
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static As forObject (@Nonnull final Object object, @Nonnull final Collection<Object> roles)
+      {
+        return new DefaultAs(object, roles);
+      }
+
+    /*******************************************************************************************************************
+     *
      * Returns an adapter to this object of the specified type. If the implementation can find multiple compliant
      * adapters, only one will be returned.
      *
@@ -111,7 +164,10 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> T as (@Nonnull Class<T> type);
+    public default <T> T as (@Nonnull final Class<T> type)
+      {
+        return maybeAs(type).orElseThrow(() -> new AsException(type));
+      }
 
     /*******************************************************************************************************************
      *
@@ -123,10 +179,14 @@ public interface As
      * @param   type                the dynamic type
      * @param   notFoundBehaviour   the behaviour to apply when an adapter is not found
      * @return                      the adapter
+     * @deprecated
      *
      ******************************************************************************************************************/
-    @Nonnull
-    public <T> T as (@Nonnull Class<T> type, @Nonnull NotFoundBehaviour<T> notFoundBehaviour);
+    @Nonnull @Deprecated
+    public default <T> T as (@Nonnull final Class<T> type, @Nonnull final NotFoundBehaviour<T> notFoundBehaviour)
+      {
+        return maybeAs(type).orElseGet(() -> notFoundBehaviour.run(new AsException(type)));
+      }
 
     /*******************************************************************************************************************
      *
@@ -139,24 +199,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    default <T> Optional<T> maybeAs (@Nonnull final Class<T> type)
-      {
-        return Optional.ofNullable(as(type, throwable -> null));
-      }
-
-    /*******************************************************************************************************************
-     *
-     * @param   <T>     the static type
-     * @param   type    the dynamic type
-     * @return          the optional role
-     * @deprecated Use {@link #maybeAs(Class)}.
-     *
-     ******************************************************************************************************************/
-    @Nonnull @Deprecated
-    default <T> Optional<T> asOptional (@Nonnull final Class<T> type)
-      {
-        return maybeAs(type);
-      }
+    public <T> Optional<T> maybeAs (@Nonnull Class<T> type);
 
     /*******************************************************************************************************************
      *
@@ -181,7 +224,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    static <T> Ref<T> ref (@Nonnull final Class<?> type) // FIXME: there's no static check of the argument
+    public static <T> Ref<T> ref (@Nonnull final Class<?> type) // FIXME: there's no static check of the argument
       {
         return new Ref<>(type);
       }
@@ -198,7 +241,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    default <T> T as (@Nonnull final Ref<T> ref)
+    public default <T> T as (@Nonnull final Ref<T> ref)
       {
         return as(ref.getType());
       }
@@ -214,7 +257,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    default <T> Optional<T> maybeAs (@Nonnull final Ref<T> ref)
+    public default <T> Optional<T> maybeAs (@Nonnull final Ref<T> ref)
       {
         return maybeAs(ref.getType());
       }
@@ -230,7 +273,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    default <T> Collection<T> asMany (@Nonnull final Ref<T> ref)
+    public default <T> Collection<T> asMany (@Nonnull final Ref<T> ref)
       {
         return asMany(ref.getType());
       }

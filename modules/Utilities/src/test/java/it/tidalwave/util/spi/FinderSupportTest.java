@@ -42,7 +42,7 @@ import static org.hamcrest.MatcherAssert.*;
 public class FinderSupportTest
   {
     @NoArgsConstructor
-    public static class UnderTest extends FinderSupport<String, UnderTest>
+    public static class UnderTest extends HierarchicFinderSupport<String, UnderTest>
       {
         private static final long serialVersionUID = -886814904140064237L;
 

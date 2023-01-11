@@ -28,7 +28,6 @@ package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.util.Finder;
-import it.tidalwave.util.Id;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.PersonRegistry3;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.TxManager;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
@@ -48,24 +47,12 @@ public class JpaPersonRegistry implements PersonRegistry3
     @Override @Nonnull
     public Finder<Person> findPerson()
       {
-        return new JpaPersonFinder(txManager);
+        return new JpaFinder<>(PersonEntity.class, PersonEntity::toPerson, txManager);
       }
 
     @Override
     public void add (@Nonnull final Person person)
       {
-        txManager.runInTx(em -> em.persist(toEntity(person)));
-      }
-
-    @Nonnull
-    public static PersonEntity toEntity (@Nonnull final Person person)
-      {
-        return new PersonEntity(person.getId().stringValue(), person.getFirstName(), person.getLastName());
-      }
-
-    @Nonnull
-    public static Person fromEntity (@Nonnull final PersonEntity entity)
-      {
-        return new Person(Id.of(entity.getId()), entity.getFirstName(), entity.getLastName());
+        txManager.runInTx(em -> em.persist(new PersonEntity(person)));
       }
   }

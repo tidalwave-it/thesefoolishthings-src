@@ -27,7 +27,7 @@
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample;
 
 import it.tidalwave.util.Finder;
-import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.JpaPersonFinder;
+import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.JpaFinder;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 
 /***********************************************************************************************************************
@@ -37,7 +37,7 @@ import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
  **********************************************************************************************************************/
 public interface PersonRegistry3 extends PersonRegistry
   {
-    public static final Finder.SortCriterion BY_FIRST_NAME = JpaPersonFinder.BY_FIRST_NAME;
+    public static final Finder.SortCriterion BY_FIRST_NAME = JpaFinder.BY_FIRST_NAME;
 
-    public static final Finder.SortCriterion BY_LAST_NAME  = JpaPersonFinder.BY_LAST_NAME;
+    public static final Finder.SortCriterion BY_LAST_NAME  = JpaFinder.BY_LAST_NAME;
   }

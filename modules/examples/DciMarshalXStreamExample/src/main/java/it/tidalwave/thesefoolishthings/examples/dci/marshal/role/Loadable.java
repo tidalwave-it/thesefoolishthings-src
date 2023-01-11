@@ -41,7 +41,7 @@ import java.nio.file.Path;
 // START SNIPPET: loadable
 public interface Loadable
   {
-    public final static Class<Loadable> _Loadable_ = Loadable.class;
+    public static final Class<Loadable> _Loadable_ = Loadable.class;
 
     public default <T> T loadFrom (@Nonnull final Path path)
             throws IOException

@@ -171,12 +171,12 @@ data sources, such as NoSQL databases, semantic databases, etc.
 The central class of JPA is ```EntityManager```: it's the facility that makes it possible to create and execute queries. What we want is make the
 ```Finder``` execute for us code such as:
 
-<!-- MACRO{snippet|id=createQuery|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=createQuery|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 where ```jpaql```, ```firstResult``` and ```maxResults``` have been properly set by intermediate methods previously called. In other words, if we had a test
 for the ```Finder``` we would like to have this kind of behaviour:
 
-<!-- MACRO{snippet|id=tests|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/test/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinderTest.java} -->
+<!-- MACRO{snippet|id=tests|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/test/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinderTest.java} -->
 
 Before going on, let's consider that transactions are managed by JPA in a few ways that, while not particularly complex in the context of a real application,
 require excessive set up for a simple example like the one we're dealing with. So we introduce a simple helper that executes a task in the context of a
@@ -189,13 +189,13 @@ In a real case the ```EntityManager``` would rather be injected.
 The first thing we need is to define the state of the ```Finder```, which must both model the parameters set by intermediate methods and contain a reference
 to the data source (which, in our case, is ```TxManager```).
 
-<!-- MACRO{snippet|id=fields|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=fields|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 Let's now focus on the implementation of intermediate methods. They usually don't do anything smart, but just accumulate the required parameters for later
 performing the query. Since a ```Finder``` must be immutable, they can't change the internal state: they rather must **create and return a cloned ```Finder```**
 with the original state and only a single field changed. This is a typical approach for immutable objects.
 
-<!-- MACRO{snippet|id=intermediate-methods|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=intermediate-methods|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 Now let's deal with sorting. Sorting works in a different way in function of the ```Finder``` being “in memory” or associated to a data source:
 
@@ -215,23 +215,23 @@ A convenience method ```of()``` makes it possible to easily create a working ```
 
 The intermediate method ```Finder.sort()``` behaves as other intermediate methods and just collects data for a later use:
 
-<!-- MACRO{snippet|id=sort-method|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=sort-method|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 Note that it usually rejects implementations of ```SortCriterion``` that it doesn't know.
 
 While the implementation of ```SortCriterion``` could be a simple ```enum``` that is later evaluated in a ```switch```, in a good design it provides its
 own behaviour (which is disclosed only to the ```Finder``` implementation). In case of JPA is to assemble the ```ORDER BY``` section of the query:
 
-<!-- MACRO{snippet|id=sort-criterion|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=sort-criterion|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 The core part of the ```Finder``` is where it finalises and executes the query. It creates the JPAQL query and then it calls```EntityManager``` to execute it.
 
-<!-- MACRO{snippet|id=createQueryFull|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=createQueryFull|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 At last we can implement termination methods: they run the query, extract the part of the results they need and convert them from a JPA entity to the
 desired class (this task may be needed or not in function of the architecture of the application: a ```Finder``` might expose JPA entities if desired).
 
-<!-- MACRO{snippet|id=termination-methods|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaPersonFinder.java} -->
+<!-- MACRO{snippet|id=termination-methods|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
 A point that is worth mentioning is about how transactions are handled: it largely depends on the used technology, as one needs to respect the best or
 mandatory practices that come with it. In the case of JPA, it is required that the ```Stream``` of results produced by a query is consumed before the
@@ -294,12 +294,12 @@ In a complex application it might be convenient to write a number of different `
 can be effectively captured by means of the generalisation-specialisation relationship (even though composition often is a better approach). The ```Finder```
 API doesn't mandate anything in addition of respecting the contract declared in its interface and have an immutable implementation, so one can proceed with
 his favourite design strategy. Anyway the API provides a support class
-```FinderSupport``` which offers the capability of having a completely encapsulated status: that is with all fields ```private``` (rather than
+```HierarchicFinderSupport``` which offers the capability of having a completely encapsulated status: that is with all fields ```private``` (rather than
 ```protected```) and each level of the hierarchy doesn't know anything of the internal status of the others.
 This is a way to mitigate the tight coupling caused by inheritance, so one can make changes to the internal status to a Finder in an intermediate level of
 the hierarchy without forcing the subclasses to be adjusted.
 
-![UML](apidocs/it/tidalwave/util/spi/FinderSupport.svg)
+![UML](apidocs/it/tidalwave/util/spi/HierarchicFinderSupport.svg)
 
 To explain how this works by examples, we are going to show how an implementation of the extended ```Finder``` we introduced in the previous section might be
 done (in-memory, to keep things simpler).
@@ -316,7 +316,7 @@ As it was explained above, intermediate methods must create copies of the ```Fin
 performed by a copy constructor that takes *all the fields*, including those of the superclass(es); but since we decided to make them ```private``` they can't
 be accessed. So all we can do is to call the constructor shown in the above code snippet that only deals with the fields of the current class. Since it calls
 the ```super``` default constructor, this means that **the state of the super class(es) will be reset** to a default: i.e. any change applied by intermediate
-methods implemented in the super class(es) will be lost. Obviously this is not how things are supposed to work: that's why ```FinderSupport``` offers a
+methods implemented in the super class(es) will be lost. Obviously this is not how things are supposed to work: that's why ```HierarchicFinderSupport``` offers a
 ```clonedWithOverride()``` method that fixes everything.
 
 <!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2a.java} -->
@@ -325,7 +325,7 @@ How does it work? It relies on the the presence of a special copy constructor th
 
 <!-- MACRO{snippet|id=clone-constructor|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2a.java} -->
 
-*Note: having this special copy constructor is a requirement of any subclass of ```FinderSupport```. The ```FinderSupport``` constructor makes a runtime check
+*Note: having this special copy constructor is a requirement of any subclass of ```HierarchicFinderSupport```. The ```HierarchicFinderSupport``` constructor makes a runtime check
 by introspection and throws an exception if the proper copy constructor is not found.*
 
 It takes two parameters:
@@ -345,7 +345,7 @@ need to call the ```super()``` constructor to make sure everything is fine (but 
 
 Is it a bit clumsy? Admittedly it is, even though the code is simple and clean: once the concept is clear, it's easy to write a copy constructor for a new
 extended ```Finder```. Part of the clumsiness derives from the complexity of inheritance, that we are trying to work around. If you don't like this approach,
-just forget ```FinderSupport```.
+just forget ```HierarchicFinderSupport```.
 
 #[[####]]# Alternate take
 
@@ -376,21 +376,21 @@ And the methods to specify parameters are:
 
 
 
-#[[###]]# Marginal note to ```FinderSupport```
+#[[###]]# Marginal note to ```HierarchicFinderSupport```
 
 *Note: this part of the API might go away in future: mention that after TFT-262 a Finder implementation only requires results().*
 
-If you decide to implement a ```Finder``` by subclassing ```FinderSupport``` there is an alternative way to implement the termination methods, as they have
+If you decide to implement a ```Finder``` by subclassing ```HierarchicFinderSupport``` there is an alternative way to implement the termination methods, as they have
 default implementations. You can rather implement **either** of these two methods:
 
-<!-- MACRO{snippet|id=computeNeededResults|file=${project.basedir}/../../modules/Utilities/src/main/java/it/tidalwave/util/spi/FinderSupport.java} -->
+<!-- MACRO{snippet|id=computeNeededResults|file=${project.basedir}/../../modules/Utilities/src/main/java/it/tidalwave/util/spi/HierarchicFinderSupport.java} -->
 
 This method is responsible **to produce the final results as they will be returned to the caller**. That is it must respect parameters concerning pagination
 (```from()``` or ```max()```), sorting and such. For instance, if the source is a relational database this method should prepare and execute a SQL query with
 all the relevant clauses (```WHERE```, ```ORDER BY```, ```LIMIT```, etc.). If this method is not overridden, it will call the method shown below and then
 apply pagination and sorting by itself (in memory).
 
-<!-- MACRO{snippet|id=computeResults|file=${project.basedir}/../../modules/Utilities/src/main/java/it/tidalwave/util/spi/FinderSupport.java} -->
+<!-- MACRO{snippet|id=computeResults|file=${project.basedir}/../../modules/Utilities/src/main/java/it/tidalwave/util/spi/HierarchicFinderSupport.java} -->
 
 This method would return **all** the objects of pertinence, without filtering or sorting them; the default implementation of ```computeNeededResults()``` will
 take care of that. Since this implies to work in memory after having loaded/created all the objects, this approach is easier to write but less efficient. It's
@@ -721,7 +721,46 @@ We can provide implementations relying upon the `Marshallable` / `Unmarshallable
 <!-- MACRO{snippet|id=marshallableloadable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/MarshallableLoadable.java} -->
 
 As a side note, the role can be applied to any kind of datum, neither requiring that it implements `As` nor by making use of Lombok `ExtensionMethod`:
-`AsSupport` does the trick working as an adapter.
+`As.forObject` does the trick creating an adapter when needed.
+
+
+#[[###]]# Implementing `As`
+
+#[[###]]## With static methods
+
+#[[###]]## With Lombok `@ExtensionMethod` (experimental)
+
+#[[###]]## With `As.forObject()`
+
+Eventually with Lombok `@Delegate`.
+Remember to exclude sa from `equals()`/`hashCode()` and `toString()`.
+
+#[[###]]# `As` and generics
+
+As works with class as key, so type erasure has an impact. It's impossible to distinguish `SimpleComposite<Foo>` from `SimpleComposite<Bar>`.
+A possible solution is to 'reificate' the two roles with two subclasses.
+
+If there are no clashes, there is a residual problem with compiler warnings.
+
+Can be resolved with `As.Ref`.
+
+
+#[[###]]# Configuration in standalone
+
+TBD
+
+#[[###]]# Configuration with Spring
+
+TBD: module Spring Roles must be used, show pom chunk.
+
+#[[####]]# Using XML
+
+TBD: show beans.xml configuration file.
+TBD: show RoleSpringConfiguration.BEANS usage in code.
+
+#[[####]]# Using annotations
+
+TBD
 
 
 #[[###]]# Other notes to expand

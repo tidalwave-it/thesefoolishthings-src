@@ -41,7 +41,7 @@ import java.nio.file.Path;
 // START SNIPPET: savable
 public interface Savable
   {
-    public final static Class<Savable> _Savable_ = Savable.class;
+    public static final Class<Savable> _Savable_ = Savable.class;
 
     public default void saveTo (@Nonnull final Path path)
             throws IOException

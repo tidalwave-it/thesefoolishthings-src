@@ -59,23 +59,16 @@ public class AsTest
         private final AsDelegate delegate;
 
         @Override @Nonnull
-        public <T> T as (@Nonnull final Class<T> type)
-          {
-            return as(type, As.Defaults.throwAsException(type));
-          }
-
-        @Override @Nonnull
-        public <T> T as (@Nonnull final Class<T> type, @Nonnull final NotFoundBehaviour<T> notFoundBehaviour)
+        public <T> Optional<T> maybeAs (@Nonnull final Class<T> type)
           {
             final Collection<T> roles = asMany(type);
-
-            return roles.isEmpty() ? notFoundBehaviour.run(null) : roles.iterator().next();
+            return roles.isEmpty() ? Optional.empty() : Optional.of(roles.iterator().next());
           }
 
         @Override @Nonnull
         public <T> Collection<T> asMany (@Nonnull final Class<T> type)
           {
-            return (Collection)delegate.as(type);
+            return (Collection<T>)delegate.as(type);
           }
       }
 

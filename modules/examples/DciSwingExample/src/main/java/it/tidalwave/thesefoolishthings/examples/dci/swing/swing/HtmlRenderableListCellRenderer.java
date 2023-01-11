@@ -32,7 +32,7 @@ import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 import it.tidalwave.util.AsException;
-import it.tidalwave.role.AsExtensions;
+import it.tidalwave.util.AsExtensions;
 import it.tidalwave.role.HtmlRenderable;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.ExtensionMethod;

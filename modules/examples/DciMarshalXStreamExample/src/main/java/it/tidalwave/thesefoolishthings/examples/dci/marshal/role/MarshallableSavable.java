@@ -35,7 +35,6 @@ import java.nio.file.Files;
 import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import it.tidalwave.util.As;
-import it.tidalwave.util.spi.AsSupport;
 import it.tidalwave.dci.annotation.DciRole;
 import static it.tidalwave.role.io.Marshallable._Marshallable_;
 
@@ -53,11 +52,11 @@ public class MarshallableSavable implements Savable
 
     public MarshallableSavable (@Nonnull final Object datum)
       {
-        this.datum = new AsSupport(datum);
+        this.datum = As.forObject(datum);
       }
 
     @Override
-    public void saveTo (@Nonnull final Path path, @Nonnull final Charset charset, @Nonnull OpenOption ... openOptions)
+    public void saveTo (@Nonnull final Path path, @Nonnull final Charset charset, @Nonnull final OpenOption ... openOptions)
             throws IOException
       {
         assert charset.equals(StandardCharsets.UTF_8);

@@ -28,8 +28,8 @@ package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
+import it.tidalwave.util.As;
 import it.tidalwave.util.Callback;
-import it.tidalwave.util.spi.AsSupport;
 import it.tidalwave.role.ui.BoundProperty;
 import it.tidalwave.role.ui.UserAction;
 import lombok.Getter;
@@ -50,7 +50,7 @@ public class DefaultUserAction implements UserAction
     private final BoundProperty<Boolean> enabled = new BoundProperty<>(true);
 
     @Delegate @Nonnull
-    private final AsSupport asSupport;
+    private final As as;
 
     @Nonnull
     private final Callback callback;
@@ -64,7 +64,7 @@ public class DefaultUserAction implements UserAction
     public DefaultUserAction (@Nonnull final Callback callback, @Nonnull final Collection<Object> roles)
       {
         this.callback = callback;
-        this.asSupport = new AsSupport(this, roles);
+        this.as = As.forObject(this, roles);
       }
 
     /*******************************************************************************************************************
