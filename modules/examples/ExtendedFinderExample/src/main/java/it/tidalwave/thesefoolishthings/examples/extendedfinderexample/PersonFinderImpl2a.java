@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import it.tidalwave.util.spi.FinderSupport;
+import it.tidalwave.util.spi.HierarchicFinderSupport;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 
 /***********************************************************************************************************************
@@ -38,7 +38,7 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class PersonFinderImpl2a extends FinderSupport<Person, PersonFinder> implements PersonFinder
+public class PersonFinderImpl2a extends HierarchicFinderSupport<Person, PersonFinder> implements PersonFinder
   {
     // START SNIPPET: public-constructor-and-fields
     @Nonnull

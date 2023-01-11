@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.ServiceLoader;
+import it.tidalwave.util.impl.LazyReference;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -41,36 +42,39 @@ import lombok.NoArgsConstructor;
  **********************************************************************************************************************/
 public interface AsDelegateProvider
   {
-    public static final Class<AsDelegateProvider> _AsDelegateProvider_ = AsDelegateProvider.class;
+    public static final LazyReference<EmptyAsDelegateProvider> EMPTY_REF =
+            LazyReference.of(EmptyAsDelegateProvider::new);
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Locator
       {
-        private static AsDelegateProvider asSpiProvider;
+        private static final LazyReference<AsDelegateProvider> AS_DELEGATE_PROVIDER_REF =
+                LazyReference.of(Locator::findAsSpiProvider);
 
         @Nonnull
-        public static synchronized AsDelegateProvider find()
+        public static AsDelegateProvider find()
           {
-            if (asSpiProvider == null)
+            return AS_DELEGATE_PROVIDER_REF.get();
+          }
+
+        @Nonnull
+        private static AsDelegateProvider findAsSpiProvider()
+          {
+            final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            final Iterator<AsDelegateProvider> i =
+                    ServiceLoader.load(AsDelegateProvider.class, classLoader).iterator();
+
+            if (!i.hasNext())
               {
-                final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                final Iterator<AsDelegateProvider> i =
-                        ServiceLoader.load(AsDelegateProvider.class, classLoader).iterator();
-
-                if (!i.hasNext())
-                  {
-                    final String message = "No ServiceProvider for AsDelegateProvider found in a ServiceLoader - if " +
-                                           "you are running tests perhaps you should first call " +
-                                           "AsDelegateProvider.Locator.set(AsDelegateProvider.empty()) or " +
-                                           "AsDelegateProvider.Locator.set(new MockSimpleAsDelegateProvider()) or " +
-                                           "another appropriate AsDelegateProvider";
-                    throw new RuntimeException(message);
-                  }
-
-                asSpiProvider = i.next();
+                final String message = "No ServiceProvider for AsDelegateProvider found in a ServiceLoader - if " +
+                                       "you are running tests perhaps you should first call " +
+                                       "AsDelegateProvider.Locator.set(AsDelegateProvider.empty()) or " +
+                                       "AsDelegateProvider.Locator.set(new MockSimpleAsDelegateProvider()) or " +
+                                       "another appropriate AsDelegateProvider";
+                throw new RuntimeException(message);
               }
 
-            return asSpiProvider;
+            return i.next();
           }
 
         /***************************************************************************************************************
@@ -83,7 +87,7 @@ public interface AsDelegateProvider
          **************************************************************************************************************/
         public static void set (@Nonnull final AsDelegateProvider provider)
           {
-            asSpiProvider = provider;
+            AS_DELEGATE_PROVIDER_REF.set(provider);
           }
 
         /***************************************************************************************************************
@@ -97,7 +101,7 @@ public interface AsDelegateProvider
          **************************************************************************************************************/
         public static void reset()
           {
-            asSpiProvider = null;
+            AS_DELEGATE_PROVIDER_REF.clear();
           }
       }
 
@@ -127,7 +131,7 @@ public interface AsDelegateProvider
     @Nonnull
     public static AsDelegateProvider empty()
       {
-        return new EmptyAsDelegateProvider();
+        return EMPTY_REF.get();
       }
 
     /*******************************************************************************************************************

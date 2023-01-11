@@ -38,7 +38,6 @@ import it.tidalwave.actor.impl.Locator;
 import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
-import it.tidalwave.util.spi.AsSupport;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
@@ -74,7 +73,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
       }
 
     @Delegate(excludes = Exclusions.class)
-    private final AsSupport asSupport = new AsSupport(this);
+    private final As as = As.forObject(this);
 
     /*******************************************************************************************************************
      *

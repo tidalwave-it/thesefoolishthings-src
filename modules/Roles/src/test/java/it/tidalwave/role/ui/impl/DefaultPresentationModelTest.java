@@ -28,7 +28,7 @@ package it.tidalwave.role.ui.impl;
 
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
-import it.tidalwave.util.MockAs;
+import it.tidalwave.util.mock.MockAsFactory;
 import it.tidalwave.util.spi.AsDelegateProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -78,8 +78,8 @@ public class DefaultPresentationModelTest
         role2InOwner = mock(Role2.class);
         ownerNoAs = new Object();
 
-        ownerAsWithNoRoles = MockAs.mockWithAsSupport(As.class);
-        ownerAsWithRole2 = MockAs.mockWithAsSupport(As.class, r(role2InOwner));
+        ownerAsWithNoRoles = MockAsFactory.mockWithAs(As.class);
+        ownerAsWithRole2 = MockAsFactory.mockWithAs(As.class, r(role2InOwner));
       }
 
     /*******************************************************************************************************************

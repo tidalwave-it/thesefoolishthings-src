@@ -27,12 +27,13 @@
 package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.Comparator;
 import it.tidalwave.util.As;
 import it.tidalwave.role.ui.Displayable;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static org.mockito.Mockito.*;
+import static it.tidalwave.util.mock.MockAsFactory.mockWithAs;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -43,10 +44,10 @@ import static org.hamcrest.MatcherAssert.*;
  **********************************************************************************************************************/
 public class AsDisplayableComparatorTest
   {
-    private final As a  = createAs(new DefaultDisplayable("a", "a"));
-    private final As b  = createAs(new DefaultDisplayable("b", "b"));
-    private final As c1 = createAs(new DefaultDisplayable("c", "c"));
-    private final As c2 = createAs(new DefaultDisplayable("c", "c"));
+    private final As a  = createMockAs(new DefaultDisplayable("a", "a"));
+    private final As b  = createMockAs(new DefaultDisplayable("b", "b"));
+    private final As c1 = createMockAs(new DefaultDisplayable("c", "c"));
+    private final As c2 = createMockAs(new DefaultDisplayable("c", "c"));
 
     @Test(dataProvider = "data")
     public void test (@Nonnull final As a1, @Nonnull final As a2, final int expectedResult)
@@ -60,12 +61,9 @@ public class AsDisplayableComparatorTest
       }
 
     @Nonnull
-    private static As createAs (@Nonnull final Displayable displayable)
+    private static As createMockAs (@Nonnull final Displayable displayable)
       {
-        final As as = mock(As.class);
-        when(as.as(eq(Displayable.class))).thenReturn(displayable);
-
-        return as;
+        return mockWithAs(As.class, Arrays.asList(displayable));
       }
 
     @DataProvider

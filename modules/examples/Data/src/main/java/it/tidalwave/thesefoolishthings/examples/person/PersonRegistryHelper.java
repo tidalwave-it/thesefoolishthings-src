@@ -27,6 +27,7 @@
 package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import java.util.List;
 import lombok.experimental.UtilityClass;
 
@@ -49,7 +50,12 @@ public class PersonRegistryHelper
         new Person("Piero", "della Francesca"),
         new Person("Giotto", "da Bondone")
       );
-    
+
+    public static void populate (@Nonnull final Collection<Person> collection)
+      {
+        collection.addAll(PEOPLE);
+      }
+
     public static void populate (@Nonnull final PersonRegistry registry)
       {
         PEOPLE.forEach(registry::add);

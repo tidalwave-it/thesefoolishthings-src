@@ -27,40 +27,43 @@
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
 import javax.annotation.Nonnull;
-import java.util.UUID;
+import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@NoArgsConstructor @AllArgsConstructor @Getter @Setter @EqualsAndHashCode
-@Entity @Table(name = "PERSON")
-public class PersonEntity
+@Entity @NoArgsConstructor @Getter @Setter @ToString
+public class PersonEntity implements Serializable
   {
-    public PersonEntity (@Nonnull final String firstName, @Nonnull final String lastName)
-      {
-        this(UUID.randomUUID().toString(), firstName, lastName);
-      }
-
     @Id
     private String id;
 
+    @Column
     private String firstName;
 
+    @Column
     private String lastName;
 
-    @Override @Nonnull
-    public String toString()
+    public PersonEntity (@Nonnull final Person datum)
       {
-        return firstName + " " + lastName;
+        this.id = datum.getId().stringValue();
+        this.firstName = datum.getFirstName();
+        this.lastName = datum.getLastName();
+      }
+
+    @Nonnull
+    public Person toPerson()
+      {
+        return new Person(new it.tidalwave.util.Id(id), firstName, lastName);
       }
   }

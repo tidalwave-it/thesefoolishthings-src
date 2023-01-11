@@ -27,21 +27,43 @@
 package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
 
 import javax.annotation.Nonnull;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Bean;
+import it.tidalwave.role.spring.RoleSpringConfiguration;
+import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.impl.JpaPersistenceContext;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@SpringBootApplication
+@EntityScan(basePackages = "it.tidalwave")
 public class Main
   {
+    @Bean
+    public JpaPersistenceContext jpaPersistenceContext()
+      {
+        return new JpaPersistenceContext();
+      }
+
+    @Bean
+    public DciPersistenceJpaExample example()
+      {
+        return new DciPersistenceJpaExample();
+      }
+
+    @Bean
+    public TransactionalProcessor transactionalProcessor()
+      {
+        return new TransactionalProcessor();
+      }
+
     public static void main (@Nonnull final String ... args)
       throws Exception
       {
-        final String beans = "it/tidalwave/thesefoolishthings/examples/dci/persistable/jpa/Beans.xml";
-        final BeanFactory context = new ClassPathXmlApplicationContext(beans);
-        context.getBean(DciPersistenceJpaExample.class).run();
+        SpringApplication.run(new Class[] { RoleSpringConfiguration.class, Main.class }, args);
       }
   }

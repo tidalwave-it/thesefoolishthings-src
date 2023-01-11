@@ -30,6 +30,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Configurable;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.spring.ClassScanner;
 import it.tidalwave.role.spi.RoleManagerSupport;
@@ -45,16 +46,11 @@ import lombok.extern.slf4j.Slf4j;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Slf4j
+@Slf4j @Configurable
 public class AnnotationSpringRoleManager extends RoleManagerSupport
   {
     @Inject @Nonnull
     private BeanFactory beanFactory;
-
-    public AnnotationSpringRoleManager()
-      {
-        log.debug("ctor");
-      }
 
     /*******************************************************************************************************************
      *

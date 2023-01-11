@@ -42,6 +42,9 @@
     <packaging>pom</packaging>
     <version>3.2-ALPHA-13-SNAPSHOT</version>
     <name>TheseFoolishThings :: Examples (master)</name>
+    <description>
+        A set of examples demonstrating the features of this project.
+    </description>
 
     <properties>
         <tft.javac.source>11</tft.javac.source>
@@ -49,16 +52,12 @@
         <tft.javac.release>11</tft.javac.release>
 
         <h2.version>2.0.202</h2.version>
-        <hibernate.version>5.4.27.Final</hibernate.version>
-        <jboss-logging.version>3.4.1.Final</jboss-logging.version>
-        <byte-buddy.version>1.10.20</byte-buddy.version>
         <betterbeansbinding.version>1.3.0</betterbeansbinding.version>
-        <javax.persistence>2.2</javax.persistence>
         <xstream.version>1.4.18</xstream.version>
+        <tft.spring-boot.version>2.6.2</tft.spring-boot.version>
+
+        <tft.defaultGoal>clean install exec:java</tft.defaultGoal>
     </properties>
-    <description>
-        A set of examples demonstrating the features of this project.
-    </description>
 
     <dependencyManagement>
         <dependencies>
@@ -66,11 +65,6 @@
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
                 <version>${xstream.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.persistence</groupId>
-                <artifactId>javax.persistence-api</artifactId>
-                <version>${javax.persistence}</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.betterbeansbinding</groupId>
@@ -82,30 +76,19 @@
                 <artifactId>betterbeansbinding-swingbinding</artifactId>
                 <version>${betterbeansbinding.version}</version>
             </dependency>
+
             <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${hibernate.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${tft.spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>${h2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.logging</groupId>
-                <artifactId>jboss-logging</artifactId>
-                <version>${jboss-logging.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.bytebuddy</groupId>
-                <artifactId>byte-buddy</artifactId>
-                <version>${byte-buddy.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -121,11 +104,19 @@
             <artifactId>logback-core</artifactId>
             <scope>runtime</scope>
         </dependency>
-    </dependencies>
 
-    <build>
-        <defaultGoal>clean install exec:java</defaultGoal>
-    </build>
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it-tidalwave-util-test</artifactId>
+            <!-- FIXME: fixes the trouble with missing Hamcrest methods -->
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 
     <modules>
         <module>Data</module>

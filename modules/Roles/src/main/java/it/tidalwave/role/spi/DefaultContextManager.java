@@ -165,7 +165,7 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T, E extends Throwable> T runEWithContexts (@Nonnull SupplierWithException<T, E> supplier,
+    public <T, E extends Throwable> T runEWithContexts (@Nonnull final SupplierWithException<T, E> supplier,
                                                         @Nonnull final Object ... contexts)
             throws E
       {
