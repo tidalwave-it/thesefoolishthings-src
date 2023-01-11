@@ -724,6 +724,45 @@ As a side note, the role can be applied to any kind of datum, neither requiring 
 `As.forObject` does the trick creating an adapter when needed.
 
 
+#[[###]]# Implementing `As`
+
+#[[###]]## With static methods
+
+#[[###]]## With Lombok `@ExtensionMethod` (experimental)
+
+#[[###]]## With `As.forObject()`
+
+Eventually with Lombok `@Delegate`.
+Remember to exclude sa from `equals()`/`hashCode()` and `toString()`.
+
+#[[###]]# `As` and generics
+
+As works with class as key, so type erasure has an impact. It's impossible to distinguish `SimpleComposite<Foo>` from `SimpleComposite<Bar>`.
+A possible solution is to 'reificate' the two roles with two subclasses.
+
+If there are no clashes, there is a residual problem with compiler warnings.
+
+Can be resolved with `As.Ref`.
+
+
+#[[###]]# Configuration in standalone
+
+TBD
+
+#[[###]]# Configuration with Spring
+
+TBD: module Spring Roles must be used, show pom chunk.
+
+#[[####]]# Using XML
+
+TBD: show beans.xml configuration file.
+TBD: show RoleSpringConfiguration.BEANS usage in code.
+
+#[[####]]# Using annotations
+
+TBD
+
+
 #[[###]]# Other notes to expand
 
 The Tell don't Ask principle says that ... It's one of the way we can make our design really strong and resistant to change. Unfortunately a few people use it;
