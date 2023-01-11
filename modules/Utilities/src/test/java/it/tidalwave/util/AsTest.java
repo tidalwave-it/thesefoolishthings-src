@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -59,24 +59,16 @@ public class AsTest
         private final AsDelegate delegate;
 
         @Override @Nonnull
-        public <T> T as (@Nonnull final Class<? extends T> type)
-          {
-            return as(type, As.Defaults.throwAsException(type));
-          }
-
-        @Override @Nonnull
-        public <T> T as (@Nonnull final Class<? extends T> type,
-                         @Nonnull final NotFoundBehaviour<? extends T> notFoundBehaviour)
+        public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> type)
           {
             final Collection<T> roles = asMany(type);
-
-            return roles.isEmpty() ? notFoundBehaviour.run(null) : roles.iterator().next();
+            return roles.isEmpty() ? Optional.empty() : Optional.of(roles.iterator().next());
           }
 
         @Override @Nonnull
         public <T> Collection<T> asMany (@Nonnull final Class<? extends T> type)
           {
-            return (Collection)delegate.as(type);
+            return (Collection<T>)delegate.as(type);
           }
       }
 

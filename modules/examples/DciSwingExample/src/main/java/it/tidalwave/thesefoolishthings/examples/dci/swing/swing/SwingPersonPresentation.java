@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -77,7 +77,7 @@ public class SwingPersonPresentation extends JPanel implements PersonPresentatio
         EventQueue.invokeLater(() ->
           {
             bindings.unbind();
-            ((JFrame)(SwingUtilities.getAncestorOfClass(JFrame.class, SwingPersonPresentation.this))).dispose();
+            ((JFrame)(SwingUtilities.getAncestorOfClass(JFrame.class, this))).dispose();
           });
       }
 

@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -40,7 +40,7 @@ import lombok.NoArgsConstructor;
  *
  **********************************************************************************************************************/
 @NoArgsConstructor
-public abstract class SimpleFinderSupport<T> extends FinderSupport<T, Finder<T>>
+public abstract class SimpleFinderSupport<T> extends HierarchicFinderSupport<T, Finder<T>>
   {
     private static final long serialVersionUID = 743059684933055L;
 

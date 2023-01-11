@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -27,21 +27,31 @@
 package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
 
 import javax.annotation.Nonnull;
+
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import it.tidalwave.role.spring.RoleSpringConfiguration;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@Configuration
 public class Main
   {
+    @Bean
+    public DciMarshalXStreamExample example()
+      {
+        return new DciMarshalXStreamExample();
+      }
+
     public static void main (@Nonnull final String ... args)
       throws Exception
       {
-        final String beans = "it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/Beans.xml";
-        final BeanFactory context = new ClassPathXmlApplicationContext(beans);
+        final BeanFactory context = new AnnotationConfigApplicationContext(RoleSpringConfiguration.class, Main.class);
         context.getBean(DciMarshalXStreamExample.class).run();
       }
   }

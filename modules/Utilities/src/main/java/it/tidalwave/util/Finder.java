@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -77,7 +77,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * by themselves the sorting of objects, by post-processing an existing collection of objects. While this is often
      * convenient, it is possible for it to be inefficient in cases in which the original source of objects is capable
      * to perform the sort in an optimized way (e.g. an SQL database by means of {@code ORDER BY}). The facility class
-     * {@link it.tidalwave.util.spi.FinderSupport} supports {@code FilterSortCriterion} objects out of the box.
+       * {@link it.tidalwave.util.spi.HierarchicFinderSupport} supports {@code FilterSortCriterion} objects out of the box.
      *
      ******************************************************************************************************************/
     public static interface InMemorySortCriterion<TYPE> extends SortCriterion
@@ -398,7 +398,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      * @param   <T>     the type of the {@code Finder}
      * @return          the empty {@code Finder}
-     * @since 3.2-ALPHA-1 (previously in FinderSupport.emptyFinder())
+     * @since 3.2-ALPHA-1 (previously in HierarchicFinderSupport.emptyFinder())
      *
      ******************************************************************************************************************/
     @Nonnull

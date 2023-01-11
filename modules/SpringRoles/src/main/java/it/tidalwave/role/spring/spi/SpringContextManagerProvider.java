@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -27,21 +27,25 @@
 package it.tidalwave.role.spring.spi;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
-import org.springframework.beans.factory.annotation.Configurable;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.ContextManagerProvider;
-import lombok.Getter;
+import it.tidalwave.role.spi.DefaultContextManager;
 
 /***********************************************************************************************************************
+ *
+ * Since the whole library must be independent of Spring or any other DI framework, the {@link ContextManager} is always
+ * retrieved by means of {@link ContextManagerProvider} that, in turn, searches for a {@code META-INF/services}
+ * registered class.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
 // Registered in META-INF/services
-@Configurable
 public class SpringContextManagerProvider implements ContextManagerProvider
   {
-    @Getter @Inject @Nonnull
-    private ContextManager contextManager;
+    @Override @Nonnull
+    public ContextManager getContextManager()
+      {
+        return new DefaultContextManager();
+      }
   }

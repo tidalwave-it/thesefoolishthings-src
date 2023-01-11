@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -47,30 +47,30 @@ public final class Parameters
   {
     /*******************************************************************************************************************
      *
-     * A convenience method for transforming a varargs of roles to a {@link Collection}. It supports concatenating
+     * A convenience method for transforming a varargs of objects to a {@link Collection}. It supports concatenating
      * collections: that is, each varargs item that is a {@link Collection} is flattened.
      *
-     * @param   roles                     the roles as varargs
-     * @return                            the roles as collection
+     * @param   objects                   the objects as varargs
+     * @return                            the objects as collection
      * @since                             3.2-ALPHA-3
      * @it.tidalwave.javadoc.experimental
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static Collection<Object> r (@Nonnull final Object... roles)
+    public static Collection<Object> r (@Nonnull final Object... objects)
       {
         // Don't use streams() for performance reasons.
         final List<Object> result = new ArrayList<>();
 
-        for (final Object role : roles)
+        for (final Object object : objects)
           {
-            if (!(role instanceof Collection))
+            if (!(object instanceof Collection))
               {
-                result.add(role);
+                result.add(object);
               }
             else
               {
-                result.addAll((Collection<?>)role);
+                result.addAll((Collection<?>)object);
               }
           }
 

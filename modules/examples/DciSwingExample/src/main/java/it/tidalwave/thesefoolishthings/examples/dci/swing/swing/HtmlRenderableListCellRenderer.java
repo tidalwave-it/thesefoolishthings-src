@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -32,7 +32,7 @@ import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 import it.tidalwave.util.AsException;
-import it.tidalwave.role.AsExtensions;
+import it.tidalwave.util.AsExtensions;
 import it.tidalwave.role.HtmlRenderable;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.ExtensionMethod;

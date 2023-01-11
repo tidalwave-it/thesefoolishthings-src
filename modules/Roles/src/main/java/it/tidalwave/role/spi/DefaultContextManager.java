@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -165,7 +165,7 @@ public class DefaultContextManager implements ContextManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T, E extends Throwable> T runEWithContexts (@Nonnull SupplierWithException<T, E> supplier,
+    public <T, E extends Throwable> T runEWithContexts (@Nonnull final SupplierWithException<T, E> supplier,
                                                         @Nonnull final Object ... contexts)
             throws E
       {

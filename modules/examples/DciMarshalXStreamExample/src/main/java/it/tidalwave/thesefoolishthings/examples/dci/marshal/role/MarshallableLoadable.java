@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -35,7 +35,6 @@ import java.nio.file.Files;
 import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import it.tidalwave.util.As;
-import it.tidalwave.util.spi.AsSupport;
 import it.tidalwave.dci.annotation.DciRole;
 import static it.tidalwave.role.io.Unmarshallable._Unmarshallable_;
 
@@ -53,11 +52,11 @@ public class MarshallableLoadable implements Loadable
 
     public MarshallableLoadable (@Nonnull final Object datum)
       {
-        this.datum = new AsSupport(datum);
+        this.datum = As.forObject(datum);
       }
 
     @Override
-    public <T> T loadFrom (@Nonnull final Path path, @Nonnull final Charset charset, @Nonnull OpenOption ... openOptions)
+    public <T> T loadFrom (@Nonnull final Path path, @Nonnull final Charset charset, @Nonnull final OpenOption ... openOptions)
             throws IOException
       {
         assert charset.equals(StandardCharsets.UTF_8);

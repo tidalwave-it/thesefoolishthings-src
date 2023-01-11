@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -291,7 +291,7 @@ public class DefaultContextManagerTest
         final DefaultContextManager underTest = spy(DefaultContextManager.class);
         final Runnable body = mock(Runnable.class);
         // when
-        try (ContextManager.Binder binder = underTest.binder(localContext1, localContext2, localContext3))
+        try (final ContextManager.Binder binder = underTest.binder(localContext1, localContext2, localContext3))
           {
             body.run();
           }
@@ -315,7 +315,7 @@ public class DefaultContextManagerTest
         final DefaultContextManager underTest = spy(DefaultContextManager.class);
         final Runnable body = mock(Runnable.class);
         // when
-        try (ContextManager.Binder binder = underTest.binder(localContext1, localContext2, localContext3))
+        try (final ContextManager.Binder binder = underTest.binder(localContext1, localContext2, localContext3))
           {
             body.run();
             throw new RuntimeException("Purportedly generated exception");
@@ -344,7 +344,7 @@ public class DefaultContextManagerTest
         final DefaultContextManager underTest = spy(DefaultContextManager.class);
         final Runnable body = mock(Runnable.class);
         // when
-        underTest.runWithContexts(body::run, localContext1, localContext2, localContext3);
+        underTest.runWithContexts(body, localContext1, localContext2, localContext3);
         // then
         verify(underTest).addLocalContext(same(localContext1));
         verify(underTest).addLocalContext(same(localContext2));

@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -30,6 +30,7 @@ import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnull;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import it.tidalwave.role.spring.RoleSpringConfiguration;
 
 /***********************************************************************************************************************
  *
@@ -42,7 +43,7 @@ public class Main
             throws InterruptedException, InvocationTargetException
       {
         final String beans = "it/tidalwave/thesefoolishthings/examples/dci/swing/Beans.xml";
-        final BeanFactory context = new ClassPathXmlApplicationContext(beans);
+        final BeanFactory context = new ClassPathXmlApplicationContext(RoleSpringConfiguration.BEANS, beans);
         context.getBean(SwingDciExample.class).run();
       }
   }

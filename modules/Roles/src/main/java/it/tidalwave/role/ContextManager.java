@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -26,7 +26,6 @@
  */
 package it.tidalwave.role;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.Iterator;
@@ -36,6 +35,7 @@ import java.util.ServiceLoader;
 import java.util.function.Supplier;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.Task;
+import it.tidalwave.util.impl.LazyReference;
 import it.tidalwave.role.spi.ContextManagerProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -63,39 +63,19 @@ public interface ContextManager
     @Slf4j @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Locator
       {
-        @CheckForNull
-        private static ContextManager contextManager;
+        private static final LazyReference<ContextManager> CONTEXT_MANAGER_REF =
+                LazyReference.of(Locator::findContextManager);
 
-        @CheckForNull
-        private static ContextManagerProvider contextManagerProvider;
+        private static final LazyReference<ContextManagerProvider> CONTEXT_MANAGER_PROVIDER_REF =
+                LazyReference.of(Locator::findContextManagerProvider);
 
+        /***************************************************************************************************************
+         *
+         **************************************************************************************************************/
         @Nonnull
-        public static synchronized ContextManager find ()
+        public static ContextManager find()
           {
-            if (contextManager == null)
-              {
-                if (contextManagerProvider == null)
-                  {
-                    final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                    final Iterator<ContextManagerProvider> i =
-                            ServiceLoader.load(ContextManagerProvider.class, classLoader).iterator();
-
-                    if (!i.hasNext())
-                      {
-                        throw new RuntimeException("No ServiceProvider for ContextManagerProvider");
-                      }
-
-                    contextManagerProvider = Objects.requireNonNull(i.next(), "contextManagerProvider is null");
-                    assert contextManagerProvider != null; // for SpotBugs
-                    log.info("ContextManagerProvider instantiated from META-INF: {}", contextManagerProvider);
-                  }
-
-                contextManager = Objects.requireNonNull(contextManagerProvider.getContextManager(),
-                                                        "Cannot find ContextManager");
-              }
-
-            assert contextManager != null; // for SpotBugs
-            return contextManager;
+            return CONTEXT_MANAGER_REF.get();
           }
 
         /***************************************************************************************************************
@@ -109,8 +89,8 @@ public interface ContextManager
          **************************************************************************************************************/
         public static void set (@Nonnull final ContextManagerProvider provider)
           {
-            contextManager = null;
-            contextManagerProvider = provider;
+            CONTEXT_MANAGER_REF.clear();
+            CONTEXT_MANAGER_PROVIDER_REF.set(provider);
           }
 
         /***************************************************************************************************************
@@ -124,8 +104,40 @@ public interface ContextManager
          **************************************************************************************************************/
         public static void reset()
           {
-            contextManager = null;
-            contextManagerProvider = null;
+            CONTEXT_MANAGER_REF.clear();
+            CONTEXT_MANAGER_PROVIDER_REF.clear();
+          }
+
+        /***************************************************************************************************************
+         *
+         **************************************************************************************************************/
+        @Nonnull
+        private static ContextManager findContextManager()
+          {
+            return Objects.requireNonNull(CONTEXT_MANAGER_PROVIDER_REF.get().getContextManager(),
+                                          "Cannot find ContextManager");
+          }
+
+        /***************************************************************************************************************
+         *
+         **************************************************************************************************************/
+        @Nonnull
+        private static ContextManagerProvider findContextManagerProvider()
+          {
+            final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            final Iterator<ContextManagerProvider> i =
+                    ServiceLoader.load(ContextManagerProvider.class, classLoader).iterator();
+
+            if (!i.hasNext())
+              {
+                throw new RuntimeException("No ServiceProvider for ContextManagerProvider");
+              }
+
+            final ContextManagerProvider contextManagerProvider = Objects.requireNonNull(i.next(),
+                                                                                         "contextManagerProvider is null");
+            assert contextManagerProvider != null; // for SpotBugs
+            log.info("ContextManagerProvider instantiated from META-INF: {}", contextManagerProvider);
+            return contextManagerProvider;
           }
       }
 

@@ -5,7 +5,7 @@
     TheseFoolishThings: Miscellaneous utilities
     http://tidalwave.it/projects/thesefoolishthings
 
-    Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+    Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
 
     *********************************************************************************************************************
 
@@ -46,7 +46,7 @@
     </description>
 
     <properties>
-        <mainClass>it.tidalwave.thesefoolishthings.examples.dci.swing.Main</mainClass>
+        <tft.mainClass>it.tidalwave.thesefoolishthings.examples.dci.swing.Main</tft.mainClass>
     </properties>
 
     <dependencies>

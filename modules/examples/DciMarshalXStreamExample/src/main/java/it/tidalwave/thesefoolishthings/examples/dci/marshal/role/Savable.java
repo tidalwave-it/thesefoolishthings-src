@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -41,7 +41,7 @@ import java.nio.file.Path;
 // START SNIPPET: savable
 public interface Savable
   {
-    public final static Class<Savable> _Savable_ = Savable.class;
+    public static final Class<Savable> _Savable_ = Savable.class;
 
     public default void saveTo (@Nonnull final Path path)
             throws IOException

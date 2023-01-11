@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -42,7 +42,7 @@ import static org.hamcrest.MatcherAssert.*;
 public class FinderSupportTest
   {
     @NoArgsConstructor
-    public static class UnderTest extends FinderSupport<String, UnderTest>
+    public static class UnderTest extends HierarchicFinderSupport<String, UnderTest>
       {
         private static final long serialVersionUID = -886814904140064237L;
 

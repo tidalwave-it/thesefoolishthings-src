@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -27,7 +27,6 @@
 package it.tidalwave.role.spring.mock;
 
 import it.tidalwave.util.As;
-import it.tidalwave.util.spi.AsSupport;
 import lombok.experimental.Delegate;
 
 /***********************************************************************************************************************
@@ -38,5 +37,5 @@ import lombok.experimental.Delegate;
 public class MockDatum1 implements As
   {
     @Delegate
-    private final AsSupport asSupport = new AsSupport(this);
+    private final As as = As.forObject(this);
   }

@@ -5,7 +5,7 @@
     TheseFoolishThings: Miscellaneous utilities
     http://tidalwave.it/projects/thesefoolishthings
 
-    Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+    Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
 
     *********************************************************************************************************************
 
@@ -75,10 +75,10 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- FIXME: fixes the trouble with missing Hamcrest methods -->
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it-tidalwave-util-test</artifactId>
+            <!-- FIXME: fixes the trouble with missing Hamcrest methods -->
             <exclusions>
                 <exclusion>
                     <groupId>junit</groupId>

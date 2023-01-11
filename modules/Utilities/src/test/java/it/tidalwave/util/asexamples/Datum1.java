@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -28,6 +28,7 @@ package it.tidalwave.util.asexamples;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
+import java.util.Optional;
 import it.tidalwave.util.As;
 import lombok.RequiredArgsConstructor;
 
@@ -42,21 +43,14 @@ public class Datum1 implements As
     final String status;
 
     @Nonnull
-    public <T> T as (@Nonnull final Class<? extends T> clazz)
+    public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> roleType)
       {
-        return AsExtensions.as(this, clazz);
+        return AsExtensions.maybeAs(this, roleType);
       }
 
     @Nonnull
-    public <T> T as (@Nonnull final Class<? extends T> clazz,
-                     @Nonnull final NotFoundBehaviour<? extends T> notFoundBehaviour)
+    public <T> Collection<T> asMany (@Nonnull final Class<? extends T> roleType)
       {
-        return AsExtensions.as(this, clazz, notFoundBehaviour);
-      }
-
-    @Nonnull
-    public <T> Collection<T> asMany (@Nonnull final Class<? extends T> clazz)
-      {
-        return AsExtensions.asMany(this, clazz);
+        return AsExtensions.asMany(this, roleType);
       }
   }

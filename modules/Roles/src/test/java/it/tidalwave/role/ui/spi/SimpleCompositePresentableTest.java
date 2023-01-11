@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -32,8 +32,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import it.tidalwave.util.As;
-import it.tidalwave.util.AsException;
 import it.tidalwave.util.Id;
 import it.tidalwave.util.RoleFactory;
 import it.tidalwave.util.spi.AsDelegateProvider;
@@ -95,20 +95,11 @@ public class SimpleCompositePresentableTest
           }
 
         @Override @Nonnull
-        public <T> T as (@Nonnull final Class<? extends T> roleType)
+        public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> roleType)
           {
-            return as(roleType, As.Defaults.throwAsException(roleType));
-          }
-
-        @Nonnull
-        public <T> T as (@Nonnull final Class<? extends T> roleType, @Nonnull final NotFoundBehaviour<? extends T> notFoundBehaviour)
-          {
-            if (roleType.equals(SimpleComposite.class) && (composite != null))
-              {
-                return roleType.cast(composite);
-              }
-
-            return notFoundBehaviour.run(new AsException(roleType));
+            return roleType.equals(SimpleComposite.class) && (composite != null)
+                    ? Optional.of(roleType.cast(composite))
+                    : Optional.empty();
           }
 
         @Override @Nonnull

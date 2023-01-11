@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -30,6 +30,8 @@ import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import javax.persistence.EntityManager;
+import it.tidalwave.util.impl.LazyReference;
+import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.TxManagerImpl;
 
 /***********************************************************************************************************************
  *
@@ -38,6 +40,17 @@ import javax.persistence.EntityManager;
  **********************************************************************************************************************/
 public interface TxManager extends AutoCloseable
   {
+    static class __ // TODO: Turn to interface constant with Java 11
+      {
+        static final LazyReference<TxManager> TXMANAGER_REF = LazyReference.of(TxManagerImpl::new);
+      }
+
+    @Nonnull
+    public static TxManager getInstance()
+      {
+        return __.TXMANAGER_REF.get();
+      }
+
     // START SNIPPET: methods
     public <T> T computeInTx (@Nonnull Function<EntityManager, T> task);
 

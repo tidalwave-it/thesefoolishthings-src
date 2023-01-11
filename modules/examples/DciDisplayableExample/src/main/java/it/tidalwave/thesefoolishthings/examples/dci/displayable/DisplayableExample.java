@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -26,11 +26,8 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.displayable;
 
-import javax.annotation.Nonnull;
-import javax.inject.Inject;
+import it.tidalwave.util.AsExtensions;
 import it.tidalwave.util.Id;
-import it.tidalwave.role.AsExtensions;
-import it.tidalwave.role.ContextManager;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.experimental.ExtensionMethod;
 import lombok.extern.slf4j.Slf4j;
@@ -44,9 +41,6 @@ import static it.tidalwave.role.ui.Displayable._Displayable_;
 @ExtensionMethod(AsExtensions.class) @Slf4j
 public class DisplayableExample
   {
-    @Inject @Nonnull
-    private ContextManager contextManager;
-    
     public void run()
       {
         final Person joe = new Person(new Id("1"), "Joe", "Smith");

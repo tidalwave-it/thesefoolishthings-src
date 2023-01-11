@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -36,6 +36,7 @@ import org.springframework.context.annotation.ClassPathScanningCandidateComponen
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.util.ClassUtils;
+import it.tidalwave.role.spring.RoleSpringConfiguration;
 
 /***********************************************************************************************************************
  *
@@ -46,8 +47,8 @@ import org.springframework.util.ClassUtils;
  **********************************************************************************************************************/
 public class ClassScanner
   {
-    private final String basePackages = System.getProperty(ClassScanner.class.getCanonicalName() + ".basePackages",
-                                                           "com:org:it"); // FIME
+    private final String basePackages = System.getProperty(
+            ClassScanner.class.getCanonicalName() + ".basePackages", RoleSpringConfiguration.getBasePackages());
 
     private final ClassPathScanningCandidateComponentProvider scanner =
             new ClassPathScanningCandidateComponentProvider(false);

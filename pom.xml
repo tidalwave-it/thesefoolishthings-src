@@ -6,7 +6,7 @@
     TheseFoolishThings: Miscellaneous utilities
     http://tidalwave.it/projects/thesefoolishthings
 
-    Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+    Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
 
     *********************************************************************************************************************
 
@@ -87,7 +87,7 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 or 17 to be compiled.
         <connection>scm:git:${scm.repo.readonly.url}</connection>
         <developerConnection>scm:git:${scm.repo.effective.url}</developerConnection>
         <url>${scm.repo.browse.url}</url>
-        <tag>HEAD</tag>
+        <tag>3.2-ALPHA-12</tag>
     </scm>
 
     <dependencyManagement>

@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -35,7 +35,7 @@ import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.observablecollections.ObservableList;
 import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
-import it.tidalwave.role.AsExtensions;
+import it.tidalwave.util.AsExtensions;
 import it.tidalwave.thesefoolishthings.examples.dci.swing.role.ObservableListProvider;
 import it.tidalwave.thesefoolishthings.examples.dci.swing.role.TableHeaderDescriptor;
 import lombok.AccessLevel;

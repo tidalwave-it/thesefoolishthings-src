@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -41,6 +41,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import it.tidalwave.util.NotFoundException;
+import it.tidalwave.util.annotation.VisibleForTesting;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.impl.DatumAndRole;
 import it.tidalwave.role.spi.impl.MultiMap;
@@ -66,12 +67,10 @@ import static it.tidalwave.role.spi.impl.LogUtil.*;
 @Slf4j
 public abstract class RoleManagerSupport implements RoleManager
   {
-    private final ContextManager contextManager = ContextManager.Locator.find();
+    @VisibleForTesting final MultiMap<DatumAndRole, Class<?>> roleMapByDatumAndRole = new MultiMap<>();
 
-    /* VisibleForTesting */ final MultiMap<DatumAndRole, Class<?>> roleMapByDatumAndRole = new MultiMap<>();
-
-    // FIXME: use ConcurrentHashMap// FIXME: use ConcurrentHashMap
-    /* VisibleForTesting */ final Set<DatumAndRole> alreadyScanned = new HashSet<>();
+    // FIXME: use ConcurrentHashMap
+    @VisibleForTesting final Set<DatumAndRole> alreadyScanned = new HashSet<>();
 
     /*******************************************************************************************************************
      *
@@ -79,15 +78,15 @@ public abstract class RoleManagerSupport implements RoleManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <ROLE_TYPE> List<? extends ROLE_TYPE> findRoles (@Nonnull final Object datum,
-                                                            @Nonnull final Class<ROLE_TYPE> roleType)
+    public synchronized <ROLE_TYPE> List<? extends ROLE_TYPE> findRoles (@Nonnull final Object datum,
+                                                                         @Nonnull final Class<ROLE_TYPE> roleType)
       {
         log.trace("findRoles({}, {})", shortId(datum), shortName(roleType));
         final Class<?> datumType = findTypeOf(datum);
         final List<ROLE_TYPE> roles = new ArrayList<>();
         final Set<Class<? extends ROLE_TYPE>> roleImplementationTypes = findRoleImplementationsFor(datumType, roleType);
 
-outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImplementationTypes)
+        outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImplementationTypes)
           {
             for (final Constructor<?> constructor : roleImplementationType.getDeclaredConstructors())
               {
@@ -99,6 +98,8 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
                 try
                   {
                     contextType = findContextTypeForRole(roleImplementationType);
+                    // With DI frameworks such as Spring it's better to avoid eager initializations of references
+                    final ContextManager contextManager = ContextManager.Locator.find();
                     log.trace(">>>> contexts: {}", shortIds(contextManager.getContexts()));
 
                     try
@@ -124,7 +125,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
                     break;
                   }
                 catch (InstantiationException | IllegalAccessException
-                     | IllegalArgumentException | InvocationTargetException e)
+                        | IllegalArgumentException | InvocationTargetException e)
                   {
                     log.error("Could not instantiate role of type " + roleImplementationType, e);
                   }
@@ -194,7 +195,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      *
      ******************************************************************************************************************/
     @Nonnull
-    /* VisibleForTesting */ synchronized <RT> Set<Class<? extends RT>> findRoleImplementationsFor (
+    @VisibleForTesting synchronized <RT> Set<Class<? extends RT>> findRoleImplementationsFor (
             @Nonnull final Class<?> datumType,
             @Nonnull final Class<RT> roleType)
       {
@@ -224,7 +225,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      * @param   roleImplementationTypes     the types of role implementations to scan
      *
      ******************************************************************************************************************/
-    protected void scan (@Nonnull final Collection<Class<?>> roleImplementationTypes)
+    protected synchronized void scan (@Nonnull final Collection<Class<?>> roleImplementationTypes)
       {
         log.debug("scan({})", shortNames(roleImplementationTypes));
 
@@ -255,7 +256,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      *
      ******************************************************************************************************************/
     @Nonnull
-    /* VisibleForTesting */ static SortedSet<Class<?>> findAllImplementedInterfacesOf (@Nonnull final Class<?> clazz)
+    @VisibleForTesting static SortedSet<Class<?>> findAllImplementedInterfacesOf (@Nonnull final Class<?> clazz)
       {
         final SortedSet<Class<?>> interfaces = new TreeSet<>(Comparator.comparing(Class::getName));
         interfaces.addAll(Arrays.asList(clazz.getInterfaces()));
@@ -296,7 +297,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      ******************************************************************************************************************/
     @Nonnull
     protected abstract Class<?> findContextTypeForRole (@Nonnull Class<?> roleImplementationType)
-      throws NotFoundException;
+            throws NotFoundException;
 
     /*******************************************************************************************************************
      *
@@ -363,7 +364,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
      *
      ******************************************************************************************************************/
     @Nonnull
-    /* VisibleForTesting */ static <T> Class<T> findTypeOf (@Nonnull final T object)
+    @VisibleForTesting static <T> Class<T> findTypeOf (@Nonnull final T object)
       {
         Class<?> ownerClass = object.getClass();
 
@@ -374,7 +375,7 @@ outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImple
             if (log.isTraceEnabled())
               {
                 log.trace(">>>> owner is a mock {} implementing {}",
-                        shortName(ownerClass), shortNames(Arrays.asList(ownerClass.getInterfaces())));
+                          shortName(ownerClass), shortNames(Arrays.asList(ownerClass.getInterfaces())));
                 log.trace(">>>> owner class replaced with {}", shortName(ownerClass));
               }
           }

@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -41,7 +41,7 @@ import java.nio.file.Path;
 // START SNIPPET: loadable
 public interface Loadable
   {
-    public final static Class<Loadable> _Loadable_ = Loadable.class;
+    public static final Class<Loadable> _Loadable_ = Loadable.class;
 
     public default <T> T loadFrom (@Nonnull final Path path)
             throws IOException

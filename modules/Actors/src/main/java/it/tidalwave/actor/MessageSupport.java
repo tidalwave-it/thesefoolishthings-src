@@ -4,7 +4,7 @@
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
- * Copyright (C) 2009 - 2021 by Tidalwave s.a.s. (http://tidalwave.it)
+ * Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
  *
  * *********************************************************************************************************************
  *
@@ -29,6 +29,9 @@ package it.tidalwave.actor;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.inject.Provider;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -38,7 +41,6 @@ import it.tidalwave.actor.impl.Locator;
 import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
-import it.tidalwave.util.spi.AsSupport;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
@@ -70,11 +72,11 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
 
     interface Exclusions
       {
-        public <T> T as (Class<T> type);
+        public <T> T as (@Nonnull Class<? extends T> type);
       }
 
     @Delegate(excludes = Exclusions.class)
-    private final AsSupport asSupport = new AsSupport(this);
+    private final As as = As.forObject(this);
 
     /*******************************************************************************************************************
      *
