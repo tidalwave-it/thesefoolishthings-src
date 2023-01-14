@@ -24,7 +24,7 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.impl;
+package it.tidalwave.util;
 
 import java.util.stream.IntStream;
 import org.testng.annotations.Test;
@@ -36,13 +36,13 @@ import static org.hamcrest.Matchers.*;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class LazyReferenceTest
+public class LazySupplierTest
   {
     @Test
     public void must_not_call_supplier_before_get()
       {
         // when
-        final LazyReference<Object> underTest = LazyReference.of(Object::new);
+        final LazySupplier<Object> underTest = LazySupplier.of(Object::new);
         // then
         assertThat(underTest.ref, is((Object)null));
       }
@@ -51,7 +51,7 @@ public class LazyReferenceTest
     public void must_call_supplier_only_once()
       {
         // given
-        final LazyReference<Object> underTest = LazyReference.of(Object::new);
+        final LazySupplier<Object> underTest = LazySupplier.of(Object::new);
         // when
         final Object o1 = underTest.get();
         final Object o2 = underTest.get();
@@ -65,7 +65,7 @@ public class LazyReferenceTest
     public void must_call_supplier_only_once_multithreaded()
       {
         // given
-        final LazyReference<Object> underTest = LazyReference.of(Object::new);
+        final LazySupplier<Object> underTest = LazySupplier.of(Object::new);
         // when
         final long count = IntStream.range(0, 10_000_000).parallel().mapToObj(__ -> underTest.get()).distinct().count();
         // then

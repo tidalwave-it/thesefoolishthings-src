@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import javax.persistence.EntityManager;
-import it.tidalwave.util.impl.LazyReference;
+import it.tidalwave.util.LazySupplier;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.TxManagerImpl;
 
 /***********************************************************************************************************************
@@ -42,7 +42,7 @@ public interface TxManager extends AutoCloseable
   {
     static class __ // TODO: Turn to interface constant with Java 11
       {
-        static final LazyReference<TxManager> TXMANAGER_REF = LazyReference.of(TxManagerImpl::new);
+        static final LazySupplier<TxManager> TXMANAGER_REF = LazySupplier.of(TxManagerImpl::new);
       }
 
     @Nonnull
