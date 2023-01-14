@@ -104,7 +104,7 @@ public class AsTest
       {
       }
 
-    private static final As.Ref<RoleWithGeneric<String>> _roleOfStrings_ = As.ref(RoleWithGeneric.class);
+    private static final As.Type<RoleWithGeneric<String>> _roleOfStrings_ = As.type(RoleWithGeneric.class);
 
     @Test
     public void as_with_ref_must_properly_work()
