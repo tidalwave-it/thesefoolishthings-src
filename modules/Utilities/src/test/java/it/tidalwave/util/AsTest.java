@@ -27,13 +27,17 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import it.tidalwave.util.spi.AsDelegate;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.Delegate;
 import org.testng.annotations.Test;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -143,5 +147,68 @@ public class AsTest
         final Collection<RoleWithGeneric<String>> actualRoles = underTest.asMany(_roleOfStrings_);
         // then
         assertThat(actualRoles, is(Arrays.asList(role)));
+      }
+
+    // START SNIPPET: dataretriever
+    interface DataRetriever<T>
+      {
+        public List<T> retrieve();
+      }
+    // END SNIPPET: dataretriever
+
+    static class AsTypeCodeSample
+      {
+        // START SNIPPET: as_Type
+        private static final As.Type<DataRetriever<String>> _StringRetriever_ = As.type(DataRetriever.class);
+        private static final As.Type<DataRetriever<LocalDate>> _LocalDateRetriever_ = As.type(DataRetriever.class);
+        // END SNIPPET: as_Type
+
+        public void method (As object1, As object2)
+          {
+            // The assignments below raise a warning ('Unchecked assignment').
+            // START SNIPPET: as1
+            List<String> f1 = object1.as(DataRetriever.class).retrieve();
+            List<LocalDate> f2 = object2.as(DataRetriever.class).retrieve();
+            // END SNIPPET: as1
+            // The assignments below are fine (at the expense of a warning in the declarations of As.Types).
+            // START SNIPPET: as2
+            List<String> f3 = object1.as(_StringRetriever_).retrieve();
+            List<LocalDate> f4 = object2.as(_LocalDateRetriever_).retrieve();
+            // END SNIPPET: as2
+          }
+      }
+
+    static class AsImplementationCodeSample1
+      {
+        // START SNIPPET: as_impl_1
+        class MyObject implements As
+          {
+            private final As delegate = As.forObject(this);
+
+            @Override @Nonnull
+            public <T> Optional<T> maybeAs (@Nonnull Class<T> type)
+              {
+                return delegate.maybeAs(type);
+              }
+
+            @Override @Nonnull
+            public <T> Collection<T> asMany (@Nonnull Class<T> type)
+              {
+                return delegate.asMany(type);
+              }
+          }
+        // END SNIPPET: as_impl_1
+      }
+
+    static class AsImplementationCodeSample2
+      {
+        // START SNIPPET: as_impl_2
+        @EqualsAndHashCode(exclude = "delegate") @ToString(exclude = "delegate")
+        class MyObject implements As
+          {
+            @Delegate
+            private final As delegate = As.forObject(this);
+          }
+        // END SNIPPET: as_impl_2
       }
   }

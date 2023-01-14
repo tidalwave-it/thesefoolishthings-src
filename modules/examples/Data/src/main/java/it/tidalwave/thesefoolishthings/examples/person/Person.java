@@ -31,14 +31,18 @@ import javax.annotation.concurrent.Immutable;
 import java.util.UUID;
 import it.tidalwave.util.Id;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /***********************************************************************************************************************
  *
+ * A simple POJO for examples.
+ *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable @AllArgsConstructor @Getter
+// START SNIPPET: person
+@Immutable @AllArgsConstructor @Getter @EqualsAndHashCode
 public class Person
   {
     @Nonnull
@@ -66,3 +70,4 @@ public class Person
         return firstName + " " + lastName;
       }
   }
+// END SNIPPET: person

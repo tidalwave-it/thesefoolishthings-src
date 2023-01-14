@@ -33,6 +33,7 @@ import it.tidalwave.dci.annotation.DciContext;
 import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.converter.IdXStreamConverter;
 import it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.converter.PersonConverter;
 import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.Getter;
 
 /***********************************************************************************************************************
@@ -51,7 +52,8 @@ public class XStreamContext2 implements XStreamContext
 
     public XStreamContext2()
       {
-        xStream.alias("PERSON", PersonConverter.MutablePerson.class);
+        // xStream.alias("person", PersonConverter.MutablePerson.class);
+        xStream.alias("PERSON", Person.class);
         xStream.aliasField("ID", PersonConverter.MutablePerson.class, "id");
         xStream.aliasField("FIRST-NAME", PersonConverter.MutablePerson.class, "firstName");
         xStream.aliasField("LAST-NAME", PersonConverter.MutablePerson.class, "lastName");

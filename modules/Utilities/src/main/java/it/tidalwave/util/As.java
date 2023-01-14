@@ -39,7 +39,8 @@ import lombok.ToString;
  *
  * Objects implementing this interface can provide am adapter of the required type. The adapter can be found with a
  * variety of approaches that depend on the implementation. This capability can be used to implement a design based
- * on the Data, Context and Interaction pattern (DCI).
+ * on the Data, Context and Interaction pattern (DCI). For further details, please look at the
+ * <a href="http://tidalwave.it/projects/thesefoolishthings">project website</a>, where a tutorial is available.
  *
  * @author  Fabrizio Giudici
  * @it.tidalwave.javadoc.stable
@@ -86,7 +87,27 @@ public interface As
 
     /*******************************************************************************************************************
      *
-     * @since                       3.2-ALPHA-12
+     * A type reference for roles that can be used in place of a class literal, especially when roles with generics are
+     * used. Example of usage:
+     * <pre>
+     *
+     *     interface DataRetriever&lt;T&gt;
+     *       {
+     *         public List&lt;T&gt; retrieve();
+     *       }
+     *
+     *     class CodeSample
+     *       {
+     *         private static final As.Type&lt;DataRetriever&lt;String&gt;&gt; _StringRetriever_ = As.type(DataRetriever.class);
+     *
+     *         public void method (As object)
+     *           {
+     *             List&lt;String&gt; f3 = object.as(_StringRetriever_).retrieve();
+     *           }
+     *       }
+     * </pre>
+     *
+     * @since     3.2-ALPHA-12
      *
      ******************************************************************************************************************/
     @RequiredArgsConstructor @EqualsAndHashCode @ToString
@@ -104,8 +125,8 @@ public interface As
 
     /*******************************************************************************************************************
      *
-     * Creates an {@code As} implementation for the given object (or returns the object itself if it is the default
-     * implementation of {@code As}).
+     * Creates an {@code As} implementation delegate for the given object (or returns the object itself if it is the
+     * default implementation of {@code As}).
      *
      * @param     object         the object
      * @return                   the implementation
@@ -120,8 +141,8 @@ public interface As
 
     /*******************************************************************************************************************
      *
-     * Creates an {@code As} implementation for the given object. It accepts a single pre-instantiated role, or a
-     * {@link RoleFactory} that will be invoked to create additional roles.
+     * Creates an {@code As} implementation delegate for the given object. It accepts a single pre-instantiated role,
+     * or a {@link RoleFactory} that will be invoked to create additional roles.
      *
      * @param     object         the object
      * @param     role           the role or {@link it.tidalwave.util.RoleFactory}
@@ -137,8 +158,8 @@ public interface As
 
     /*******************************************************************************************************************
      *
-     * Creates an {@code As} implementation for the given object. It accepts a collection of pre-instantiated roles,
-     * or instances of {@link RoleFactory} that will be invoked to create additional roles.
+     * Creates an {@code As} implementation delegate for the given object. It accepts a collection of pre-instantiated
+     * roles, or instances of {@link RoleFactory} that will be invoked to create additional roles.
      *
      * @param     object         the object
      * @param     roles          roles or {@link it.tidalwave.util.RoleFactory} instances

@@ -49,7 +49,7 @@ public class LazySupplier<T> implements Supplier<T>
 
     @VisibleForTesting volatile T ref = null;
 
-    /** @inheritDoc  */
+    /** {@inheritDoc} */
     @Override @Nonnull
     public synchronized T get()
       {

@@ -38,6 +38,7 @@ import lombok.RequiredArgsConstructor;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+// START-SNIPPET: role
 @DciRole(datumType = Person.class) @RequiredArgsConstructor
 public final class PersonDisplayable implements Displayable
   {
@@ -50,3 +51,5 @@ public final class PersonDisplayable implements Displayable
         return String.format("%s %s", datum.firstName, datum.lastName);
       }
   }
+// END-SNIPPET: role
+
