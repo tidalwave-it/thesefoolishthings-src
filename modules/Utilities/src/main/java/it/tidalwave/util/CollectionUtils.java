@@ -50,6 +50,7 @@ public final class CollectionUtils
      *
      * Appends a list to an object. The resulting list is mutable.
      *
+     * @param     <T>       the type of list items
      * @param     list      the list
      * @param     object    the list to append
      * @return              the list with the appended object
@@ -69,6 +70,7 @@ public final class CollectionUtils
      *
      * Appends a list to another. The resulting list is mutable.
      *
+     * @param     <T>       the type of list items
      * @param     list1     the former list
      * @param     list2     the latter list
      * @return              the list with the appended object
@@ -88,6 +90,7 @@ public final class CollectionUtils
      *
      * Reverses a list. The resulting list is mutable.
      *
+     * @param     <T>       the type of list items
      * @param     list      the list
      * @return              the reversed list
      *
@@ -106,6 +109,7 @@ public final class CollectionUtils
      *
      * Returns the (optional) first element of a list.
      *
+     * @param     <T>       the type of list items
      * @param     list      the list
      * @return              the first element
      *
@@ -122,6 +126,7 @@ public final class CollectionUtils
      *
      * Returns the first element of a list.
      *
+     * @param     <T>       the type of list items
      * @param     list      the list (cannot be empty)
      * @return              the first element
      * @throws    IllegalArgumentException  if the list is empty
@@ -145,6 +150,7 @@ public final class CollectionUtils
      * Returns the tail element of a list, that is a list without the first element. The tail of an empty list is an
      * empty list. The resulting list is mutable.
      *
+     * @param     <T>       the type of list items
      * @param     list      the list
      * @return              the tail of the list
      *

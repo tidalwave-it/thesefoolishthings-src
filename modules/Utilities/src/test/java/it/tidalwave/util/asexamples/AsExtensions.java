@@ -29,7 +29,6 @@ package it.tidalwave.util.asexamples;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Optional;
-import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 
 /***********************************************************************************************************************
@@ -40,19 +39,9 @@ import it.tidalwave.util.AsException;
 public class AsExtensions
   {
     @Nonnull
-    public static <T> T as (@Nonnull final Object datum,
-                            @Nonnull final Class<? extends T> roleClass)
+    public static <T> T as (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
       {
-        return as(datum, roleClass, As.Defaults.throwAsException(roleClass));
-      }
-
-    @Nonnull @Deprecated
-    public static <T> T as (@Nonnull final Object datum,
-                            @Nonnull final Class<? extends T> roleClass,
-                            @Nonnull final As.NotFoundBehaviour<? extends T> notFoundBehaviour)
-      {
-        final Optional<T> r = maybeAs(datum, roleClass);
-        return r.isPresent() ? r.get() : notFoundBehaviour.run(new AsException(roleClass));
+        return maybeAs(datum, type).orElseThrow(() -> new AsException(type));
       }
 
     @Nonnull

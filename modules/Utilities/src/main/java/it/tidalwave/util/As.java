@@ -27,7 +27,6 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Optional;
 import it.tidalwave.util.impl.DefaultAs;
@@ -48,43 +47,6 @@ import lombok.ToString;
  **********************************************************************************************************************/
 public interface As
   {
-    /*******************************************************************************************************************
-     *
-     * @it.tidalwave.javadoc.stable
-     *
-     ******************************************************************************************************************/
-    @Deprecated
-    public static interface NotFoundBehaviour<T>
-      {
-        @Nonnull
-        public T run (@Nullable final Throwable t);
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    @Deprecated
-    public static final class Defaults
-      {
-        private Defaults()
-          {
-          }
-
-        public static <X> NotFoundBehaviour<X> throwAsException (@Nonnull final Class<X> clazz)
-          {
-            return new NotFoundBehaviour<X>()
-              {
-//                @Override
-                @Nonnull
-                public X run (@Nonnull final Throwable t)
-                  {
-                    throw new AsException(clazz, t);
-                  }
-              };
-          }
-      }
-
     /*******************************************************************************************************************
      *
      * A type reference for roles that can be used in place of a class literal, especially when roles with generics are
@@ -192,26 +154,6 @@ public interface As
 
     /*******************************************************************************************************************
      *
-     * Returns an adapter to this object of the specified type. If the implementation can find multiple compliant
-     * adapters, only one will be returned. If no adapter is found, the result provided by the given default
-     * behaviour will be returned.
-     *
-     * @param   <T>                 the static type
-     * @param   type                the dynamic type
-     * @param   notFoundBehaviour   the behaviour to apply when an adapter is not found
-     * @return                      the adapter
-     * @deprecated
-     *
-     ******************************************************************************************************************/
-    @Nonnull @Deprecated
-    public default <T> T as (@Nonnull final Class<? extends T> type, @Nonnull final NotFoundBehaviour<? extends T> notFoundBehaviour)
-      {
-        final Optional<T> r = maybeAs(type);
-        return r.isPresent() ? r.get() : notFoundBehaviour.run(new AsException(type));
-      }
-
-    /*******************************************************************************************************************
-     *
      * Returns the requested role or an empty {@link Optional}.
      *
      * @param   <T>                 the static type
@@ -221,7 +163,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> type);
+    public <T> Optional<T> maybeAs (@Nonnull Class<? extends T> type);
 
     /*******************************************************************************************************************
      *
