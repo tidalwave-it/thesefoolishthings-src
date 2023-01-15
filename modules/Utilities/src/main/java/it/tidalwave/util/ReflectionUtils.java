@@ -39,7 +39,7 @@ import java.util.Map;
 
 /***********************************************************************************************************************
  *
- * Just slightly adapted from http://www.artima.com/weblogs/viewpost.jsp?thread=208860
+ * Just slightly adapted from <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=208860">this article</a>.
  *
  * @author Ian Robertson
  * @author Fabrizio Giudici
