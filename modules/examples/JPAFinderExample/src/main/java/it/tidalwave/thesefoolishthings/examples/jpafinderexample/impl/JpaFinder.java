@@ -43,6 +43,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.util.CollectionUtils.concat;
 
 /***********************************************************************************************************************
  *
@@ -188,13 +189,5 @@ public class JpaFinder<T, E> implements Finder<T>
         // END SNIPPET: createQuery
       }
     // END SNIPPET: createQueryFull
-
-    @Nonnull
-    private static <X> List<X> concat (@Nonnull final List<X> list, @Nonnull final X object)
-      {
-        final List<X> result = new ArrayList<>(list);
-        result.add(object);
-        return result;
-      }
   }
 // END SNIPPET: JPAExampleFinder

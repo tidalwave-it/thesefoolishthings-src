@@ -40,6 +40,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.util.CollectionUtils.concat;
 
 /***********************************************************************************************************************
  *
@@ -363,18 +364,6 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
     protected static <T> T getSource (final Class<T> type, @Nonnull final T other, @Nonnull final Object override)
       {
         return override.getClass().equals(type) ? type.cast(override) : other;
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    private static <T> List<T> concat (@Nonnull final List<? extends T> list, @Nonnull final T item)
-      {
-        final List<T> result = new ArrayList<>(list);
-        result.add(item);
-        return Collections.unmodifiableList(result);
       }
 
     /*******************************************************************************************************************

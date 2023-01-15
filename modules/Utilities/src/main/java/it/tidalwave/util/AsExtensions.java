@@ -29,7 +29,6 @@ package it.tidalwave.util;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Optional;
-import it.tidalwave.util.As;
 
 /***********************************************************************************************************************
  *
@@ -70,19 +69,19 @@ public class AsExtensions
       }
 
     @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final As.Ref<? extends T> roleType)
+    public static <T> T as (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
       {
-        return adapter(datum).as(roleType);
+        return adapter(datum).as(type);
       }
 
     @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final As.Ref<? extends T> type)
+    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
       {
         return (Optional<T>)adapter(datum).maybeAs(type);
       }
 
     @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final As.Ref<? extends T> type)
+    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
       {
         return (Collection<T>)adapter(datum).asMany(type);
       }

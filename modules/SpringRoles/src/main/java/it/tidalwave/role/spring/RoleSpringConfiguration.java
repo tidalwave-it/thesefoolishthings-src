@@ -42,7 +42,7 @@ import lombok.Setter;
 public class RoleSpringConfiguration
   {
     /** The path of the Spring configuration supporting roles to pass e.g. to a
-        @code ClassPathXmlApplicationContext}. */
+     * {@code ClassPathXmlApplicationContext}. */
     public static final String BEANS = "classpath*:/META-INF/SpringRoleAutoBeans.xml";
 
     @Getter @Setter

@@ -28,7 +28,6 @@ package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -48,11 +47,11 @@ import static it.tidalwave.role.io.Marshallable._Marshallable_;
 public class MarshallableSavable implements Savable
   {
     @Nonnull
-    private final As datum;
+    private final As datumAsDelegate;
 
     public MarshallableSavable (@Nonnull final Object datum)
       {
-        this.datum = As.forObject(datum);
+        this.datumAsDelegate = As.forObject(datum);
       }
 
     @Override
@@ -61,9 +60,9 @@ public class MarshallableSavable implements Savable
       {
         assert charset.equals(StandardCharsets.UTF_8);
 
-        try (final OutputStream os = Files.newOutputStream(path, openOptions))
+        try (var os = Files.newOutputStream(path, openOptions))
           {
-            datum.as(_Marshallable_).marshal(os);
+            datumAsDelegate.as(_Marshallable_).marshal(os);
           }
       }
   }

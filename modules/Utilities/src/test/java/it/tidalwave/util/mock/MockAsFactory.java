@@ -81,9 +81,9 @@ public final class MockAsFactory
         when(mock.as(any(Class.class))).thenCallRealMethod();
         when(mock.maybeAs(any(Class.class))).thenAnswer(i -> as.maybeAs((Class<?>)i.getArguments()[0]));
         when(mock.asMany(any(Class.class))).thenAnswer(i -> as.asMany((Class<?>)i.getArguments()[0]));
-        when(mock.as(any(As.Ref.class))).thenCallRealMethod();
-        when(mock.maybeAs(any(As.Ref.class))).thenCallRealMethod();
-        when(mock.asMany(any(As.Ref.class))).thenCallRealMethod();
+        when(mock.as(any(As.Type.class))).thenCallRealMethod();
+        when(mock.maybeAs(any(As.Type.class))).thenCallRealMethod();
+        when(mock.asMany(any(As.Type.class))).thenCallRealMethod();
 
         return mock;
       }

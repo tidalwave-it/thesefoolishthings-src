@@ -24,52 +24,51 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.impl;
+package it.tidalwave.util;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
-import java.util.function.Supplier;
-import it.tidalwave.util.annotation.VisibleForTesting;
-import lombok.RequiredArgsConstructor;
+import java.util.stream.IntStream;
+import org.testng.annotations.Test;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 /***********************************************************************************************************************
  *
- * A reference to an object that is lazily evaluated (when its value is requested for the first time). It warranties
- * that the provided supplier is called only once.
- *
  * @author  Fabrizio Giudici
- * @since   3.2-ALPHA-12
  *
  **********************************************************************************************************************/
-@ThreadSafe @RequiredArgsConstructor(staticName = "of")
-public class LazyReference<T> implements Supplier<T>
+public class LazySupplierTest
   {
-    @Nonnull
-    private final Supplier<T> supplier;
-
-    @VisibleForTesting volatile T ref = null;
-
-    /** @inheritDoc  */
-    @Override @Nonnull
-    public synchronized T get()
+    @Test
+    public void must_not_call_supplier_before_get()
       {
-        // AtomicReference.updateAndGet() not good because in case of contention it might call supplier multiple times
-        // We don't mess with double check for null since nowadays synchronized is fast
-        if (ref == null)
-          {
-            ref = supplier.get();
-          }
-
-        return ref;
+        // when
+        final LazySupplier<Object> underTest = LazySupplier.of(Object::new);
+        // then
+        assertThat(underTest.ref, is((Object)null));
       }
 
-    public synchronized void clear()
+    @Test
+    public void must_call_supplier_only_once()
       {
-        ref = null;
+        // given
+        final LazySupplier<Object> underTest = LazySupplier.of(Object::new);
+        // when
+        final Object o1 = underTest.get();
+        final Object o2 = underTest.get();
+        final Object o3 = underTest.get();
+        // then
+        assertThat(o2, sameInstance(o1));
+        assertThat(o3, sameInstance(o1));
       }
 
-    public void set (@Nonnull final T ref)
+    @Test
+    public void must_call_supplier_only_once_multithreaded()
       {
-        this.ref = ref;
+        // given
+        final LazySupplier<Object> underTest = LazySupplier.of(Object::new);
+        // when
+        final long count = IntStream.range(0, 10_000_000).parallel().mapToObj(__ -> underTest.get()).distinct().count();
+        // then
+        assertThat(count, is(1L));
       }
   }
