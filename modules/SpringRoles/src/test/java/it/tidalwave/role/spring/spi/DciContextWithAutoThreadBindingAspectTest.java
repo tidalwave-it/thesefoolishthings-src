@@ -208,7 +208,7 @@ public class DciContextWithAutoThreadBindingAspectTest
         // when
         invoke(object, methodName);
         // then
-        verifyZeroInteractions(contextManager);
+        verifyNoMoreInteractions(contextManager);
         verifyMethodInvocations(object, methodName);
       }
 
@@ -224,7 +224,7 @@ public class DciContextWithAutoThreadBindingAspectTest
         // when
         invoke(object, methodName);
         // then
-        verifyZeroInteractions(contextManager);
+        verifyNoMoreInteractions(contextManager);
         verifyMethodInvocations(object, methodName);
       }
 

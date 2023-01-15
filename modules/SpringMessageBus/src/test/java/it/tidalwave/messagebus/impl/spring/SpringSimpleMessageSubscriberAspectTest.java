@@ -91,7 +91,7 @@ public class SpringSimpleMessageSubscriberAspectTest
                                                                             .withOwner(subscriber1)
                                                                             .withTopic(MockEvent2.class)));
         verifyNoMoreInteractions(applicationMessageBus);
-        verifyZeroInteractions(otherMessageBus);
+        verifyNoMoreInteractions(otherMessageBus);
       }
 
     /*******************************************************************************************************************
@@ -115,7 +115,7 @@ public class SpringSimpleMessageSubscriberAspectTest
                                                                 .withOwner(subscriber1)
                                                                 .withTopic(MockEvent2.class)));
         verifyNoMoreInteractions(applicationMessageBus);
-        verifyZeroInteractions(otherMessageBus);
+        verifyNoMoreInteractions(otherMessageBus);
       }
 
     /*******************************************************************************************************************
@@ -141,7 +141,7 @@ public class SpringSimpleMessageSubscriberAspectTest
                                                                             .withOwner(subscriber2)
                                                                             .withTopic(MockEvent2.class)));
         verifyNoMoreInteractions(otherMessageBus);
-        verifyZeroInteractions(applicationMessageBus);
+        verifyNoMoreInteractions(applicationMessageBus);
       }
 
     /*******************************************************************************************************************
@@ -165,6 +165,6 @@ public class SpringSimpleMessageSubscriberAspectTest
                                                                      .withOwner(subscriber2)
                                                                      .withTopic(MockEvent2.class)));
         verifyNoMoreInteractions(otherMessageBus);
-        verifyZeroInteractions(applicationMessageBus);
+        verifyNoMoreInteractions(applicationMessageBus);
       }
   }
