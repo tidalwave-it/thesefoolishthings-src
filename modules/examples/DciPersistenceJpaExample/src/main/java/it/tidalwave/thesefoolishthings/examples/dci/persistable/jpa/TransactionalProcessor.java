@@ -47,7 +47,6 @@ public class TransactionalProcessor
   {
     @Transactional
     public void persistPeople (@Nonnull final Iterable<Person> persons)
-            throws Exception
       {
         persons.forEach(person ->  person.as(_Persistable_).persist());
       }

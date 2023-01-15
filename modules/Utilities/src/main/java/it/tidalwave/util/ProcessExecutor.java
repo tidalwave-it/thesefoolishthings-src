@@ -195,6 +195,7 @@ public interface ProcessExecutor
      * @throws  IOException             in case of I/O error
      * 
      ******************************************************************************************************************/
+    @SuppressWarnings("RedundantThrows")
     @Nonnull
     public ProcessExecutor waitForCompletion()
       throws IOException, InterruptedException;

@@ -156,6 +156,7 @@ public class AsTest
       }
     // END SNIPPET: dataretriever
 
+    @SuppressWarnings("LocalCanBeFinal")
     static class AsTypeCodeSample
       {
         // START SNIPPET: as_Type
@@ -180,6 +181,7 @@ public class AsTest
 
     static class AsImplementationCodeSample1
       {
+        @SuppressWarnings({"InnerClassMayBeStatic", "LocalCanBeFinal"})
         // START SNIPPET: as_impl_1
         class MyObject implements As
           {
@@ -202,6 +204,7 @@ public class AsTest
 
     static class AsImplementationCodeSample2
       {
+        @SuppressWarnings("InnerClassMayBeStatic")
         // START SNIPPET: as_impl_2
         @EqualsAndHashCode(exclude = "delegate") @ToString(exclude = "delegate")
         class MyObject implements As
