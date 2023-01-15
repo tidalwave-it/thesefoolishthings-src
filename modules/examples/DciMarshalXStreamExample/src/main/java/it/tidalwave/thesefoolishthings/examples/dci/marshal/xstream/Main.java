@@ -28,7 +28,6 @@ package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
 
 import javax.annotation.Nonnull;
 
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,7 +50,7 @@ public class Main
     public static void main (@Nonnull final String ... args)
       throws Exception
       {
-        final BeanFactory context = new AnnotationConfigApplicationContext(RoleSpringConfiguration.class, Main.class);
+        var context = new AnnotationConfigApplicationContext(RoleSpringConfiguration.class, Main.class);
         context.getBean(DciMarshalXStreamExample.class).run();
       }
   }

@@ -69,19 +69,19 @@ public class AsExtensions
       }
 
     @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final As.Ref<T> roleType)
+    public static <T> T as (@Nonnull final Object datum, @Nonnull final As.Type<T> type)
       {
-        return adapter(datum).as(roleType);
+        return adapter(datum).as(type);
       }
 
     @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final As.Ref<T> type)
+    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final As.Type<T> type)
       {
         return adapter(datum).maybeAs(type);
       }
 
     @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final As.Ref<T> type)
+    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final As.Type<T> type)
       {
         return adapter(datum).asMany(type);
       }

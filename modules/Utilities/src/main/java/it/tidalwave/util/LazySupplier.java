@@ -24,7 +24,7 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.impl;
+package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
@@ -34,22 +34,22 @@ import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * A reference to an object that is lazily evaluated (when its value is requested for the first time). It warranties
- * that the provided supplier is called only once.
+ * A supplier of an object that is lazily evaluated (when its value is requested for the first time). It warranties
+ * that the real wrapped supplier is called only once.
  *
  * @author  Fabrizio Giudici
- * @since   3.2-ALPHA-12
+ * @since   3.2-ALPHA-13
  *
  **********************************************************************************************************************/
 @ThreadSafe @RequiredArgsConstructor(staticName = "of")
-public class LazyReference<T> implements Supplier<T>
+public class LazySupplier<T> implements Supplier<T>
   {
     @Nonnull
     private final Supplier<T> supplier;
 
     @VisibleForTesting volatile T ref = null;
 
-    /** @inheritDoc  */
+    /** {@inheritDoc} */
     @Override @Nonnull
     public synchronized T get()
       {

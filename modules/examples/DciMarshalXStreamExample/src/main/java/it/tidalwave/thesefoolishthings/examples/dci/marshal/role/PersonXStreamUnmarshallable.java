@@ -35,6 +35,7 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+// START SNIPPET: personxstreamunmarshallable
 @DciRole(datumType = Person.class, context = XStreamContext.class)
 public final class PersonXStreamUnmarshallable extends XStreamUnmarshallableSupport<Person>
   {
@@ -43,3 +44,4 @@ public final class PersonXStreamUnmarshallable extends XStreamUnmarshallableSupp
         super(datum, context);
       }
   }
+// END SNIPPET: personxstreamunmarshallable

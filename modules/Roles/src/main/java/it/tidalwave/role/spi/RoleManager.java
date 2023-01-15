@@ -31,7 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.ServiceLoader;
-import it.tidalwave.util.impl.LazyReference;
+import it.tidalwave.util.LazySupplier;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,11 +54,11 @@ public interface RoleManager
     @Slf4j @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Locator
       {
-        private static final LazyReference<RoleManager> ROLE_MANAGER_REF =
-                LazyReference.of(RoleManager.Locator::findRoleManager);
+        private static final LazySupplier<RoleManager> ROLE_MANAGER_REF =
+                LazySupplier.of(RoleManager.Locator::findRoleManager);
 
-        private static final LazyReference<RoleManagerProvider> ROLE_MANAGER_PROVIDER_REF =
-                LazyReference.of(RoleManager.Locator::findRoleManagerProvider);
+        private static final LazySupplier<RoleManagerProvider> ROLE_MANAGER_PROVIDER_REF =
+                LazySupplier.of(RoleManager.Locator::findRoleManagerProvider);
 
         /***************************************************************************************************************
          *

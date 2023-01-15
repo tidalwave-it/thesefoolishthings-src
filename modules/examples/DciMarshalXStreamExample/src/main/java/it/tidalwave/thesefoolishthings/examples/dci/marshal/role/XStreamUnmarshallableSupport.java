@@ -38,6 +38,7 @@ import lombok.RequiredArgsConstructor;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+// START SNIPPET: xstreamunmarshallablesupport
 @RequiredArgsConstructor
 public abstract class XStreamUnmarshallableSupport<T> implements Unmarshallable
   {
@@ -53,3 +54,4 @@ public abstract class XStreamUnmarshallableSupport<T> implements Unmarshallable
         return (T)xStreamContext.getXStream().fromXML(is);
       }
   }
+// END SNIPPET: xstreamunmarshallablesupport
