@@ -104,7 +104,7 @@ The issue tracker is hosted on the Atlassian Jira Cloud:
 The **continuous integration** is available at:
 
 + Tidalwave CI server (primary): ${project.ciManagement.url}
-+ Travis: https://travis-ci.org/github/tidalwave-it/thesefoolishthings-src
++ Travis: https://app.travis-ci.com/bitbucket/tidalwave/thesefoolishthings-src
 + Bitbucket pipelines (demonstration only): https://bitbucket.org/tidalwave/thesefoolishthings-src/addon/pipelines/home
 
 #[[###]]# API documentation
