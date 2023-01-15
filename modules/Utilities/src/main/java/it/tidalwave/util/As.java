@@ -79,7 +79,7 @@ public interface As
         private final Class<?> type;
 
         @Nonnull
-        public Class<T> getType()
+        protected Class<T> getType()
           {
             return (Class<T>)type;
           }
