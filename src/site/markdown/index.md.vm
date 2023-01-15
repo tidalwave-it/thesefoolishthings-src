@@ -107,10 +107,6 @@ The **continuous integration** is available at:
 + Travis: https://travis-ci.org/github/tidalwave-it/thesefoolishthings-src
 + Bitbucket pipelines (demonstration only): https://bitbucket.org/tidalwave/thesefoolishthings-src/addon/pipelines/home
 
-There are also other **quality analysis tools** available:
-
-+ LGTM: https://lgtm.com/projects/b/tidalwave/thesefoolishthings-src/
-
 #[[###]]# API documentation
 
 [Aggregate Javadoc](apidocs/index.html)
