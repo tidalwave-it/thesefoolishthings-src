@@ -48,14 +48,6 @@ public class AsExtensions
         return adapter(datum).as(roleType);
       }
 
-    @Nonnull @Deprecated
-    public static <T> T as (@Nonnull final Object datum,
-                            @Nonnull final Class<T> roleType,
-                            @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
-      {
-        return adapter(datum).as(roleType, notFoundBehaviour);
-      }
-
     @Nonnull
     public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final Class<T> type)
       {

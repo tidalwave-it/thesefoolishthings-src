@@ -26,6 +26,7 @@
  */
 package it.tidalwave.role.ui.impl;
 
+import java.util.Optional;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.mock.MockAsFactory;
@@ -33,7 +34,6 @@ import it.tidalwave.util.spi.AsDelegateProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static it.tidalwave.util.Parameters.r;
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -157,14 +157,13 @@ public class DefaultPresentationModelTest
      *
      ******************************************************************************************************************/
     @Test
-    public void must_invoke_default_behaviour_when_as_not_found() // See TFT-248
+    public void test_TFT_248_regression()
       {
         // given
         final DefaultPresentationModel underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
-        final As.NotFoundBehaviour notFoundBehaviour = mock(As.NotFoundBehaviour.class);
         // when
-        final Role3 role3 = underTest.as(Role3.class, notFoundBehaviour);
+        final Optional<Role3> role3 = underTest.maybeAs(Role3.class);
         // then
-        verify(notFoundBehaviour).run(any());
+        assertThat(role3.isPresent(), is(false));
       }
   }
