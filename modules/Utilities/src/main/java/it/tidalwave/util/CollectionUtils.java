@@ -79,7 +79,7 @@ public final class CollectionUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> List<T> concat (@Nonnull final List<? extends T> list1, @Nonnull List<? extends T> list2)
+    public static <T> List<T> concat (@Nonnull final List<? extends T> list1, @Nonnull final List<? extends T> list2)
       {
         final List<T> result = new ArrayList<>(list1);
         result.addAll(list2);

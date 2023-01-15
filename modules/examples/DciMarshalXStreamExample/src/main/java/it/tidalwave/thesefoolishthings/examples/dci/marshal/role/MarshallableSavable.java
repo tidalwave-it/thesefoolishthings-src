@@ -60,7 +60,7 @@ public class MarshallableSavable implements Savable
       {
         assert charset.equals(StandardCharsets.UTF_8);
 
-        try (var os = Files.newOutputStream(path, openOptions))
+        try (final var os = Files.newOutputStream(path, openOptions))
           {
             datumAsDelegate.as(_Marshallable_).marshal(os);
           }

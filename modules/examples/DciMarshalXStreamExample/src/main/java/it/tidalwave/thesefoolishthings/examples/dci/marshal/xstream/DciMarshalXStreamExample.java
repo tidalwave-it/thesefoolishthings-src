@@ -72,7 +72,7 @@ public class DciMarshalXStreamExample
             throws IOException
       {
         // START SNIPPET: xstreamcontext-contextmanager
-        var xStreamContext1 = new XStreamContext1();
+        final var xStreamContext1 = new XStreamContext1();
 
         try
           {
@@ -90,7 +90,7 @@ public class DciMarshalXStreamExample
             throws IOException
       {
         // START SNIPPET: xstreamcontext-contextmanager2
-        try (var binder = contextManager.binder(new XStreamContext2()))
+        try (final var binder = contextManager.binder(new XStreamContext2()))
           {
             codeThatUsesMarshalling();
           }
@@ -101,29 +101,29 @@ public class DciMarshalXStreamExample
             throws IOException
       {
         contextManager.runEWithContexts(this::codeThatUsesMarshalling, new XStreamContext2());
-        var s = contextManager.runEWithContexts(this::codeThatUsesMarshalling2, new XStreamContext2());
+        final var s = contextManager.runEWithContexts(this::codeThatUsesMarshalling2, new XStreamContext2());
         log.info("{}", s);
       }
 
     private void codeThatUsesMarshalling()
             throws IOException
       {
-        var path1 = Path.of("target/Person.xml");
-        var path2 = Path.of("target/People.xml");
+        final var path1 = Path.of("target/Person.xml");
+        final var path2 = Path.of("target/People.xml");
         // START SNIPPET: xstreamcontext-example1
-        var joe = new Person(new Id("1"), "Joe", "Smith");
-        var luke = new Person(new Id("2"), "Luke", "Skywalker");
+        final var joe = new Person(new Id("1"), "Joe", "Smith");
+        final var luke = new Person(new Id("2"), "Luke", "Skywalker");
 
         var marshalledPersons = "";
         var marshalledPerson = "";
 
-        try (var os = new ByteArrayOutputStream())
+        try (final var os = new ByteArrayOutputStream())
           {
             joe.as(_Marshallable_).marshal(os);
             log.info("******** (joe as Marshallable) marshalled: {}\n", marshalledPerson = os.toString(UTF_8));
           }
 
-        try (var os = new ByteArrayOutputStream())
+        try (final var os = new ByteArrayOutputStream())
           {
             ListOfPersons.of(joe, luke).as(_Marshallable_).marshal(os);
             log.info("******** (listOfPersons as Marshallable) marshalled: {}\n", marshalledPersons = os.toString(UTF_8));
@@ -131,15 +131,15 @@ public class DciMarshalXStreamExample
         // END SNIPPET: xstreamcontext-example1
 
         // START SNIPPET: xstreamcontext-example2
-        try (var is = new ByteArrayInputStream(marshalledPerson.getBytes(UTF_8)))
+        try (final var is = new ByteArrayInputStream(marshalledPerson.getBytes(UTF_8)))
           {
-            var person = Person.prototype().as(_Unmarshallable_).unmarshal(is);
+            final var person = Person.prototype().as(_Unmarshallable_).unmarshal(is);
             log.info("******** Unmarshalled person: {}\n", person);
           }
 
-        try (var is = new ByteArrayInputStream(marshalledPersons.getBytes(UTF_8)))
+        try (final var is = new ByteArrayInputStream(marshalledPersons.getBytes(UTF_8)))
           {
-            var listOfPersons = ListOfPersons.empty().as(_Unmarshallable_).unmarshal(is);
+            final var listOfPersons = ListOfPersons.empty().as(_Unmarshallable_).unmarshal(is);
             log.info("******** Unmarshalled persons: {}\n", listOfPersons);
           }
         // END SNIPPET: xstreamcontext-example2
@@ -147,8 +147,8 @@ public class DciMarshalXStreamExample
         // START SNIPPET: xstreamcontext-savable-loadable
         joe.as(_Savable_).saveTo(path1);
         ListOfPersons.of(joe, luke).as(_Savable_).saveTo(path2);
-        var p = Person.prototype().as(_Loadable_).loadFrom(path1);
-        var lp = ListOfPersons.empty().as(_Loadable_).loadFrom(path2);
+        final var p = Person.prototype().as(_Loadable_).loadFrom(path1);
+        final var lp = ListOfPersons.empty().as(_Loadable_).loadFrom(path2);
         // END SNIPPET: xstreamcontext-savable-loadable
         log.info("******** Loaded person: {}\n", p);
         log.info("******** Loaded persons: {}\n", lp);

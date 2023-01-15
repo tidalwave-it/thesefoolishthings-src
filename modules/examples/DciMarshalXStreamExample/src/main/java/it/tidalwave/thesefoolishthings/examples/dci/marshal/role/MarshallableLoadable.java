@@ -60,7 +60,7 @@ public class MarshallableLoadable implements Loadable
       {
         assert charset.equals(StandardCharsets.UTF_8);
 
-        try (var is = Files.newInputStream(path, openOptions))
+        try (final var is = Files.newInputStream(path, openOptions))
           {
             return datumAsDelegate.as(_Unmarshallable_).unmarshal(is);
           }
