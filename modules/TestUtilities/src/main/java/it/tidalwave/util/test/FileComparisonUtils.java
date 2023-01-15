@@ -35,9 +35,9 @@ import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import com.github.difflib.DiffUtils;
 import com.github.difflib.patch.AbstractDelta;
@@ -150,7 +150,7 @@ public class FileComparisonUtils
     public static List<String> fileToStrings (@Nonnull final File file)
       throws IOException
       {
-        return fileToStrings(new FileInputStream(file));
+        return fileToStrings(Files.newInputStream(file.toPath()));
       }
 
     /*******************************************************************************************************************
