@@ -273,7 +273,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      ******************************************************************************************************************/
     // START SNIPPET: results
     @Nonnull
-    public List<? extends TYPE> results();
+    public List<TYPE> results();
     // END SNIPPET: results
 
     /*******************************************************************************************************************

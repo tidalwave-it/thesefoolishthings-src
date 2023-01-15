@@ -58,6 +58,8 @@ import static it.tidalwave.role.spi.impl.LogUtil.*;
 @Slf4j
 public class SimpleCompositePresentable implements Presentable
   {
+    private static final As.Type<SimpleComposite<As>> _SimpleCompositeOfAs_ = As.type(_SimpleComposite_);
+
     @RequiredArgsConstructor
     static class SCPFinder extends SimpleFinderSupport<PresentationModel>
       {
@@ -78,15 +80,16 @@ public class SimpleCompositePresentable implements Presentable
           }
 
         @Override @Nonnull
-        protected List<? extends PresentationModel> computeResults()
+        protected List<PresentationModel> computeResults()
           {
-            return scp.contextSampler.runWithContexts(new Task<List<? extends PresentationModel>, RuntimeException>()
+            return scp.contextSampler.runWithContexts(new Task<List<PresentationModel>, RuntimeException>()
               {
                 @Override @Nonnull
-                public List<? extends PresentationModel> run()
+                public List<PresentationModel> run()
                   {
-                    final List<As> children = scp.datum.maybeAs(_SimpleComposite_)
-                                                       .map(c -> c.findChildren().results()).orElse(emptyList());
+                    final List<As> children = scp.datum.maybeAs(_SimpleCompositeOfAs_)
+                                                       .map(c -> c.findChildren().results())
+                                                       .orElse(emptyList());
                     return children.stream()
                                    .map(child -> child.maybeAs(_Presentable_)
                                                       .orElseGet(() -> new SimpleCompositePresentable(child)))

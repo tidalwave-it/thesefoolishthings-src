@@ -283,7 +283,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public List<? extends TYPE> results()
+    public List<TYPE> results()
       {
         return computeNeededResults();
       }
@@ -308,7 +308,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      ******************************************************************************************************************/
     // START SNIPPET: computeResults
     @Nonnull
-    protected List<? extends TYPE> computeResults()
+    protected List<TYPE> computeResults()
     // END SNIPPET: computeResults
       {
         throw new UnsupportedOperationException("You must implement me!");
@@ -323,11 +323,11 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      ******************************************************************************************************************/
     // START SNIPPET: computeNeededResults
     @Nonnull
-    protected List<? extends TYPE> computeNeededResults()
+    protected List<TYPE> computeNeededResults()
     // END SNIPPET: computeNeededResults
       {
         log.trace("computeNeededResults() - {}", this);
-        List<? extends TYPE> results = computeResults();
+        List<TYPE> results = computeResults();
 
         // First sort and then extract the sublist
         for (final Sorter<TYPE> sorter : sorters)
