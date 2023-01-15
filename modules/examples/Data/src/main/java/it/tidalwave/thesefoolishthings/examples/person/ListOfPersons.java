@@ -35,14 +35,22 @@ import lombok.experimental.Delegate;
 
 /***********************************************************************************************************************
  *
+ * A simple implementation of a list of {@code Persons}.
+ *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+// START SNIPPET: listofpersons
 @NoArgsConstructor
 public class ListOfPersons implements List<Person>
   {
     @Delegate
     private final List<Person> persons = new ArrayList<>();
+
+    public static ListOfPersons empty ()
+      {
+        return new ListOfPersons();
+      }
 
     @Nonnull
     public static ListOfPersons of (@Nonnull final Person ... persons)
@@ -61,3 +69,4 @@ public class ListOfPersons implements List<Person>
         return persons.toString();
       }
   }
+// END SNIPPET: listofpersons

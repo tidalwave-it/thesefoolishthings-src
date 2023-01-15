@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.ServiceLoader;
-import it.tidalwave.util.impl.LazyReference;
+import it.tidalwave.util.LazySupplier;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -42,14 +42,14 @@ import lombok.NoArgsConstructor;
  **********************************************************************************************************************/
 public interface AsDelegateProvider
   {
-    public static final LazyReference<EmptyAsDelegateProvider> EMPTY_REF =
-            LazyReference.of(EmptyAsDelegateProvider::new);
+    public static final LazySupplier<EmptyAsDelegateProvider> EMPTY_REF =
+            LazySupplier.of(EmptyAsDelegateProvider::new);
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Locator
       {
-        private static final LazyReference<AsDelegateProvider> AS_DELEGATE_PROVIDER_REF =
-                LazyReference.of(Locator::findAsSpiProvider);
+        private static final LazySupplier<AsDelegateProvider> AS_DELEGATE_PROVIDER_REF =
+                LazySupplier.of(Locator::findAsSpiProvider);
 
         @Nonnull
         public static AsDelegateProvider find()

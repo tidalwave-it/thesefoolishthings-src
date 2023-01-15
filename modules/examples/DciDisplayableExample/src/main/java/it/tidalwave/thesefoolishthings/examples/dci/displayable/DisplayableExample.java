@@ -38,15 +38,17 @@ import static it.tidalwave.role.ui.Displayable._Displayable_;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+// START-SNIPPET: extensionmethod
 @ExtensionMethod(AsExtensions.class) @Slf4j
 public class DisplayableExample
   {
     public void run()
       {
-        final Person joe = new Person(new Id("1"), "Joe", "Smith");
-        final Person luke = new Person(new Id("2"), "Luke", "Skywalker");
+        var joe = new Person(new Id("1"), "Joe", "Smith");
+        var luke = new Person(new Id("2"), "Luke", "Skywalker");
         
         log.info("******** (joe as Displayable).displayName: {}", joe.as(_Displayable_).getDisplayName());
         log.info("******** (luke as Displayable).displayName: {}", luke.as(_Displayable_).getDisplayName());
       }
   }
+// END-SNIPPET: extensionmethod

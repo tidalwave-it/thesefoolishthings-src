@@ -87,7 +87,7 @@ public class FinderExample2
                          .optionalFirstResult());
 
         // START SNIPPET: stream-example
-        // Here both filtering and sorting are performed by the Finder, which could make it happen in the data source.
+        // Here both filtering and sorting are performed by the Finder, which could make them happen in the data source.
         log.info("Whose first name starts with B, sorted by first name: {}",
                  registry.findPerson()
                          .withFirstName("B.*")

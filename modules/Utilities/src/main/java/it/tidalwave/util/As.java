@@ -39,7 +39,8 @@ import lombok.ToString;
  *
  * Objects implementing this interface can provide am adapter of the required type. The adapter can be found with a
  * variety of approaches that depend on the implementation. This capability can be used to implement a design based
- * on the Data, Context and Interaction pattern (DCI).
+ * on the Data, Context and Interaction pattern (DCI). For further details, please look at the
+ * <a href="http://tidalwave.it/projects/thesefoolishthings">project website</a>, where a tutorial is available.
  *
  * @author  Fabrizio Giudici
  * @it.tidalwave.javadoc.stable
@@ -86,11 +87,31 @@ public interface As
 
     /*******************************************************************************************************************
      *
-     * @since                       3.2-ALPHA-12
+     * A type reference for roles that can be used in place of a class literal, especially when roles with generics are
+     * used. Example of usage:
+     * <pre>
+     *
+     *     interface DataRetriever&lt;T&gt;
+     *       {
+     *         public List&lt;T&gt; retrieve();
+     *       }
+     *
+     *     class CodeSample
+     *       {
+     *         private static final As.Type&lt;DataRetriever&lt;String&gt;&gt; _StringRetriever_ = As.type(DataRetriever.class);
+     *
+     *         public void method (As object)
+     *           {
+     *             List&lt;String&gt; f3 = object.as(_StringRetriever_).retrieve();
+     *           }
+     *       }
+     * </pre>
+     *
+     * @since     3.2-ALPHA-12
      *
      ******************************************************************************************************************/
     @RequiredArgsConstructor @EqualsAndHashCode @ToString
-    public static final class Ref<T>
+    public static final class Type<T>
       {
         @Nonnull
         private final Class<?> type;
@@ -104,8 +125,8 @@ public interface As
 
     /*******************************************************************************************************************
      *
-     * Creates an {@code As} implementation for the given object (or returns the object itself if it is the default
-     * implementation of {@code As}).
+     * Creates an {@code As} implementation delegate for the given object (or returns the object itself if it is the
+     * default implementation of {@code As}).
      *
      * @param     object         the object
      * @return                   the implementation
@@ -120,8 +141,8 @@ public interface As
 
     /*******************************************************************************************************************
      *
-     * Creates an {@code As} implementation for the given object. It accepts a single pre-instantiated role, or a
-     * {@link RoleFactory} that will be invoked to create additional roles.
+     * Creates an {@code As} implementation delegate for the given object. It accepts a single pre-instantiated role,
+     * or a {@link RoleFactory} that will be invoked to create additional roles.
      *
      * @param     object         the object
      * @param     role           the role or {@link it.tidalwave.util.RoleFactory}
@@ -137,8 +158,8 @@ public interface As
 
     /*******************************************************************************************************************
      *
-     * Creates an {@code As} implementation for the given object. It accepts a collection of pre-instantiated roles,
-     * or instances of {@link RoleFactory} that will be invoked to create additional roles.
+     * Creates an {@code As} implementation delegate for the given object. It accepts a collection of pre-instantiated
+     * roles, or instances of {@link RoleFactory} that will be invoked to create additional roles.
      *
      * @param     object         the object
      * @param     roles          roles or {@link it.tidalwave.util.RoleFactory} instances
@@ -224,9 +245,9 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Ref<T> ref (@Nonnull final Class<?> type) // FIXME: there's no static check of the argument
+    public static <T> Type<T> type (@Nonnull final Class<?> type) // FIXME: there's no static check of the argument
       {
-        return new Ref<>(type);
+        return new Type<>(type);
       }
 
     /*******************************************************************************************************************
@@ -235,15 +256,15 @@ public interface As
      * roles, only one will be returned.
      *
      * @param   <T>                 the static type
-     * @param   ref                 the type reference
+     * @param   type                the type reference
      * @return                      the role
      * @since                       3.2-ALPHA-12
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default <T> T as (@Nonnull final Ref<T> ref)
+    public default <T> T as (@Nonnull final Type<T> type)
       {
-        return as(ref.getType());
+        return as(type.getType());
       }
 
     /*******************************************************************************************************************
@@ -251,15 +272,15 @@ public interface As
      * Returns the requested role or an empty {@link Optional}.
      *
      * @param   <T>                 the static type
-     * @param   ref                 the type reference
+     * @param   type                the type reference
      * @return                      the optional role
      * @since                       3.2-ALPHA-12
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default <T> Optional<T> maybeAs (@Nonnull final Ref<T> ref)
+    public default <T> Optional<T> maybeAs (@Nonnull final Type<T> type)
       {
-        return maybeAs(ref.getType());
+        return maybeAs(type.getType());
       }
 
     /*******************************************************************************************************************
@@ -267,14 +288,14 @@ public interface As
      * Returns the requested role or an empty {@link Optional}.
      *
      * @param   <T>                 the static type
-     * @param   ref                 the type reference
+     * @param   type                the type reference
      * @return                      the roles
      * @since                       3.2-ALPHA-12
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default <T> Collection<T> asMany (@Nonnull final Ref<T> ref)
+    public default <T> Collection<T> asMany (@Nonnull final Type<T> type)
       {
-        return asMany(ref.getType());
+        return asMany(type.getType());
       }
   }

@@ -35,7 +35,7 @@ import java.util.ServiceLoader;
 import java.util.function.Supplier;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.util.Task;
-import it.tidalwave.util.impl.LazyReference;
+import it.tidalwave.util.LazySupplier;
 import it.tidalwave.role.spi.ContextManagerProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -63,11 +63,11 @@ public interface ContextManager
     @Slf4j @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Locator
       {
-        private static final LazyReference<ContextManager> CONTEXT_MANAGER_REF =
-                LazyReference.of(Locator::findContextManager);
+        private static final LazySupplier<ContextManager> CONTEXT_MANAGER_REF =
+                LazySupplier.of(Locator::findContextManager);
 
-        private static final LazyReference<ContextManagerProvider> CONTEXT_MANAGER_PROVIDER_REF =
-                LazyReference.of(Locator::findContextManagerProvider);
+        private static final LazySupplier<ContextManagerProvider> CONTEXT_MANAGER_PROVIDER_REF =
+                LazySupplier.of(Locator::findContextManagerProvider);
 
         /***************************************************************************************************************
          *

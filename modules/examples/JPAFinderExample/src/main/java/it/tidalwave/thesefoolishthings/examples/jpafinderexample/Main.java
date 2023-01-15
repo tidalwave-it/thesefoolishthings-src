@@ -49,7 +49,7 @@ import static it.tidalwave.util.Finder.SortDirection.DESCENDING;
 @Slf4j
 public class Main
   {
-    private static final As.Ref<Findable<Person>> _Findable_of_Person_ = As.ref(_Findable_);
+    private static final As.Type<Findable<Person>> _Findable_of_Person_ = As.type(_Findable_);
 
     public static void main (@Nonnull final String... args)
             throws Exception
