@@ -33,15 +33,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
 import it.tidalwave.util.NotFoundException;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.role.spi.impl.DatumAndRole;
-import it.tidalwave.role.spi.impl.MultiMap;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
+import static it.tidalwave.util.CollectionUtils.sorted;
 import static it.tidalwave.role.spi.impl.LogUtil.*;
 import static it.tidalwave.role.spi.impl.Mocks.*;
 import static org.testng.AssertJUnit.assertEquals;
@@ -92,7 +91,7 @@ class UnderTest extends RoleManagerSupport
     @Override @Nonnull
     protected Class<?>[] findDatumTypesForRole (@Nonnull final Class<?> roleImplementationClass)
       {
-        final Class<?>[] result = ownerClassesMapByRoleClass.get(roleImplementationClass);
+        final var result = ownerClassesMapByRoleClass.get(roleImplementationClass);
         return (result == null) ? new Class<?>[0] : result;
       }
   }
@@ -133,7 +132,7 @@ public class RoleManagerSupportTest
       {
         // given the mocks
         // when
-        final SortedSet<Class<?>> actualInterfaces = RoleManagerSupport.findAllImplementedInterfacesOf(clazz);
+        final var actualInterfaces = RoleManagerSupport.findAllImplementedInterfacesOf(clazz);
         // then
         assertThat(actualInterfaces, is(expectedInterfaces));
       }
@@ -162,14 +161,14 @@ public class RoleManagerSupportTest
     public void must_properly_scan_classes()
       {
         // given
-        final UnderTest underTest = new UnderTest();
+        final var underTest = new UnderTest();
         registerMockRoles(underTest);
         // when
         underTest.scan(asList(RI1A.class, RI1B.class, RI1C.class,
                               RI2A.class, RI2B.class, RI2C.class,
                               RI3A.class, RI3B.class, RI3C.class));
         // then
-        final MultiMap<DatumAndRole, Class<?>> m = underTest.roleMapByDatumAndRole;
+        final var m = underTest.roleMapByDatumAndRole;
 
         assertThat(m.size(), is(8));
         assertThat(m.getValues(new DatumAndRole(IA1.class, R3.class)), is(asSet(RI3C.class)));
@@ -283,7 +282,7 @@ public class RoleManagerSupportTest
         when(contextManager.findContextOfType(eq(Context1.class))).thenThrow(new NotFoundException());
         when(contextManager.findContextOfType(eq(Context2.class))).thenReturn(context2);
 
-        final UnderTest underTest = new UnderTest();
+        final var underTest = new UnderTest();
         registerMockRoles(underTest);
         underTest.registerBean(bean1);
         underTest.registerBean(bean2);
@@ -291,9 +290,9 @@ public class RoleManagerSupportTest
                               RI2A.class, RI2B.class, RI2C.class,
                               RI3A.class, RI3B.class, RI3C.class));
         // when
-        final List<?> actualRoles = underTest.findRoles(owner, roleClass);
+        final var actualRoles = underTest.findRoles(owner, roleClass);
         // then
-        final String s = String.format("owner: %s role: %s", shortId(owner), shortName(roleClass));
+        final var s = String.format("owner: %s role: %s", shortId(owner), shortName(roleClass));
         assertListEquals(s, actualRoles, expectedRoles);
       }
 
@@ -303,37 +302,37 @@ public class RoleManagerSupportTest
     @DataProvider
     private static Object[][] ownersAndRoleImplementations()
       {
-        final CA3 ca3 = new CA3();
+        final var ca3 = new CA3();
 
         return new Object[][]
           {
           //  owner      role      expected role implementations
-            { new CA1(), R1.class, asList(new RI1A()) },
+            {new CA1(), R1.class, List.of(new RI1A())},
             // no RI2A because Context1 is not present
-            { new CA1(), R2.class, asList()           },
-            { new CA1(), R3.class, asList()           },
+            {new CA1(), R2.class, List.of()},
+            {new CA1(), R3.class, List.of()},
 
-            { new CA2(), R1.class, asList(new RI1A()) },
-            { new CA2(), R2.class, asList(new RI2C(context2, bean1)) },
-            { new CA2(), R3.class, asList()           },
+            {new CA2(), R1.class, List.of(new RI1A())},
+            {new CA2(), R2.class, List.of(new RI2C(context2, bean1))},
+            {new CA2(), R3.class, List.of()},
 
-            { new CA3(), R1.class, asList()           },
-            { new CA3(), R2.class, asList()           },
-            { ca3,       R3.class, asList(new RI3A(ca3)) },
+            {new CA3(), R1.class, List.of()},
+            {new CA3(), R2.class, List.of()},
+            {ca3, R3.class, List.of(new RI3A(ca3))},
 
-            { new CB1(), R1.class, asList()           },
+            {new CB1(), R1.class, List.of()},
             // RI2C because Context2 is present
-            { new CB1(), R2.class, asList(new RI2B(bean1, bean2), new RI2C(context2, bean1)) },
-            { new CB1(), R3.class, asList()           },
+            {new CB1(), R2.class, asList(new RI2B(bean1, bean2), new RI2C(context2, bean1)) },
+            {new CB1(), R3.class, List.of()},
 
-            { new CB2(), R1.class, asList(new RI1A()) },
-            { new CB2(), R2.class, asList(new RI2C(context2, bean1)) },
-            { new CB2(), R3.class, asList(new RI3C()) },
+            {new CB2(), R1.class, List.of(new RI1A())},
+            {new CB2(), R2.class, List.of(new RI2C(context2, bean1))},
+            {new CB2(), R3.class, List.of(new RI3C())},
 
-            { new CB3(), R1.class, asList(new RI1A()) },
+            {new CB3(), R1.class, List.of(new RI1A())},
             // no RI2A because Context1 is not present
-            { new CB3(), R2.class, asList(new RI2B(bean1, bean2)) },
-            { new CB3(), R3.class, asList()           },
+            {new CB3(), R2.class, List.of(new RI2B(bean1, bean2))},
+            {new CB3(), R3.class, List.of()},
           };
       }
 
@@ -345,10 +344,10 @@ public class RoleManagerSupportTest
       {
         // given
         final R1 nonMock = new RI1A();
-        final R2 mock = mock(R2.class);
+        final var mock = mock(R2.class);
         // when
-        final Class<R1> nonMockType = RoleManagerSupport.findTypeOf(nonMock);
-        final Class<R2> mockType = RoleManagerSupport.findTypeOf(mock);
+        final var nonMockType = RoleManagerSupport.findTypeOf(nonMock);
+        final var mockType = RoleManagerSupport.findTypeOf(mock);
         // then
         assertEquals(RI1A.class, nonMockType);
         assertEquals(R2.class, mockType);
@@ -389,9 +388,8 @@ public class RoleManagerSupportTest
                                           @Nonnull final List<?> actual,
                                           @Nonnull final List<?> expected)
       {
-        sort(actual);
-        sort(expected);
-        assertThat(message, actual, is(expected));
+        final var comparator = Comparator.comparing(Object::toString);
+        assertThat(message,  sorted(actual, comparator), is(sorted(expected, comparator)));
       }
 
     /*******************************************************************************************************************
@@ -401,13 +399,5 @@ public class RoleManagerSupportTest
     private static Set<Class<?>> asSet (final Class<?> ... objects)
       {
         return new HashSet<>(asList(objects));
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    private static void sort (@Nonnull final List<?> list)
-      {
-        list.sort(Comparator.comparing(Object::toString));
       }
   }

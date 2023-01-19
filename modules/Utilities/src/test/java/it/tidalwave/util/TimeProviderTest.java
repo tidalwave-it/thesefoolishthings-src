@@ -51,14 +51,14 @@ public class TimeProviderTest
     public void test()
       {
         // given
-        final TimeProvider underTest = TimeProvider.getInstance();
+        final var underTest = TimeProvider.getInstance();
         // when
-        final Instant nowInstant = underTest.currentInstant();
-        final LocalDateTime nowLocal = underTest.currentLocalDateTime();
-        final ZonedDateTime nowZoned = underTest.currentZonedDateTime();
+        final var nowInstant = underTest.currentInstant();
+        final var nowLocal = underTest.currentLocalDateTime();
+        final var nowZoned = underTest.currentZonedDateTime();
         // then
-        final ZoneId zoneId = ZoneId.systemDefault();
-        final ZoneOffset offset = zoneId.getRules().getStandardOffset(nowInstant);
+        final var zoneId = ZoneId.systemDefault();
+        final var offset = zoneId.getRules().getStandardOffset(nowInstant);
         assertThat(getDeltaMillis(nowInstant, nowLocal, offset), is(lessThan(1L)));
         assertThat(getDeltaMillis(nowInstant, nowZoned), is(lessThan(1L)));
       }

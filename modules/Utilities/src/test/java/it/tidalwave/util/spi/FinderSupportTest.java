@@ -56,7 +56,7 @@ public class FinderSupportTest
           {
             final List<String> result = new ArrayList<>();
 
-            for (int i = 0; i < 100; i++)
+            for (var i = 0; i < 100; i++)
               {
                 result.add("" + i);
               }
@@ -69,9 +69,9 @@ public class FinderSupportTest
     public void fix_for_THESEFOOLISHTHINGS_172()
       {
         // given
-        final UnderTest underTest = new UnderTest();
+        final var underTest = new UnderTest();
         // when
-        final List<? extends String> results = underTest.from(11).results();
+        final var results = underTest.from(11).results();
         // then
         assertThat(results.size(), is(100 - 11));
       }
@@ -80,9 +80,9 @@ public class FinderSupportTest
     public void fix_for_THESEFOOLISHTHINGS_176()
       {
         // given
-        final UnderTest underTest = new UnderTest();
+        final var underTest = new UnderTest();
         // when
-        final List<? extends String> results = underTest.from(101).results();
+        final var results = underTest.from(101).results();
         // then
         assertThat(results.size(), is(0));
       }

@@ -85,9 +85,9 @@ public class ReflectionUtils
     public static void forEachMethodInTopDownHierarchy (@Nonnull final Object object,
                                                         @Nonnull final MethodProcessor processor)
       {
-        for (final Class<?> clazz : getClassHierarchy(object.getClass()))
+        for (final var clazz : getClassHierarchy(object.getClass()))
           {
-            for (final Method method : clazz.getDeclaredMethods())
+            for (final var method : clazz.getDeclaredMethods())
               {
                 processor.process(method);
               }
@@ -106,14 +106,14 @@ public class ReflectionUtils
     public static void forEachMethodInBottomUpHierarchy (@Nonnull final Object object,
                                                          @Nonnull final MethodProcessor processor)
       {
-        final List<Class<?>> hierarchy = getClassHierarchy(object.getClass());
+        final var hierarchy = getClassHierarchy(object.getClass());
         Collections.reverse(hierarchy);
 
-        for (final Class<?> clazz : hierarchy)
+        for (final var clazz : hierarchy)
           {
             if (processor.filter(clazz) == MethodProcessor.FilterResult.ACCEPT)
               {
-                for (final Method method : clazz.getDeclaredMethods())
+                for (final var method : clazz.getDeclaredMethods())
                   {
                     processor.process(method);
                   }
@@ -134,7 +134,7 @@ public class ReflectionUtils
       {
         final List<Class<?>> hierarchy = new ArrayList<>();
 
-        for (Class<?> ancestor = clazz; ancestor != null; ancestor = ancestor.getSuperclass())
+        for (var ancestor = clazz; ancestor != null; ancestor = ancestor.getSuperclass())
           {
             hierarchy.add(0, ancestor);
           }
@@ -154,7 +154,7 @@ public class ReflectionUtils
     public static boolean containsAnnotation (@Nonnull final Annotation[] annotations,
                                               @Nonnull final Class<?> annotationClass)
       {
-        for (final Annotation annotation : annotations)
+        for (final var annotation : annotations)
           {
             if (annotationClass.isAssignableFrom(annotation.getClass()))
               {

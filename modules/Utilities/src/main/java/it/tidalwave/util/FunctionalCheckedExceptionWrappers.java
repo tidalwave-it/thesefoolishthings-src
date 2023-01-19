@@ -161,6 +161,7 @@ public final class FunctionalCheckedExceptionWrappers
     @FunctionalInterface
     public static interface RunnableWithException
       {
+        @SuppressWarnings("RedundantThrows")
         public void run()
                 throws Exception;
       }

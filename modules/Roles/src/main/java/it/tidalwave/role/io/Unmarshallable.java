@@ -54,6 +54,7 @@ public interface Unmarshallable
      * @throws  IOException    when an error occurs
      *
      ******************************************************************************************************************/
+    @SuppressWarnings("RedundantThrows")
     @Nonnull
     public <T> T unmarshal (@Nonnull InputStream is)
       throws IOException;

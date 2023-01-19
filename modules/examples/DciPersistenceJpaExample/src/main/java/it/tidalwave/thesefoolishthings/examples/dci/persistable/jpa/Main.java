@@ -62,7 +62,6 @@ public class Main
       }
 
     public static void main (@Nonnull final String ... args)
-      throws Exception
       {
         SpringApplication.run(new Class[] { RoleSpringConfiguration.class, Main.class }, args);
       }

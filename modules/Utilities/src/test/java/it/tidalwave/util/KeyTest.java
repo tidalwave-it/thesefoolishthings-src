@@ -30,7 +30,6 @@ import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Set;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -59,12 +58,12 @@ public class KeyTest
     public void test()
       {
         // when
-        final Key<String> key1 = Key.of("key1", String.class);
-        final Key<String> key2 = Key.of("key2", String.class);
-        final Key<Integer> key3 = Key.of("key3", Integer.class);
-        final Key<String> key1b = Key.of("key1", String.class);
-        final Key<LocalDateTime> key1c = Key.of("key1", LocalDateTime.class); // existing name, different type
-        final Set<Key<?>> allKeys = Key.allKeys();
+        final var key1 = Key.of("key1", String.class);
+        final var key2 = Key.of("key2", String.class);
+        final var key3 = Key.of("key3", Integer.class);
+        final var key1b = Key.of("key1", String.class);
+        final var key1c = Key.of("key1", LocalDateTime.class); // existing name, different type
+        final var allKeys = Key.allKeys();
         // then
         assertThat(key1.getName(), is("key1"));
         assertEquals(key1.getType(), String.class);
@@ -91,7 +90,7 @@ public class KeyTest
     public <T> void must_return_the_correct_dynamic_type (@Nonnull final Key<T> key, @Nonnull final Class<T> expectedType)
       {
         // when
-        final Class<T> actualType = key.getType();
+        final var actualType = key.getType();
         // then
         assertEquals(actualType, expectedType);
       }

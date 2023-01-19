@@ -28,7 +28,6 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 import it.tidalwave.util.spi.ExtendedFinderSupport;
@@ -45,7 +44,7 @@ import static org.hamcrest.MatcherAssert.*;
  **********************************************************************************************************************/
 public class FinderTest
   {
-    private static final List<String> ALL_NAMES = Arrays.asList("");
+    private static final List<String> ALL_NAMES = List.of("");
 
     static interface NameFinder extends ExtendedFinderSupport<String, NameFinder>
       {
@@ -66,7 +65,7 @@ public class FinderTest
           {
             final List<String> results = new ArrayList<>();
 
-            for (final String name : ALL_NAMES)
+            for (final var name : ALL_NAMES)
               {
                 if (name.startsWith(prefix))
                   {
@@ -91,7 +90,7 @@ public class FinderTest
     public void ofClone_must_behave_correctly()
       {
         // when
-        final Finder<Integer> underTest = Finder.ofCloned(ITEMS);
+        final var underTest = Finder.ofCloned(ITEMS);
         // then
         assertThat(underTest.results(), is(ITEMS));
         assertThat(underTest.from(5).results(), is(ITEMS.subList(5, 10)));
@@ -102,7 +101,7 @@ public class FinderTest
     public void ofClone_result_must_be_a_modifiable_list()
       {
         // when
-        final Finder<Integer> underTest = Finder.ofCloned(ITEMS);
+        final var underTest = Finder.ofCloned(ITEMS);
         // then
         underTest.results().clear();
         underTest.from(5).results().clear();

@@ -27,13 +27,11 @@
 package it.tidalwave.thesefoolishthings.examples.dci.swing.swing;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 import javax.swing.JList;
 import javax.swing.JTable;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.observablecollections.ObservableList;
-import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
 import it.tidalwave.util.AsExtensions;
 import it.tidalwave.thesefoolishthings.examples.dci.swing.role.ObservableListProvider;
@@ -98,7 +96,7 @@ public final class Bindings
                                  @Nonnull final JTable jTable)
       {
         final ObservableList<T> ol = datum.as(_ObservableListProvider_).createObservableList();
-        final JTableBinding<T, List<T>, JTable> tb = SwingBindings.createJTableBinding(READ_WRITE, ol, jTable);
+        final var tb = SwingBindings.createJTableBinding(READ_WRITE, ol, jTable);
 
         datum.as(_TableHeaderDescriptor_).getColumnDescriptors().forEach(cd ->
               tb.addColumnBinding(BeanProperty.create(cd.getPropertyName())).setColumnName(cd.getHeaderName()));

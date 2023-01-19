@@ -72,7 +72,7 @@ public class SpringDefaultAsTest // FIXME: tests are genera, move to a AsSupport
     public void must_inject_a_role_properly_assigning_its_owner_1()
       {
         // when
-        final MockRole1 role = datum1.as(MockRole1.class);
+        final var role = datum1.as(MockRole1.class);
         // then
         assertThat(role, is(notNullValue()));
         assertThat(role, is(instanceOf(MockConcreteRole1.class)));
@@ -86,8 +86,8 @@ public class SpringDefaultAsTest // FIXME: tests are genera, move to a AsSupport
     public void must_inject_a_role_supporting_multiple_datum_types_properly_assigning_its_owner()
       {
         // when
-        final MockRole2 role1 = datum1.as(MockRole2.class);
-        final MockRole2 role2 = datum2.as(MockRole2.class);
+        final var role1 = datum1.as(MockRole2.class);
+        final var role2 = datum2.as(MockRole2.class);
         // then
         assertThat(role1, is(notNullValue()));
         assertThat(role1, is(instanceOf(MockConcreteRole2.class)));
@@ -123,7 +123,7 @@ public class SpringDefaultAsTest // FIXME: tests are genera, move to a AsSupport
     public void must_return_the_datum_object_when_it_directly_implements_a_role()
       {
         // when
-        final MockRole3 role = datum2.as(MockRole3.class);
+        final var role = datum2.as(MockRole3.class);
         // then
         assertThat(role, is(notNullValue()));
         assertThat(role, is(sameInstance(datum2)));

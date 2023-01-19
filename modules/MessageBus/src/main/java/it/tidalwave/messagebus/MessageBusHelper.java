@@ -26,7 +26,6 @@
  */
 package it.tidalwave.messagebus;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -101,7 +100,7 @@ public class MessageBusHelper
             @Override
             public void process (@Nonnull final Method method)
               {
-                final Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+                final var parameterAnnotations = method.getParameterAnnotations();
 
                 if ((parameterAnnotations.length == 1) && containsAnnotation(parameterAnnotations[0], ListensTo.class))
                   {
@@ -118,7 +117,7 @@ public class MessageBusHelper
      ******************************************************************************************************************/
     public void unsubscribeAll()
       {
-        for (final MethodAdapter<?> methodAdapter : methodAdapters)
+        for (final var methodAdapter : methodAdapters)
           {
             methodAdapter.unsubscribe();
           }
@@ -157,8 +156,8 @@ public class MessageBusHelper
       {
         log.trace("registerMessageListener({})", method);
 
-        final Class<TOPIC> topic = (Class<TOPIC>)method.getParameterTypes()[0];
-        final MethodAdapter<TOPIC> methodAdapter = methodAdapterFactory.createMethodAdapter(owner, method, topic);
+        final var topic = (Class<TOPIC>)method.getParameterTypes()[0];
+        final var methodAdapter = methodAdapterFactory.createMethodAdapter(owner, method, topic);
         methodAdapters.add(methodAdapter);
         methodAdapter.subscribe();
       }

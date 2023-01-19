@@ -44,8 +44,8 @@ public class DisplayableExample
   {
     public void run()
       {
-        var joe = new Person(new Id("1"), "Joe", "Smith");
-        var luke = new Person(new Id("2"), "Luke", "Skywalker");
+        final var joe = new Person(new Id("1"), "Joe", "Smith");
+        final var luke = new Person(new Id("2"), "Luke", "Skywalker");
         
         log.info("******** (joe as Displayable).displayName: {}", joe.as(_Displayable_).getDisplayName());
         log.info("******** (luke as Displayable).displayName: {}", luke.as(_Displayable_).getDisplayName());

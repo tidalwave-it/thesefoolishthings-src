@@ -29,7 +29,6 @@ package it.tidalwave.util.asexamples;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Optional;
-import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 
 /***********************************************************************************************************************
@@ -40,18 +39,9 @@ import it.tidalwave.util.AsException;
 public class AsExtensions
   {
     @Nonnull
-    public static <T> T as (@Nonnull final Object datum,
-                            @Nonnull final Class<T> roleClass)
+    public static <T> T as (@Nonnull final Object datum, @Nonnull final Class<T> type)
       {
-        return as(datum, roleClass, As.Defaults.throwAsException(roleClass));
-      }
-
-    @Nonnull @Deprecated
-    public static <T> T as (@Nonnull final Object datum,
-                            @Nonnull final Class<T> roleClass,
-                            @Nonnull final As.NotFoundBehaviour<T> notFoundBehaviour)
-      {
-        return maybeAs(datum, roleClass).orElseGet(() -> notFoundBehaviour.run(new AsException(roleClass)));
+        return maybeAs(datum, type).orElseThrow(() -> new AsException(type));
       }
 
     @Nonnull
@@ -59,9 +49,9 @@ public class AsExtensions
       {
         try
           {
-            final Class<?> datumClass = datum.getClass();
-            final String roleClassName = "it.tidalwave.util.asexamples."
-                                         + datumClass.getSimpleName() + type.getSimpleName() + "Role";
+            final var datumClass = datum.getClass();
+            final var roleClassName = "it.tidalwave.util.asexamples."
+                                      + datumClass.getSimpleName() + type.getSimpleName() + "Role";
             return Optional.of((T)Class.forName(roleClassName).getConstructor(datumClass).newInstance(datum));
           }
         catch (Exception e)

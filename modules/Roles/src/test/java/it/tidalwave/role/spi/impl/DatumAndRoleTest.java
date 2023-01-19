@@ -46,7 +46,7 @@ public class DatumAndRoleTest
     public void testGetSuper (@Nonnull final DatumAndRole underTest, @Nonnull final List<DatumAndRole> expected)
       {
         // when
-        final List<DatumAndRole> actual = underTest.getSuper();
+        final var actual = underTest.getSuper();
         // then
         assertThat(actual, is(expected));
       }

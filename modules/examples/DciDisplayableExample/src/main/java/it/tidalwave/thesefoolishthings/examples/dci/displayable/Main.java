@@ -50,7 +50,7 @@ public class Main
 
     public static void main (@Nonnull final String ... args)
       {
-        var context = new AnnotationConfigApplicationContext(RoleSpringConfiguration.class, Main.class);
+        final var context = new AnnotationConfigApplicationContext(RoleSpringConfiguration.class, Main.class);
         context.getBean(DisplayableExample.class).run();
       }
   }

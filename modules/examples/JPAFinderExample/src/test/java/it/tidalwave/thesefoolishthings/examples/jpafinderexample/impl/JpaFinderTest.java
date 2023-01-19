@@ -104,7 +104,7 @@ public class JpaFinderTest
     public void testQueryWithCount()
       {
         // when
-        final int count = underTest.count();
+        final var count = underTest.count();
         // then
         assertThat(jpaMock.sqlQuery, is("SELECT COUNT(p) FROM PersonEntity p"));
         assertThat(jpaMock.firstResult, is(0));

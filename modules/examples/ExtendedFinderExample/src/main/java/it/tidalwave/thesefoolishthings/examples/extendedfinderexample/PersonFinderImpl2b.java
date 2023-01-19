@@ -88,7 +88,7 @@ public class PersonFinderImpl2b extends HierarchicFinderSupport<Person, PersonFi
     public PersonFinderImpl2b (@Nonnull final PersonFinderImpl2b other, @Nonnull final Object override)
       {
         super(other, override);
-        final Status source = getSource(Status.class, other.status, override);
+        final var source = getSource(Status.class, other.status, override);
         this.status = new Status(source.persons, source.firstNamePattern, source.lastNamePattern);
       }
     // END SNIPPET: clone-constructor

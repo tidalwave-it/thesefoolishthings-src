@@ -29,6 +29,7 @@ package it.tidalwave.actor;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.inject.Provider;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -37,7 +38,6 @@ import it.tidalwave.actor.impl.DefaultCollaboration;
 import it.tidalwave.actor.impl.Locator;
 import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
 import it.tidalwave.util.As;
-import it.tidalwave.util.AsException;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
@@ -69,7 +69,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
 
     interface Exclusions
       {
-        public <T> T as (Class<T> type);
+        public <T> T maybeAs (Class<T> type);
       }
 
     @Delegate(excludes = Exclusions.class)
@@ -152,7 +152,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     public Collaboration sendLater (@Nonnegative final int delay, @Nonnull final TimeUnit timeUnit)
       {
         log.debug("sendLater({}, {}) - {}", delay, timeUnit, this);
-        final MessageSupport message = findDecoratedMessage();
+        final var message = findDecoratedMessage();
         collaboration.registerDeliveringMessage(message);
 
         new Timer().schedule(new TimerTask()
@@ -173,21 +173,13 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> T as (@Nonnull final Class<T> type)
+    public <T> Optional<T> maybeAs (@Nonnull final Class<T> type)
       {
-        return as(type, new As.NotFoundBehaviour<T>()
-          {
-            @Nonnull
-            public T run (@Nonnull final Throwable t)
-              {
-                if (type.equals(MessageDecorator.class))
-                  {
-                    return type.cast(sameMessageDecorator);
-                  }
+        final var t = as.maybeAs(type);
 
-                throw new AsException(type, t);
-              }
-          });
+        return t.isPresent()
+               ? t
+               : type.equals(MessageDecorator.class) ? Optional.of(type.cast(sameMessageDecorator)) : Optional.empty();
       }
 
     /*******************************************************************************************************************
@@ -198,7 +190,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     @Nonnull
     private MessageSupport findDecoratedMessage()
       {
-        final MessageSupport decoratedMessage = this.as(_MessageDecorator_).getDecoratedMessage();
+        final var decoratedMessage = this.as(_MessageDecorator_).getDecoratedMessage();
         return (decoratedMessage == this) ? this : decoratedMessage.findDecoratedMessage();
 //        MessageSupport decoratedMessage = this.as(_MessageDecorator_).getDecoratedMessage();
 //

@@ -51,7 +51,7 @@ public abstract class UnaryBoundFunctionSupport<DOMAIN_TYPE, CODOMAIN_TYPE>
 
     protected void onSourceChange (@Nonnull final DOMAIN_TYPE oldSourceValue, @Nonnull final DOMAIN_TYPE newSourceValue)
       {
-        final CODOMAIN_TYPE oldValue = function(oldSourceValue);
+        final var oldValue = function(oldSourceValue);
         value = function(newSourceValue);
         fireValueChanged(oldValue, value);
       }

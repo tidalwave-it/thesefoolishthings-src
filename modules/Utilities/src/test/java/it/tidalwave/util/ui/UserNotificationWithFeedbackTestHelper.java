@@ -109,8 +109,7 @@ public final class UserNotificationWithFeedbackTestHelper
         {
           try
             {
-              final UserNotificationWithFeedback notification =
-                      (UserNotificationWithFeedback)invocation.getArguments()[0];
+              final var notification = (UserNotificationWithFeedback)invocation.getArguments()[0];
               log.info(">>>> mock UI confirming {}...", notification);
               notification.confirm();
             }
@@ -133,8 +132,7 @@ public final class UserNotificationWithFeedbackTestHelper
         {
           try
             {
-              final UserNotificationWithFeedback notification =
-                      (UserNotificationWithFeedback)invocation.getArguments()[0];
+              final var notification = (UserNotificationWithFeedback)invocation.getArguments()[0];
               log.info(">>>> mock UI cancelling {}...", notification);
               notification.cancel();
             }

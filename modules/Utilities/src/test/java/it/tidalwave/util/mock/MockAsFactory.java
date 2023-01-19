@@ -76,7 +76,7 @@ public final class MockAsFactory
     public static <T extends As> T mockWithAs (@Nonnull final Class<T> clazz,
                                                @Nonnull final Collection<Object> roles)
       {
-        final T mock = mock(clazz);
+        final var mock = mock(clazz);
         final As as = new DefaultAs(AsDelegateProvider.empty()::createAsDelegate, mock, roles);
         when(mock.as(any(Class.class))).thenCallRealMethod();
         when(mock.maybeAs(any(Class.class))).thenAnswer(i -> as.maybeAs((Class<?>)i.getArguments()[0]));

@@ -128,7 +128,7 @@ public class SwingPersonPresentation extends JPanel implements PersonPresentatio
         liPeople.setName("liPeople"); // NOI18N
         jScrollPane2.setViewportView(liPeople);
 
-        final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        final var layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

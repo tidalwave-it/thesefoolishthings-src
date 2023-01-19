@@ -51,7 +51,7 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
      * A default <code>Composite</code> with no children.
      *
      ******************************************************************************************************************/
-    public static final Composite<Object, Finder<Object>> DEFAULT = new Composite<Object, Finder<Object>>()
+    public static final Composite<Object, Finder<Object>> DEFAULT = new Composite<>()
       {
         @Override @Nonnull
         public Finder<Object> findChildren()

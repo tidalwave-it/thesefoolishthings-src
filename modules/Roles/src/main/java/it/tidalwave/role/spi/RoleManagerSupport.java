@@ -26,7 +26,6 @@
  */
 package it.tidalwave.role.spi;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -84,14 +83,14 @@ public abstract class RoleManagerSupport implements RoleManager
         log.trace("findRoles({}, {})", shortId(datum), shortName(roleType));
         final Class<?> datumType = findTypeOf(datum);
         final List<ROLE_TYPE> roles = new ArrayList<>();
-        final Set<Class<? extends ROLE_TYPE>> roleImplementationTypes = findRoleImplementationsFor(datumType, roleType);
+        final var roleImplementationTypes = findRoleImplementationsFor(datumType, roleType);
 
-        outer:  for (final Class<? extends ROLE_TYPE> roleImplementationType : roleImplementationTypes)
+        outer:  for (final var roleImplementationType : roleImplementationTypes)
           {
-            for (final Constructor<?> constructor : roleImplementationType.getDeclaredConstructors())
+            for (final var constructor : roleImplementationType.getDeclaredConstructors())
               {
                 log.trace(">>>> trying constructor {}", constructor);
-                final Class<?>[] parameterTypes = constructor.getParameterTypes();
+                final var parameterTypes = constructor.getParameterTypes();
                 Class<?> contextType = null;
                 Object context = null;
 
@@ -99,7 +98,7 @@ public abstract class RoleManagerSupport implements RoleManager
                   {
                     contextType = findContextTypeForRole(roleImplementationType);
                     // With DI frameworks such as Spring it's better to avoid eager initializations of references
-                    final ContextManager contextManager = ContextManager.Locator.find();
+                    final var contextManager = ContextManager.Locator.find();
                     log.trace(">>>> contexts: {}", shortIds(contextManager.getContexts()));
 
                     try
@@ -120,7 +119,7 @@ public abstract class RoleManagerSupport implements RoleManager
 
                 try
                   {
-                    final Object[] params = getParameterValues(parameterTypes, datumType, datum, contextType, context);
+                    final var params = getParameterValues(parameterTypes, datumType, datum, contextType, context);
                     roles.add(roleType.cast(constructor.newInstance(params)));
                     break;
                   }
@@ -161,7 +160,7 @@ public abstract class RoleManagerSupport implements RoleManager
       {
         final List<Object> values = new ArrayList<>();
 
-        for (final Class<?> parameterType : parameterTypes)
+        for (final var parameterType : parameterTypes)
           {
             if (parameterType.isAssignableFrom(datumClass))
               {
@@ -199,14 +198,14 @@ public abstract class RoleManagerSupport implements RoleManager
             @Nonnull final Class<?> datumType,
             @Nonnull final Class<RT> roleType)
       {
-        final DatumAndRole datumAndRole = new DatumAndRole(datumType, roleType);
+        final var datumAndRole = new DatumAndRole(datumType, roleType);
 
         if (!alreadyScanned.contains(datumAndRole))
           {
             alreadyScanned.add(datumAndRole);
             final Set<Class<?>> before = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
 
-            for (final DatumAndRole superDatumAndRole : datumAndRole.getSuper())
+            for (final var superDatumAndRole : datumAndRole.getSuper())
               {
                 roleMapByDatumAndRole.addAll(datumAndRole, roleMapByDatumAndRole.getValues(superDatumAndRole));
               }
@@ -229,11 +228,11 @@ public abstract class RoleManagerSupport implements RoleManager
       {
         log.debug("scan({})", shortNames(roleImplementationTypes));
 
-        for (final Class<?> roleImplementationType : roleImplementationTypes)
+        for (final var roleImplementationType : roleImplementationTypes)
           {
-            for (final Class<?> datumType : findDatumTypesForRole(roleImplementationType))
+            for (final var datumType : findDatumTypesForRole(roleImplementationType))
               {
-                for (final Class<?> roleType : findAllImplementedInterfacesOf(roleImplementationType))
+                for (final var roleType : findAllImplementedInterfacesOf(roleImplementationType))
                   {
                     if (!"org.springframework.beans.factory.aspectj.ConfigurableObject".equals(roleType.getName()))
                       {
@@ -261,7 +260,7 @@ public abstract class RoleManagerSupport implements RoleManager
         final SortedSet<Class<?>> interfaces = new TreeSet<>(Comparator.comparing(Class::getName));
         interfaces.addAll(Arrays.asList(clazz.getInterfaces()));
 
-        for (final Class<?> interface_ : interfaces)
+        for (final var interface_ : interfaces)
           {
             interfaces.addAll(findAllImplementedInterfacesOf(interface_));
           }
@@ -345,7 +344,7 @@ public abstract class RoleManagerSupport implements RoleManager
                                                                                      .getName())
                                .thenComparing(e -> e.getKey().getRoleClass().getName()));
 
-        for (final Entry<DatumAndRole, Set<Class<?>>> entry : entries)
+        for (final var entry : entries)
           {
             log.debug(">>>> {}: {} -> {}",
                       shortName(entry.getKey().getDatumClass()),
@@ -366,7 +365,7 @@ public abstract class RoleManagerSupport implements RoleManager
     @Nonnull
     @VisibleForTesting static <T> Class<T> findTypeOf (@Nonnull final T object)
       {
-        Class<?> ownerClass = object.getClass();
+        var ownerClass = object.getClass();
 
         if (ownerClass.toString().contains("MockitoMock"))
           {

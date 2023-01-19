@@ -36,7 +36,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -63,7 +62,7 @@ public class TypeSafeMapTest
     public void test_newInstance()
       {
         // when
-        final TypeSafeMap underTest = TypeSafeMap.newInstance();
+        final var underTest = TypeSafeMap.newInstance();
         // then
         assertThat(underTest.size(), is(0));
         assertThat(underTest.keySet(), is(Collections.emptySet()));
@@ -78,9 +77,9 @@ public class TypeSafeMapTest
             throws NotFoundException
       {
         // given
-        final Map<Key<?>, Object> map = createSampleMap();
+        final var map = createSampleMap();
         // when
-        final TypeSafeMap underTest = TypeSafeMap.ofCloned(map);
+        final var underTest = TypeSafeMap.ofCloned(map);
         // then
         assertThat(underTest.size(), is(3));
         assertThat(underTest.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
@@ -117,10 +116,10 @@ public class TypeSafeMapTest
             throws NotFoundException
       {
         // given
-        final Map<Key<?>, Object> map = createSampleMap();
-        final TypeSafeMap firstMap = TypeSafeMap.ofCloned(map);
+        final var map = createSampleMap();
+        final var firstMap = TypeSafeMap.ofCloned(map);
         // when
-        final TypeSafeMap underTest = firstMap.with(K_STRING2, "2");
+        final var underTest = firstMap.with(K_STRING2, "2");
         // then
         assertThat(underTest, is(not(sameInstance(firstMap))));
         assertThat(firstMap.size(), is(3));
@@ -141,11 +140,11 @@ public class TypeSafeMapTest
     public void asMap_must_return_different_mutable_instances_detached_from_internal_state()
       {
         // given
-        final Map<Key<?>, Object> map = createSampleMap();
+        final var map = createSampleMap();
         // when
-        final TypeSafeMap underTest = TypeSafeMap.ofCloned(map);
-        final Map<Key<?>, Object> map1 = underTest.asMap();
-        final Map<Key<?>, Object> map2 = underTest.asMap();
+        final var underTest = TypeSafeMap.ofCloned(map);
+        final var map1 = underTest.asMap();
+        final var map2 = underTest.asMap();
         map1.clear();
         // then
         assertThat(map1, is(not(sameInstance(map2))));
@@ -159,11 +158,11 @@ public class TypeSafeMapTest
     public void getKeys_must_return_different_mutable_instances_detached_from_internal_state()
       {
         // given
-        final Map<Key<?>, Object> map = createSampleMap();
+        final var map = createSampleMap();
         // when
-        final TypeSafeMap underTest = TypeSafeMap.ofCloned(map);
-        final Set<Key<?>> set1 = underTest.keySet();
-        final Set<Key<?>> set2 = underTest.keySet();
+        final var underTest = TypeSafeMap.ofCloned(map);
+        final var set1 = underTest.keySet();
+        final var set2 = underTest.keySet();
         set1.clear();
         // then
         assertThat(set1, is(not(sameInstance(set2))));
@@ -177,9 +176,9 @@ public class TypeSafeMapTest
     public void test_forEach()
       {
         // given
-        final Map<Key<?>, Object> map = createSampleMap();
+        final var map = createSampleMap();
         // when
-        final TypeSafeMap underTest = TypeSafeMap.ofCloned(map);
+        final var underTest = TypeSafeMap.ofCloned(map);
         final List<Pair<Key<?>, Object>> pairs = new ArrayList<>();
         underTest.forEach((k, v) -> pairs.add(Pair.of(k, v)));
         // then

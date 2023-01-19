@@ -106,8 +106,8 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
     @Override @Nonnull
     public <T> TypeSafeHashMultiMap with (@Nonnull final Key<T> key, @Nonnull final T value)
       {
-        final Map<Key<?>, Collection<?>> map = asMap();
-        final Collection<T> values = get(key);
+        final var map = asMap();
+        final var values = get(key);
         values.add(value);
         map.put(key, values);
         return new TypeSafeHashMultiMap(map);

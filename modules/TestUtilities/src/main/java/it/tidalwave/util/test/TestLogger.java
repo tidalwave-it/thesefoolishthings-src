@@ -29,7 +29,6 @@ package it.tidalwave.util.test;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -49,8 +48,8 @@ public class TestLogger extends TestListenerAdapter
     public void onStart (@Nonnull final ITestContext testContext)
       {
         super.onStart(testContext);
-        final String testClass = testContext.getCurrentXmlTest().getClasses().get(0).getName();
-        final Logger log = LoggerFactory.getLogger(testClass);
+        final var testClass = testContext.getCurrentXmlTest().getClasses().get(0).getName();
+        final var log = LoggerFactory.getLogger(testClass);
         log.info("STARTING TESTS OF {}", testClass);
       }
 
@@ -58,8 +57,8 @@ public class TestLogger extends TestListenerAdapter
     public void onFinish (@Nonnull final ITestContext testContext)
       {
         super.onFinish(testContext);
-        final String testClass = testContext.getCurrentXmlTest().getClasses().get(0).getName();
-        final Logger log = LoggerFactory.getLogger(testClass);
+        final var testClass = testContext.getCurrentXmlTest().getClasses().get(0).getName();
+        final var log = LoggerFactory.getLogger(testClass);
         log.info("FINISHED TESTS OF {}", testClass);
       }
 
@@ -75,8 +74,8 @@ public class TestLogger extends TestListenerAdapter
     public void onConfigurationSkip (@Nonnull final ITestResult result)
       {
         super.onConfigurationSkip(result);
-        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
-        final Throwable throwable = result.getThrowable();
+        final var log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+        final var throwable = result.getThrowable();
         log.warn("CONFIGURATION SKIPPED {}", getMessage(throwable));
 
         if (throwable != null)
@@ -89,8 +88,8 @@ public class TestLogger extends TestListenerAdapter
     public void onConfigurationFailure (@Nonnull final ITestResult result)
       {
         super.onConfigurationFailure(result);
-        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
-        final Throwable throwable = result.getThrowable();
+        final var log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+        final var throwable = result.getThrowable();
         log.error("CONFIGURATION FAILED {}", getMessage(throwable));
 
         if (throwable != null)
@@ -103,10 +102,10 @@ public class TestLogger extends TestListenerAdapter
     public void onTestStart (@Nonnull final ITestResult result)
       {
         super.onTestStart(result);
-        final String args = getArgs(result);
-        final int max = Math.max(args.length() + 5, result.getName().length() + 7);
-        final String separator = SEPARATOR.substring(0, Math.min(max, SEPARATOR.length()));
-        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+        final var args = getArgs(result);
+        final var max = Math.max(args.length() + 5, result.getName().length() + 7);
+        final var separator = SEPARATOR.substring(0, Math.min(max, SEPARATOR.length()));
+        final var log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
 
         log.info(separator);
         log.info("TEST \"{}\"", result.getName().replace('_', ' '));
@@ -123,9 +122,9 @@ public class TestLogger extends TestListenerAdapter
     public void onTestFailure (@Nonnull final ITestResult result)
       {
         super.onTestFailure(result);
-        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
-        final Throwable throwable = result.getThrowable();
-        final String args = getArgs(result);
+        final var log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+        final var throwable = result.getThrowable();
+        final var args = getArgs(result);
 
         log.error("TEST FAILED in {} msec - {}{} - {}",
                  result.getEndMillis() - result.getStartMillis(),
@@ -145,7 +144,7 @@ public class TestLogger extends TestListenerAdapter
     public void onTestFailedButWithinSuccessPercentage (@Nonnull final ITestResult result)
       {
         super.onTestFailedButWithinSuccessPercentage(result);
-        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+        final var log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
         log.info("TEST FAILED WITHIN SUCCESS PERCENTAGE in {} msec", result.getEndMillis() - result.getStartMillis());
         log.info("");
       }
@@ -154,8 +153,8 @@ public class TestLogger extends TestListenerAdapter
     public void onTestSkipped (@Nonnull final ITestResult result)
       {
         super.onTestSkipped(result);
-        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
-        final Throwable throwable = result.getThrowable();
+        final var log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+        final var throwable = result.getThrowable();
         log.info("TEST SKIPPED {}", getMessage(throwable));
 
         if (throwable != null)
@@ -170,7 +169,7 @@ public class TestLogger extends TestListenerAdapter
     public void onTestSuccess (@Nonnull final ITestResult result)
       {
         super.onTestSuccess(result);
-        final Logger log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
+        final var log = LoggerFactory.getLogger(result.getTestClass().getRealClass());
         log.info("TEST PASSED in {} msec", result.getEndMillis() - result.getStartMillis());
         log.info("");
       }
@@ -178,9 +177,9 @@ public class TestLogger extends TestListenerAdapter
     @Nonnull
     private String getArgs (@Nonnull final ITestResult result)
       {
-        String args = "";
+        var args = "";
 
-        final Object[] parameters = result.getParameters();
+        final var parameters = result.getParameters();
 
         if ((parameters != null) && parameters.length > 0)
           {

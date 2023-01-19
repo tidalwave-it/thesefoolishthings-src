@@ -46,14 +46,14 @@ public class SimpleCompositeTest
     public void must_produce_valid_Finders()
       {
         // given
-        final SimpleComposite<String> underTest = SimpleComposite.ofCloned(data);
+        final var underTest = SimpleComposite.ofCloned(data);
         // when
-        final Finder<String> finder1 = (Finder<String>)underTest.findChildren(); // FIXME: cast
-        final Finder<String> finder2 = finder1.from(3).max(1);
-        final List<String> results1 = (List<String>)finder1.results(); // FIXME: cast
-        final List<String> results2 = (List<String>)finder2.results(); // FIXME: cast
+        final var finder1 = (Finder<String>)underTest.findChildren(); // FIXME: cast
+        final var finder2 = finder1.from(3).max(1);
+        final var results1 = (List<String>)finder1.results(); // FIXME: cast
+        final var results2 = (List<String>)finder2.results(); // FIXME: cast
         // then
         assertThat(results1, is(data));
-        assertThat(results2, is(Arrays.asList("4")));
+        assertThat(results2, is(List.of("4")));
       }
 }

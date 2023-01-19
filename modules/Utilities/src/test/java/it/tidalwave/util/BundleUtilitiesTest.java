@@ -48,7 +48,7 @@ public class BundleUtilitiesTest
                       @Nonnull final String expectedResult)
       {
         // when
-        final String actualResult = BundleUtilities.getMessage(Mock.class, locale, resourceName, params);
+        final var actualResult = BundleUtilities.getMessage(Mock.class, locale, resourceName, params);
         // then
         assertThat(actualResult, is(expectedResult));
       }
