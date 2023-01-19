@@ -42,7 +42,7 @@ public class LazySupplierTest
     public void must_not_call_supplier_before_get()
       {
         // when
-        final LazySupplier<Object> underTest = LazySupplier.of(Object::new);
+        final var underTest = LazySupplier.of(Object::new);
         // then
         assertThat(underTest.ref, is((Object)null));
       }
@@ -51,11 +51,11 @@ public class LazySupplierTest
     public void must_call_supplier_only_once()
       {
         // given
-        final LazySupplier<Object> underTest = LazySupplier.of(Object::new);
+        final var underTest = LazySupplier.of(Object::new);
         // when
-        final Object o1 = underTest.get();
-        final Object o2 = underTest.get();
-        final Object o3 = underTest.get();
+        final var o1 = underTest.get();
+        final var o2 = underTest.get();
+        final var o3 = underTest.get();
         // then
         assertThat(o2, sameInstance(o1));
         assertThat(o3, sameInstance(o1));
@@ -65,9 +65,9 @@ public class LazySupplierTest
     public void must_call_supplier_only_once_multithreaded()
       {
         // given
-        final LazySupplier<Object> underTest = LazySupplier.of(Object::new);
+        final var underTest = LazySupplier.of(Object::new);
         // when
-        final long count = IntStream.range(0, 10_000_000).parallel().mapToObj(__ -> underTest.get()).distinct().count();
+        final var count = IntStream.range(0, 10_000_000).parallel().mapToObj(__ -> underTest.get()).distinct().count();
         // then
         assertThat(count, is(1L));
       }

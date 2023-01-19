@@ -141,7 +141,7 @@ public class DefaultAs implements As
     @Override @Nonnull
     public <T> Optional<T> maybeAs (@Nonnull final Class<T> type)
       {
-        for (final Object role : roles)
+        for (final var role : roles)
           {
             if (type.isAssignableFrom(role.getClass()))
               {
@@ -149,7 +149,7 @@ public class DefaultAs implements As
               }
           }
 
-        final Collection<? extends T> r = delegate.get().as(type);
+        final var r = delegate.get().as(type);
         return r.isEmpty() ? Optional.empty() : Optional.of(r.iterator().next());
       }
 
@@ -165,7 +165,7 @@ public class DefaultAs implements As
       {
         final Collection<T> results = new ArrayList<>();
 
-        for (final Object role : roles)
+        for (final var role : roles)
           {
             if (type.isAssignableFrom(role.getClass()))
               {
@@ -191,7 +191,7 @@ public class DefaultAs implements As
       {
         final List<Object> result = new ArrayList<>();
 
-        for (final Object roleOrFactory : roles)
+        for (final var roleOrFactory : roles)
           {
             if (roleOrFactory instanceof RoleFactory)
               {

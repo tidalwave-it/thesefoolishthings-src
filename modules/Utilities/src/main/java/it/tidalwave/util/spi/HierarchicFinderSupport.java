@@ -176,7 +176,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
       {
         try
           {
-            final Constructor<? extends HierarchicFinderSupport> constructor = getCloneConstructor();
+            final var constructor = getCloneConstructor();
             constructor.setAccessible(true);
             return (EXTENDED_FINDER)constructor.newInstance(this, override);
           }
@@ -231,7 +231,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
     @Override @Nonnull
     public EXTENDED_FINDER withContext (@Nonnull final Object context)
       {
-        final List<Object> contexts = concat(this.contexts, context);
+        final var contexts = concat(this.contexts, context);
         return clonedWith(new HierarchicFinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
       }
 
@@ -256,13 +256,13 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
       {
         if (criterion instanceof Finder.InMemorySortCriterion)
           {
-            final List<Sorter<TYPE>> sorters = concat(this.sorters,
-                                                      new Sorter<>((InMemorySortCriterion<TYPE>)criterion, direction));
+            final var sorters = concat(this.sorters,
+                                       new Sorter<>((InMemorySortCriterion<TYPE>)criterion, direction));
             return clonedWith(new HierarchicFinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
           }
 
-        final String template = "%s does not implement %s - you need to subclass Finder and override sort()";
-        final String message = String.format(template, criterion, InMemorySortCriterion.class);
+        final var template = "%s does not implement %s - you need to subclass Finder and override sort()";
+        final var message = String.format(template, criterion, InMemorySortCriterion.class);
         throw new UnsupportedOperationException(message);
       }
 
@@ -327,16 +327,16 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
     // END SNIPPET: computeNeededResults
       {
         log.trace("computeNeededResults() - {}", this);
-        List<? extends TYPE> results = computeResults();
+        var results = computeResults();
 
         // First sort and then extract the sublist
-        for (final Sorter<TYPE> sorter : sorters)
+        for (final var sorter : sorters)
           {
             log.trace(">>>> sorting with {}...", sorter);
             sorter.sort(results);
           }
 
-        final int toIndex = (int)Math.min(results.size(), (long)firstResult + (long)maxResults);
+        final var toIndex = (int)Math.min(results.size(), (long)firstResult + (long)maxResults);
 
         if (firstResult > toIndex)
           {

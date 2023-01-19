@@ -29,6 +29,7 @@ package it.tidalwave.role.ui;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import it.tidalwave.util.As;
 import it.tidalwave.util.Callback;
 import it.tidalwave.util.Parameters;
@@ -92,7 +93,7 @@ public interface UserAction extends As
     public static UserAction of (@Nonnull final Callback callback, @Nonnull final Object role)
       {
         Parameters.mustNotBeArrayOrCollection(role, "role");
-        return of(callback, Collections.singletonList(role));
+        return of(callback, List.of(role));
       }
 
     /*******************************************************************************************************************

@@ -54,7 +54,7 @@ public class ExecutorWithPriority
           {
             for (;;)
               {
-                final Runnable runnable = runnableQueue.poll();
+                final var runnable = runnableQueue.poll();
 
                 if (runnable == null)
                   {
@@ -70,7 +70,7 @@ public class ExecutorWithPriority
       {
       }
 
-    private final BlockingQueue<Runnable> runnableQueue = new LinkedBlockingDeque<Runnable>()
+    private final BlockingQueue<Runnable> runnableQueue = new LinkedBlockingDeque<>()
       {
         @Override
         public boolean add (@Nonnull final Runnable runnable)
@@ -103,14 +103,14 @@ public class ExecutorWithPriority
                                  @Nonnull final String name,
                                  @Nonnegative final int initialPriority)
       {
-        final ThreadFactory threadFactory = new ThreadFactory()
+        final var threadFactory = new ThreadFactory()
           {
             private int count = 0;
 
             @Override @Nonnull
             public Thread newThread (@Nonnull final Runnable runnable)
               {
-                final Thread thread = new Thread(runnable, name + "-" + count++);
+                final var thread = new Thread(runnable, name + "-" + count++);
                 thread.setPriority(initialPriority);
                 return thread;
               }

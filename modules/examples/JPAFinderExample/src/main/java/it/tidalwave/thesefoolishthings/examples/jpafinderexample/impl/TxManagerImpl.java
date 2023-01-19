@@ -54,7 +54,7 @@ public class TxManagerImpl implements TxManager
             em = emf.createEntityManager();
             tx = em.getTransaction();
             tx.begin();
-            final T result = task.apply(em);
+            final var result = task.apply(em);
             tx.commit();
             return result;
           }

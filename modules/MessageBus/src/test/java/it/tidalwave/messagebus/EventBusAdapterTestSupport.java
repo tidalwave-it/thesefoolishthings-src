@@ -40,7 +40,7 @@ public abstract class EventBusAdapterTestSupport
     public void testCreateMethodAdapter()
       {
         // given
-        final EventBusAdapterExample example = new EventBusAdapterExample(getAdapterFactory());
+        final var example = new EventBusAdapterExample(getAdapterFactory());
         // when
         example.start();
         publish(new Message1());

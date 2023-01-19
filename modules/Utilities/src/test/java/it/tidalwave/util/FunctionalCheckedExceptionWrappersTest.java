@@ -27,7 +27,6 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.io.IOException;
@@ -47,7 +46,7 @@ public class FunctionalCheckedExceptionWrappersTest
     @Test
     public void test_function_wrapper()
       {
-        final String r = _f(this::sampleFunction).apply("good");
+        final var r = _f(this::sampleFunction).apply("good");
         assertThat(r, is("good"));
       }
 
@@ -57,7 +56,7 @@ public class FunctionalCheckedExceptionWrappersTest
     @Test(expectedExceptions = RuntimeException.class)
     public void test_function_wrapper_with_exception()
       {
-        final String r = _f(this::sampleFunctionWithException).apply("bad");
+        final var r = _f(this::sampleFunctionWithException).apply("bad");
       }
 
     /*******************************************************************************************************************
@@ -84,7 +83,7 @@ public class FunctionalCheckedExceptionWrappersTest
     @Test
     public void test_supplier_wrapper()
       {
-        final String r = _s(this::sampleSupplier).get();
+        final var r = _s(this::sampleSupplier).get();
         assertThat(r, is("foo"));
       }
 
@@ -94,7 +93,7 @@ public class FunctionalCheckedExceptionWrappersTest
     @Test(expectedExceptions = RuntimeException.class)
     public void test_supplier_wrapper_with_exception()
       {
-        final String r = _s(this::sampleSupplierWithException).get();
+        final var r = _s(this::sampleSupplierWithException).get();
       }
 
     /*******************************************************************************************************************
@@ -103,7 +102,7 @@ public class FunctionalCheckedExceptionWrappersTest
     @Test
     public void test_predicate_wrapper()
       {
-        final boolean r = _p(this::samplePredicate).test("foo");
+        final var r = _p(this::samplePredicate).test("foo");
         assertThat(r, is(true));
       }
 
@@ -113,7 +112,7 @@ public class FunctionalCheckedExceptionWrappersTest
     @Test(expectedExceptions = RuntimeException.class)
     public void test_predicate_wrapper_with_exception()
       {
-        final boolean r = _p(this::samplePredicateWithException).test("foo");
+        final var r = _p(this::samplePredicateWithException).test("foo");
       }
 
     /*******************************************************************************************************************
@@ -122,10 +121,10 @@ public class FunctionalCheckedExceptionWrappersTest
     @Test // this is just to see a code example with Streams
     public void test_with_Stream()
       {
-        final List<Integer> numbers = IntStream.rangeClosed(1, 10)
-                                               .boxed()
-                                               .filter(_p(this::matchEven))
-                                               .collect(Collectors.toList());
+        final var numbers = IntStream.rangeClosed(1, 10)
+                                     .boxed()
+                                     .filter(_p(this::matchEven))
+                                     .collect(Collectors.toList());
         log.info("Even numbers: {}", numbers);
       }
 
@@ -135,10 +134,10 @@ public class FunctionalCheckedExceptionWrappersTest
     @Test(expectedExceptions = RuntimeException.class) // this is just to see a code example with Streams
     public void test_with_Stream_with_exception()
       {
-        final List<Integer> numbers = IntStream.rangeClosed(1, 20)
-                                               .boxed()
-                                               .filter(_p(this::matchEven))
-                                               .collect(Collectors.toList());
+        final var numbers = IntStream.rangeClosed(1, 20)
+                                     .boxed()
+                                     .filter(_p(this::matchEven))
+                                     .collect(Collectors.toList());
       }
 
     /*******************************************************************************************************************
@@ -147,8 +146,8 @@ public class FunctionalCheckedExceptionWrappersTest
     @Test
     public void must_not_wrap_RuntimeException()
       {
-        final RuntimeException e = new RuntimeException();
-        final RuntimeException we = wrappedException(e);
+        final var e = new RuntimeException();
+        final var we = wrappedException(e);
         assertThat(we, is(sameInstance(e)));
       }
 
@@ -158,8 +157,8 @@ public class FunctionalCheckedExceptionWrappersTest
     @Test
     public void must_wrap_checked_exceptions()
       {
-        final InterruptedException e = new InterruptedException();
-        final RuntimeException we = wrappedException(e);
+        final var e = new InterruptedException();
+        final var we = wrappedException(e);
         assertThat(we.getCause(), is(sameInstance(e)));
       }
 
@@ -169,8 +168,8 @@ public class FunctionalCheckedExceptionWrappersTest
     @Test
     public void must_wrap_IOException_with_UncheckedIOException()
       {
-        final IOException e = new IOException();
-        final RuntimeException we = wrappedException(e);
+        final var e = new IOException();
+        final var we = wrappedException(e);
         assertThat(we.getCause(), is(sameInstance(e)));
         assertThat(we, is(instanceOf(UncheckedIOException.class)));
       }

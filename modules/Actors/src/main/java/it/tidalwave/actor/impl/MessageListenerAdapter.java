@@ -58,7 +58,7 @@ class MessageListenerAdapter<Topic> implements MessageBus.Listener<Topic>
     public void notify (@Nonnull final Topic message)
       {
         log.trace("notify({})", message);
-        final DefaultCollaboration collaboration = DefaultCollaboration.getCollaboration(message);
+        final var collaboration = DefaultCollaboration.getCollaboration(message);
         collaboration.registerPendingMessage(message);
         stats.changePendingMessageCount(+1);
 

@@ -57,14 +57,14 @@ public class UserActionProviderTest
         @Override
         public boolean matches (@Nonnull final Object object)
           {
-            final List<UserAction> actual = (List<UserAction>) object;
+            final var actual = (List<UserAction>) object;
 
              if (expected.size() != actual.size())
                {
                  return false;
                }
 
-             for (int i = 0; i < actual.size(); i++)
+             for (var i = 0; i < actual.size(); i++)
                {
                  if (expected.get(i) != actual.get(i))
                    {
@@ -94,7 +94,7 @@ public class UserActionProviderTest
       throws NotFoundException
       {
         // when
-        final UserActionProvider underTest = UserActionProvider.of(ACTIONS);
+        final var underTest = UserActionProvider.of(ACTIONS);
         // then
         assertThat(underTest.getActions(), is(InstanceMatcher.sameInstances(asList(ACTIONS))));
         assertThat(underTest.getDefaultAction(), sameInstance(ACTIONS[0]));
@@ -105,7 +105,7 @@ public class UserActionProviderTest
     public void works_with_no_actions()
       {
         // when
-        final UserActionProvider underTest = UserActionProvider.of(NO_ACTIONS);
+        final var underTest = UserActionProvider.of(NO_ACTIONS);
         // then
         assertThat(underTest.getActions(), is(emptyList()));
         assertThat(underTest.getOptionalDefaultAction().isPresent(), is(false));

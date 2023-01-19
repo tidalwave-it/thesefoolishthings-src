@@ -31,11 +31,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Supplier;
 import it.tidalwave.util.Task;
-import it.tidalwave.role.ContextManager;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
@@ -88,7 +86,7 @@ public class DefaultContextManagerTest
       {
         // given fresh DefaultContextManager
         // when
-        final List<Object> contexts = underTest.getContexts();
+        final var contexts = underTest.getContexts();
         // then
         assertThat(contexts, is(Collections.emptyList()));
       }
@@ -102,9 +100,9 @@ public class DefaultContextManagerTest
         // given
         underTest.addGlobalContext(globalContext1);
         // when
-        final List<Object> contexts = underTest.getContexts();
+        final var contexts = underTest.getContexts();
         // then
-        assertThat(contexts, is(asList(globalContext1)));
+        assertThat(contexts, is(List.of(globalContext1)));
       }
 
     /*******************************************************************************************************************
@@ -118,7 +116,7 @@ public class DefaultContextManagerTest
         underTest.addGlobalContext(globalContext2);
         underTest.addGlobalContext(globalContext3);
         // when
-        final List<Object> contexts = underTest.getContexts();
+        final var contexts = underTest.getContexts();
         // then
         assertThat(contexts, is(asList(globalContext1, globalContext2, globalContext3)));
       }
@@ -135,7 +133,7 @@ public class DefaultContextManagerTest
         underTest.addGlobalContext(globalContext3);
         underTest.removeGlobalContext(globalContext2);
         // when
-        final List<Object> contexts = underTest.getContexts();
+        final var contexts = underTest.getContexts();
         // then
         assertThat(contexts, is(asList(globalContext1, globalContext3)));
       }
@@ -149,9 +147,9 @@ public class DefaultContextManagerTest
         // given
         underTest.addLocalContext(localContext1);
         // when
-        final List<Object> contexts = underTest.getContexts();
+        final var contexts = underTest.getContexts();
         // then
-        assertThat(contexts, is(asList(localContext1)));
+        assertThat(contexts, is(List.of(localContext1)));
       }
 
     /*******************************************************************************************************************
@@ -165,7 +163,7 @@ public class DefaultContextManagerTest
         underTest.addLocalContext(localContext2);
         underTest.addLocalContext(localContext3);
         // when
-        final List<Object> contexts = underTest.getContexts();
+        final var contexts = underTest.getContexts();
         // then
         assertThat(contexts, is(asList(localContext3, localContext2, localContext1)));
       }
@@ -182,7 +180,7 @@ public class DefaultContextManagerTest
         underTest.addLocalContext(localContext3);
         underTest.removeLocalContext(localContext2);
         // when
-        final List<Object> contexts = underTest.getContexts();
+        final var contexts = underTest.getContexts();
         // then
         assertThat(contexts, is(asList(localContext3, localContext1)));
       }
@@ -201,7 +199,7 @@ public class DefaultContextManagerTest
         underTest.addGlobalContext(globalContext2);
         underTest.addGlobalContext(globalContext3);
         // when
-        final List<Object> contexts = underTest.getContexts();
+        final var contexts = underTest.getContexts();
         // then
         assertThat(contexts, is(asList(globalContext1, globalContext2, globalContext3,
                                        localContext3, localContext2, localContext1)));
@@ -215,8 +213,8 @@ public class DefaultContextManagerTest
             throws InterruptedException
       {
         // given
-        final ExecutorService executorService = Executors.newSingleThreadExecutor();
-        final CountDownLatch latch = new CountDownLatch(3);
+        final var executorService = Executors.newSingleThreadExecutor();
+        final var latch = new CountDownLatch(3);
 
         final Runnable r1 = () ->
           {
@@ -259,11 +257,11 @@ public class DefaultContextManagerTest
         underTest.addGlobalContext(globalContext1);
         underTest.addGlobalContext(globalContext2);
         underTest.addGlobalContext(globalContext3);
-        final List<Object> contextsBefore = underTest.getContexts();
+        final var contextsBefore = underTest.getContexts();
         // when
         final List<Object> contextsInThread = new ArrayList<>();
-        final String result = underTest.runWithContexts(asList(localContext1, localContext2, localContext3),
-                                                         new Task<String, RuntimeException>()
+        final var result = underTest.runWithContexts(asList(localContext1, localContext2, localContext3),
+                                                     new Task<String, RuntimeException>()
                                                           {
                                                             @Override @Nonnull
                                                             public String run()
@@ -272,7 +270,7 @@ public class DefaultContextManagerTest
                                                                 return "result";
                                                               }
                                                           });
-        final List<Object> contextsAfter = underTest.getContexts();
+        final var contextsAfter = underTest.getContexts();
         // then
         assertThat(contextsBefore, is(asList(globalContext1, globalContext2, globalContext3)));
         assertThat(contextsInThread, is(asList(globalContext1, globalContext2, globalContext3,
@@ -288,10 +286,10 @@ public class DefaultContextManagerTest
     public void must_properly_remove_local_contexts()
       {
         // given
-        final DefaultContextManager underTest = spy(DefaultContextManager.class);
-        final Runnable body = mock(Runnable.class);
+        final var underTest = spy(DefaultContextManager.class);
+        final var body = mock(Runnable.class);
         // when
-        try (final ContextManager.Binder binder = underTest.binder(localContext1, localContext2, localContext3))
+        try (final var binder = underTest.binder(localContext1, localContext2, localContext3))
           {
             body.run();
           }
@@ -312,10 +310,10 @@ public class DefaultContextManagerTest
     public void must_properly_remove_local_contexts_when_exception_throw()
       {
         // given
-        final DefaultContextManager underTest = spy(DefaultContextManager.class);
-        final Runnable body = mock(Runnable.class);
+        final var underTest = spy(DefaultContextManager.class);
+        final var body = mock(Runnable.class);
         // when
-        try (final ContextManager.Binder binder = underTest.binder(localContext1, localContext2, localContext3))
+        try (final var binder = underTest.binder(localContext1, localContext2, localContext3))
           {
             body.run();
             throw new RuntimeException("Purportedly generated exception");
@@ -341,8 +339,8 @@ public class DefaultContextManagerTest
     public void must_properly_remove_local_contexts_with_runnable()
       {
         // given
-        final DefaultContextManager underTest = spy(DefaultContextManager.class);
-        final Runnable body = mock(Runnable.class);
+        final var underTest = spy(DefaultContextManager.class);
+        final var body = mock(Runnable.class);
         // when
         underTest.runWithContexts(body, localContext1, localContext2, localContext3);
         // then
@@ -362,11 +360,11 @@ public class DefaultContextManagerTest
     public void must_properly_remove_local_contexts_with_supplier()
       {
         // given
-        final DefaultContextManager underTest = spy(DefaultContextManager.class);
-        final Runnable body = mock(Runnable.class);
+        final var underTest = spy(DefaultContextManager.class);
+        final var body = mock(Runnable.class);
         final Supplier<String> s = () -> "foo bar";
         // when
-        final String result = underTest.runWithContexts(s, localContext1, localContext2, localContext3);
+        final var result = underTest.runWithContexts(s, localContext1, localContext2, localContext3);
         // then
         verify(underTest).addLocalContext(same(localContext1));
         verify(underTest).addLocalContext(same(localContext2));

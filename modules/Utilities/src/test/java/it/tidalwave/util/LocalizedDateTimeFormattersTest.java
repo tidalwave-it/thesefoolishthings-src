@@ -51,7 +51,7 @@ public class LocalizedDateTimeFormattersTest
                                                     @Nonnull final String expectedValue)
       {
         // when
-        final String actualValue = LocalizedDateTimeFormatters.getDateTimeFormatterFor(style, locale).format(dt);
+        final var actualValue = LocalizedDateTimeFormatters.getDateTimeFormatterFor(style, locale).format(dt);
         // then
         // JDK 8 formats AM/PM, JDK 9+ formats am/pm ...
         assertThat(actualValue.replace(" am", " AM").replace(" pm", " PM"), is(expectedValue));
@@ -60,7 +60,7 @@ public class LocalizedDateTimeFormattersTest
     @DataProvider(name = "dates")
     private static Object[][] dates()
       {
-        final ZonedDateTime dt = Instant.ofEpochMilli(1344353463985L).atZone(ZoneId.of("GMT"));
+        final var dt = Instant.ofEpochMilli(1344353463985L).atZone(ZoneId.of("GMT"));
 
         return new Object[][]
           {

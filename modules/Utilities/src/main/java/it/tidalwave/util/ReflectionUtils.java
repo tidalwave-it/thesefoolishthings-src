@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import static java.util.Objects.requireNonNull;
 
 /***********************************************************************************************************************
  *
@@ -74,12 +75,12 @@ public class ReflectionUtils
               }
             else
               {
-                final ParameterizedType parameterizedType = (ParameterizedType) type;
-                final Class<?> rawType = (Class<?>) parameterizedType.getRawType();
-                final Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
+                final var parameterizedType = (ParameterizedType) type;
+                final var rawType = (Class<?>) parameterizedType.getRawType();
+                final var actualTypeArguments = parameterizedType.getActualTypeArguments();
                 final TypeVariable<?>[] typeParameters = rawType.getTypeParameters();
 
-                for (int i = 0; i < actualTypeArguments.length; i++)
+                for (var i = 0; i < actualTypeArguments.length; i++)
                   {
                     resolvedTypes.put(typeParameters[i], actualTypeArguments[i]);
                   }
@@ -106,7 +107,7 @@ public class ReflectionUtils
 
         final List<Class<?>> typeArgumentsAsClasses = new ArrayList<>();
         // resolve types by chasing down type variables.
-        for (Type baseType : actualTypeArguments)
+        for (var baseType : actualTypeArguments)
           {
             while (resolvedTypes.containsKey(baseType))
               {
@@ -122,10 +123,7 @@ public class ReflectionUtils
     @Nonnull
     public static Class<?> getClass (@Nonnull final Type type)
       {
-        if (type == null)
-          {
-            throw new IllegalArgumentException("null Type");
-          }
+        requireNonNull(type, "type");
 
         if (type instanceof Class<?>)
           {
@@ -137,8 +135,8 @@ public class ReflectionUtils
           }
         else if (type instanceof GenericArrayType)
           {
-            final Type componentType = ((GenericArrayType)type).getGenericComponentType();
-            final Class<?> componentClass = getClass(componentType);
+            final var componentType = ((GenericArrayType)type).getGenericComponentType();
+            final var componentClass = getClass(componentType);
             return Array.newInstance(componentClass, 0).getClass();
           }
 

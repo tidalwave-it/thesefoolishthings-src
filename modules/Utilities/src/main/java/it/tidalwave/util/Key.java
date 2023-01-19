@@ -95,8 +95,8 @@ public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
     @Nonnull
     public static <T> Key<T> of (@Nonnull final String name, @Nonnull final Class<T> type)
       {
-        final Key<T> newKey = new Key<>(name, type);
-        final Key<T> key = (Key<T>)INSTANCES.putIfAbsent(newKey, newKey);
+        final var newKey = new Key<T>(name, type);
+        final var key = (Key<T>)INSTANCES.putIfAbsent(newKey, newKey);
         return key != null ? key : newKey;
       }
 

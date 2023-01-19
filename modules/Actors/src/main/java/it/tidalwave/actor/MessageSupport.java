@@ -152,7 +152,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     public Collaboration sendLater (@Nonnegative final int delay, @Nonnull final TimeUnit timeUnit)
       {
         log.debug("sendLater({}, {}) - {}", delay, timeUnit, this);
-        final MessageSupport message = findDecoratedMessage();
+        final var message = findDecoratedMessage();
         collaboration.registerDeliveringMessage(message);
 
         new Timer().schedule(new TimerTask()
@@ -175,7 +175,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     @Override @Nonnull
     public <T> Optional<T> maybeAs (@Nonnull final Class<T> type)
       {
-        final Optional<T> t = maybeAs(type);
+        final var t = as.maybeAs(type);
 
         return t.isPresent()
                ? t
@@ -190,7 +190,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     @Nonnull
     private MessageSupport findDecoratedMessage()
       {
-        final MessageSupport decoratedMessage = this.as(_MessageDecorator_).getDecoratedMessage();
+        final var decoratedMessage = this.as(_MessageDecorator_).getDecoratedMessage();
         return (decoratedMessage == this) ? this : decoratedMessage.findDecoratedMessage();
 //        MessageSupport decoratedMessage = this.as(_MessageDecorator_).getDecoratedMessage();
 //

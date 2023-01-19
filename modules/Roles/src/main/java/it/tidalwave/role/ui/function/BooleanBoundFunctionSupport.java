@@ -59,7 +59,7 @@ public abstract class BooleanBoundFunctionSupport extends BoundFunctionSupport<B
       {
         this.sources = sources;
 
-        for (final ChangingSource<Boolean> source : sources)
+        for (final var source : sources)
           {
             source.addPropertyChangeListener(pcl);
           }

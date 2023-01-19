@@ -49,9 +49,9 @@ public class AsExtensions
       {
         try
           {
-            final Class<?> datumClass = datum.getClass();
-            final String roleClassName = "it.tidalwave.util.asexamples."
-                                         + datumClass.getSimpleName() + type.getSimpleName() + "Role";
+            final var datumClass = datum.getClass();
+            final var roleClassName = "it.tidalwave.util.asexamples."
+                                      + datumClass.getSimpleName() + type.getSimpleName() + "Role";
             return Optional.of((T)Class.forName(roleClassName).getConstructor(datumClass).newInstance(datum));
           }
         catch (Exception e)

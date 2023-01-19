@@ -48,10 +48,6 @@
     </description>
 
     <properties>
-        <tft.javac.source>1.8</tft.javac.source>
-        <tft.javac.target>1.8</tft.javac.target>
-        <tft.javac.release>8</tft.javac.release>
-
         <java-diff-utils.version>4.9</java-diff-utils.version>
         <joda-time.version>1.6.2</joda-time.version>
         <tft.spring.version>4.3.30.RELEASE</tft.spring.version>

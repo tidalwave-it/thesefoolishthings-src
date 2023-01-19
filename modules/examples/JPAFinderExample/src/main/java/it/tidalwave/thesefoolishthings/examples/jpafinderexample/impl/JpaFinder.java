@@ -64,7 +64,7 @@ public class JpaFinder<T, E> implements Finder<T>
         @Nonnull
         public String processSql (@Nonnull final String jpaql, @Nonnull final SortDirection sortDirection)
           {
-            final String orderBy = jpaql.contains("ORDER BY") ? ", " : " ORDER BY ";
+            final var orderBy = jpaql.contains("ORDER BY") ? ", " : " ORDER BY ";
             return jpaql + orderBy + field + ((sortDirection == SortDirection.DESCENDING) ? " DESC" : "");
           }
       }
@@ -136,7 +136,7 @@ public class JpaFinder<T, E> implements Finder<T>
     @Override @Nonnull
     public Optional<T> optionalResult()
       {
-        final List<? extends T> results = results();
+        final var results = results();
 
         if (results.size() > 1)
           {
@@ -179,10 +179,9 @@ public class JpaFinder<T, E> implements Finder<T>
                                            @Nonnull final Class<R> resultType,
                                            @Nonnull final String jpaqlPrefix)
       {
-        final AtomicReference<String> buffer =
-                new AtomicReference<>(jpaqlPrefix + " FROM " + entityClass.getSimpleName() + " p");
+        final var buffer = new AtomicReference<>(jpaqlPrefix + " FROM " + entityClass.getSimpleName() + " p");
         sortCriteria.forEach(p -> buffer.updateAndGet(prev -> p.a.processSql(prev, p.b)));
-        final String jpaql = buffer.get();
+        final var jpaql = buffer.get();
         log.info(">>>> {}", jpaql);
         // START SNIPPET: createQuery
         return em.createQuery(jpaql, resultType).setFirstResult(firstResult).setMaxResults(maxResults);

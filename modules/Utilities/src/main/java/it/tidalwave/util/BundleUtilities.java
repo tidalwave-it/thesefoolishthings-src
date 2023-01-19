@@ -79,9 +79,9 @@ public final class BundleUtilities
                                        @Nonnull final String resourceName,
                                        @Nonnull final Object ... params)
       {
-        final String packageName = ownerClass.getPackage().getName();
-        final ResourceBundle bundle = ResourceBundle.getBundle(packageName + ".Bundle", locale);
-        final String string = bundle.getString(resourceName);
+        final var packageName = ownerClass.getPackage().getName();
+        final var bundle = ResourceBundle.getBundle(packageName + ".Bundle", locale);
+        final var string = bundle.getString(resourceName);
 
         return (params.length == 0) ? string : String.format(string, params);
       }

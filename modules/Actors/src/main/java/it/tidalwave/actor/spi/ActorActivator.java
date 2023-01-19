@@ -111,7 +111,7 @@ public class ActorActivator
       {
         try
           {
-            final Actor actor = actorClass.getAnnotation(Actor.class);
+            final var actor = actorClass.getAnnotation(Actor.class);
             validate(actor);
             actorObject = actorClass.getDeclaredConstructor().newInstance();
             executor = new ExecutorWithPriority(poolSize, actorClass.getSimpleName(), actor.initialPriority());

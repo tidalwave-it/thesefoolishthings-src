@@ -51,7 +51,7 @@ public class ConcurrentHashMapWithOptionalsTest
     public void must_return_the_new_key_when_a_new_pair_is_put_1()
       {
         // when
-        final Optional<String> result = underTest.putIfAbsentAndGetNewKey("key", "new value");
+        final var result = underTest.putIfAbsentAndGetNewKey("key", "new value");
         // then
         assertThat(underTest.containsKey("key"), is(true));
         assertThat(underTest.get("key"), is("new value"));
@@ -65,7 +65,7 @@ public class ConcurrentHashMapWithOptionalsTest
         // given
         underTest.put("key", "old value");
         // when
-        final Optional<String> result = underTest.putIfAbsentAndGetNewKey("key", "new value");
+        final var result = underTest.putIfAbsentAndGetNewKey("key", "new value");
         // then
         assertThat(underTest.containsKey("key"), is(true));
         assertThat(underTest.get("key"), is("old value"));
@@ -76,7 +76,7 @@ public class ConcurrentHashMapWithOptionalsTest
     public void must_return_the_new_key_when_a_new_pair_is_put_2()
       {
         // when
-        final Optional<String> result = underTest.putIfAbsentAndGetNewKey(Optional.of("key"), "new value");
+        final var result = underTest.putIfAbsentAndGetNewKey(Optional.of("key"), "new value");
         // then
         assertThat(underTest.containsKey("key"), is(true));
         assertThat(underTest.get("key"), is("new value"));
@@ -90,7 +90,7 @@ public class ConcurrentHashMapWithOptionalsTest
         // given
         underTest.put("key", "old value");
         // when
-        final Optional<String> result = underTest.putIfAbsentAndGetNewKey(Optional.of("key"), "new value");
+        final var result = underTest.putIfAbsentAndGetNewKey(Optional.of("key"), "new value");
         // then
         assertThat(underTest.containsKey("key"), is(true));
         assertThat(underTest.get("key"), is("old value"));
@@ -101,7 +101,7 @@ public class ConcurrentHashMapWithOptionalsTest
     public void must_return_the_new_key_when_a_new_pair_is_put_3()
       {
         // when
-        final Optional<String> result = underTest.putIfAbsentAndGetNewKey(Optional.empty(), "new value");
+        final var result = underTest.putIfAbsentAndGetNewKey(Optional.empty(), "new value");
         // then
         assertThat(underTest.containsKey("key"), is(false));
         assertThat(result.isPresent(), is(false));
@@ -113,7 +113,7 @@ public class ConcurrentHashMapWithOptionalsTest
         // given
         underTest.put("key", "old value");
         // when
-        final Optional<String> result = underTest.putIfAbsentAndGetNewKey(Optional.empty(), "new value");
+        final var result = underTest.putIfAbsentAndGetNewKey(Optional.empty(), "new value");
         // then
         assertThat(underTest.containsKey("key"), is(true));
         assertThat(underTest.get("key"), is("old value"));

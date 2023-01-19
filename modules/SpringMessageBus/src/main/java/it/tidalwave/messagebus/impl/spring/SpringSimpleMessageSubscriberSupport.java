@@ -49,8 +49,8 @@ public class SpringSimpleMessageSubscriberSupport
 
     public SpringSimpleMessageSubscriberSupport (@Nonnull final Object bean)
       {
-        final String source = bean.getClass().getAnnotation(SimpleMessageSubscriber.class).source();
-        final MessageBus messageBus = beanFactory.getBean(source, MessageBus.class);
+        final var source = bean.getClass().getAnnotation(SimpleMessageSubscriber.class).source();
+        final var messageBus = beanFactory.getBean(source, MessageBus.class);
         busHelper = new MessageBusHelper(bean, new MessageBusAdapterFactory(messageBus));
       }
 

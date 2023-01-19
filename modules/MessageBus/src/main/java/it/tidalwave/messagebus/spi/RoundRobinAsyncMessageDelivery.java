@@ -27,7 +27,6 @@
 package it.tidalwave.messagebus.spi;
 
 import javax.annotation.Nonnull;
-import java.util.concurrent.Executor;
 import it.tidalwave.messagebus.spi.MultiQueue.TopicAndMessage;
 import lombok.Getter;
 import lombok.Setter;
@@ -91,9 +90,9 @@ public class RoundRobinAsyncMessageDelivery implements MessageDelivery
     public void initialize (@Nonnull final SimpleMessageBus messageBusSupport)
       {
         this.messageBusSupport = messageBusSupport;
-        final Executor executor = this.messageBusSupport.getExecutor();
+        final var executor = this.messageBusSupport.getExecutor();
         
-        for (int i = 0; i < workers; i++)
+        for (var i = 0; i < workers; i++)
           {
             executor.execute(dispatcher);
           }

@@ -66,7 +66,7 @@ public class DefaultAsTest
                   {
                     final List<T> result = new ArrayList<>();
 
-                    for (final Object role : roles)
+                    for (final var role : roles)
                       {
                         if (roleType.isAssignableFrom(role.getClass()))
                           {
@@ -131,12 +131,12 @@ public class DefaultAsTest
     public void must_find_local_roles()
       {
         // given
-        final DefaultAs underTest1 = new DefaultAs(owner, r(localRole1));
-        final DefaultAs underTest2 = new DefaultAs(owner, r(localRole1, localRole2));
+        final var underTest1 = new DefaultAs(owner, r(localRole1));
+        final var underTest2 = new DefaultAs(owner, r(localRole1, localRole2));
         // when
-        final Role1 ut1role1 = underTest1.as(Role1.class);
-        final Role1 ut2Role1 = underTest2.as(Role1.class);
-        final Role2 ut2Role2 = underTest2.as(Role2.class);
+        final var ut1role1 = underTest1.as(Role1.class);
+        final var ut2Role1 = underTest2.as(Role1.class);
+        final var ut2Role2 = underTest2.as(Role2.class);
         // then
         assertThat(ut1role1, is(sameInstance(localRole1)));
         assertThat(ut2Role1, is(sameInstance(localRole1)));
@@ -150,9 +150,9 @@ public class DefaultAsTest
     public void must_create_role_from_factory()
       {
         // given
-        final DefaultAs underTest = new DefaultAs(owner, r(new RoleFactory3()));
+        final var underTest = new DefaultAs(owner, r(new RoleFactory3()));
         // when
-        final Role3 role = underTest.as(Role3.class);
+        final var role = underTest.as(Role3.class);
         // then
         assertThat(role, is(notNullValue()));
         assertThat(role.getOwner(), is(sameInstance(owner)));
@@ -165,7 +165,7 @@ public class DefaultAsTest
     public void must_not_find_inexistent_role()
       {
         // given
-        final DefaultAs underTest = new DefaultAs(owner, r(localRole1));
+        final var underTest = new DefaultAs(owner, r(localRole1));
         // when
         underTest.as(Role2.class);
       }
@@ -177,7 +177,7 @@ public class DefaultAsTest
     public void must_not_find_inexistent_role_bis()
       {
         // given
-        final DefaultAs underTest = new DefaultAs(owner, r(localRole2));
+        final var underTest = new DefaultAs(owner, r(localRole2));
         // when
         underTest.as(Role1.class);
       }
@@ -190,9 +190,9 @@ public class DefaultAsTest
       {
         // given
         AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(r(delegateRole2)));
-        final DefaultAs underTest = new DefaultAs(owner);
+        final var underTest = new DefaultAs(owner);
         // when
-        final Role2 role = underTest.as(Role2.class);
+        final var role = underTest.as(Role2.class);
         // then
         assertThat(role, is(sameInstance(delegateRole2)));
       }
@@ -205,9 +205,9 @@ public class DefaultAsTest
       {
         // given
         AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(r(delegateRole2)));
-        final DefaultAs underTest = new DefaultAs(owner, r(localRole2));
+        final var underTest = new DefaultAs(owner, r(localRole2));
         // when
-        final Role2 role = underTest.as(Role2.class);
+        final var role = underTest.as(Role2.class);
         // then
         assertThat(role, is(sameInstance(localRole2)));
       }
@@ -219,9 +219,9 @@ public class DefaultAsTest
     public void must_retrieve_multiple_local_roles()
       {
         // given
-        final DefaultAs underTest = new DefaultAs(owner, r(localRole2, localRole2b));
+        final var underTest = new DefaultAs(owner, r(localRole2, localRole2b));
         // when
-        final Collection<Role2> roles = underTest.asMany(Role2.class);
+        final var roles = underTest.asMany(Role2.class);
         // then
         assertThat("" + roles, roles.size(), is(2));
         assertThat("" + roles, roles.contains(localRole2), is(true));
@@ -236,9 +236,9 @@ public class DefaultAsTest
       {
         // given
         AsDelegateProvider.Locator.set(new FixedAsDelegateProvider(r(delegateRole2)));
-        final DefaultAs underTest = new DefaultAs(owner, r(localRole2, localRole2b));
+        final var underTest = new DefaultAs(owner, r(localRole2, localRole2b));
         // when
-        final Collection<Role2> roles = underTest.asMany(Role2.class);
+        final var roles = underTest.asMany(Role2.class);
         // then
         assertThat("" + roles, roles.size(), is(3));
         assertThat("" + roles, roles.contains(localRole2), is(true));

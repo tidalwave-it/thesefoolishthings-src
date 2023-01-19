@@ -45,9 +45,9 @@ public class StreamOperationsTest
     public void zipTest1()
       {
         // when
-        final Stream<String> underTest = StreamOperations.zip(IntStream.range(0, 7).boxed(),
-                                                              stringStream( 5),
-                                                              (n, s) -> String.format("%d - %s", n, s));
+        final var underTest = StreamOperations.zip(IntStream.range(0, 7).boxed(),
+                                                   stringStream( 5),
+                                                   (n, s) -> String.format("%d - %s", n, s));
         // then
         assertThat(underTest.collect(toList()), is(asList("0 - string-a",
                                                           "1 - string-b",
@@ -63,8 +63,8 @@ public class StreamOperationsTest
     public void zipPairTest1()
       {
         // when
-        final Stream<Pair<Integer, String>> underTest = StreamOperations.zip(IntStream.range(0, 7).boxed(),
-                                                                             stringStream( 5));
+        final var underTest = StreamOperations.zip(IntStream.range(0, 7).boxed(),
+                                                   stringStream( 5));
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "string-a"),
                                                           Pair.of(1, "string-b"),

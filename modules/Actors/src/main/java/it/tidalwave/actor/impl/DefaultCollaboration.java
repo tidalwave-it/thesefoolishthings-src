@@ -90,7 +90,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
                 return false;
               }
 
-            final IdentityWrapper other = (IdentityWrapper)object;
+            final var other = (IdentityWrapper)object;
             return this.object == other.object;
           }
 
@@ -157,7 +157,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
     @Nonnull
     public static DefaultCollaboration getOrCreateCollaboration (@Nonnull final Object originator)
       {
-        DefaultCollaboration collaboration = THREAD_LOCAL.get();
+        var collaboration = THREAD_LOCAL.get();
 
         if (collaboration == null)
           {
@@ -332,7 +332,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
       {
         log.trace("registerDeliveringMessage({})", message);
 
-        final Message annotation = message.getClass().getAnnotation(Message.class);
+        final var annotation = message.getClass().getAnnotation(Message.class);
 
         if (annotation == null)
           {
@@ -423,10 +423,10 @@ public class DefaultCollaboration implements Serializable, Collaboration
      ******************************************************************************************************************/
     private void eventuallySendCompletionMessage()
       {
-        final int enqueuedMessageCount = deliveringMessages.size()
-                                       + pendingMessages.size()
-                                       + runningThreads.size()
-                                       + suspensionTokens.size();
+        final var enqueuedMessageCount = deliveringMessages.size()
+                                         + pendingMessages.size()
+                                         + runningThreads.size()
+                                         + suspensionTokens.size();
 
         if (!completed && (enqueuedMessageCount == 0))
           {

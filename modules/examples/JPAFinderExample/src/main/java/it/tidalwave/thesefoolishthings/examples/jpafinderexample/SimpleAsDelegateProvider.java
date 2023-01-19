@@ -60,7 +60,7 @@ public class SimpleAsDelegateProvider implements AsDelegateProvider
             public <T> Collection<? extends T> as (@Nonnull final Class<T> roleType)
               {
                 return ((datum instanceof Person) && ROLES.contains(roleType))
-                      ? Arrays.asList(roleType.cast(new PersonJpaPersistable((Person)datum)))
+                      ? List.of(roleType.cast(new PersonJpaPersistable((Person)datum)))
                       : Collections.emptyList();
               }
         };

@@ -27,7 +27,6 @@
 package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -76,7 +75,7 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
     @Override
     public void set (final T value)
       {
-        final T oldValue = this.value;
+        final var oldValue = this.value;
         this.value = value;
         pcs.firePropertyChange(PROP_VALUE, oldValue, value);
       }
@@ -107,7 +106,7 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
 
         if (source instanceof Changeable)
           {
-            final Changeable<T> changeable = (Changeable<T>)source;
+            final var changeable = (Changeable<T>)source;
             changeable.set(value);
             this.addPropertyChangeListener(event -> changeable.set((T)event.getNewValue()));
           }
@@ -121,7 +120,7 @@ public class BoundProperty<T> implements ChangingSource<T>, Changeable<T>
     @Override
     public void unbindAll()
       {
-        for (final PropertyChangeListener listener : pcs.getPropertyChangeListeners().clone())
+        for (final var listener : pcs.getPropertyChangeListeners().clone())
           {
             pcs.removePropertyChangeListener(listener);
           }

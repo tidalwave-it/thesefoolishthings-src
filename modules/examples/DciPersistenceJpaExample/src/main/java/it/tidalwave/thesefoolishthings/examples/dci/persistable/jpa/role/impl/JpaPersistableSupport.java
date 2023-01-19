@@ -75,7 +75,7 @@ public abstract class JpaPersistableSupport<T, E> implements Persistable, Remova
     @Override @Nonnull
     public List<T> findAll()
       {
-        final String query = "SELECT p FROM %s p";
+        final var query = "SELECT p FROM %s p";
         return context.createQuery(String.format(query, entityClass.getSimpleName()), entityClass)
                       .getResultStream()
                       .map(fromEntity)
@@ -85,7 +85,7 @@ public abstract class JpaPersistableSupport<T, E> implements Persistable, Remova
     @Override @Nonnull
     public Optional<T> findById (@Nonnull final Id id)
       {
-        final String query = "SELECT p FROM %s p WHERE p.id = :id";
+        final var query = "SELECT p FROM %s p WHERE p.id = :id";
         return context.createQuery(String.format(query, entityClass.getSimpleName()), entityClass)
                       .setParameter("id", id.stringValue())
                       .getResultStream()
