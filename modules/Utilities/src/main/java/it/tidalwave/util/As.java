@@ -78,7 +78,8 @@ public interface As
         @Nonnull
         private final Class<?> type;
 
-        @Nonnull
+
+        @Nonnull @SuppressWarnings("unchecked")
         protected Class<T> getType()
           {
             return (Class<T>)type;

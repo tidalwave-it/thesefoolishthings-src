@@ -33,6 +33,7 @@ import java.util.Collections;
 import it.tidalwave.util.As;
 import it.tidalwave.util.NamedCallback;
 import it.tidalwave.util.Parameters;
+import it.tidalwave.role.SimpleComposite;
 import it.tidalwave.role.ui.impl.DefaultPresentationModel;
 import static it.tidalwave.util.Parameters.r;
 import static it.tidalwave.role.ui.Presentable._Presentable_;
@@ -49,7 +50,10 @@ import static it.tidalwave.role.ui.Presentable._Presentable_;
  **********************************************************************************************************************/
 public interface PresentationModel extends As
   {
-    public static Class<PresentationModel> PresentationModel = PresentationModel.class;
+    public static final Class<PresentationModel> PresentationModel = PresentationModel.class;
+
+    public static final As.Type<SimpleComposite<PresentationModel>> _SimpleCompositeOfPresentationModel_ =
+            As.type(SimpleComposite.class);
 
     public static final String PROPERTY_CHILDREN = "children";
 

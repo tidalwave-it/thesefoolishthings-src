@@ -78,7 +78,7 @@ class UnderTest extends RoleManagerSupport
     @Override @Nonnull
     protected <T> T getBean (@Nonnull final Class<T> beanType)
       {
-        return (T)beanMapByClass.get(beanType);
+        return beanType.cast(beanMapByClass.get(beanType));
       }
 
     @Override @Nonnull

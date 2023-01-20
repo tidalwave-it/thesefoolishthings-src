@@ -58,7 +58,7 @@ public class JpaFinderTest
     public void testSimpleQuery()
       {
         // when
-        final List<? extends Person> results = underTest.results();
+        final var results = underTest.results();
         // then
         assertThat(jpaMock.sqlQuery, is("SELECT p FROM PersonEntity p"));
         assertThat(jpaMock.firstResult, is(0));
@@ -69,7 +69,7 @@ public class JpaFinderTest
     public void testQueryWithAscendingSortAndFirstMax()
       {
         // when
-        final List<? extends Person> results = underTest.sort(BY_FIRST_NAME).from(2).max(4).results();
+        final var results = underTest.sort(BY_FIRST_NAME).from(2).max(4).results();
         // then
         assertThat(jpaMock.sqlQuery, is("SELECT p FROM PersonEntity p ORDER BY p.firstName"));
         assertThat(jpaMock.firstResult, is(2));
@@ -80,7 +80,7 @@ public class JpaFinderTest
     public void testQueryWithDescendingSortAndFirstMax()
       {
         // when
-        final List<? extends Person> results = underTest.sort(BY_LAST_NAME, DESCENDING).from(3).max(7).results();
+        final var results = underTest.sort(BY_LAST_NAME, DESCENDING).from(3).max(7).results();
         // then
         assertThat(jpaMock.sqlQuery, is("SELECT p FROM PersonEntity p ORDER BY p.lastName DESC"));
         assertThat(jpaMock.firstResult, is(3));
@@ -91,9 +91,7 @@ public class JpaFinderTest
     public void testQueryWithDoubleSort()
       {
         // when
-        final List<? extends Person> results = underTest.sort(BY_LAST_NAME, DESCENDING)
-                                                        .sort(BY_FIRST_NAME, ASCENDING)
-                                                        .results();
+        final var results = underTest.sort(BY_LAST_NAME, DESCENDING).sort(BY_FIRST_NAME, ASCENDING).results();
         // then
         assertThat(jpaMock.sqlQuery, is("SELECT p FROM PersonEntity p ORDER BY p.lastName DESC, p.firstName"));
         assertThat(jpaMock.firstResult, is(0));

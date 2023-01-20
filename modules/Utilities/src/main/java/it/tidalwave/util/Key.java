@@ -92,7 +92,7 @@ public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
      * @since         3.2-ALPHA-2
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nonnull @SuppressWarnings("unchecked")
     public static <T> Key<T> of (@Nonnull final String name, @Nonnull final Class<T> type)
       {
         final var newKey = new Key<T>(name, type);
