@@ -34,14 +34,14 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings</artifactId>
-        <version>3.2-ALPHA-14-SNAPSHOT</version>
+        <version>3.2-ALPHA-14</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>modules</artifactId>
     <packaging>pom</packaging>
-    <version>3.2-ALPHA-14-SNAPSHOT</version>
+    <version>3.2-ALPHA-14</version>
     <name>TheseFoolishThings (modules)</name>
     <description>
         This module is an umbrella for all the components. It contains the global configuration for the build as well as the declaration of dependencies.
