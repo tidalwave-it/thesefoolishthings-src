@@ -57,7 +57,7 @@ public class UserActionProviderTest
         @Override
         public boolean matches (@Nonnull final Object object)
           {
-            final var actual = (List<UserAction>) object;
+            final var actual = (List<UserAction>)object;
 
              if (expected.size() != actual.size())
                {

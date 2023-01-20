@@ -104,13 +104,13 @@ public class JpaFinder<T, E> implements Finder<T>
     @Override @Nonnull
     public Finder<T> from (@Nonnegative final int firstResult)
       {
-        return new JpaFinder(entityClass, fromEntity, txManager, firstResult, maxResults, sortCriteria);
+        return new JpaFinder<>(entityClass, fromEntity, txManager, firstResult, maxResults, sortCriteria);
       }
 
     @Override @Nonnull
     public Finder<T> max (@Nonnegative final int maxResults)
       {
-        return new JpaFinder(entityClass, fromEntity, txManager, firstResult, maxResults, sortCriteria);
+        return new JpaFinder<>(entityClass, fromEntity, txManager, firstResult, maxResults, sortCriteria);
       }
     // END SNIPPET: intermediate-methods
 
@@ -123,12 +123,12 @@ public class JpaFinder<T, E> implements Finder<T>
             throw new IllegalArgumentException("Can't sort by " + criterion);
           }
 
-        return new JpaFinder(entityClass,
-                             fromEntity,
-                             txManager,
-                             firstResult,
-                             maxResults,
-                             concat(sortCriteria, Pair.of((JpaqlSortCriterion)criterion, direction)));
+        return new JpaFinder<>(entityClass,
+                               fromEntity,
+                               txManager,
+                               firstResult,
+                               maxResults,
+                               concat(sortCriteria, Pair.of((JpaqlSortCriterion)criterion, direction)));
       }
     // END SNIPPET: sort-method
 
