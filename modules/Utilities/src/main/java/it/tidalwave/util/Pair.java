@@ -30,12 +30,10 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.NotThreadSafe;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.IntFunction;
 import java.util.function.IntUnaryOperator;
-import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -331,7 +329,7 @@ public class Pair<A, B>
     public static <I, T> Stream<Pair<I, T>> indexedPairStream (@Nonnull final Stream<? extends T> stream,
                                                                @Nonnull final IntFunction<? extends I> indexTransformer)
       {
-        return Pair.indexedPairStream(stream, indexTransformer);
+        return Pair.indexedPairStream(((Stream<T>)stream)::iterator, indexTransformer);
       }
 
     /*******************************************************************************************************************
