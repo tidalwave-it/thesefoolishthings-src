@@ -283,7 +283,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public List<? extends TYPE> results()
+    public List<TYPE> results()
       {
         return computeNeededResults();
       }
@@ -308,7 +308,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      ******************************************************************************************************************/
     // START SNIPPET: computeResults
     @Nonnull
-    protected List<? extends TYPE> computeResults()
+    protected List<TYPE> computeResults()
     // END SNIPPET: computeResults
       {
         throw new UnsupportedOperationException("You must implement me!");
@@ -323,7 +323,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      ******************************************************************************************************************/
     // START SNIPPET: computeNeededResults
     @Nonnull
-    protected List<? extends TYPE> computeNeededResults()
+    protected List<TYPE> computeNeededResults()
     // END SNIPPET: computeNeededResults
       {
         log.trace("computeNeededResults() - {}", this);
@@ -361,7 +361,9 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected static <T> T getSource (final Class<T> type, @Nonnull final T other, @Nonnull final Object override)
+    protected static <T> T getSource (@Nonnull final Class<? extends T> type,
+                                      @Nonnull final T other,
+                                      @Nonnull final Object override)
       {
         return override.getClass().equals(type) ? type.cast(override) : other;
       }

@@ -43,13 +43,13 @@ public class Datum1 implements As
     final String status;
 
     @Nonnull
-    public <T> Optional<T> maybeAs (@Nonnull final Class<T> roleType)
+    public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> roleType)
       {
         return AsExtensions.maybeAs(this, roleType);
       }
 
     @Nonnull
-    public <T> Collection<T> asMany (@Nonnull final Class<T> roleType)
+    public <T> Collection<T> asMany (@Nonnull final Class<? extends T> roleType)
       {
         return AsExtensions.asMany(this, roleType);
       }

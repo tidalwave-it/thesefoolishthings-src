@@ -143,7 +143,7 @@ public class JpaFinder<T, E> implements Finder<T>
             throw new RuntimeException("More than a single result");
           }
 
-        return (Optional<T>)results.stream().findFirst();
+        return results.stream().findFirst();
       }
 
     @Override @Nonnull
@@ -157,7 +157,7 @@ public class JpaFinder<T, E> implements Finder<T>
       }
 
     @Override @Nonnull
-    public List<? extends T> results()
+    public List<T> results()
       {
         // Warning: the stream must be consumed *within* runInTx2()
         return txManager.computeInTx(em -> createQuery(em, entityClass, "SELECT p")

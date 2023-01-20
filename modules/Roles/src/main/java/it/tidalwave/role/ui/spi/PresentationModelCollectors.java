@@ -102,8 +102,8 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
      ******************************************************************************************************************/
     @Nonnull
     public static <T extends As> PresentationModel toCompositePresentationModel (
-            @Nonnull final Iterable<T> i,
-            @Nonnull final Function<T, Object> roleCreator)
+            @Nonnull final Iterable<? extends T> i,
+            @Nonnull final Function<? super T, Object> roleCreator)
       {
         return StreamSupport.stream(i.spliterator(), false)
                             .map(o -> o.as(_Presentable_).createPresentationModel(r(roleCreator.apply(o))))

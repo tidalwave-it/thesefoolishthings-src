@@ -153,7 +153,7 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static TypeSafeMultiMap ofCloned (@Nonnull final Map<Key<?>, Collection<?>> map)
+    public static TypeSafeMultiMap ofCloned (@Nonnull final Map<? extends Key<?>, ? extends Collection<?>> map)
       {
         return new TypeSafeHashMultiMap(map);
       }

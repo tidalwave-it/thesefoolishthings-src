@@ -65,7 +65,7 @@ public class ArrayListFinder<T> extends SimpleFinderSupport<T>
       }
 
     @Override @Nonnull
-    protected List<? extends T> computeResults()
+    protected List<T> computeResults()
       {
         return new CopyOnWriteArrayList<>(items);
       }

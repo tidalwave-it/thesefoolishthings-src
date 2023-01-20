@@ -61,7 +61,7 @@ public class FinderTest
           }
 
         @Override @Nonnull
-        protected List<? extends String> computeResults()
+        protected List<String> computeResults()
           {
             final List<String> results = new ArrayList<>();
 

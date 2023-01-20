@@ -59,7 +59,7 @@ public class ListOfPersons implements List<Person>
         return new ListOfPersons(Arrays.asList(persons));
       }
 
-    public ListOfPersons (@Nonnull final List<Person> persons)
+    public ListOfPersons (@Nonnull final List<? extends Person> persons)
       {
         this.persons.addAll(persons);
       }

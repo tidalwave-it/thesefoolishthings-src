@@ -51,7 +51,7 @@ public class PersonRegistryHelper
         new Person("Giotto", "da Bondone")
       );
 
-    public static void populate (@Nonnull final Collection<Person> collection)
+    public static void populate (@Nonnull final Collection<? super Person> collection)
       {
         collection.addAll(PEOPLE);
       }

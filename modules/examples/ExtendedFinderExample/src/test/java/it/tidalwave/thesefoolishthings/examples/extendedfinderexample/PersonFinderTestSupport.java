@@ -43,11 +43,11 @@ import static org.hamcrest.MatcherAssert.*;
  **********************************************************************************************************************/
 public class PersonFinderTestSupport
   {
-    private final Supplier<PersonRegistry2> personRegistry2Supplier;
+    private final Supplier<? extends PersonRegistry2> personRegistry2Supplier;
 
     private PersonFinder underTest;
 
-    public PersonFinderTestSupport (@Nonnull final Supplier<PersonRegistry2> personRegistry2Supplier)
+    public PersonFinderTestSupport (@Nonnull final Supplier<? extends PersonRegistry2> personRegistry2Supplier)
       {
         this.personRegistry2Supplier = personRegistry2Supplier;
       }

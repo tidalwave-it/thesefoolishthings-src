@@ -42,7 +42,7 @@ public interface Findable<T>
     @Nonnull
     public default List<T> findAll()
       {
-        return (List<T>)find().results();
+        return find().results();
       }
 
     // @Nonnull
