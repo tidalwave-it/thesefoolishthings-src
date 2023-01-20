@@ -26,9 +26,12 @@
  */
 package it.tidalwave.util;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.IntStream;
 import org.testng.annotations.Test;
 import static java.util.stream.Collectors.*;
@@ -153,7 +156,6 @@ public class CollectionUtilsTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test
     public void test_tail()
       {
         // GIVEN
@@ -163,5 +165,38 @@ public class CollectionUtilsTest
         // THEN
         final var expected = IntStream.rangeClosed(2, 10).boxed().collect(toList());
         assertThat(expected, is(actual));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test(invocationCount = 5)
+    public void test_sorted()
+      {
+        // GIVEN
+        final var list = new Random().ints().limit(10).boxed().collect(toList());
+        // WHEN
+        final var actualResult = CollectionUtils.sorted(list);
+        // THEN
+        final var expectedResult = new ArrayList<>(list);
+        Collections.sort(expectedResult);
+        assertThat(actualResult, is(expectedResult));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test(invocationCount = 5)
+    public void test_sorted_with_comparator()
+      {
+        // GIVEN
+        final var list = new Random().ints().limit(10).boxed().collect(toList());
+        final Comparator<Integer> comparator = Comparator.reverseOrder();
+        // WHEN
+        var actualResult = CollectionUtils.sorted(list, comparator);
+        // THEN
+        var expectedResult = new ArrayList<>(list);
+        Collections.sort(expectedResult, comparator);
+        assertThat(actualResult, is(expectedResult));
       }
   }
