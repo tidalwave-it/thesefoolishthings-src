@@ -36,7 +36,6 @@ import it.tidalwave.util.Id;
 import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.Findable;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.Findable._Findable_;
 import static it.tidalwave.role.io.Persistable._Persistable_;
 
 /***********************************************************************************************************************

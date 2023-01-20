@@ -57,7 +57,7 @@ public interface SimpleComposite<T> extends Composite<T, Finder<T>>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <U> SimpleComposite<U> of (final @Nonnull Finder<U> finder)
+    public static <U> SimpleComposite<U> of (@Nonnull final Finder<U> finder)
       {
         return new DefaultSimpleComposite<>(finder);
       }

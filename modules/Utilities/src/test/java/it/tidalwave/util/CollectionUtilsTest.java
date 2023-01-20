@@ -193,10 +193,10 @@ public class CollectionUtilsTest
         final var list = new Random().ints().limit(10).boxed().collect(toList());
         final Comparator<Integer> comparator = Comparator.reverseOrder();
         // WHEN
-        var actualResult = CollectionUtils.sorted(list, comparator);
+        final var actualResult = CollectionUtils.sorted(list, comparator);
         // THEN
-        var expectedResult = new ArrayList<>(list);
-        Collections.sort(expectedResult, comparator);
+        final var expectedResult = new ArrayList<>(list);
+        expectedResult.sort(comparator);
         assertThat(actualResult, is(expectedResult));
       }
   }

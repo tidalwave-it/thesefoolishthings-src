@@ -41,6 +41,7 @@ import static org.hamcrest.MatcherAssert.*;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@SuppressWarnings("NewClassNamingConvention")
 public class PersonFinderTestSupport
   {
     private final Supplier<? extends PersonRegistry2> personRegistry2Supplier;

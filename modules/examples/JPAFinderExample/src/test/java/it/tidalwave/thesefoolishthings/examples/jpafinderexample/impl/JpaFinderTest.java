@@ -26,8 +26,6 @@
  */
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
-import java.util.List;
-import it.tidalwave.thesefoolishthings.examples.person.Person;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.JpaFinder.*;
