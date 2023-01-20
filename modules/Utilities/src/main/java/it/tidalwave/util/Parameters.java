@@ -62,7 +62,7 @@ public final class Parameters
         // Don't use streams() for performance reasons.
         final List<Object> result = new ArrayList<>();
 
-        for (final Object object : objects)
+        for (final var object : objects)
           {
             if (!(object instanceof Collection))
               {
@@ -97,7 +97,7 @@ public final class Parameters
             throws IllegalArgumentException
       {
         // Don't use streams() for performance reasons.
-        final Collection<T> c = find(parameterClass, parameters);
+        final var c = find(parameterClass, parameters);
 
         if (c.size() > 1)
           {
@@ -125,7 +125,7 @@ public final class Parameters
         // Don't use streams() for performance reasons.
         final Collection<T> result = new ArrayList<>();
 
-        for (final Object parameter : parameters)
+        for (final var parameter : parameters)
           {
             if (parameterClass.isAssignableFrom(parameter.getClass()))
               {

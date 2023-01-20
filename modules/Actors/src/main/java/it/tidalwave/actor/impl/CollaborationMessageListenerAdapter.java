@@ -61,7 +61,7 @@ class CollaborationMessageListenerAdapter<Topic extends Collaboration.Provider> 
     public void notify (@Nonnull final Topic message)
       {
         log.trace("notify({})", message);
-        final DefaultCollaboration collaboration = (DefaultCollaboration)message.getCollaboration();
+        final var collaboration = (DefaultCollaboration)message.getCollaboration();
         collaboration.registerPendingMessage(message);
         stats.changePendingMessageCount(+1);
         executor.execute(() ->

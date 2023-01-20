@@ -432,7 +432,7 @@ public class Pair<A, B>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <A, B> Collector<? super Pair<A, B>, ?, Map<A, B>> pairsToMap()
+    public static <A, B> Collector<Pair<A, B>, ?, Map<A, B>> pairsToMap()
       {
         return Collectors.toMap(p -> p.a, p -> p.b);
       }

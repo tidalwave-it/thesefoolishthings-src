@@ -53,7 +53,7 @@ public class DciContextWithAutoThreadBindingAspect
     public Object advice (@Nonnull final ProceedingJoinPoint pjp)
       throws Throwable
       {
-        final Object context = pjp.getTarget();
+        final var context = pjp.getTarget();
 
         if (!context.getClass().getAnnotation(DciContext.class).autoThreadBinding())
           {
@@ -67,7 +67,7 @@ public class DciContextWithAutoThreadBindingAspect
               }
 
             // It looks like the @Inject approach creates bogus multiple instance of ContextManager
-            final ContextManager contextManager = ContextManager.Locator.find();
+            final var contextManager = ContextManager.Locator.find();
             return contextManager.runWithContext(context, new Task<Object, Throwable>()
               {
                 @Override

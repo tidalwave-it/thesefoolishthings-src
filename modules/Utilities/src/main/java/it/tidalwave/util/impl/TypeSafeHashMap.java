@@ -108,7 +108,7 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
     @Override @Nonnull
     public <T> TypeSafeMap with (@Nonnull final Key<T> key, @Nonnull final T value)
       {
-        final Map<Key<?>, Object> map = asMap();
+        final var map = asMap();
         map.put(key, value);
         return new TypeSafeHashMap(map, true);
       }

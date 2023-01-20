@@ -74,7 +74,7 @@ public class PersonFinderImpl2a extends HierarchicFinderSupport<Person, PersonFi
     public PersonFinderImpl2a (@Nonnull final PersonFinderImpl2a other, @Nonnull final Object override)
       {
         super(other, override);
-        final PersonFinderImpl2a source = getSource(PersonFinderImpl2a.class, other, override);
+        final var source = getSource(PersonFinderImpl2a.class, other, override);
         this.persons = source.persons;
         this.firstNamePattern = source.firstNamePattern;
         this.lastNamePattern = source.lastNamePattern;

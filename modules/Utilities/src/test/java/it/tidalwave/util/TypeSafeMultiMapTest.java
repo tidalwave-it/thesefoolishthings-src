@@ -35,7 +35,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import org.testng.annotations.Test;
 import static java.util.Collections.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -62,7 +61,7 @@ public class TypeSafeMultiMapTest
     public void test_newInstance()
       {
         // when
-        final TypeSafeMultiMap underTest = TypeSafeMultiMap.newInstance();
+        final var underTest = TypeSafeMultiMap.newInstance();
         // then
         assertThat(underTest.size(), is(0));
         assertThat(underTest.keySet(), is(emptySet()));
@@ -76,9 +75,9 @@ public class TypeSafeMultiMapTest
     public void test_ofCloned()
       {
         // given
-        final Map<Key<?>, Collection<?>> map = createSampleMap();
+        final var map = createSampleMap();
         // when
-        final TypeSafeMultiMap underTest = TypeSafeMultiMap.ofCloned(map);
+        final var underTest = TypeSafeMultiMap.ofCloned(map);
         // then
         assertThat(underTest.size(), is(3));
         assertThat(underTest.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
@@ -100,9 +99,9 @@ public class TypeSafeMultiMapTest
     public void test_with_from_empty_map()
       {
         // given
-        final TypeSafeMultiMap firstMap = TypeSafeMultiMap.newInstance();
+        final var firstMap = TypeSafeMultiMap.newInstance();
         // when
-        final TypeSafeMultiMap underTest = firstMap.with(K_STRING2, "2");
+        final var underTest = firstMap.with(K_STRING2, "2");
         // then
         assertThat(underTest, is(not(sameInstance(firstMap))));
         assertThat(firstMap.size(), is(0));
@@ -123,10 +122,10 @@ public class TypeSafeMultiMapTest
     public void test_with()
       {
         // given
-        final Map<Key<?>, Collection<?>> map = createSampleMap();
-        final TypeSafeMultiMap firstMap = TypeSafeMultiMap.ofCloned(map);
+        final var map = createSampleMap();
+        final var firstMap = TypeSafeMultiMap.ofCloned(map);
         // when
-        final TypeSafeMultiMap underTest = firstMap.with(K_STRING2, "2");
+        final var underTest = firstMap.with(K_STRING2, "2");
         // then
         assertThat(underTest, is(not(sameInstance(firstMap))));
         assertThat(firstMap.size(), is(3));
@@ -146,10 +145,10 @@ public class TypeSafeMultiMapTest
     public void test_with_and_existing_key()
       {
         // given
-        final Map<Key<?>, Collection<?>> map = createSampleMap();
-        final TypeSafeMultiMap firstMap = TypeSafeMultiMap.ofCloned(map);
+        final var map = createSampleMap();
+        final var firstMap = TypeSafeMultiMap.ofCloned(map);
         // when
-        final TypeSafeMultiMap underTest = firstMap.with(K_STRING, "1+"); // STRING key is already present
+        final var underTest = firstMap.with(K_STRING, "1+"); // STRING key is already present
         // then
         assertThat(underTest, is(not(sameInstance(firstMap))));
         assertThat(firstMap.size(), is(3));
@@ -169,11 +168,11 @@ public class TypeSafeMultiMapTest
     public void asMap_must_return_different_mutable_instances_detached_from_internal_state()
       {
         // given
-        final Map<Key<?>, Collection<?>> map = createSampleMap();
+        final var map = createSampleMap();
         // when
-        final TypeSafeMultiMap underTest = TypeSafeMultiMap.ofCloned(map);
-        final Map<Key<?>, Collection<?>> map1 = underTest.asMap();
-        final Map<Key<?>, Collection<?>> map2 = underTest.asMap();
+        final var underTest = TypeSafeMultiMap.ofCloned(map);
+        final var map1 = underTest.asMap();
+        final var map2 = underTest.asMap();
         map1.clear();
         // then
         assertThat(map1, is(not(sameInstance(map2))));
@@ -187,11 +186,11 @@ public class TypeSafeMultiMapTest
     public void getKeys_must_return_different_mutable_instances_detached_from_internal_state()
       {
         // given
-        final Map<Key<?>, Collection<?>> map = createSampleMap();
+        final var map = createSampleMap();
         // when
-        final TypeSafeMultiMap underTest = TypeSafeMultiMap.ofCloned(map);
-        final Set<Key<?>> set1 = underTest.keySet();
-        final Set<Key<?>> set2 = underTest.keySet();
+        final var underTest = TypeSafeMultiMap.ofCloned(map);
+        final var set1 = underTest.keySet();
+        final var set2 = underTest.keySet();
         set1.clear();
         // then
         assertThat(set1, is(not(sameInstance(set2))));
@@ -205,9 +204,9 @@ public class TypeSafeMultiMapTest
     public void test_forEach()
       {
         // given
-        final Map<Key<?>, Collection<?>> map = createSampleMap();
+        final var map = createSampleMap();
         // when
-        final TypeSafeMultiMap underTest = TypeSafeMultiMap.ofCloned(map);
+        final var underTest = TypeSafeMultiMap.ofCloned(map);
         final List<Pair<Key<?>, Collection<?>>> pairs = new ArrayList<>();
         underTest.forEach((k, v) -> pairs.add(Pair.of(k, v)));
         // then

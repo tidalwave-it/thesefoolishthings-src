@@ -35,9 +35,9 @@ import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import com.github.difflib.DiffUtils;
 import com.github.difflib.patch.AbstractDelta;
@@ -100,8 +100,8 @@ public class FileComparisonUtils
     public static void assertSameContents (@Nonnull final File expectedFile, @Nonnull final File actualFile)
       throws IOException
       {
-        final String expectedPath = expectedFile.getAbsolutePath();
-        final String actualPath = actualFile.getAbsolutePath();
+        final var expectedPath = expectedFile.getAbsolutePath();
+        final var actualPath = actualFile.getAbsolutePath();
         log.info("******** Comparing files:");
         logPaths(expectedPath, actualPath, "");
         assertSameContents(fileToStrings(expectedFile), fileToStrings(actualFile), expectedPath, actualPath);
@@ -150,7 +150,7 @@ public class FileComparisonUtils
     public static List<String> fileToStrings (@Nonnull final File file)
       throws IOException
       {
-        return fileToStrings(new FileInputStream(file));
+        return fileToStrings(Files.newInputStream(file.toPath()));
       }
 
     /*******************************************************************************************************************
@@ -166,7 +166,7 @@ public class FileComparisonUtils
     public static List<String> fileToStrings (@Nonnull final String path)
       throws IOException
       {
-        final InputStream is = FileComparisonUtils.class.getClassLoader().getResourceAsStream(path);
+        final var is = FileComparisonUtils.class.getClassLoader().getResourceAsStream(path);
 
         if (is == null)
           {
@@ -189,13 +189,13 @@ public class FileComparisonUtils
     public static List<String> fileToStrings (@Nonnull final InputStream is)
       throws IOException
       {
-        try (final BufferedReader br = new BufferedReader(new InputStreamReader(is, UTF_8)))
+        try (final var br = new BufferedReader(new InputStreamReader(is, UTF_8)))
           {
             final List<String> result = new ArrayList<>();
 
             for (;;)
               {
-                final String s = br.readLine();
+                final var s = br.readLine();
 
                 if (s == null)
                   {
@@ -222,10 +222,10 @@ public class FileComparisonUtils
     @Nonnull
     public static String commonPrefix (@Nonnull final String s1, @Nonnull final String s2)
       {
-        final int min = Math.min(s1.length(), s2.length());
-        int latestSeenSlash = 0;
+        final var min = Math.min(s1.length(), s2.length());
+        var latestSeenSlash = 0;
 
-        for (int i = 0; i < min; i++)
+        for (var i = 0; i < min; i++)
           {
             if (s1.charAt(i) != s2.charAt(i))
               {
@@ -258,7 +258,7 @@ public class FileComparisonUtils
                                             @Nullable final String expectedPath,
                                             @Nullable final String actualPath)
       {
-        final List<AbstractDelta<String>> deltas = DiffUtils.diff(expected, actual).getDeltas();
+        final var deltas = DiffUtils.diff(expected, actual).getDeltas();
 
         if (!deltas.isEmpty())
           {
@@ -267,7 +267,7 @@ public class FileComparisonUtils
                 logPaths(expectedPath, actualPath, "TEST FAILED ");
               }
 
-            final List<String> strings = toStrings(deltas);
+            final var strings = toStrings(deltas);
             strings.forEach(log::error);
 
             if (!TABULAR_OUTPUT)
@@ -277,20 +277,20 @@ public class FileComparisonUtils
               }
             else
               {
-                final DiffRowGenerator generator = DiffRowGenerator.create()
-                        .showInlineDiffs(false)
-                        .inlineDiffByWord(true)
-                        .lineNormalizer(l -> l)
-                        .build();
-                final List<Tuple> tuples = generator.generateDiffRows(expected, actual)
-                        .stream()
-                        .filter(row -> !row.getNewLine().equals(row.getOldLine()))
-                        .map(row -> Tuple.of(row.getOldLine().trim(), row.getNewLine().trim()))
-                        .limit(TABULAR_LIMIT)
-                        .collect(toList());
+                final var generator = DiffRowGenerator.create()
+                                                      .showInlineDiffs(false)
+                                                      .inlineDiffByWord(true)
+                                                      .lineNormalizer(l -> l)
+                                                      .build();
+                final var tuples = generator.generateDiffRows(expected, actual)
+                                            .stream()
+                                            .filter(row -> !row.getNewLine().equals(row.getOldLine()))
+                                            .map(row -> Tuple.of(row.getOldLine().trim(), row.getNewLine().trim()))
+                                            .limit(TABULAR_LIMIT)
+                                            .collect(toList());
 
-                final int padA = tuples.stream().mapToInt(p -> p.a.length()).max().getAsInt();
-                final int padB = tuples.stream().mapToInt(p -> p.b.length()).max().getAsInt();
+                final var padA = tuples.stream().mapToInt(p -> p.a.length()).max().getAsInt();
+                final var padB = tuples.stream().mapToInt(p -> p.b.length()).max().getAsInt();
                 log.error("{} Tabular text is trimmed; row limit set to -D{}={}",
                           TF, P_TABULAR_LIMIT, TABULAR_LIMIT);
                 log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
@@ -320,10 +320,10 @@ public class FileComparisonUtils
 
         deltas.forEach(delta ->
           {
-            final List<String> sourceLines = delta.getSource().getLines();
-            final List<String> targetLines = delta.getTarget().getLines();
-            final int sourcePosition = delta.getSource().getPosition() + 1;
-            final int targetPosition = delta.getTarget().getPosition() + 1;
+            final var sourceLines = delta.getSource().getLines();
+            final var targetLines = delta.getTarget().getLines();
+            final var sourcePosition = delta.getSource().getPosition() + 1;
+            final var targetPosition = delta.getTarget().getPosition() + 1;
 
             switch (delta.getType())
               {
@@ -364,7 +364,7 @@ public class FileComparisonUtils
                                   @Nonnull final String actualPath,
                                   @Nonnull final String prefix)
       {
-        final String commonPath = commonPrefix(expectedPath, actualPath);
+        final var commonPath = commonPrefix(expectedPath, actualPath);
         log.info("{}>>>> path is: {}", prefix, commonPath);
         log.info("{}>>>> exp is:  {}", prefix, expectedPath.substring(commonPath.length()));
         log.info("{}>>>> act is:  {}", prefix, actualPath.substring(commonPath.length()));

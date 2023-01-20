@@ -304,7 +304,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
     public default Optional<TYPE> optionalResult()
     // END SNIPPET: optionalResult
       {
-        final List<TYPE> results = (List<TYPE>)results();
+        final var results = (List<TYPE>)results();
 
         if (results.size() > 1)
           {

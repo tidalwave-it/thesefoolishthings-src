@@ -52,10 +52,10 @@ public class DefaultContextManager implements ContextManager
     private final List<Object> globalContexts = Collections.synchronizedList(new ArrayList<>());
 
     /** The list of local contexts, ordered by priority. */
-    private final ThreadLocal<Stack<Object>> localContexts = new ThreadLocal<Stack<Object>>()
+    private final ThreadLocal<Stack<Object>> localContexts = new ThreadLocal<>()
       {
         @Override @Nonnull
-        protected Stack<Object> initialValue()
+        protected Stack<Object> initialValue ()
           {
             return new Stack<>();
           }
@@ -104,7 +104,7 @@ public class DefaultContextManager implements ContextManager
     public <T> T findContextOfType (@Nonnull final Class<T> contextType)
       throws NotFoundException
       {
-        for (final Object context : getContexts())
+        for (final var context : getContexts())
           {
             if (contextType.isAssignableFrom(context.getClass()))
               {
@@ -171,14 +171,14 @@ public class DefaultContextManager implements ContextManager
       {
         log.trace("runWithContexts({}, {})", shortId(supplier), shortIds(contexts));
 
-        try (final Binder __ = binder(contexts))
+        try (final var __ = binder(contexts))
           {
             if (log.isTraceEnabled())
               {
                 log.trace(">>>> contexts now: {} - {}", getContexts(), this);
               }
 
-            final T result = supplier.get();
+            final var result = supplier.get();
             log.trace(">>>> runWithContexts({}, {}) completed", shortId(supplier), shortIds(contexts));
             return result;
           }

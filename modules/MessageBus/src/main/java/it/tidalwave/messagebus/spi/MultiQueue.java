@@ -30,8 +30,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.NavigableSet;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -94,10 +92,10 @@ public class MultiQueue
       {
         for (;;)
           {
-            for (final Class<?> topic : reorderedTopics())
+            for (final var topic : reorderedTopics())
               {
-                final Queue<?> queue = queueMapByTopic.get(topic);
-                final Object message = queue.poll();
+                final var queue = queueMapByTopic.get(topic);
+                final var message = queue.poll();
                 
                 if (message != null)
                   {
@@ -129,7 +127,7 @@ public class MultiQueue
     @Nonnull
     private List<Class<?>> reorderedTopics() 
       {
-        final NavigableSet<Class<?>> keySet = queueMapByTopic.navigableKeySet();
+        final var keySet = queueMapByTopic.navigableKeySet();
         final List<Class<?>> scanSet = new ArrayList<>();
 
         if (latestSentTopic == null)
@@ -151,10 +149,10 @@ public class MultiQueue
      ******************************************************************************************************************/
     private synchronized String stats()
       {
-        final StringBuilder b = new StringBuilder();
-        String separator = "";
+        final var b = new StringBuilder();
+        var separator = "";
         
-        for (final Map.Entry<Class<?>, Queue<?>> e : queueMapByTopic.entrySet())
+        for (final var e : queueMapByTopic.entrySet())
           {
             b.append(separator).append(String.format("%s[%s]: %d", 
                     e.getKey().getSimpleName(), e.getKey().equals(latestSentTopic) ? "X" : " ", e.getValue().size()));
@@ -176,7 +174,7 @@ public class MultiQueue
     private synchronized <TOPIC> Queue<TOPIC> getQueue (@Nonnull final Class<TOPIC> topic)
       {
         // TODO Java 8 would make this easier
-        Queue<TOPIC> queue = (Queue<TOPIC>)queueMapByTopic.get(topic);
+        var queue = (Queue<TOPIC>)queueMapByTopic.get(topic);
         
         if (queue == null)
           {

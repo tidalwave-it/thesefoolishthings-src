@@ -27,7 +27,6 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
-import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.function.BiFunction;
@@ -87,14 +86,14 @@ public final class StreamOperations
                                            @Nonnull final Stream<B> streamB,
                                            @Nonnull final BiFunction<? super A, ? super B, ? extends R> zipper)
       {
-        final boolean parallel = streamA.isParallel() || streamB.isParallel();
-        final Spliterator<A> sa = streamA.spliterator();
-        final Spliterator<B> sb = streamB.spliterator();
-        final int characteristics =
+        final var parallel = streamA.isParallel() || streamB.isParallel();
+        final var sa = streamA.spliterator();
+        final var sb = streamB.spliterator();
+        final var characteristics =
                 sa.characteristics() & sb.characteristics() & (Spliterator.SIZED | Spliterator.ORDERED);
-        final Iterator<A> a = Spliterators.iterator(sa);
-        final Iterator<B> b = Spliterators.iterator(sb);
-        final long estSize = Math.min(sa.estimateSize(), sb.estimateSize());
+        final var a = Spliterators.iterator(sa);
+        final var b = Spliterators.iterator(sb);
+        final var estSize = Math.min(sa.estimateSize(), sb.estimateSize());
         return StreamSupport.stream(new Spliterators.AbstractSpliterator<R>(estSize, characteristics)
             {
               @Override

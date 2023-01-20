@@ -84,7 +84,7 @@ public class AnnotationSpringRoleManager extends RoleManagerSupport
     protected Class<?> findContextTypeForRole (@Nonnull final Class<?> roleImplementationType)
       throws NotFoundException
       {
-        final Class<?> contextClass = roleImplementationType.getAnnotation(DciRole.class).context();
+        final var contextClass = roleImplementationType.getAnnotation(DciRole.class).context();
 
         if (contextClass == DciRole.NoContext.class)
           {

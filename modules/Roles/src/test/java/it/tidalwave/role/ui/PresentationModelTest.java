@@ -82,9 +82,9 @@ public class PresentationModelTest
     public void test_ofMaybePresentable_without_Presentable()
       {
         // given
-        final As owner = mock(As.class);
+        final var owner = mock(As.class);
         // when
-        final PresentationModel actualPm = PresentationModel.ofMaybePresentable(owner, roles);
+        final var actualPm = PresentationModel.ofMaybePresentable(owner, roles);
         // then
         assertThat(actualPm.as(MockRole1.class), is(sameInstance(mockRole1)));
         assertThat(actualPm.as(MockRole2.class), is(sameInstance(mockRole2)));
@@ -97,13 +97,13 @@ public class PresentationModelTest
     public void test_ofMaybePresentable_with_Presentable()
       {
         // given
-        final As owner = mock(As.class);
-        final Presentable presentable = mock(Presentable.class, CALLS_DEFAULT_METHODS);
-        final PresentationModel pm = mock(PresentationModel.class);
+        final var owner = mock(As.class);
+        final var presentable = mock(Presentable.class, CALLS_DEFAULT_METHODS);
+        final var pm = mock(PresentationModel.class);
         when(presentable.createPresentationModel(anyCollection())).thenReturn(pm);
         when(owner.maybeAs(_Presentable_)).thenReturn(Optional.of(presentable));
         // when
-        final PresentationModel actualPm = PresentationModel.ofMaybePresentable(owner, roles);
+        final var actualPm = PresentationModel.ofMaybePresentable(owner, roles);
         // then
         assertThat(actualPm, is(sameInstance(pm)));
         verify(presentable).createPresentationModel(eq(roles));

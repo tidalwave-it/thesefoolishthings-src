@@ -27,7 +27,6 @@
 package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 import java.util.Optional;
@@ -94,7 +93,7 @@ public class DefaultPresentationModel implements PresentationModel
             return Optional.of(roleType.cast(pcs));
           }
 
-        final Optional<T> t = as.maybeAs(roleType);
+        final var t = as.maybeAs(roleType);
 
         if (t.isPresent())
           {
@@ -105,7 +104,7 @@ public class DefaultPresentationModel implements PresentationModel
           {
             try
               {
-                final T role = ((As)owner).as(roleType);
+                final var role = ((As)owner).as(roleType);
 
                 if (role != null) // do check it for improper implementations or partial mocks
                   {
@@ -129,7 +128,7 @@ public class DefaultPresentationModel implements PresentationModel
     @Override @Nonnull
     public <T> Collection<T> asMany (@Nonnull final Class<? extends T> roleType)
       {
-        final Collection<T> result = as.asMany(roleType);
+        final var result = as.asMany(roleType);
 
         // The problem here is that we want only to add local roles in owner; but calling owner.as() will also
         // find again the global roles that were discovered by AsSupport.
@@ -154,7 +153,7 @@ public class DefaultPresentationModel implements PresentationModel
     @Override
     public void dispose()
       {
-        for (final PropertyChangeListener listener : pcs.getPropertyChangeListeners().clone())
+        for (final var listener : pcs.getPropertyChangeListeners().clone())
           {
             pcs.removePropertyChangeListener(listener);
           }

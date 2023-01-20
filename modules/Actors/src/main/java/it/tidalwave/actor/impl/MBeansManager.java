@@ -27,7 +27,6 @@
 package it.tidalwave.actor.impl;
 
 import java.lang.management.ManagementFactory;
-import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -37,7 +36,6 @@ import it.tidalwave.actor.spi.ActorActivatorStats;
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 import javax.management.MBeanRegistrationException;
-import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
@@ -91,12 +89,12 @@ public class MBeansManager
               }
           });
 
-        final MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+        final var mBeanServer = ManagementFactory.getPlatformMBeanServer();
 
         try
           {
-            final String name = String.format("%s:type=%s", actorObject.getClass().getPackage().getName(),
-                                                            actorObject.getClass().getSimpleName());
+            final var name = String.format("%s:type=%s", actorObject.getClass().getPackage().getName(),
+                                           actorObject.getClass().getSimpleName());
             statsName = new ObjectName(name);
             mBeanServer.registerMBean(stats, statsName);
           }
@@ -105,7 +103,7 @@ public class MBeansManager
             log.error("Cannot register master MBean for actor " + actorObject, e);
           }
 
-        for (final Map.Entry<ObjectName, Object> entry : mbeansMapByName.entrySet())
+        for (final var entry : mbeansMapByName.entrySet())
           {
             try
               {
@@ -126,7 +124,7 @@ public class MBeansManager
      ******************************************************************************************************************/
     public void unregister()
       {
-        final MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+        final var mBeanServer = ManagementFactory.getPlatformMBeanServer();
 
         try
           {
@@ -137,7 +135,7 @@ public class MBeansManager
             log.error("Cannot register master MBean for actor " + actorObject, e);
           }
 
-        for (final Map.Entry<ObjectName, Object> entry : mbeansMapByName.entrySet())
+        for (final var entry : mbeansMapByName.entrySet())
           {
             try
               {
@@ -161,25 +159,25 @@ public class MBeansManager
       {
         final Map<ObjectName, Object> result = new HashMap<>();
 
-        for (final Field field : clazz.getDeclaredFields())
+        for (final var field : clazz.getDeclaredFields())
           {
             if (!field.isSynthetic() && ((field.getModifiers() & Modifier.STATIC) == 0))
               {
                 try
                   {
                     field.setAccessible(true);
-                    final Object value = field.get(actorObject);
+                    final var value = field.get(actorObject);
 
                     if (value != null)
                       {
-                        final Class<?>[] interfaces = value.getClass().getInterfaces();
+                        final var interfaces = value.getClass().getInterfaces();
                         //
                         // TODO: it checks only first interface - what about an annotation?
                         //
                         if ((interfaces.length > 0) && interfaces[0].getName().endsWith("MBean"))
                           {
-                            final String name = String.format("%s:type=%s", clazz.getPackage().getName(),
-                                                                            value.getClass().getSimpleName());
+                            final var name = String.format("%s:type=%s", clazz.getPackage().getName(),
+                                                           value.getClass().getSimpleName());
                             result.put(new ObjectName(name), value);
                           }
                       }

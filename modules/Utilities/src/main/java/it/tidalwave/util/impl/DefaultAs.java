@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import it.tidalwave.util.As;
+import it.tidalwave.util.LazySupplier;
 import it.tidalwave.util.Parameters;
 import it.tidalwave.util.RoleFactory;
 import it.tidalwave.util.spi.AsDelegate;
@@ -48,7 +49,7 @@ import static it.tidalwave.util.Parameters.r;
 public class DefaultAs implements As
   {
     @Nonnull
-    private final AsDelegate delegate;
+    private final LazySupplier<AsDelegate> delegate;
 
     @Nonnull
     private final Object owner;
@@ -64,7 +65,7 @@ public class DefaultAs implements As
     protected DefaultAs()
       {
         owner = this;
-        delegate = AsDelegateProvider.Locator.find().createAsDelegate(this);
+        delegate = LazySupplier.of(() -> AsDelegateProvider.Locator.find().createAsDelegate(this));
       }
 
     /*******************************************************************************************************************
@@ -124,7 +125,7 @@ public class DefaultAs implements As
                       @Nonnull final Object owner,
                       @Nonnull final Collection<Object> roles)
       {
-        delegate = asDelegateFactory.apply(owner);
+        delegate = LazySupplier.of(() -> asDelegateFactory.apply(owner));
         this.owner = owner;
         this.roles.addAll(resolveFactories(roles));
       }
@@ -140,7 +141,7 @@ public class DefaultAs implements As
     @Override @Nonnull
     public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> type)
       {
-        for (final Object role : roles)
+        for (final var role : roles)
           {
             if (type.isAssignableFrom(role.getClass()))
               {
@@ -148,7 +149,7 @@ public class DefaultAs implements As
               }
           }
 
-        final Collection<? extends T> r = delegate.as(type);
+        final var r = delegate.get().as(type);
         return r.isEmpty() ? Optional.empty() : Optional.of(r.iterator().next());
       }
 
@@ -164,7 +165,7 @@ public class DefaultAs implements As
       {
         final Collection<T> results = new ArrayList<>();
 
-        for (final Object role : roles)
+        for (final var role : roles)
           {
             if (type.isAssignableFrom(role.getClass()))
               {
@@ -172,7 +173,7 @@ public class DefaultAs implements As
               }
           }
 
-        results.addAll(delegate.as(type));
+        results.addAll(delegate.get().as(type));
 
         return results;
       }
@@ -190,7 +191,7 @@ public class DefaultAs implements As
       {
         final List<Object> result = new ArrayList<>();
 
-        for (final Object roleOrFactory : roles)
+        for (final var roleOrFactory : roles)
           {
             if (roleOrFactory instanceof RoleFactory)
               {

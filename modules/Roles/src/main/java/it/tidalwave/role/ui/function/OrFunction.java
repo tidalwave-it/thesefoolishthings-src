@@ -50,7 +50,7 @@ public class OrFunction extends BooleanBoundFunctionSupport
     @Override
     protected final boolean function()
       {
-        for (final ChangingSource<Boolean> source : sources)
+        for (final var source : sources)
           {
             if (source.get())
               {

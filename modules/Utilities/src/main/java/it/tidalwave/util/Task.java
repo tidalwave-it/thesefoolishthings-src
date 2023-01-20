@@ -98,10 +98,10 @@ public abstract class Task<T, E extends Throwable>
     @Nonnull
     public static Task<Void, RuntimeException> ofRunnable (@Nonnull final Runnable runnable)
       {
-        return new Task<Void, RuntimeException>()
+        return new Task<>()
           {
             @Override
-            public Void run()
+            public Void run ()
               {
                 runnable.run();
                 return null;
@@ -122,10 +122,10 @@ public abstract class Task<T, E extends Throwable>
     @Nonnull
     public static <T> Task<T, Exception> ofCallable (@Nonnull final Callable<? extends T> callable)
       {
-        return new Task<T, Exception>()
+        return new Task<>()
           {
             @Override
-            public T run()
+            public T run ()
                     throws Exception
               {
                 return callable.call();
@@ -145,10 +145,10 @@ public abstract class Task<T, E extends Throwable>
     @Nonnull
     public static Task<Void, Throwable> ofCallback (@Nonnull final Callback callback)
       {
-        return new Task<Void, Throwable>()
+        return new Task<>()
           {
             @Override
-            public Void run()
+            public Void run ()
                     throws Throwable
               {
                 callback.call();

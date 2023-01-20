@@ -50,7 +50,7 @@ public class Main
     public static void main (@Nonnull final String ... args)
       throws Exception
       {
-        var context = new AnnotationConfigApplicationContext(RoleSpringConfiguration.class, Main.class);
+        final var context = new AnnotationConfigApplicationContext(RoleSpringConfiguration.class, Main.class);
         context.getBean(DciMarshalXStreamExample.class).run();
       }
   }

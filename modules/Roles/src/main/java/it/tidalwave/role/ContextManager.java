@@ -27,8 +27,6 @@
 package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.ServiceLoader;
@@ -124,8 +122,8 @@ public interface ContextManager
         @Nonnull
         private static ContextManagerProvider findContextManagerProvider()
           {
-            final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            final Iterator<ContextManagerProvider> i =
+            final var classLoader = Thread.currentThread().getContextClassLoader();
+            final var i =
                     ServiceLoader.load(ContextManagerProvider.class, classLoader).iterator();
 
             if (!i.hasNext())
@@ -133,8 +131,8 @@ public interface ContextManager
                 throw new RuntimeException("No ServiceProvider for ContextManagerProvider");
               }
 
-            final ContextManagerProvider contextManagerProvider = Objects.requireNonNull(i.next(),
-                                                                                         "contextManagerProvider is null");
+            final var contextManagerProvider = Objects.requireNonNull(i.next(),
+                                                                      "contextManagerProvider is null");
             assert contextManagerProvider != null; // for SpotBugs
             log.info("ContextManagerProvider instantiated from META-INF: {}", contextManagerProvider);
             return contextManagerProvider;
@@ -233,7 +231,7 @@ public interface ContextManager
                                                               @Nonnull final Task<V, T> task)
       throws T
       {
-        return runWithContexts(Collections.singletonList(context), task);
+        return runWithContexts(List.of(context), task);
       }
 
     /*******************************************************************************************************************
@@ -403,7 +401,7 @@ public interface ContextManager
             this.contextManager = contextManager;
             this.contexts = contexts;
 
-            for (final Object context : contexts)
+            for (final var context : contexts)
               {
                 this.contextManager.addLocalContext(context);
               }
@@ -412,7 +410,7 @@ public interface ContextManager
         @Override
         public void close()
           {
-            for (final Object context : contexts)
+            for (final var context : contexts)
               {
                 this.contextManager.removeLocalContext(context);
               }

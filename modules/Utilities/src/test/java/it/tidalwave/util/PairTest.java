@@ -28,12 +28,10 @@ package it.tidalwave.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.IntFunction;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.*;
@@ -63,8 +61,8 @@ public class PairTest
       {
         // when
         // START SNIPPET: pair1
-        final Pair<String, Integer> p = Pair.of("foo bar", 7);
-        final String fooBar = p.a;
+        final var p = Pair.of("foo bar", 7);
+        final var fooBar = p.a;
         final int seven = p.b;
         // END SNIPPET: pair1
         // then
@@ -79,9 +77,9 @@ public class PairTest
     public void test_pairStream()
       {
         // given
-        final String value = "value";
+        final var value = "value";
         // when
-        final Stream<Pair<String, Integer>> underTest = Pair.pairStream(value, IntStream.rangeClosed(1, 5).boxed());
+        final var underTest = Pair.pairStream(value, IntStream.rangeClosed(1, 5).boxed());
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of(value, 1),
                                                           Pair.of(value, 2),
@@ -97,9 +95,9 @@ public class PairTest
     public void test_pairRange()
       {
         // given
-        final String value = "value";
+        final var value = "value";
         // when
-        final Stream<Pair<String, Integer>> underTest = Pair.pairRange(value, 1, 5);
+        final var underTest = Pair.pairRange(value, 1, 5);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of(value, 1),
                                                           Pair.of(value, 2),
@@ -114,9 +112,9 @@ public class PairTest
     public void test_pairRangeClosed()
       {
         // given
-        final String value = "value";
+        final var value = "value";
         // when
-        final Stream<Pair<String, Integer>> underTest = Pair.pairRangeClosed(value, 1, 5);
+        final var underTest = Pair.pairRangeClosed(value, 1, 5);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of(value, 1),
                                                           Pair.of(value, 2),
@@ -132,22 +130,21 @@ public class PairTest
     public void testDoubleNestedLoops()
       {
         // given
-        final int limit = 20;
+        final var limit = 20;
         // when
         // START SNIPPET: loop2a
-        final List<Pair<Integer, Integer>> actual =
-                IntStream.rangeClosed(1, limit)
-                         .boxed()
-                         .flatMap(a -> Pair.pairRangeClosed(a, a + 1, limit))
-                         .collect(toList());
+        final var actual =  IntStream.rangeClosed(1, limit)
+                                     .boxed()
+                                     .flatMap(a -> Pair.pairRangeClosed(a, a + 1, limit))
+                                     .collect(toList());
         // END SNIPPET: loop2a
         // then
         // START SNIPPET: loop2b
         final List<Pair<Integer, Integer>> expected = new ArrayList<>();
 
-        for (int a = 1; a <= limit; a++)
+        for (var a = 1; a <= limit; a++)
           {
-            for (int b = a + 1; b <= limit; b++)
+            for (var b = a + 1; b <= limit; b++)
               {
                 expected.add(Pair.of(a, b));
               }
@@ -164,7 +161,7 @@ public class PairTest
     public void test_indexedPairStream_from_array()
       {
         // when
-        final Stream<Pair<Integer, String>> underTest = Pair.indexedPairStream(array);
+        final var underTest = Pair.indexedPairStream(array);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "one"),
                                                           Pair.of(1, "two"),
@@ -180,7 +177,7 @@ public class PairTest
     public void test_indexedPairStream_from_array_and_rebaser()
       {
         // when
-        final Stream<Pair<Integer, String>> underTest = Pair.indexedPairStream(array, Pair.BASE_1);
+        final var underTest = Pair.indexedPairStream(array, Pair.BASE_1);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of(1, "one"),
                                                           Pair.of(2, "two"),
@@ -196,7 +193,7 @@ public class PairTest
     public void test_indexedPairStream__from_array_with_index_transformer()
       {
         // when
-        final Stream<Pair<String, String>> underTest = Pair.indexedPairStream(array, Pair.BASE_0, indexTransformer);
+        final var underTest = Pair.indexedPairStream(array, Pair.BASE_0, indexTransformer);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of("1", "one"),
                                                           Pair.of("2", "two"),
@@ -212,7 +209,7 @@ public class PairTest
     public void test_indexedPairStream_from_list_as_iterable()
       {
         // when
-        final Stream<Pair<Integer, String>> underTest = Pair.indexedPairStream(iterable);
+        final var underTest = Pair.indexedPairStream(iterable);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "one"),
                                                           Pair.of(1, "two"),
@@ -228,7 +225,7 @@ public class PairTest
     public void test_indexedPairStream_from_list_as_iterable_and_rebaser()
       {
         // when
-        final Stream<Pair<Integer, String>> underTest = Pair.indexedPairStream(iterable, Pair.BASE_1);
+        final var underTest = Pair.indexedPairStream(iterable, Pair.BASE_1);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of(1, "one"),
                                                           Pair.of(2, "two"),
@@ -244,7 +241,7 @@ public class PairTest
     public void test_indexedPairStream__from_list_as_iterable_with_index_transformer()
       {
         // when
-        final Stream<Pair<String, String>> underTest = Pair.indexedPairStream(iterable, Pair.BASE_0, indexTransformer);
+        final var underTest = Pair.indexedPairStream(iterable, Pair.BASE_0, indexTransformer);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of("1", "one"),
                                                           Pair.of("2", "two"),
@@ -260,7 +257,7 @@ public class PairTest
     public void test_indexedPairStream_from_stream()
       {
         // when
-        final Stream<Pair<Integer, String>> underTest = Pair.indexedPairStream(Arrays.stream(array));
+        final var underTest = Pair.indexedPairStream(Arrays.stream(array));
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "one"),
                                                           Pair.of(1, "two"),
@@ -276,7 +273,7 @@ public class PairTest
     public void test_indexedPairStream_from_stream_and_rebaser()
       {
         // when
-        final Stream<Pair<Integer, String>> underTest = Pair.indexedPairStream(Arrays.stream(array), Pair.BASE_1);
+        final var underTest = Pair.indexedPairStream(Arrays.stream(array), Pair.BASE_1);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of(1, "one"),
                                                           Pair.of(2, "two"),
@@ -292,9 +289,9 @@ public class PairTest
     public void test_indexedPairStream__from_stream_with_index_transformer()
       {
         // when
-        final Stream<Pair<String, String>> underTest = Pair.indexedPairStream(Arrays.stream(array),
-                                                                              Pair.BASE_0,
-                                                                              indexTransformer);
+        final var underTest = Pair.indexedPairStream(Arrays.stream(array),
+                                                     Pair.BASE_0,
+                                                     indexTransformer);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of("1", "one"),
                                                           Pair.of("2", "two"),
@@ -310,7 +307,7 @@ public class PairTest
     public void test_indexedPairStream_with_range_and_supplier()
       {
         // when
-        final Stream<Pair<Integer, String>> underTest = Pair.indexedPairStream(3, 9, valueSupplier);
+        final var underTest = Pair.indexedPairStream(3, 9, valueSupplier);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of(3, "#3"),
                                                           Pair.of(4, "#4"),
@@ -327,8 +324,8 @@ public class PairTest
     public void test_indexedPairStream_with_range_and_supplier_and_rebaser()
       {
         // when
-        final Stream<Pair<Integer, String>> underTest = Pair.indexedPairStream(3, 9,
-                                                                               valueSupplier, Pair.BASE_1);
+        final var underTest = Pair.indexedPairStream(3, 9,
+                                                     valueSupplier, Pair.BASE_1);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of(4, "#3"),
                                                           Pair.of(5, "#4"),
@@ -345,10 +342,10 @@ public class PairTest
     public void test_indexedPairStream_with_range_and_supplier_and_index_transformer()
       {
         // when
-        final Stream<Pair<String, String>> underTest = Pair.indexedPairStream(3, 9,
-                                                                              valueSupplier,
-                                                                              Pair.BASE_0,
-                                                                              indexTransformer);
+        final var underTest = Pair.indexedPairStream(3, 9,
+                                                     valueSupplier,
+                                                     Pair.BASE_0,
+                                                     indexTransformer);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of("4", "#3"),
                                                           Pair.of("5", "#4"),
@@ -365,16 +362,16 @@ public class PairTest
     public void test_collector_to_map()
       {
         // given
-        final Stream<Pair<Integer, String>> stream = Pair.indexedPairStream(array);
+        final var stream = Pair.indexedPairStream(array);
         // when
-        final Map<Integer, String> actual = stream.collect(Pair.pairsToMap());
+        final var actual = stream.collect(Pair.pairsToMap());
         // then
-        final Map<Integer, String> expected = new HashMap<>();
-        expected.put(0, "one");
-        expected.put(1, "two");
-        expected.put(2, "three");
-        expected.put(3, "four");
-        expected.put(4, "five");
+        final var expected = Map.of(
+          0, "one",
+          1, "two",
+          2, "three",
+          3, "four",
+          4, "five");
         assertThat(actual, is(expected));
       }
 
@@ -384,11 +381,10 @@ public class PairTest
     private void examples()
       {
         // START SNIPPET: pairRangeClosed
-        final Stream<Pair<String, Integer>> stream1 = Pair.pairRangeClosed("foo bar", 1, 3);
+        final var stream1 = Pair.pairRangeClosed("foo bar", 1, 3);
         // END SNIPPET: pairRangeClosed
         // START SNIPPET: indexedPairStream
-        final Stream<Pair<Integer, String>> stream2 = Pair.indexedPairStream(Arrays.asList("foo", "bar"));
+        final var stream2 = Pair.indexedPairStream(Arrays.asList("foo", "bar"));
         // END SNIPPET: indexedPairStream
-
       }
   }

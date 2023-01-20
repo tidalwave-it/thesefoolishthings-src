@@ -52,8 +52,8 @@ public abstract class WeakCopyFunctionSupport<T> extends UnaryBoundFunctionSuppo
     @Override
     protected void onSourceChange (@Nonnull final T oldSourceValue, @Nonnull final T newSourceValue)
       {
-        final T oldValue = function(oldSourceValue);
-        final T newValue = function(newSourceValue);
+        final var oldValue = function(oldSourceValue);
+        final var newValue = function(newSourceValue);
 
         if (shouldChange(oldValue, newValue))
           {

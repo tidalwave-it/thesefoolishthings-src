@@ -29,7 +29,6 @@ package it.tidalwave.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
@@ -49,8 +48,8 @@ public class TripleTest
       {
         // when
         // START SNIPPET: triple1
-        final Triple<String, Integer, Boolean> t = Triple.of("foo bar", 7, false);
-        final String fooBar = t.a;
+        final var t = Triple.of("foo bar", 7, false);
+        final var fooBar = t.a;
         final int seven = t.b;
         final boolean bool = t.c;
         // END SNIPPET: triple1
@@ -67,10 +66,9 @@ public class TripleTest
     public void test_tripleStream()
       {
         // given
-        final Pair<String, Boolean> pair = Pair.of("value", false);
+        final var pair = Pair.of("value", false);
         // when
-        final Stream<Triple<String, Boolean, Integer>> underTest =
-                Triple.tripleStream(pair, IntStream.rangeClosed(1, 5).boxed());
+        final var underTest = Triple.tripleStream(pair, IntStream.rangeClosed(1, 5).boxed());
         // then
         assertThat(underTest.collect(toList()), is(asList(Triple.of(pair, 1),
                                                           Triple.of(pair, 2),
@@ -86,9 +84,9 @@ public class TripleTest
     public void test_tripleRange()
       {
         // given
-        final Pair<String, Boolean> pair = Pair.of("value", false);
+        final var pair = Pair.of("value", false);
         // when
-        final Stream<Triple<String, Boolean, Integer>> underTest = Triple.tripleRange(pair, 1, 5);
+        final var underTest = Triple.tripleRange(pair, 1, 5);
         // then
         assertThat(underTest.collect(toList()), is(asList(Triple.of(pair, 1),
                                                           Triple.of(pair, 2),
@@ -103,9 +101,9 @@ public class TripleTest
     public void test_tripleRangeClosed()
       {
         // given
-        final Pair<String, Boolean> pair = Pair.of("value", false);
+        final var pair = Pair.of("value", false);
         // when
-        final Stream<Triple<String, Boolean, Integer>> underTest = Triple.tripleRangeClosed(pair, 1, 5);
+        final var underTest = Triple.tripleRangeClosed(pair, 1, 5);
         // then
         assertThat(underTest.collect(toList()), is(asList(Triple.of(pair, 1),
                                                           Triple.of(pair, 2),
@@ -121,25 +119,24 @@ public class TripleTest
     public void testTripleNestedLoops()
       {
         // given
-        final int limit = 20;
+        final var limit = 20;
         // when
         // START SNIPPET: loop2a
-        final List<Triple<Integer, Integer, Integer>> actual =
-            IntStream.rangeClosed(1, limit)
-                     .boxed()
-                     .flatMap(a -> Pair.pairRangeClosed(a, a + 1, limit))
-                     .flatMap(p -> Triple.tripleRangeClosed(p, p.b + 1, limit))
-                     .collect(toList());
+        final var actual = IntStream.rangeClosed(1, limit)
+                                    .boxed()
+                                    .flatMap(a -> Pair.pairRangeClosed(a, a + 1, limit))
+                                    .flatMap(p -> Triple.tripleRangeClosed(p, p.b + 1, limit))
+                                    .collect(toList());
         // END SNIPPET: loop2a
         // then
         // START SNIPPET: loop2b
         final List<Triple<Integer, Integer, Integer>> expected = new ArrayList<>();
 
-        for (int a = 1; a <= limit; a++)
+        for (var a = 1; a <= limit; a++)
           {
-            for (int b = a + 1; b <= limit; b++)
+            for (var b = a + 1; b <= limit; b++)
               {
-                for (int c = b + 1; c <= limit; c++)
+                for (var c = b + 1; c <= limit; c++)
                   {
                     expected.add(Triple.of(a, b, c));
                   }

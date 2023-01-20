@@ -65,7 +65,7 @@ public class DatumAndRole
             result.addAll(new DatumAndRole(datumClass.getSuperclass(), roleClass).getSuper());
           }
 
-        for (final Class<?> interfaceClass : datumClass.getInterfaces())
+        for (final var interfaceClass : datumClass.getInterfaces())
           {
             result.addAll(new DatumAndRole(interfaceClass, roleClass).getSuper());
           }

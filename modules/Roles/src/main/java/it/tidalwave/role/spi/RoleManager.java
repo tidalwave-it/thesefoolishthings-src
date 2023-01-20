@@ -27,7 +27,6 @@
 package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.ServiceLoader;
@@ -85,17 +84,16 @@ public interface RoleManager
         @Nonnull
         private static RoleManagerProvider findRoleManagerProvider()
           {
-            final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            final Iterator<RoleManagerProvider> i =
-                    ServiceLoader.load(RoleManagerProvider.class, classLoader).iterator();
+            final var classLoader = Thread.currentThread().getContextClassLoader();
+            final var i = ServiceLoader.load(RoleManagerProvider.class, classLoader).iterator();
 
             if (!i.hasNext())
               {
                 throw new RuntimeException("No ServiceProvider for RoleManagerProvider");
               }
 
-            final RoleManagerProvider roleManagerProvider = Objects.requireNonNull(i.next(),
-                                                                                         "roleManagerProvider is null");
+            final var roleManagerProvider = Objects.requireNonNull(i.next(),
+                                                                   "roleManagerProvider is null");
             assert roleManagerProvider != null; // for SpotBugs
             log.info("RoleManagerProvider instantiated from META-INF: {}", roleManagerProvider);
             return roleManagerProvider;

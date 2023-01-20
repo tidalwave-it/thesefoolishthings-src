@@ -27,8 +27,8 @@
 package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import it.tidalwave.util.As;
 import it.tidalwave.role.ui.Displayable;
 import org.testng.annotations.DataProvider;
@@ -55,7 +55,7 @@ public class AsDisplayableComparatorTest
         // given
         final Comparator<As> underTest = AsDisplayableComparator.getInstance();
         // when
-        final int actualResult = underTest.compare(a1, a2);
+        final var actualResult = underTest.compare(a1, a2);
         // then
         assertThat(actualResult, is(expectedResult));
       }
@@ -63,7 +63,7 @@ public class AsDisplayableComparatorTest
     @Nonnull
     private static As createMockAs (@Nonnull final Displayable displayable)
       {
-        return mockWithAs(As.class, Arrays.asList(displayable));
+        return mockWithAs(As.class, List.of(displayable));
       }
 
     @DataProvider

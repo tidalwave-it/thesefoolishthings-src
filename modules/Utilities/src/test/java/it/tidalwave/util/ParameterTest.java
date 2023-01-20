@@ -56,7 +56,7 @@ public class ParameterTest
         final Collection<Object> rc1 = Arrays.asList(r4, r5);
         final Collection<Object> rc2 = Arrays.asList(r7, r8);
         // when
-        final Collection<Object> result = Parameters.r(r1, r2, r3, rc1, r6, rc2, r9);
+        final var result = Parameters.r(r1, r2, r3, rc1, r6, rc2, r9);
         // then
         final Collection<Object> expected = Arrays.asList(r1, r2, r3, r4, r5, r6, r7, r8, r9);
         assertThat(result, is(expected));

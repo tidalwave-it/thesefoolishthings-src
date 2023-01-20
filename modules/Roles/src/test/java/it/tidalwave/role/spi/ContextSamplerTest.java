@@ -96,7 +96,7 @@ public class ContextSamplerTest
         underTest = new ContextSampler(new Object());
         reset(contextManager);
         // when
-        final String result = underTest.runWithContexts(task);
+        final var result = underTest.runWithContexts(task);
         // then
         verify(contextManager, times(1)).runWithContexts(eq(contexts), same(task));
         verifyNoMoreInteractions(contextManager);

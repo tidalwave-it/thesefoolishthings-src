@@ -33,13 +33,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -119,7 +117,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
             @Override
             public void run()
               {
-                int l = 0;
+                var l = 0;
 
                 for (;;)
                   {
@@ -194,7 +192,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
         @Override @Nonnull
         public Scanner filteredAndSplitBy (@Nonnull final String filterRegexp, @Nonnull final String delimiterRegexp)
           {
-            final String string = filteredBy(filterRegexp).get(0);
+            final var string = filteredBy(filterRegexp).get(0);
             return new Scanner(string).useDelimiter(Pattern.compile(delimiterRegexp));
           }
 
@@ -206,9 +204,9 @@ public class DefaultProcessExecutor implements ProcessExecutor
         @Override @Nonnull
         public List<String> filteredBy (@Nonnull final String regexp)
           {
-            final Pattern pattern = Pattern.compile(regexp);
+            final var pattern = Pattern.compile(regexp);
             final List<String> result = new ArrayList<>();
-            final ArrayList<String> strings = new ArrayList<>(content);
+            final var strings = new ArrayList<>(content);
 
             // TODO: sync
             if (latestLine != null)
@@ -216,10 +214,10 @@ public class DefaultProcessExecutor implements ProcessExecutor
                 strings.add(latestLine);
               }
 
-            for (final String s : strings)
+            for (final var s : strings)
               {
 //                log.trace(">>>>>>>> matching '{}' with '{}'...", s, filter);
-                final Matcher m = pattern.matcher(s);
+                final var m = pattern.matcher(s);
 
                 if (m.matches())
                   {
@@ -245,7 +243,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
               {
                 try
                   {
-                    final int exitValue = process.exitValue();
+                    final var exitValue = process.exitValue();
                     throw new IOException("Process exited with " + exitValue);
                   }
                 catch (IllegalThreadStateException e) // ok, process not terminated yet
@@ -279,13 +277,13 @@ public class DefaultProcessExecutor implements ProcessExecutor
         private void read()
           throws IOException
           {
-            try (final InputStreamReader is = new InputStreamReader(input))
+            try (final var is = new InputStreamReader(input))
               {
-                StringBuilder l = new StringBuilder();
+                var l = new StringBuilder();
 
                 for (;;)
                   {
-                    final int c = is.read();
+                    final var c = is.read();
 
                     if (c < 0)
                       {
@@ -354,7 +352,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
     @Nonnull
     public static DefaultProcessExecutor forExecutable (@Nonnull final String executable)
       {
-        final DefaultProcessExecutor executor = new DefaultProcessExecutor();
+        final var executor = new DefaultProcessExecutor();
         executor.arguments.add(new File(executable + (isWindows() ? ".exe" : "")).getAbsolutePath());
         return executor;
       }
@@ -417,7 +415,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
 
         final List<String> environment = new ArrayList<>();
 
-        for (final Entry<String, String> e : System.getenv().entrySet())
+        for (final var e : System.getenv().entrySet())
           {
             environment.add(String.format("%s=%s", e.getKey(), e.getValue()));
           }

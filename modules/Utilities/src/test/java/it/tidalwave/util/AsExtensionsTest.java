@@ -55,7 +55,7 @@ public class AsExtensionsTest
     @Test
     public void test1()
       {
-        final Datum1 datum = new Datum1("foo");
+        final var datum = new Datum1("foo");
 
         datum.as(_Renderable_).renderTo(terminal);
 
@@ -65,7 +65,7 @@ public class AsExtensionsTest
     @Test
     public void test2()
       {
-        final Datum2 datum = new Datum2("bar");
+        final var datum = new Datum2("bar");
 
         datum.as(_Renderable_).renderTo(terminal);
 
@@ -75,7 +75,7 @@ public class AsExtensionsTest
     @Test
     public void test3()
       {
-        final String string = "foobar";
+        final var string = "foobar";
 
         string.as(_Renderable_).renderTo(terminal);
 

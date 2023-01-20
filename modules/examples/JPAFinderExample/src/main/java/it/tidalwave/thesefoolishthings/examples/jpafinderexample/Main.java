@@ -27,7 +27,6 @@
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsExtensions;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.JpaPersonRegistry;
@@ -54,27 +53,27 @@ public class Main
     public static void main (@Nonnull final String... args)
             throws Exception
       {
-        try (final TxManager txManager = TxManager.getInstance())
+        try (final var txManager = TxManager.getInstance())
           {
             final PersonRegistry3 registry = new JpaPersonRegistry(txManager);
             PersonRegistryHelper.populate(registry);
 
-            final List<? extends Person> p1 = registry.findPerson().results();
+            final var p1 = registry.findPerson().results();
             log.info("******** All: {}", p1);
 
-            final int n1 = registry.findPerson().count();
+            final var n1 = registry.findPerson().count();
             log.info("******** Count: {}",  n1);
 
-            final List<? extends Person> p2 = registry.findPerson().from(3).max(2).results();
+            final var p2 = registry.findPerson().from(3).max(2).results();
             log.info("******** wo persons from the 3rd position: {}", p2);
 
-            final List<? extends Person> p3 = registry.findPerson().sort(BY_FIRST_NAME).results();
+            final var p3 = registry.findPerson().sort(BY_FIRST_NAME).results();
             log.info("******** All, sorted by first name: {}", p3);
 
-            final List<? extends Person> p4 = registry.findPerson().sort(BY_LAST_NAME, DESCENDING).results();
+            final var p4 = registry.findPerson().sort(BY_LAST_NAME, DESCENDING).results();
             log.info("******** All, sorted by last name, descending: {}", p4);
 
-            final List<? extends Person> p5 =
+            final var p5 =
                     Person.prototype().as(_Findable_of_Person_).find()
                           .sort(BY_LAST_NAME, DESCENDING)
                           .from(2)

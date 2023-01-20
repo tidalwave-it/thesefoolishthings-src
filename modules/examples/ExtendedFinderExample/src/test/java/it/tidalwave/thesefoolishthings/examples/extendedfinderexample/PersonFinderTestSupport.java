@@ -55,7 +55,7 @@ public class PersonFinderTestSupport
     @BeforeMethod
     public void setup()
       {
-        final PersonRegistry2 registry = personRegistry2Supplier.get();
+        final var registry = personRegistry2Supplier.get();
         PersonRegistryHelper.populate(registry);
         underTest = registry.findPerson();
       }

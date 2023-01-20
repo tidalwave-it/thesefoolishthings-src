@@ -26,7 +26,6 @@
  */
 package it.tidalwave.actor.impl;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import javax.annotation.Nonnull;
 import javax.inject.Provider;
@@ -84,7 +83,7 @@ public class CollaborationAwareMessageBusAdapter implements MethodProcessor
     @Override
     public void process (@Nonnull final Method method)
       {
-        final Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+        final var parameterAnnotations = method.getParameterAnnotations();
 
         if ((parameterAnnotations.length == 1) && containsAnnotation(parameterAnnotations[0], ListensTo.class))
           {
@@ -104,7 +103,7 @@ public class CollaborationAwareMessageBusAdapter implements MethodProcessor
      ******************************************************************************************************************/
     public void unsubscribe()
       {
-        for (final MessageBus.Listener<?> listener : messageBusListeners)
+        for (final var listener : messageBusListeners)
           {
             messageBus.get().unsubscribe(listener);
           }
@@ -119,7 +118,7 @@ public class CollaborationAwareMessageBusAdapter implements MethodProcessor
       {
         log.info("registerMessageListener({})", method);
 
-        final Class<Topic> topic = (Class<Topic>)method.getParameterTypes()[0];
+        final var topic = (Class<Topic>)method.getParameterTypes()[0];
         addListener(method, new MessageListenerAdapter<>(owner, method, executor, stats), topic);
       }
 
@@ -131,8 +130,8 @@ public class CollaborationAwareMessageBusAdapter implements MethodProcessor
     private <Topic> void registerCollaborationListener (@Nonnull final Method method)
       {
         log.info("registerCollaborationListener({})", method);
-        final Class<?> collaborationMessageType = method.getParameterTypes()[0];
-        final Class<?> messageType = method.getParameterTypes()[1];
+        final var collaborationMessageType = method.getParameterTypes()[0];
+        final var messageType = method.getParameterTypes()[1];
 
         final MessageBus.Listener messageListener = collaborationMessageType.equals(CollaborationStartedMessage.class)
             ? new CollaborationMessageListenerAdapter<CollaborationStartedMessage>(owner, method, executor, messageType, stats)

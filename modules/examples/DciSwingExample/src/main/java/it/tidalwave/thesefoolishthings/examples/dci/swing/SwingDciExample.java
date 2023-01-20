@@ -49,7 +49,7 @@ public class SwingDciExample
       {
         SwingUtilities.invokeAndWait(() ->
           {
-            final JFrame frame = new JFrame();
+            final var frame = new JFrame();
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.add(personPresentation);
             frame.setSize(800, 600);

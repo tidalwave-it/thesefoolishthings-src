@@ -27,7 +27,6 @@
 package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
-import java.util.Comparator;
 import it.tidalwave.role.ui.Displayable;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -50,9 +49,9 @@ public class DisplayableComparatorTest
     public void test (@Nonnull final Displayable d1, @Nonnull final Displayable d2, final int expectedResult)
       {
         // given
-        final Comparator<Displayable> underTest = Displayable.comparing();
+        final var underTest = Displayable.comparing();
         // when
-        final int actualResult = underTest.compare(d1, d2);
+        final var actualResult = underTest.compare(d1, d2);
         // then
         assertThat(actualResult, is(expectedResult));
       }

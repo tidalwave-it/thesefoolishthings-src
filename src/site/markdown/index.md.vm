@@ -30,19 +30,11 @@
 #set ($ci_view = "http://services.tidalwave.it/ci/job/" + $project_cc)
 #set ($test_status = "https://img.shields.io/jenkins/t/http/services.tidalwave.it/ci/job/" + $project_cc + ".svg")
 #set ($coverage_status = "https://img.shields.io/jenkins/c/http/services.tidalwave.it/ci/job/" + $project_cc + ".svg")
-#set ($grade = "https://badgen.net/lgtm/grade/bitbucket/tidalwave/" + $project_lc + "-src/java")
-#set ($lines = "https://badgen.net/lgtm/lines/bitbucket/tidalwave/" + $project_lc + "-src/java")
-#set ($sec_alerts = "https://badgen.net/lgtm/alerts/bitbucket/tidalwave/" + $project_lc + "-src/java")
-#set ($lgtm = "https://lgtm.com/projects/b/tidalwave/" + $project_lc + "-src/")
-#set ($lgtm_alerts = "https://lgtm.com/projects/b/tidalwave/" + $project_lc + "-src/alerts/")
 
 [![Maven Central](https://img.shields.io/maven-central/v/${project.groupId}/thesefoolishthings.svg)]()
 [![Build Status]($build_status)]($ci_view)
 [![Test Status]($test_status)]($ci_view)
 [![Coverage]($coverage_status)]($ci_view)
-[![Lines]($lines)]($lgtm)
-[![Grade]($grade)]($lgtm)
-[![Total alerts]($sec_alerts)]($lgtm_alerts)
 
 
 #[[##]]# Introduction
@@ -104,12 +96,8 @@ The issue tracker is hosted on the Atlassian Jira Cloud:
 The **continuous integration** is available at:
 
 + Tidalwave CI server (primary): ${project.ciManagement.url}
-+ Travis: https://travis-ci.org/github/tidalwave-it/thesefoolishthings-src
++ Travis: https://app.travis-ci.com/bitbucket/tidalwave/thesefoolishthings-src
 + Bitbucket pipelines (demonstration only): https://bitbucket.org/tidalwave/thesefoolishthings-src/addon/pipelines/home
-
-There are also other **quality analysis tools** available:
-
-+ LGTM: https://lgtm.com/projects/b/tidalwave/thesefoolishthings-src/
 
 #[[###]]# API documentation
 

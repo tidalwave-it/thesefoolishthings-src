@@ -29,7 +29,6 @@ package it.tidalwave.util.spi;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.ServiceLoader;
 import it.tidalwave.util.LazySupplier;
 import lombok.AccessLevel;
@@ -60,17 +59,17 @@ public interface AsDelegateProvider
         @Nonnull
         private static AsDelegateProvider findAsSpiProvider()
           {
-            final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            final Iterator<AsDelegateProvider> i =
+            final var classLoader = Thread.currentThread().getContextClassLoader();
+            final var i =
                     ServiceLoader.load(AsDelegateProvider.class, classLoader).iterator();
 
             if (!i.hasNext())
               {
-                final String message = "No ServiceProvider for AsDelegateProvider found in a ServiceLoader - if " +
-                                       "you are running tests perhaps you should first call " +
-                                       "AsDelegateProvider.Locator.set(AsDelegateProvider.empty()) or " +
-                                       "AsDelegateProvider.Locator.set(new MockSimpleAsDelegateProvider()) or " +
-                                       "another appropriate AsDelegateProvider";
+                final var message = "No ServiceProvider for AsDelegateProvider found in a ServiceLoader - if " +
+                                    "you are running tests perhaps you should first call " +
+                                    "AsDelegateProvider.Locator.set(AsDelegateProvider.empty()) or " +
+                                    "AsDelegateProvider.Locator.set(new MockSimpleAsDelegateProvider()) or " +
+                                    "another appropriate AsDelegateProvider";
                 throw new RuntimeException(message);
               }
 

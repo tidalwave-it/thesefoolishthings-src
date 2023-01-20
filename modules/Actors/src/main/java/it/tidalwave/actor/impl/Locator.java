@@ -54,10 +54,10 @@ public class Locator
     @Nonnull
     public static <T> Provider<T> createProviderFor (@Nonnull final Class<? extends T> serviceClass)
       {
-        return new Provider<T>()
+        return new Provider<>()
           {
             @Override @Nonnull
-            public T get()
+            public T get ()
               {
                 return find(serviceClass);
               }

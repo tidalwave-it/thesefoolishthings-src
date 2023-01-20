@@ -29,6 +29,7 @@ package it.tidalwave.util;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import lombok.AccessLevel;
@@ -79,7 +80,7 @@ public final class CollectionUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> List<T> concat (@Nonnull final List<? extends T> list1, @Nonnull List<? extends T> list2)
+    public static <T> List<T> concat (@Nonnull final List<? extends T> list1, @Nonnull final List<? extends T> list2)
       {
         final List<T> result = new ArrayList<>(list1);
         result.addAll(list2);
@@ -102,6 +103,47 @@ public final class CollectionUtils
       {
         final List<T> result = new ArrayList<>(list);
         Collections.reverse(result);
+        return result;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Sorts a list. The resulting list is mutable.
+     *
+     * @param     <T>       the type of list items
+     * @param     list      the list
+     * @return              the sorted list
+     * @since     3.2-ALPHA-13
+     *
+     * @it.tidalwave.javadoc.stable
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T extends Comparable<? super T>> List<T> sorted (@Nonnull final List<? extends T> list)
+      {
+        final var result = new ArrayList<T>(list);
+        Collections.sort(result);
+        return result;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Sorts a list. The resulting list is mutable.
+     *
+     * @param     <T>       the type of list items
+     * @param     list      the list
+     * @return              the sorted list
+     * @since     3.2-ALPHA-13
+     *
+     * @it.tidalwave.javadoc.stable
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> List<T> sorted (@Nonnull final List<? extends T> list,
+                                      @Nonnull final Comparator<? super T> comparator)
+      {
+        final var result = new ArrayList<T>(list);
+        result.sort(comparator);
         return result;
       }
 

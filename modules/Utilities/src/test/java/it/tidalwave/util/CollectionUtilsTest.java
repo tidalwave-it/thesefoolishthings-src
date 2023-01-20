@@ -50,12 +50,12 @@ public class CollectionUtilsTest
     public void test_concat()
       {
         // GIVEN
-        final List<Integer> l1 = IntStream.rangeClosed(1, 9).boxed().collect(toList());
+        final var l1 = IntStream.rangeClosed(1, 9).boxed().collect(toList());
         final Integer i2 = 10;
         // WHEN
-        final List<Integer> actual = concat(l1, i2);
+        final var actual = concat(l1, i2);
         // THEN
-        final List<Integer> expected = IntStream.rangeClosed(1, 10).boxed().collect(toList());
+        final var expected = IntStream.rangeClosed(1, 10).boxed().collect(toList());
         assertThat(expected, is(actual));
       }
 
@@ -66,12 +66,12 @@ public class CollectionUtilsTest
     public void test_concat_list()
       {
         // GIVEN
-        final List<Integer> l1 = IntStream.rangeClosed(1, 5).boxed().collect(toList());
-        final List<Integer> l2 = IntStream.rangeClosed(6, 10).boxed().collect(toList());
+        final var l1 = IntStream.rangeClosed(1, 5).boxed().collect(toList());
+        final var l2 = IntStream.rangeClosed(6, 10).boxed().collect(toList());
         // WHEN
-        final List<Integer> actual = concat(l1, l2);
+        final var actual = concat(l1, l2);
         // THEN
-        final List<Integer> expected = IntStream.rangeClosed(1, 10).boxed().collect(toList());
+        final var expected = IntStream.rangeClosed(1, 10).boxed().collect(toList());
         assertThat(expected, is(actual));
       }
 
@@ -82,11 +82,11 @@ public class CollectionUtilsTest
     public void test_reversed()
       {
         // GIVEN
-        final List<Integer> l = IntStream.rangeClosed(1, 10).boxed().collect(toList());
+        final var l = IntStream.rangeClosed(1, 10).boxed().collect(toList());
         // WHEN
-        final List<Integer> actual = reversed(l);
+        final var actual = reversed(l);
         // THEN
-        final List<Integer> expected = IntStream.rangeClosed(1, 10).boxed().collect(toList());
+        final var expected = IntStream.rangeClosed(1, 10).boxed().collect(toList());
         Collections.reverse(expected);
         assertThat(expected, is(actual));
       }
@@ -98,11 +98,11 @@ public class CollectionUtilsTest
     public void test_optionalHead()
       {
         // GIVEN
-        final List<Integer> l = IntStream.rangeClosed(1, 10).boxed().collect(toList());
+        final var l = IntStream.rangeClosed(1, 10).boxed().collect(toList());
         // WHEN
-        final Optional<Integer> actual = optionalHead(l);
+        final var actual = optionalHead(l);
         // THEN
-        final Optional<Integer> expected = Optional.of(1);
+        final var expected = Optional.of(1);
         assertThat(expected, is(actual));
       }
 
@@ -115,7 +115,7 @@ public class CollectionUtilsTest
         // GIVEN
         final List<Integer> l = Collections.emptyList();
         // WHEN
-        final Optional<Integer> actual = optionalHead(l);
+        final var actual = optionalHead(l);
         // THEN
         final Optional<Integer> expected = Optional.empty();
         assertThat(expected, is(actual));
@@ -128,9 +128,9 @@ public class CollectionUtilsTest
     public void test_head()
       {
         // GIVEN
-        final List<Integer> l = IntStream.rangeClosed(1, 10).boxed().collect(toList());
+        final var l = IntStream.rangeClosed(1, 10).boxed().collect(toList());
         // WHEN
-        final Integer actual = head(l);
+        final var actual = head(l);
         // THEN
         final Integer expected = 1;
         assertThat(expected, is(actual));
@@ -145,7 +145,7 @@ public class CollectionUtilsTest
         // GIVEN
         final List<Integer> l = Collections.emptyList();
         // WHEN
-        final Integer actual = head(l);
+        final var actual = head(l);
         // THEN
         // throws exception...
       }
@@ -157,11 +157,11 @@ public class CollectionUtilsTest
     public void test_tail()
       {
         // GIVEN
-        final List<Integer> l = IntStream.rangeClosed(1, 10).boxed().collect(toList());
+        final var l = IntStream.rangeClosed(1, 10).boxed().collect(toList());
         // WHEN
-        final List<Integer> actual = tail(l);
+        final var actual = tail(l);
         // THEN
-        final List<Integer> expected = IntStream.rangeClosed(2, 10).boxed().collect(toList());
+        final var expected = IntStream.rangeClosed(2, 10).boxed().collect(toList());
         assertThat(expected, is(actual));
       }
   }

@@ -58,14 +58,14 @@ public class MultiMap<K, V> extends HashMap<K, Set<V>>
     @Nonnull
     public synchronized Set<V> getValues (@Nonnull final K key)
       {
-        final Set<V> values = get(key);
+        final var values = get(key);
         return (values == null) ? Collections.emptySet() : Collections.unmodifiableSet(values);
       }
 
     @Nonnull
     private Set<V> internalGetValues (@Nonnull final K key)
       {
-        Set<V> values = get(key);
+        var values = get(key);
 
         if (values == null)
           {
