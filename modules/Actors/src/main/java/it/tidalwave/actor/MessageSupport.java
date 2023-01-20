@@ -176,7 +176,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     @Override @Nonnull
     public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> type)
       {
-        final var t = as.maybeAs(type);
+        final Optional<T> t = as.maybeAs(type);
 
         return t.isPresent()
                ? t

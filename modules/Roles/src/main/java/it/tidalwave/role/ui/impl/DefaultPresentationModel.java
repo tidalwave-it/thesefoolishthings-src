@@ -93,7 +93,7 @@ public class DefaultPresentationModel implements PresentationModel
             return Optional.of(roleType.cast(pcs));
           }
 
-        final var t = as.maybeAs(roleType);
+        final Optional<T> t = as.maybeAs(roleType);
 
         if (t.isPresent())
           {
@@ -128,7 +128,7 @@ public class DefaultPresentationModel implements PresentationModel
     @Override @Nonnull
     public <T> Collection<T> asMany (@Nonnull final Class<? extends T> roleType)
       {
-        final var result = as.asMany(roleType);
+        final Collection<T> result = as.asMany(roleType);
 
         // The problem here is that we want only to add local roles in owner; but calling owner.as() will also
         // find again the global roles that were discovered by AsSupport.
