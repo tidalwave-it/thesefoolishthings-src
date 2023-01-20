@@ -193,6 +193,7 @@ public class SimpleMessageBus implements MessageBus
     @Nonnull
     private <TOPIC> List<WeakReference<Listener<TOPIC>>> findListenersByTopic (@Nonnull final Class<TOPIC> topic)
       {
+        // FIXME: use putIfAbsent()
         List<WeakReference<Listener<TOPIC>>> listeners = (List)listenersMapByTopic.get(topic);
 
         if (listeners == null)

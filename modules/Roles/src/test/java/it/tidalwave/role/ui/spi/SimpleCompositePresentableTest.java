@@ -50,6 +50,7 @@ import org.testng.annotations.Test;
 import static java.util.Collections.emptyList;
 import static it.tidalwave.util.Parameters.r;
 import static it.tidalwave.role.SimpleComposite._SimpleComposite_;
+import static it.tidalwave.role.ui.PresentationModel._SimpleCompositeOfPresentationModel_;
 import static org.testng.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -200,10 +201,10 @@ public class SimpleCompositePresentableTest
 
         assertThat(role.getDatum(), is(sameInstance(datum)));
 
-        final List<? extends PresentationModel> childrenPm =
-                pm.maybeAs(_SimpleComposite_).map(c -> c.findChildren().results()).orElse(emptyList());
-
-        final List<Object> notPMs = new ArrayList<>(childrenPm);
+        final var childrenPm = pm.maybeAs(_SimpleCompositeOfPresentationModel_)
+                                 .map(c -> c.findChildren().results())
+                                 .orElse(emptyList());
+        final var notPMs = new ArrayList<>(childrenPm);
         notPMs.removeIf(object -> object instanceof PresentationModel);
 
         if (!notPMs.isEmpty())

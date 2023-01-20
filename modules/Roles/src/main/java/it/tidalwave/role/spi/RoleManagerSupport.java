@@ -203,14 +203,14 @@ public abstract class RoleManagerSupport implements RoleManager
         if (!alreadyScanned.contains(datumAndRole))
           {
             alreadyScanned.add(datumAndRole);
-            final Set<Class<?>> before = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
+            final var before = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
 
             for (final var superDatumAndRole : datumAndRole.getSuper())
               {
                 roleMapByDatumAndRole.addAll(datumAndRole, roleMapByDatumAndRole.getValues(superDatumAndRole));
               }
 
-            final Set<Class<?>> after = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
+            final var after = new HashSet<>(roleMapByDatumAndRole.getValues(datumAndRole));
             logChanges(datumAndRole, before, after);
           }
 

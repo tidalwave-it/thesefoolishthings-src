@@ -30,8 +30,10 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
+import it.tidalwave.util.As;
 import it.tidalwave.util.AsExtensions;
 import it.tidalwave.util.Id;
+import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.Findable;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.experimental.ExtensionMethod;
 import static it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.Findable._Findable_;
@@ -45,6 +47,8 @@ import static it.tidalwave.role.io.Persistable._Persistable_;
 @ExtensionMethod(AsExtensions.class)
 public class TransactionalProcessor
   {
+    private static final As.Type<Findable<Person>> _FindableOfPersons_ = As.type(Findable.class);
+
     @Transactional
     public void persistPeople (@Nonnull final Iterable<Person> persons)
       {
@@ -61,12 +65,12 @@ public class TransactionalProcessor
     @Transactional @Nonnull
     public List<Person> retrievePeople()
       {
-        return Person.prototype().as(_Findable_).findAll();
+        return Person.prototype().as(_FindableOfPersons_).findAll();
       }
 
     @Transactional @Nonnull
     public Optional<Person> retrievePerson (@Nonnull final Id id)
       {
-        return Person.prototype().as(_Findable_).findById(id);
+        return Person.prototype().as(_FindableOfPersons_).findById(id);
       }
   }
