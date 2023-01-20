@@ -52,7 +52,7 @@ public class MockSimpleAsDelegateProvider implements AsDelegateProvider
     static class MockSimpleAsDelegate implements AsDelegate
       {
         @Override @Nonnull
-        public <T> Collection<? extends T> as (@Nonnull final Class<? extends T> roleType)
+        public <T> Collection<T> as (@Nonnull final Class<? extends T> roleType)
           {
             return Collections.singleton(Mockito.mock(roleType));
           }

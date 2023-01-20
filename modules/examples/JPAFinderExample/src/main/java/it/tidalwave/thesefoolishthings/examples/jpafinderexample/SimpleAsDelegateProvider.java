@@ -57,7 +57,7 @@ public class SimpleAsDelegateProvider implements AsDelegateProvider
         return new AsDelegate()
           {
             @Nonnull @Override
-            public <T> Collection<? extends T> as (@Nonnull final Class<? extends T> roleType)
+            public <T> Collection<T> as (@Nonnull final Class<? extends T> roleType)
               {
                 return ((datum instanceof Person) && ROLES.contains(roleType))
                       ? List.of(roleType.cast(new PersonJpaPersistable((Person)datum)))

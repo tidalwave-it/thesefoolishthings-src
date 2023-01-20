@@ -69,13 +69,13 @@ public class AsExtensions
     @Nonnull
     public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
       {
-        return (Optional<T>)adapter(datum).maybeAs(type);
+        return adapter(datum).maybeAs(type);
       }
 
     @Nonnull
     public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
       {
-        return (Collection<T>)adapter(datum).asMany(type);
+        return adapter(datum).asMany(type);
       }
 
     @Nonnull

@@ -71,7 +71,7 @@ public class AsTest
         @Override @Nonnull
         public <T> Collection<T> asMany (@Nonnull final Class<? extends T> type)
           {
-            return (Collection<T>)delegate.as(type);
+            return delegate.as(type);
           }
       }
 
@@ -81,7 +81,7 @@ public class AsTest
         // given
         final var delegate = mock(AsDelegate.class);
         final var role = new Role();
-        when(delegate.as(Role.class)).thenReturn((List)List.of(role));
+        when(delegate.as(Role.class)).thenReturn(List.of(role));
         // when
         final var underTest = new UnderTest(delegate);
         // then

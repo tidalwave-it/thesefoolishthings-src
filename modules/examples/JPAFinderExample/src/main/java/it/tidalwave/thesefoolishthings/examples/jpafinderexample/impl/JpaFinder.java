@@ -143,7 +143,7 @@ public class JpaFinder<T, E> implements Finder<T>
             throw new RuntimeException("More than a single result");
           }
 
-        return (Optional<T>)results.stream().findFirst();
+        return results.stream().findFirst();
       }
 
     @Override @Nonnull
