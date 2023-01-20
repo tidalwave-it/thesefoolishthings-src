@@ -108,7 +108,7 @@ public class DefaultAs implements As
      ******************************************************************************************************************/
     public DefaultAs (@Nonnull final Object owner, @Nonnull final Collection<Object> roles)
       {
-        this(AsDelegateProvider.Locator.find()::createAsDelegate, owner, roles);
+        this(o -> AsDelegateProvider.Locator.find().createAsDelegate(o), owner, roles);
       }
 
     /*******************************************************************************************************************
