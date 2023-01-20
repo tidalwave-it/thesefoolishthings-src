@@ -44,5 +44,5 @@ public interface AsDelegate
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> Collection<? extends T> as (@Nonnull Class<T> roleType);
+    public <T> Collection<T> as (@Nonnull Class<? extends T> roleType);
   }

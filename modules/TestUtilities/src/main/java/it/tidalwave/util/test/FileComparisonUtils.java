@@ -314,7 +314,7 @@ public class FileComparisonUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    private static List<String> toStrings (@Nonnull final Iterable<AbstractDelta<String>> deltas)
+    private static List<String> toStrings (@Nonnull final Iterable<? extends AbstractDelta<String>> deltas)
       {
         final List<String> strings = new ArrayList<>();
 

@@ -96,7 +96,7 @@ public class SimpleCompositePresentableTest
           }
 
         @Override @Nonnull
-        public <T> Optional<T> maybeAs (@Nonnull final Class<T> roleType)
+        public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> roleType)
           {
             return roleType.equals(SimpleComposite.class) && (composite != null)
                     ? Optional.of(roleType.cast(composite))
@@ -104,7 +104,7 @@ public class SimpleCompositePresentableTest
           }
 
         @Override @Nonnull
-        public <T> Collection<T> asMany (@Nonnull final Class<T> roleType)
+        public <T> Collection<T> asMany (@Nonnull final Class<? extends T> roleType)
           {
             if (roleType.equals(SimpleComposite.class) && (composite != null))
               {

@@ -62,16 +62,16 @@ public class AsTest
         private final AsDelegate delegate;
 
         @Override @Nonnull
-        public <T> Optional<T> maybeAs (@Nonnull final Class<T> type)
+        public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> type)
           {
             final var roles = asMany(type);
             return roles.isEmpty() ? Optional.empty() : Optional.of(roles.iterator().next());
           }
 
         @Override @Nonnull
-        public <T> Collection<T> asMany (@Nonnull final Class<T> type)
+        public <T> Collection<T> asMany (@Nonnull final Class<? extends T> type)
           {
-            return (Collection<T>)delegate.as(type);
+            return delegate.as(type);
           }
       }
 
@@ -81,7 +81,7 @@ public class AsTest
         // given
         final var delegate = mock(AsDelegate.class);
         final var role = new Role();
-        when(delegate.as(Role.class)).thenReturn((List)List.of(role));
+        when(delegate.as(Role.class)).thenReturn(List.of(role));
         // when
         final var underTest = new UnderTest(delegate);
         // then
@@ -189,13 +189,13 @@ public class AsTest
             private final As delegate = As.forObject(this);
 
             @Override @Nonnull
-            public <T> Optional<T> maybeAs (@Nonnull Class<T> type)
+            public <T> Optional<T> maybeAs (@Nonnull Class<? extends T> type)
               {
                 return delegate.maybeAs(type);
               }
 
             @Override @Nonnull
-            public <T> Collection<T> asMany (@Nonnull Class<T> type)
+            public <T> Collection<T> asMany (@Nonnull Class<? extends T> type)
               {
                 return delegate.asMany(type);
               }

@@ -52,7 +52,7 @@ public class FinderSupportTest
           }
 
         @Override @Nonnull
-        protected List<? extends String> computeResults()
+        protected List<String> computeResults()
           {
             final List<String> result = new ArrayList<>();
 

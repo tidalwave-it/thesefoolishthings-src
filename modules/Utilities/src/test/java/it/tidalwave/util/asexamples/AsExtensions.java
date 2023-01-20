@@ -39,13 +39,13 @@ import it.tidalwave.util.AsException;
 public class AsExtensions
   {
     @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final Class<T> type)
+    public static <T> T as (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
       {
         return maybeAs(datum, type).orElseThrow(() -> new AsException(type));
       }
 
     @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final Class<T> type)
+    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
       {
         try
           {
@@ -62,7 +62,7 @@ public class AsExtensions
 
     @Nonnull
     public static <T> Collection<T> asMany (@Nonnull final Object datum,
-                                            @Nonnull final Class<T> roleClass)
+                                            @Nonnull final Class<? extends T> roleClass)
       {
         throw new UnsupportedOperationException();
       }

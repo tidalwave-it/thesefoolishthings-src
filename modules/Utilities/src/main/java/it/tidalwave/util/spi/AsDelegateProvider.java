@@ -144,7 +144,7 @@ public interface AsDelegateProvider
             return new AsDelegate()
               {
                 @Override @Nonnull
-                public <T> Collection<T> as (@Nonnull final Class<T> type)
+                public <T> Collection<T> as (@Nonnull final Class<? extends T> type)
                   {
                     return new ArrayList<>(); // must be mutable
                   }

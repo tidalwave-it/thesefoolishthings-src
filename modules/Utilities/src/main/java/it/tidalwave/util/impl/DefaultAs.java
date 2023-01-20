@@ -139,7 +139,7 @@ public class DefaultAs implements As
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> Optional<T> maybeAs (@Nonnull final Class<T> type)
+    public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> type)
       {
         for (final var role : roles)
           {
@@ -161,7 +161,7 @@ public class DefaultAs implements As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> Collection<T> asMany (@Nonnull final Class<T> type)
+    public <T> Collection<T> asMany (@Nonnull final Class<? extends T> type)
       {
         final Collection<T> results = new ArrayList<>();
 

@@ -177,7 +177,7 @@ public final class FunctionalCheckedExceptionWrappers
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T, R> Function<T, R> _f (@Nonnull final FunctionWithException<T, R> function)
+    public static <T, R> Function<T, R> _f (@Nonnull final FunctionWithException<? super T, ? extends R> function)
       {
         return t ->
           {
@@ -202,7 +202,7 @@ public final class FunctionalCheckedExceptionWrappers
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Consumer<T> _c (@Nonnull final ConsumerWithException<T> consumer)
+    public static <T> Consumer<T> _c (@Nonnull final ConsumerWithException<? super T> consumer)
       {
         return t ->
           {
@@ -227,7 +227,7 @@ public final class FunctionalCheckedExceptionWrappers
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Supplier<T> _s (@Nonnull final SupplierWithException<T> supplier)
+    public static <T> Supplier<T> _s (@Nonnull final SupplierWithException<? extends T> supplier)
       {
         return () ->
           {
@@ -252,7 +252,7 @@ public final class FunctionalCheckedExceptionWrappers
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Predicate<T> _p (@Nonnull final PredicateWithException<T> predicate)
+    public static <T> Predicate<T> _p (@Nonnull final PredicateWithException<? super T> predicate)
       {
         return t ->
           {

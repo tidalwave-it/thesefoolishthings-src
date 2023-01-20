@@ -49,31 +49,31 @@ public class AsExtensions
       }
 
     @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final Class<T> type)
+    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
       {
         return adapter(datum).maybeAs(type);
       }
 
     @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final Class<T> type)
+    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
       {
         return adapter(datum).asMany(type);
       }
 
     @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final As.Type<T> type)
+    public static <T> T as (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
       {
         return adapter(datum).as(type);
       }
 
     @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final As.Type<T> type)
+    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
       {
         return adapter(datum).maybeAs(type);
       }
 
     @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final As.Type<T> type)
+    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
       {
         return adapter(datum).asMany(type);
       }

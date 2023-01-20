@@ -62,9 +62,9 @@ public class DefaultAsTest
             return new AsDelegate()
               {
                 @Override @Nonnull
-                public <T> Collection<? extends T> as (@Nonnull final Class<T> roleType)
+                public <T> Collection<T> as (@Nonnull final Class<? extends T> roleType)
                   {
-                    final List<T> result = new ArrayList<>();
+                    final var result = new ArrayList<T>();
 
                     for (final var role : roles)
                       {

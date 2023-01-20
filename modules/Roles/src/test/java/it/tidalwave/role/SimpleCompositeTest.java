@@ -50,8 +50,8 @@ public class SimpleCompositeTest
         // when
         final var finder1 = underTest.findChildren();
         final var finder2 = finder1.from(3).max(1);
-        final var results1 = (List<String>)finder1.results(); // FIXME: cast
-        final var results2 = (List<String>)finder2.results(); // FIXME: cast
+        final var results1 = finder1.results();
+        final var results2 = finder2.results();
         // then
         assertThat(results1, is(data));
         assertThat(results2, is(List.of("4")));

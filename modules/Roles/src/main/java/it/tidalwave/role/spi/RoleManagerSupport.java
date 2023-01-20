@@ -77,8 +77,9 @@ public abstract class RoleManagerSupport implements RoleManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public synchronized <ROLE_TYPE> List<? extends ROLE_TYPE> findRoles (@Nonnull final Object datum,
-                                                                         @Nonnull final Class<ROLE_TYPE> roleType)
+    public synchronized <ROLE_TYPE> List<ROLE_TYPE> findRoles (
+            @Nonnull final Object datum,
+            @Nonnull final Class<? extends ROLE_TYPE> roleType)
       {
         log.trace("findRoles({}, {})", shortId(datum), shortName(roleType));
         final Class<?> datumType = findTypeOf(datum);

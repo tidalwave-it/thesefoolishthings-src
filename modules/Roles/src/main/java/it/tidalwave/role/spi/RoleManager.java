@@ -111,5 +111,5 @@ public interface RoleManager
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> List<? extends T> findRoles (@Nonnull Object owner, @Nonnull Class<T> roleType);
+    public <T> List<T> findRoles (@Nonnull Object owner, @Nonnull Class<? extends T> roleType);
   }
