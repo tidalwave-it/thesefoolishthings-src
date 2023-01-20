@@ -42,7 +42,7 @@ import it.tidalwave.util.NotFoundException;
  *
  **********************************************************************************************************************/
 @FunctionalInterface
-public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYPE>>
+public interface Composite<T, F extends Finder<? extends T>>
   {
     public static final Class<Composite> _Composite_ = Composite.class;
 
@@ -68,7 +68,7 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
      *
      ******************************************************************************************************************/
     @Nonnull
-    public SPECIALIZED_FINDER findChildren();
+    public F findChildren();
 
     /*******************************************************************************************************************
      *

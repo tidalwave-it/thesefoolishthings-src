@@ -51,7 +51,7 @@ import lombok.ToString;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-public interface Finder<TYPE> extends Cloneable, Serializable
+public interface Finder<T> extends Cloneable, Serializable
   {
     /*******************************************************************************************************************
      *
@@ -80,7 +80,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
        * {@link it.tidalwave.util.spi.HierarchicFinderSupport} supports {@code FilterSortCriterion} objects out of the box.
      *
      ******************************************************************************************************************/
-    public static interface InMemorySortCriterion<TYPE> extends SortCriterion
+    public static interface InMemorySortCriterion<U> extends SortCriterion
       {
         /***************************************************************************************************************
          *
@@ -89,7 +89,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
          * @param  results        the list of objects to be sorted in place
          *
          **************************************************************************************************************/
-        public default void sort (@Nonnull final List<? extends TYPE> results)
+        public default void sort (@Nonnull final List<? extends U> results)
           {
             sort(results, SortDirection.ASCENDING);
           }
@@ -103,20 +103,20 @@ public interface Finder<TYPE> extends Cloneable, Serializable
          *
          **************************************************************************************************************/
         // START SNIPPET: sort
-        public void sort (@Nonnull List<? extends TYPE> results, @Nonnull SortDirection sortDirection);
+        public void sort (@Nonnull List<? extends U> results, @Nonnull SortDirection sortDirection);
         // END SNIPPET: sort
 
         /***************************************************************************************************************
          *
          * Creates a new in-memory {@code SortCriterion} based on a {@link Comparator}.
          *
-         * @param <T>           the type of the objects to compare
+         * @param <U>           the type of the objects to compare
          * @param comparator    the {@code Comparator}
          * @return              the new {@code SortCriterion}
          *
          **************************************************************************************************************/
         @Nonnull
-        public static <T> InMemorySortCriterion<T> of (@Nonnull final Comparator<? super T> comparator)
+        public static <U> InMemorySortCriterion<U> of (@Nonnull final Comparator<? super U> comparator)
           {
             return of(comparator, comparator.getClass().getSimpleName());
           }
@@ -125,14 +125,14 @@ public interface Finder<TYPE> extends Cloneable, Serializable
          *
          * Creates a new in-memory {@code SortCriterion} based on a {@link Comparator}.
          *
-         * @param <T>           the type of the objects to compare
+         * @param <U>           the type of the objects to compare
          * @param comparator    the {@code Comparator}
          * @param name          a name
          * @return              the new {@code SortCriterion}
          *
          **************************************************************************************************************/
         @Nonnull
-        public static <T> InMemorySortCriterion<T> of (@Nonnull final Comparator<? super T> comparator,
+        public static <U> InMemorySortCriterion<U> of (@Nonnull final Comparator<? super U> comparator,
                                                        @Nonnull final String name)
           {
             return new DefaultInMemorySortCriterion<>(comparator, name);
@@ -142,20 +142,20 @@ public interface Finder<TYPE> extends Cloneable, Serializable
          *
          **************************************************************************************************************/
         @AllArgsConstructor @ToString @EqualsAndHashCode
-        static class DefaultInMemorySortCriterion<T> implements Finder.InMemorySortCriterion<T>, Serializable
+        static class DefaultInMemorySortCriterion<U> implements Finder.InMemorySortCriterion<U>, Serializable
           {
             private static final long serialVersionUID = 76093596048395982L;
 
             @Nonnull
-            private final Comparator<? super T> comparator;
+            private final Comparator<? super U> comparator;
 
             @Nonnull
             private final String name;
 
             @Override
-            public void sort (@Nonnull final List<? extends T> results, @Nonnull final SortDirection sortDirection)
+            public void sort (@Nonnull final List<? extends U> results, @Nonnull final SortDirection sortDirection)
               {
-                results.sort((Comparator<T>)(o1, o2) -> comparator.compare(o1, o2) * sortDirection.intValue());
+                results.sort((Comparator<U>)(o1, o2) -> comparator.compare(o1, o2) * sortDirection.intValue());
               }
           }
       }
@@ -191,7 +191,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      ******************************************************************************************************************/
     // START SNIPPET: from
     @Nonnull
-    public Finder<TYPE> from (@Nonnegative int firstResult);
+      public Finder<T> from (@Nonnegative int firstResult);
     // END SNIPPET: from
 
     /*******************************************************************************************************************
@@ -204,7 +204,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      ******************************************************************************************************************/
     // START SNIPPET: max
     @Nonnull
-    public Finder<TYPE> max (@Nonnegative int maxResults);
+    public Finder<T> max (@Nonnegative int maxResults);
     // END SNIPPET: max
 
     /*******************************************************************************************************************
@@ -217,7 +217,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default Finder<TYPE> withContext (@Nonnull final Object context)
+    public default Finder<T> withContext (@Nonnull final Object context)
       {
         throw new UnsupportedOperationException("Not implemented yet.");
       }
@@ -226,13 +226,13 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      * Tells the {@code Finder} that the specified type of results is expected.
      *
-     * @param <ANOTHER_TYPE>  the static type
+     * @param <U>  the static type
      * @param   type          the dynamic type
      * @return                the {@code Finder}
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default <ANOTHER_TYPE> Finder<ANOTHER_TYPE> ofType (@Nonnull final Class<ANOTHER_TYPE> type)
+    public default <U> Finder<U> ofType (@Nonnull final Class<U> type)
       {
         throw new UnsupportedOperationException("Not implemented yet.");
       }
@@ -246,7 +246,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default Finder<TYPE> sort (@Nonnull final SortCriterion criterion)
+    public default Finder<T> sort (@Nonnull final SortCriterion criterion)
       {
         return sort(criterion, SortDirection.ASCENDING);
       }
@@ -262,7 +262,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Finder<TYPE> sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
+    public Finder<T> sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
 
     /*******************************************************************************************************************
      *
@@ -273,7 +273,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      ******************************************************************************************************************/
     // START SNIPPET: results
     @Nonnull
-    public List<TYPE> results();
+    public List<T> results();
     // END SNIPPET: results
 
     /*******************************************************************************************************************
@@ -301,10 +301,10 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      ******************************************************************************************************************/
     // START SNIPPET: optionalResult
     @Nonnull
-    public default Optional<TYPE> optionalResult()
+    public default Optional<T> optionalResult()
     // END SNIPPET: optionalResult
       {
-        final var results = (List<TYPE>)results();
+        final var results = (List<T>)results();
 
         if (results.size() > 1)
           {
@@ -324,7 +324,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      ******************************************************************************************************************/
     // START SNIPPET: optionalFirstResult
     @Nonnull
-    public default Optional<TYPE> optionalFirstResult()
+    public default Optional<T> optionalFirstResult()
     // END SNIPPET: optionalFirstResult
       {
         return stream().findFirst();
@@ -339,7 +339,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default Stream<TYPE> stream()
+    public default Stream<T> stream()
       {
         return results().stream();
       }
@@ -353,7 +353,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default Iterator<TYPE> iterator()
+    public default Iterator<T> iterator()
       {
         return results().iterator();
       }
@@ -370,7 +370,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull @Deprecated
-    public default TYPE result()
+    public default T result()
             throws NotFoundException, RuntimeException
       {
         return optionalResult().orElseThrow(NotFoundException::new);
@@ -386,7 +386,7 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull @Deprecated
-    public default TYPE firstResult()
+    public default T firstResult()
             throws NotFoundException
       {
         return optionalFirstResult().orElseThrow(NotFoundException::new);
@@ -396,13 +396,13 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      *
      * Returns an empty {@code Finder}.
      *
-     * @param   <T>     the type of the {@code Finder}
+     * @param   <U>     the type of the {@code Finder}
      * @return          the empty {@code Finder}
      * @since 3.2-ALPHA-1 (previously in HierarchicFinderSupport.emptyFinder())
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Finder<T> empty()
+    public static <U> Finder<U> empty()
       {
         return ofCloned(Collections.emptyList());
       }
@@ -412,14 +412,14 @@ public interface Finder<TYPE> extends Cloneable, Serializable
      * Returns a wrapped {@code Finder} on a given collection of elements. The collection is cloned and will be
      * immutable
      *
-     * @param   <T>     the type of the {@code Finder}
+     * @param   <U>     the type of the {@code Finder}
      * @param   items   the objects to wrap
      * @return          the wrapped {@code Finder}
      * @since 3.2-ALPHA-1
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Finder<T> ofCloned (@Nonnull final Collection<T> items)
+    public static <U> Finder<U> ofCloned (@Nonnull final Collection<U> items)
       {
         return new ArrayListFinder<>(items);
       }

@@ -102,9 +102,9 @@ public class SimpleMessageBus implements MessageBus
      *
      ******************************************************************************************************************/
     @Override
-    public <TOPIC> void publish (@Nonnull final TOPIC message)
+    public <T> void publish (@Nonnull final T message)
       {
-        publish((Class<TOPIC>)message.getClass(), message);
+        publish((Class<T>)message.getClass(), message);
       }
 
     /*******************************************************************************************************************
@@ -113,7 +113,7 @@ public class SimpleMessageBus implements MessageBus
      *
      ******************************************************************************************************************/
     @Override
-    public <TOPIC> void publish (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)
+    public <T> void publish (@Nonnull final Class<T> topic, @Nonnull final T message)
       {
         log.trace("publish({}, {})", topic, message);
         messageDelivery.deliverMessage(topic, message);
@@ -125,7 +125,7 @@ public class SimpleMessageBus implements MessageBus
      *
      ******************************************************************************************************************/
     @Override
-    public <TOPIC> void subscribe (@Nonnull final Class<TOPIC> topic, @Nonnull final Listener<TOPIC> listener)
+    public <T> void subscribe (@Nonnull final Class<T> topic, @Nonnull final Listener<T> listener)
       {
         log.debug("subscribe({}, {})", topic, listener);
         findListenersByTopic(topic).add(new WeakReference<>(listener));
@@ -151,12 +151,12 @@ public class SimpleMessageBus implements MessageBus
      *
      * Dispatches a message.
      *
-     * @param   <TOPIC>   the static type of the topic
+     * @param   <T>   the static type of the topic
      * @param   topic     the dynamic type of the topic
      * @param   message   the message
      *
      ******************************************************************************************************************/
-    protected <TOPIC> void dispatchMessage (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)
+    protected <T> void dispatchMessage (@Nonnull final Class<T> topic, @Nonnull final T message)
       {
         final var clone = new HashSet<>(listenersMapByTopic.entrySet()); // FIXME: marked as dubious by SpotBugs
 
@@ -164,7 +164,7 @@ public class SimpleMessageBus implements MessageBus
           {
             if (e.getKey().isAssignableFrom(topic))
               {
-                final List<WeakReference<MessageBus.Listener<TOPIC>>> listeners = (List)e.getValue();
+                final List<WeakReference<MessageBus.Listener<T>>> listeners = (List)e.getValue();
 
                 for (final var listenerReference : listeners)
                   {
@@ -191,10 +191,10 @@ public class SimpleMessageBus implements MessageBus
      *
      ******************************************************************************************************************/
     @Nonnull
-    private <TOPIC> List<WeakReference<Listener<TOPIC>>> findListenersByTopic (@Nonnull final Class<TOPIC> topic)
+    private <T> List<WeakReference<Listener<T>>> findListenersByTopic (@Nonnull final Class<T> topic)
       {
         // FIXME: use putIfAbsent()
-        List<WeakReference<Listener<TOPIC>>> listeners = (List)listenersMapByTopic.get(topic);
+        List<WeakReference<Listener<T>>> listeners = (List)listenersMapByTopic.get(topic);
 
         if (listeners == null)
           {

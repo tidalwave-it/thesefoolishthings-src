@@ -59,7 +59,7 @@ public class SimpleAsyncMessageDelivery implements MessageDelivery
      *
      ******************************************************************************************************************/
     @Override
-    public <TOPIC> void deliverMessage (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)
+    public <T> void deliverMessage (@Nonnull final Class<T> topic, @Nonnull final T message)
       {
         messageBusSupport.getExecutor().execute(() -> messageBusSupport.dispatchMessage(topic, message));
       }

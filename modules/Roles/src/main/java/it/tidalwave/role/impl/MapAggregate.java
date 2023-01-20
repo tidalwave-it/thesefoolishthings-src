@@ -43,15 +43,15 @@ import lombok.ToString;
  * This is no more a public class; use {@link Aggregate#of(String, Object)} instead.
  * @stereotype Role
  *
- * @param <TYPE>    the type of the aggregate
+ * @param <T>    the type of the aggregate
  * 
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
 @Immutable @ToString
-public class MapAggregate<TYPE> implements Aggregate<TYPE>
+public class MapAggregate<T> implements Aggregate<T>
   {
-    private final Map<String, TYPE> mapByName;
+    private final Map<String, T> mapByName;
 
     /*******************************************************************************************************************
      *
@@ -66,7 +66,7 @@ public class MapAggregate<TYPE> implements Aggregate<TYPE>
      *
      *
      ******************************************************************************************************************/
-    public MapAggregate (@Nonnull final Map<String, TYPE> mapByName)
+    public MapAggregate (@Nonnull final Map<String, T> mapByName)
       {
         this.mapByName = Map.copyOf(mapByName);
       }
@@ -77,7 +77,7 @@ public class MapAggregate<TYPE> implements Aggregate<TYPE>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Optional<TYPE> getByName (@Nonnull final String name)
+    public Optional<T> getByName (@Nonnull final String name)
       {
         return Optional.ofNullable(mapByName.get(name));
       }
@@ -99,9 +99,9 @@ public class MapAggregate<TYPE> implements Aggregate<TYPE>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Aggregate<TYPE> with (@Nonnull final String name, @Nonnull final TYPE object)
+    public Aggregate<T> with (@Nonnull final String name, @Nonnull final T object)
       {
-        final Map<String, TYPE> clone = new HashMap<>(mapByName);
+        final Map<String, T> clone = new HashMap<>(mapByName);
         clone.put(name, object);
         return new MapAggregate<>(clone);
       }

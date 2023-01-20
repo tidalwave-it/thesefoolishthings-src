@@ -49,27 +49,27 @@ import it.tidalwave.util.Finder;
  *
  **********************************************************************************************************************/
 // START SNIPPET: declaration
-public interface ExtendedFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> extends Finder<TYPE>
+public interface ExtendedFinderSupport<T, F extends Finder<T>> extends Finder<T>
   {
     /** {@inheritDoc} */
     @Override @Nonnull
-    public EXTENDED_FINDER from (@Nonnegative int firstResult);
+    public F from (@Nonnegative int firstResult);
 
     /** {@inheritDoc} */
     @Override @Nonnull
-    public EXTENDED_FINDER max (@Nonnegative int maxResults);
+    public F max (@Nonnegative int maxResults);
 
     /** {@inheritDoc} */
     @Override @Nonnull
-    public EXTENDED_FINDER sort (@Nonnull SortCriterion criterion);
+    public F sort (@Nonnull SortCriterion criterion);
 
     /** {@inheritDoc} */
     @Override @Nonnull
-    public EXTENDED_FINDER sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
+    public F sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
 
     /** {@inheritDoc} */
     @Override @Nonnull
-    public EXTENDED_FINDER withContext (@Nonnull Object context);
+    public F withContext (@Nonnull Object context);
   }
 // END SNIPPET: declaration
 

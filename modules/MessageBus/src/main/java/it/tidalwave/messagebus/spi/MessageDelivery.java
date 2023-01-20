@@ -51,10 +51,10 @@ public interface MessageDelivery
      *
      * Delivers a message.
      *
-     * @param <TOPIC>   the static type of the topic
+     * @param <T>   the static type of the topic
      * @param topic     the dynamic type of the topic
      * @param message   the message
      *
      ******************************************************************************************************************/
-    public <TOPIC> void deliverMessage (@Nonnull Class<TOPIC> topic, @Nonnull TOPIC message);
+    public <T> void deliverMessage (@Nonnull Class<T> topic, @Nonnull T message);
   }
