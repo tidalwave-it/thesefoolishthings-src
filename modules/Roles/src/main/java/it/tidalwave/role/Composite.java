@@ -27,6 +27,7 @@
 package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
+import java.util.Optional;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.NotFoundException;
 
@@ -84,7 +85,9 @@ public interface Composite<T, F extends Finder<? extends T>>
          * @param  object  the visited object
          *
          **************************************************************************************************************/
-        public void preVisit (@Nonnull T object);
+        default public void preVisit (@Nonnull T object)
+          {
+          }
 
         /***************************************************************************************************************
          *
@@ -94,7 +97,9 @@ public interface Composite<T, F extends Finder<? extends T>>
          * @param  object  the visited object
          *
          **************************************************************************************************************/
-        public void visit (@Nonnull T object);
+        default public void visit (@Nonnull T object)
+          {
+          }
 
         /***************************************************************************************************************
          *
@@ -103,7 +108,9 @@ public interface Composite<T, F extends Finder<? extends T>>
          * @param  object  the visited object
          *
          **************************************************************************************************************/
-        public void postVisit (@Nonnull T object);
+        default public void postVisit (@Nonnull T object)
+          {
+          }
 
         /***************************************************************************************************************
          *
@@ -114,41 +121,9 @@ public interface Composite<T, F extends Finder<? extends T>>
          *
          **************************************************************************************************************/
         @Nonnull
-        public R getValue()
-          throws NotFoundException;
-      }
-
-    /*******************************************************************************************************************
-     *
-     * A support class for {@link Visitor} which provides default empty methods.
-     *
-     ******************************************************************************************************************/
-    public static class VisitorSupport<T, R> implements Visitor<T, R>
-      {
-        /** {@inheritDoc} */
-        @Override
-        public void preVisit (@Nonnull final T object)
+        default public Optional<R> getValue()
           {
-          }
-
-        /** {@inheritDoc} */
-        @Override
-        public void visit (@Nonnull final T object)
-          {
-          }
-
-        /** {@inheritDoc} */
-        @Override
-        public void postVisit (@Nonnull final T object)
-          {
-          }
-
-        /** {@inheritDoc} */
-        @Override @Nonnull
-        public R getValue()
-          throws NotFoundException
-          {
-            throw new NotFoundException("Must be implemented by subclasses");
+            return Optional.empty();
           }
       }
   }
