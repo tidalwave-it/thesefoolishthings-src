@@ -140,7 +140,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
     protected HierarchicFinderSupport (@Nonnull final HierarchicFinderSupport<TYPE, EXTENDED_FINDER> other, @Nonnull final Object holder)
       {
         log.trace("HierarchicFinderSupport({}, {})", other, holder);
-        final HierarchicFinderSupport<TYPE, EXTENDED_FINDER> source = getSource(HierarchicFinderSupport.class, other, holder);
+        final var source = getSource(HierarchicFinderSupport.class, other, holder);
         this.name = source.name;
         this.firstResult = source.firstResult;
         this.maxResults = source.maxResults;

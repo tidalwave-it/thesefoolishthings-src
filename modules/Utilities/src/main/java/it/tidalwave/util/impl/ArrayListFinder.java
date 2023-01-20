@@ -60,7 +60,7 @@ public class ArrayListFinder<T> extends SimpleFinderSupport<T>
     public ArrayListFinder (@Nonnull final ArrayListFinder<T> other, @Nonnull final Object override)
       {
         super(other, override);
-        final ArrayListFinder<T> source = getSource(ArrayListFinder.class, other, override);
+        final var source = getSource(ArrayListFinder.class, other, override);
         this.items = source.items;
       }
 

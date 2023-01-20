@@ -91,7 +91,7 @@ public class ContextSamplerTest
       {
         // given
         when(contextManager.getContexts()).thenReturn(contexts);
-        final Task<String, RuntimeException> task = mock(Task.class);
+        final var task = mock(Task.class);
 //        when(contextManager.runWithContexts(any(List.class), eq(task))).thenReturn("result");
         underTest = new ContextSampler(new Object());
         reset(contextManager);

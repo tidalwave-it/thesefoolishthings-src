@@ -40,7 +40,7 @@ import static org.hamcrest.MatcherAssert.*;
  **********************************************************************************************************************/
 public class SimpleCompositeTest
   {
-    private final List<String> data = Arrays.asList("1", "2", "3", "4", "5");
+    private final List<String> data = List.of("1", "2", "3", "4", "5");
 
     @Test
     public void must_produce_valid_Finders()
@@ -48,7 +48,7 @@ public class SimpleCompositeTest
         // given
         final var underTest = SimpleComposite.ofCloned(data);
         // when
-        final var finder1 = (Finder<String>)underTest.findChildren(); // FIXME: cast
+        final var finder1 = underTest.findChildren();
         final var finder2 = finder1.from(3).max(1);
         final var results1 = (List<String>)finder1.results(); // FIXME: cast
         final var results2 = (List<String>)finder2.results(); // FIXME: cast

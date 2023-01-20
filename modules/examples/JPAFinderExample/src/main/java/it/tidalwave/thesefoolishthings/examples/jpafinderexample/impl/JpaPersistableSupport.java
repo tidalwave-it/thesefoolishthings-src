@@ -70,6 +70,6 @@ public abstract class JpaPersistableSupport<T, E> implements Persistable, Remova
     @Override @Nonnull
     public Finder<T> find()
       {
-        return new JpaFinder(entityClass, fromEntity, TxManager.getInstance());
+        return new JpaFinder<>(entityClass, fromEntity, TxManager.getInstance());
       }
   }

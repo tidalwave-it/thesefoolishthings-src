@@ -113,7 +113,7 @@ public class AsTest
     public void as_with_ref_must_properly_work()
       {
         // given
-        final RoleWithGeneric<String> role = mock(RoleWithGeneric.class);
+        final var role = mock(RoleWithGeneric.class);
         final var underTest = mock(As.class);
         when(underTest.as(_roleOfStrings_)).thenReturn(role);
         // when
@@ -126,7 +126,7 @@ public class AsTest
     public void maybeAs_with_ref_must_properly_work()
       {
         // given
-        final RoleWithGeneric<String> role = mock(RoleWithGeneric.class);
+        final var role = mock(RoleWithGeneric.class);
         final var underTest = mock(As.class);
         when(underTest.maybeAs(_roleOfStrings_)).thenReturn(Optional.of(role));
         // when
@@ -139,7 +139,7 @@ public class AsTest
     public void asMany_with_ref_must_properly_work()
       {
         // given
-        final RoleWithGeneric<String> role = mock(RoleWithGeneric.class);
+        final var role = mock(RoleWithGeneric.class);
         final var underTest = mock(As.class);
         when(underTest.asMany(_roleOfStrings_)).thenReturn(List.of(role));
         // when
@@ -155,7 +155,7 @@ public class AsTest
       }
     // END SNIPPET: dataretriever
 
-    @SuppressWarnings("LocalCanBeFinal")
+    @SuppressWarnings({"LocalCanBeFinal", "unchecked"})
     static class AsTypeCodeSample
       {
         // START SNIPPET: as_Type

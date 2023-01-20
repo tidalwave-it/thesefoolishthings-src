@@ -77,7 +77,7 @@ public final class MockAsFactory
                                                @Nonnull final Collection<Object> roles)
       {
         final var mock = mock(clazz);
-        final As as = new DefaultAs(AsDelegateProvider.empty()::createAsDelegate, mock, roles);
+        final var as = new DefaultAs(AsDelegateProvider.empty()::createAsDelegate, mock, roles);
         when(mock.as(any(Class.class))).thenCallRealMethod();
         when(mock.maybeAs(any(Class.class))).thenAnswer(i -> as.maybeAs((Class<?>)i.getArguments()[0]));
         when(mock.asMany(any(Class.class))).thenAnswer(i -> as.asMany((Class<?>)i.getArguments()[0]));
