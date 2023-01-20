@@ -42,7 +42,7 @@ public class Main
     public static void main (@Nonnull final String ... args)
             throws InterruptedException, InvocationTargetException
       {
-        final String beans = "it/tidalwave/thesefoolishthings/examples/dci/swing/Beans.xml";
+        final var beans = "it/tidalwave/thesefoolishthings/examples/dci/swing/Beans.xml";
         final BeanFactory context = new ClassPathXmlApplicationContext(RoleSpringConfiguration.BEANS, beans);
         context.getBean(SwingDciExample.class).run();
       }

@@ -29,6 +29,7 @@ package it.tidalwave.util;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import lombok.AccessLevel;
@@ -50,6 +51,7 @@ public final class CollectionUtils
      *
      * Appends a list to an object. The resulting list is mutable.
      *
+     * @param     <T>       the type of list items
      * @param     list      the list
      * @param     object    the list to append
      * @return              the list with the appended object
@@ -69,6 +71,7 @@ public final class CollectionUtils
      *
      * Appends a list to another. The resulting list is mutable.
      *
+     * @param     <T>       the type of list items
      * @param     list1     the former list
      * @param     list2     the latter list
      * @return              the list with the appended object
@@ -77,7 +80,7 @@ public final class CollectionUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> List<T> concat (@Nonnull final List<? extends T> list1, @Nonnull List<? extends T> list2)
+    public static <T> List<T> concat (@Nonnull final List<? extends T> list1, @Nonnull final List<? extends T> list2)
       {
         final List<T> result = new ArrayList<>(list1);
         result.addAll(list2);
@@ -88,6 +91,7 @@ public final class CollectionUtils
      *
      * Reverses a list. The resulting list is mutable.
      *
+     * @param     <T>       the type of list items
      * @param     list      the list
      * @return              the reversed list
      *
@@ -104,8 +108,50 @@ public final class CollectionUtils
 
     /*******************************************************************************************************************
      *
+     * Sorts a list. The resulting list is mutable.
+     *
+     * @param     <T>       the type of list items
+     * @param     list      the list
+     * @return              the sorted list
+     * @since     3.2-ALPHA-13
+     *
+     * @it.tidalwave.javadoc.stable
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T extends Comparable<? super T>> List<T> sorted (@Nonnull final List<? extends T> list)
+      {
+        final var result = new ArrayList<T>(list);
+        Collections.sort(result);
+        return result;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Sorts a list. The resulting list is mutable.
+     *
+     * @param     <T>       the type of list items
+     * @param     list      the list
+     * @return              the sorted list
+     * @since     3.2-ALPHA-13
+     *
+     * @it.tidalwave.javadoc.stable
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> List<T> sorted (@Nonnull final List<? extends T> list,
+                                      @Nonnull final Comparator<? super T> comparator)
+      {
+        final var result = new ArrayList<T>(list);
+        result.sort(comparator);
+        return result;
+      }
+
+    /*******************************************************************************************************************
+     *
      * Returns the (optional) first element of a list.
      *
+     * @param     <T>       the type of list items
      * @param     list      the list
      * @return              the first element
      *
@@ -122,6 +168,7 @@ public final class CollectionUtils
      *
      * Returns the first element of a list.
      *
+     * @param     <T>       the type of list items
      * @param     list      the list (cannot be empty)
      * @return              the first element
      * @throws    IllegalArgumentException  if the list is empty
@@ -145,6 +192,7 @@ public final class CollectionUtils
      * Returns the tail element of a list, that is a list without the first element. The tail of an empty list is an
      * empty list. The resulting list is mutable.
      *
+     * @param     <T>       the type of list items
      * @param     list      the list
      * @return              the tail of the list
      *

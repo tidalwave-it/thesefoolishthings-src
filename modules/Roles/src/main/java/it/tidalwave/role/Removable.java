@@ -55,6 +55,7 @@ public interface Removable
      * @throws  Exception   if the operation fails
      *
      ******************************************************************************************************************/
+    @SuppressWarnings("RedundantThrows")
     public void remove()
       throws Exception;
   }

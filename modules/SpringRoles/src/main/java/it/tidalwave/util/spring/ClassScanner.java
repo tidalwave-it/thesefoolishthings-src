@@ -31,7 +31,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
@@ -65,9 +64,9 @@ public class ClassScanner
       {
         final List<Class<?>> classes = new ArrayList<>();
 
-        for (final String basePackage : basePackages.split(":"))
+        for (final var basePackage : basePackages.split(":"))
           {
-            for (final BeanDefinition candidate : scanner.findCandidateComponents(basePackage))
+            for (final var candidate : scanner.findCandidateComponents(basePackage))
               {
                 classes.add(ClassUtils.resolveClassName(candidate.getBeanClassName(),
                             ClassUtils.getDefaultClassLoader()));

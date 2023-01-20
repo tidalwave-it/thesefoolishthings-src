@@ -30,7 +30,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import it.tidalwave.role.ContextManager;
 import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.impl.JpaPersistenceContext;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
@@ -70,10 +69,10 @@ public class DciPersistenceJpaExample
         log.info("******** INSERTING PEOPLE...\n");
         transactionalProcessor.persistPeople(people);
 
-        final List<Person> qPeople = transactionalProcessor.retrievePeople();
+        final var qPeople = transactionalProcessor.retrievePeople();
         log.info("******** RETRIEVED PEOPLE {}\n", qPeople);
 
-        final Optional<Person> person = transactionalProcessor.retrievePerson(qPeople.get(1).getId());
+        final var person = transactionalProcessor.retrievePerson(qPeople.get(1).getId());
         log.info("******** RETRIEVED PERSON {}\n", person.map(Person::toString).orElse("<not found>"));
       }
   }

@@ -64,7 +64,7 @@ public class HtmlRenderableListCellRenderer extends DefaultListCellRenderer
       {
         try
           {
-            final StringBuilder builder = new StringBuilder("<html>");
+            final var builder = new StringBuilder("<html>");
             value.as(_HtmlRenderable_).renderTo(builder);
             return builder.append("</html>").toString();
           }

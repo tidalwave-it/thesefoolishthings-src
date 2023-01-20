@@ -141,7 +141,7 @@ public class SimpleMessageBus implements MessageBus
       {
         log.debug("unsubscribe({})", listener);
 
-        for (final List<WeakReference<Listener<?>>> list : listenersMapByTopic.values())
+        for (final var list : listenersMapByTopic.values())
           {
             list.removeIf(ref -> (ref.get() == null) || (ref.get() == listener));
           }
@@ -158,18 +158,17 @@ public class SimpleMessageBus implements MessageBus
      ******************************************************************************************************************/
     protected <TOPIC> void dispatchMessage (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)
       {
-        final HashSet<Map.Entry<Class<?>, List<WeakReference<MessageBus.Listener<?>>>>> clone =
-                new HashSet<>(listenersMapByTopic.entrySet()); // FIXME: marked as dubious by SpotBugs
+        final var clone = new HashSet<>(listenersMapByTopic.entrySet()); // FIXME: marked as dubious by SpotBugs
 
-        for (final Map.Entry<Class<?>, List<WeakReference<MessageBus.Listener<?>>>> e : clone)
+        for (final var e : clone)
           {
             if (e.getKey().isAssignableFrom(topic))
               {
                 final List<WeakReference<MessageBus.Listener<TOPIC>>> listeners = (List)e.getValue();
 
-                for (final WeakReference<MessageBus.Listener<TOPIC>> listenerReference : listeners)
+                for (final var listenerReference : listeners)
                   {
-                    final MessageBus.Listener<TOPIC> listener = listenerReference.get();
+                    final var listener = listenerReference.get();
 
                     if (listener != null)
                       {

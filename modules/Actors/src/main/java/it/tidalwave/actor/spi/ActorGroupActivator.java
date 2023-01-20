@@ -48,7 +48,7 @@ public class ActorGroupActivator
 
     public void activate()
       {
-        for (final ActorActivator actorActivator : actorActivators)
+        for (final var actorActivator : actorActivators)
           {
             actorActivator.initialize();
             log.info(">>>> activated {}", actorActivator.getActorObject());
@@ -57,7 +57,7 @@ public class ActorGroupActivator
 
     public void deactivate()
       {
-        for (final ActorActivator actorActivator : actorActivators)
+        for (final var actorActivator : actorActivators)
           {
             actorActivator.dispose();
             log.info(">>>> deactivated {}", actorActivator.getActorObject());

@@ -26,9 +26,7 @@
  */
 package it.tidalwave.role.ui.spi;
 
-import java.util.Collection;
 import it.tidalwave.util.NotFoundException;
-import it.tidalwave.role.ui.UserAction;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;
@@ -53,7 +51,7 @@ public class DefaultUserActionProviderTest
     public void must_return_no_actions()
       {
         // when
-        final Collection<? extends UserAction> actions = underTest.getActions();
+        final var actions = underTest.getActions();
         // then
         assertThat(actions.isEmpty(), is(true));
       }

@@ -72,7 +72,7 @@ public class SimpleCompositePresentable implements Presentable
         public SCPFinder (@Nonnull final SCPFinder other, @Nonnull final Object override)
           {
             super(other, override);
-            final SCPFinder source = getSource(SCPFinder.class, other, override);
+            final var source = getSource(SCPFinder.class, other, override);
             this.scp = source.scp;
             this.roles = source.roles;
           }
@@ -80,10 +80,10 @@ public class SimpleCompositePresentable implements Presentable
         @Override @Nonnull
         protected List<? extends PresentationModel> computeResults()
           {
-            return scp.contextSampler.runWithContexts(new Task<List<? extends PresentationModel>, RuntimeException>()
+            return scp.contextSampler.runWithContexts(new Task<>()
               {
                 @Override @Nonnull
-                public List<? extends PresentationModel> run()
+                public List<? extends PresentationModel> run ()
                   {
                     final List<As> children = scp.datum.maybeAs(_SimpleComposite_)
                                                        .map(c -> c.findChildren().results()).orElse(emptyList());
@@ -152,14 +152,14 @@ public class SimpleCompositePresentable implements Presentable
     private PresentationModel internalCreatePresentationModel (@Nonnull final As datum,
                                                                @Nonnull final Collection<Object> roles)
       {
-        final SCPFinder pmFinder = new SCPFinder(this, roles);
+        final var pmFinder = new SCPFinder(this, roles);
 
-        return contextSampler.runWithContexts(new Task<PresentationModel, RuntimeException>()
+        return contextSampler.runWithContexts(new Task<>()
           {
             @Override @Nonnull
             public PresentationModel run()
               {
-                final List<Object> r = resolveRoles(datum, roles);
+                final var r = resolveRoles(datum, roles);
 
                 if (datum.maybeAs(_SimpleComposite_).isPresent())
                   {
@@ -183,7 +183,7 @@ public class SimpleCompositePresentable implements Presentable
       {
         final List<Object> r = new ArrayList<>();
 
-        for (final Object roleOrFactory : roles)
+        for (final var roleOrFactory : roles)
           {
             if (roleOrFactory instanceof RoleFactory)
               {

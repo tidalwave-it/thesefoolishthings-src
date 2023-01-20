@@ -95,6 +95,7 @@ public class UserNotificationWithFeedback extends UserNotification
          * @throws  Exception  in cases of error
          *
          **************************************************************************************************************/
+        @SuppressWarnings("RedundantThrows")
         @SneakyThrows(Throwable.class)
         private void onConfirm()
                 throws Exception
@@ -109,6 +110,7 @@ public class UserNotificationWithFeedback extends UserNotification
          * @throws  Exception  in cases of error
          *
          **************************************************************************************************************/
+        @SuppressWarnings("RedundantThrows")
         @SneakyThrows(Throwable.class)
         private void onCancel()
                 throws Exception

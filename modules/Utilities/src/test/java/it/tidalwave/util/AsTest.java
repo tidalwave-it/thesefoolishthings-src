@@ -28,7 +28,6 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -65,7 +64,7 @@ public class AsTest
         @Override @Nonnull
         public <T> Optional<T> maybeAs (@Nonnull final Class<T> type)
           {
-            final Collection<T> roles = asMany(type);
+            final var roles = asMany(type);
             return roles.isEmpty() ? Optional.empty() : Optional.of(roles.iterator().next());
           }
 
@@ -80,13 +79,13 @@ public class AsTest
     public void must_return_a_filled_Optional_when_the_role_is_present()
       {
         // given
-        final AsDelegate delegate = mock(AsDelegate.class);
-        final Role role = new Role();
-        when(delegate.as(Role.class)).thenReturn((List)Arrays.asList(role));
+        final var delegate = mock(AsDelegate.class);
+        final var role = new Role();
+        when(delegate.as(Role.class)).thenReturn((List)List.of(role));
         // when
-        final UnderTest underTest = new UnderTest(delegate);
+        final var underTest = new UnderTest(delegate);
         // then
-        final Optional<Role> result = underTest.maybeAs(Role.class);
+        final var result = underTest.maybeAs(Role.class);
         assertThat(result.isPresent(), is(true));
         assertThat(result.get(), is(sameInstance(role)));
       }
@@ -95,12 +94,12 @@ public class AsTest
     public void must_return_an_empty_Optional_when_the_role_is_not_present()
       {
         // given
-        final AsDelegate delegate = mock(AsDelegate.class);
+        final var delegate = mock(AsDelegate.class);
         when(delegate.as(Role.class)).thenReturn(Collections.emptyList());
         // when
-        final UnderTest underTest = new UnderTest(delegate);
+        final var underTest = new UnderTest(delegate);
         // then
-        final Optional<Role> result = underTest.maybeAs(Role.class);
+        final var result = underTest.maybeAs(Role.class);
         assertThat(result.isPresent(), is(false));
       }
 
@@ -115,10 +114,10 @@ public class AsTest
       {
         // given
         final RoleWithGeneric<String> role = mock(RoleWithGeneric.class);
-        final As underTest = mock(As.class);
+        final var underTest = mock(As.class);
         when(underTest.as(_roleOfStrings_)).thenReturn(role);
         // when
-        final RoleWithGeneric<String> actualRole = underTest.as(_roleOfStrings_);
+        final var actualRole = underTest.as(_roleOfStrings_);
         // then
         assertThat(actualRole, is(role));
       }
@@ -128,10 +127,10 @@ public class AsTest
       {
         // given
         final RoleWithGeneric<String> role = mock(RoleWithGeneric.class);
-        final As underTest = mock(As.class);
+        final var underTest = mock(As.class);
         when(underTest.maybeAs(_roleOfStrings_)).thenReturn(Optional.of(role));
         // when
-        final Optional<RoleWithGeneric<String>> actualRole = underTest.maybeAs(_roleOfStrings_);
+        final var actualRole = underTest.maybeAs(_roleOfStrings_);
         // then
         assertThat(actualRole.get(), is(role));
       }
@@ -141,12 +140,12 @@ public class AsTest
       {
         // given
         final RoleWithGeneric<String> role = mock(RoleWithGeneric.class);
-        final As underTest = mock(As.class);
-        when(underTest.asMany(_roleOfStrings_)).thenReturn(Arrays.asList(role));
+        final var underTest = mock(As.class);
+        when(underTest.asMany(_roleOfStrings_)).thenReturn(List.of(role));
         // when
-        final Collection<RoleWithGeneric<String>> actualRoles = underTest.asMany(_roleOfStrings_);
+        final var actualRoles = underTest.asMany(_roleOfStrings_);
         // then
-        assertThat(actualRoles, is(Arrays.asList(role)));
+        assertThat(actualRoles, is(List.of(role)));
       }
 
     // START SNIPPET: dataretriever
@@ -156,6 +155,7 @@ public class AsTest
       }
     // END SNIPPET: dataretriever
 
+    @SuppressWarnings("LocalCanBeFinal")
     static class AsTypeCodeSample
       {
         // START SNIPPET: as_Type
@@ -163,6 +163,7 @@ public class AsTest
         private static final As.Type<DataRetriever<LocalDate>> _LocalDateRetriever_ = As.type(DataRetriever.class);
         // END SNIPPET: as_Type
 
+        @SuppressWarnings("RedundantExplicitVariableType")
         public void method (As object1, As object2)
           {
             // The assignments below raise a warning ('Unchecked assignment').
@@ -171,6 +172,7 @@ public class AsTest
             List<LocalDate> f2 = object2.as(DataRetriever.class).retrieve();
             // END SNIPPET: as1
             // The assignments below are fine (at the expense of a warning in the declarations of As.Types).
+            // Don't use 'var' otherwise the code doesn't clearly explain the concept
             // START SNIPPET: as2
             List<String> f3 = object1.as(_StringRetriever_).retrieve();
             List<LocalDate> f4 = object2.as(_LocalDateRetriever_).retrieve();
@@ -180,6 +182,7 @@ public class AsTest
 
     static class AsImplementationCodeSample1
       {
+        @SuppressWarnings({"InnerClassMayBeStatic", "LocalCanBeFinal"})
         // START SNIPPET: as_impl_1
         class MyObject implements As
           {
@@ -202,6 +205,7 @@ public class AsTest
 
     static class AsImplementationCodeSample2
       {
+        @SuppressWarnings("InnerClassMayBeStatic")
         // START SNIPPET: as_impl_2
         @EqualsAndHashCode(exclude = "delegate") @ToString(exclude = "delegate")
         class MyObject implements As

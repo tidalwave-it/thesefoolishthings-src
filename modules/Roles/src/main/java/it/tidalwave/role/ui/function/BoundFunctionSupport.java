@@ -26,7 +26,6 @@
  */
 package it.tidalwave.role.ui.function;
 
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import lombok.experimental.Delegate;
 
@@ -49,7 +48,7 @@ public abstract class BoundFunctionSupport<DOMAIN_TYPE, CODOMAIN_TYPE>
     @Override
     public void unbindAll()
       {
-        for (final PropertyChangeListener listener : pcs.getPropertyChangeListeners().clone())
+        for (final var listener : pcs.getPropertyChangeListeners().clone())
           {
             pcs.removePropertyChangeListener(listener);
           }

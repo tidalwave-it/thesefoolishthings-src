@@ -29,11 +29,11 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="it-tidalwave-actor" target="1.8" />
-      <module name="it-tidalwave-messagebus" target="1.8" />
-      <module name="it-tidalwave-messagebus-spring" target="1.8" />
-      <module name="it-tidalwave-role" target="1.8" />
-      <module name="it-tidalwave-role-spring" target="1.8" />
+      <module name="it-tidalwave-actor" target="11" />
+      <module name="it-tidalwave-messagebus" target="11" />
+      <module name="it-tidalwave-messagebus-spring" target="11" />
+      <module name="it-tidalwave-role" target="11" />
+      <module name="it-tidalwave-role-spring" target="11" />
       <module name="it-tidalwave-thesefoolishthings-examples-data" target="11" />
       <module name="it-tidalwave-thesefoolishthings-examples-dci-displayable" target="11" />
       <module name="it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream" target="11" />
@@ -42,11 +42,11 @@
       <module name="it-tidalwave-thesefoolishthings-examples-finderexample1" target="11" />
       <module name="it-tidalwave-thesefoolishthings-examples-finderexample2" target="11" />
       <module name="it-tidalwave-thesefoolishthings-examples-finderexample3" target="11" />
-      <module name="it-tidalwave-util" target="1.8" />
-      <module name="it-tidalwave-util-test" target="1.8" />
-      <module name="modules" target="1.8" />
-      <module name="project-archetype" target="1.8" />
-      <module name="thesefoolishthings" target="1.8" />
+      <module name="it-tidalwave-util" target="11" />
+      <module name="it-tidalwave-util-test" target="11" />
+      <module name="modules" target="11" />
+      <module name="project-archetype" target="11" />
+      <module name="thesefoolishthings" target="11" />
       <module name="thesefoolishthings-examples" target="11" />
     </bytecodeTargetLevel>
   </component>

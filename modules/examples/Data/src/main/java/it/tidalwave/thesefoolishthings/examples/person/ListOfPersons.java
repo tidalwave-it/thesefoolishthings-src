@@ -30,6 +30,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Delegate;
 
@@ -41,7 +42,7 @@ import lombok.experimental.Delegate;
  *
  **********************************************************************************************************************/
 // START SNIPPET: listofpersons
-@NoArgsConstructor
+@NoArgsConstructor @EqualsAndHashCode
 public class ListOfPersons implements List<Person>
   {
     @Delegate

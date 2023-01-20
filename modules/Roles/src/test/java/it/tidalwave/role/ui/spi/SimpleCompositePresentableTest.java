@@ -107,7 +107,7 @@ public class SimpleCompositePresentableTest
           {
             if (roleType.equals(SimpleComposite.class) && (composite != null))
               {
-                return new ArrayList<>(Arrays.asList(roleType.cast(composite)));
+                return new ArrayList<>(List.of(roleType.cast(composite)));
               }
 
             return new ArrayList<>();
@@ -166,23 +166,23 @@ public class SimpleCompositePresentableTest
     public void must_create_a_PresentationModel_containing_the_proper_children()
       {
         // given
-        final MockDatum c1 = new MockDatum("c1");
-        final MockDatum c2 = new MockDatum("c2");
-        final MockDatum c3 = new MockDatum("c3");
+        final var c1 = new MockDatum("c1");
+        final var c2 = new MockDatum("c2");
+        final var c3 = new MockDatum("c3");
 
-        final MockDatum b1 = new MockDatum("b1").withChildren(c1, c2, c3);
-        final MockDatum b2 = new MockDatum("b2");
-        final MockDatum b3 = new MockDatum("b3");
+        final var b1 = new MockDatum("b1").withChildren(c1, c2, c3);
+        final var b2 = new MockDatum("b2");
+        final var b3 = new MockDatum("b3");
 
-        final MockDatum a = new MockDatum("a").withChildren(b1, b2, b3);
+        final var a = new MockDatum("a").withChildren(b1, b2, b3);
 
-        final SimpleCompositePresentable underTest
+        final var underTest
                 = new SimpleCompositePresentable(a, new DefaultPresentationModelFactory());
 
-        final MockRole1 role1 = new MockRole1();
-        final MockRoleFactory roleFactory = new MockRoleFactory();
+        final var role1 = new MockRole1();
+        final var roleFactory = new MockRoleFactory();
         // when
-        final PresentationModel pm = underTest.createPresentationModel(r(role1, roleFactory));
+        final var pm = underTest.createPresentationModel(r(role1, roleFactory));
         // then
         assertProperPresentationModel("", pm, a);
       }
@@ -196,7 +196,7 @@ public class SimpleCompositePresentableTest
       {
         log.debug("assertProperPresentationModel() - {} {}, {}", indent, pm, datum);
         pm.as(MockRole1.class);                        // must not throw AsException
-        final MockRole2 role = pm.as(MockRole2.class); // must not throw AsException
+        final var role = pm.as(MockRole2.class); // must not throw AsException
 
         assertThat(role.getDatum(), is(sameInstance(datum)));
 
@@ -211,11 +211,11 @@ public class SimpleCompositePresentableTest
             fail("Unexpected objects that are not PresentationModel: " + notPMs);
           }
 
-        final List<MockDatum> childrenData = datum.getChildren();
+        final var childrenData = datum.getChildren();
 
         assertThat(childrenPm.size(), is(childrenData.size()));
 
-        for (int i = 0; i < childrenPm.size(); i++)
+        for (var i = 0; i < childrenPm.size(); i++)
           {
             assertProperPresentationModel(indent + "    ", childrenPm.get(i), childrenData.get(i));
           }

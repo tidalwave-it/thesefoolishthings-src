@@ -85,7 +85,7 @@ public class PresentationModelMatcher implements ArgumentMatcher<PresentationMod
             return false;
           }
 
-        for (final Class<?> roleType : expectedRoleTypes)
+        for (final var roleType : expectedRoleTypes)
           {
             try
               {
@@ -93,7 +93,7 @@ public class PresentationModelMatcher implements ArgumentMatcher<PresentationMod
               }
             catch (AsException e)
               {
-                final Collection<Object> actualRoles = pm.asMany(Object.class);
+                final var actualRoles = pm.asMany(Object.class);
                 final Collection<Class<?>> actualRoleTypes =
                         actualRoles.stream().map(Object::getClass).collect(toList());
 

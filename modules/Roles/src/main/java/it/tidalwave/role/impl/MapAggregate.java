@@ -68,7 +68,7 @@ public class MapAggregate<TYPE> implements Aggregate<TYPE>
      ******************************************************************************************************************/
     public MapAggregate (@Nonnull final Map<String, TYPE> mapByName)
       {
-        this.mapByName = Collections.unmodifiableMap(new HashMap<>(mapByName));
+        this.mapByName = Map.copyOf(mapByName);
       }
 
     /*******************************************************************************************************************

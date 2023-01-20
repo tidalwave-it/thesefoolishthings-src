@@ -33,7 +33,6 @@ import it.tidalwave.util.spi.AsDelegateProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static it.tidalwave.util.Parameters.r;
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -89,12 +88,12 @@ public class DefaultPresentationModelTest
     public void must_find_local_roles()
       {
         // given
-        final DefaultPresentationModel underTest1 = new DefaultPresentationModel(ownerNoAs, r(localRole1));
-        final DefaultPresentationModel underTest2 = new DefaultPresentationModel(ownerNoAs, r(localRole1, localRole2));
+        final var underTest1 = new DefaultPresentationModel(ownerNoAs, r(localRole1));
+        final var underTest2 = new DefaultPresentationModel(ownerNoAs, r(localRole1, localRole2));
         // when
-        final Role1 ut1Role1 = underTest1.as(Role1.class);
-        final Role1 ut2Role1 = underTest2.as(Role1.class);
-        final Role2 ut2Role2 = underTest2.as(Role2.class);
+        final var ut1Role1 = underTest1.as(Role1.class);
+        final var ut2Role1 = underTest2.as(Role1.class);
+        final var ut2Role2 = underTest2.as(Role2.class);
         //then
         assertThat(ut1Role1, is(sameInstance(localRole1)));
         assertThat(ut2Role1, is(sameInstance(localRole1)));
@@ -108,7 +107,7 @@ public class DefaultPresentationModelTest
     public void must_not_find_inexistent_role()
       {
         // given
-        final DefaultPresentationModel underTest = new DefaultPresentationModel(ownerNoAs, r(localRole1));
+        final var underTest = new DefaultPresentationModel(ownerNoAs, r(localRole1));
         // when
         underTest.as(Role2.class);
       }
@@ -120,7 +119,7 @@ public class DefaultPresentationModelTest
     public void must_not_find_inexistent_role_bis()
       {
         // given
-        final DefaultPresentationModel underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
+        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
         // when
         underTest.as(Role1.class);
       }
@@ -132,9 +131,9 @@ public class DefaultPresentationModelTest
     public void must_find_roles_in_owner()
       {
         // given
-        final DefaultPresentationModel underTest = new DefaultPresentationModel(ownerAsWithRole2, r());
+        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r());
         // when
-        final Role2 role2 = underTest.as(Role2.class);
+        final var role2 = underTest.as(Role2.class);
         // then
         assertThat(role2, is(sameInstance(role2InOwner)));
       }
@@ -146,9 +145,9 @@ public class DefaultPresentationModelTest
     public void must_give_priority_to_local_roles()
       {
         // given
-        final DefaultPresentationModel underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
+        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
         // when
-        final Role2 role2 = underTest.as(Role2.class);
+        final var role2 = underTest.as(Role2.class);
         // then
         assertThat(role2, is(sameInstance(localRole2)));
       }
@@ -157,14 +156,13 @@ public class DefaultPresentationModelTest
      *
      ******************************************************************************************************************/
     @Test
-    public void must_invoke_default_behaviour_when_as_not_found() // See TFT-248
+    public void test_TFT_248_regression()
       {
         // given
-        final DefaultPresentationModel underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
-        final As.NotFoundBehaviour notFoundBehaviour = mock(As.NotFoundBehaviour.class);
+        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
         // when
-        final Role3 role3 = underTest.as(Role3.class, notFoundBehaviour);
+        final var role3 = underTest.maybeAs(Role3.class);
         // then
-        verify(notFoundBehaviour).run(any());
+        assertThat(role3.isPresent(), is(false));
       }
   }

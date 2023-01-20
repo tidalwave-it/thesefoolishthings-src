@@ -141,7 +141,7 @@ public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
     @Override
     public void setDisplayName (@Nonnull final String displayName)
       {
-        final String oldDisplayName = getDisplayName(defaultLocale);
+        final var oldDisplayName = getDisplayName(defaultLocale);
         setDisplayName(displayName, defaultLocale);
         pcs.firePropertyChange(PROP_DISPLAY_NAME, oldDisplayName, displayName);
       }
