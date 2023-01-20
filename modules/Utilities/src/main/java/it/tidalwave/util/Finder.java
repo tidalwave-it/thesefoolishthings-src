@@ -419,7 +419,7 @@ public interface Finder<T> extends Cloneable, Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <U> Finder<U> ofCloned (@Nonnull final Collection<U> items)
+    public static <U> Finder<U> ofCloned (@Nonnull final Collection<? extends U> items)
       {
         return new ArrayListFinder<>(items);
       }

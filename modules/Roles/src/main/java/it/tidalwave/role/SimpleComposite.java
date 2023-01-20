@@ -74,7 +74,7 @@ public interface SimpleComposite<T> extends Composite<T, Finder<T>>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <U> SimpleComposite<U> ofCloned (@Nonnull final Collection<U> items)
+    public static <U> SimpleComposite<U> ofCloned (@Nonnull final Collection<? extends U> items)
       {
         return of(Finder.ofCloned(items));
       }
