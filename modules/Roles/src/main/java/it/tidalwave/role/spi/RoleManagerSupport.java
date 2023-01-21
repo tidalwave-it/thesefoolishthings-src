@@ -30,7 +30,6 @@ import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -257,7 +256,7 @@ public abstract class RoleManagerSupport implements RoleManager
     @VisibleForTesting static SortedSet<Class<?>> findAllImplementedInterfacesOf (@Nonnull final Class<?> clazz)
       {
         final SortedSet<Class<?>> interfaces = new TreeSet<>(Comparator.comparing(Class::getName));
-        interfaces.addAll(Arrays.asList(clazz.getInterfaces()));
+        interfaces.addAll(List.of(clazz.getInterfaces()));
 
         for (final var interface_ : interfaces)
           {
@@ -373,7 +372,7 @@ public abstract class RoleManagerSupport implements RoleManager
             if (log.isTraceEnabled())
               {
                 log.trace(">>>> owner is a mock {} implementing {}",
-                          shortName(ownerClass), shortNames(Arrays.asList(ownerClass.getInterfaces())));
+                          shortName(ownerClass), shortNames(List.of(ownerClass.getInterfaces())));
                 log.trace(">>>> owner class replaced with {}", shortName(ownerClass));
               }
           }

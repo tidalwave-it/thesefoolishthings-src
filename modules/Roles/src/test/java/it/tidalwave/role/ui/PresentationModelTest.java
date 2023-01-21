@@ -26,8 +26,8 @@
  */
 package it.tidalwave.role.ui;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import it.tidalwave.util.As;
 import it.tidalwave.util.spi.AsDelegateProvider;
@@ -55,7 +55,7 @@ public class PresentationModelTest
 
     private final MockRole2 mockRole2 = mock(MockRole2.class);
 
-    private final Collection<Object> roles = Arrays.asList(mockRole1, mockRole2);
+    private final Collection<Object> roles = List.of(mockRole1, mockRole2);
 
     /*******************************************************************************************************************
      *

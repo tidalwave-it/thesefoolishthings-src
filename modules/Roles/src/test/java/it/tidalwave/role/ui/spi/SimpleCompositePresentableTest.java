@@ -29,7 +29,6 @@ package it.tidalwave.role.ui.spi;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -84,7 +83,7 @@ public class SimpleCompositePresentableTest
         @Nonnull
         public MockDatum withChildren (@Nonnull final MockDatum ... children)
           {
-            return withChildren(Arrays.asList(children));
+            return withChildren(List.of(children));
           }
 
         @Nonnull

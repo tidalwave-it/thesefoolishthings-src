@@ -47,7 +47,7 @@ public class PairTest
   {
     private static final String[] array = {"one", "two", "three", "four", "five" };
 
-    private static final Iterable<String> iterable = Arrays.asList(array);
+    private static final Iterable<String> iterable = List.of(array);
 
     private static final IntFunction<String> indexTransformer = i -> String.format("%d", i + 1);
 
@@ -380,7 +380,7 @@ public class PairTest
         final var stream1 = Pair.pairRangeClosed("foo bar", 1, 3);
         // END SNIPPET: pairRangeClosed
         // START SNIPPET: indexedPairStream
-        final var stream2 = Pair.indexedPairStream(Arrays.asList("foo", "bar"));
+        final var stream2 = Pair.indexedPairStream(List.of("foo", "bar"));
         // END SNIPPET: indexedPairStream
       }
   }

@@ -26,8 +26,8 @@
  */
 package it.tidalwave.util;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -53,12 +53,12 @@ public class ParameterTest
         final Object r8 = "r8";
         final Object r9 = "r9";
 
-        final Collection<Object> rc1 = Arrays.asList(r4, r5);
-        final Collection<Object> rc2 = Arrays.asList(r7, r8);
+        final Collection<Object> rc1 = List.of(r4, r5);
+        final Collection<Object> rc2 = List.of(r7, r8);
         // when
         final var result = Parameters.r(r1, r2, r3, rc1, r6, rc2, r9);
         // then
-        final Collection<Object> expected = Arrays.asList(r1, r2, r3, r4, r5, r6, r7, r8, r9);
+        final Collection<Object> expected = List.of(r1, r2, r3, r4, r5, r6, r7, r8, r9);
         assertThat(result, is(expected));
       }
   }

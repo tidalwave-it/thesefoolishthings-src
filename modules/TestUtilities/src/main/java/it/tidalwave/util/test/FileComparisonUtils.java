@@ -144,7 +144,7 @@ public class FileComparisonUtils
     public static List<String> stringToStrings (@Nonnull final String string)
       throws IOException
       {
-        //return Arrays.asList(string.split("\n"));
+        //return List.of(string.split("\n"));
         return resourceToStrings(new ByteArrayInputStream(string.getBytes(UTF_8)));
       }
 
