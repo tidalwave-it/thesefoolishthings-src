@@ -46,8 +46,9 @@ public final class PersonRenderable implements Renderable
     @Nonnull
     private final Person datum;
 
+    @SuppressWarnings("BoundedWildcard")
     @Override
-    public void renderTo (@Nonnull String pattern, @Nonnull Consumer<String> renderingContext)
+    public void renderTo (@Nonnull final String pattern, @Nonnull final Consumer<String> renderingContext)
       {
         renderingContext.accept(String.format(pattern, datum.firstName, datum.lastName));
       }

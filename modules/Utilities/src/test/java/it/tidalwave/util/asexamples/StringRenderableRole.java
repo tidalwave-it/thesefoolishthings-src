@@ -42,7 +42,7 @@ public class StringRenderableRole implements Renderable
     private final String owner;
 
     @Override
-    public void renderTo (@Nonnull final Consumer<String> renderingContext)
+    public void renderTo (@SuppressWarnings("BoundedWildcard") @Nonnull final Consumer<String> renderingContext)
       {
         renderingContext.accept(owner);
       }

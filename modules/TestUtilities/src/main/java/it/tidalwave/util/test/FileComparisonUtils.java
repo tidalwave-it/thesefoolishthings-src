@@ -269,7 +269,7 @@ public class FileComparisonUtils
                                             @Nullable final Path expectedPath,
                                             @Nullable final Path actualPath)
       {
-        var diff = checkSameContents(expected, actual, expectedPath, actualPath);
+        final var diff = checkSameContents(expected, actual, expectedPath, actualPath);
 
         if (!diff.isEmpty())
           {

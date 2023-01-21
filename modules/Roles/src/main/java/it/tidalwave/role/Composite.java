@@ -29,7 +29,6 @@ package it.tidalwave.role;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 import it.tidalwave.util.Finder;
-import it.tidalwave.util.NotFoundException;
 
 /***********************************************************************************************************************
  *
@@ -85,7 +84,7 @@ public interface Composite<T, F extends Finder<? extends T>>
          * @param  object  the visited object
          *
          **************************************************************************************************************/
-        default public void preVisit (@Nonnull T object)
+        public default void preVisit (@Nonnull final T object)
           {
           }
 
@@ -97,7 +96,7 @@ public interface Composite<T, F extends Finder<? extends T>>
          * @param  object  the visited object
          *
          **************************************************************************************************************/
-        default public void visit (@Nonnull T object)
+        public default void visit (@Nonnull final T object)
           {
           }
 
@@ -108,7 +107,7 @@ public interface Composite<T, F extends Finder<? extends T>>
          * @param  object  the visited object
          *
          **************************************************************************************************************/
-        default public void postVisit (@Nonnull T object)
+        public default void postVisit (@Nonnull final T object)
           {
           }
 
@@ -116,12 +115,11 @@ public interface Composite<T, F extends Finder<? extends T>>
          *
          * Returns the value of this visitor.
          *
-         * @return                     the value
-         * @throws  NotFoundException  when no value has been found
+         * @return         the value
          *
          **************************************************************************************************************/
         @Nonnull
-        default public Optional<R> getValue()
+        public default Optional<R> getValue()
           {
             return Optional.empty();
           }

@@ -84,6 +84,7 @@ public class DefaultPresentationModel implements PresentationModel
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
+    @SuppressWarnings("ConstantValue")
     @Override @Nonnull
     public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> roleType)
       {

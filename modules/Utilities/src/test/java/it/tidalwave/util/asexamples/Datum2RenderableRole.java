@@ -41,6 +41,7 @@ public class Datum2RenderableRole implements Renderable
     @Nonnull
     private final Datum2 owner;
 
+    @SuppressWarnings("BoundedWildcard")
     public void renderTo (@Nonnull final Consumer<String> renderingContext)
       {
         renderingContext.accept(owner.status);

@@ -77,6 +77,7 @@ public interface Displayable
      * @since     3.2-ALPHA-15
      *
      ******************************************************************************************************************/
+    @SuppressWarnings("BoundedWildcard")
     public default void display (@Nonnull final Consumer<String> consumer)
       {
         consumer.accept(getDisplayName());
