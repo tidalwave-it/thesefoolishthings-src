@@ -26,10 +26,10 @@
  */
 package it.tidalwave.util;
 
+import java.util.function.Consumer;
 import it.tidalwave.util.asexamples.AsExtensions;
 import it.tidalwave.util.asexamples.Datum1;
 import it.tidalwave.util.asexamples.Datum2;
-import it.tidalwave.util.asexamples.RenderingContext;
 import lombok.experimental.ExtensionMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -44,41 +44,44 @@ import static org.mockito.Mockito.*;
 @ExtensionMethod(AsExtensions.class)
 public class AsExtensionsTest
   {
-    private RenderingContext terminal;
+    private Consumer<String> terminal;
 
     @BeforeMethod
     public void setupTerminal()
       {
-        terminal = mock(RenderingContext.class);
+        terminal = mock(Consumer.class);
       }
 
     @Test
     public void test1()
       {
+        // given
         final var datum = new Datum1("foo");
-
+        // when
         datum.as(_Renderable_).renderTo(terminal);
-
-        verify(terminal).render(eq("foo"));
+        // then
+        verify(terminal).accept(eq("foo"));
       }
 
     @Test
     public void test2()
       {
+        // given
         final var datum = new Datum2("bar");
-
+        // when
         datum.as(_Renderable_).renderTo(terminal);
-
-        verify(terminal).render(eq("bar"));
+        // then
+        verify(terminal).accept(eq("bar"));
       }
 
     @Test
     public void test3()
       {
+        // given
         final var string = "foobar";
-
+        // when
         string.as(_Renderable_).renderTo(terminal);
-
-        verify(terminal).render(eq("foobar"));
+        // then
+        verify(terminal).accept(eq("foobar"));
       }
   }

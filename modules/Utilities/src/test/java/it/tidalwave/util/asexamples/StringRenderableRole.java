@@ -27,6 +27,7 @@
 package it.tidalwave.util.asexamples;
 
 import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
@@ -40,8 +41,9 @@ public class StringRenderableRole implements Renderable
     @Nonnull
     private final String owner;
 
-    public void renderTo (@Nonnull final RenderingContext renderingContext)
+    @Override
+    public void renderTo (@Nonnull final Consumer<String> renderingContext)
       {
-        renderingContext.render(owner);
+        renderingContext.accept(owner);
       }
   }

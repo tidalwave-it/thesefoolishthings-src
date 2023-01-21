@@ -26,6 +26,9 @@
  */
 package it.tidalwave.util.asexamples;
 
+import javax.annotation.Nonnull;
+import java.util.function.Consumer;
+
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
@@ -35,5 +38,5 @@ public interface Renderable
   {
     public static final Class<Renderable> _Renderable_ = Renderable.class;
 
-    public void renderTo (RenderingContext renderingContext);
+    public void renderTo (@Nonnull Consumer<String> renderingContext);
   }
