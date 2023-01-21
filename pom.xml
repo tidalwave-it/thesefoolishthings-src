@@ -44,7 +44,7 @@
     <version>3.2-ALPHA-15-SNAPSHOT</version>
     <name>TheseFoolishThings</name>
     <inceptionYear>2009</inceptionYear>
-    <url>http://tidalwave.it/projects/thesefoolishthings</url>
+    <url>https://tidalwave.bitbucket.io/thesefoolishthings/${project.version}</url>
     <description>
 This project was born, several years ago, as the classic “kitchen sink” of stuff from other projects that was deemed of being reusable.
 Sometimes it grew in a disordered way, other times it was reviewed and cleaned up accurately. It contains different sort of things: from
@@ -59,7 +59,7 @@ that are reasonably contextualized in a real-world scenario (the core parts of t
 also part of industrial project). There is good stuff and some strange stuff - in general an attitude of this project is to also try things
 in a different way than the standard.
 
-TheseFoolishThings supports JDK 8, but requires JDK 11 or 17 to be compiled.
+TheseFoolishThings requires and is tested on JDK 11 and 17.
     </description>
 
     <distributionManagement>
@@ -83,6 +83,8 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 or 17 to be compiled.
         <tidalwave.issues>TFT</tidalwave.issues>
         <tidalwave.github.readonly.url>https://github.com/tidalwave-it/thesefoolishthings-src</tidalwave.github.readonly.url>
         <tidalwave.github.browse.url>https://github.com/tidalwave-it/thesefoolishthings-src</tidalwave.github.browse.url>
+
+        <tft.maven-javadoc-plugin.version>3.4.1</tft.maven-javadoc-plugin.version>
     </properties>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->

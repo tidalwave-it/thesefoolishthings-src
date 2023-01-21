@@ -24,14 +24,33 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.asexamples;
+package it.tidalwave.thesefoolishthings.examples.person;
+
+import javax.annotation.Nonnull;
+import java.util.function.Consumer;
+import it.tidalwave.dci.annotation.DciRole;
+import it.tidalwave.thesefoolishthings.examples.dci.displayable.role.Renderable;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
+ * A Displayable Role for Person.
+ * 
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public interface RenderingContext
+// START-SNIPPET: role
+@DciRole(datumType = Person.class) @RequiredArgsConstructor
+public final class PersonRenderable implements Renderable
   {
-    public void render (String string);
+    @Nonnull
+    private final Person datum;
+
+    @Override
+    public void renderTo (@Nonnull String pattern, @Nonnull Consumer<String> renderingContext)
+      {
+        renderingContext.accept(String.format(pattern, datum.firstName, datum.lastName));
+      }
   }
+// END-SNIPPET: role
+

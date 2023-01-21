@@ -160,6 +160,7 @@ public class PairTest
     @Test
     public void test_indexedPairStream_from_array()
       {
+        // START SNIPPET: indexed
         // when
         final var underTest = Pair.indexedPairStream(array);
         // then
@@ -168,6 +169,7 @@ public class PairTest
                                                           Pair.of(2, "three"),
                                                           Pair.of(3, "four"),
                                                           Pair.of(4, "five"))));
+        // END SNIPPET: indexed
       }
 
     /*******************************************************************************************************************
@@ -289,9 +291,7 @@ public class PairTest
     public void test_indexedPairStream__from_stream_with_index_transformer()
       {
         // when
-        final var underTest = Pair.indexedPairStream(Arrays.stream(array),
-                                                     Pair.BASE_0,
-                                                     indexTransformer);
+        final var underTest = Pair.indexedPairStream(Arrays.stream(array), Pair.BASE_0, indexTransformer);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of("1", "one"),
                                                           Pair.of("2", "two"),
@@ -324,8 +324,7 @@ public class PairTest
     public void test_indexedPairStream_with_range_and_supplier_and_rebaser()
       {
         // when
-        final var underTest = Pair.indexedPairStream(3, 9,
-                                                     valueSupplier, Pair.BASE_1);
+        final var underTest = Pair.indexedPairStream(3, 9, valueSupplier, Pair.BASE_1);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of(4, "#3"),
                                                           Pair.of(5, "#4"),
@@ -342,10 +341,7 @@ public class PairTest
     public void test_indexedPairStream_with_range_and_supplier_and_index_transformer()
       {
         // when
-        final var underTest = Pair.indexedPairStream(3, 9,
-                                                     valueSupplier,
-                                                     Pair.BASE_0,
-                                                     indexTransformer);
+        final var underTest = Pair.indexedPairStream(3, 9, valueSupplier, Pair.BASE_0, indexTransformer);
         // then
         assertThat(underTest.collect(toList()), is(asList(Pair.of("4", "#3"),
                                                           Pair.of("5", "#4"),

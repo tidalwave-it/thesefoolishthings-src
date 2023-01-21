@@ -47,6 +47,7 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+// START SNIPPET SimpleAsDelegateProvider
 public class SimpleAsDelegateProvider implements AsDelegateProvider
   {
     private static final List<Class<?>> ROLES = Arrays.asList(Persistable.class, Removable.class, Findable.class);
@@ -63,6 +64,7 @@ public class SimpleAsDelegateProvider implements AsDelegateProvider
                       ? List.of(roleType.cast(new PersonJpaPersistable((Person)datum)))
                       : Collections.emptyList();
               }
-        };
+          };
       }
   }
+// END SNIPPET SimpleAsDelegateProvider

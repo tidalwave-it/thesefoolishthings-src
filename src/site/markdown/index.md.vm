@@ -67,6 +67,40 @@ ${project.name} is **licensed** with the Apache license.
 
 + [Actors](modules/it-tidalwave-actor/index.html)               [(Javadoc)](modules/it-tidalwave-actor/apidocs/index.html)
 
+#[[##]]# A quick look
+
+Here it is a quick look at some of the available features.
+
+#[[###]]# `Pair` and `Triple`
+
+`Pair` and `Triple` are implementations of 2 and 3-elements tuples. They are pretty useful in `Stream` programming, for instance offering a way to
+implement nested loops:
+
+<!-- MACRO{snippet|id=loop2a|file=${project.basedir}/modules/Utilities/src/test/java/it/tidalwave/util/TripleTest.java} -->
+
+... or indexed loops:
+
+<!-- MACRO{snippet|id=loop2a|file=${project.basedir}/modules/Utilities/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+
+#[[###]]# `Finder`
+
+`Finder` is a query builder with a fluent API that allows to access collections of data from a variety of data sources. It offers features such as pagination
+and composition. Its API is extensible, so a variety of filtering criteria and query parameters can be specified. Notwithstanding the apparent similarity
+with `Stream`s, it is quite different since it supports not only in-memory operations; for instance, implementations can query a database by generating ad-hoc
+SQL, so data are retrieved in the most efficient way.
+
+<!-- MACRO{snippet|id=extended-example|file=${project.basedir}/modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/FinderExample2.java} -->
+
+
+#[[###]]# `As`
+
+`As` provides a dynamic implementation of the **Data, Context and Interaction** architectural pattern — dynamic in the sense that classes providing interaction
+support can be associated to existing objects. For instance, in the following code `Displayable` and `Renderable` are not known to the model class `Person`:
+
+<!-- MACRO{snippet|id=extensionmethod|file=${project.basedir}/modules/examples/DciDisplayableExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/displayable/DisplayableExample.java} -->
+
+
 #[[##]]# General information
 #[[###]]# Maven dependency
 

@@ -59,6 +59,9 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
 
     /*******************************************************************************************************************
      *
+     * Creates a new instance from the given contents.
+     *
+     * @param   map   the contents
      *
      ******************************************************************************************************************/
     public TypeSafeHashMap (@Nonnull final Map<? extends Key<?>, Object> map)
