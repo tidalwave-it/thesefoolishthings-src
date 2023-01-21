@@ -41,31 +41,15 @@
 
 ${project.description}
 
-To guess whether the project is in a reasonably stable phase look at it version number: if it contains ALPHA it is undergoing a
-wild refactoring (which usually happens when it is updated to a major JDK release). Other than this, most of the Javadoc contains tags:
+The project is composed of mostly independent modules, with different levels of stability and internal quality. At the moment there is not
+an automatic system to check the compatibility of the APIs from version to version; in general look at the following Javadoc tags:
 
-+ **experimental**: to designate things that are really raw and might go away soon, or perhaps mutate dramatically;
-+ **draft**: to designate things that are going to stabilise;
 + **stable**: to designate things with a certain degree of maturity.
-
-In the past Clirr was used to enforce backward compatibility of stable things, but it was dropped after the JDK 8 upgrade. Up to now
-it hasn't been replaced by another tool yet. So perhaps at the moment TheseFoolishThings might be of your interest more for inspiration
-than for an effective use.
++ **draft**: to designate things that are going to stabilise;
++ **experimental**: to designate things that are really raw and might go away soon, or perhaps mutate dramatically;
 
 ${project.name} is **licensed** with the Apache license.
 
-
-#[[##]]# Modules
-
-+ [Utilities](modules/it-tidalwave-util/index.html)             [(Javadoc)](modules/it-tidalwave-util/apidocs/index.html)
-
-+ [Roles](modules/it-tidalwave-role/index.html)                 [(Javadoc)](modules/it-tidalwave-role/apidocs/index.html)
-
-+ [Test Utilities](modules/it-tidalwave-util-test/index.html)   [(Javadoc)](modules/it-tidalwave-util-test/apidocs/index.html)
-
-+ [MessageBus](modules/it-tidalwave-messagebus/index.html)      [(Javadoc)](modules/it-tidalwave-messagebus/apidocs/index.html)
-
-+ [Actors](modules/it-tidalwave-actor/index.html)               [(Javadoc)](modules/it-tidalwave-actor/apidocs/index.html)
 
 #[[##]]# A quick look
 
@@ -96,9 +80,38 @@ SQL, so data are retrieved in the most efficient way.
 #[[###]]# `As`
 
 `As` provides a dynamic implementation of the **Data, Context and Interaction** architectural pattern — dynamic in the sense that classes providing interaction
-support can be associated to existing objects. For instance, in the following code `Displayable` and `Renderable` are not known to the model class `Person`:
+support can be associated to existing objects. For instance, in the following code `Displayable` and `Renderable` are not known to the model class `Person`,
+but they are available at runtime in association with that class to provide extended functions:
 
 <!-- MACRO{snippet|id=extensionmethod|file=${project.basedir}/modules/examples/DciDisplayableExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/displayable/DisplayableExample.java} -->
+
+
+#[[###]]# P&S MessageBus
+
+>PENDING INTRODUCTION AND EXAMPLE
+
+
+#[[###]]# Collaborative Actors
+
+>PENDING INTRODUCTION AND EXAMPLE
+
+
+#[[###]]# Type-safe maps
+
+>PENDING INTRODUCTION AND EXAMPLE
+
+
+#[[##]]# Modules
+
++ [Utilities](modules/it-tidalwave-util/index.html)             [(Javadoc)](modules/it-tidalwave-util/apidocs/index.html)
+
++ [Roles](modules/it-tidalwave-role/index.html)                 [(Javadoc)](modules/it-tidalwave-role/apidocs/index.html)
+
++ [Test Utilities](modules/it-tidalwave-util-test/index.html)   [(Javadoc)](modules/it-tidalwave-util-test/apidocs/index.html)
+
++ [MessageBus](modules/it-tidalwave-messagebus/index.html)      [(Javadoc)](modules/it-tidalwave-messagebus/apidocs/index.html)
+
++ [Actors](modules/it-tidalwave-actor/index.html)               [(Javadoc)](modules/it-tidalwave-actor/apidocs/index.html)
 
 
 #[[##]]# General information
