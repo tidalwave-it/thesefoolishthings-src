@@ -34,9 +34,15 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 import java.io.Serializable;
 import it.tidalwave.util.impl.ArrayListFinder;
+import it.tidalwave.util.impl.MappingFinder;
+import it.tidalwave.util.impl.SupplierFinder;
+import it.tidalwave.util.impl.ProviderFinder;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -410,17 +416,94 @@ public interface Finder<T> extends Cloneable, Serializable
     /*******************************************************************************************************************
      *
      * Returns a wrapped {@code Finder} on a given collection of elements. The collection is cloned and will be
-     * immutable
+     * immutable.
+     * If you need to compute the collection on demand, use {@link #ofSupplier(Supplier)}.
+     * This method retrieves the full range of results that will be later segmented in compliance with the values
+     * specified by {@link #from(int)} and {@link #max(int)}; this is ok if the whole list of results is already
+     * available of if it is not expensive to compute. The alternate method {@link #ofProvider(BiFunction)} allows
+     * to access the 'from' and 'max' parameter, so only the required items need to be provided.
      *
      * @param   <U>     the type of the {@code Finder}
      * @param   items   the objects to wrap
      * @return          the wrapped {@code Finder}
+     * @see             #ofSupplier(Supplier)
+     * @see             #ofProvider(BiFunction)
      * @since 3.2-ALPHA-1
      *
      ******************************************************************************************************************/
+    // START SNIPPET: ofCloned
     @Nonnull
     public static <U> Finder<U> ofCloned (@Nonnull final Collection<? extends U> items)
+    // END SNIPPET: ofCloned
       {
         return new ArrayListFinder<>(items);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a wrapped {@code Finder} on a given supplier. The collection will be cloned after being supplied.
+     * This method retrieves the full range of results that will be later segmented in compliance with the values
+     * specified by {@link #from(int)} and {@link #max(int)}; this is ok if the whole list of results is already
+     * available of if it is not expensive to compute. The alternate method {@link #ofProvider(BiFunction)} allows
+     * to access the 'from' and 'max' parameter, so only the required items need to be provided.
+     *
+     * @param   <U>       the type of the {@code Finder}
+     * @param   supplier  the supplier
+     * @return            the wrapped {@code Finder}
+     * @see               #ofCloned(Collection) 
+     * @see               #ofProvider(BiFunction)
+     * @since 3.2-ALPHA-15
+     *
+     ******************************************************************************************************************/
+    // START SNIPPET: ofsupplier
+    @Nonnull
+    public static <U> Finder<U> ofSupplier (@Nonnull final Supplier<? extends Collection<? extends U>> supplier)
+    // END SNIPPET: ofsupplier
+      {
+        return new SupplierFinder<>(supplier);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a wrapped {@code Finder} on a given function to provide results. The function receives the 'from' and
+     * 'max' arguments to select a subrange of the results. The collection will be cloned after being supplied.
+     *
+     * @param   <U>       the type of the {@code Finder}
+     * @param   provider  the function providing results
+     * @return            the wrapped {@code Finder}
+     * @see               #ofCloned(Collection)
+     * @see               #ofSupplier(Supplier) 
+     * @since 3.2-ALPHA-15
+     *
+     ******************************************************************************************************************/
+    // START SNIPPET: ofProvider
+    @Nonnull
+    public static <U> Finder<U> ofProvider (
+            @Nonnull final BiFunction<Integer, Integer, ? extends Collection<? extends U>> provider)
+    // END SNIPPET: ofProvider
+      {
+        return new ProviderFinder<>(provider);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a mapping {@code Finder} on a given delegate {@code Finder}. The mapper finder provides the same
+     * results as the delegate, transformed by a mapper function.
+     *
+     * @param   <U>       the type of the {@code Finder}
+     * @param   <V>       the type of the delegate {@code Finder}
+     * @param   delegate  the delegate finder
+     * @param   mapper the mapper function
+     * @return            the wrapped {@code Finder}
+     * @since 3.2-ALPHA-15
+     *
+     ******************************************************************************************************************/
+    // START SNIPPET: mapping
+    @Nonnull
+    public static <U, V> Finder<U> mapping (@Nonnull final Finder<V> delegate,
+                                            @Nonnull final Function<? super V, ? extends U> mapper)
+    // END SNIPPET: mapping
+      {
+        return new MappingFinder<>(delegate, mapper);
       }
   }

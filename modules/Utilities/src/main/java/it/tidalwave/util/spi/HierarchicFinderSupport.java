@@ -84,10 +84,10 @@ public class HierarchicFinderSupport<T, F extends Finder<T>> implements Finder<T
     private final String name;
 
     @Nonnegative
-    private final int firstResult;
+    protected final int firstResult;
 
     @Nonnegative
-    private final int maxResults;
+    protected final int maxResults;
 
     @Nonnull @Getter(AccessLevel.PROTECTED)
     private final List<Object> contexts;
@@ -256,8 +256,7 @@ public class HierarchicFinderSupport<T, F extends Finder<T>> implements Finder<T
       {
         if (criterion instanceof Finder.InMemorySortCriterion)
           {
-            final var sorters = concat(this.sorters,
-                                       new Sorter<>((InMemorySortCriterion<T>)criterion, direction));
+            final var sorters = concat(this.sorters, new Sorter<>((InMemorySortCriterion<T>)criterion, direction));
             return clonedWith(new HierarchicFinderSupport<T, F>(name, firstResult, maxResults, contexts, sorters));
           }
 

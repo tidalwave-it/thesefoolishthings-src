@@ -150,21 +150,56 @@ be extended with new methods without changing the general concepts.
 ```Finder```s can operate both **in memory** and with **more complex data sources**. Their core scenario is the latter, otherwise they could be replaced by Java 8 ```Stream```
 (a more detailed comparison with ```Stream```s is at the end of this chapter); but to start with simpler code let's have first a look at the in-memory approach.
 
-If the whole collection of objects to query is already in memory, a predefined wrapping ```Finder``` can be created with the factory method ```ofCloned()```;
-it is used by a first example implementation of ```PersonRegistry```:
+In-memory ```Finder```s can be useful in some real-world cases, for instance when a controller or a DAO has cached data, or to create mocks for testing classes
+that use more complex ```Finder```s.
+
+In the simplest case you already have the results in a `Collection` and just want to make them available through a `Finder`; in this case the following method
+is what you need:
+
+<!-- MACRO{snippet|id=ofCloned|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+
+It is used by a first example implementation of ```PersonRegistry```:
 
 <!-- MACRO{snippet|id=ofCloned|file=${project.basedir}/../../modules/examples/InMemoryFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/InMemoryFinderExample/InMemoryPersonRegistry.java} -->
 
 As the name of the method says, the collection is cloned (shallow clone) at construction time, so any change made after the ```Finder``` creation won't be seen.
 
-In-memory ```Finder```s can be useful in some real-world cases, for instance when a controller or a DAO has cached data, or to create mocks for testing classes
-that use more complex ```Finder```s.
+If data are not immediately available and you want to compute them only on demand, passing a `Supplier` is more appropriate:
+
+<!-- MACRO{snippet|id=ofsupplier|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+
+
+#[[###]]# Function-based ```Finder```s
+
+While the previously example referred to a in-memory implementation for the sake of simplicity, the `Supplier` might retrieve the data from any kind of external
+source: perhaps parsing an XML file, querying a database (a more complex example will be provided in the chapters belows) or calling a REST endpoint. If, by
+specifying `from()` and/or `max()`, only a subset of data is required, a waste of computational power might be implied in the case there is a cost associated to
+the retrieval: the `Supplier` is supposed to provide the whole set of data.
+In this case an alternate approach is offered, a `Function` that makes available the `from` and `max` parameters:
+
+<!-- MACRO{snippet|id=ofProvider|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+
+An example of implementation is given by this test:
+
+<!-- MACRO{snippet|id=ofProvider-example|file=${project.basedir}/src/test/java/it/tidalwave/util/FinderTest.java} -->
+
+In most cases this is what you need, without requiring to write a class implementing `Finder`.
+
+Sometimes you already have a working `Finder`, but you want to provide transformed (perhaps decorated) data. In this case you have a method for the job,
+which accepts a mapping `Function`:
+
+<!-- MACRO{snippet|id=mapping|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+
+In this example the mapping `Finder` relies of a `Finder<Integer>`, while the mapper multiplies by two original data and converts them to strings:
+
+<!-- MACRO{snippet|id=mapping-example|file=${project.basedir}/src/test/java/it/tidalwave/util/FinderTest.java} -->
+
 
 
 
 #[[###]]# Data source ```Finder```s
 
-Now let's see how a ```Finder``` can work with a data source that is not in memory. A classic example is the relational database, so we will use JPA
+Now let's see how a ```Finder``` can work with a complex data source that is not in memory. A classic example is the relational database, so we will use JPA
 (Java Persistence API) as a reference. Of course similar examples could be made with other APIs for relational database as well as with other kinds of
 data sources, such as NoSQL databases, semantic databases, etc.
 
