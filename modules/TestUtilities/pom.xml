@@ -33,14 +33,14 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>3.2-ALPHA-15</version>
+        <version>3.2-ALPHA-16-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-util-test</artifactId>
     <packaging>jar</packaging>
-    <version>3.2-ALPHA-15</version>
+    <version>3.2-ALPHA-16-SNAPSHOT</version>
     <name>TheseFoolishThings :: Test Utilities</name>
     <description>
         Miscellaneous utilities for testing.
