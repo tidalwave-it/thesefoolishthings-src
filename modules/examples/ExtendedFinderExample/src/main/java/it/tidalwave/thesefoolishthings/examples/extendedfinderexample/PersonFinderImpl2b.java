@@ -109,7 +109,7 @@ public class PersonFinderImpl2b extends HierarchicFinderSupport<Person, PersonFi
 
     // START SNIPPET: computeResults
     @Override @Nonnull
-    protected List<? extends Person> computeResults()
+    protected List<Person> computeResults()
       {
         return status.persons.stream()
                              .filter(p -> status.firstNamePattern.matcher(p.getFirstName()).matches()

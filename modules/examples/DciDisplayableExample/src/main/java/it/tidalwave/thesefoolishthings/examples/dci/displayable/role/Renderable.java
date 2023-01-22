@@ -24,63 +24,19 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util;
+package it.tidalwave.thesefoolishthings.examples.dci.displayable.role;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.function.Consumer;
 
 /***********************************************************************************************************************
- *
- * An extension to be used with Lombok in order to provide "as" support to classes that don't implement the {@link As}
- * interface. The typical usage is to retrofit legacy code.
- *
- * FIXME: this class doesn't cache - every as*() call instantiates new objects.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class AsExtensions
+public interface Renderable
   {
-    @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final Class<T> roleType)
-      {
-        return adapter(datum).as(roleType);
-      }
+    public static final Class<Renderable> _Renderable_ = Renderable.class;
 
-    @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
-      {
-        return adapter(datum).maybeAs(type);
-      }
-
-    @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
-      {
-        return adapter(datum).asMany(type);
-      }
-
-    @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
-      {
-        return adapter(datum).as(type);
-      }
-
-    @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
-      {
-        return adapter(datum).maybeAs(type);
-      }
-
-    @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
-      {
-        return adapter(datum).asMany(type);
-      }
-
-    @Nonnull
-    private static As adapter (@Nonnull final Object datum)
-      {
-        return As.forObject(datum);
-      }
+    public void renderTo (@Nonnull String pattern, @Nonnull Consumer<String> renderingContext);
   }

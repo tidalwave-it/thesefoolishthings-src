@@ -6,20 +6,18 @@
 TheseFoolishThings
 ================================
 
-This project was born, several years ago, as the classic “kitchen sink” of stuff from other projects that was deemed of being reusable.
-Sometimes it grew in a disordered way, other times it was reviewed and cleaned up accurately. It contains different sort of things: from
-simple stuff such as a **```TimeProvider```** that can be mocked (for time-based tests), to **type safe ```Map```s** (following
-advice of Joshua Bloch); up to some more structured things such an extensible **```Finder```** to manipulate queries from a generic data
-source; **a facility for working with the DCI (Data, Context and Interactions) architectural pattern**; a **simple ```MessageBus```** suitable for using
-the Publish and Subscribe pattern inside an application.
+This project is a collection of miscellaneous tools shared by a number of projects of the same author. There are **simple tuples** to use with
+Java Streams, **type-safe maps** (following advice of Joshua Bloch), a **finder** that handles in a smart way queries to data sources, a facility to use the
+**DCI (Data, Context and Interactions) architectural pattern**, a simple **message bus** suitable for using the pub-sub pattern inside an application, some
+**test utilities**, an **experimental actor framework** and a few other small things.
 
-There is also some really exotic stuff, such as small implementation of **collaborative
-Actors** (working, but designed basically for didactic purposes). Actually this whole project is often used in Java classes to show things
-that are reasonably contextualized in a real-world scenario (the core parts of this project are used by working pet projects; something is
-also part of industrial project). There is good stuff and some strange stuff - in general an attitude of this project is to also try things
-in a different way than the standard.
+Yes, the project name is a tribute to the [jazz standard with the same name](https://en.wikipedia.org/wiki/These_Foolish_Things_(Remind_Me_of_You)) by
+Maschwitz and Strachey.
 
-TheseFoolishThings supports JDK 8, but requires JDK 11 or 17 to be compiled.
+TheseFoolishThings requires and is tested with JDKs in this range: [11, 17].
+It is released under the [Apache Licence v2](https://www.apache.org/licenses/LICENSE-2.0.txt).
+
+Please have a look at the [project website](${project.url/${project.version}) for a quick introduction with samples, tutorials, JavaDocs and build reports.
 
 
 Bootstrapping
@@ -27,42 +25,37 @@ Bootstrapping
 
 In order to build the project, run from the command line:
 
-```mvn -DskipTests```
+```shell
+mkdir thesefoolishthings
+cd thesefoolishthings
+git clone https://bitbucket.org/tidalwave/thesefoolishthings-src .
+mvn -DskipTests
+```
 
-The project can be opened and built by a recent version of the NetBeans, Eclipse or Idea IDEs.
-
-
-Documentation
--------------
-
-More information can be found on the [homepage](http://tidalwave.it/projects/thesefoolishthings) of the project.
+The project can be opened with a recent version of the [IntelliJ IDEA](https://www.jetbrains.com/idea/), 
+[Apache NetBeans](https://netbeans.apache.org/) or [Eclipse](https://www.eclipse.org/ide/) IDEs.
 
 
 Contributing
 ------------
 
-We accept pull requests via Bitbucket or GitHub.
+Pull requests are accepted via [Bitbucket](https://bitbucket.org/tidalwave/thesefoolishthings-src) or [GitHub](https://github.com/tidalwave-it/thesefoolishthings-src). There are some guidelines which will make 
+applying pull requests easier:
 
-There are some guidelines which will make applying pull requests easier for us:
-
-* No tabs! Please use spaces for indentation.
+* No tabs: please use spaces for indentation.
 * Respect the code style.
-* Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source
-  ode should be reformatted create a separate PR for this change.
-* Provide TestNG tests for your changes and make sure your changes don't break any existing tests by running
-```mvn clean test```.
+* Create minimal diffs — disable 'on save' actions like 'reformat source code' or 'organize imports' (unless you use the IDEA specific configuration for 
+  this project).
+* Provide [TestNG](https://testng.org/doc/) tests for your changes and make sure your changes don't break any existing tests by running
+```mvn clean test```. You can check whether there are currently broken tests at the [Continuous Integration](http://services.tidalwave.it/ci/view/TheseFoolishThings) page.
 
 If you plan to contribute on a regular basis, please consider filing a contributor license agreement. Contact us for
- more information
-
-
-License
--------
-
-Code is released under the [Apache Licence v2](https://www.apache.org/licenses/LICENSE-2.0.txt).
+ more information.
 
 
 Additional Resources
 --------------------
 
+* [Issue tracking](http://services.tidalwave.it/jira/browse/TFT)
+* [Continuous Integration](http://services.tidalwave.it/ci/view/TheseFoolishThings)
 * [Tidalwave Homepage](http://tidalwave.it)

@@ -31,6 +31,9 @@ import java.util.Collection;
 
 /***********************************************************************************************************************
  *
+ * Implementation of this interface are responsible to find in the runtime all instances of DCI roles with the given
+ * type.
+ *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
@@ -38,11 +41,13 @@ public interface AsDelegate
   {
     /*******************************************************************************************************************
      *
+     * Returns all role instances of the given type.
+     *
      * @param   <T>       the static type of the role
      * @param   roleType  the dynamic type of the role
      * @return            a collection of roles
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> Collection<? extends T> as (@Nonnull Class<T> roleType);
+    public <T> Collection<T> as (@Nonnull Class<? extends T> roleType);
   }

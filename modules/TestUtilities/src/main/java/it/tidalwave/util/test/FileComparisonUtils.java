@@ -42,8 +42,7 @@ import java.nio.file.Path;
 import com.github.difflib.DiffUtils;
 import com.github.difflib.patch.AbstractDelta;
 import com.github.difflib.text.DiffRowGenerator;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import it.tidalwave.util.Pair;
 import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.UtilityClass;
 import static java.util.stream.Collectors.toList;
@@ -61,9 +60,6 @@ import static org.junit.Assert.*;
 @UtilityClass @Slf4j
 public class FileComparisonUtils
   {
-    @Data @RequiredArgsConstructor(staticName = "of")
-    static class Tuple { public final String a, b; }
-
     private static final String P_BASE_NAME = FileComparisonUtils.class.getName();
 
     public static final String P_TABULAR_OUTPUT = P_BASE_NAME + ".tabularOutput";
@@ -82,29 +78,27 @@ public class FileComparisonUtils
      * @throws  IOException     in case of error
      *
      ******************************************************************************************************************/
-    public static void assertSameContents (@Nonnull final Path expectedFile, @Nonnull final Path actualFile)
+    public static void assertSameContents (@Nonnull final File expectedFile, @Nonnull final File actualFile)
       throws IOException
       {
-        assertSameContents(expectedFile.toFile(), actualFile.toFile());
+        assertSameContents(expectedFile.toPath(), actualFile.toPath());
       }
 
     /*******************************************************************************************************************
      *
      * Asserts that two files have the same contents.
      *
-     * @param   expectedFile    the file with the expected contents
-     * @param   actualFile      the file with the contents to probe
+     * @param   expectedPath    the file with the expected contents
+     * @param   actualPath      the file with the contents to probe
      * @throws  IOException     in case of error
      *
      ******************************************************************************************************************/
-    public static void assertSameContents (@Nonnull final File expectedFile, @Nonnull final File actualFile)
+    public static void assertSameContents (@Nonnull final Path expectedPath, @Nonnull final Path actualPath)
       throws IOException
       {
-        final var expectedPath = expectedFile.getAbsolutePath();
-        final var actualPath = actualFile.getAbsolutePath();
         log.info("******** Comparing files:");
         logPaths(expectedPath, actualPath, "");
-        assertSameContents(fileToStrings(expectedFile), fileToStrings(actualFile), expectedPath, actualPath);
+        assertSameContents(fileToStrings(expectedPath), fileToStrings(actualPath), expectedPath, actualPath);
       }
 
     /*******************************************************************************************************************
@@ -122,6 +116,23 @@ public class FileComparisonUtils
 
     /*******************************************************************************************************************
      *
+     * Checks whether two files have the same contents.
+     *
+     * @param   expectedPath    the file with the expected contents
+     * @param   actualPath      the file with the contents to probe
+     * @throws  IOException     in case of error
+     * @since   1.2-ALPHA-15
+     *
+     ******************************************************************************************************************/
+    public static boolean checkSameContents (@Nonnull final Path expectedPath, @Nonnull final Path actualPath)
+            throws IOException
+      {
+        return checkSameContents(fileToStrings(expectedPath), fileToStrings(actualPath), expectedPath, actualPath)
+                .isEmpty();
+      }
+
+    /*******************************************************************************************************************
+     *
      * Converts a string which contains newlines into a list of strings.
      *
      * @param   string          the source
@@ -133,8 +144,8 @@ public class FileComparisonUtils
     public static List<String> stringToStrings (@Nonnull final String string)
       throws IOException
       {
-        //return Arrays.asList(string.split("\n"));
-        return fileToStrings(new ByteArrayInputStream(string.getBytes(UTF_8)));
+        //return List.of(string.split("\n"));
+        return resourceToStrings(new ByteArrayInputStream(string.getBytes(UTF_8)));
       }
 
     /*******************************************************************************************************************
@@ -147,15 +158,15 @@ public class FileComparisonUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static List<String> fileToStrings (@Nonnull final File file)
+    public static List<String> fileToStrings (@Nonnull final Path file)
       throws IOException
       {
-        return fileToStrings(Files.newInputStream(file.toPath()));
+        return Files.readAllLines(file);
       }
 
     /*******************************************************************************************************************
      *
-     * Reads a classpath resource into a list of strings.
+     * Reads a classpath resource (not a regular file) into a list of strings.
      *
      * @param   path            the path of the classpath resource
      * @return                  the strings
@@ -163,7 +174,7 @@ public class FileComparisonUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static List<String> fileToStrings (@Nonnull final String path)
+    public static List<String> resourceToStrings (@Nonnull final String path)
       throws IOException
       {
         final var is = FileComparisonUtils.class.getClassLoader().getResourceAsStream(path);
@@ -173,12 +184,12 @@ public class FileComparisonUtils
             throw new RuntimeException("Resource not found: " + path);
           }
 
-        return fileToStrings(is);
+        return resourceToStrings(is);
       }
 
     /*******************************************************************************************************************
      *
-     * Reads an input stream into a list of strings.
+     * Reads an input stream into a list of strings. The stream is closed at the end.
      *
      * @param   is              the input stream
      * @return                  the strings
@@ -186,12 +197,12 @@ public class FileComparisonUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static List<String> fileToStrings (@Nonnull final InputStream is)
+    public static List<String> resourceToStrings (@Nonnull final InputStream is)
       throws IOException
       {
         try (final var br = new BufferedReader(new InputStreamReader(is, UTF_8)))
           {
-            final List<String> result = new ArrayList<>();
+            final var result = new ArrayList<String>();
 
             for (;;)
               {
@@ -255,54 +266,79 @@ public class FileComparisonUtils
      ******************************************************************************************************************/
     private static void assertSameContents (@Nonnull final List<String> expected,
                                             @Nonnull final List<String> actual,
-                                            @Nullable final String expectedPath,
-                                            @Nullable final String actualPath)
+                                            @Nullable final Path expectedPath,
+                                            @Nullable final Path actualPath)
+      {
+        final var diff = checkSameContents(expected, actual, expectedPath, actualPath);
+
+        if (!diff.isEmpty())
+          {
+            fail(String.join(System.lineSeparator(), diff));
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Checks whether two collections of strings have the same contents.
+     *
+     * @param   expected        the expected values
+     * @param   actual          the actual values
+     * @param   expectedPath    an optional path for expected values
+     * @param   actualPath      an optional path for actual values
+     * @return                  the differences
+     *
+     ******************************************************************************************************************/
+    private static List<String> checkSameContents (@Nonnull final List<String> expected,
+                                                   @Nonnull final List<String> actual,
+                                                   @Nullable final Path expectedPath,
+                                                   @Nullable final Path actualPath)
       {
         final var deltas = DiffUtils.diff(expected, actual).getDeltas();
 
-        if (!deltas.isEmpty())
+        if (deltas.isEmpty())
           {
-            if ((expectedPath != null) && (actualPath != null))
-              {
-                logPaths(expectedPath, actualPath, "TEST FAILED ");
-              }
-
-            final var strings = toStrings(deltas);
-            strings.forEach(log::error);
-
-            if (!TABULAR_OUTPUT)
-              {
-                log.error("{} You can set -D{}=true for tabular output; -D{}=<num> to set max table size",
-                          TF, P_TABULAR_OUTPUT, P_TABULAR_LIMIT);
-              }
-            else
-              {
-                final var generator = DiffRowGenerator.create()
-                                                      .showInlineDiffs(false)
-                                                      .inlineDiffByWord(true)
-                                                      .lineNormalizer(l -> l)
-                                                      .build();
-                final var tuples = generator.generateDiffRows(expected, actual)
-                                            .stream()
-                                            .filter(row -> !row.getNewLine().equals(row.getOldLine()))
-                                            .map(row -> Tuple.of(row.getOldLine().trim(), row.getNewLine().trim()))
-                                            .limit(TABULAR_LIMIT)
-                                            .collect(toList());
-
-                final var padA = tuples.stream().mapToInt(p -> p.a.length()).max().getAsInt();
-                final var padB = tuples.stream().mapToInt(p -> p.b.length()).max().getAsInt();
-                log.error("{} Tabular text is trimmed; row limit set to -D{}={}",
-                          TF, P_TABULAR_LIMIT, TABULAR_LIMIT);
-                log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
-                log.error("{} | {} | {} |", TF, pad("expected", padA, ' '), pad("actual  ", padB, ' '));
-                log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
-                tuples.forEach(p -> log.error("{} | {} | {} |", TF, pad(p.a, padA, ' '), pad(p.b, padB,' ')));
-                log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
-              }
-
-            strings.add(0, "Unexpected contents: see log above (you can grep '" + TF + "')");
-            fail(String.join(System.lineSeparator(), strings));
+            return List.of();
           }
+
+        if ((expectedPath != null) && (actualPath != null))
+          {
+            logPaths(expectedPath, actualPath, "TEST FAILED ");
+          }
+
+        final var strings = toStrings(deltas);
+        strings.forEach(log::error);
+
+        if (!TABULAR_OUTPUT)
+          {
+            log.error("{} You can set -D{}=true for tabular output; -D{}=<num> to set max table size",
+                      TF, P_TABULAR_OUTPUT, P_TABULAR_LIMIT);
+          }
+        else
+          {
+            final var generator = DiffRowGenerator.create()
+                                                  .showInlineDiffs(false)
+                                                  .inlineDiffByWord(true)
+                                                  .lineNormalizer(l -> l)
+                                                  .build();
+            final var pairs = generator.generateDiffRows(expected, actual)
+                                       .stream()
+                                       .filter(row -> !row.getNewLine().equals(row.getOldLine()))
+                                       .map(row -> Pair.of(row.getOldLine().trim(), row.getNewLine().trim()))
+                                       .limit(TABULAR_LIMIT)
+                                       .collect(toList());
+
+            final var padA = pairs.stream().mapToInt(p -> p.a.length()).max().getAsInt();
+            final var padB = pairs.stream().mapToInt(p -> p.b.length()).max().getAsInt();
+            log.error("{} Tabular text is trimmed; row limit set to -D{}={}", TF, P_TABULAR_LIMIT, TABULAR_LIMIT);
+            log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
+            log.error("{} | {} | {} |", TF, pad("expected", padA, ' '), pad("actual  ", padB, ' '));
+            log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
+            pairs.forEach(p -> log.error("{} | {} | {} |", TF, pad(p.a, padA, ' '), pad(p.b, padB,' ')));
+            log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
+          }
+
+        strings.add(0, "Unexpected contents: see log above (you can grep '" + TF + "')");
+        return strings;
       }
 
     /*******************************************************************************************************************
@@ -314,7 +350,7 @@ public class FileComparisonUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    private static List<String> toStrings (@Nonnull final Iterable<AbstractDelta<String>> deltas)
+    private static List<String> toStrings (@Nonnull final Iterable<? extends AbstractDelta<String>> deltas)
       {
         final List<String> strings = new ArrayList<>();
 
@@ -360,14 +396,16 @@ public class FileComparisonUtils
      * @param prefix            a log prefix
      *
      ******************************************************************************************************************/
-    private static void logPaths (@Nonnull final String expectedPath,
-                                  @Nonnull final String actualPath,
+    private static void logPaths (@Nonnull final Path expectedPath,
+                                  @Nonnull final Path actualPath,
                                   @Nonnull final String prefix)
       {
-        final var commonPath = commonPrefix(expectedPath, actualPath);
+        final var expectedPathAsString = expectedPath.toAbsolutePath().toString();
+        final var actualPathAsString = expectedPath.toAbsolutePath().toString();
+        final var commonPath = commonPrefix(expectedPathAsString, actualPathAsString);
         log.info("{}>>>> path is: {}", prefix, commonPath);
-        log.info("{}>>>> exp is:  {}", prefix, expectedPath.substring(commonPath.length()));
-        log.info("{}>>>> act is:  {}", prefix, actualPath.substring(commonPath.length()));
+        log.info("{}>>>> exp is:  {}", prefix, expectedPathAsString.substring(commonPath.length()));
+        log.info("{}>>>> act is:  {}", prefix, actualPathAsString.substring(commonPath.length()));
       }
 
     /*******************************************************************************************************************

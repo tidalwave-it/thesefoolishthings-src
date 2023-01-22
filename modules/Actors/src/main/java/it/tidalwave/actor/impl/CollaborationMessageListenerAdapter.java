@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor @Slf4j
-class CollaborationMessageListenerAdapter<Topic extends Collaboration.Provider> implements MessageBus.Listener<Topic>
+class CollaborationMessageListenerAdapter<T extends Collaboration.Provider> implements MessageBus.Listener<T>
   {
     @Nonnull
     private final Object owner;
@@ -58,7 +58,7 @@ class CollaborationMessageListenerAdapter<Topic extends Collaboration.Provider> 
     private final ActorActivatorStats stats;
 
     @Override
-    public void notify (@Nonnull final Topic message)
+    public void notify (@Nonnull final T message)
       {
         log.trace("notify({})", message);
         final var collaboration = (DefaultCollaboration)message.getCollaboration();

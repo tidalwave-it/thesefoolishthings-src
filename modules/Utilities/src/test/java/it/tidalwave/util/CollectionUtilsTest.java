@@ -26,9 +26,12 @@
  */
 package it.tidalwave.util;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.IntStream;
 import org.testng.annotations.Test;
 import static java.util.stream.Collectors.*;
@@ -49,12 +52,12 @@ public class CollectionUtilsTest
     @Test
     public void test_concat()
       {
-        // GIVEN
+        // given
         final var l1 = IntStream.rangeClosed(1, 9).boxed().collect(toList());
         final Integer i2 = 10;
-        // WHEN
+        // when
         final var actual = concat(l1, i2);
-        // THEN
+        // then
         final var expected = IntStream.rangeClosed(1, 10).boxed().collect(toList());
         assertThat(expected, is(actual));
       }
@@ -65,12 +68,12 @@ public class CollectionUtilsTest
     @Test
     public void test_concat_list()
       {
-        // GIVEN
+        // given
         final var l1 = IntStream.rangeClosed(1, 5).boxed().collect(toList());
         final var l2 = IntStream.rangeClosed(6, 10).boxed().collect(toList());
-        // WHEN
+        // when
         final var actual = concat(l1, l2);
-        // THEN
+        // then
         final var expected = IntStream.rangeClosed(1, 10).boxed().collect(toList());
         assertThat(expected, is(actual));
       }
@@ -81,11 +84,11 @@ public class CollectionUtilsTest
     @Test
     public void test_reversed()
       {
-        // GIVEN
+        // given
         final var l = IntStream.rangeClosed(1, 10).boxed().collect(toList());
-        // WHEN
+        // when
         final var actual = reversed(l);
-        // THEN
+        // then
         final var expected = IntStream.rangeClosed(1, 10).boxed().collect(toList());
         Collections.reverse(expected);
         assertThat(expected, is(actual));
@@ -97,11 +100,11 @@ public class CollectionUtilsTest
     @Test
     public void test_optionalHead()
       {
-        // GIVEN
+        // given
         final var l = IntStream.rangeClosed(1, 10).boxed().collect(toList());
-        // WHEN
+        // when
         final var actual = optionalHead(l);
-        // THEN
+        // then
         final var expected = Optional.of(1);
         assertThat(expected, is(actual));
       }
@@ -112,11 +115,11 @@ public class CollectionUtilsTest
     @Test
     public void test_optionalHead_with_empty_list()
       {
-        // GIVEN
+        // given
         final List<Integer> l = Collections.emptyList();
-        // WHEN
+        // when
         final var actual = optionalHead(l);
-        // THEN
+        // then
         final Optional<Integer> expected = Optional.empty();
         assertThat(expected, is(actual));
       }
@@ -127,11 +130,11 @@ public class CollectionUtilsTest
     @Test
     public void test_head()
       {
-        // GIVEN
+        // given
         final var l = IntStream.rangeClosed(1, 10).boxed().collect(toList());
-        // WHEN
+        // when
         final var actual = head(l);
-        // THEN
+        // then
         final Integer expected = 1;
         assertThat(expected, is(actual));
       }
@@ -142,26 +145,58 @@ public class CollectionUtilsTest
     @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "List is empty")
     public void test_head_with_empty_list()
       {
-        // GIVEN
+        // given
         final List<Integer> l = Collections.emptyList();
-        // WHEN
+        // when
         final var actual = head(l);
-        // THEN
+        // then
         // throws exception...
       }
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test
     public void test_tail()
       {
-        // GIVEN
+        // given
         final var l = IntStream.rangeClosed(1, 10).boxed().collect(toList());
-        // WHEN
+        // when
         final var actual = tail(l);
-        // THEN
+        // then
         final var expected = IntStream.rangeClosed(2, 10).boxed().collect(toList());
         assertThat(expected, is(actual));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test(invocationCount = 5)
+    public void test_sorted()
+      {
+        // given
+        final var list = new Random().ints().limit(10).boxed().collect(toList());
+        // when
+        final var actualResult = CollectionUtils.sorted(list);
+        // then
+        final var expectedResult = new ArrayList<>(list);
+        Collections.sort(expectedResult);
+        assertThat(actualResult, is(expectedResult));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test(invocationCount = 5)
+    public void test_sorted_with_comparator()
+      {
+        // given
+        final var list = new Random().ints().limit(10).boxed().collect(toList());
+        final Comparator<Integer> comparator = Comparator.reverseOrder();
+        // when
+        final var actualResult = CollectionUtils.sorted(list, comparator);
+        // then
+        final var expectedResult = new ArrayList<>(list);
+        expectedResult.sort(comparator);
+        assertThat(actualResult, is(expectedResult));
       }
   }

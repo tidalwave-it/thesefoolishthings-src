@@ -27,8 +27,8 @@
 package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
+import java.util.Optional;
 import it.tidalwave.util.Finder;
-import it.tidalwave.util.NotFoundException;
 
 /***********************************************************************************************************************
  *
@@ -42,7 +42,7 @@ import it.tidalwave.util.NotFoundException;
  *
  **********************************************************************************************************************/
 @FunctionalInterface
-public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYPE>>
+public interface Composite<T, F extends Finder<? extends T>>
   {
     public static final Class<Composite> _Composite_ = Composite.class;
 
@@ -68,7 +68,7 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
      *
      ******************************************************************************************************************/
     @Nonnull
-    public SPECIALIZED_FINDER findChildren();
+    public F findChildren();
 
     /*******************************************************************************************************************
      *
@@ -84,7 +84,9 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
          * @param  object  the visited object
          *
          **************************************************************************************************************/
-        public void preVisit (@Nonnull T object);
+        public default void preVisit (@Nonnull final T object)
+          {
+          }
 
         /***************************************************************************************************************
          *
@@ -94,7 +96,9 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
          * @param  object  the visited object
          *
          **************************************************************************************************************/
-        public void visit (@Nonnull T object);
+        public default void visit (@Nonnull final T object)
+          {
+          }
 
         /***************************************************************************************************************
          *
@@ -103,52 +107,21 @@ public interface Composite<TYPE, SPECIALIZED_FINDER extends Finder<? extends TYP
          * @param  object  the visited object
          *
          **************************************************************************************************************/
-        public void postVisit (@Nonnull T object);
+        public default void postVisit (@Nonnull final T object)
+          {
+          }
 
         /***************************************************************************************************************
          *
          * Returns the value of this visitor.
          *
-         * @return                     the value
-         * @throws  NotFoundException  when no value has been found
+         * @return         the value
          *
          **************************************************************************************************************/
         @Nonnull
-        public R getValue()
-          throws NotFoundException;
-      }
-
-    /*******************************************************************************************************************
-     *
-     * A support class for {@link Visitor} which provides default empty methods.
-     *
-     ******************************************************************************************************************/
-    public static class VisitorSupport<T, R> implements Visitor<T, R>
-      {
-        /** {@inheritDoc} */
-        @Override
-        public void preVisit (@Nonnull final T object)
+        public default Optional<R> getValue()
           {
-          }
-
-        /** {@inheritDoc} */
-        @Override
-        public void visit (@Nonnull final T object)
-          {
-          }
-
-        /** {@inheritDoc} */
-        @Override
-        public void postVisit (@Nonnull final T object)
-          {
-          }
-
-        /** {@inheritDoc} */
-        @Override @Nonnull
-        public R getValue()
-          throws NotFoundException
-          {
-            throw new NotFoundException("Must be implemented by subclasses");
+            return Optional.empty();
           }
       }
   }

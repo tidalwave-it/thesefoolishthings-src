@@ -31,6 +31,7 @@ import it.tidalwave.util.Id;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.experimental.ExtensionMethod;
 import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.thesefoolishthings.examples.dci.displayable.role.Renderable._Renderable_;
 import static it.tidalwave.role.ui.Displayable._Displayable_;
 
 /***********************************************************************************************************************
@@ -46,9 +47,12 @@ public class DisplayableExample
       {
         final var joe = new Person(new Id("1"), "Joe", "Smith");
         final var luke = new Person(new Id("2"), "Luke", "Skywalker");
-        
+        // approach with classic getter
         log.info("******** (joe as Displayable).displayName: {}", joe.as(_Displayable_).getDisplayName());
         log.info("******** (luke as Displayable).displayName: {}", luke.as(_Displayable_).getDisplayName());
+        // approach oriented to Tell Don't Ask
+        joe.as(_Renderable_).renderTo("******** (joe as Renderable): %1$s %2$s ", log::info);
+        luke.as(_Renderable_).renderTo("******** (luke as Renderable): %1$s %2$s ", log::info);
       }
   }
 // END-SNIPPET: extensionmethod

@@ -59,9 +59,12 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
 
     /*******************************************************************************************************************
      *
+     * Creates a new instance from the given contents.
+     *
+     * @param   map   the contents
      *
      ******************************************************************************************************************/
-    public TypeSafeHashMap (@Nonnull final Map<Key<?>, Object> map)
+    public TypeSafeHashMap (@Nonnull final Map<? extends Key<?>, Object> map)
       {
         this(new HashMap<>(), false);
         this.map.putAll(map);

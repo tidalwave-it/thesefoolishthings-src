@@ -24,63 +24,25 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util;
+package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.Optional;
+import it.tidalwave.util.Finder;
+import it.tidalwave.util.Id;
 
 /***********************************************************************************************************************
  *
- * An extension to be used with Lombok in order to provide "as" support to classes that don't implement the {@link As}
- * interface. The typical usage is to retrofit legacy code.
+ * A {@link Finder} that provides filtering by id.
  *
- * FIXME: this class doesn't cache - every as*() call instantiates new objects.
+ * @param <T>     the product abstract type
+ * @param <F>     the {@code Finder} type
+ * @since         3.2-ALPHA-15
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class AsExtensions
+public interface FinderWithId<T, F extends ExtendedFinderSupport<T, F>> extends Finder<T>, ExtendedFinderSupport<T, F>
   {
     @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final Class<T> roleType)
-      {
-        return adapter(datum).as(roleType);
-      }
-
-    @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
-      {
-        return adapter(datum).maybeAs(type);
-      }
-
-    @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
-      {
-        return adapter(datum).asMany(type);
-      }
-
-    @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
-      {
-        return adapter(datum).as(type);
-      }
-
-    @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
-      {
-        return adapter(datum).maybeAs(type);
-      }
-
-    @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
-      {
-        return adapter(datum).asMany(type);
-      }
-
-    @Nonnull
-    private static As adapter (@Nonnull final Object datum)
-      {
-        return As.forObject(datum);
-      }
+    public F withId (@Nonnull Id id);
   }

@@ -56,20 +56,20 @@ import static it.tidalwave.util.CollectionUtils.concat;
  *
  **********************************************************************************************************************/
 @Slf4j @AllArgsConstructor(access = AccessLevel.PRIVATE) @ToString
-public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>> implements Finder<TYPE>
+public class HierarchicFinderSupport<T, F extends Finder<T>> implements Finder<T>
   {
     private static final long serialVersionUID = 2467809593956684L;
 
     @RequiredArgsConstructor
-    static class Sorter<Type>
+    static class Sorter<U>
       {
         @Nonnull
-        private final InMemorySortCriterion<Type> sortCriterion;
+        private final InMemorySortCriterion<U> sortCriterion;
 
         @Nonnull
         private final SortDirection sortDirection;
 
-        public void sort (@Nonnull final List<? extends Type> results)
+        public void sort (@Nonnull final List<? extends U> results)
           {
             sortCriterion.sort(results, sortDirection);
           }
@@ -84,16 +84,16 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
     private final String name;
 
     @Nonnegative
-    private final int firstResult;
+    protected final int firstResult;
 
     @Nonnegative
-    private final int maxResults;
+    protected final int maxResults;
 
     @Nonnull @Getter(AccessLevel.PROTECTED)
     private final List<Object> contexts;
 
     @Nonnull
-    private final List<Sorter<TYPE>> sorters;
+    private final List<Sorter<T>> sorters;
 
     private static final int DEFAULT_MAX_RESULTS = Integer.MAX_VALUE;
 
@@ -137,7 +137,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      * @param   holder    the holder object
      *
      ******************************************************************************************************************/
-    protected HierarchicFinderSupport (@Nonnull final HierarchicFinderSupport<TYPE, EXTENDED_FINDER> other, @Nonnull final Object holder)
+    protected HierarchicFinderSupport (@Nonnull final HierarchicFinderSupport<T, F> other, @Nonnull final Object holder)
       {
         log.trace("HierarchicFinderSupport({}, {})", other, holder);
         final var source = getSource(HierarchicFinderSupport.class, other, holder);
@@ -158,7 +158,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public final HierarchicFinderSupport<TYPE, EXTENDED_FINDER> clone()
+    public final HierarchicFinderSupport<T, F> clone()
       {
         throw new UnsupportedOperationException("\"HierarchicFinderSupport.clone() no more supported");
       }
@@ -172,13 +172,13 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected EXTENDED_FINDER clonedWith (@Nonnull final Object override)
+    protected F clonedWith (@Nonnull final Object override)
       {
         try
           {
             final var constructor = getCloneConstructor();
             constructor.setAccessible(true);
-            return (EXTENDED_FINDER)constructor.newInstance(this, override);
+            return (F)constructor.newInstance(this, override);
           }
         catch (Exception e)
           {
@@ -196,7 +196,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Nonnull @Deprecated
-    protected EXTENDED_FINDER clone (@Nonnull final Object override)
+    protected F clone (@Nonnull final Object override)
       {
         return clonedWith(override);
       }
@@ -207,9 +207,9 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public EXTENDED_FINDER from (@Nonnegative final int firstResult)
+    public F from (@Nonnegative final int firstResult)
       {
-        return clonedWith(new HierarchicFinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+        return clonedWith(new HierarchicFinderSupport<T, F>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -218,9 +218,9 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public EXTENDED_FINDER max (@Nonnegative final int maxResults)
+    public F max (@Nonnegative final int maxResults)
       {
-        return clonedWith(new HierarchicFinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+        return clonedWith(new HierarchicFinderSupport<T, F>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -229,10 +229,10 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public EXTENDED_FINDER withContext (@Nonnull final Object context)
+    public F withContext (@Nonnull final Object context)
       {
         final var contexts = concat(this.contexts, context);
-        return clonedWith(new HierarchicFinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+        return clonedWith(new HierarchicFinderSupport<T, F>(name, firstResult, maxResults, contexts, sorters));
       }
 
     /*******************************************************************************************************************
@@ -241,7 +241,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <ANOTHER_TYPE> Finder<ANOTHER_TYPE> ofType (@Nonnull final Class<ANOTHER_TYPE> type)
+    public <U> Finder<U> ofType (@Nonnull final Class<U> type)
       {
         throw new UnsupportedOperationException("Must be eventually implemented by subclasses.");
       }
@@ -252,13 +252,12 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public EXTENDED_FINDER sort (@Nonnull final SortCriterion criterion, @Nonnull final SortDirection direction)
+    public F sort (@Nonnull final SortCriterion criterion, @Nonnull final SortDirection direction)
       {
         if (criterion instanceof Finder.InMemorySortCriterion)
           {
-            final var sorters = concat(this.sorters,
-                                       new Sorter<>((InMemorySortCriterion<TYPE>)criterion, direction));
-            return clonedWith(new HierarchicFinderSupport<TYPE, EXTENDED_FINDER>(name, firstResult, maxResults, contexts, sorters));
+            final var sorters = concat(this.sorters, new Sorter<>((InMemorySortCriterion<T>)criterion, direction));
+            return clonedWith(new HierarchicFinderSupport<T, F>(name, firstResult, maxResults, contexts, sorters));
           }
 
         final var template = "%s does not implement %s - you need to subclass Finder and override sort()";
@@ -272,7 +271,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public final EXTENDED_FINDER sort (@Nonnull final SortCriterion criterion)
+    public final F sort (@Nonnull final SortCriterion criterion)
       {
         return sort(criterion, SortDirection.ASCENDING);
       }
@@ -283,7 +282,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public List<? extends TYPE> results()
+    public List<T> results()
       {
         return computeNeededResults();
       }
@@ -308,7 +307,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      ******************************************************************************************************************/
     // START SNIPPET: computeResults
     @Nonnull
-    protected List<? extends TYPE> computeResults()
+    protected List<T> computeResults()
     // END SNIPPET: computeResults
       {
         throw new UnsupportedOperationException("You must implement me!");
@@ -323,7 +322,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      ******************************************************************************************************************/
     // START SNIPPET: computeNeededResults
     @Nonnull
-    protected List<? extends TYPE> computeNeededResults()
+    protected List<T> computeNeededResults()
     // END SNIPPET: computeNeededResults
       {
         log.trace("computeNeededResults() - {}", this);
@@ -353,7 +352,7 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      * A utility method used by the copy constructor (see general documentation). If the override object is strictly
      * of the specified type, it is returned; otherwise the other object is returned.
      *
-     * @param <T>       the static type of the source
+     * @param <U>       the static type of the source
      * @param type      the dynamic type of the source
      * @param other     the other finder
      * @param override  the holder object
@@ -361,7 +360,9 @@ public class HierarchicFinderSupport<TYPE, EXTENDED_FINDER extends Finder<TYPE>>
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected static <T> T getSource (final Class<T> type, @Nonnull final T other, @Nonnull final Object override)
+    protected static <U> U getSource (@Nonnull final Class<? extends U> type,
+                                      @Nonnull final U other,
+                                      @Nonnull final Object override)
       {
         return override.getClass().equals(type) ? type.cast(override) : other;
       }

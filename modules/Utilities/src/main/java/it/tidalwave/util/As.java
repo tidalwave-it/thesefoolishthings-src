@@ -148,7 +148,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default <T> T as (@Nonnull final Class<T> type)
+    public default <T> T as (@Nonnull final Class<? extends T> type)
       {
         return maybeAs(type).orElseThrow(() -> new AsException(type));
       }
@@ -164,7 +164,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> Optional<T> maybeAs (@Nonnull Class<T> type);
+    public <T> Optional<T> maybeAs (@Nonnull Class<? extends T> type);
 
     /*******************************************************************************************************************
      *
@@ -176,7 +176,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public <T> Collection<T> asMany (@Nonnull Class<T> type);
+    public <T> Collection<T> asMany (@Nonnull Class<? extends T> type);
 
     /*******************************************************************************************************************
      *
@@ -206,7 +206,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default <T> T as (@Nonnull final Type<T> type)
+    public default <T> T as (@Nonnull final Type<? extends T> type)
       {
         return as(type.getType());
       }
@@ -222,7 +222,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default <T> Optional<T> maybeAs (@Nonnull final Type<T> type)
+    public default <T> Optional<T> maybeAs (@Nonnull final Type<? extends T> type)
       {
         return maybeAs(type.getType());
       }
@@ -238,7 +238,7 @@ public interface As
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default <T> Collection<T> asMany (@Nonnull final Type<T> type)
+    public default <T> Collection<T> asMany (@Nonnull final Type<? extends T> type)
       {
         return asMany(type.getType());
       }

@@ -28,7 +28,6 @@ package it.tidalwave.role.ui.impl;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -56,7 +55,7 @@ public class DefaultStyleable implements Styleable
     
     public DefaultStyleable (@Nonnull final String ... styles)
       {
-        this(Arrays.asList(styles));
+        this(List.of(styles));
       }
     
     @Override @Nonnull

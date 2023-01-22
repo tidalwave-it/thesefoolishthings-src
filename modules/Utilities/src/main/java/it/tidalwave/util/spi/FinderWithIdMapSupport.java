@@ -24,63 +24,63 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util;
+package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import it.tidalwave.util.Id;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * An extension to be used with Lombok in order to provide "as" support to classes that don't implement the {@link As}
- * interface. The typical usage is to retrofit legacy code.
+ * An implementation of {@link FinderWithIdSupport} based on a {@link Map}.
  *
- * FIXME: this class doesn't cache - every as*() call instantiates new objects.
+ * @param <T>     the product abstract type
+ * @param <I>     the product concrete type
+ * @param <F>     the {@code Finder} type
+ * @since         3.2-ALPHA-15
  *
  * @author  Fabrizio Giudici
+ * @it.tidalwave.javadoc.experimental
  *
  **********************************************************************************************************************/
-public class AsExtensions
+@RequiredArgsConstructor
+public class FinderWithIdMapSupport<T, I extends T, F extends ExtendedFinderSupport<T, F>>
+        extends FinderWithIdSupport<T, I, F>
   {
-    @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final Class<T> roleType)
-      {
-        return adapter(datum).as(roleType);
-      }
+    private static final long serialVersionUID = 1L;
 
     @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
+    private final Map<Id, I> mapById;
+
+    public FinderWithIdMapSupport()
       {
-        return adapter(datum).maybeAs(type);
+        mapById = Collections.emptyMap();
       }
 
-    @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
+    public FinderWithIdMapSupport (@Nonnull final FinderWithIdMapSupport<T, I, F> other,
+                                   @Nonnull final Object override)
       {
-        return adapter(datum).asMany(type);
+        super(other, override);
+        final FinderWithIdMapSupport<T, I, F> source = getSource(FinderWithIdMapSupport.class, other, override);
+        mapById = new HashMap<>(source.mapById);
       }
 
-    @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
+    @Override @Nonnull
+    protected List<T> findAll()
       {
-        return adapter(datum).as(type);
+        return new ArrayList<>(mapById.values());
       }
 
-    @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
+    @Override @Nonnull
+    protected Optional<T> findById (@Nonnull final Id id)
       {
-        return adapter(datum).maybeAs(type);
-      }
-
-    @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
-      {
-        return adapter(datum).asMany(type);
-      }
-
-    @Nonnull
-    private static As adapter (@Nonnull final Object datum)
-      {
-        return As.forObject(datum);
+        return Optional.ofNullable(mapById.get(id));
       }
   }
+

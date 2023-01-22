@@ -52,7 +52,7 @@ public class ArrayListFinder<T> extends SimpleFinderSupport<T>
     @Nonnull
     private final Collection<T> items;
 
-    public ArrayListFinder (@Nonnull final Collection<T> items)
+    public ArrayListFinder (@Nonnull final Collection<? extends T> items)
       {
         this.items = Collections.unmodifiableCollection(new ArrayList<>(items));
       }
@@ -65,7 +65,7 @@ public class ArrayListFinder<T> extends SimpleFinderSupport<T>
       }
 
     @Override @Nonnull
-    protected List<? extends T> computeResults()
+    protected List<T> computeResults()
       {
         return new CopyOnWriteArrayList<>(items);
       }

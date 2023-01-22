@@ -128,11 +128,12 @@ public final class CollectionUtils
 
     /*******************************************************************************************************************
      *
-     * Sorts a list. The resulting list is mutable.
+     * Sorts a list with a given {@link Comparator}. The resulting list is mutable.
      *
-     * @param     <T>       the type of list items
-     * @param     list      the list
-     * @return              the sorted list
+     * @param     <T>         the type of list items
+     * @param     list        the list
+     * @param     comparator  the comparator
+     * @return                the sorted list
      * @since     3.2-ALPHA-13
      *
      * @it.tidalwave.javadoc.stable

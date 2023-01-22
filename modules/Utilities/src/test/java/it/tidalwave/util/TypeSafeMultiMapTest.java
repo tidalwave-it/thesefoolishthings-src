@@ -29,7 +29,6 @@ package it.tidalwave.util;
 import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -80,7 +79,7 @@ public class TypeSafeMultiMapTest
         final var underTest = TypeSafeMultiMap.ofCloned(map);
         // then
         assertThat(underTest.size(), is(3));
-        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
+        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME))));
         assertThat(underTest.asMap(), is(map));
         assertThat(underTest.get(K_STRING), is(singletonList("1")));
         assertThat(underTest.get(K_INTEGER), is(singletonList(2)));
@@ -130,8 +129,8 @@ public class TypeSafeMultiMapTest
         assertThat(underTest, is(not(sameInstance(firstMap))));
         assertThat(firstMap.size(), is(3));
         assertThat(underTest.size(), is(4));
-        assertThat(firstMap.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
-        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME, K_STRING2))));
+        assertThat(firstMap.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME))));
+        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME, K_STRING2))));
         map.put(K_STRING2, singletonList("2"));
         assertThat(underTest.asMap(), is(map));
         assertThat(underTest.get(K_STRING2), is(singletonList("2")));
@@ -153,12 +152,12 @@ public class TypeSafeMultiMapTest
         assertThat(underTest, is(not(sameInstance(firstMap))));
         assertThat(firstMap.size(), is(3));
         assertThat(underTest.size(), is(3));
-        assertThat(firstMap.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
-        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
-        map.put(K_STRING, Arrays.asList("1", "1+"));
+        assertThat(firstMap.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME))));
+        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME))));
+        map.put(K_STRING, List.of("1", "1+"));
         assertThat(underTest.asMap(), is(map));
         assertThat(firstMap.get(K_STRING), is(singletonList("1")));
-        assertThat(underTest.get(K_STRING), is(Arrays.asList("1", "1+")));
+        assertThat(underTest.get(K_STRING), is(List.of("1", "1+")));
       }
 
     /*******************************************************************************************************************

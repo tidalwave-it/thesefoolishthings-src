@@ -48,13 +48,13 @@ import lombok.extern.slf4j.Slf4j;
 public class MultiQueue 
   {
     @RequiredArgsConstructor @Getter @ToString
-    static class TopicAndMessage<TOPIC>
+    static class TopicAndMessage<T>
       {
         @Nonnull
-        private final Class<TOPIC> topic;
+        private final Class<T> topic;
 
         @Nonnull
-        private final TOPIC message;
+        private final T message;
       }
      
     private final ConcurrentNavigableMap<Class<?>, Queue<?>> queueMapByTopic =
@@ -66,12 +66,12 @@ public class MultiQueue
      *
      * Adds a message of the given topic to this queue and issues a notification.
      *
-     * @param   <TOPIC>   the static type of the message
+     * @param   <T>   the static type of the message
      * @param   topic     the dynamic type of the message
      * @param   message   the message
      *
      ******************************************************************************************************************/
-    public synchronized <TOPIC> void add (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)
+    public synchronized <T> void add (@Nonnull final Class<T> topic, @Nonnull final T message)
       {
         getQueue(topic).add(message);
         notifyAll();
@@ -81,13 +81,13 @@ public class MultiQueue
      *
      * Removes and returns the next pair (topic, message) from the queue. Blocks until one is available.
      *
-     * @param   <TOPIC>                 the static type of the topic
+     * @param   <T>                 the static type of the topic
      * @return                          the topic and message
      * @throws  InterruptedException    if interrupted while waiting
      *
      ******************************************************************************************************************/
     @Nonnull
-    public synchronized <TOPIC> TopicAndMessage<TOPIC> remove() 
+    public synchronized <T> TopicAndMessage<T> remove()
       throws InterruptedException
       {
         for (;;)
@@ -106,7 +106,7 @@ public class MultiQueue
                         log.trace("stats {}", stats());
                       }
                     
-                    return new TopicAndMessage<>((Class<TOPIC>)topic, (TOPIC)message);  
+                    return new TopicAndMessage<>((Class<T>)topic, (T)message);
                   }
               }
 
@@ -171,10 +171,10 @@ public class MultiQueue
      *
      ******************************************************************************************************************/
     @Nonnull
-    private synchronized <TOPIC> Queue<TOPIC> getQueue (@Nonnull final Class<TOPIC> topic)
+    private synchronized <T> Queue<T> getQueue (@Nonnull final Class<T> topic)
       {
         // TODO Java 8 would make this easier
-        var queue = (Queue<TOPIC>)queueMapByTopic.get(topic);
+        var queue = (Queue<T>)queueMapByTopic.get(topic);
         
         if (queue == null)
           {

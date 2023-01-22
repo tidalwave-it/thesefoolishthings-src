@@ -44,7 +44,7 @@ public interface MessageBus
      * @stereotype  Listener
      *
      ******************************************************************************************************************/
-    public static interface Listener<TOPIC>
+    public static interface Listener<T>
       {
         /***************************************************************************************************************
          *
@@ -53,41 +53,41 @@ public interface MessageBus
          * @param  message  the event
          *
          **************************************************************************************************************/
-        public void notify (@Nonnull TOPIC message);
+        public void notify (@Nonnull T message);
       }
 
     /*******************************************************************************************************************
      *
      * Publishes the given event. The topic is the class of the event.
      *
-     * @param <TOPIC>   the static type of the topic
+     * @param  <T>      the static type of the topic
      * @param  message  the event
      *
      ******************************************************************************************************************/
-    public <TOPIC> void publish (@Nonnull TOPIC message);
+    public <T> void publish (@Nonnull T message);
 
     /*******************************************************************************************************************
      *
      * Publishes the given message and topic. Passing an explicit topic can be useful when dealing with a hierarchy of
      * events (so, perhaps a subclass is passed but the topic is the root of the hierarchy).
      *
-     * @param <TOPIC>   the static type of the topic
+     * @param  <T>      the static type of the topic
      * @param  topic    the topic
      * @param  message  the message
      *
      ******************************************************************************************************************/
-    public <TOPIC> void publish (@Nonnull Class<TOPIC> topic, @Nonnull TOPIC message);
+    public <T> void publish (@Nonnull Class<T> topic, @Nonnull T message);
 
     /*******************************************************************************************************************
      *
      * Subscribes a {@link Listener} to a topic.
      *
-     * @param <TOPIC>   the static type of the topic
+     * @param  <T>       the static type of the topic
      * @param  topic     the topic
      * @param  listener  the listener
      *
      ******************************************************************************************************************/
-    public <TOPIC> void subscribe (@Nonnull Class<TOPIC> topic, @Nonnull Listener<TOPIC> listener);
+    public <T> void subscribe (@Nonnull Class<T> topic, @Nonnull Listener<T> listener);
 
     /*******************************************************************************************************************
      *

@@ -54,7 +54,7 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
      *
      ******************************************************************************************************************/
     @Getter @VisibleForTesting @ToString(of = "method")
-    class MessageBusListenerAdapter<TOPIC> implements MethodAdapter<TOPIC>, MessageBus.Listener<TOPIC>
+    class MessageBusListenerAdapter<T> implements MethodAdapter<T>, MessageBus.Listener<T>
       {
         @Nonnull
         private final Object owner;
@@ -63,11 +63,11 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
         private final Method method;
 
         @Nonnull
-        private final Class<TOPIC> topic;
+        private final Class<T> topic;
 
         public MessageBusListenerAdapter (@Nonnull final Object owner,
                                           @Nonnull final Method method,
-                                          @Nonnull final Class<TOPIC> topic)
+                                          @Nonnull final Class<T> topic)
           {
             this.owner  = owner;
             this.method = method;
@@ -76,7 +76,7 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
           }
 
         @Override
-        public void notify (@Nonnull final TOPIC message)
+        public void notify (@Nonnull final T message)
           {
             log.trace("notify({})", message);
 
@@ -110,9 +110,9 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <TOPIC> MethodAdapter<TOPIC> createMethodAdapter (@Nonnull final Object owner,
-                                                             @Nonnull final Method method,
-                                                             @Nonnull final Class<TOPIC> topic)
+    public <T> MethodAdapter<T> createMethodAdapter (@Nonnull final Object owner,
+                                                     @Nonnull final Method method,
+                                                     @Nonnull final Class<T> topic)
       {
         return new MessageBusListenerAdapter<>(owner, method, topic);
       }
@@ -134,7 +134,7 @@ public class MessageBusAdapterFactory implements MessageBusHelper.Adapter
      *
      ******************************************************************************************************************/
     @Override
-    public <TOPIC> void publish (@Nonnull final Class<TOPIC> topic, @Nonnull final TOPIC message)
+    public <T> void publish (@Nonnull final Class<T> topic, @Nonnull final T message)
       {
         messageBus.publish(topic, message);
       }

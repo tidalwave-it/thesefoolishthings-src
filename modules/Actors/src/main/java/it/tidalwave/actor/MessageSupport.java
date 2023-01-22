@@ -69,7 +69,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
 
     interface Exclusions
       {
-        public <T> T maybeAs (Class<T> type);
+        public <T> T maybeAs (Class<? extends T> type);
       }
 
     @Delegate(excludes = Exclusions.class)
@@ -173,9 +173,9 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public <T> Optional<T> maybeAs (@Nonnull final Class<T> type)
+    public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> type)
       {
-        final var t = as.maybeAs(type);
+        final Optional<T> t = as.maybeAs(type);
 
         return t.isPresent()
                ? t

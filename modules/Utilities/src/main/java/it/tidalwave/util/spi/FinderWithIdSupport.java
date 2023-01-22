@@ -24,63 +24,80 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util;
+package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
+import it.tidalwave.util.Finder;
+import it.tidalwave.util.Id;
+import static java.util.Collections.*;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * An extension to be used with Lombok in order to provide "as" support to classes that don't implement the {@link As}
- * interface. The typical usage is to retrofit legacy code.
+ * A support class for implementing a {@link Finder} that provides filtering by id.
  *
- * FIXME: this class doesn't cache - every as*() call instantiates new objects.
+ * @param <T>     the product abstract type
+ * @param <I>     the product concrete type
+ * @param <F>     the {@code Finder} type
+ * @since         3.2-ALPHA-15
  *
  * @author  Fabrizio Giudici
+ * @it.tidalwave.javadoc.experimental
  *
  **********************************************************************************************************************/
-public class AsExtensions
+@RequiredArgsConstructor
+public class FinderWithIdSupport<T, I extends T, F extends ExtendedFinderSupport<T, F>>
+        extends HierarchicFinderSupport<T, F> implements FinderWithId<T, F>
   {
+    private static final long serialVersionUID = 2L;
+
     @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final Class<T> roleType)
+    /* package */ final Optional<Id> id;
+
+    public FinderWithIdSupport()
       {
-        return adapter(datum).as(roleType);
+        id = Optional.empty();
+      }
+
+    public FinderWithIdSupport (@Nonnull final FinderWithIdSupport<T, I, F> other, @Nonnull final Object override)
+      {
+        super(other, override);
+        final FinderWithIdSupport<T, I, F> source = getSource(FinderWithIdSupport.class, other, override);
+        this.id = source.id;
+      }
+
+    @Override @Nonnull
+    public F withId (@Nonnull final Id id)
+      {
+        return clonedWith(new FinderWithIdSupport<>(Optional.of(id)));
+      }
+
+    @Override @Nonnull
+    protected List<T> computeResults()
+      {
+        return id.map(id -> findById(id).map(Collections::singletonList).orElse(emptyList())).orElse(findAll());
       }
 
     @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
+    protected Optional<T> findById (@Nonnull final Id id)
       {
-        return adapter(datum).maybeAs(type);
+        throw new UnsupportedOperationException("Must be overridden");
       }
 
     @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
+    protected List<T> findAll()
       {
-        return adapter(datum).asMany(type);
+        throw new UnsupportedOperationException("Must be overridden");
       }
 
     @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
+    protected Stream<I> streamImpl()
       {
-        return adapter(datum).as(type);
-      }
-
-    @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
-      {
-        return adapter(datum).maybeAs(type);
-      }
-
-    @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
-      {
-        return adapter(datum).asMany(type);
-      }
-
-    @Nonnull
-    private static As adapter (@Nonnull final Object datum)
-      {
-        return As.forObject(datum);
+        return (Stream<I>)stream();
       }
   }
+

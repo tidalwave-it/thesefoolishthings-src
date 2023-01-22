@@ -28,6 +28,7 @@ package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
 import java.util.Comparator;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import it.tidalwave.util.As;
@@ -67,6 +68,20 @@ public interface Displayable
      ******************************************************************************************************************/
     @Nonnull
     public String getDisplayName();
+
+    /*******************************************************************************************************************
+     *
+     * Sends the display name in the current {@link java.util.Locale} to a given customer.
+     *
+     * @param     consumer    the {@code Consumer}
+     * @since     3.2-ALPHA-15
+     *
+     ******************************************************************************************************************/
+    @SuppressWarnings("BoundedWildcard")
+    public default void display (@Nonnull final Consumer<String> consumer)
+      {
+        consumer.accept(getDisplayName());
+      }
 
     /*******************************************************************************************************************
      *

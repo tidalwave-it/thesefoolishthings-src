@@ -30,7 +30,6 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -398,7 +397,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
     @Override @Nonnull
     public DefaultProcessExecutor withArguments (@Nonnull final String ... arguments)
       {
-        this.arguments.addAll(Arrays.asList(arguments));
+        this.arguments.addAll(List.of(arguments));
         return this;
       }
 

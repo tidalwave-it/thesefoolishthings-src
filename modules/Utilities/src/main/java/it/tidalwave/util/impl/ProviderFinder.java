@@ -24,63 +24,49 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util;
+package it.tidalwave.util.impl;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
 import java.util.Collection;
-import java.util.Optional;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.BiFunction;
+import java.util.function.Supplier;
+import it.tidalwave.util.Finder;
+import it.tidalwave.util.spi.SimpleFinderSupport;
 
 /***********************************************************************************************************************
  *
- * An extension to be used with Lombok in order to provide "as" support to classes that don't implement the {@link As}
- * interface. The typical usage is to retrofit legacy code.
- *
- * FIXME: this class doesn't cache - every as*() call instantiates new objects.
+ * A {@link Finder} which retrieve results from a {@link Supplier}.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class AsExtensions
+@Immutable
+public class ProviderFinder<T> extends SimpleFinderSupport<T>
   {
-    @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final Class<T> roleType)
-      {
-        return adapter(datum).as(roleType);
-      }
+    private static final long serialVersionUID = 1344191036948400804L;
 
     @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
+    private final BiFunction<Integer, Integer, ? extends Collection<? extends T>> supplier;
+
+    @SuppressWarnings("BoundedWildcard")
+    public ProviderFinder (@Nonnull final BiFunction<Integer, Integer, ? extends Collection<? extends T>> supplier)
       {
-        return adapter(datum).maybeAs(type);
+        this.supplier = supplier;
       }
 
-    @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final Class<? extends T> type)
+    public ProviderFinder (@Nonnull final ProviderFinder<T> other, @Nonnull final Object override)
       {
-        return adapter(datum).asMany(type);
+        super(other, override);
+        final ProviderFinder<T> source = getSource(ProviderFinder.class, other, override);
+        this.supplier = source.supplier;
       }
 
-    @Nonnull
-    public static <T> T as (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
+    @Override @Nonnull
+    protected List<T> computeNeededResults()
       {
-        return adapter(datum).as(type);
-      }
-
-    @Nonnull
-    public static <T> Optional<T> maybeAs (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
-      {
-        return adapter(datum).maybeAs(type);
-      }
-
-    @Nonnull
-    public static <T> Collection<T> asMany (@Nonnull final Object datum, @Nonnull final As.Type<? extends T> type)
-      {
-        return adapter(datum).asMany(type);
-      }
-
-    @Nonnull
-    private static As adapter (@Nonnull final Object datum)
-      {
-        return As.forObject(datum);
+        return new CopyOnWriteArrayList<>(supplier.apply(firstResult, maxResults));
       }
   }

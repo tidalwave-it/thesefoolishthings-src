@@ -27,8 +27,8 @@
 package it.tidalwave.role.ui;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import it.tidalwave.util.NotFoundException;
 
@@ -108,7 +108,7 @@ public interface UserActionProvider
             @Override @Nonnull
             public Collection<? extends UserAction> getActions()
               {
-                return Arrays.asList(actions);
+                return List.of(actions);
               }
 
             @Override @Nonnull

@@ -29,7 +29,6 @@ package it.tidalwave.role.ui.spi;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +48,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static java.util.Collections.emptyList;
 import static it.tidalwave.util.Parameters.r;
-import static it.tidalwave.role.SimpleComposite._SimpleComposite_;
 import static it.tidalwave.role.ui.PresentationModel._SimpleCompositeOfPresentationModel_;
 import static org.testng.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -85,7 +83,7 @@ public class SimpleCompositePresentableTest
         @Nonnull
         public MockDatum withChildren (@Nonnull final MockDatum ... children)
           {
-            return withChildren(Arrays.asList(children));
+            return withChildren(List.of(children));
           }
 
         @Nonnull
@@ -96,7 +94,7 @@ public class SimpleCompositePresentableTest
           }
 
         @Override @Nonnull
-        public <T> Optional<T> maybeAs (@Nonnull final Class<T> roleType)
+        public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> roleType)
           {
             return roleType.equals(SimpleComposite.class) && (composite != null)
                     ? Optional.of(roleType.cast(composite))
@@ -104,7 +102,7 @@ public class SimpleCompositePresentableTest
           }
 
         @Override @Nonnull
-        public <T> Collection<T> asMany (@Nonnull final Class<T> roleType)
+        public <T> Collection<T> asMany (@Nonnull final Class<? extends T> roleType)
           {
             if (roleType.equals(SimpleComposite.class) && (composite != null))
               {

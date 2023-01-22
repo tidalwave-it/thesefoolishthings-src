@@ -91,7 +91,7 @@ public final class Parameters
      *
      ******************************************************************************************************************/
     @CheckForNull
-    public static <T> T find (@Nonnull final Class<T> parameterClass,
+    public static <T> T find (@Nonnull final Class<? extends T> parameterClass,
                               @CheckForNull final T defaultOption,
                               @Nonnull final Object... parameters)
             throws IllegalArgumentException
@@ -120,7 +120,8 @@ public final class Parameters
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> Collection<T> find (@Nonnull final Class<T> parameterClass, @Nonnull final Object... parameters)
+    public static <T> Collection<T> find (@Nonnull final Class<? extends T> parameterClass,
+                                          @Nonnull final Object... parameters)
       {
         // Don't use streams() for performance reasons.
         final Collection<T> result = new ArrayList<>();

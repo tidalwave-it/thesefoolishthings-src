@@ -27,7 +27,6 @@
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -47,9 +46,10 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
+// START SNIPPET SimpleAsDelegateProvider
 public class SimpleAsDelegateProvider implements AsDelegateProvider
   {
-    private static final List<Class<?>> ROLES = Arrays.asList(Persistable.class, Removable.class, Findable.class);
+    private static final List<Class<?>> ROLES = List.of(Persistable.class, Removable.class, Findable.class);
 
     @Override @Nonnull
     public AsDelegate createAsDelegate (@Nonnull final Object datum)
@@ -57,12 +57,13 @@ public class SimpleAsDelegateProvider implements AsDelegateProvider
         return new AsDelegate()
           {
             @Nonnull @Override
-            public <T> Collection<? extends T> as (@Nonnull final Class<T> roleType)
+            public <T> Collection<T> as (@Nonnull final Class<? extends T> roleType)
               {
                 return ((datum instanceof Person) && ROLES.contains(roleType))
                       ? List.of(roleType.cast(new PersonJpaPersistable((Person)datum)))
                       : Collections.emptyList();
               }
-        };
+          };
       }
   }
+// END SNIPPET SimpleAsDelegateProvider
