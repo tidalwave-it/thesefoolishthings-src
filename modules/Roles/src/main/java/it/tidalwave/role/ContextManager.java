@@ -119,6 +119,7 @@ public interface ContextManager
         /***************************************************************************************************************
          *
          **************************************************************************************************************/
+        @SuppressWarnings("ConstantValue")
         @Nonnull
         private static ContextManagerProvider findContextManagerProvider()
           {

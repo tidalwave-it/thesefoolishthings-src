@@ -28,8 +28,8 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -78,9 +78,9 @@ public class KeyTest
         assertThat(key1b, is(sameInstance(key1)));
         assertThat(key1c, is(not(sameInstance(key1))));
         assertThat(allKeys.stream().map(Key::getName).collect(toList()),
-                   is(Arrays.asList("key1", "key1", "key2", "key3")));
+                   is(List.of("key1", "key1", "key2", "key3")));
         assertThat(allKeys.stream().map(Key::getType).collect(toList()),
-                   is(Arrays.asList(String.class, LocalDateTime.class, String.class, Integer.class)));
+                   is(List.of(String.class, LocalDateTime.class, String.class, Integer.class)));
       }
 
     /*******************************************************************************************************************

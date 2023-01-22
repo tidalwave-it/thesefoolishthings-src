@@ -125,7 +125,7 @@ The termination methods shown below, instead, perform the query, retrieve object
 <!-- MACRO{snippet|id=results|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
 <!-- MACRO{snippet|id=count|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
 
-*Note: at present time, there are some deprecated methods that were designed before Java 8 ```Optional```  was available; their signature declares a
+> *Note: at present time, there are some deprecated methods that were designed before Java 8 ```Optional```  was available; their signature declares a
 ```NotFoundException```, which is a checked exception. They should not be used for new development as they will be removed in a future release.*
 
 For the following examples of ```Finder``` usage we will make reference to a registry of ```Person```s that exposes a method to query the contained records:
@@ -150,21 +150,58 @@ be extended with new methods without changing the general concepts.
 ```Finder```s can operate both **in memory** and with **more complex data sources**. Their core scenario is the latter, otherwise they could be replaced by Java 8 ```Stream```
 (a more detailed comparison with ```Stream```s is at the end of this chapter); but to start with simpler code let's have first a look at the in-memory approach.
 
-If the whole collection of objects to query is already in memory, a predefined wrapping ```Finder``` can be created with the factory method ```ofCloned()```;
-it is used by a first example implementation of ```PersonRegistry```:
+In-memory ```Finder```s can be useful in some real-world cases, for instance when a controller or a DAO has cached data, or to create mocks for testing classes
+that use more complex ```Finder```s.
+
+In the simplest case you already have the results in a `Collection` and just want to make them available through a `Finder`; in this case the following method
+is what you need:
+
+<!-- MACRO{snippet|id=ofCloned|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+
+It is used by a first example implementation of ```PersonRegistry```:
 
 <!-- MACRO{snippet|id=ofCloned|file=${project.basedir}/../../modules/examples/InMemoryFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/InMemoryFinderExample/InMemoryPersonRegistry.java} -->
 
 As the name of the method says, the collection is cloned (shallow clone) at construction time, so any change made after the ```Finder``` creation won't be seen.
 
-In-memory ```Finder```s can be useful in some real-world cases, for instance when a controller or a DAO has cached data, or to create mocks for testing classes
-that use more complex ```Finder```s.
+If data are not immediately available and you want to compute them only on demand, passing a `Supplier` is more appropriate:
+
+<!-- MACRO{snippet|id=ofsupplier|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+
+![UML](${project.basedir}/../../modules/examples/InMemoryFinderExample/target/site/apidocs/it/tidalwave/thesefoolishthings/examples/inmemoryfinderexample/package.svg)
+
+
+#[[###]]# Function-based ```Finder```s
+
+While the previously example referred to a in-memory implementation for the sake of simplicity, the `Supplier` might retrieve the data from any kind of external
+source: perhaps parsing an XML file, querying a database (a more complex example will be provided in the chapters belows) or calling a REST endpoint. If, by
+specifying `from()` and/or `max()`, only a subset of data is required, a waste of computational power might be implied in the case there is a cost associated to
+the retrieval: the `Supplier` is supposed to provide the whole set of data.
+In this case an alternate approach is offered, a `Function` that makes available the `from` and `max` parameters:
+
+<!-- MACRO{snippet|id=ofProvider|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+
+An example of implementation is given by this test:
+
+<!-- MACRO{snippet|id=ofProvider-example|file=${project.basedir}/src/test/java/it/tidalwave/util/FinderTest.java} -->
+
+In most cases this is what you need, without requiring to write a class implementing `Finder`.
+
+Sometimes you already have a working `Finder`, but you want to provide transformed (perhaps decorated) data. In this case you have a method for the job,
+which accepts a mapping `Function`:
+
+<!-- MACRO{snippet|id=mapping|file=${project.basedir}/src/main/java/it/tidalwave/util/Finder.java} -->
+
+In this example the mapping `Finder` relies of a `Finder<Integer>`, while the mapper multiplies by two original data and converts them to strings:
+
+<!-- MACRO{snippet|id=mapping-example|file=${project.basedir}/src/test/java/it/tidalwave/util/FinderTest.java} -->
+
 
 
 
 #[[###]]# Data source ```Finder```s
 
-Now let's see how a ```Finder``` can work with a data source that is not in memory. A classic example is the relational database, so we will use JPA
+Now let's see how a ```Finder``` can work with a complex data source that is not in memory. A classic example is the relational database, so we will use JPA
 (Java Persistence API) as a reference. Of course similar examples could be made with other APIs for relational database as well as with other kinds of
 data sources, such as NoSQL databases, semantic databases, etc.
 
@@ -173,8 +210,8 @@ The central class of JPA is ```EntityManager```: it's the facility that makes it
 
 <!-- MACRO{snippet|id=createQuery|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinder.java} -->
 
-where ```jpaql```, ```firstResult``` and ```maxResults``` have been properly set by intermediate methods previously called. In other words, if we had a test
-for the ```Finder``` we would like to have this kind of behaviour:
+where ```jpaql```, ```firstResult``` and ```maxResults``` have been properly set by intermediate methods previously called. Basically `JPAFinder` needs to
+create a proper JPAQL query string in function of its parameters, as illustrated by the following tests:
 
 <!-- MACRO{snippet|id=tests|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/test/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/JpaFinderTest.java} -->
 
@@ -236,6 +273,8 @@ desired class (this task may be needed or not in function of the architecture of
 A point that is worth mentioning is about how transactions are handled: it largely depends on the used technology, as one needs to respect the best or
 mandatory practices that come with it. In the case of JPA, it is required that the ```Stream``` of results produced by a query is consumed before the
 transaction is committed; in our case this means within the call to ```TxManager```.
+
+![UML](${project.basedir}/../../modules/examples/JPAFinderExample/target/site/apidocs/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/package.svg)
 
 
 #[[###]]# Extended ```Finder```s
@@ -325,7 +364,7 @@ How does it work? It relies on the the presence of a special copy constructor th
 
 <!-- MACRO{snippet|id=clone-constructor|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2a.java} -->
 
-*Note: having this special copy constructor is a requirement of any subclass of ```HierarchicFinderSupport```. The ```HierarchicFinderSupport``` constructor makes a runtime check
+> *Note: having this special copy constructor is a requirement of any subclass of ```HierarchicFinderSupport```. The ```HierarchicFinderSupport``` constructor makes a runtime check
 by introspection and throws an exception if the proper copy constructor is not found.*
 
 It takes two parameters:
@@ -341,11 +380,12 @@ the ```override``` object: if it is our same type, it's the incomplete ```Finder
 initialize as in a regular clone constructor, from the ```other``` object. A convenience method ```getSource()``` performs the decision for us. Of course we
 need to call the ```super()``` constructor to make sure everything is fine (but no details of the super class are exposed by it).
 
-![UML](${project.basedir}/../../modules/examples/ExtendedFinderExample/apidocs/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/package.svg)
+![UML](${project.basedir}/../../modules/examples/ExtendedFinderExample/target/site/apidocs/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/package.svg)
 
 Is it a bit clumsy? Admittedly it is, even though the code is simple and clean: once the concept is clear, it's easy to write a copy constructor for a new
 extended ```Finder```. Part of the clumsiness derives from the complexity of inheritance, that we are trying to work around. If you don't like this approach,
 just forget ```HierarchicFinderSupport```.
+
 
 #[[####]]# Alternate take
 
@@ -372,13 +412,9 @@ And the methods to specify parameters are:
 <!-- MACRO{snippet|id=new-methods|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2b.java} -->
 
 
-
-
-
-
 #[[###]]# Marginal note to ```HierarchicFinderSupport```
 
-*Note: this part of the API might go away in future: mention that after TFT-262 a Finder implementation only requires results().*
+> *Note: this part of the API might go away in future: mention that after TFT-262 a Finder implementation only requires results().*
 
 If you decide to implement a ```Finder``` by subclassing ```HierarchicFinderSupport``` there is an alternative way to implement the termination methods, as they have
 default implementations. You can rather implement **either** of these two methods:
@@ -437,7 +473,7 @@ effective to pass the results to a ```Stream``` and use the standard Java API.
 [```As```](apidocs/As) is a **factory for providing adapters** (in the meaning of the [Adapter pattern](https://en.wikipedia.org/wiki/Adapter_pattern)) of an
 object.
 
-*Terminology note: the object for which we are going to create an adapter will be called “datum” and the adapters “roles”. These terms are mutuated from the
+> *Terminology note: the object for which we are going to create an adapter will be called “datum” and the adapters “roles”. These terms are mutuated from the
 [DCI architectural pattern (Data, Context and Interaction)](https://en.wikipedia.org/wiki/Data,_context_and_interaction), even though ```As``` needn't to be
 used in that way. But TheseFoolishThings does provide explicit support for DCI, as will be explained in the relevant chapter.*
 
@@ -626,6 +662,61 @@ class Persistence
   }
 ```
 
+#[[###]]# What about Tell Don't Ask?
+
+According to [Martin Fowler](https://martinfowler.com/bliki/TellDontAsk.html):
+
+> **Tell-Don't-Ask** is a principle that helps people remember that object-orientation is about bundling data with the functions that operate on that data. It
+reminds us that rather than asking an object for data and acting on that data, we should instead tell an object what to do. This encourages to move behavior
+into an object to go with the data.
+
+It's one of the way we can make our design really strong and resistant to change. Unfortunately, in practice it is the exact opposite of what is commonly
+used in Java with the Java Beans idiom, which mandates getter and setter methods. Known libraries/frameworks (such as JPA, JAXB, GUI frameworks, etc.) are
+designed like that and inspire programmers to follow that way.
+
+This is also due to the fact that TDA is more complex to implement, in particular when there is the need of adding. For instance, given a `Person` provided
+with standard getters such as `getFirstName()` and `getLastName()`, it's easy to use these properties in a plurality of contexts, such as:
+
+```java
+var joe = new Person("Joe", "Smith");
+System.out.println("Name: %s lastName: %s\n", joe.getFirstName(), joe.getLastName());
+...
+graphicContext.renderString(x, y, String.format("Name: %s last name: %s\n", joe.getFirstName(), joe.getLastName()));
+```
+
+How this would look like in TDA? Something such as:
+
+```java
+var joe = new Person("Joe", "Smith");
+joe.render("Name: %1$s lastName: %2$s", System.out::println); // 1$ is first name, 2$ is last name, etc.
+```
+
+This assumes `render(Consumer<String>)` is implemented in `Person`; not a big deal since almost any object we can think of can be rendered as a string and
+it can be done with facilities available in the standard Java library. But what about this?
+
+```java
+joe.render(graphicContext, x, y, "Name: %1$s lastName: %2$s\");
+```
+
+`render(GraphicContext, int, int, String)` would introduce a dependency in `Person`, a model class, to `GraphicContext`, part of a graphical API: this
+is not acceptable. `As` can come to the rescue. Since roles can be injected without touching the original object, a possible solution is:
+
+```java
+joe.as(Renderable.class).render("Name: %1$s lastName: %2$s", System.out::println);
+joe.as(GraphicRenderable.class).render(graphicContext, x, y, "Name: %1$s last name: %2$s\");
+```
+
+Now `Person` does not depend on `GraphicRenderable`; a concrete implementation of `GraphicRenderable` depends on `Person` (which is good and complies with the
+[Depencency Inversion Principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)); the client code depends on both (as expected).
+
+> PENDING: more details about the implementation of roles, their "friendship" to owner classes and constraints imposed by Java 9 modules.
+
+Injected DCI roles could be also useful for a business model designed following the TDA principle in mind as adapters to an external world that follows the
+Java Beans idiom.
+
+
+#[[###]]# Some gory details
+
 If you got up to here, you have understood what `As` is for. Now it's time to deal with implementation details. But before going on let's recap and give a couple
 of definitions. Role implementations compatible with `As` can be:
 
@@ -650,7 +741,10 @@ To be able to use `As` we need to learn three more things:
 + how to configure a context and declare roles with annotations.
 
 
-#[[###]]# Implementing `As`
+![UML](apidocs/it/tidalwave/util/As.svg)
+
+
+#[[###]]# Implementing objects with `As` support
 
 Once an object is declared to implement `As`, how to write the code for the methods in the contract? The easiest way is by delegation:
 
@@ -688,6 +782,8 @@ Displayable d = as(joe, _Displayable_);
 
 Also in this case there might be a performance hit.
 
+![UML](apidocs/it/tidalwave/util/AsExtensions.svg)
+
 
 #[[###]]# `As` and roles with generics
 
@@ -714,30 +810,6 @@ So the following code compiles with no warning:
 
 Note that it's still not possible to have two roles with the same class and different generics associated to the same object: again because of type erasure
 the runtime would consider the as two instances of the same role type. To differentiate them it is necessary to use two distinct subclasses.
-
-
-#[[###]]# Configuration of the runtime
-
-
-#[[####]]# Standalone
-
-TBD
-
-
-#[[####]]# With Spring
-
-To have `As` working with Spring it is sufficient to include the bean `RoleSpringConfiguration` in the application context, as in this example:
-
-<!-- MACRO{snippet|id=spring|file=${project.basedir}/../../modules/examples/DciDisplayableExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/displayable/Main.java} -->
-
-If annotations are not used and `beans.xml` files are preferred, the value of `RoleSpringConfiguration.BEANS` must be included in the XML context.
-
-Spring scans the classpath for roles annotated with `DciRole`; since Java classloaders need to start from root packages, be aware the by default `com`, `org`
-ad `it` are used. If custom packages are needed, they can be specified as follows:
-
-```java
-RoleSpringConfiguration.setBasePackages("fr:es:de");
-```
 
 
 #[[###]]# Contexts and role annotations
@@ -794,7 +866,9 @@ The `try/finally` pattern to ensure that the context is unbound even in case of 
 
 <!-- MACRO{snippet|id=xstreamcontext-contextmanager2|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/DciMarshalXStreamExample.java} -->
 
-Alternate variants with lambdas are also supported (PENDING: include examples).
+Alternate variants with lambdas are also supported.
+
+> PENDING: include examples
 
 Now let's go with the implementation of roles. First we introduce a generic support for `Marshallable` as follows:
 
@@ -842,7 +916,7 @@ For this reason the `ExtendedFinderSupport` interface provides a specific suppor
 aware of it (it can be called multiple times, in which case local contexts are accumulated). The class `HierarchicFinderSupport` provides the accumulation
 behaviour and makes the local contexts available to subclasses by means of a method `getContexts()`.
 
-PENDING: Show a code example.
+> PENDING: Show a code example.
 
 
 #[[###]]# Composite roles
@@ -865,11 +939,44 @@ directly on the datum, if it implements `As`; or by creating a delegate by means
 <!-- MACRO{snippet|id=marshallableloadable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/MarshallableLoadable.java} -->
 
 
-#[[###]]# Other notes to expand
+#[[###]]# Configuration of the runtime
 
-The Tell don't Ask principle says that ... It's one of the way we can make our design really strong and resistant to change. Unfortunately a few people use it;
-furthermore designers who really wish to use it have to deal with a number of frameworks that have been made in an incompatible way (e.g. following the
-getter/setter idiom). This is typical of persistence frameworks (e.g. JPA), serialisation frameworks (e.g. JAXB) and practically all GUI frameworks.
+#[[####]]# Standalone
 
-Roles can be useful in this scenario as they can adapt a business model designed following the TDA principle to an external world that follows other design
-strategies.
+The `As` component has been designed with a DI framework in mind, such as Spring, and a complete working runtime is available in those scenarios which relies
+upon classpath scanning to find classes annotated with `DCIRole`(see below). But in simpler cases it is possible to set up things without any framework, even
+though it is the programmer's job to provide either classpath scanning or perhaps a simpler and more specific way to find roles. The task can be accomplished by
+implementing `AsDelegate`, which is the factory responsible for instantiating roles for each datum:
+
+![UML](apidocs/it/tidalwave/util/spi/AsDelegate.svg)
+
+In the `JPAFinderExample` module there is a working example. The implementation is quick and dirty:
+
+<!-- MACRO{snippet|id=SimpleAsDelegateProvider|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/SimpleAsDelegateProvider.java} -->
+
+and registering it by means of the `ServiceProvider` Java API, that is providing a file named
+`META-INF/services/it.tidalwave.util.spi.AsDelegateProvider` with the following content:
+
+```
+it.tidalwave.thesefoolishthings.examples.jpafinderexample.SimpleAsDelegateProvider
+```
+
+> PENDING `ContextManagerProvider`
+
+
+#[[####]]# With Spring
+
+To have `As` working with Spring it is sufficient to include the bean `RoleSpringConfiguration` in the application context, as in this example:
+
+<!-- MACRO{snippet|id=spring|file=${project.basedir}/../../modules/examples/DciDisplayableExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/displayable/Main.java} -->
+
+If annotations are not used and `beans.xml` files are preferred, the value of `RoleSpringConfiguration.BEANS` must be included in the XML context.
+
+Spring scans the classpath for roles annotated with `DciRole`; since Java classloaders need to start from root packages, be aware the by default `com`, `org`
+ad `it` are used. If custom packages are needed, they can be specified as follows:
+
+```java
+RoleSpringConfiguration.setBasePackages("fr:es:de");
+```
+
+> PENDING `ContextManagerProvider`

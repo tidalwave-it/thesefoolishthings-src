@@ -40,13 +40,13 @@ import lombok.ToString;
  *
  **********************************************************************************************************************/
 @RequiredArgsConstructor @ToString
-public class DefaultSimpleComposite<TYPE> implements SimpleComposite<TYPE>
+public class DefaultSimpleComposite<T> implements SimpleComposite<T>
   {
     @Nonnull
-    private final Finder<TYPE> finder;
+    private final Finder<T> finder;
 
     @Override @Nonnull
-    public final Finder<TYPE> findChildren()
+    public final Finder<T> findChildren()
       {
         return finder;
       }

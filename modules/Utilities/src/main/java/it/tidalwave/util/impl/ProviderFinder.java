@@ -24,30 +24,49 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.spi;
+package it.tidalwave.util.impl;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
 import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.BiFunction;
+import java.util.function.Supplier;
+import it.tidalwave.util.Finder;
+import it.tidalwave.util.spi.SimpleFinderSupport;
 
 /***********************************************************************************************************************
  *
- * Implementation of this interface are responsible to find in the runtime all instances of DCI roles with the given
- * type.
+ * A {@link Finder} which retrieve results from a {@link Supplier}.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public interface AsDelegate
+@Immutable
+public class ProviderFinder<T> extends SimpleFinderSupport<T>
   {
-    /*******************************************************************************************************************
-     *
-     * Returns all role instances of the given type.
-     *
-     * @param   <T>       the static type of the role
-     * @param   roleType  the dynamic type of the role
-     * @return            a collection of roles
-     *
-     ******************************************************************************************************************/
+    private static final long serialVersionUID = 1344191036948400804L;
+
     @Nonnull
-    public <T> Collection<T> as (@Nonnull Class<? extends T> roleType);
+    private final BiFunction<Integer, Integer, ? extends Collection<? extends T>> supplier;
+
+    @SuppressWarnings("BoundedWildcard")
+    public ProviderFinder (@Nonnull final BiFunction<Integer, Integer, ? extends Collection<? extends T>> supplier)
+      {
+        this.supplier = supplier;
+      }
+
+    public ProviderFinder (@Nonnull final ProviderFinder<T> other, @Nonnull final Object override)
+      {
+        super(other, override);
+        final ProviderFinder<T> source = getSource(ProviderFinder.class, other, override);
+        this.supplier = source.supplier;
+      }
+
+    @Override @Nonnull
+    protected List<T> computeNeededResults()
+      {
+        return new CopyOnWriteArrayList<>(supplier.apply(firstResult, maxResults));
+      }
   }

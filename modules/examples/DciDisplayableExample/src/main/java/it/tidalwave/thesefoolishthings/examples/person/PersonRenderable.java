@@ -24,30 +24,34 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.spi;
+package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
+import java.util.function.Consumer;
+import it.tidalwave.dci.annotation.DciRole;
+import it.tidalwave.thesefoolishthings.examples.dci.displayable.role.Renderable;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * Implementation of this interface are responsible to find in the runtime all instances of DCI roles with the given
- * type.
- *
+ * A Displayable Role for Person.
+ * 
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public interface AsDelegate
+// START-SNIPPET: role
+@DciRole(datumType = Person.class) @RequiredArgsConstructor
+public final class PersonRenderable implements Renderable
   {
-    /*******************************************************************************************************************
-     *
-     * Returns all role instances of the given type.
-     *
-     * @param   <T>       the static type of the role
-     * @param   roleType  the dynamic type of the role
-     * @return            a collection of roles
-     *
-     ******************************************************************************************************************/
     @Nonnull
-    public <T> Collection<T> as (@Nonnull Class<? extends T> roleType);
+    private final Person datum;
+
+    @SuppressWarnings("BoundedWildcard")
+    @Override
+    public void renderTo (@Nonnull final String pattern, @Nonnull final Consumer<String> renderingContext)
+      {
+        renderingContext.accept(String.format(pattern, datum.firstName, datum.lastName));
+      }
   }
+// END-SNIPPET: role
+

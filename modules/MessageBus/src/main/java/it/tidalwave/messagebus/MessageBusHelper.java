@@ -53,13 +53,13 @@ public class MessageBusHelper
     public static interface Adapter
       {
         @Nonnull
-        public <TOPIC> MethodAdapter<TOPIC> createMethodAdapter (@Nonnull Object object,
-                                                                 @Nonnull Method method,
-                                                                 @Nonnull Class<TOPIC> topic);
+        public <T> MethodAdapter<T> createMethodAdapter (@Nonnull Object object,
+                                                         @Nonnull Method method,
+                                                         @Nonnull Class<T> topic);
 
         public void publish (@Nonnull Object message);
 
-        public <TOPIC> void publish (Class<TOPIC> topic, @Nonnull TOPIC message);
+        public <T> void publish (Class<T> topic, @Nonnull T message);
       }
 
     /*******************************************************************************************************************
@@ -67,7 +67,7 @@ public class MessageBusHelper
      *
      *
      ******************************************************************************************************************/
-    public static interface MethodAdapter<TOPIC>
+    public static interface MethodAdapter<T>
       {
         public void subscribe();
 
@@ -139,12 +139,12 @@ public class MessageBusHelper
      *
      * Publishes a message.
      *
-     * @param <TOPIC>       the static type of the topic
+     * @param <T>           the static type of the topic
      * @param topicType     the dynamic type of the topic
      * @param topic         the topic
      *
      ******************************************************************************************************************/
-    public <TOPIC> void publish (@Nonnull final Class<TOPIC> topicType, @Nonnull final TOPIC topic)
+    public <T> void publish (@Nonnull final Class<T> topicType, @Nonnull final T topic)
       {
         methodAdapterFactory.publish(topicType, topic);
       }
@@ -152,11 +152,11 @@ public class MessageBusHelper
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    private <TOPIC> void registerMessageListener (@Nonnull final Method method)
+    private <T> void registerMessageListener (@Nonnull final Method method)
       {
         log.trace("registerMessageListener({})", method);
 
-        final var topic = (Class<TOPIC>)method.getParameterTypes()[0];
+        final var topic = (Class<T>)method.getParameterTypes()[0];
         final var methodAdapter = methodAdapterFactory.createMethodAdapter(owner, method, topic);
         methodAdapters.add(methodAdapter);
         methodAdapter.subscribe();

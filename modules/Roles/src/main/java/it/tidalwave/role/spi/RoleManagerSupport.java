@@ -30,7 +30,6 @@ import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -77,13 +76,11 @@ public abstract class RoleManagerSupport implements RoleManager
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public synchronized <ROLE_TYPE> List<ROLE_TYPE> findRoles (
-            @Nonnull final Object datum,
-            @Nonnull final Class<? extends ROLE_TYPE> roleType)
+    public synchronized <T> List<T> findRoles (@Nonnull final Object datum, @Nonnull final Class<? extends T> roleType)
       {
         log.trace("findRoles({}, {})", shortId(datum), shortName(roleType));
         final Class<?> datumType = findTypeOf(datum);
-        final List<ROLE_TYPE> roles = new ArrayList<>();
+        final List<T> roles = new ArrayList<>();
         final var roleImplementationTypes = findRoleImplementationsFor(datumType, roleType);
 
         outer:  for (final var roleImplementationType : roleImplementationTypes)
@@ -195,9 +192,9 @@ public abstract class RoleManagerSupport implements RoleManager
      *
      ******************************************************************************************************************/
     @Nonnull
-    @VisibleForTesting synchronized <RT> Set<Class<? extends RT>> findRoleImplementationsFor (
+    @VisibleForTesting synchronized <T> Set<Class<? extends T>> findRoleImplementationsFor (
             @Nonnull final Class<?> datumType,
-            @Nonnull final Class<RT> roleType)
+            @Nonnull final Class<T> roleType)
       {
         final var datumAndRole = new DatumAndRole(datumType, roleType);
 
@@ -215,7 +212,7 @@ public abstract class RoleManagerSupport implements RoleManager
             logChanges(datumAndRole, before, after);
           }
 
-        return (Set<Class<? extends RT>>)(Set)roleMapByDatumAndRole.getValues(datumAndRole);
+        return (Set<Class<? extends T>>)(Set)roleMapByDatumAndRole.getValues(datumAndRole);
       }
 
     /*******************************************************************************************************************
@@ -259,7 +256,7 @@ public abstract class RoleManagerSupport implements RoleManager
     @VisibleForTesting static SortedSet<Class<?>> findAllImplementedInterfacesOf (@Nonnull final Class<?> clazz)
       {
         final SortedSet<Class<?>> interfaces = new TreeSet<>(Comparator.comparing(Class::getName));
-        interfaces.addAll(Arrays.asList(clazz.getInterfaces()));
+        interfaces.addAll(List.of(clazz.getInterfaces()));
 
         for (final var interface_ : interfaces)
           {
@@ -375,7 +372,7 @@ public abstract class RoleManagerSupport implements RoleManager
             if (log.isTraceEnabled())
               {
                 log.trace(">>>> owner is a mock {} implementing {}",
-                          shortName(ownerClass), shortNames(Arrays.asList(ownerClass.getInterfaces())));
+                          shortName(ownerClass), shortNames(List.of(ownerClass.getInterfaces())));
                 log.trace(">>>> owner class replaced with {}", shortName(ownerClass));
               }
           }

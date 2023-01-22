@@ -29,7 +29,6 @@ package it.tidalwave.util;
 import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -82,7 +81,7 @@ public class TypeSafeMapTest
         final var underTest = TypeSafeMap.ofCloned(map);
         // then
         assertThat(underTest.size(), is(3));
-        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
+        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME))));
         assertThat(underTest.asMap(), is(map));
         assertThat(underTest.get(K_STRING), is("1"));
         assertThat(underTest.get(K_INTEGER), is(2));
@@ -124,8 +123,8 @@ public class TypeSafeMapTest
         assertThat(underTest, is(not(sameInstance(firstMap))));
         assertThat(firstMap.size(), is(3));
         assertThat(underTest.size(), is(4));
-        assertThat(firstMap.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME))));
-        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(Arrays.asList(K_STRING, K_INTEGER, K_DATETIME, K_STRING2))));
+        assertThat(firstMap.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME))));
+        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME, K_STRING2))));
         map.put(K_STRING2, "2");
         assertThat(underTest.asMap(), is(map));
         assertThat(underTest.get(K_STRING2), is("2"));

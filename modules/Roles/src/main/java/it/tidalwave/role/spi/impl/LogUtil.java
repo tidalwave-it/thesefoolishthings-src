@@ -29,6 +29,7 @@ package it.tidalwave.role.spi.impl;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.List;
 import it.tidalwave.role.Identifiable;
 import static java.util.stream.Collectors.*;
 
@@ -132,6 +133,6 @@ public class LogUtil
     @Nonnull
     public static String shortIds (@Nonnull final Object... objects)
       {
-        return shortIds(Arrays.asList(objects));
+        return shortIds(List.of(objects));
       }
   }

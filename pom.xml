@@ -44,22 +44,15 @@
     <version>3.2-ALPHA-15-SNAPSHOT</version>
     <name>TheseFoolishThings</name>
     <inceptionYear>2009</inceptionYear>
-    <url>http://tidalwave.it/projects/thesefoolishthings</url>
+    <url>https://tidalwave.bitbucket.io/thesefoolishthings/</url>
     <description>
-This project was born, several years ago, as the classic “kitchen sink” of stuff from other projects that was deemed of being reusable.
-Sometimes it grew in a disordered way, other times it was reviewed and cleaned up accurately. It contains different sort of things: from
-simple stuff such as a **```TimeProvider```** that can be mocked (for time-based tests), to **type safe ```Map```s** (following
-advice of Joshua Bloch); up to some more structured things such an extensible **```Finder```** to manipulate queries from a generic data
-source; **a facility for working with the DCI (Data, Context and Interactions) architectural pattern**; a **simple ```MessageBus```** suitable for using
-the Publish and Subscribe pattern inside an application.
+This project is a collection of miscellaneous tools shared by a number of projects of the same author. There are **simple tuples** to use with
+Java Streams, **type-safe maps** (following advice of Joshua Bloch), a **finder** that handles in a smart way queries to data sources, a facility to use the
+**DCI (Data, Context and Interactions) architectural pattern**, a simple **message bus** suitable for using the pub-sub pattern inside an application, some
+**test utilities**, an **experimental actor framework** and a few other small things.
 
-There is also some really exotic stuff, such as small implementation of **collaborative
-Actors** (working, but designed basically for didactic purposes). Actually this whole project is often used in Java classes to show things
-that are reasonably contextualized in a real-world scenario (the core parts of this project are used by working pet projects; something is
-also part of industrial project). There is good stuff and some strange stuff - in general an attitude of this project is to also try things
-in a different way than the standard.
-
-TheseFoolishThings supports JDK 8, but requires JDK 11 or 17 to be compiled.
+Yes, the project name is a tribute to the [jazz standard with the same name](https://en.wikipedia.org/wiki/These_Foolish_Things_(Remind_Me_of_You)) by
+Maschwitz and Strachey.
     </description>
 
     <distributionManagement>
@@ -83,6 +76,8 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 or 17 to be compiled.
         <tidalwave.issues>TFT</tidalwave.issues>
         <tidalwave.github.readonly.url>https://github.com/tidalwave-it/thesefoolishthings-src</tidalwave.github.readonly.url>
         <tidalwave.github.browse.url>https://github.com/tidalwave-it/thesefoolishthings-src</tidalwave.github.browse.url>
+
+        <tft.maven-javadoc-plugin.version>3.4.1</tft.maven-javadoc-plugin.version>
     </properties>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
@@ -90,7 +85,6 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 or 17 to be compiled.
         <connection>scm:git:${scm.repo.readonly.url}</connection>
         <developerConnection>scm:git:${scm.repo.effective.url}</developerConnection>
         <url>${scm.repo.browse.url}</url>
-        <tag>3.2-ALPHA-12</tag>
     </scm>
 
     <dependencyManagement>
@@ -124,11 +118,6 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 or 17 to be compiled.
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
-                <artifactId>it-tidalwave-beans</artifactId>
-                <version>3.1-ALPHA-1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-test</artifactId>
                 <version>3.2-ALPHA-15-SNAPSHOT</version>
             </dependency>
@@ -153,18 +142,6 @@ TheseFoolishThings supports JDK 8, but requires JDK 11 or 17 to be compiled.
                 <artifactId>it-tidalwave-role-spring</artifactId>
                 <version>3.2-ALPHA-15-SNAPSHOT</version>
             </dependency>
-            <dependency>
-                <groupId>it.tidalwave.thesefoolishthings</groupId>
-                <artifactId>it-tidalwave-util-java8supplement</artifactId>
-                <version>3.2-ALPHA-1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>it.tidalwave.thesefoolishthings</groupId>
-                <artifactId>it-tidalwave-util-java8supplement</artifactId>
-                <classifier>tests</classifier>
-                <version>3.2-ALPHA-1-SNAPSHOT</version>
-            </dependency>
-
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-data</artifactId>

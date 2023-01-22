@@ -26,9 +26,7 @@
  */
 package it.tidalwave.role;
 
-import java.util.Arrays;
 import java.util.List;
-import it.tidalwave.util.Finder;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;

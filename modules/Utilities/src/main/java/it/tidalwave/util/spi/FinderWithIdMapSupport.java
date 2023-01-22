@@ -27,27 +27,60 @@
 package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import it.tidalwave.util.Id;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * Implementation of this interface are responsible to find in the runtime all instances of DCI roles with the given
- * type.
+ * An implementation of {@link FinderWithIdSupport} based on a {@link Map}.
+ *
+ * @param <T>     the product abstract type
+ * @param <I>     the product concrete type
+ * @param <F>     the {@code Finder} type
+ * @since         3.2-ALPHA-15
  *
  * @author  Fabrizio Giudici
+ * @it.tidalwave.javadoc.experimental
  *
  **********************************************************************************************************************/
-public interface AsDelegate
+@RequiredArgsConstructor
+public class FinderWithIdMapSupport<T, I extends T, F extends ExtendedFinderSupport<T, F>>
+        extends FinderWithIdSupport<T, I, F>
   {
-    /*******************************************************************************************************************
-     *
-     * Returns all role instances of the given type.
-     *
-     * @param   <T>       the static type of the role
-     * @param   roleType  the dynamic type of the role
-     * @return            a collection of roles
-     *
-     ******************************************************************************************************************/
+    private static final long serialVersionUID = 1L;
+
     @Nonnull
-    public <T> Collection<T> as (@Nonnull Class<? extends T> roleType);
+    private final Map<Id, I> mapById;
+
+    public FinderWithIdMapSupport()
+      {
+        mapById = Collections.emptyMap();
+      }
+
+    public FinderWithIdMapSupport (@Nonnull final FinderWithIdMapSupport<T, I, F> other,
+                                   @Nonnull final Object override)
+      {
+        super(other, override);
+        final FinderWithIdMapSupport<T, I, F> source = getSource(FinderWithIdMapSupport.class, other, override);
+        mapById = new HashMap<>(source.mapById);
+      }
+
+    @Override @Nonnull
+    protected List<T> findAll()
+      {
+        return new ArrayList<>(mapById.values());
+      }
+
+    @Override @Nonnull
+    protected Optional<T> findById (@Nonnull final Id id)
+      {
+        return Optional.ofNullable(mapById.get(id));
+      }
   }
+

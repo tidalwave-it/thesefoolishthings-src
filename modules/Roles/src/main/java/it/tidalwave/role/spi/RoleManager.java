@@ -81,6 +81,7 @@ public interface RoleManager
         /***************************************************************************************************************
          *
          **************************************************************************************************************/
+        @SuppressWarnings("ConstantValue")
         @Nonnull
         private static RoleManagerProvider findRoleManagerProvider()
           {

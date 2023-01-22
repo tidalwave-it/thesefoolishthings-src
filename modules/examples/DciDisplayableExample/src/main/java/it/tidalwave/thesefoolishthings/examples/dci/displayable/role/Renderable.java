@@ -24,30 +24,19 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.spi;
+package it.tidalwave.thesefoolishthings.examples.dci.displayable.role;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
+import java.util.function.Consumer;
 
 /***********************************************************************************************************************
- *
- * Implementation of this interface are responsible to find in the runtime all instances of DCI roles with the given
- * type.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public interface AsDelegate
+public interface Renderable
   {
-    /*******************************************************************************************************************
-     *
-     * Returns all role instances of the given type.
-     *
-     * @param   <T>       the static type of the role
-     * @param   roleType  the dynamic type of the role
-     * @return            a collection of roles
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public <T> Collection<T> as (@Nonnull Class<? extends T> roleType);
+    public static final Class<Renderable> _Renderable_ = Renderable.class;
+
+    public void renderTo (@Nonnull String pattern, @Nonnull Consumer<String> renderingContext);
   }

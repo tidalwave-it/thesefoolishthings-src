@@ -58,6 +58,9 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
 
     /*******************************************************************************************************************
      *
+     * Creates a new instance from the given contents.
+     *
+     * @param   map   the contents
      *
      ******************************************************************************************************************/
     public TypeSafeHashMultiMap (@Nonnull final Map<? extends Key<?>, ? extends Collection<?>> map)

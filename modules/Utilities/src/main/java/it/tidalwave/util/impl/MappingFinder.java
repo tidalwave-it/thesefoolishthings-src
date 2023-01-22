@@ -24,14 +24,52 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.asexamples;
+package it.tidalwave.util.impl;
+
+import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
+import java.util.List;
+import java.util.function.Function;
+import it.tidalwave.util.Finder;
+import it.tidalwave.util.spi.SimpleFinderSupport;
+import static java.util.stream.Collectors.*;
 
 /***********************************************************************************************************************
+ *
+ * A {@link Finder} which retrieve results from another instance applying a {@link Function}.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public interface RenderingContext
+@Immutable
+public final class MappingFinder<T, U> extends SimpleFinderSupport<T>
   {
-    public void render (String string);
+    private static final long serialVersionUID = -6359683808082070089L;
+
+    @Nonnull
+    private final transient Finder<? extends U> delegate;
+
+    @Nonnull
+    private final transient Function<? super U, ? extends T> decorator;
+
+    public MappingFinder (@Nonnull final Finder<? extends U> delegate,
+                          @Nonnull final Function<? super U, ? extends T> decorator)
+      {
+        this.delegate = delegate;
+        this.decorator = decorator;
+      }
+
+    public MappingFinder (@Nonnull final MappingFinder other, @Nonnull final Object override)
+      {
+        super(other, override);
+        final MappingFinder<T, U> source = getSource(MappingFinder.class, other, override);
+        this.delegate = source.delegate;
+        this.decorator = source.decorator;
+      }
+
+    @Override @Nonnull
+    protected List<T> computeResults()
+      {
+        return delegate.results().stream().map(decorator).collect(toList());
+      }
   }

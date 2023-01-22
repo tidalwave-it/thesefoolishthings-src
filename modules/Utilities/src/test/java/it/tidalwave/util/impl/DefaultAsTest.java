@@ -29,7 +29,6 @@ package it.tidalwave.util.impl;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.RoleFactory;
 import it.tidalwave.util.spi.AsDelegate;

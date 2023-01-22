@@ -27,7 +27,6 @@
 package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import it.tidalwave.util.Task;
@@ -112,8 +111,8 @@ public class ContextSamplerTest
         return new Object[][]
           {
             { Collections.emptyList()            },
-            { Arrays.asList("a", "b", "c")       },
-            { Arrays.asList("a", "b", "c" , "d") },
+            { List.of("a", "b", "c")       },
+            { List.of("a", "b", "c" , "d") },
           };
       }
   }

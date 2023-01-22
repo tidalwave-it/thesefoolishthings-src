@@ -24,49 +24,80 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.impl;
+package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import it.tidalwave.util.spi.SimpleFinderSupport;
+import java.util.Optional;
+import java.util.stream.Stream;
+import it.tidalwave.util.Finder;
+import it.tidalwave.util.Id;
+import static java.util.Collections.*;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
  *
- * An implementation of {@link it.tidalwave.util.Finder} which holds an immutable list of items.
+ * A support class for implementing a {@link Finder} that provides filtering by id.
  *
- * This class is now implementation only; please use {@link it.tidalwave.util.Finder#ofCloned} instead.
- *
- * @param  <T>   the type of contained items
+ * @param <T>     the product abstract type
+ * @param <I>     the product concrete type
+ * @param <F>     the {@code Finder} type
+ * @since         3.2-ALPHA-15
  *
  * @author  Fabrizio Giudici
+ * @it.tidalwave.javadoc.experimental
  *
  **********************************************************************************************************************/
-public class ArrayListFinder<T> extends SimpleFinderSupport<T>
+@RequiredArgsConstructor
+public class FinderWithIdSupport<T, I extends T, F extends ExtendedFinderSupport<T, F>>
+        extends HierarchicFinderSupport<T, F> implements FinderWithId<T, F>
   {
-    private static final long serialVersionUID = -3529114277448372453L;
+    private static final long serialVersionUID = 2L;
 
     @Nonnull
-    private final Collection<T> items;
+    /* package */ final Optional<Id> id;
 
-    public ArrayListFinder (@Nonnull final Collection<? extends T> items)
+    public FinderWithIdSupport()
       {
-        this.items = Collections.unmodifiableCollection(new ArrayList<>(items));
+        id = Optional.empty();
       }
 
-    public ArrayListFinder (@Nonnull final ArrayListFinder<T> other, @Nonnull final Object override)
+    public FinderWithIdSupport (@Nonnull final FinderWithIdSupport<T, I, F> other, @Nonnull final Object override)
       {
         super(other, override);
-        final var source = getSource(ArrayListFinder.class, other, override);
-        this.items = source.items;
+        final FinderWithIdSupport<T, I, F> source = getSource(FinderWithIdSupport.class, other, override);
+        this.id = source.id;
+      }
+
+    @Override @Nonnull
+    public F withId (@Nonnull final Id id)
+      {
+        return clonedWith(new FinderWithIdSupport<>(Optional.of(id)));
       }
 
     @Override @Nonnull
     protected List<T> computeResults()
       {
-        return new CopyOnWriteArrayList<>(items);
+        return id.map(id -> findById(id).map(Collections::singletonList).orElse(emptyList())).orElse(findAll());
+      }
+
+    @Nonnull
+    protected Optional<T> findById (@Nonnull final Id id)
+      {
+        throw new UnsupportedOperationException("Must be overridden");
+      }
+
+    @Nonnull
+    protected List<T> findAll()
+      {
+        throw new UnsupportedOperationException("Must be overridden");
+      }
+
+    @Nonnull
+    protected Stream<I> streamImpl()
+      {
+        return (Stream<I>)stream();
       }
   }
+

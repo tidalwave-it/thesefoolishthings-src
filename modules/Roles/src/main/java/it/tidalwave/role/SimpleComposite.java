@@ -42,7 +42,7 @@ import it.tidalwave.role.impl.DefaultSimpleComposite;
  *
  **********************************************************************************************************************/
 @FunctionalInterface
-public interface SimpleComposite<TYPE> extends Composite<TYPE, Finder<TYPE>>
+public interface SimpleComposite<T> extends Composite<T, Finder<T>>
   {
     public static final Class<SimpleComposite> _SimpleComposite_ = SimpleComposite.class;
 
@@ -50,14 +50,14 @@ public interface SimpleComposite<TYPE> extends Composite<TYPE, Finder<TYPE>>
      *
      * Returns a wrapped {@code SimpleComposite} on a given {@link Finder}
      *
-     * @param   <TYPE>  the type of the {@code Finder}
+     * @param   <U>     the type of the {@code Finder}
      * @param   finder  the {@code Finder}
      * @return          the wrapped {@code SimpleComposite}
      * @since 3.2-ALPHA-1
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <TYPE> SimpleComposite<TYPE> of (final Finder<TYPE> finder)
+    public static <U> SimpleComposite<U> of (@Nonnull final Finder<U> finder)
       {
         return new DefaultSimpleComposite<>(finder);
       }
@@ -67,14 +67,14 @@ public interface SimpleComposite<TYPE> extends Composite<TYPE, Finder<TYPE>>
      * Returns a wrapped {@code SimpleComposite} on a given collection of elements. The collection is cloned and will be
      * immutable
      *
-     * @param   <TYPE>  the type of the {@code Finder}
+     * @param   <U>     the type of the {@code Finder}
      * @param   items   the objects to wrap
      * @return          the wrapped {@code SimpleComposite}
      * @since 3.2-ALPHA-1
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <TYPE> SimpleComposite<TYPE> ofCloned (@Nonnull final Collection<TYPE> items)
+    public static <U> SimpleComposite<U> ofCloned (@Nonnull final Collection<? extends U> items)
       {
         return of(Finder.ofCloned(items));
       }

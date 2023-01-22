@@ -27,27 +27,22 @@
 package it.tidalwave.util.spi;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
+import it.tidalwave.util.Finder;
+import it.tidalwave.util.Id;
 
 /***********************************************************************************************************************
  *
- * Implementation of this interface are responsible to find in the runtime all instances of DCI roles with the given
- * type.
+ * A {@link Finder} that provides filtering by id.
+ *
+ * @param <T>     the product abstract type
+ * @param <F>     the {@code Finder} type
+ * @since         3.2-ALPHA-15
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public interface AsDelegate
+public interface FinderWithId<T, F extends ExtendedFinderSupport<T, F>> extends Finder<T>, ExtendedFinderSupport<T, F>
   {
-    /*******************************************************************************************************************
-     *
-     * Returns all role instances of the given type.
-     *
-     * @param   <T>       the static type of the role
-     * @param   roleType  the dynamic type of the role
-     * @return            a collection of roles
-     *
-     ******************************************************************************************************************/
     @Nonnull
-    public <T> Collection<T> as (@Nonnull Class<? extends T> roleType);
+    public F withId (@Nonnull Id id);
   }

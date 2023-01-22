@@ -38,7 +38,6 @@ import it.tidalwave.actor.impl.DefaultCollaboration;
 import it.tidalwave.actor.impl.Locator;
 import it.tidalwave.actor.spi.CollaborationAwareMessageBus;
 import it.tidalwave.util.As;
-import it.tidalwave.util.AsException;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;

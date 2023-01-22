@@ -114,11 +114,11 @@ public class CollaborationAwareMessageBusAdapter implements MethodProcessor
      *
      *
      ******************************************************************************************************************/
-    private <Topic> void registerMessageListener (@Nonnull final Method method)
+    private <T> void registerMessageListener (@Nonnull final Method method)
       {
         log.info("registerMessageListener({})", method);
 
-        final var topic = (Class<Topic>)method.getParameterTypes()[0];
+        final var topic = (Class<T>)method.getParameterTypes()[0];
         addListener(method, new MessageListenerAdapter<>(owner, method, executor, stats), topic);
       }
 
@@ -127,7 +127,7 @@ public class CollaborationAwareMessageBusAdapter implements MethodProcessor
      *
      *
      ******************************************************************************************************************/
-    private <Topic> void registerCollaborationListener (@Nonnull final Method method)
+    private <T> void registerCollaborationListener (@Nonnull final Method method)
       {
         log.info("registerCollaborationListener({})", method);
         final var collaborationMessageType = method.getParameterTypes()[0];
@@ -144,9 +144,9 @@ public class CollaborationAwareMessageBusAdapter implements MethodProcessor
      *
      *
      ******************************************************************************************************************/
-    private <Topic> void addListener (@Nonnull final Method method,
-                                      @Nonnull final MessageBus.Listener<Topic> messageListener,
-                                      @Nonnull final Class<Topic> topic) throws SecurityException
+    private <T> void addListener (@Nonnull final Method method,
+                                  @Nonnull final MessageBus.Listener<T> messageListener,
+                                  @Nonnull final Class<T> topic) throws SecurityException
       {
         method.setAccessible(true);
         messageBusListeners.add(messageListener);
