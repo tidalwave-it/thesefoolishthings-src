@@ -401,7 +401,7 @@ public class FileComparisonUtils
                                   @Nonnull final String prefix)
       {
         final var expectedPathAsString = expectedPath.toAbsolutePath().toString();
-        final var actualPathAsString = expectedPath.toAbsolutePath().toString();
+        final var actualPathAsString = actualPath.toAbsolutePath().toString();
         final var commonPath = commonPrefix(expectedPathAsString, actualPathAsString);
         log.info("{}>>>> path is: {}", prefix, commonPath);
         log.info("{}>>>> exp is:  {}", prefix, expectedPathAsString.substring(commonPath.length()));
