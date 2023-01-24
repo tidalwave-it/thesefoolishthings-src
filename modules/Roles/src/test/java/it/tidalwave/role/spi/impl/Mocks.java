@@ -97,14 +97,6 @@ public class Mocks
         private final Bean1 bean1;
 
         private final Bean2 bean2;
-
-        private final String s;
-
-       // to test multiple constructors
-        public RI2B (final String s)
-          {
-            this(null, null, s);
-          }
       }
 
     @RequiredArgsConstructor @EqualsAndHashCode @ToString
