@@ -53,6 +53,7 @@
         <tft.spring-boot.version>2.6.2</tft.spring-boot.version>
 
         <tft.defaultGoal>clean install exec:java</tft.defaultGoal>
+        <tft.animal-sniffer-maven-plugin.skip>true</tft.animal-sniffer-maven-plugin.skip>
     </properties>
 
     <dependencyManagement>
