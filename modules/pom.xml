@@ -52,9 +52,6 @@
         <joda-time.version>1.6.2</joda-time.version>
         <tft.spring.version>4.3.30.RELEASE</tft.spring.version>
         <uuid.version>2.1.5</uuid.version>
-
-        <api.check.version>3.2-ALPHA-14</api.check.version>
-        <tft.animal-sniffer-maven-plugin.skip>false</tft.animal-sniffer-maven-plugin.skip>
     </properties>
 
     <dependencyManagement>
@@ -135,59 +132,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>animal-sniffer-maven-plugin</artifactId>
-                <version>1.22</version>
-                <configuration>
-                    <skip>${tft.animal-sniffer-maven-plugin.skip}</skip>
-                    <failOnError>false</failOnError>
-                    <includeJavaHome>false</includeJavaHome>
-                    <signature>
-                        <groupId>${project.groupId}</groupId>
-                        <artifactId>${project.artifactId}</artifactId>
-                        <version>${api.check.version}</version>
-                    </signature>
-                    <includeClasses>
-                        <includeClass>it.tidalwave.actor.annotation.*</includeClass>
-                        <includeClass>it.tidalwave.actor.spi.*</includeClass>
-                        <includeClass>it.tidalwave.actor.*</includeClass>
-                        <includeClass>it.tidalwave.dci.annotation.*</includeClass>
-                        <includeClass>it.tidalwave.messagebus.annotation.*</includeClass>
-                        <includeClass>it.tidalwave.messagebus.spi.*</includeClass>
-                        <includeClass>it.tidalwave.messagebus.*</includeClass>
-                        <includeClass>it.tidalwave.role.annotation.*</includeClass>
-                        <includeClass>it.tidalwave.role.io.spi.*</includeClass>
-                        <includeClass>it.tidalwave.role.io.*</includeClass>
-                        <includeClass>it.tidalwave.role.spi.*</includeClass>
-                        <includeClass>it.tidalwave.role.ui.function.*</includeClass>
-                        <includeClass>it.tidalwave.role.ui.spi.*</includeClass>
-                        <includeClass>it.tidalwave.role.ui.*</includeClass>
-                        <includeClass>it.tidalwave.role.*</includeClass>
-                        <includeClass>it.tidalwave.util.annotation.*</includeClass>
-                        <includeClass>it.tidalwave.util.spi.*</includeClass>
-                        <includeClass>it.tidalwave.util.spring.*</includeClass>
-                        <includeClass>it.tidalwave.util.test.*</includeClass>
-                        <includeClass>it.tidalwave.util.thread.annotation.*</includeClass>
-                        <includeClass>it.tidalwave.util.thread.*</includeClass>
-                        <includeClass>it.tidalwave.util.ui.*</includeClass>
-                        <includeClass>it.tidalwave.util.*</includeClass>
-                    </includeClasses>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
     <modules>
         <module>Actors</module>
