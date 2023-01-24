@@ -33,13 +33,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings-examples</artifactId>
-        <version>3.2-ALPHA-16</version>
+        <version>3.2-ALPHA-17-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-thesefoolishthings-examples-data</artifactId>
-    <version>3.2-ALPHA-16</version>
+    <version>3.2-ALPHA-17-SNAPSHOT</version>
     <name>TheseFoolishThings :: Examples :: Data</name>
     <description>
         This module provides sample data structures used by other examples.
