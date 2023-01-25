@@ -34,10 +34,10 @@
     <bannerLeft>
         <name>${project.name}</name>
         <src>http://tidalwave.it/media/Tidalwave%20Logo.png</src>
-        <href>https://tidalwave.it/projects/thesefoolishthings</href>
+        <href>https://tidalwave.it/</href>
     </bannerLeft>
     <bannerRight>
-        <src>http://tidalwave.it/media/Tidalwave%20Logo.png</src>
+        <!-- src>http://tidalwave.it/media/Tidalwave%20Logo.png</src -->
     </bannerRight>
 
     <skin>

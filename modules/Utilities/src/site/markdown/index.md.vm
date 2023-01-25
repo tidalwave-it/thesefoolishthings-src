@@ -979,4 +979,33 @@ ad `it` are used. If custom packages are needed, they can be specified as follow
 RoleSpringConfiguration.setBasePackages("fr:es:de");
 ```
 
+For using `As` with Spring this dependency is needed:
+
+```xml
+<dependency>
+    <groupId>${groupId}</groupId>
+    <artifactId>it-tidalwave-role-spring</artifactId>
+    <version>${project.version}</version>
+</dependency>
+```
+
+
 > PENDING `ContextManagerProvider`
+
+---
+
+
+#[[###]]# Type-safe maps
+
+Inspired by [the heterogeneous map pattern](https://www.informit.com/articles/article.aspx?p=2861454&amp;seqNum=8) described in Effective Java by Joshua Bloch,
+`TypeSafeMap` is an **immutable** map that works with **type-aware keys**, so its retrieval method is type-safe; furthermore it supports `Optional`.
+
+<!-- MACRO{snippet|id=TypeSafeMap|file=${project.basedir}/modules/Utilities/src/test/java/it/tidalwave/util/TypeSafeMapTest.java} -->
+
+`TypeSafeMultiMap` is similar, but associates keys to collection of values, not single values; so associating multiple `(key, value)` pairs keep
+all the values instead of replacing the previous one.
+
+<!-- MACRO{snippet|id=TypeSafeMultiMap|file=${project.basedir}/modules/Utilities//src/test/java/it/tidalwave/util/TypeSafeMultiMapTest.java} -->
+
+Find more information in [the JavaDoc for TypeSafeMap](modules/it-tidalwave-util/apidocs/it/tidalwave/util/TypeSafeMap.html) and
+[TypeSafeMultiMap](modules/it-tidalwave-util/apidocs/it/tidalwave/util/TypeSafeMultiMap.html).

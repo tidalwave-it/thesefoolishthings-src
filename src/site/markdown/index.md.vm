@@ -51,6 +51,11 @@ an automatic system to check the compatibility of the APIs from version to versi
 ${project.name} is **licensed** with the Apache license.
 
 
+#[[##]]# Table of contents
+
+<!-- MACRO{toc|section=0|fromDepth=1|toDepth=3} -->
+
+
 #[[##]]# A quick look
 
 Here it is a quick look at some of the available features.
@@ -66,6 +71,8 @@ implement nested loops:
 
 <!-- MACRO{snippet|id=loop2a|file=${project.basedir}/modules/Utilities/src/test/java/it/tidalwave/util/PairTest.java} -->
 
+Find more information in [the documentation for module Utilities](modules/it-tidalwave-util/index.html).
+
 
 #[[###]]# `Finder`
 
@@ -76,6 +83,8 @@ SQL, so data are retrieved in the most efficient way.
 
 <!-- MACRO{snippet|id=extended-example|file=${project.basedir}/modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/FinderExample2.java} -->
 
+Find more information in [the documentation for module Utilities](modules/it-tidalwave-util/index.html).
+
 
 #[[###]]# `As`
 
@@ -85,39 +94,69 @@ but they are available at runtime in association with that class to provide exte
 
 <!-- MACRO{snippet|id=extensionmethod|file=${project.basedir}/modules/examples/DciDisplayableExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/displayable/DisplayableExample.java} -->
 
+Find more information in [the documentation for module Utilities](modules/it-tidalwave-util/index.html).
+
 
 #[[###]]# P&S MessageBus
 
 >PENDING INTRODUCTION AND EXAMPLE
+
+Find more information in [the documentation for module MessageBus](modules/it-tidalwave-messagebus/index.html).
 
 
 #[[###]]# Collaborative Actors
 
 >PENDING INTRODUCTION AND EXAMPLE
 
+Find more information in [the documentation for module MessageBus](modules/it-actor-messagebus/index.html).
+
 
 #[[###]]# Type-safe maps
 
->PENDING INTRODUCTION AND EXAMPLE
+Inspired by [the heterogeneous map pattern](https://www.informit.com/articles/article.aspx?p=2861454&amp;seqNum=8) described in Effective Java by Joshua Bloch,
+`TypeSafeMap` is an **immutable** map that works with **type-aware keys**, so its retrieval method is type-safe; furthermore it supports `Optional`.
+
+<!-- MACRO{snippet|id=TypeSafeMap|file=${project.basedir}/modules/Utilities/src/test/java/it/tidalwave/util/TypeSafeMapTest.java} -->
+
+`TypeSafeMultiMap` is similar, but associates keys to collection of values, not single values; so associating multiple `(key, value)` pairs keep
+all the values instead of replacing the previous one.
+
+<!-- MACRO{snippet|id=TypeSafeMultiMap|file=${project.basedir}/modules/Utilities//src/test/java/it/tidalwave/util/TypeSafeMultiMapTest.java} -->
+
+Find more information in [the JavaDoc for TypeSafeMap](modules/it-tidalwave-util/apidocs/it/tidalwave/util/TypeSafeMap.html) and
+[TypeSafeMultiMap](modules/it-tidalwave-util/apidocs/it/tidalwave/util/TypeSafeMultiMap.html).
 
 
 #[[##]]# Modules
 
 + [Utilities](modules/it-tidalwave-util/index.html)             [(Javadoc)](modules/it-tidalwave-util/apidocs/index.html)
-
 + [Roles](modules/it-tidalwave-role/index.html)                 [(Javadoc)](modules/it-tidalwave-role/apidocs/index.html)
-
 + [Test Utilities](modules/it-tidalwave-util-test/index.html)   [(Javadoc)](modules/it-tidalwave-util-test/apidocs/index.html)
-
 + [MessageBus](modules/it-tidalwave-messagebus/index.html)      [(Javadoc)](modules/it-tidalwave-messagebus/apidocs/index.html)
-
 + [Actors](modules/it-tidalwave-actor/index.html)               [(Javadoc)](modules/it-tidalwave-actor/apidocs/index.html)
 
 
 #[[##]]# General information
 #[[###]]# Maven dependency
 
-Since most modules can be used independently, Maven dependency information is available in their specific documentation.
+Modules can be used independently, so each needed one must be included separately. The master POM of the project
+can be used as a BOM and included in the `dependencyManagement` section:
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        ...
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>thesefoolishthings</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+        ...
+    </dependencies>
+</dependencyManagement>
+```
 
 #[[###]]# Sources, issue tracker and continuous integration
 

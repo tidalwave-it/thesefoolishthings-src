@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.testng.annotations.Test;
 import static java.util.Collections.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -213,6 +214,27 @@ public class TypeSafeMultiMapTest
                                                       .stream()
                                                       .map(e -> Pair.of(e.getKey(), e.getValue()))
                                                       .toArray()));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test @SuppressWarnings("RedundantExplicitVariableType") // keep explicit type for the code sample
+    public void codeSamples()
+      {
+          // START SNIPPET TypeSafeMultiMap
+          final Key<String> k1 = Key.of("Key 1", String.class);
+          final Key<Integer> k2 = Key.of("Key 2", Integer.class);
+          final var m = TypeSafeMultiMap.newInstance()
+                                        .with(k1, "Value 1")
+                                        .with(k1, "Value 2")
+                                        .with(k2, 1)
+                                        .with(k2, 2);
+          final Collection<String> v1 = m.get(k1);
+          final Collection<Integer> v2 = m.get(k2);
+          assertThat(v1, is(List.of("Value 1", "Value 2")));
+          assertThat(v2, is(List.of(1, 2)));
+          // END SNIPPET TypeSafeMultiMap
       }
 
     /*******************************************************************************************************************

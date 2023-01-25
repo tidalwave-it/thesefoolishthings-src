@@ -29,9 +29,9 @@ package it.tidalwave.util;
 import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -124,8 +124,8 @@ public class TypeSafeMapTest
         assertThat(underTest, is(not(sameInstance(firstMap))));
         assertThat(firstMap.size(), is(3));
         assertThat(underTest.size(), is(4));
-        assertThat(firstMap.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME))));
-        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME, K_STRING2))));
+        assertThat(firstMap.keySet(), is(Set.of(K_STRING, K_INTEGER, K_DATETIME)));
+        assertThat(underTest.keySet(), is(Set.of(K_STRING, K_INTEGER, K_DATETIME, K_STRING2)));
         map.put(K_STRING2, "2");
         assertThat(underTest.asMap(), is(map));
         assertThat(underTest.get(K_STRING2), is("2"));
@@ -169,6 +169,26 @@ public class TypeSafeMapTest
         assertThat(underTest.size(), is(not(0)));
       }
 
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test @SuppressWarnings("RedundantExplicitVariableType") // keep explicit type for the code sample
+    public void codeSamples()
+      {
+        // START SNIPPET TypeSafeMap
+        final Key<String> k1 = Key.of("Key 1", String.class);
+        final Key<Integer> k2 = Key.of("Key 2", Integer.class);
+        final var m = TypeSafeMap.newInstance()
+                                 .with(k1, "Value 1")
+                                 .with(k2, 1);
+        final Optional<String> v1 = m.getOptional(k1);
+        final Optional<Integer> v2 = m.getOptional(k2);
+        assertThat(v1.get(), is("Value 1"));
+        assertThat(v2.get(), is(1));
+        // END SNIPPET TypeSafeMap
+      }
+
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
@@ -179,7 +199,7 @@ public class TypeSafeMapTest
         final var map = createSampleMap();
         // when
         final var underTest = TypeSafeMap.ofCloned(map);
-        final List<Pair<Key<?>, Object>> pairs = new ArrayList<>();
+        final var pairs = new ArrayList<Pair<Key<?>, Object>>();
         underTest.forEach((k, v) -> pairs.add(Pair.of(k, v)));
         // then
         assertThat(pairs, containsInAnyOrder(underTest.entrySet()

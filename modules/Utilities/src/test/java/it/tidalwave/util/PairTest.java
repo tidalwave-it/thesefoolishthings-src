@@ -63,7 +63,7 @@ public class PairTest
         // START SNIPPET: pair1
         final var p = Pair.of("foo bar", 7);
         final var fooBar = p.a;
-        final int seven = p.b;
+        final var seven = p.b;
         // END SNIPPET: pair1
         // then
         assertThat(fooBar, is("foo bar"));
