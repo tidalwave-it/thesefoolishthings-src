@@ -65,7 +65,7 @@ public class Main
             log.info("******** Count: {}",  n1);
 
             final var p2 = registry.findPerson().from(3).max(2).results();
-            log.info("******** wo persons from the 3rd position: {}", p2);
+            log.info("******** Two persons from the 3rd position: {}", p2);
 
             final var p3 = registry.findPerson().sort(BY_FIRST_NAME).results();
             log.info("******** All, sorted by first name: {}", p3);
