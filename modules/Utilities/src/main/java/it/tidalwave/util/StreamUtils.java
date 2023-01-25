@@ -46,27 +46,8 @@ import lombok.NoArgsConstructor;
  *
  **********************************************************************************************************************/
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class StreamOperations
+public final class StreamUtils
   {
-    /*******************************************************************************************************************
-     *
-     * Zips two streams into a stream of {@link Pair}s.
-     *
-     * @param   streamA     the first {@link Stream}
-     * @param   streamB     the second {@link Stream}
-     * @param   <A>         the type of elements of the first {@link Stream}
-     * @param   <B>         the type of elements of the second {@link Stream}
-     * @return              the zipped {@link Stream}
-     * @since   3.2-ALPHA-12
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public static <A, B> Stream<Pair<A, B>> zip (@Nonnull final Stream<? extends A> streamA,
-                                                 @Nonnull final Stream<? extends B> streamB)
-      {
-        return zip(streamA, streamB, Pair::of);
-      }
-
     /*******************************************************************************************************************
      *
      * Zips two streams.
@@ -82,8 +63,8 @@ public final class StreamOperations
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <A, B, R> Stream<R> zip (@Nonnull final Stream<A> streamA,
-                                           @Nonnull final Stream<B> streamB,
+    public static <A, B, R> Stream<R> zip (@Nonnull final Stream<? extends A> streamA,
+                                           @Nonnull final Stream<? extends B> streamB,
                                            @Nonnull final BiFunction<? super A, ? super B, ? extends R> zipper)
       {
         final var parallel = streamA.isParallel() || streamB.isParallel();

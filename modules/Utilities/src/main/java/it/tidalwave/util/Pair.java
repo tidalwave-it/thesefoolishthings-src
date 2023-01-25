@@ -438,6 +438,25 @@ public class Pair<A, B>
         return Collectors.toMap(p -> p.a, p -> p.b);
       }
 
+    /*******************************************************************************************************************
+     *
+     * Zips two streams into a stream of {@link Pair}s.
+     *
+     * @param   streamA     the first {@link Stream}
+     * @param   streamB     the second {@link Stream}
+     * @param   <A>         the type of elements of the first {@link Stream}
+     * @param   <B>         the type of elements of the second {@link Stream}
+     * @return              the zipped {@link Stream}
+     * @since   3.2-ALPHA-17 (since 3.2-ALPHA-12 was in {@code StreamOperations}
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <A, B> Stream<Pair<A, B>> zip (@Nonnull final Stream<? extends A> streamA,
+                                                 @Nonnull final Stream<? extends B> streamB)
+      {
+        return StreamUtils.zip(streamA, streamB, Pair::of);
+      }
+
     @NotThreadSafe
     static final class Factory<I, T>
       {

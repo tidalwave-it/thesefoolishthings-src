@@ -36,7 +36,7 @@ import static java.util.stream.Collectors.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
-public class StreamOperationsTest
+public class StreamUtilsTest
   {
     /*******************************************************************************************************************
      *
@@ -45,32 +45,15 @@ public class StreamOperationsTest
     public void zipTest1()
       {
         // when
-        final var underTest = StreamOperations.zip(IntStream.range(0, 7).boxed(),
-                                                   stringStream( 5),
-                                                   (n, s) -> String.format("%d - %s", n, s));
+        final var underTest = StreamUtils.zip(IntStream.range(0, 7).boxed(),
+                                              stringStream( 5),
+                                              (n, s) -> String.format("%d - %s", n, s));
         // then
         assertThat(underTest.collect(toList()), is(asList("0 - string-a",
                                                           "1 - string-b",
                                                           "2 - string-c",
                                                           "3 - string-d",
                                                           "4 - string-e")));
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @Test
-    public void zipPairTest1()
-      {
-        // when
-        final var underTest = StreamOperations.zip(IntStream.range(0, 7).boxed(),
-                                                   stringStream( 5));
-        // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "string-a"),
-                                                          Pair.of(1, "string-b"),
-                                                          Pair.of(2, "string-c"),
-                                                          Pair.of(3, "string-d"),
-                                                          Pair.of(4, "string-e"))));
       }
 
     /*******************************************************************************************************************

@@ -74,24 +74,6 @@ public class PairTest
      *
      ******************************************************************************************************************/
     @Test
-    public void test_pairStream()
-      {
-        // given
-        final var value = "value";
-        // when
-        final var underTest = Pair.pairStream(value, IntStream.rangeClosed(1, 5).boxed());
-        // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(value, 1),
-                                                          Pair.of(value, 2),
-                                                          Pair.of(value, 3),
-                                                          Pair.of(value, 4),
-                                                          Pair.of(value, 5))));
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @Test
     public void test_pairRange()
       {
         // given
@@ -369,6 +351,43 @@ public class PairTest
           3, "four",
           4, "five");
         assertThat(actual, is(expected));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void test_pairStream()
+      {
+        // given
+        final var value = "value";
+        // when
+        final var underTest = Pair.pairStream(value, IntStream.rangeClosed(1, 5).boxed());
+        // then
+        assertThat(underTest.collect(toList()), is(asList(Pair.of(value, 1),
+                                                          Pair.of(value, 2),
+                                                          Pair.of(value, 3),
+                                                          Pair.of(value, 4),
+                                                          Pair.of(value, 5))));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void zipPairTest1()
+      {
+        // given
+        final var intStream = IntStream.range(0, 7).boxed();
+        final var stringStream = IntStream.range(0, 7).mapToObj(n -> "string-" + (char)('a' + n));
+        // when
+        final var underTest = Pair.zip(intStream, stringStream);
+        // then
+        assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "string-a"),
+                                                          Pair.of(1, "string-b"),
+                                                          Pair.of(2, "string-c"),
+                                                          Pair.of(3, "string-d"),
+                                                          Pair.of(4, "string-e"))));
       }
 
     /*******************************************************************************************************************
