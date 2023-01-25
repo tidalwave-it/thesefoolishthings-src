@@ -80,7 +80,7 @@ public interface As
 
 
         @Nonnull @SuppressWarnings("unchecked")
-        protected Class<T> getType()
+        /* package */ Class<T> getType()
           {
             return (Class<T>)type;
           }

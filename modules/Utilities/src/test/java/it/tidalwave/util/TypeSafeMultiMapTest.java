@@ -34,7 +34,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import org.testng.annotations.Test;
 import static java.util.Collections.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -243,10 +242,8 @@ public class TypeSafeMultiMapTest
     @Nonnull
     private static Map<Key<?>, Collection<?>> createSampleMap()
       {
-        final Map<Key<?>, Collection<?>> map = new HashMap<>();
-        map.put(K_STRING, singletonList("1"));
-        map.put(K_INTEGER, singletonList(2));
-        map.put(K_DATETIME, singletonList(LOCAL_DATE));
-        return map;
+        return new HashMap<>(Map.of(K_STRING, List.of("1"),
+                                    K_INTEGER, List.of(2),
+                                    K_DATETIME, List.of(LOCAL_DATE)));
       }
   }
