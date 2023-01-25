@@ -35,6 +35,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -81,7 +82,7 @@ public class TypeSafeMapTest
         final var underTest = TypeSafeMap.ofCloned(map);
         // then
         assertThat(underTest.size(), is(3));
-        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME))));
+        assertThat(underTest.keySet(), is(Set.of(K_STRING, K_INTEGER, K_DATETIME)));
         assertThat(underTest.asMap(), is(map));
         assertThat(underTest.get(K_STRING), is("1"));
         assertThat(underTest.get(K_INTEGER), is(2));
