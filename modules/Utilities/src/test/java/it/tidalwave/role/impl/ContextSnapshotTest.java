@@ -24,18 +24,19 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.ui;
+package it.tidalwave.role.impl;
 
-import java.util.Collection;
+import javax.annotation.Nonnull;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import it.tidalwave.util.As;
-import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import it.tidalwave.util.Task;
+import it.tidalwave.util.ContextManager;
+import it.tidalwave.role.spi.ContextManagerProvider;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static it.tidalwave.util.test.MoreAnswers.CALLS_DEFAULT_METHODS;
-import static it.tidalwave.role.ui.Presentable._Presentable_;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -45,72 +46,74 @@ import static org.hamcrest.MatcherAssert.*;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class PresentationModelTest
+public class ContextSnapshotTest
   {
-    static interface MockRole1 {}
+    @RequiredArgsConstructor @Getter static
+    class MockContextManagerProvider implements ContextManagerProvider
+      {
+        @Nonnull
+        private final ContextManager contextManager;
+      }
 
-    static interface MockRole2 {}
+    private ContextSnapshot underTest;
 
-    private final MockRole1 mockRole1 = mock(MockRole1.class);
-
-    private final MockRole2 mockRole2 = mock(MockRole2.class);
-
-    private final Collection<Object> roles = List.of(mockRole1, mockRole2);
+    private ContextManager contextManager;
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    // START SNIPPET: setup
-    @BeforeClass
+    @BeforeMethod
     public void setup()
       {
-        OwnerRoleFactoryProvider.set(OwnerRoleFactoryProvider.emptyRoleFactory());
+        contextManager = mock(ContextManager.class);
+        ContextManager.set(new MockContextManagerProvider(contextManager));
       }
-    // END SNIPPET: setup
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    // START SNIPPET: cleanup
-    @AfterClass
-    public void cleanup()
-      {
-        OwnerRoleFactoryProvider.reset();
-      }
-    // END SNIPPET: cleanup
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @Test
-    public void test_ofMaybePresentable_without_Presentable()
+    @Test(dataProvider = "contextProvider")
+    public void must_sample_Contexts_at_construction_time (@Nonnull final List<Object> contexts)
       {
         // given
-        final var owner = mock(As.class);
+        when(contextManager.getContexts()).thenReturn(contexts);
         // when
-        final var actualPm = PresentationModel.ofMaybePresentable(owner, roles);
+        underTest = new ContextSnapshot(new Object());
         // then
-        assertThat(actualPm.as(MockRole1.class), is(sameInstance(mockRole1)));
-        assertThat(actualPm.as(MockRole2.class), is(sameInstance(mockRole2)));
+        assertThat(underTest.getContexts(), is(contexts));
       }
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test
-    public void test_ofMaybePresentable_with_Presentable()
+    @Test(dataProvider = "contextProvider")
+    public void must_delegate_runWithContexts_to_ContextManager (@Nonnull final List<Object> contexts)
       {
         // given
-        final var owner = mock(As.class);
-        final var presentable = mock(Presentable.class, CALLS_DEFAULT_METHODS);
-        final var pm = mock(PresentationModel.class);
-        when(presentable.createPresentationModel(anyCollection())).thenReturn(pm);
-        when(owner.maybeAs(_Presentable_)).thenReturn(Optional.of(presentable));
+        when(contextManager.getContexts()).thenReturn(contexts);
+        final var task = mock(Task.class);
+//        when(contextManager.runWithContexts(any(List.class), eq(task))).thenReturn("result");
+        underTest = new ContextSnapshot(new Object());
+        reset(contextManager);
         // when
-        final var actualPm = PresentationModel.ofMaybePresentable(owner, roles);
+        final var result = underTest.runWithContexts(task);
         // then
-        assertThat(actualPm, is(sameInstance(pm)));
-        verify(presentable).createPresentationModel(eq(roles));
-        verifyNoMoreInteractions(presentable);
+        verify(contextManager, times(1)).runWithContexts(eq(contexts), same(task));
+        verifyNoMoreInteractions(contextManager);
+//        assertThat(result, is("result")); FIXME: depend on commented stubbing above
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @DataProvider
+    public Object[][] contextProvider()
+      {
+        return new Object[][]
+          {
+            { Collections.emptyList()            },
+            { List.of("a", "b", "c")       },
+            { List.of("a", "b", "c" , "d") },
+          };
       }
   }

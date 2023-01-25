@@ -27,54 +27,52 @@
 package it.tidalwave.role.spring.spi;
 
 import javax.annotation.Nonnull;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import it.tidalwave.util.Task;
-import it.tidalwave.util.ContextManager;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import java.util.Optional;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Configurable;
+import it.tidalwave.util.spring.ClassScanner;
+import it.tidalwave.role.spi.SystemRoleFactorySupport;
 import it.tidalwave.dci.annotation.DciContext;
+import it.tidalwave.dci.annotation.DciRole;
 import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.util.ShortNames.shortId;
 
 /***********************************************************************************************************************
  *
- * An aspect which implements {@link DciContext} with {@code autoThreadBinding=true}. This class must not be used
- * directly. Instead, add the library which contains it as a dependency of your project and make it visible to the
- * AspectJ compiler.
+ * A specialization of {@link SystemRoleFactorySupport} for a Spring context that uses annotations ({@link DciRole} and
+ * {@link DciContext}) for retrieving role metadata and is capable to inject Spring beans into created roles.
  *
  * @author  Fabrizio Giudici
- * @since   3.0
  *
  **********************************************************************************************************************/
-@Aspect @Slf4j
-public class DciContextWithAutoThreadBindingAspect
+@Slf4j @Configurable
+public class AnnotationSpringSystemRoleFactory extends SystemRoleFactorySupport
   {
-    @Around("within(@it.tidalwave.dci.annotation.DciContext *) && execution(* *(..))")
-    public Object advice (@Nonnull final ProceedingJoinPoint pjp)
-      throws Throwable
+    @Inject @Nonnull
+    private BeanFactory beanFactory;
+
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
+    @PostConstruct
+    /* package */ void initialize()
       {
-        final var context = pjp.getTarget();
+        log.debug("scanning classes with {} annotation...", DciRole.class);
+        scan(new ClassScanner().withAnnotationFilter(DciRole.class).findClasses());
+      }
 
-        if (!context.getClass().getAnnotation(DciContext.class).autoThreadBinding())
-          {
-            return pjp.proceed();
-          }
-        else
-          {
-            if (log.isTraceEnabled())
-              {
-                log.trace("executing {}.{}() with context thread binding", shortId(context), pjp.getSignature().getName());
-              }
-
-            return ContextManager.getInstance().runWithContext(context, new Task<Object, Throwable>()
-              {
-                @Override
-                public Object run()
-                  throws Throwable
-                  {
-                    return pjp.proceed();
-                  }
-              });
-          }
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @SuppressWarnings("BoundedWildcard")
+    @Override @Nonnull
+    protected <T> Optional<T> getBean (@Nonnull final Class<T> beanType)
+      {
+        return Optional.ofNullable(beanFactory.getBean(beanType));
       }
   }

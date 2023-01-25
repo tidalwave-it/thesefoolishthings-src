@@ -24,16 +24,20 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.ui.impl;
+package it.tidalwave.role.spring;
 
-import it.tidalwave.util.As;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import it.tidalwave.util.AsException;
-import it.tidalwave.util.mock.MockAsFactory;
-import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
+import it.tidalwave.role.spring.mock.MockConcreteRole1;
+import it.tidalwave.role.spring.mock.MockConcreteRole2;
+import it.tidalwave.role.spring.mock.MockDatum1;
+import it.tidalwave.role.spring.mock.MockDatum2;
+import it.tidalwave.role.spring.mock.MockRole1;
+import it.tidalwave.role.spring.mock.MockRole2;
+import it.tidalwave.role.spring.mock.MockRole3;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import static it.tidalwave.util.Parameters.r;
-import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -42,26 +46,13 @@ import static org.hamcrest.MatcherAssert.*;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class DefaultPresentationModelTest
+public class SpringAdapterTest // FIXME: tests are genera, move to a AsSupportTestSupport
   {
-    public static interface Role1
-      {
-      }
+    private ApplicationContext context;
 
-    public static interface Role2
-      {
-      }
+    private MockDatum1 datum1;
 
-    public static interface Role3
-      {
-      }
-
-    private Role1 localRole1;
-    private Role2 localRole2;
-    private Role2 role2InOwner;
-    private Object ownerNoAs;
-    private As ownerAsWithNoRoles;
-    private As ownerAsWithRole2;
+    private MockDatum2 datum2;
 
     /*******************************************************************************************************************
      *
@@ -69,100 +60,72 @@ public class DefaultPresentationModelTest
     @BeforeMethod
     public void setup()
       {
-        // Not called by tests, we only need it's there
-        OwnerRoleFactoryProvider.set(OwnerRoleFactoryProvider.emptyRoleFactory());
-
-        localRole1 = mock(Role1.class);
-        localRole2 = mock(Role2.class);
-        role2InOwner = mock(Role2.class);
-        ownerNoAs = new Object();
-
-        ownerAsWithNoRoles = MockAsFactory.mockWithAs(As.class);
-        ownerAsWithRole2 = MockAsFactory.mockWithAs(As.class, r(role2InOwner));
+        context = new ClassPathXmlApplicationContext(RoleSpringConfiguration.BEANS);
+        datum1 = new MockDatum1();
+        datum2 = new MockDatum2();
       }
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
     @Test
-    public void must_find_local_roles()
+    public void must_inject_a_role_properly_assigning_its_owner_1()
       {
-        // given
-        final var underTest1 = new DefaultPresentationModel(ownerNoAs, r(localRole1));
-        final var underTest2 = new DefaultPresentationModel(ownerNoAs, r(localRole1, localRole2));
         // when
-        final var ut1Role1 = underTest1.as(Role1.class);
-        final var ut2Role1 = underTest2.as(Role1.class);
-        final var ut2Role2 = underTest2.as(Role2.class);
-        //then
-        assertThat(ut1Role1, is(sameInstance(localRole1)));
-        assertThat(ut2Role1, is(sameInstance(localRole1)));
-        assertThat(ut2Role2, is(sameInstance(localRole2)));
+        final var role = datum1.as(MockRole1.class);
+        // then
+        assertThat(role, is(notNullValue()));
+        assertThat(role, is(instanceOf(MockConcreteRole1.class)));
+        assertThat(((MockConcreteRole1)role).getOwner(), is(sameInstance(datum1)));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_inject_a_role_supporting_multiple_datum_types_properly_assigning_its_owner()
+      {
+        // when
+        final var role1 = datum1.as(MockRole2.class);
+        final var role2 = datum2.as(MockRole2.class);
+        // then
+        assertThat(role1, is(notNullValue()));
+        assertThat(role1, is(instanceOf(MockConcreteRole2.class)));
+        assertThat(((MockConcreteRole2)role1).getOwner(), is(sameInstance(datum1)));
+
+        assertThat(role2, is(notNullValue()));
+        assertThat(role2, is(instanceOf(MockConcreteRole2.class)));
+        assertThat(((MockConcreteRole2)role2).getOwner(), is(sameInstance(datum2)));
       }
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
     @Test(expectedExceptions = AsException.class)
-    public void must_not_find_inexistent_role()
+    public void must_throw_AsException_when_asking_for_an_unavailable_role_1()
       {
-        // given
-        final var underTest = new DefaultPresentationModel(ownerNoAs, r(localRole1));
-        // when
-        underTest.as(Role2.class);
+        datum1.as(MockRole3.class);
       }
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
     @Test(expectedExceptions = AsException.class)
-    public void must_not_find_inexistent_role_bis()
+    public void must_throw_AsException_when_asking_for_an_unavailable_role_2()
       {
-        // given
-        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
-        // when
-        underTest.as(Role1.class);
+        datum2.as(MockRole1.class);
       }
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
     @Test
-    public void must_find_roles_in_owner()
+    public void must_return_the_datum_object_when_it_directly_implements_a_role()
       {
-        // given
-        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r());
         // when
-        final var role2 = underTest.as(Role2.class);
+        final var role = datum2.as(MockRole3.class);
         // then
-        assertThat(role2, is(sameInstance(role2InOwner)));
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @Test
-    public void must_give_priority_to_local_roles()
-      {
-        // given
-        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
-        // when
-        final var role2 = underTest.as(Role2.class);
-        // then
-        assertThat(role2, is(sameInstance(localRole2)));
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @Test
-    public void test_TFT_248_regression()
-      {
-        // given
-        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
-        // when
-        final var role3 = underTest.maybeAs(Role3.class);
-        // then
-        assertThat(role3.isPresent(), is(false));
+        assertThat(role, is(notNullValue()));
+        assertThat(role, is(sameInstance(datum2)));
       }
   }

@@ -24,145 +24,123 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.ui.impl;
+package it.tidalwave.role.spi;
 
-import it.tidalwave.util.As;
-import it.tidalwave.util.AsException;
-import it.tidalwave.util.mock.MockAsFactory;
-import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import static it.tidalwave.util.Parameters.r;
-import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collection;
+import it.tidalwave.util.LazySupplier;
+import it.tidalwave.role.impl.ServiceLoaderLocator;
+import lombok.RequiredArgsConstructor;
 
 /***********************************************************************************************************************
+ *
+ * The provider of the singleton {@link OwnerRoleFactory}.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class DefaultPresentationModelTest
+@FunctionalInterface
+public interface OwnerRoleFactoryProvider
   {
-    public static interface Role1
+    static class Inner // TODO: will go away with Java 17
       {
-      }
+        private static final LazySupplier<OwnerRoleFactoryProvider> PROVIDER_REF =
+                LazySupplier.of(() -> ServiceLoaderLocator.findService(OwnerRoleFactoryProvider.class));
 
-    public static interface Role2
-      {
-      }
-
-    public static interface Role3
-      {
-      }
-
-    private Role1 localRole1;
-    private Role2 localRole2;
-    private Role2 role2InOwner;
-    private Object ownerNoAs;
-    private As ownerAsWithNoRoles;
-    private As ownerAsWithRole2;
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @BeforeMethod
-    public void setup()
-      {
-        // Not called by tests, we only need it's there
-        OwnerRoleFactoryProvider.set(OwnerRoleFactoryProvider.emptyRoleFactory());
-
-        localRole1 = mock(Role1.class);
-        localRole2 = mock(Role2.class);
-        role2InOwner = mock(Role2.class);
-        ownerNoAs = new Object();
-
-        ownerAsWithNoRoles = MockAsFactory.mockWithAs(As.class);
-        ownerAsWithRole2 = MockAsFactory.mockWithAs(As.class, r(role2InOwner));
+        private static final LazySupplier<EmptyOwnerRoleFactory> EMPTY_REF =
+                LazySupplier.of(EmptyOwnerRoleFactory::new);
       }
 
     /*******************************************************************************************************************
      *
+     * Returns the singleton instance of {@link OwnerRoleFactoryProvider}
+     *
+     * @return    the singleton instance
+     *
      ******************************************************************************************************************/
-    @Test
-    public void must_find_local_roles()
+    @Nonnull
+    public static OwnerRoleFactoryProvider getInstance ()
       {
-        // given
-        final var underTest1 = new DefaultPresentationModel(ownerNoAs, r(localRole1));
-        final var underTest2 = new DefaultPresentationModel(ownerNoAs, r(localRole1, localRole2));
-        // when
-        final var ut1Role1 = underTest1.as(Role1.class);
-        final var ut2Role1 = underTest2.as(Role1.class);
-        final var ut2Role2 = underTest2.as(Role2.class);
-        //then
-        assertThat(ut1Role1, is(sameInstance(localRole1)));
-        assertThat(ut2Role1, is(sameInstance(localRole1)));
-        assertThat(ut2Role2, is(sameInstance(localRole2)));
+        return Inner.PROVIDER_REF.get();
       }
 
     /*******************************************************************************************************************
      *
+     * Creates an {@link OwnerRoleFactory} for the given object
+     *
+     * @param     owner   the object
+     * @return            {@code AsDelegate}
+     *
      ******************************************************************************************************************/
-    @Test(expectedExceptions = AsException.class)
-    public void must_not_find_inexistent_role()
+    @Nonnull
+    public OwnerRoleFactory createRoleFactory (@Nonnull Object owner);
+
+    /*******************************************************************************************************************
+     *
+     * Installs a {@link OwnerRoleFactory}. <b>This method is for testing only (used to set up a testing context).</b>
+     *
+     * @param   ownerRoleFactory    the {@link OwnerRoleFactory}
+     * @see     #reset()
+     *
+     ******************************************************************************************************************/
+    public static void set (@Nonnull final OwnerRoleFactory ownerRoleFactory)
       {
-        // given
-        final var underTest = new DefaultPresentationModel(ownerNoAs, r(localRole1));
-        // when
-        underTest.as(Role2.class);
+        Inner.PROVIDER_REF.set(new SimpleOwnerRoleFactoryProvider(ownerRoleFactory));
       }
 
     /*******************************************************************************************************************
      *
+     * Removes a previously installed {@link OwnerRoleFactory}. <b>This method is for testing only (used to clean up a
+     * testing context).</b>
+     *
+     * @see     #set(OwnerRoleFactory)
+     *
      ******************************************************************************************************************/
-    @Test(expectedExceptions = AsException.class)
-    public void must_not_find_inexistent_role_bis()
+    public static void reset()
       {
-        // given
-        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
-        // when
-        underTest.as(Role1.class);
+        Inner.PROVIDER_REF.clear();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns an empty implementation of factory. Useful for setting up a test environment.
+     *
+     * @return    the empty implementation
+     * @since     3.2-ALPHA-1
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static OwnerRoleFactory emptyRoleFactory()
+      {
+        return Inner.EMPTY_REF.get();
       }
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test
-    public void must_find_roles_in_owner()
+    @RequiredArgsConstructor
+    static class SimpleOwnerRoleFactoryProvider implements OwnerRoleFactoryProvider
       {
-        // given
-        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r());
-        // when
-        final var role2 = underTest.as(Role2.class);
-        // then
-        assertThat(role2, is(sameInstance(role2InOwner)));
+        @Nonnull
+        private final OwnerRoleFactory ownerRoleFactory;
+
+        @Override @Nonnull
+        public OwnerRoleFactory createRoleFactory (@Nonnull final Object owner)
+          {
+            return ownerRoleFactory;
+          }
       }
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @Test
-    public void must_give_priority_to_local_roles()
+    static class EmptyOwnerRoleFactory implements OwnerRoleFactory
       {
-        // given
-        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
-        // when
-        final var role2 = underTest.as(Role2.class);
-        // then
-        assertThat(role2, is(sameInstance(localRole2)));
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @Test
-    public void test_TFT_248_regression()
-      {
-        // given
-        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
-        // when
-        final var role3 = underTest.maybeAs(Role3.class);
-        // then
-        assertThat(role3.isPresent(), is(false));
+        @Override @Nonnull
+        public <T> Collection<T> findRoles (@Nonnull final Class<? extends T> type)
+          {
+            return new ArrayList<>(); // must be mutable
+          }
       }
   }

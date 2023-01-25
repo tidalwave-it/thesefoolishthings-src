@@ -35,7 +35,7 @@ import it.tidalwave.util.RoleFactory;
 import it.tidalwave.util.Task;
 import it.tidalwave.util.spi.SimpleFinderSupport;
 import it.tidalwave.role.SimpleComposite;
-import it.tidalwave.role.spi.ContextSampler;
+import it.tidalwave.role.impl.ContextSnapshot;
 import it.tidalwave.role.ui.Presentable;
 import it.tidalwave.role.ui.PresentationModel;
 import it.tidalwave.role.ui.PresentationModelFactory;
@@ -44,7 +44,7 @@ import lombok.extern.slf4j.Slf4j;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.*;
 import static it.tidalwave.role.SimpleComposite._SimpleComposite_;
-import static it.tidalwave.role.spi.impl.LogUtil.*;
+import static it.tidalwave.util.ShortNames.*;
 
 /***********************************************************************************************************************
  *
@@ -82,7 +82,7 @@ public class SimpleCompositePresentable implements Presentable
         @Override @Nonnull
         protected List<PresentationModel> computeResults()
           {
-            return scp.contextSampler.runWithContexts(new Task<>()
+            return scp.contextSnapshot.runWithContexts(new Task<>()
               {
                 @Override @Nonnull
                 public List<PresentationModel> run()
@@ -108,7 +108,7 @@ public class SimpleCompositePresentable implements Presentable
     @Nonnull
     private final PresentationModelFactory defaultPresentationModelFactory;
 
-    private final ContextSampler contextSampler;
+    private final ContextSnapshot contextSnapshot;
 
     /*******************************************************************************************************************
      *
@@ -131,7 +131,7 @@ public class SimpleCompositePresentable implements Presentable
       {
         this.datum = datum;
         this.defaultPresentationModelFactory = defaultPresentationModelFactory;
-        contextSampler = new ContextSampler(datum);
+        contextSnapshot = new ContextSnapshot(datum);
       }
 
     /*******************************************************************************************************************
@@ -156,7 +156,7 @@ public class SimpleCompositePresentable implements Presentable
       {
         final var pmFinder = new SCPFinder(this, roles);
 
-        return contextSampler.runWithContexts(new Task<>()
+        return contextSnapshot.runWithContexts(new Task<>()
           {
             @Override @Nonnull
             public PresentationModel run()

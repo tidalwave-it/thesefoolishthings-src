@@ -24,39 +24,15 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.spring;
+package it.tidalwave.role.impl;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import it.tidalwave.util.ContextManager;
-import it.tidalwave.role.spi.SystemRoleFactory;
-import lombok.Getter;
-import lombok.Setter;
+import it.tidalwave.role.spi.SystemRoleFactorySupport;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Configuration
-public class RoleSpringConfiguration
+public class DefaultSystemRoleFactory extends SystemRoleFactorySupport
   {
-    /** The path of the Spring configuration supporting roles to pass e.g. to a
-     * {@code ClassPathXmlApplicationContext}. */
-    public static final String BEANS = "classpath*:/META-INF/SpringRoleAutoBeans.xml";
-
-    @Getter @Setter
-    private static String basePackages = "com:org:it";
-
-    @Bean
-    public SystemRoleFactory roleManager()
-      {
-        return SystemRoleFactory.getInstance();
-      }
-
-    @Bean
-    public ContextManager contextManager()
-      {
-        return ContextManager.getInstance();
-      }
   }

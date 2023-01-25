@@ -24,86 +24,86 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.spring;
+package it.tidalwave.role.impl;
 
-import java.lang.annotation.Annotation;
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.springframework.core.type.filter.TypeFilter;
-import org.springframework.util.ClassUtils;
-import it.tidalwave.role.spring.RoleSpringConfiguration;
-import lombok.Setter;
+import java.util.concurrent.CopyOnWriteArrayList;
+import it.tidalwave.util.ContextManager;
+import it.tidalwave.util.Task;
+import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.util.ShortNames.*;
 
 /***********************************************************************************************************************
  *
- * A utility for scanning classes in the classpath with some criteria.
+ * A facility that takes a snapshot of the contexts that are current at creation time and make them available later.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class ClassScanner
+@Slf4j
+public class ContextSnapshot
   {
-    @Setter
-    private static String basePackages = System.getProperty(
-            ClassScanner.class.getCanonicalName() + ".basePackages", RoleSpringConfiguration.getBasePackages());
+    private final ContextManager contextManager = ContextManager.getInstance();
 
-    private final ClassPathScanningCandidateComponentProvider scanner =
-            new ClassPathScanningCandidateComponentProvider(false);
+    // TODO: should be weak references? Should a context be alive as soon as all the objects created with it are
+    // alive?
+    private final List<Object> contexts = Collections.unmodifiableList(contextManager.getContexts());
 
     /*******************************************************************************************************************
      *
-     * Scans for classes and returns them.
+     * Creates a new instance and samples the currently available contexts.
      *
-     * @return  the collection of scanned classes
+     * @param owner     the owner
      *
      ******************************************************************************************************************/
-    @Nonnull
-    public final Collection<Class<?>> findClasses()
+    public ContextSnapshot (@Nonnull final Object owner)
       {
-        final List<Class<?>> classes = new ArrayList<>();
-
-        for (final var basePackage : basePackages.split(":"))
+        if (log.isTraceEnabled())
           {
-            for (final var candidate : scanner.findCandidateComponents(basePackage))
-              {
-                classes.add(ClassUtils.resolveClassName(candidate.getBeanClassName(),
-                            ClassUtils.getDefaultClassLoader()));
-              }
+            log.trace(">>>> contexts for {} at construction time: {}", shortId(owner), shortIds(contexts));
           }
-
-        return classes;
       }
 
     /*******************************************************************************************************************
      *
-     * Adds an "include" filter.
+     * Returns the previously sampled contexts.
      *
-     * @param  filter   the filter
-     * @return          itself for method chaining
+     * @return    the contexts
      *
      ******************************************************************************************************************/
     @Nonnull
-    public ClassScanner withIncludeFilter (@Nonnull final TypeFilter filter)
+    public List<Object> getContexts()
       {
-        scanner.addIncludeFilter(filter);
-        return this;
+        return new CopyOnWriteArrayList<>(contexts);
       }
 
     /*******************************************************************************************************************
      *
-     * Adds a filter for an annotation.
+     * Runs a {@link Task} associated with the sampled contexts.
      *
-     * @param  annotationClass  the annotation class
-     * @return                  itself for method chaining
+     * @param  <V>      the type of the result value
+     * @param  <T>      the type of the exception
+     * @param  task     the task
+     * @return          the value produced by the task
+     * @throws T        the exception(s) thrown by the task
      *
      ******************************************************************************************************************/
-    @Nonnull
-    public ClassScanner withAnnotationFilter (@Nonnull final Class<? extends Annotation> annotationClass)
+    public <V, T extends Throwable> V runWithContexts (@Nonnull final Task<V, T> task)
+      throws T
       {
-        return withIncludeFilter(new AnnotationTypeFilter(annotationClass));
+        return contextManager.runWithContexts(contexts, task);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public String toString()
+      {
+        return String.format("ContextSnapshot%s", shortIds(contexts));
       }
   }

@@ -71,7 +71,7 @@ implement nested loops:
 
 <!-- MACRO{snippet|id=loop2a|file=${project.basedir}/modules/Utilities/src/test/java/it/tidalwave/util/PairTest.java} -->
 
-It is also possible to "zip" two streams into a stream of `Pair`s:
+It is also possible to "zip" two streams into a `Stream<Pair>`:
 
 <!-- MACRO{snippet|id=zipPairTest1|file=${project.basedir}/modules/Utilities/src/test/java/it/tidalwave/util/PairTest.java} -->
 

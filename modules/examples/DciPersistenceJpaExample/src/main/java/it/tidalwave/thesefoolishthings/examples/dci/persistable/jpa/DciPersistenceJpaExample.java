@@ -30,7 +30,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-import it.tidalwave.role.ContextManager;
+import it.tidalwave.util.ContextManager;
 import it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.impl.JpaPersistenceContext;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
@@ -61,7 +61,6 @@ public class DciPersistenceJpaExample
       }
 
     private void process()
-            throws Exception
       {
         final List<Person> people = new ArrayList<>();
         PersonRegistryHelper.populate(people);

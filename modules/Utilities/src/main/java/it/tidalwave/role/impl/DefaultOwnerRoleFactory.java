@@ -24,86 +24,87 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.spring;
+package it.tidalwave.role.impl;
 
-import java.lang.annotation.Annotation;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.springframework.core.type.filter.TypeFilter;
-import org.springframework.util.ClassUtils;
-import it.tidalwave.role.spring.RoleSpringConfiguration;
-import lombok.Setter;
+import it.tidalwave.util.As;
+import it.tidalwave.util.Task;
+import it.tidalwave.role.spi.SystemRoleFactory;
+import it.tidalwave.role.spi.OwnerRoleFactory;
+import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.util.ShortNames.*;
 
 /***********************************************************************************************************************
  *
- * A utility for scanning classes in the classpath with some criteria.
+ * An implementation for {@link As} based on Spring.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class ClassScanner
+@Slf4j
+class DefaultOwnerRoleFactory implements OwnerRoleFactory
   {
-    @Setter
-    private static String basePackages = System.getProperty(
-            ClassScanner.class.getCanonicalName() + ".basePackages", RoleSpringConfiguration.getBasePackages());
+    @Nonnull
+    private final Object owner;
 
-    private final ClassPathScanningCandidateComponentProvider scanner =
-            new ClassPathScanningCandidateComponentProvider(false);
+    private final ContextSnapshot contextSnapshot;
 
     /*******************************************************************************************************************
      *
-     * Scans for classes and returns them.
-     *
-     * @return  the collection of scanned classes
+     * Constructor for use with subclassing.
      *
      ******************************************************************************************************************/
-    @Nonnull
-    public final Collection<Class<?>> findClasses()
+    public DefaultOwnerRoleFactory()
       {
-        final List<Class<?>> classes = new ArrayList<>();
+        this.owner = this;
+        contextSnapshot = new ContextSnapshot(this);
+      }
 
-        for (final var basePackage : basePackages.split(":"))
+    /*******************************************************************************************************************
+     *
+     * Constructor for use with composition.
+     *
+     * @param  owner  the owner object
+     *
+     ******************************************************************************************************************/
+    public DefaultOwnerRoleFactory (@Nonnull final Object owner)
+      {
+        this.owner = owner;
+        contextSnapshot = new ContextSnapshot(owner);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override @Nonnull
+    public <T> Collection<T> findRoles (@Nonnull final Class<? extends T> roleType)
+      {
+        log.trace("as({}) for {}", shortName(roleType), shortId(owner));
+        log.trace(">>>> contexts: {}", contextSnapshot);
+
+        final var roles =
+                new ArrayList<>(contextSnapshot.runWithContexts(new Task<List<? extends T>, RuntimeException>()
+                  {
+                    @Override
+                    @Nonnull
+                    public List<? extends T> run ()
+                      {
+                        return SystemRoleFactory.getInstance().findRoles(owner, roleType);
+                      }
+                  }));
+
+        if (roleType.isAssignableFrom(owner.getClass()))
           {
-            for (final var candidate : scanner.findCandidateComponents(basePackage))
-              {
-                classes.add(ClassUtils.resolveClassName(candidate.getBeanClassName(),
-                            ClassUtils.getDefaultClassLoader()));
-              }
+            roles.add(roleType.cast(owner));
           }
 
-        return classes;
-      }
+        log.trace(">>>> as() returning {}", shortIds(roles));
 
-    /*******************************************************************************************************************
-     *
-     * Adds an "include" filter.
-     *
-     * @param  filter   the filter
-     * @return          itself for method chaining
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public ClassScanner withIncludeFilter (@Nonnull final TypeFilter filter)
-      {
-        scanner.addIncludeFilter(filter);
-        return this;
-      }
-
-    /*******************************************************************************************************************
-     *
-     * Adds a filter for an annotation.
-     *
-     * @param  annotationClass  the annotation class
-     * @return                  itself for method chaining
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public ClassScanner withAnnotationFilter (@Nonnull final Class<? extends Annotation> annotationClass)
-      {
-        return withIncludeFilter(new AnnotationTypeFilter(annotationClass));
+        return roles;
       }
   }

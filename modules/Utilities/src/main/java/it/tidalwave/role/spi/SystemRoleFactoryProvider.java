@@ -24,57 +24,17 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.spring.spi;
+package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import it.tidalwave.util.Task;
-import it.tidalwave.util.ContextManager;
-import it.tidalwave.dci.annotation.DciContext;
-import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.util.ShortNames.shortId;
 
 /***********************************************************************************************************************
  *
- * An aspect which implements {@link DciContext} with {@code autoThreadBinding=true}. This class must not be used
- * directly. Instead, add the library which contains it as a dependency of your project and make it visible to the
- * AspectJ compiler.
- *
  * @author  Fabrizio Giudici
- * @since   3.0
  *
  **********************************************************************************************************************/
-@Aspect @Slf4j
-public class DciContextWithAutoThreadBindingAspect
+public interface SystemRoleFactoryProvider
   {
-    @Around("within(@it.tidalwave.dci.annotation.DciContext *) && execution(* *(..))")
-    public Object advice (@Nonnull final ProceedingJoinPoint pjp)
-      throws Throwable
-      {
-        final var context = pjp.getTarget();
-
-        if (!context.getClass().getAnnotation(DciContext.class).autoThreadBinding())
-          {
-            return pjp.proceed();
-          }
-        else
-          {
-            if (log.isTraceEnabled())
-              {
-                log.trace("executing {}.{}() with context thread binding", shortId(context), pjp.getSignature().getName());
-              }
-
-            return ContextManager.getInstance().runWithContext(context, new Task<Object, Throwable>()
-              {
-                @Override
-                public Object run()
-                  throws Throwable
-                  {
-                    return pjp.proceed();
-                  }
-              });
-          }
-      }
+    @Nonnull
+    public SystemRoleFactory getSystemRoleFactory();
   }

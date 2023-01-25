@@ -24,57 +24,55 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.spring.spi;
+package it.tidalwave.role.impl;
 
 import javax.annotation.Nonnull;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import it.tidalwave.util.Task;
-import it.tidalwave.util.ContextManager;
-import it.tidalwave.dci.annotation.DciContext;
-import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.util.ShortNames.shortId;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /***********************************************************************************************************************
  *
- * An aspect which implements {@link DciContext} with {@code autoThreadBinding=true}. This class must not be used
- * directly. Instead, add the library which contains it as a dependency of your project and make it visible to the
- * AspectJ compiler.
- *
  * @author  Fabrizio Giudici
- * @since   3.0
  *
  **********************************************************************************************************************/
-@Aspect @Slf4j
-public class DciContextWithAutoThreadBindingAspect
+public class MultiMap<K, V> extends HashMap<K, Set<V>>
   {
-    @Around("within(@it.tidalwave.dci.annotation.DciContext *) && execution(* *(..))")
-    public Object advice (@Nonnull final ProceedingJoinPoint pjp)
-      throws Throwable
+    private static final long serialVersionUID = 8834342771135005212L;
+
+    public synchronized void add (@Nonnull final K key, @Nonnull final V value)
       {
-        final var context = pjp.getTarget();
+        internalGetValues(key).add(value);
+      }
 
-        if (!context.getClass().getAnnotation(DciContext.class).autoThreadBinding())
+    public synchronized void addAll (@Nonnull final K key, @Nonnull final Collection<? extends V> values)
+      {
+        if (!values.isEmpty())
           {
-            return pjp.proceed();
+            internalGetValues(key).addAll(values);
           }
-        else
-          {
-            if (log.isTraceEnabled())
-              {
-                log.trace("executing {}.{}() with context thread binding", shortId(context), pjp.getSignature().getName());
-              }
+      }
 
-            return ContextManager.getInstance().runWithContext(context, new Task<Object, Throwable>()
-              {
-                @Override
-                public Object run()
-                  throws Throwable
-                  {
-                    return pjp.proceed();
-                  }
-              });
+    @Nonnull
+    public synchronized Set<V> getValues (@Nonnull final K key)
+      {
+        final var values = get(key);
+        return (values == null) ? Collections.emptySet() : Collections.unmodifiableSet(values);
+      }
+
+    @Nonnull
+    private Set<V> internalGetValues (@Nonnull final K key)
+      {
+        var values = get(key);
+
+        if (values == null)
+          {
+            values = new HashSet<>();
+            put(key, values);
           }
+
+        return values;
       }
   }

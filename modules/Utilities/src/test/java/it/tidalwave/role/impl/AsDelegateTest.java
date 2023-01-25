@@ -24,12 +24,18 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.ui.impl;
+package it.tidalwave.role.impl;
 
-import it.tidalwave.util.As;
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collection;
 import it.tidalwave.util.AsException;
-import it.tidalwave.util.mock.MockAsFactory;
+import it.tidalwave.util.RoleFactory;
+import it.tidalwave.role.spi.OwnerRoleFactory;
 import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static it.tidalwave.util.Parameters.r;
@@ -42,8 +48,31 @@ import static org.hamcrest.MatcherAssert.*;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class DefaultPresentationModelTest
+public class AsDelegateTest
   {
+    @RequiredArgsConstructor
+    public static class FixedOwnerRoleFactory implements OwnerRoleFactory
+      {
+        @Nonnull
+        private final Collection<Object> roles;
+
+        @Override @Nonnull
+        public <T> Collection<T> findRoles (@Nonnull final Class<? extends T> roleType)
+          {
+            final var result = new ArrayList<T>();
+
+            for (final var role : roles)
+              {
+                if (roleType.isAssignableFrom(role.getClass()))
+                  {
+                    result.add(roleType.cast(role));
+                  }
+              }
+
+            return result;
+          }
+      }
+
     public static interface Role1
       {
       }
@@ -52,16 +81,27 @@ public class DefaultPresentationModelTest
       {
       }
 
-    public static interface Role3
+    @RequiredArgsConstructor @Getter
+    public static class Role3
       {
+        @Nonnull
+        private final Object owner;
       }
 
+    public static class RoleFactory3 implements RoleFactory<Object>
+      {
+        @Override @Nonnull
+        public Object createRoleFor (@Nonnull final Object owner)
+          {
+            return new Role3(owner);
+          }
+      }
+
+    private Object owner;
     private Role1 localRole1;
     private Role2 localRole2;
-    private Role2 role2InOwner;
-    private Object ownerNoAs;
-    private As ownerAsWithNoRoles;
-    private As ownerAsWithRole2;
+    private Role2 localRole2b;
+    private Role2 delegateRole2;
 
     /*******************************************************************************************************************
      *
@@ -69,16 +109,21 @@ public class DefaultPresentationModelTest
     @BeforeMethod
     public void setup()
       {
-        // Not called by tests, we only need it's there
-        OwnerRoleFactoryProvider.set(OwnerRoleFactoryProvider.emptyRoleFactory());
-
+        OwnerRoleFactoryProvider.set(OwnerRoleFactoryProvider.emptyRoleFactory()); // reset
+        owner = new Object();
         localRole1 = mock(Role1.class);
         localRole2 = mock(Role2.class);
-        role2InOwner = mock(Role2.class);
-        ownerNoAs = new Object();
+        localRole2b = mock(Role2.class);
+        delegateRole2 = mock(Role2.class);
+      }
 
-        ownerAsWithNoRoles = MockAsFactory.mockWithAs(As.class);
-        ownerAsWithRole2 = MockAsFactory.mockWithAs(As.class, r(role2InOwner));
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @AfterMethod
+    public void cleanup()
+      {
+        OwnerRoleFactoryProvider.reset();
       }
 
     /*******************************************************************************************************************
@@ -88,16 +133,31 @@ public class DefaultPresentationModelTest
     public void must_find_local_roles()
       {
         // given
-        final var underTest1 = new DefaultPresentationModel(ownerNoAs, r(localRole1));
-        final var underTest2 = new DefaultPresentationModel(ownerNoAs, r(localRole1, localRole2));
+        final var underTest1 = new AsDelegate(owner, r(localRole1));
+        final var underTest2 = new AsDelegate(owner, r(localRole1, localRole2));
         // when
-        final var ut1Role1 = underTest1.as(Role1.class);
+        final var ut1role1 = underTest1.as(Role1.class);
         final var ut2Role1 = underTest2.as(Role1.class);
         final var ut2Role2 = underTest2.as(Role2.class);
-        //then
-        assertThat(ut1Role1, is(sameInstance(localRole1)));
+        // then
+        assertThat(ut1role1, is(sameInstance(localRole1)));
         assertThat(ut2Role1, is(sameInstance(localRole1)));
         assertThat(ut2Role2, is(sameInstance(localRole2)));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_create_role_from_factory()
+      {
+        // given
+        final var underTest = new AsDelegate(owner, r(new RoleFactory3()));
+        // when
+        final var role = underTest.as(Role3.class);
+        // then
+        assertThat(role, is(notNullValue()));
+        assertThat(role.getOwner(), is(sameInstance(owner)));
       }
 
     /*******************************************************************************************************************
@@ -107,7 +167,7 @@ public class DefaultPresentationModelTest
     public void must_not_find_inexistent_role()
       {
         // given
-        final var underTest = new DefaultPresentationModel(ownerNoAs, r(localRole1));
+        final var underTest = new AsDelegate(owner, r(localRole1));
         // when
         underTest.as(Role2.class);
       }
@@ -119,7 +179,7 @@ public class DefaultPresentationModelTest
     public void must_not_find_inexistent_role_bis()
       {
         // given
-        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
+        final var underTest = new AsDelegate(owner, r(localRole2));
         // when
         underTest.as(Role1.class);
       }
@@ -128,14 +188,15 @@ public class DefaultPresentationModelTest
      *
      ******************************************************************************************************************/
     @Test
-    public void must_find_roles_in_owner()
+    public void must_find_roles_in_SystemRoleFactory()
       {
         // given
-        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r());
+        OwnerRoleFactoryProvider.set(new FixedOwnerRoleFactory(r(delegateRole2)));
+        final var underTest = new AsDelegate(owner);
         // when
-        final var role2 = underTest.as(Role2.class);
+        final var role = underTest.as(Role2.class);
         // then
-        assertThat(role2, is(sameInstance(role2InOwner)));
+        assertThat(role, is(sameInstance(delegateRole2)));
       }
 
     /*******************************************************************************************************************
@@ -145,24 +206,45 @@ public class DefaultPresentationModelTest
     public void must_give_priority_to_local_roles()
       {
         // given
-        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
+        OwnerRoleFactoryProvider.set(new FixedOwnerRoleFactory(r(delegateRole2)));
+        final var underTest = new AsDelegate(owner, r(localRole2));
         // when
-        final var role2 = underTest.as(Role2.class);
+        final var role = underTest.as(Role2.class);
         // then
-        assertThat(role2, is(sameInstance(localRole2)));
+        assertThat(role, is(sameInstance(localRole2)));
       }
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
     @Test
-    public void test_TFT_248_regression()
+    public void must_retrieve_multiple_local_roles()
       {
         // given
-        final var underTest = new DefaultPresentationModel(ownerAsWithRole2, r(localRole2));
+        final var underTest = new AsDelegate(owner, r(localRole2, localRole2b));
         // when
-        final var role3 = underTest.maybeAs(Role3.class);
+        final var roles = underTest.asMany(Role2.class);
         // then
-        assertThat(role3.isPresent(), is(false));
+        assertThat("" + roles, roles.size(), is(2));
+        assertThat("" + roles, roles.contains(localRole2), is(true));
+        assertThat("" + roles, roles.contains(localRole2b), is(true));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void must_retrieve_multiple_local_and_global_roles()
+      {
+        // given
+        OwnerRoleFactoryProvider.set(new FixedOwnerRoleFactory(r(delegateRole2)));
+        final var underTest = new AsDelegate(owner, r(localRole2, localRole2b));
+        // when
+        final var roles = underTest.asMany(Role2.class);
+        // then
+        assertThat("" + roles, roles.size(), is(3));
+        assertThat("" + roles, roles.contains(localRole2), is(true));
+        assertThat("" + roles, roles.contains(localRole2b), is(true));
+        assertThat("" + roles, roles.contains(delegateRole2), is(true));
       }
   }

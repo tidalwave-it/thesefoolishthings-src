@@ -24,66 +24,51 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.mock;
+package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.Collections;
-import it.tidalwave.util.As;
-import it.tidalwave.role.impl.AsDelegate;
-import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import static org.mockito.Mockito.*;
+import java.util.List;
+import it.tidalwave.util.LazySupplier;
+import static it.tidalwave.role.impl.ServiceLoaderLocator.findService;
 
 /***********************************************************************************************************************
  *
- * A provider of static factory methods for creating mocks with {@link As} support.
+ * A service which retrieves DCI Roles for a given object.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class MockAsFactory
+@FunctionalInterface
+public interface SystemRoleFactory
   {
-    /*******************************************************************************************************************
-     *
-     * Creates a mock with Mockito that fully supports {@link As}.
-     *
-     * @param   clazz               the mock class
-     * @return                      the mock
-     * @since                       3.2-ALPHA-3 (refactored)
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public static <T extends As> T mockWithAs (@Nonnull final Class<T> clazz)
+    static class Inner
       {
-        return mockWithAs(clazz, Collections.emptyList());
+        private static final LazySupplier<SystemRoleFactory> SYSTEM_ROLE_FACTORY =
+                LazySupplier.of(() -> Inner.SYSTEM_ROLE_FACTORY_PROVIDER.get().getSystemRoleFactory());
+
+        private static final LazySupplier<SystemRoleFactoryProvider> SYSTEM_ROLE_FACTORY_PROVIDER =
+                LazySupplier.of(() -> findService(SystemRoleFactoryProvider.class));
       }
 
     /*******************************************************************************************************************
      *
-     * Creates a mock with Mockito that fully supports {@link As}. This method doesn't call
-     * {@link OwnerRoleFactoryProvider#getInstance()}.
+     ******************************************************************************************************************/
+    @Nonnull
+    public static SystemRoleFactory getInstance()
+      {
+        return Inner.SYSTEM_ROLE_FACTORY.get();
+      }
+
+    /*******************************************************************************************************************
      *
-     * @param   clazz               the mock class
-     * @param   roles               a collection of roles or factories for roles
-     * @return                      the mock
-     * @since                       3.2-ALPHA-3 (refactored)
+     * Retrieves the roles of the given class for the given owner object.
+     *
+     * @param <T>           the static type of the roles
+     * @param   owner       the owner object
+     * @param   roleType    the dynamic type of the roles
+     * @return              a list of roles
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T extends As> T mockWithAs (@Nonnull final Class<T> clazz, @Nonnull final Collection<Object> roles)
-      {
-        final var mock = mock(clazz);
-        final var as = new AsDelegate(__ -> OwnerRoleFactoryProvider.emptyRoleFactory(), mock, roles);
-        when(mock.as(any(Class.class))).thenCallRealMethod();
-        when(mock.maybeAs(any(Class.class))).thenAnswer(i -> as.maybeAs((Class<?>)i.getArguments()[0]));
-        when(mock.asMany(any(Class.class))).thenAnswer(i -> as.asMany((Class<?>)i.getArguments()[0]));
-        when(mock.as(any(As.Type.class))).thenCallRealMethod();
-        when(mock.maybeAs(any(As.Type.class))).thenCallRealMethod();
-        when(mock.asMany(any(As.Type.class))).thenCallRealMethod();
-
-        return mock;
-      }
+    public <T> List<T> findRoles (@Nonnull Object owner, @Nonnull Class<? extends T> roleType);
   }

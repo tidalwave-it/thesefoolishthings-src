@@ -35,11 +35,9 @@ import java.util.Optional;
 import it.tidalwave.util.As;
 import it.tidalwave.util.Id;
 import it.tidalwave.util.RoleFactory;
-import it.tidalwave.util.spi.AsDelegateProvider;
-import it.tidalwave.role.ContextManager;
+import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
 import it.tidalwave.role.Identifiable;
 import it.tidalwave.role.SimpleComposite;
-import it.tidalwave.role.spi.DefaultContextManagerProvider;
 import it.tidalwave.role.ui.PresentationModel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -154,8 +152,8 @@ public class SimpleCompositePresentableTest
     @BeforeMethod
     public void setup()
       {
-        AsDelegateProvider.Locator.set(AsDelegateProvider.empty());
-        ContextManager.Locator.set(new DefaultContextManagerProvider());
+        OwnerRoleFactoryProvider.set(OwnerRoleFactoryProvider.emptyRoleFactory());
+        // ContextManager.set(new DefaultContextManagerProvider());
       }
 
     /*******************************************************************************************************************
@@ -175,9 +173,7 @@ public class SimpleCompositePresentableTest
 
         final var a = new MockDatum("a").withChildren(b1, b2, b3);
 
-        final var underTest
-                = new SimpleCompositePresentable(a, new DefaultPresentationModelFactory());
-
+        final var underTest = new SimpleCompositePresentable(a, new DefaultPresentationModelFactory());
         final var role1 = new MockRole1();
         final var roleFactory = new MockRoleFactory();
         // when

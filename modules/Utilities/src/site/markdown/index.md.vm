@@ -82,7 +82,7 @@ is equivalent to this three-levels nested loop:
 
 <!-- MACRO{snippet|id=loop2b|file=${project.basedir}/src/test/java/it/tidalwave/util/TripleTest.java} -->
 
-It is also possible to "zip" two streams into a stream of `Pair`s:
+It is also possible to "zip" two streams into a `Stream<Pair>`:
 
 <!-- MACRO{snippet|id=zipPairTest1|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
 
@@ -948,54 +948,70 @@ directly on the datum, if it implements `As`; or by creating a delegate by means
 
 #[[####]]# Standalone
 
-The `As` component has been designed with a DI framework in mind, such as Spring, and a complete working runtime is available in those scenarios which relies
-upon classpath scanning to find classes annotated with `DCIRole`(see below). But in simpler cases it is possible to set up things without any framework, even
-though it is the programmer's job to provide either classpath scanning or perhaps a simpler and more specific way to find roles. The task can be accomplished by
-implementing `AsDelegate`, which is the factory responsible for instantiating roles for each datum:
+`As` implementation relies on a singleton named `SystemRoleFactory` that, given an object, returns all the roles associated to it.
 
-![UML](apidocs/it/tidalwave/util/spi/AsDelegate.svg)
+![UML](apidocs/it/tidalwave/util/spi/SystemRoleFactory.svg)
 
-In the `JPAFinderExample` module there is a working example. The implementation is quick and dirty:
+A default implementation relies upon the the [Java Service Provider interface](https://www.baeldung.com/java-spi), based on the class
+[`ServiceProvider`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html). In short, a special file named
+`META-INF/services/it.tidalwave.util.spi.SystemRoleFactoryProvider` is searched for at runtime and it must contain the name of a provider for
+`SystemRoleFactory`.
 
-<!-- MACRO{snippet|id=SimpleAsDelegateProvider|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/SimpleAsDelegateProvider.java} -->
+The default implementation (without Spring) is unable to find any role. Applications can specify an overriding implementation, such as in the example:
 
-and registering it by means of the `ServiceProvider` Java API, that is providing a file named
-`META-INF/services/it.tidalwave.util.spi.AsDelegateProvider` with the following content:
+<!-- MACRO{snippet|id=HardwiredSystemRoleFactoryProvider|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/HardwiredSystemRoleFactoryProvider.java} -->
+
+And the `META-INF/services/it.tidalwave.util.spi.SystemRoleFactoryProvider` file contains:
 
 ```
-it.tidalwave.thesefoolishthings.examples.jpafinderexample.SimpleAsDelegateProvider
+it.tidalwave.thesefoolishthings.examples.jpafinderexample.HardwiredSystemRoleFactoryProvider
 ```
 
-> PENDING `ContextManagerProvider`
+Of course it is possible to provide more sophisticated implementations, such as a classpath scanner (with Spring this is provided out-of-the-box).
+
+
+#[[####]]# For testing
+
+The standard Java SPI approach sets up the runtime once and for all, as it is appropriate for an application. But when running tests a specific
+runtime must be installed from scratch each time. On this purpose a specific method is available that should be called before running a test (or a batch
+of tests), providing an empty provider or a mock:
+
+<!-- MACRO{snippet|id=setup|file=${project.basedir}/../../modules/Roles/src/test/java/it/tidalwave/role/ui/PresentationModelTest.java} -->
+
+Another method should be called to clean things up after tests have terminated:
+
+<!-- MACRO{snippet|id=cleanup|file=${project.basedir}/../../modules/Roles/src/test/java/it/tidalwave/role/ui/PresentationModelTest.java} -->
 
 
 #[[####]]# With Spring
 
-To have `As` working with Spring it is sufficient to include the bean `RoleSpringConfiguration` in the application context, as in this example:
-
-<!-- MACRO{snippet|id=spring|file=${project.basedir}/../../modules/examples/DciDisplayableExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/displayable/Main.java} -->
-
-If annotations are not used and `beans.xml` files are preferred, the value of `RoleSpringConfiguration.BEANS` must be included in the XML context.
-
-Spring scans the classpath for roles annotated with `DciRole`; since Java classloaders need to start from root packages, be aware the by default `com`, `org`
-ad `it` are used. If custom packages are needed, they can be specified as follows:
-
-```java
-RoleSpringConfiguration.setBasePackages("fr:es:de");
-```
-
-For using `As` with Spring this dependency is needed:
+To have `As` working with Spring another dependency must be added:
 
 ```xml
 <dependency>
-    <groupId>${groupId}</groupId>
+    <groupId>${project.groupId}</groupId>
     <artifactId>it-tidalwave-role-spring</artifactId>
     <version>${project.version}</version>
 </dependency>
 ```
 
+In the code it is sufficient to include the bean `RoleSpringConfiguration` in the application context, as in this example:
 
-> PENDING `ContextManagerProvider`
+<!-- MACRO{snippet|id=spring|file=${project.basedir}/../../modules/examples/DciDisplayableExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/displayable/Main.java} -->
+
+> PENDING: This probably is not strictly required, but it makes stuff such as the `ContextManager` available with dependency injection.
+
+If annotations are not used and `beans.xml` files are preferred, the value of `RoleSpringConfiguration.BEANS` must be included in the XML context.
+The Spring adapter is able to scan the classpath to find annotated roles. Java classpath scanners need to work from a set of specified root packages;
+the default ones are `com`, `org` ad `it`. If custom packages are needed, they can be specified as follows:
+
+```java
+it.tidalwave.util.spring.ClassScanner.setBasePackages("fr:es:de");
+```
+
+With Spring roles can specify additional parameters in their constructor: the runtime will try to inject into them beans defined in the context.
+
+> PENDING: Injection qualifiers are not supported yet.
 
 ---
 
@@ -1005,12 +1021,12 @@ For using `As` with Spring this dependency is needed:
 Inspired by [the heterogeneous map pattern](https://www.informit.com/articles/article.aspx?p=2861454&amp;seqNum=8) described in Effective Java by Joshua Bloch,
 `TypeSafeMap` is an **immutable** map that works with **type-aware keys**, so its retrieval method is type-safe; furthermore it supports `Optional`.
 
-<!-- MACRO{snippet|id=TypeSafeMap|file=${project.basedir}/modules/Utilities/src/test/java/it/tidalwave/util/TypeSafeMapTest.java} -->
+<!-- MACRO{snippet|id=TypeSafeMap|file=${project.basedir}/src/test/java/it/tidalwave/util/TypeSafeMapTest.java} -->
 
 `TypeSafeMultiMap` is similar, but associates keys to collection of values, not single values; so associating multiple `(key, value)` pairs keep
 all the values instead of replacing the previous one.
 
-<!-- MACRO{snippet|id=TypeSafeMultiMap|file=${project.basedir}/modules/Utilities//src/test/java/it/tidalwave/util/TypeSafeMultiMapTest.java} -->
+<!-- MACRO{snippet|id=TypeSafeMultiMap|file=${project.basedir}/src/test/java/it/tidalwave/util/TypeSafeMultiMapTest.java} -->
 
-Find more information in [the JavaDoc for TypeSafeMap](modules/it-tidalwave-util/apidocs/it/tidalwave/util/TypeSafeMap.html) and
-[TypeSafeMultiMap](modules/it-tidalwave-util/apidocs/it/tidalwave/util/TypeSafeMultiMap.html).
+Find more information in [the JavaDoc for TypeSafeMap](modules/it-tidalwave-util/apidocs/it/tidalwave/util/impl/TypeSafeMap.html) and
+[TypeSafeMultiMap](modules/it-tidalwave-util/apidocs/it/tidalwave/util/impl/TypeSafeMultiMap.html).

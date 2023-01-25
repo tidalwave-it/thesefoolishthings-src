@@ -32,7 +32,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import it.tidalwave.util.spi.AsDelegate;
+import it.tidalwave.role.spi.OwnerRoleFactory;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -59,7 +59,7 @@ public class AsTest
     @RequiredArgsConstructor
     static class UnderTest implements As
       {
-        private final AsDelegate delegate;
+        private final OwnerRoleFactory delegate;
 
         @Override @Nonnull
         public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> type)
@@ -71,7 +71,7 @@ public class AsTest
         @Override @Nonnull
         public <T> Collection<T> asMany (@Nonnull final Class<? extends T> type)
           {
-            return delegate.as(type);
+            return delegate.findRoles(type);
           }
       }
 
@@ -79,9 +79,9 @@ public class AsTest
     public void must_return_a_filled_Optional_when_the_role_is_present()
       {
         // given
-        final var delegate = mock(AsDelegate.class);
+        final var delegate = mock(OwnerRoleFactory.class);
         final var role = new Role();
-        when(delegate.as(Role.class)).thenReturn(List.of(role));
+        when(delegate.findRoles(Role.class)).thenReturn(List.of(role));
         // when
         final var underTest = new UnderTest(delegate);
         // then
@@ -94,8 +94,8 @@ public class AsTest
     public void must_return_an_empty_Optional_when_the_role_is_not_present()
       {
         // given
-        final var delegate = mock(AsDelegate.class);
-        when(delegate.as(Role.class)).thenReturn(Collections.emptyList());
+        final var delegate = mock(OwnerRoleFactory.class);
+        when(delegate.findRoles(Role.class)).thenReturn(Collections.emptyList());
         // when
         final var underTest = new UnderTest(delegate);
         // then

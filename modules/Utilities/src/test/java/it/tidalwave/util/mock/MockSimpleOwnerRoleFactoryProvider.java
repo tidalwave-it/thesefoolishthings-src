@@ -24,57 +24,43 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role.spring.spi;
+package it.tidalwave.util.mock;
 
 import javax.annotation.Nonnull;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import it.tidalwave.util.Task;
-import it.tidalwave.util.ContextManager;
-import it.tidalwave.dci.annotation.DciContext;
-import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.util.ShortNames.shortId;
+import java.util.Collection;
+import java.util.Collections;
+import it.tidalwave.role.spi.OwnerRoleFactory;
+import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
+import org.mockito.Mockito;
 
 /***********************************************************************************************************************
  *
- * An aspect which implements {@link DciContext} with {@code autoThreadBinding=true}. This class must not be used
- * directly. Instead, add the library which contains it as a dependency of your project and make it visible to the
- * AspectJ compiler.
+ * A simple implementation of {@link OwnerRoleFactoryProvider} that might be enough for running tests. It just instantiates
+ * a Mockito mock for each requested role.
+ *
+ * Install it with {@code AsDelegateProvider.Locator.set(new MockSimpleAsDelegateProvider());} in a {@code BeforeClass}
+ * method.
  *
  * @author  Fabrizio Giudici
- * @since   3.0
+ *
+ * @it.tidalwave.javadoc.experimental
+ * @since 3.2-ALPHA-8
  *
  **********************************************************************************************************************/
-@Aspect @Slf4j
-public class DciContextWithAutoThreadBindingAspect
+public class MockSimpleOwnerRoleFactoryProvider implements OwnerRoleFactoryProvider
   {
-    @Around("within(@it.tidalwave.dci.annotation.DciContext *) && execution(* *(..))")
-    public Object advice (@Nonnull final ProceedingJoinPoint pjp)
-      throws Throwable
+    static class MockSimpleOwnerRoleFactory implements OwnerRoleFactory
       {
-        final var context = pjp.getTarget();
-
-        if (!context.getClass().getAnnotation(DciContext.class).autoThreadBinding())
+        @Override @Nonnull
+        public <T> Collection<T> findRoles (@Nonnull final Class<? extends T> roleType)
           {
-            return pjp.proceed();
+            return Collections.singleton(Mockito.mock(roleType));
           }
-        else
-          {
-            if (log.isTraceEnabled())
-              {
-                log.trace("executing {}.{}() with context thread binding", shortId(context), pjp.getSignature().getName());
-              }
+      }
 
-            return ContextManager.getInstance().runWithContext(context, new Task<Object, Throwable>()
-              {
-                @Override
-                public Object run()
-                  throws Throwable
-                  {
-                    return pjp.proceed();
-                  }
-              });
-          }
+    @Override @Nonnull
+    public OwnerRoleFactory createRoleFactory (@Nonnull final Object owner)
+      {
+        return new MockSimpleOwnerRoleFactory();
       }
   }

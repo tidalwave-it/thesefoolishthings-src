@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.mockito.ArgumentMatcher;
 import org.hamcrest.Matcher;
 import static java.util.stream.Collectors.*;
-import static it.tidalwave.role.spi.impl.LogUtil.*;
+import static it.tidalwave.util.ShortNames.*;
 
 /***********************************************************************************************************************
  *

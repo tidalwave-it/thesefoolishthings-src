@@ -28,24 +28,32 @@ package it.tidalwave.util;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.*;
+import static it.tidalwave.util.ShortNames.*;
 
 /***********************************************************************************************************************
  *
- * Just slightly adapted from <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=208860">this article</a>.
+ * Adapted from <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=208860">this article</a>
  *
  * @author Ian Robertson
  * @author Fabrizio Giudici
  *
  **********************************************************************************************************************/
+@Slf4j
 public class ReflectionUtils
   {
     /*******************************************************************************************************************
@@ -105,7 +113,8 @@ public class ReflectionUtils
             actualTypeArguments = ((ParameterizedType)type).getActualTypeArguments();
           }
 
-        final List<Class<?>> typeArgumentsAsClasses = new ArrayList<>();
+        final var typeArgumentsAsClasses = new ArrayList<Class<?>>();
+
         // resolve types by chasing down type variables.
         for (var baseType : actualTypeArguments)
           {
@@ -120,7 +129,80 @@ public class ReflectionUtils
         return typeArgumentsAsClasses;
       }
 
-    @Nonnull
+    /*******************************************************************************************************************
+     *
+     * Instantiates an object of the given class performing dependency injections through the constructor.
+     *
+     * @param <T>     the generic type of the object to instantiate
+     * @param type    the dynamic type of the object to instantiate; it is expected to have a single constructor
+     * @param beans   the pool of objects to instantiate
+     * @return        the new instance
+     * @throws        RuntimeException if something fails
+     * @since         3.2-ALPHA-17
+     *
+     ******************************************************************************************************************/
+    public static <T> T instantiateWithDependencies (@Nonnull final Class<? extends T> type,
+                                                     @Nonnull final Map<Class<?>, Object> beans)
+      {
+        try
+          {
+            log.debug("instantiateWithDependencies({}, {})", shortName(type), shortIds(beans.values()));
+            final var constructors = type.getConstructors();
+
+            if (constructors.length > 1)
+              {
+                throw new RuntimeException("Multiple constructors in " + type);
+              }
+
+            final var parameters = Arrays.stream(constructors[0].getParameterTypes()).map(beans::get).collect(toList());
+
+            log.trace(">>>> ctor arguments: {}", shortIds(parameters));
+            return type.cast(constructors[0].newInstance(parameters.toArray()));
+          }
+        catch (InstantiationException | IllegalAccessException | InvocationTargetException e)
+          {
+            throw new RuntimeException(e);
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * @since         3.2-ALPHA-17
+     *
+     ******************************************************************************************************************/
+    public static void injectDependencies (@Nonnull final Object object, @Nonnull final Map<Class<?>, Object> beans)
+      {
+        for (final var field : object.getClass().getDeclaredFields())
+          {
+            if (field.getAnnotation(Inject.class) != null)
+              {
+                field.setAccessible(true);
+                final var type = field.getType();
+                final var dependency = beans.get(type);
+
+                if (dependency == null)
+                  {
+                    throw new RuntimeException("Can't inject " + object + "." + field.getName());
+                  }
+
+                try
+                  {
+                    field.set(object, dependency);
+                  }
+                catch (IllegalArgumentException | IllegalAccessException e)
+                  {
+                    throw new RuntimeException(e);
+                  }
+              }
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
+    @CheckForNull
     public static Class<?> getClass (@Nonnull final Type type)
       {
         requireNonNull(type, "type");
@@ -137,9 +219,18 @@ public class ReflectionUtils
           {
             final var componentType = ((GenericArrayType)type).getGenericComponentType();
             final var componentClass = getClass(componentType);
+
+            if (componentClass == null)
+              {
+                return null;
+              }
+
             return Array.newInstance(componentClass, 0).getClass();
           }
-
-        throw new IllegalArgumentException(type.toString());
+        else
+          {
+//            throw new IllegalArgumentException(type.toString());
+            return null;
+          }
       }
   }
