@@ -24,52 +24,47 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.impl;
+package it.tidalwave.util.impl.finder;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Supplier;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.spi.SimpleFinderSupport;
-import static java.util.stream.Collectors.*;
 
 /***********************************************************************************************************************
  *
- * A {@link Finder} which retrieve results from another instance applying a {@link Function}.
+ * A {@link Finder} which retrieve results from a {@link Supplier}.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
 @Immutable
-public final class MappingFinder<T, U> extends SimpleFinderSupport<T>
+public class SupplierFinder<T> extends SimpleFinderSupport<T>
   {
-    private static final long serialVersionUID = -6359683808082070089L;
+    private static final long serialVersionUID = 1344191036948400804L;
 
     @Nonnull
-    private final transient Finder<? extends U> delegate;
+    private final Supplier<? extends Collection<? extends T>> supplier;
 
-    @Nonnull
-    private final transient Function<? super U, ? extends T> decorator;
-
-    public MappingFinder (@Nonnull final Finder<? extends U> delegate,
-                          @Nonnull final Function<? super U, ? extends T> decorator)
+    public SupplierFinder (@Nonnull final Supplier<? extends Collection<? extends T>> supplier)
       {
-        this.delegate = delegate;
-        this.decorator = decorator;
+        this.supplier = supplier;
       }
 
-    public MappingFinder (@Nonnull final MappingFinder other, @Nonnull final Object override)
+    public SupplierFinder (@Nonnull final SupplierFinder<T> other, @Nonnull final Object override)
       {
         super(other, override);
-        final MappingFinder<T, U> source = getSource(MappingFinder.class, other, override);
-        this.delegate = source.delegate;
-        this.decorator = source.decorator;
+        final SupplierFinder<T> source = getSource(SupplierFinder.class, other, override);
+        this.supplier = source.supplier;
       }
 
     @Override @Nonnull
-    protected List<T> computeResults()
+    protected List<T> computeResults() // FIXME: or computeNeededResults()?
       {
-        return delegate.results().stream().map(decorator).collect(toList());
+        return new CopyOnWriteArrayList<>(supplier.get());
       }
   }

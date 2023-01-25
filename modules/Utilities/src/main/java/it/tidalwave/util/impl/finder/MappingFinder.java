@@ -24,49 +24,52 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.impl;
+package it.tidalwave.util.impl.finder;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import javax.annotation.concurrent.Immutable;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Function;
+import it.tidalwave.util.Finder;
 import it.tidalwave.util.spi.SimpleFinderSupport;
+import static java.util.stream.Collectors.*;
 
 /***********************************************************************************************************************
  *
- * An implementation of {@link it.tidalwave.util.Finder} which holds an immutable list of items.
- *
- * This class is now implementation only; please use {@link it.tidalwave.util.Finder#ofCloned} instead.
- *
- * @param  <T>   the type of contained items
+ * A {@link Finder} which retrieve results from another instance applying a {@link Function}.
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-public class ArrayListFinder<T> extends SimpleFinderSupport<T>
+@Immutable
+public final class MappingFinder<T, U> extends SimpleFinderSupport<T>
   {
-    private static final long serialVersionUID = -3529114277448372453L;
+    private static final long serialVersionUID = -6359683808082070089L;
 
     @Nonnull
-    private final Collection<T> items;
+    private final transient Finder<? extends U> delegate;
 
-    public ArrayListFinder (@Nonnull final Collection<? extends T> items)
+    @Nonnull
+    private final transient Function<? super U, ? extends T> decorator;
+
+    public MappingFinder (@Nonnull final Finder<? extends U> delegate,
+                          @Nonnull final Function<? super U, ? extends T> decorator)
       {
-        this.items = Collections.unmodifiableCollection(new ArrayList<>(items));
+        this.delegate = delegate;
+        this.decorator = decorator;
       }
 
-    public ArrayListFinder (@Nonnull final ArrayListFinder<T> other, @Nonnull final Object override)
+    public MappingFinder (@Nonnull final MappingFinder other, @Nonnull final Object override)
       {
         super(other, override);
-        final var source = getSource(ArrayListFinder.class, other, override);
-        this.items = source.items;
+        final MappingFinder<T, U> source = getSource(MappingFinder.class, other, override);
+        this.delegate = source.delegate;
+        this.decorator = source.decorator;
       }
 
     @Override @Nonnull
     protected List<T> computeResults()
       {
-        return new CopyOnWriteArrayList<>(items);
+        return delegate.results().stream().map(decorator).collect(toList());
       }
   }

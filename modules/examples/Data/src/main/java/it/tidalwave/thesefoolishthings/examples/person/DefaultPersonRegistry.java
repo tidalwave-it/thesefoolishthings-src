@@ -28,7 +28,6 @@ package it.tidalwave.thesefoolishthings.examples.person;
 
 import javax.annotation.Nonnull;
 import it.tidalwave.util.Finder;
-import it.tidalwave.util.impl.ArrayListFinder;
 
 /***********************************************************************************************************************
  *
@@ -42,7 +41,7 @@ public class DefaultPersonRegistry implements PersonRegistry
     @Override @Nonnull
     public Finder<Person> findPerson()
       {
-        return new ArrayListFinder<>(persons);
+        return Finder.ofCloned(persons);
       }
 
     @Override

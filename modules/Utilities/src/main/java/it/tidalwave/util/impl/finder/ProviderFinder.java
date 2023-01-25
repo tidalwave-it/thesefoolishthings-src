@@ -24,13 +24,14 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.util.impl;
+package it.tidalwave.util.impl.finder;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.spi.SimpleFinderSupport;
@@ -43,28 +44,29 @@ import it.tidalwave.util.spi.SimpleFinderSupport;
  *
  **********************************************************************************************************************/
 @Immutable
-public class SupplierFinder<T> extends SimpleFinderSupport<T>
+public class ProviderFinder<T> extends SimpleFinderSupport<T>
   {
     private static final long serialVersionUID = 1344191036948400804L;
 
     @Nonnull
-    private final Supplier<? extends Collection<? extends T>> supplier;
+    private final BiFunction<Integer, Integer, ? extends Collection<? extends T>> supplier;
 
-    public SupplierFinder (@Nonnull final Supplier<? extends Collection<? extends T>> supplier)
+    @SuppressWarnings("BoundedWildcard")
+    public ProviderFinder (@Nonnull final BiFunction<Integer, Integer, ? extends Collection<? extends T>> supplier)
       {
         this.supplier = supplier;
       }
 
-    public SupplierFinder (@Nonnull final SupplierFinder<T> other, @Nonnull final Object override)
+    public ProviderFinder (@Nonnull final ProviderFinder<T> other, @Nonnull final Object override)
       {
         super(other, override);
-        final SupplierFinder<T> source = getSource(SupplierFinder.class, other, override);
+        final ProviderFinder<T> source = getSource(ProviderFinder.class, other, override);
         this.supplier = source.supplier;
       }
 
     @Override @Nonnull
-    protected List<T> computeResults() // FIXME: or computeNeededResults()?
+    protected List<T> computeNeededResults()
       {
-        return new CopyOnWriteArrayList<>(supplier.get());
+        return new CopyOnWriteArrayList<>(supplier.apply(firstResult, maxResults));
       }
   }
