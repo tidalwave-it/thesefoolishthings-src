@@ -345,11 +345,11 @@ public class PairTest
         final var actual = stream.collect(Pair.pairsToMap());
         // then
         final var expected = Map.of(
-          0, "one",
-          1, "two",
-          2, "three",
-          3, "four",
-          4, "five");
+                0, "one",
+                1, "two",
+                2, "three",
+                3, "four",
+                4, "five");
         assertThat(actual, is(expected));
       }
 
@@ -377,9 +377,10 @@ public class PairTest
     @Test
     public void zipPairTest1()
       {
+        // START SNIPPET: zipPairTest1
         // given
-        final var intStream = IntStream.range(0, 7).boxed();
-        final var stringStream = IntStream.range(0, 7).mapToObj(n -> "string-" + (char)('a' + n));
+        final var intStream = IntStream.range(0, 5).boxed();
+        final var stringStream = IntStream.range(0, 5).mapToObj(n -> "string-" + (char)('a' + n));
         // when
         final var underTest = Pair.zip(intStream, stringStream);
         // then
@@ -388,6 +389,7 @@ public class PairTest
                                                           Pair.of(2, "string-c"),
                                                           Pair.of(3, "string-d"),
                                                           Pair.of(4, "string-e"))));
+        // END SNIPPET: zipPairTest1
       }
 
     /*******************************************************************************************************************

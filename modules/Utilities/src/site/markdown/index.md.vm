@@ -27,14 +27,7 @@
 Introduction
 ============
 
-${project.description}
-
-This module is mostly composed of small utilities that lives on their own; please refer to their [Javadoc](apidocs/index.html). Below there is information
-about a few classes that are more complex and require a design/architectural view.
-
-The module ${project.name} is released with the PENDING license, as the whole project. To use it in your Maven project, add this snippet to your POM.
-Snippets for other build tool (such as Gradle) are available [here](dependency-info.html). The dependencies of this module are described
-[here](dependencies.html). Information about quality and continuous integration is available at the [main project page](../../index.html).
+This module is mostly composed of small utilities that lives on their own. To use this module in your Maven project add this snippet to your POM:
 
 ```xml
 <dependency>
@@ -43,6 +36,9 @@ Snippets for other build tool (such as Gradle) are available [here](dependency-i
     <version>${project.version}</version>
 </dependency>
 ```
+
+Snippets for other build tool (such as Gradle) are available [here](dependency-info.html). The dependencies of this module are described
+[here](dependencies.html). Information about quality and continuous integration is available at the [main project page](../../index.html).
 
 
 #[[##]]# Table of contents
@@ -85,6 +81,10 @@ In a similar way, this code with `Triple`:
 is equivalent to this three-levels nested loop:
 
 <!-- MACRO{snippet|id=loop2b|file=${project.basedir}/src/test/java/it/tidalwave/util/TripleTest.java} -->
+
+It is also possible to "zip" two streams into a stream of `Pair`s:
+
+<!-- MACRO{snippet|id=zipPairTest1|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
 
 ![UML](apidocs/it/tidalwave/util/Pair.svg)
 ![UML](apidocs/it/tidalwave/util/Triple.svg)
@@ -906,12 +906,17 @@ can be used at the same time. If the same role is bound by more than a single co
 For what concerns the `As.as()` or `As.maybeAs()` methods that return a single role, at the moment it is not deterministic which one is returned.
 See issue [TFT-192](http://services.tidalwave.it/jira/browse/TFT-192).
 
+While the global context is immutable, local contexts can come and go; the lifespan of a typical owner object encompasses multiple activations and
+deactivations of local contexts. So, to what instant of the owner lifespan do the set of roles returned by `as()` refer? Always at the creation time of
+the owner object, even though roles are not necessarily instantiated at that moment. The runtime takes a snapshot of local contexts active a creation
+time of a owner object and uses that snapshot every time it searches for a role.
+
 
 #[[####]]# Local contexts in `Finder`s
 
-A peculiar scenario for local DCI contexts is given by `Finder`s: when its result is computed and is composed of objects implementing the `As`
-interface, one might want to have a local DCI context to be active. Activating the local context in the code chunk that calls the `Finder` API might not work
-in cases in which the `Finder` is only created but not evaluated. To be safe, the local context must be activated _inside_ the `Finder` implementation.
+An exception of the above mentioned rule might happen with `Finder`s, in the case that their result is composed of objects implementing `As`: the programmer
+might want to use local contexts specified at the moment of the instantiation of the `Finder`, and not at the moment it computes the result. In this case
+the local context can be activated _inside_ the `Finder` implementation.
 For this reason the `ExtendedFinderSupport` interface provides a specific support, namely the `withContext(Object)` method: it allows to make the `Finder`
 aware of it (it can be called multiple times, in which case local contexts are accumulated). The class `HierarchicFinderSupport` provides the accumulation
 behaviour and makes the local contexts available to subclasses by means of a method `getContexts()`.
@@ -995,7 +1000,7 @@ For using `As` with Spring this dependency is needed:
 ---
 
 
-#[[###]]# Type-safe maps
+#[[##]]# Type-safe maps
 
 Inspired by [the heterogeneous map pattern](https://www.informit.com/articles/article.aspx?p=2861454&amp;seqNum=8) described in Effective Java by Joshua Bloch,
 `TypeSafeMap` is an **immutable** map that works with **type-aware keys**, so its retrieval method is type-safe; furthermore it supports `Optional`.

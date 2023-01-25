@@ -71,6 +71,10 @@ implement nested loops:
 
 <!-- MACRO{snippet|id=loop2a|file=${project.basedir}/modules/Utilities/src/test/java/it/tidalwave/util/PairTest.java} -->
 
+It is also possible to "zip" two streams into a stream of `Pair`s:
+
+<!-- MACRO{snippet|id=zipPairTest1|file=${project.basedir}/modules/Utilities/src/test/java/it/tidalwave/util/PairTest.java} -->
+
 Find more information in [the documentation for module Utilities](modules/it-tidalwave-util/index.html).
 
 
@@ -129,11 +133,11 @@ Find more information in [the JavaDoc for TypeSafeMap](modules/it-tidalwave-util
 
 #[[##]]# Modules
 
-+ [Utilities](modules/it-tidalwave-util/index.html)             [(Javadoc)](modules/it-tidalwave-util/apidocs/index.html)
-+ [Roles](modules/it-tidalwave-role/index.html)                 [(Javadoc)](modules/it-tidalwave-role/apidocs/index.html)
-+ [Test Utilities](modules/it-tidalwave-util-test/index.html)   [(Javadoc)](modules/it-tidalwave-util-test/apidocs/index.html)
-+ [MessageBus](modules/it-tidalwave-messagebus/index.html)      [(Javadoc)](modules/it-tidalwave-messagebus/apidocs/index.html)
-+ [Actors](modules/it-tidalwave-actor/index.html)               [(Javadoc)](modules/it-tidalwave-actor/apidocs/index.html)
++ [Utilities](modules/it-tidalwave-util/index.html)             ([Javadoc](modules/it-tidalwave-util/apidocs/index.html))
++ [Roles](modules/it-tidalwave-role/index.html)                 ([Javadoc](modules/it-tidalwave-role/apidocs/index.html))
++ [Test Utilities](modules/it-tidalwave-util-test/index.html)   ([Javadoc](modules/it-tidalwave-util-test/apidocs/index.html))
++ [MessageBus](modules/it-tidalwave-messagebus/index.html)      ([Javadoc](modules/it-tidalwave-messagebus/apidocs/index.html))
++ [Actors](modules/it-tidalwave-actor/index.html)               ([Javadoc](modules/it-tidalwave-actor/apidocs/index.html))
 
 
 #[[##]]# General information
