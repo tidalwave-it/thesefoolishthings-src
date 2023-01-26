@@ -36,20 +36,41 @@ import static java.util.stream.Collectors.*;
 
 /***********************************************************************************************************************
  *
+ * A utility that returns short qualified names for class literals and objects.
+ *
  * @author  Fabrizio Giudici
+ * @since   3.2-ALPHA-17
  *
  **********************************************************************************************************************/
 @Slf4j
 public class ShortNames
   {
+    /*******************************************************************************************************************
+     *
+     * Returns the short name for a class literal.
+     *
+     * @param     clazz     the class
+     * @return              the short name
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public static String shortName (@Nonnull final Class<?> clazz)
       {
         return shortName(clazz, false);
       }
 
+    /*******************************************************************************************************************
+     *
+     * Returns the short name for a class literal, eventually adding interface names (but not those in the java.*
+     * package).
+     *
+     * @param     clazz               the class
+     * @param     withInterfaces      whether the interfaces must be listed
+     * @return                        the short name
+     *
+     ******************************************************************************************************************/
     @Nonnull
-    public static String shortName (@Nonnull final Class<?> clazz, final boolean expandInterfaces)
+    public static String shortName (@Nonnull final Class<?> clazz, final boolean withInterfaces)
         {
           var className = clazz.getName();
           var prefix = "";
@@ -68,7 +89,7 @@ public class ShortNames
             s.append((i < parts.length - 1) ? parts[i].charAt(0) + "." : parts[i]);
           }
 
-        if (expandInterfaces)
+        if (withInterfaces)
           {
             final var interfaces = clazz.getInterfaces();
 
@@ -83,6 +104,15 @@ public class ShortNames
         return prefix + s;
       }
 
+    /*******************************************************************************************************************
+     *
+     * Returns the short name for class literals, eventually adding interface names (but not those in the java.*
+     * package).
+     *
+     * @param     classes   the classes
+     * @return              the short names
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public static String shortNames (@Nonnull final Iterable<Class<?>> classes)
       {
@@ -98,6 +128,15 @@ public class ShortNames
         return "[" + result + "]";
       }
 
+    /*******************************************************************************************************************
+     *
+     * Return the short name for an object. If the object contains a method named {@code getId()}, the id is part of
+     * the result.
+     *
+     * @param     object    the object
+     * @return              the short name
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public static String shortId (@Nullable final Object object)
       {
@@ -121,6 +160,14 @@ public class ShortNames
         return s.toString();
       }
 
+    /*******************************************************************************************************************
+     *
+     * Return the short names for some objects.
+     *
+     * @param     objects   the objects
+     * @return              the short names
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public static String shortIds (@Nonnull final Iterable<?> objects)
       {
@@ -136,6 +183,14 @@ public class ShortNames
         return "[" + result + "]";
       }
 
+    /*******************************************************************************************************************
+     *
+     * Return the short names for some objects.
+     *
+     * @param     objects   the objects
+     * @return              the short names
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public static String shortIds (@Nonnull final Object... objects)
       {
