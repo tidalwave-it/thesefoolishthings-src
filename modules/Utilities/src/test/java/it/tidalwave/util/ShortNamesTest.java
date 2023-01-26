@@ -92,7 +92,7 @@ public class ShortNamesTest
         // when
         final var actualValue = ShortNames.shortId(object);
         // then
-        assertThat(actualValue, is(String.format("j.l.String@%x/", System.identityHashCode(object))));
+        assertThat(actualValue, is(String.format("j.l.String@%x", System.identityHashCode(object))));
       }
 
     /******************************************************************************************************************/
