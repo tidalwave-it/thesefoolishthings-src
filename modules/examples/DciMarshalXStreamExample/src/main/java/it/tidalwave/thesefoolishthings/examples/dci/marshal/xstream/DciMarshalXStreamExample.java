@@ -34,7 +34,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import it.tidalwave.util.AsExtensions;
 import it.tidalwave.util.Id;
-import it.tidalwave.role.ContextManager;
+import it.tidalwave.util.ContextManager;
 import it.tidalwave.thesefoolishthings.examples.dci.marshal.role.XStreamContext1;
 import it.tidalwave.thesefoolishthings.examples.dci.marshal.role.XStreamContext2;
 import it.tidalwave.thesefoolishthings.examples.person.ListOfPersons;

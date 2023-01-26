@@ -30,8 +30,8 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
 import it.tidalwave.util.As;
-import it.tidalwave.util.impl.DefaultAs;
-import it.tidalwave.util.spi.AsDelegateProvider;
+import it.tidalwave.role.impl.AsDelegate;
+import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import static org.mockito.Mockito.*;
@@ -64,7 +64,7 @@ public final class MockAsFactory
     /*******************************************************************************************************************
      *
      * Creates a mock with Mockito that fully supports {@link As}. This method doesn't call
-     * {@link AsDelegateProvider.Locator#find()}.
+     * {@link OwnerRoleFactoryProvider#getInstance()}.
      *
      * @param   clazz               the mock class
      * @param   roles               a collection of roles or factories for roles
@@ -73,11 +73,10 @@ public final class MockAsFactory
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T extends As> T mockWithAs (@Nonnull final Class<T> clazz,
-                                               @Nonnull final Collection<Object> roles)
+    public static <T extends As> T mockWithAs (@Nonnull final Class<T> clazz, @Nonnull final Collection<Object> roles)
       {
         final var mock = mock(clazz);
-        final var as = new DefaultAs(AsDelegateProvider.empty()::createAsDelegate, mock, roles);
+        final var as = new AsDelegate(__ -> OwnerRoleFactoryProvider.emptyRoleFactory(), mock, roles);
         when(mock.as(any(Class.class))).thenCallRealMethod();
         when(mock.maybeAs(any(Class.class))).thenAnswer(i -> as.maybeAs((Class<?>)i.getArguments()[0]));
         when(mock.asMany(any(Class.class))).thenAnswer(i -> as.asMany((Class<?>)i.getArguments()[0]));

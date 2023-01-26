@@ -31,10 +31,10 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import it.tidalwave.util.Task;
-import it.tidalwave.role.ContextManager;
+import it.tidalwave.util.ContextManager;
 import it.tidalwave.dci.annotation.DciContext;
 import lombok.extern.slf4j.Slf4j;
-import static it.tidalwave.role.spi.impl.LogUtil.shortId;
+import static it.tidalwave.util.ShortNames.shortId;
 
 /***********************************************************************************************************************
  *
@@ -66,9 +66,7 @@ public class DciContextWithAutoThreadBindingAspect
                 log.trace("executing {}.{}() with context thread binding", shortId(context), pjp.getSignature().getName());
               }
 
-            // It looks like the @Inject approach creates bogus multiple instance of ContextManager
-            final var contextManager = ContextManager.Locator.find();
-            return contextManager.runWithContext(context, new Task<Object, Throwable>()
+            return ContextManager.getInstance().runWithContext(context, new Task<Object, Throwable>()
               {
                 @Override
                 public Object run()

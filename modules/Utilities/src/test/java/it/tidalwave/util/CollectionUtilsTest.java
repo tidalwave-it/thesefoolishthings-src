@@ -71,10 +71,11 @@ public class CollectionUtilsTest
         // given
         final var l1 = IntStream.rangeClosed(1, 5).boxed().collect(toList());
         final var l2 = IntStream.rangeClosed(6, 10).boxed().collect(toList());
+        final var l3 = IntStream.rangeClosed(11, 20).boxed().collect(toList());
         // when
-        final var actual = concat(l1, l2);
+        final var actual = concat(l1, l2, l3);
         // then
-        final var expected = IntStream.rangeClosed(1, 10).boxed().collect(toList());
+        final var expected = IntStream.rangeClosed(1, 20).boxed().collect(toList());
         assertThat(expected, is(actual));
       }
 
@@ -198,5 +199,50 @@ public class CollectionUtilsTest
         final var expectedResult = new ArrayList<>(list);
         expectedResult.sort(comparator);
         assertThat(actualResult, is(expectedResult));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void test_safeSubList()
+      {
+        // given
+        final var list = IntStream.rangeClosed(1, 10).boxed().collect(toList());
+        // when
+        final var subList1 = safeSubList(list, -6, -3);
+        final var subList2 = safeSubList(list, -3, 2);
+        final var subList3 = safeSubList(list, 2, 5);
+        final var subList4 = safeSubList(list, 5, 9);
+        final var subList5 = safeSubList(list, 9, 12);
+        final var subList6 = safeSubList(list, 12, 15);
+        final var subList7 = safeSubList(list, 9, 5);
+        // then
+        assertThat(subList1, is(List.of()));
+        assertThat(subList2, is(List.of(1, 2)));
+        assertThat(subList3, is(List.of(3, 4, 5)));
+        assertThat(subList4, is(List.of(6, 7, 8, 9)));
+        assertThat(subList5, is(List.of(10)));
+        assertThat(subList6, is(List.of()));
+        assertThat(subList7, is(List.of()));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void test_split()
+      {
+        // given
+        final var list = IntStream.rangeClosed(1, 10).boxed().collect(toList());
+        final var boundaries = new int[]{ 3, 7, 9, 13, 19 };
+        // when
+        final var split = split(list, boundaries);
+        // then
+        assertThat(split.size(), is(4));
+        assertThat(split.get(0), is(List.of(4, 5, 6, 7)));
+        assertThat(split.get(1), is(List.of(8, 9)));
+        assertThat(split.get(2), is(List.of(10)));
+        assertThat(split.get(3), is(List.of()));
       }
   }

@@ -39,13 +39,8 @@
     <!-- Turns on @Autowired, @PostConstruct, etc. -->
     <context:annotation-config/>
 
-    <!-- DCI role injector -->
-    <bean id="roleManager"
-          class="it.tidalwave.role.spi.RoleManager.Locator"
-          factory-method="find"/>
+    <bean id="systemRoleFactory" class="it.tidalwave.role.spi.SystemRoleFactory" factory-method="getInstance"/>
 
-    <bean id="contextManager"
-          class="it.tidalwave.role.ContextManager.Locator"
-          factory-method="find"/>
+    <bean id="contextManager" class="it.tidalwave.util.ContextManager" factory-method="getInstance"/>
 
 </beans>

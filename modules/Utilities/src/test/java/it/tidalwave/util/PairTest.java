@@ -63,29 +63,11 @@ public class PairTest
         // START SNIPPET: pair1
         final var p = Pair.of("foo bar", 7);
         final var fooBar = p.a;
-        final int seven = p.b;
+        final var seven = p.b;
         // END SNIPPET: pair1
         // then
         assertThat(fooBar, is("foo bar"));
         assertThat(seven, is(7));
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @Test
-    public void test_pairStream()
-      {
-        // given
-        final var value = "value";
-        // when
-        final var underTest = Pair.pairStream(value, IntStream.rangeClosed(1, 5).boxed());
-        // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(value, 1),
-                                                          Pair.of(value, 2),
-                                                          Pair.of(value, 3),
-                                                          Pair.of(value, 4),
-                                                          Pair.of(value, 5))));
       }
 
     /*******************************************************************************************************************
@@ -363,12 +345,51 @@ public class PairTest
         final var actual = stream.collect(Pair.pairsToMap());
         // then
         final var expected = Map.of(
-          0, "one",
-          1, "two",
-          2, "three",
-          3, "four",
-          4, "five");
+                0, "one",
+                1, "two",
+                2, "three",
+                3, "four",
+                4, "five");
         assertThat(actual, is(expected));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void test_pairStream()
+      {
+        // given
+        final var value = "value";
+        // when
+        final var underTest = Pair.pairStream(value, IntStream.rangeClosed(1, 5).boxed());
+        // then
+        assertThat(underTest.collect(toList()), is(asList(Pair.of(value, 1),
+                                                          Pair.of(value, 2),
+                                                          Pair.of(value, 3),
+                                                          Pair.of(value, 4),
+                                                          Pair.of(value, 5))));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test
+    public void zipPairTest1()
+      {
+        // START SNIPPET: zipPairTest1
+        // given
+        final var intStream = IntStream.range(0, 5).boxed();
+        final var stringStream = IntStream.range(0, 5).mapToObj(n -> "string-" + (char)('a' + n));
+        // when
+        final var underTest = Pair.zip(intStream, stringStream);
+        // then
+        assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "string-a"),
+                                                          Pair.of(1, "string-b"),
+                                                          Pair.of(2, "string-c"),
+                                                          Pair.of(3, "string-d"),
+                                                          Pair.of(4, "string-e"))));
+        // END SNIPPET: zipPairTest1
       }
 
     /*******************************************************************************************************************

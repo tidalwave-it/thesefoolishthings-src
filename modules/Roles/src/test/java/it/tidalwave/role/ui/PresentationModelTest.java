@@ -30,7 +30,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import it.tidalwave.util.As;
-import it.tidalwave.util.spi.AsDelegateProvider;
+import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -60,20 +60,24 @@ public class PresentationModelTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
+    // START SNIPPET: setup
     @BeforeClass
     public void setup()
       {
-        AsDelegateProvider.Locator.set(AsDelegateProvider.empty());
+        OwnerRoleFactoryProvider.set(OwnerRoleFactoryProvider.emptyRoleFactory());
       }
+    // END SNIPPET: setup
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
+    // START SNIPPET: cleanup
     @AfterClass
     public void cleanup()
       {
-        AsDelegateProvider.Locator.reset();
+        OwnerRoleFactoryProvider.reset();
       }
+    // END SNIPPET: cleanup
 
     /*******************************************************************************************************************
      *

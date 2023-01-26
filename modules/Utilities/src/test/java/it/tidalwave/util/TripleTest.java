@@ -50,8 +50,8 @@ public class TripleTest
         // START SNIPPET: triple1
         final var t = Triple.of("foo bar", 7, false);
         final var fooBar = t.a;
-        final int seven = t.b;
-        final boolean bool = t.c;
+        final var seven = t.b;
+        final var bool = t.c;
         // END SNIPPET: triple1
         // then
         assertThat(fooBar, is("foo bar"));

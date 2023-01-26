@@ -28,8 +28,8 @@ package it.tidalwave.role.spring;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import it.tidalwave.role.ContextManager;
-import it.tidalwave.role.spi.RoleManager;
+import it.tidalwave.util.ContextManager;
+import it.tidalwave.role.spi.SystemRoleFactory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,14 +49,14 @@ public class RoleSpringConfiguration
     private static String basePackages = "com:org:it";
 
     @Bean
-    public RoleManager roleManager()
+    public SystemRoleFactory roleManager()
       {
-        return RoleManager.Locator.find();
+        return SystemRoleFactory.getInstance();
       }
 
     @Bean
     public ContextManager contextManager()
       {
-        return ContextManager.Locator.find();
+        return ContextManager.getInstance();
       }
   }

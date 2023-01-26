@@ -28,12 +28,14 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import static java.util.Collections.emptyList;
 
 /***********************************************************************************************************************
  *
@@ -69,21 +71,25 @@ public final class CollectionUtils
 
     /*******************************************************************************************************************
      *
-     * Appends a list to another. The resulting list is mutable.
+     * Returns a concatenation of the given {@link Collection}s.
      *
-     * @param     <T>       the type of list items
-     * @param     list1     the former list
-     * @param     list2     the latter list
-     * @return              the list with the appended object
+     * @param     <T>         the static type
+     * @param     collections the input collections
+     * @return                the concatenation
      *
      * @it.tidalwave.javadoc.stable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> List<T> concat (@Nonnull final List<? extends T> list1, @Nonnull final List<? extends T> list2)
+    public static <T> List<T> concat (@Nonnull final Collection<? extends T>... collections)
       {
-        final List<T> result = new ArrayList<>(list1);
-        result.addAll(list2);
+        final List<T> result = new ArrayList<>();
+
+        for (final var collection : collections)
+          {
+            result.addAll(collection);
+          }
+
         return result;
       }
 
@@ -204,5 +210,52 @@ public final class CollectionUtils
     public static <T> List<T> tail (@Nonnull final List<? extends T> list)
       {
         return new ArrayList<>(list.subList(1, list.size()));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Return a sublist of the original {@link List}, from the given {@code from} and {@code to} index (not included).
+     * If the {@code from} index is negative and/or the {@code to} index is lower than the {@code from} index or if an
+     * attempt is made to read before the start or past the end of the list, truncation silently occurs.
+     *
+     * @param     <T>             the static type
+     * @param     list            the original list
+     * @param     from            the first index (included)
+     * @param     to              the last index (excluded)
+     * @return                    the sublist
+     * @since     3.2-ALPHA-17
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> List<T> safeSubList (@Nonnull final List<? extends T> list, final int from, final int to)
+      {
+        final var safeFrom = Math.max(from, 0);
+        final var safeTo = Math.min(list.size(), to);
+        return (safeFrom >= safeTo) ? emptyList() : new ArrayList<>(list.subList(safeFrom, safeTo));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Splits a given {@link List} at a set of boundaries. Each boundary is the starting point of a sublist to be
+     * returned.
+     *
+     * @param     <T>             the static type
+     * @param     list            the original list
+     * @param     boundaries      the boundaries
+     * @return                    a list of sublists
+     * @since     3.2-ALPHA-17
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <T> List<List<T>> split (@Nonnull final List<? extends T> list, final int ... boundaries)
+      {
+        final var result = new ArrayList<List<T>>();
+
+        for (var i = 0; i < boundaries.length - 1; i++)
+          {
+            result.add(safeSubList(list, boundaries[i], boundaries[i + 1]));
+          }
+
+        return result;
       }
   }

@@ -65,7 +65,6 @@ public interface TxManager extends AutoCloseable
       }
 
     public default void close()
-            throws Exception
       {
       }
   }

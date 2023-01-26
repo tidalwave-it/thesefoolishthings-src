@@ -248,7 +248,7 @@ public class Pair<A, B>
      * @return                        the stream
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nonnull @SuppressWarnings("unchecked")
     public static <I, T> Stream<Pair<I, T>> indexedPairStream (@Nonnull final Iterable<? extends T> iterable,
                                                                @Nonnull final IntFunction<? extends I> indexTransformer)
       {
@@ -268,12 +268,12 @@ public class Pair<A, B>
      * @return                        the stream
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nonnull @SuppressWarnings("unchecked")
     public static <I, T> Stream<Pair<I, T>> indexedPairStream (@Nonnull final Iterable<? extends T> iterable,
                                                                @Nonnull final IntUnaryOperator rebaser,
                                                                @Nonnull final IntFunction<? extends I> indexTransformer)
       {
-        return new Factory<>().stream(iterable, rebaser, indexTransformer);
+        return new Factory<I, T>().stream(iterable, rebaser, indexTransformer);
       }
 
     /*******************************************************************************************************************
@@ -287,7 +287,7 @@ public class Pair<A, B>
      * @since       3.2-ALPHA-12
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nonnull @SuppressWarnings("unchecked")
     public static <T> Stream<Pair<Integer, T>> indexedPairStream (@Nonnull final Stream<? extends T> stream)
       {
         return Pair.indexedPairStream(((Stream<T>)stream)::iterator);
@@ -305,7 +305,7 @@ public class Pair<A, B>
      * @since       3.2-ALPHA-12
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nonnull @SuppressWarnings("unchecked")
     public static <T> Stream<Pair<Integer, T>> indexedPairStream (@Nonnull final Stream<? extends T> stream,
                                                                   @Nonnull final IntUnaryOperator rebaser)
       {
@@ -325,6 +325,7 @@ public class Pair<A, B>
      * @since       3.2-ALPHA-12
      *
      ******************************************************************************************************************/
+    @SuppressWarnings("unchecked")
     @Nonnull
     public static <I, T> Stream<Pair<I, T>> indexedPairStream (@Nonnull final Stream<? extends T> stream,
                                                                @Nonnull final IntFunction<? extends I> indexTransformer)
@@ -346,6 +347,7 @@ public class Pair<A, B>
      * @since       3.2-ALPHA-12
      *
      ******************************************************************************************************************/
+    @SuppressWarnings("unchecked")
     @Nonnull
     public static <I, T> Stream<Pair<I, T>> indexedPairStream (@Nonnull final Stream<? extends T> stream,
                                                                @Nonnull final IntUnaryOperator rebaser,
@@ -438,15 +440,34 @@ public class Pair<A, B>
         return Collectors.toMap(p -> p.a, p -> p.b);
       }
 
+    /*******************************************************************************************************************
+     *
+     * Zips two streams into a stream of {@link Pair}s.
+     *
+     * @param   streamA     the first {@link Stream}
+     * @param   streamB     the second {@link Stream}
+     * @param   <A>         the type of elements of the first {@link Stream}
+     * @param   <B>         the type of elements of the second {@link Stream}
+     * @return              the zipped {@link Stream}
+     * @since   3.2-ALPHA-17 (since 3.2-ALPHA-12 was in {@code StreamOperations}
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <A, B> Stream<Pair<A, B>> zip (@Nonnull final Stream<? extends A> streamA,
+                                                 @Nonnull final Stream<? extends B> streamB)
+      {
+        return StreamUtils.zip(streamA, streamB, Pair::of);
+      }
+
     @NotThreadSafe
     static final class Factory<I, T>
       {
         private final AtomicInteger n = new AtomicInteger(0);
 
         @Nonnull
-        public <I, T> Stream<Pair<I, T>> stream (@Nonnull final Iterable<? extends T> iterable,
-                                                 @Nonnull final IntUnaryOperator rebaser,
-                                                 @Nonnull final IntFunction<? extends I> indexFunction)
+        public Stream<Pair<I, T>> stream (@Nonnull final Iterable<? extends T> iterable,
+                                          @Nonnull final IntUnaryOperator rebaser,
+                                          @Nonnull final IntFunction<? extends I> indexFunction)
           {
             return StreamSupport.stream(iterable.spliterator(), false)
                                 .map(o -> Pair.of(indexFunction.apply(rebaser.applyAsInt(n.getAndIncrement())), o));

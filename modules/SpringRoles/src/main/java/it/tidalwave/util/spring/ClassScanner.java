@@ -36,6 +36,7 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.util.ClassUtils;
 import it.tidalwave.role.spring.RoleSpringConfiguration;
+import lombok.Setter;
 
 /***********************************************************************************************************************
  *
@@ -46,7 +47,8 @@ import it.tidalwave.role.spring.RoleSpringConfiguration;
  **********************************************************************************************************************/
 public class ClassScanner
   {
-    private final String basePackages = System.getProperty(
+    @Setter
+    private static String basePackages = System.getProperty(
             ClassScanner.class.getCanonicalName() + ".basePackages", RoleSpringConfiguration.getBasePackages());
 
     private final ClassPathScanningCandidateComponentProvider scanner =

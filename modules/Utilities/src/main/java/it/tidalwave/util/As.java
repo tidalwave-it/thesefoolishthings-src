@@ -29,7 +29,7 @@ package it.tidalwave.util;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Optional;
-import it.tidalwave.util.impl.DefaultAs;
+import it.tidalwave.role.impl.AsDelegate;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -80,7 +80,7 @@ public interface As
 
 
         @Nonnull @SuppressWarnings("unchecked")
-        protected Class<T> getType()
+        /* package */ Class<T> getType()
           {
             return (Class<T>)type;
           }
@@ -99,7 +99,7 @@ public interface As
     @Nonnull
     public static As forObject (@Nonnull final Object object)
       {
-        return (object instanceof DefaultAs) ? (As)object : new DefaultAs(object);
+        return (object instanceof AsDelegate) ? (As)object : new AsDelegate(object);
       }
 
     /*******************************************************************************************************************
@@ -116,7 +116,7 @@ public interface As
     @Nonnull
     public static As forObject (@Nonnull final Object object, @Nonnull final Object role)
       {
-        return new DefaultAs(object, role);
+        return new AsDelegate(object, role);
       }
 
     /*******************************************************************************************************************
@@ -133,7 +133,7 @@ public interface As
     @Nonnull
     public static As forObject (@Nonnull final Object object, @Nonnull final Collection<Object> roles)
       {
-        return new DefaultAs(object, roles);
+        return new AsDelegate(object, roles);
       }
 
     /*******************************************************************************************************************

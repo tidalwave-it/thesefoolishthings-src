@@ -27,8 +27,105 @@
 Introduction
 ============
 
-${project.description}
-
 [Javadoc](apidocs/index.html)
 
+
 TBD
+
+
+#[[##]]# Table of contents
+
+<!-- MACRO{toc|section=0|fromDepth=1|toDepth=3} -->
+
+
+
+#[[##]]# `PresentationModel`
+
+`Presentable`
+`PresentationModel`
+`PresentationModelAggregate`
+`PresentationModelFactory`
+
+> PENDING
+
+
+#[[##]]# Generic roles
+
+> PENDING
+
+
+#[[###]]# `Identifiable`, `IdFactory`
+
+> PENDING
+
+
+#[[###]]# `Composite`, `SimpleComposite`
+
+> PENDING
+
+
+#[[###]]# `Aggregate`
+
+> PENDING
+
+
+#[[###]]# `StringRenderable`, `PlainTextRenderable`, `HtmlRenderable`
+
+> PENDING
+
+
+#[[###]]# `Removable`
+
+#[[###]]# `Sortable`
+
+
+#[[##]]# Input/Output
+
+#[[###]]# `BinaryReadable`, `BinaryWritable`, `TextReadable`, `TextWritable`
+
+> PENDING
+
+
+#[[###]]# `Marshallable`, `Unmarshallable`
+
+> PENDING
+
+
+#[[###]]# `Persistable`
+
+
+#[[##]]# User interface
+
+#[[###]]# `Displayable`, `LocalizedDisplayable`, `MutableDisplayable`, `MutableLocalizedDisplayable`
+
+> PENDING
+
+
+#[[###]]# `IconProvider`, `MutableIconProvider`
+
+> PENDING
+
+
+#[[###]]# `Selectable`
+
+> PENDING
+
+
+#[[###]]# `Styleable`
+
+> PENDING
+
+
+#[[###]]# `Changeable`, `ChangingSource`
+
+> PENDING
+
+
+#[[###]]# `ActionProvider`
+
+> PENDING
+
+
+#[[###]]# `UserAction`, `UserActionProvider`
+
+> PENDING

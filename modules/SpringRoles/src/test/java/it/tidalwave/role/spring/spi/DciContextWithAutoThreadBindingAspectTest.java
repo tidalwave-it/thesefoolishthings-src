@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import it.tidalwave.util.Task;
-import it.tidalwave.role.ContextManager;
+import it.tidalwave.util.ContextManager;
 import it.tidalwave.role.spi.ContextManagerProvider;
 import it.tidalwave.dci.annotation.DciContext;
 import lombok.extern.slf4j.Slf4j;
@@ -186,7 +186,7 @@ public class DciContextWithAutoThreadBindingAspectTest
               }
           }).when(contextManager).runWithContext(any(), any(Task.class));
 
-        ContextManager.Locator.set(new ContextManagerProvider()
+        ContextManager.set(new ContextManagerProvider()
           {
             @Override @Nonnull
             public ContextManager getContextManager()

@@ -29,7 +29,7 @@ package it.tidalwave.role.ui.impl;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.mock.MockAsFactory;
-import it.tidalwave.util.spi.AsDelegateProvider;
+import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static it.tidalwave.util.Parameters.r;
@@ -70,7 +70,7 @@ public class DefaultPresentationModelTest
     public void setup()
       {
         // Not called by tests, we only need it's there
-        AsDelegateProvider.Locator.set(AsDelegateProvider.empty());
+        OwnerRoleFactoryProvider.set(OwnerRoleFactoryProvider.emptyRoleFactory());
 
         localRole1 = mock(Role1.class);
         localRole2 = mock(Role2.class);
