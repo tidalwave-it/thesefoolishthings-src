@@ -88,7 +88,7 @@ class DefaultOwnerRoleFactory implements OwnerRoleFactory
         log.trace(">>>> contexts: {}", contextSnapshot);
 
         final var roles =
-                new ArrayList<>(contextSnapshot.runWithContexts(new Task<List<? extends T>, RuntimeException>()
+                new ArrayList<T>(contextSnapshot.runWithContexts(new Task<List<? extends T>, RuntimeException>()
                   {
                     @Override
                     @Nonnull

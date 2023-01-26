@@ -29,7 +29,7 @@ package it.tidalwave.role.spi;
 import javax.annotation.Nonnull;
 import java.util.List;
 import it.tidalwave.util.LazySupplier;
-import static it.tidalwave.role.impl.ServiceLoaderLocator.findService;
+import static it.tidalwave.role.impl.ServiceLoaderLocator.*;
 
 /***********************************************************************************************************************
  *
@@ -47,7 +47,7 @@ public interface SystemRoleFactory
                 LazySupplier.of(() -> Inner.SYSTEM_ROLE_FACTORY_PROVIDER.get().getSystemRoleFactory());
 
         private static final LazySupplier<SystemRoleFactoryProvider> SYSTEM_ROLE_FACTORY_PROVIDER =
-                LazySupplier.of(() -> findService(SystemRoleFactoryProvider.class));
+                lazySupplierOf(SystemRoleFactoryProvider.class);
       }
 
     /*******************************************************************************************************************

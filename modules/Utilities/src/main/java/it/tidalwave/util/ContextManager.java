@@ -32,7 +32,7 @@ import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.function.Supplier;
 import it.tidalwave.role.spi.ContextManagerProvider;
-import it.tidalwave.role.impl.ServiceLoaderLocator;
+import static it.tidalwave.role.impl.ServiceLoaderLocator.lazySupplierOf;
 
 /***********************************************************************************************************************
  *
@@ -59,7 +59,7 @@ public interface ContextManager
                 LazySupplier.of(() -> Inner.CONTEXT_MANAGER_PROVIDER_REF.get().getContextManager());
 
         private static final LazySupplier<ContextManagerProvider> CONTEXT_MANAGER_PROVIDER_REF =
-                LazySupplier.of(() -> ServiceLoaderLocator.findService(ContextManagerProvider.class));
+                lazySupplierOf(ContextManagerProvider.class);
       }
 
     /*******************************************************************************************************************

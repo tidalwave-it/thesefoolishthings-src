@@ -30,8 +30,8 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import it.tidalwave.util.LazySupplier;
-import it.tidalwave.role.impl.ServiceLoaderLocator;
 import lombok.RequiredArgsConstructor;
+import static it.tidalwave.role.impl.ServiceLoaderLocator.lazySupplierOf;
 
 /***********************************************************************************************************************
  *
@@ -46,7 +46,7 @@ public interface OwnerRoleFactoryProvider
     static class Inner // TODO: will go away with Java 17
       {
         private static final LazySupplier<OwnerRoleFactoryProvider> PROVIDER_REF =
-                LazySupplier.of(() -> ServiceLoaderLocator.findService(OwnerRoleFactoryProvider.class));
+                lazySupplierOf(OwnerRoleFactoryProvider.class);
 
         private static final LazySupplier<EmptyOwnerRoleFactory> EMPTY_REF =
                 LazySupplier.of(EmptyOwnerRoleFactory::new);

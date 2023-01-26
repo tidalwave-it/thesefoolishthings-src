@@ -30,6 +30,8 @@ import javax.annotation.Nonnull;
 import java.util.ServiceLoader;
 import java.util.Spliterators;
 import java.util.stream.StreamSupport;
+import it.tidalwave.util.LazySupplier;
+import it.tidalwave.util.PreferencesHandler;
 import it.tidalwave.role.spi.annotation.DefaultProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -78,5 +80,11 @@ public class ServiceLoaderLocator
         final var provider = providers.get(0);
         log.info("{} instantiated from META-INF/services: {}", serviceClassName, provider);
         return provider;
+      }
+
+    @Nonnull
+    public static <T> LazySupplier<T> lazySupplierOf (@Nonnull final Class<? extends T> clazz)
+      {
+        return LazySupplier.of(() -> ServiceLoaderLocator.findService(clazz));
       }
   }
