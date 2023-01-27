@@ -29,7 +29,7 @@ package it.tidalwave.role.spi;
 import javax.annotation.Nonnull;
 import java.util.List;
 import it.tidalwave.util.LazySupplier;
-import static it.tidalwave.role.impl.ServiceLoaderLocator.*;
+import static it.tidalwave.role.impl.ServiceLoaderLocator.lazySupplierOf;
 
 /***********************************************************************************************************************
  *
@@ -43,10 +43,10 @@ public interface SystemRoleFactory
   {
     static class Inner
       {
-        private static final LazySupplier<SystemRoleFactory> SYSTEM_ROLE_FACTORY =
-                LazySupplier.of(() -> Inner.SYSTEM_ROLE_FACTORY_PROVIDER.get().getSystemRoleFactory());
+        private static final LazySupplier<SystemRoleFactory> INSTANCE_REF =
+                LazySupplier.of(() -> Inner.PROVIDER_REF.get().getSystemRoleFactory());
 
-        private static final LazySupplier<SystemRoleFactoryProvider> SYSTEM_ROLE_FACTORY_PROVIDER =
+        private static final LazySupplier<SystemRoleFactoryProvider> PROVIDER_REF =
                 lazySupplierOf(SystemRoleFactoryProvider.class);
       }
 
@@ -56,7 +56,34 @@ public interface SystemRoleFactory
     @Nonnull
     public static SystemRoleFactory getInstance()
       {
-        return Inner.SYSTEM_ROLE_FACTORY.get();
+        return Inner.INSTANCE_REF.get();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Removes a previously installed {@link SystemRoleFactory}. <b>This method is for testing only (used to clean up a
+     * testing context).</b>
+     *
+     * @see     #set(SystemRoleFactory)
+     *
+     ******************************************************************************************************************/
+    public static void reset()
+      {
+        Inner.PROVIDER_REF.clear();
+        Inner.INSTANCE_REF.clear();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Installs a {@link SystemRoleFactory}. <b>This method is for testing only (used to set up a testing context).</b>
+     *
+     * @param   systemRoleFactory   the {@link SystemRoleFactory}
+     * @see     #reset()
+     *
+     ******************************************************************************************************************/
+    public static void set (@Nonnull final SystemRoleFactory systemRoleFactory)
+      {
+        Inner.PROVIDER_REF.set(() -> systemRoleFactory);
       }
 
     /*******************************************************************************************************************

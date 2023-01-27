@@ -43,8 +43,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.*;
-import static it.tidalwave.role.SimpleComposite._SimpleComposite_;
 import static it.tidalwave.util.ShortNames.*;
+import static it.tidalwave.role.SimpleComposite._SimpleComposite_;
 
 /***********************************************************************************************************************
  *

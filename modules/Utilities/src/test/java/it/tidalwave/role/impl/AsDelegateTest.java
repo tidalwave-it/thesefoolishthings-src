@@ -29,13 +29,12 @@ package it.tidalwave.role.impl;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.RoleFactory;
-import it.tidalwave.role.spi.OwnerRoleFactory;
-import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
+import it.tidalwave.role.spi.SystemRoleFactory;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static it.tidalwave.util.Parameters.r;
@@ -51,13 +50,13 @@ import static org.hamcrest.MatcherAssert.*;
 public class AsDelegateTest
   {
     @RequiredArgsConstructor
-    public static class FixedOwnerRoleFactory implements OwnerRoleFactory
+    public static class FixedOwnerRoleFactory implements SystemRoleFactory
       {
         @Nonnull
         private final Collection<Object> roles;
 
         @Override @Nonnull
-        public <T> Collection<T> findRoles (@Nonnull final Class<? extends T> roleType)
+        public <T> List<T> findRoles (@Nonnull final Object owner, @Nonnull final Class<? extends T> roleType)
           {
             final var result = new ArrayList<T>();
 
@@ -109,21 +108,12 @@ public class AsDelegateTest
     @BeforeMethod
     public void setup()
       {
-        OwnerRoleFactoryProvider.set(OwnerRoleFactoryProvider.emptyRoleFactory()); // reset
+        SystemRoleFactory.reset();
         owner = new Object();
         localRole1 = mock(Role1.class);
         localRole2 = mock(Role2.class);
         localRole2b = mock(Role2.class);
         delegateRole2 = mock(Role2.class);
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @AfterMethod
-    public void cleanup()
-      {
-        OwnerRoleFactoryProvider.reset();
       }
 
     /*******************************************************************************************************************
@@ -191,7 +181,7 @@ public class AsDelegateTest
     public void must_find_roles_in_SystemRoleFactory()
       {
         // given
-        OwnerRoleFactoryProvider.set(new FixedOwnerRoleFactory(r(delegateRole2)));
+        SystemRoleFactory.set(new FixedOwnerRoleFactory(r(delegateRole2)));
         final var underTest = new AsDelegate(owner);
         // when
         final var role = underTest.as(Role2.class);
@@ -206,7 +196,7 @@ public class AsDelegateTest
     public void must_give_priority_to_local_roles()
       {
         // given
-        OwnerRoleFactoryProvider.set(new FixedOwnerRoleFactory(r(delegateRole2)));
+        SystemRoleFactory.set(new FixedOwnerRoleFactory(r(delegateRole2)));
         final var underTest = new AsDelegate(owner, r(localRole2));
         // when
         final var role = underTest.as(Role2.class);
@@ -237,7 +227,7 @@ public class AsDelegateTest
     public void must_retrieve_multiple_local_and_global_roles()
       {
         // given
-        OwnerRoleFactoryProvider.set(new FixedOwnerRoleFactory(r(delegateRole2)));
+        SystemRoleFactory.set(new FixedOwnerRoleFactory(r(delegateRole2)));
         final var underTest = new AsDelegate(owner, r(localRole2, localRole2b));
         // when
         final var roles = underTest.asMany(Role2.class);

@@ -27,10 +27,7 @@
 package it.tidalwave.role.spi;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collection;
 import it.tidalwave.util.LazySupplier;
-import lombok.RequiredArgsConstructor;
 import static it.tidalwave.role.impl.ServiceLoaderLocator.lazySupplierOf;
 
 /***********************************************************************************************************************
@@ -47,9 +44,6 @@ public interface OwnerRoleFactoryProvider
       {
         private static final LazySupplier<OwnerRoleFactoryProvider> PROVIDER_REF =
                 lazySupplierOf(OwnerRoleFactoryProvider.class);
-
-        private static final LazySupplier<EmptyOwnerRoleFactory> EMPTY_REF =
-                LazySupplier.of(EmptyOwnerRoleFactory::new);
       }
 
     /*******************************************************************************************************************
@@ -75,72 +69,4 @@ public interface OwnerRoleFactoryProvider
      ******************************************************************************************************************/
     @Nonnull
     public OwnerRoleFactory createRoleFactory (@Nonnull Object owner);
-
-    /*******************************************************************************************************************
-     *
-     * Installs a {@link OwnerRoleFactory}. <b>This method is for testing only (used to set up a testing context).</b>
-     *
-     * @param   ownerRoleFactory    the {@link OwnerRoleFactory}
-     * @see     #reset()
-     *
-     ******************************************************************************************************************/
-    public static void set (@Nonnull final OwnerRoleFactory ownerRoleFactory)
-      {
-        Inner.PROVIDER_REF.set(new SimpleOwnerRoleFactoryProvider(ownerRoleFactory));
-      }
-
-    /*******************************************************************************************************************
-     *
-     * Removes a previously installed {@link OwnerRoleFactory}. <b>This method is for testing only (used to clean up a
-     * testing context).</b>
-     *
-     * @see     #set(OwnerRoleFactory)
-     *
-     ******************************************************************************************************************/
-    public static void reset()
-      {
-        Inner.PROVIDER_REF.clear();
-      }
-
-    /*******************************************************************************************************************
-     *
-     * Returns an empty implementation of factory. Useful for setting up a test environment.
-     *
-     * @return    the empty implementation
-     * @since     3.2-ALPHA-1
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public static OwnerRoleFactory emptyRoleFactory()
-      {
-        return Inner.EMPTY_REF.get();
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @RequiredArgsConstructor
-    static class SimpleOwnerRoleFactoryProvider implements OwnerRoleFactoryProvider
-      {
-        @Nonnull
-        private final OwnerRoleFactory ownerRoleFactory;
-
-        @Override @Nonnull
-        public OwnerRoleFactory createRoleFactory (@Nonnull final Object owner)
-          {
-            return ownerRoleFactory;
-          }
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    static class EmptyOwnerRoleFactory implements OwnerRoleFactory
-      {
-        @Override @Nonnull
-        public <T> Collection<T> findRoles (@Nonnull final Class<? extends T> type)
-          {
-            return new ArrayList<>(); // must be mutable
-          }
-      }
   }

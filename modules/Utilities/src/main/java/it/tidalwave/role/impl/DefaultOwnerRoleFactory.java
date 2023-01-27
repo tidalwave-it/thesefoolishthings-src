@@ -32,8 +32,8 @@ import java.util.Collection;
 import java.util.List;
 import it.tidalwave.util.As;
 import it.tidalwave.util.Task;
-import it.tidalwave.role.spi.SystemRoleFactory;
 import it.tidalwave.role.spi.OwnerRoleFactory;
+import it.tidalwave.role.spi.SystemRoleFactory;
 import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.util.ShortNames.*;
 
@@ -51,17 +51,6 @@ class DefaultOwnerRoleFactory implements OwnerRoleFactory
     private final Object owner;
 
     private final ContextSnapshot contextSnapshot;
-
-    /*******************************************************************************************************************
-     *
-     * Constructor for use with subclassing.
-     *
-     ******************************************************************************************************************/
-    public DefaultOwnerRoleFactory()
-      {
-        this.owner = this;
-        contextSnapshot = new ContextSnapshot(this);
-      }
 
     /*******************************************************************************************************************
      *

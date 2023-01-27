@@ -81,7 +81,7 @@ public final class CollectionUtils
      *
      ******************************************************************************************************************/
     @Nonnull
-    public static <T> List<T> concat (@Nonnull final Collection<? extends T>... collections)
+    public static <T> List<T> concatAll (@Nonnull final Collection<? extends T>... collections)
       {
         final List<T> result = new ArrayList<>();
 

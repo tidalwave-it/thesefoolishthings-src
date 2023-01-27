@@ -26,7 +26,6 @@
  */
 package it.tidalwave.util;
 
-import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -150,9 +149,10 @@ public class ShortNames
 
         try
           {
-            s.append("/").append(object.getClass().getMethod("getId").invoke(object).toString());
+            final var id = object.getClass().getMethod("getId").invoke(object);
+            s.append("/").append(id != null ? id.toString() : "null");
           }
-        catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e)
+        catch (Exception e)
           {
             // log.trace("While invoking 'getId(): {}", e.toString());
           }

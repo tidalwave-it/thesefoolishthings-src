@@ -27,14 +27,14 @@
 package it.tidalwave.util.impl;
 
 import javax.annotation.Nonnull;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import it.tidalwave.util.Key;
 import it.tidalwave.util.PreferencesHandler;
 import lombok.Getter;

@@ -31,6 +31,7 @@ import java.util.Collection;
 import java.util.Collections;
 import it.tidalwave.util.As;
 import it.tidalwave.role.impl.AsDelegate;
+import it.tidalwave.role.spi.OwnerRoleFactory;
 import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -76,7 +77,15 @@ public final class MockAsFactory
     public static <T extends As> T mockWithAs (@Nonnull final Class<T> clazz, @Nonnull final Collection<Object> roles)
       {
         final var mock = mock(clazz);
-        final var as = new AsDelegate(__ -> OwnerRoleFactoryProvider.emptyRoleFactory(), mock, roles);
+        final var orf = new OwnerRoleFactory()
+          {
+            public <U> Collection<U> findRoles (@Nonnull final Class<? extends U> roleType)
+              {
+                return Collections.emptyList();
+              }
+          };
+
+        final var as = new AsDelegate(o -> orf, mock, roles);
         when(mock.as(any(Class.class))).thenCallRealMethod();
         when(mock.maybeAs(any(Class.class))).thenAnswer(i -> as.maybeAs((Class<?>)i.getArguments()[0]));
         when(mock.asMany(any(Class.class))).thenAnswer(i -> as.asMany((Class<?>)i.getArguments()[0]));

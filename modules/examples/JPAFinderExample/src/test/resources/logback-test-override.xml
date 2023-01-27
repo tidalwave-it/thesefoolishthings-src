@@ -1,0 +1,4 @@
+<included>
+    <logger name="org.hibernate" level="INFO"/>
+    <logger name="com.zaxxer.hikari" level="INFO"/>
+</included>

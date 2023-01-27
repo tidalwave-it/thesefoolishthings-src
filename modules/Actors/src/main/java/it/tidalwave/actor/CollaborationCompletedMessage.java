@@ -28,9 +28,9 @@ package it.tidalwave.actor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import it.tidalwave.actor.annotation.Message;
-import org.joda.time.DateTime;
-import org.joda.time.Duration;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -44,7 +44,7 @@ import lombok.ToString;
 @Message @Immutable @EqualsAndHashCode @ToString
 public class CollaborationCompletedMessage extends MessageSupport
   {
-    private final long endTime = System.currentTimeMillis();
+    private final ZonedDateTime endTime = ZonedDateTime.now();
 
     /*******************************************************************************************************************
      *
@@ -78,7 +78,7 @@ public class CollaborationCompletedMessage extends MessageSupport
      *
      ******************************************************************************************************************/
     @Nonnull
-    public DateTime getStartTime()
+    public ZonedDateTime getStartTime()
       {
         return collaboration.getStartTime();
       }
@@ -91,9 +91,9 @@ public class CollaborationCompletedMessage extends MessageSupport
      *
      ******************************************************************************************************************/
     @Nonnull
-    public DateTime getEndTime()
+    public ZonedDateTime getEndTime()
       {
-        return new DateTime(endTime);
+        return endTime;
       }
 
     /*******************************************************************************************************************
@@ -106,6 +106,6 @@ public class CollaborationCompletedMessage extends MessageSupport
     @Nonnull
     public Duration getDuration()
       {
-        return new Duration(getStartTime().getMillis(), endTime);
+        return Duration.between(getStartTime(), endTime);
       }
   }

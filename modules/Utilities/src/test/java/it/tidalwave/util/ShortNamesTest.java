@@ -88,11 +88,11 @@ public class ShortNamesTest
     public void test_shortId_1()
       {
         // given
-        final var object = new String();
+        final var object = "";
         // when
         final var actualValue = ShortNames.shortId(object);
         // then
-        assertThat(actualValue, is(String.format("j.l.String@%x/", System.identityHashCode(object))));
+        assertThat(actualValue, is(String.format("j.l.String@%x", System.identityHashCode(object))));
       }
 
     /******************************************************************************************************************/

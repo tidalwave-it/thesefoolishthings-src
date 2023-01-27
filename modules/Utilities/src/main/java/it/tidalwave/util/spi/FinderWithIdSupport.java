@@ -33,8 +33,8 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import it.tidalwave.util.Finder;
 import it.tidalwave.util.Id;
-import static java.util.Collections.*;
 import lombok.RequiredArgsConstructor;
+import static java.util.Collections.emptyList;
 
 /***********************************************************************************************************************
  *

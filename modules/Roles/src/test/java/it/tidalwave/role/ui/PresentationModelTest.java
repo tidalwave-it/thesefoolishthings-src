@@ -30,8 +30,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import it.tidalwave.util.As;
-import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
-import org.testng.annotations.AfterClass;
+import it.tidalwave.role.spi.SystemRoleFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import static it.tidalwave.util.test.MoreAnswers.CALLS_DEFAULT_METHODS;
@@ -64,20 +63,9 @@ public class PresentationModelTest
     @BeforeClass
     public void setup()
       {
-        OwnerRoleFactoryProvider.set(OwnerRoleFactoryProvider.emptyRoleFactory());
+        SystemRoleFactory.reset();
       }
     // END SNIPPET: setup
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    // START SNIPPET: cleanup
-    @AfterClass
-    public void cleanup()
-      {
-        OwnerRoleFactoryProvider.reset();
-      }
-    // END SNIPPET: cleanup
 
     /*******************************************************************************************************************
      *
