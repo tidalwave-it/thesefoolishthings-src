@@ -28,8 +28,8 @@ package it.tidalwave.actor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import java.time.ZonedDateTime;
 import it.tidalwave.actor.annotation.Message;
-import org.joda.time.DateTime;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -75,7 +75,7 @@ public class CollaborationStartedMessage extends MessageSupport
      *
      ******************************************************************************************************************/
     @Nonnull
-    public DateTime getStartTime()
+    public ZonedDateTime getStartTime()
       {
         return collaboration.getStartTime();
       }

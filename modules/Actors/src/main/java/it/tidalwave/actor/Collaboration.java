@@ -28,9 +28,11 @@ package it.tidalwave.actor;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.time.Duration;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
-import org.joda.time.DateTime;
-import org.joda.time.Duration;
 
 /***********************************************************************************************************************
  *
@@ -67,15 +69,16 @@ public interface Collaboration
           }
 
         @Override @Nonnull
-        public DateTime getStartTime()
+        public ZonedDateTime getStartTime()
           {
-            return new DateTime(0);
+            return ZonedDateTime.of(
+                    0, 0, 0, 0, 0, 0, 0, ZoneId.systemDefault());
           }
 
         @Override @Nonnull
         public Duration getDuration()
           {
-            return new Duration(0);
+            return Duration.of(0, ChronoUnit.SECONDS);
           }
 
         @Override
@@ -164,7 +167,7 @@ public interface Collaboration
      *
      ******************************************************************************************************************/
     public void waitForCompletion()
-      throws InterruptedException;
+            throws InterruptedException;
 
     /*******************************************************************************************************************
      *
@@ -174,7 +177,7 @@ public interface Collaboration
      *
      ******************************************************************************************************************/
     @Nonnull
-    public DateTime getStartTime();
+    public ZonedDateTime getStartTime();
 
     /*******************************************************************************************************************
      *

@@ -28,6 +28,8 @@ package it.tidalwave.actor.impl;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -36,8 +38,6 @@ import it.tidalwave.actor.Collaboration;
 import it.tidalwave.actor.CollaborationCompletedMessage;
 import it.tidalwave.actor.CollaborationStartedMessage;
 import it.tidalwave.actor.annotation.Message;
-import org.joda.time.DateTime;
-import org.joda.time.Duration;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -108,7 +108,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
     @Nonnull @Getter
     private final Object originatingMessage;
 
-    private final long startTime = System.currentTimeMillis();
+    private final ZonedDateTime startTime = ZonedDateTime.now();
 
     @Getter
     private boolean completed;
@@ -173,9 +173,9 @@ public class DefaultCollaboration implements Serializable, Collaboration
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public DateTime getStartTime()
+    public ZonedDateTime getStartTime()
       {
-        return new DateTime(startTime);
+        return startTime;
       }
 
     /*******************************************************************************************************************
@@ -186,7 +186,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
     @Override @Nonnull
     public Duration getDuration()
       {
-        return new Duration(startTime, System.currentTimeMillis());
+        return Duration.between(startTime, ZonedDateTime.now());
       }
 
     /*******************************************************************************************************************
