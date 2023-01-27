@@ -73,12 +73,11 @@ public class Main
             final var p4 = registry.findPerson().sort(BY_LAST_NAME, DESCENDING).results();
             log.info("******** All, sorted by last name, descending: {}", p4);
 
-            final var p5 =
-                    Person.prototype().as(_Findable_of_Person_).find()
-                          .sort(BY_LAST_NAME, DESCENDING)
-                          .from(2)
-                          .max(3)
-                          .results();
+            final var p5 = Person.prototype().as(_Findable_of_Person_).find()
+                                 .sort(BY_LAST_NAME, DESCENDING)
+                                 .from(2)
+                                 .max(3)
+                                 .results();
             log.info("******** Three persons from the 2nd position, with Person.as(): {}", p5);
           }
       }

@@ -77,12 +77,13 @@ public final class MockAsFactory
     public static <T extends As> T mockWithAs (@Nonnull final Class<T> clazz, @Nonnull final Collection<Object> roles)
       {
         final var mock = mock(clazz);
-        final var orf = new OwnerRoleFactory() {
-          public <T> Collection<T> findRoles (@Nonnull final Class<? extends T> roleType)
-            {
-              return Collections.emptyList();
-            }
-        };
+        final var orf = new OwnerRoleFactory()
+          {
+            public <U> Collection<U> findRoles (@Nonnull final Class<? extends U> roleType)
+              {
+                return Collections.emptyList();
+              }
+          };
 
         final var as = new AsDelegate(o -> orf, mock, roles);
         when(mock.as(any(Class.class))).thenCallRealMethod();
