@@ -26,7 +26,6 @@
  */
 package it.tidalwave.util;
 
-import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;

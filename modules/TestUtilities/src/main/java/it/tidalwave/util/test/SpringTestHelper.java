@@ -33,11 +33,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.StandardEnvironment;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
 import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
@@ -102,7 +102,7 @@ public class SpringTestHelper extends BaseTestHelper
      *
      ******************************************************************************************************************/
     @Nonnull
-    public ApplicationContext createSpringContext (@Nonnull final Consumer<GenericApplicationContext> modifier,
+    public ApplicationContext createSpringContext (@Nonnull final Consumer<? super GenericApplicationContext> modifier,
                                                    @Nonnull final String ... configurationFiles)
       {
         return createSpringContext(Collections.emptyMap(), modifier, configurationFiles);

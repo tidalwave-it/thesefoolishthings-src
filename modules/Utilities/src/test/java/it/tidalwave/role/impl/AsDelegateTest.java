@@ -56,7 +56,7 @@ public class AsDelegateTest
         private final Collection<Object> roles;
 
         @Override @Nonnull
-        public <T> List<T> findRoles (@Nonnull Object owner, @Nonnull Class<? extends T> roleType)
+        public <T> List<T> findRoles (@Nonnull final Object owner, @Nonnull final Class<? extends T> roleType)
           {
             final var result = new ArrayList<T>();
 

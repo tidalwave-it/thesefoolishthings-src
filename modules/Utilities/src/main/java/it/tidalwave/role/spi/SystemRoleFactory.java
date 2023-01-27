@@ -29,7 +29,7 @@ package it.tidalwave.role.spi;
 import javax.annotation.Nonnull;
 import java.util.List;
 import it.tidalwave.util.LazySupplier;
-import static it.tidalwave.role.impl.ServiceLoaderLocator.*;
+import static it.tidalwave.role.impl.ServiceLoaderLocator.lazySupplierOf;
 
 /***********************************************************************************************************************
  *

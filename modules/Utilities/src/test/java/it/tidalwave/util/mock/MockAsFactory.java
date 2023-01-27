@@ -78,7 +78,7 @@ public final class MockAsFactory
       {
         final var mock = mock(clazz);
         final var orf = new OwnerRoleFactory() {
-          public <T> Collection<T> findRoles (@Nonnull Class<? extends T> roleType)
+          public <T> Collection<T> findRoles (@Nonnull final Class<? extends T> roleType)
             {
               return Collections.emptyList();
             }

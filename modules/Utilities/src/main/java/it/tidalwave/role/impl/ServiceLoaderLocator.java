@@ -31,7 +31,6 @@ import java.util.ServiceLoader;
 import java.util.Spliterators;
 import java.util.stream.StreamSupport;
 import it.tidalwave.util.LazySupplier;
-import it.tidalwave.util.PreferencesHandler;
 import it.tidalwave.role.spi.annotation.DefaultProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

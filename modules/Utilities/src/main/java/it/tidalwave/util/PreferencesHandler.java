@@ -27,8 +27,8 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
-import java.nio.file.Path;
 import java.util.Optional;
+import java.nio.file.Path;
 import static it.tidalwave.role.impl.ServiceLoaderLocator.lazySupplierOf;
 
 /***********************************************************************************************************************
@@ -108,7 +108,6 @@ public interface PreferencesHandler
      * @param <T>     the property type
      * @param name    the property name
      * @param value   the property value
-     * @return        the property value
      *
      ******************************************************************************************************************/
     public <T> void setProperty (@Nonnull final Key<T> name, @Nonnull final T value);
@@ -120,7 +119,6 @@ public interface PreferencesHandler
      * @param <T>     the property type
      * @param name    the property name
      * @param value   the property value
-     * @return        the property value
      *
      ******************************************************************************************************************/
     public <T> void setDefaultProperty (@Nonnull final Key<T> name, @Nonnull final T value);

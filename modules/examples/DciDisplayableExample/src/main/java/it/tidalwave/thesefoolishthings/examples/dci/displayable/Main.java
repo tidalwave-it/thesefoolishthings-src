@@ -27,11 +27,10 @@
 package it.tidalwave.thesefoolishthings.examples.dci.displayable;
 
 import javax.annotation.Nonnull;
-
-import it.tidalwave.role.spring.RoleSpringConfiguration;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import it.tidalwave.role.spring.RoleSpringConfiguration;
 
 /***********************************************************************************************************************
  *

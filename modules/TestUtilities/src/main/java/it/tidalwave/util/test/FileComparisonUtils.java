@@ -31,11 +31,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -43,12 +43,12 @@ import com.github.difflib.DiffUtils;
 import com.github.difflib.patch.AbstractDelta;
 import com.github.difflib.text.DiffRowGenerator;
 import it.tidalwave.util.Pair;
-import lombok.extern.slf4j.Slf4j;
 import lombok.experimental.UtilityClass;
-import static java.util.stream.Collectors.toList;
-import static java.nio.charset.StandardCharsets.*;
+import lombok.extern.slf4j.Slf4j;
+import static java.util.stream.Collectors.*;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static it.tidalwave.util.Pair.indexedPairStream;
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 /***********************************************************************************************************************
  *
