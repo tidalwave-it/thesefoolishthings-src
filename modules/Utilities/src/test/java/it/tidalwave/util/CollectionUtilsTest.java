@@ -73,7 +73,7 @@ public class CollectionUtilsTest
         final var l2 = IntStream.rangeClosed(6, 10).boxed().collect(toList());
         final var l3 = IntStream.rangeClosed(11, 20).boxed().collect(toList());
         // when
-        final var actual = concat(l1, l2, l3);
+        final var actual = concatAll(l1, l2, l3);
         // then
         final var expected = IntStream.rangeClosed(1, 20).boxed().collect(toList());
         assertThat(expected, is(actual));
