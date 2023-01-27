@@ -30,7 +30,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import it.tidalwave.util.LazySupplier;
-import lombok.RequiredArgsConstructor;
 import static it.tidalwave.role.impl.ServiceLoaderLocator.lazySupplierOf;
 
 /***********************************************************************************************************************
@@ -86,7 +85,7 @@ public interface OwnerRoleFactoryProvider
      ******************************************************************************************************************/
     public static void set (@Nonnull final OwnerRoleFactory ownerRoleFactory)
       {
-        Inner.PROVIDER_REF.set(new SimpleOwnerRoleFactoryProvider(ownerRoleFactory));
+        Inner.PROVIDER_REF.set(__ -> ownerRoleFactory);
       }
 
     /*******************************************************************************************************************
@@ -114,22 +113,6 @@ public interface OwnerRoleFactoryProvider
     public static OwnerRoleFactory emptyRoleFactory()
       {
         return Inner.EMPTY_REF.get();
-      }
-
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
-    @RequiredArgsConstructor
-    static class SimpleOwnerRoleFactoryProvider implements OwnerRoleFactoryProvider
-      {
-        @Nonnull
-        private final OwnerRoleFactory ownerRoleFactory;
-
-        @Override @Nonnull
-        public OwnerRoleFactory createRoleFactory (@Nonnull final Object owner)
-          {
-            return ownerRoleFactory;
-          }
       }
 
     /*******************************************************************************************************************

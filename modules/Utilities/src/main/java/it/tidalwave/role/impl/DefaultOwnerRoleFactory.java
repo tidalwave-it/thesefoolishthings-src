@@ -54,17 +54,6 @@ class DefaultOwnerRoleFactory implements OwnerRoleFactory
 
     /*******************************************************************************************************************
      *
-     * Constructor for use with subclassing.
-     *
-     ******************************************************************************************************************/
-    public DefaultOwnerRoleFactory()
-      {
-        this.owner = this;
-        contextSnapshot = new ContextSnapshot(this);
-      }
-
-    /*******************************************************************************************************************
-     *
      * Constructor for use with composition.
      *
      * @param  owner  the owner object
