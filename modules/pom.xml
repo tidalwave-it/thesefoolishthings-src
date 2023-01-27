@@ -48,10 +48,15 @@
     </description>
 
     <properties>
-        <java-diff-utils.version>4.9</java-diff-utils.version>
-        <joda-time.version>1.6.2</joda-time.version>
-        <tft.spring.version>4.3.30.RELEASE</tft.spring.version>
-        <uuid.version>2.1.5</uuid.version>
+        <!-- TODO: push tu SuperPOM -->
+        <java-diff-utils.version>4.12</java-diff-utils.version>
+        <tft.aspectjrt.version>1.9.19</tft.aspectjrt.version>
+        <tft.logback.version>1.4.5</tft.logback.version>
+        <tft.lombok.version>1.18.24</tft.lombok.version>
+        <tft.mockito.version>4.8.1</tft.mockito.version>
+        <tft.slf4j.version>2.0.6</tft.slf4j.version>
+        <tft.spring.version>5.3.24</tft.spring.version>
+        <tft.testng.version>7.7.1</tft.testng.version>
     </properties>
 
     <dependencyManagement>

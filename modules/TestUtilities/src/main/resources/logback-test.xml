@@ -49,6 +49,7 @@
     </root>
 
     <logger name="org.springframework" level="INFO"/>
+    <logger name="org.testng" level="INFO"/>
 
     <include file="target/test-classes/logback-test-override.xml" optional="true" />
     <include file="${tft.test.logConfig}" optional="true" />

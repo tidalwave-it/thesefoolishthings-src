@@ -30,8 +30,8 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.io.Serializable;
-import com.eaio.uuid.UUID;
 import it.tidalwave.actor.Collaboration;
 import it.tidalwave.actor.CollaborationCompletedMessage;
 import it.tidalwave.actor.CollaborationStartedMessage;
@@ -103,7 +103,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
 
     private static final ThreadLocal<DefaultCollaboration> THREAD_LOCAL = new ThreadLocal<>();
 
-    private final UUID id = new UUID();
+    private final UUID id = UUID.randomUUID();
 
     @Nonnull @Getter
     private final Object originatingMessage;
@@ -276,7 +276,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
     @Override
     public synchronized Object suspend()
       {
-        final Object suspensionToken = new UUID();
+        final Object suspensionToken = UUID.randomUUID();
         suspensionTokens.add(suspensionToken);
         return suspensionToken;
       }

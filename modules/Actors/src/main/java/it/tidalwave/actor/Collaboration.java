@@ -28,7 +28,7 @@ package it.tidalwave.actor;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import com.eaio.uuid.UUID;
+import java.util.UUID;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
@@ -81,7 +81,7 @@ public interface Collaboration
         @Override
         public Object suspend()
           {
-            return new UUID();
+            return UUID.randomUUID();
           }
 
         @Override
