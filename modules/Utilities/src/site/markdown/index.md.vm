@@ -987,10 +987,6 @@ of tests), providing an empty provider or a mock:
 
 <!-- MACRO{snippet|id=setup|file=${project.basedir}/../../modules/Roles/src/test/java/it/tidalwave/role/ui/PresentationModelTest.java} -->
 
-Another method should be called to clean things up after tests have terminated:
-
-<!-- MACRO{snippet|id=cleanup|file=${project.basedir}/../../modules/Roles/src/test/java/it/tidalwave/role/ui/PresentationModelTest.java} -->
-
 
 #[[####]]# With Spring
 

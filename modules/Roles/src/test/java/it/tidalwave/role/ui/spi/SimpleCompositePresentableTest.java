@@ -35,9 +35,9 @@ import java.util.Optional;
 import it.tidalwave.util.As;
 import it.tidalwave.util.Id;
 import it.tidalwave.util.RoleFactory;
-import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
 import it.tidalwave.role.Identifiable;
 import it.tidalwave.role.SimpleComposite;
+import it.tidalwave.role.spi.SystemRoleFactory;
 import it.tidalwave.role.ui.PresentationModel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -152,8 +152,7 @@ public class SimpleCompositePresentableTest
     @BeforeMethod
     public void setup()
       {
-        OwnerRoleFactoryProvider.set(OwnerRoleFactoryProvider.emptyRoleFactory());
-        // ContextManager.set(new DefaultContextManagerProvider());
+        SystemRoleFactory.reset();
       }
 
     /*******************************************************************************************************************
