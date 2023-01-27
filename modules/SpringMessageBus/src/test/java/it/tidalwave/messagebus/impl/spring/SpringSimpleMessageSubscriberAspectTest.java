@@ -79,7 +79,7 @@ public class SpringSimpleMessageSubscriberAspectTest
         reset(applicationMessageBus);
         reset(otherMessageBus);
         // when
-        assertThat(subscriber1, is(instanceOf(InitializingBean.class)));
+        assertThat("AspectJ didn't enhance object", subscriber1, is(instanceOf(InitializingBean.class)));
         ((InitializingBean)subscriber1).afterPropertiesSet();
         // then
         verify(applicationMessageBus).subscribe(eq(MockEvent1.class), argThat(listenerAdapter()
