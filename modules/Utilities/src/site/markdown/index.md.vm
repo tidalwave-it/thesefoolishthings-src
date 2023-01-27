@@ -435,7 +435,6 @@ ok for mocks or simple cases. The implementation of our example is:
 <!-- MACRO{snippet|id=computeResults|file=${project.basedir}/../../modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/PersonFinderImpl2a.java} -->
 
 
-
 #[[###]]# Comparison with Java 8 ```Stream```
 
 A first look at ```Finder```, in particular the presence of *intermediate* and *termination* methods, sure recalls a similarity with Java 8
@@ -467,6 +466,16 @@ This explains why ```Finder``` doesn't offer methods such as ```filter(Predicate
 how to prepare a query for a generic data source. Such a method would be only useful to post-process data once they have been loaded in memory, but it's more
 effective to pass the results to a ```Stream``` and use the standard Java API.
 
+
+#[[###]]# Available examples
+
+|-----------------------|---------------------------------------------------------------------------------------------------|
+| InMemoryFinderExample | A simple in-memory `Finder` example.                                                              |
+| ExtendedFinderExample | An extended finder with two custom methods and some examples of interaction with `Stream`s        |
+| JPAFinderExample      | A data source `Finder` that runs with JPA (Hibernate). This example also uses `As` (see below).   |
+
+
+---
 
 #[[##]]# As
 
@@ -1013,6 +1022,16 @@ With Spring roles can specify additional parameters in their constructor: the ru
 
 > PENDING: Injection qualifiers are not supported yet.
 
+
+#[[###]]# Available examples
+
+|--------------------------|---------------------------------------------------------------------------|------------|
+| JPAFinderExample         | While the main focus of this example is a `Finder`, DCI is used to inject persistence-related roles. It also demonstrates a a custom `SystemRoleFactoryProvider`. | Standalone, with Lombok `ExtensionMethod` |
+| DciDisplayableExample    | A very simple DCI example.                                                | Spring     |
+| DciMarshalXStreamExample | DCI used to persist entities with Xstream.                                | Spring     |
+| DciPersistenceJpaExample | DCI used to persist entities with JPA/Hibernate.                          | SpringBoot |
+| DciSwingExample          | A little demonstration of DCI with a User Interface (Swing).              | Spring     |
+
 ---
 
 
@@ -1028,5 +1047,5 @@ all the values instead of replacing the previous one.
 
 <!-- MACRO{snippet|id=TypeSafeMultiMap|file=${project.basedir}/src/test/java/it/tidalwave/util/TypeSafeMultiMapTest.java} -->
 
-Find more information in [the JavaDoc for TypeSafeMap](modules/it-tidalwave-util/apidocs/it/tidalwave/util/impl/TypeSafeMap.html) and
-[TypeSafeMultiMap](modules/it-tidalwave-util/apidocs/it/tidalwave/util/impl/TypeSafeMultiMap.html).
+Find more information in [the JavaDoc for TypeSafeMap](apidocs/it/tidalwave/util/TypeSafeMap.html) and
+[TypeSafeMultiMap](apidocs/it/tidalwave/util/TypeSafeMultiMap.html).

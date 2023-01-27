@@ -112,7 +112,7 @@ Find more information in [the documentation for module MessageBus](modules/it-ti
 
 >PENDING INTRODUCTION AND EXAMPLE
 
-Find more information in [the documentation for module MessageBus](modules/it-actor-messagebus/index.html).
+Find more information in [the documentation for module Actors](modules/it-tidalwave-actor/index.html).
 
 
 #[[###]]# Type-safe maps
@@ -127,8 +127,7 @@ all the values instead of replacing the previous one.
 
 <!-- MACRO{snippet|id=TypeSafeMultiMap|file=${project.basedir}/modules/Utilities//src/test/java/it/tidalwave/util/TypeSafeMultiMapTest.java} -->
 
-Find more information in [the JavaDoc for TypeSafeMap](modules/it-tidalwave-util/apidocs/it/tidalwave/util/TypeSafeMap.html) and
-[TypeSafeMultiMap](modules/it-tidalwave-util/apidocs/it/tidalwave/util/TypeSafeMultiMap.html).
+Find more information in [the documentation for module Utilities](modules/it-tidalwave-util/index.html).
 
 
 #[[##]]# Modules
