@@ -202,6 +202,21 @@ public interface Finder<T> extends Cloneable, Serializable
 
     /*******************************************************************************************************************
      *
+     * Tells the {@code Finder} that only a subset of found items will be returned, starting from the given position.
+     *
+     * @param   firstResult    the index of the first result to return
+     * @return                 the {@code Finder}
+     * @since   3.2-ALPHA-19
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public default Finder<T> from (@Nonnull final Optional<Integer> firstResult)
+      {
+        return firstResult.map(this::from).orElse(this);
+      }
+
+    /*******************************************************************************************************************
+     *
      * Tells the {@code Finder} that only a maximum number of found items will be returned.
      *
      * @param   maxResults    the max number of results to return
@@ -212,6 +227,21 @@ public interface Finder<T> extends Cloneable, Serializable
     @Nonnull
     public Finder<T> max (@Nonnegative int maxResults);
     // END SNIPPET: max
+
+    /*******************************************************************************************************************
+     *
+     * Tells the {@code Finder} that only a maximum number of found items will be returned.
+     *
+     * @param   maxResults    the max number of results to return
+     * @return                the {@code Finder}
+     * @since   3.2-ALPHA-19
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public default Finder<T> max (@Nonnull final Optional<Integer> maxResults)
+      {
+        return maxResults.map(this::max).orElse(this);
+      }
 
     /*******************************************************************************************************************
      *
