@@ -30,11 +30,13 @@ import javax.annotation.Nonnull;
 import java.util.ServiceLoader;
 import java.util.Spliterators;
 import java.util.stream.StreamSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import it.tidalwave.util.LazySupplier;
+import it.tidalwave.util.PreferencesHandler;
 import it.tidalwave.role.spi.annotation.DefaultProvider;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import static java.util.stream.Collectors.*;
 
 /***********************************************************************************************************************
@@ -42,10 +44,10 @@ import static java.util.stream.Collectors.*;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Slf4j @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+// PreferencesHandler can be used to programmatically set the log folder, so don't inject logger
 public class ServiceLoaderLocator
   {
-
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
@@ -65,7 +67,7 @@ public class ServiceLoaderLocator
 
         if (providers.size() > 1) // filter out the default one
           {
-            log.info("Too many instances of {}, ignoring default providers ...", serviceClassName);
+            getLogger().info("Too many instances of {}, ignoring default providers ...", serviceClassName);
             providers = providers.stream()
                                  .filter(p -> p.getClass().getAnnotation(DefaultProvider.class) == null)
                                  .collect(toList());
@@ -77,7 +79,17 @@ public class ServiceLoaderLocator
           }
 
         final var provider = providers.get(0);
-        log.info("{} instantiated from META-INF/services: {}", serviceClassName, provider);
+        
+        // PreferencesHandler can be used to programmatically set the log folder, so don't log yet
+        if (serviceClass.equals(PreferencesHandler.class))
+          {
+            System.out.printf("%s instantiated from META-INF/services: %s\n", serviceClassName, provider);
+          }
+        else
+          {
+            getLogger().info("{} instantiated from META-INF/services: {}", serviceClassName, provider);
+          }
+        
         return provider;
       }
 
@@ -85,5 +97,11 @@ public class ServiceLoaderLocator
     public static <T> LazySupplier<T> lazySupplierOf (@Nonnull final Class<? extends T> clazz)
       {
         return LazySupplier.of(() -> ServiceLoaderLocator.findService(clazz));
+      }
+
+    @Nonnull
+    private static Logger getLogger()
+      {
+        return LoggerFactory.getLogger(ServiceLoaderLocator.class);
       }
   }
