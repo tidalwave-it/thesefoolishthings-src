@@ -33,13 +33,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings</artifactId>
-        <version>3.2-ALPHA-19-SNAPSHOT</version>
+        <version>3.2-ALPHA-20-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>project-archetype</artifactId>
-    <version>3.2-ALPHA-19-SNAPSHOT</version>
+    <version>3.2-ALPHA-20-SNAPSHOT</version>
     <packaging>maven-archetype</packaging>
     <name>TheseFoolishThings :: Project Archetype</name>
     <description>TheseFoolishThings - Project Archetype</description>
