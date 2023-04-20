@@ -59,11 +59,32 @@ public final class StreamUtils
      *
      * @param   streamA     the first {@link Stream}
      * @param   streamB     the second {@link Stream}
+     * @param   <A>         the type of elements of the first {@link Stream}
+     * @param   <B>         the type of elements of the second {@link Stream}
+     * @return              the zipped {@link Stream} of {@link Pair}s
+     * @see     #zip(Stream, Stream, BiFunction)
+     * @since   3.2-ALPHA-20
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static <A, B> Stream<Pair<A, B>> zip (@Nonnull final Stream<? extends A> streamA,
+                                                 @Nonnull final Stream<? extends B> streamB)
+      {
+        return zip(streamA, streamB, Pair::of);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Zips two streams.
+     *
+     * @param   streamA     the first {@link Stream}
+     * @param   streamB     the second {@link Stream}
      * @param   zipper      the zipping function
      * @param   <A>         the type of elements of the first {@link Stream}
      * @param   <B>         the type of elements of the second {@link Stream}
      * @param   <R>         the type of elements of the zipped {@link Stream}
      * @return              the zipped {@link Stream}
+     * @see     #zip(Stream, Stream)
      * @since   3.2-ALPHA-12
      *
      ******************************************************************************************************************/
