@@ -39,14 +39,14 @@ import it.tidalwave.util.Key;
 import it.tidalwave.util.PreferencesHandler;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor @Slf4j
+@RequiredArgsConstructor
+// PreferencesHandler can be used to programmatically set the log folder, so don't inject logger
 public class DefaultPreferencesHandler implements PreferencesHandler
   {
     @Getter
@@ -89,8 +89,9 @@ public class DefaultPreferencesHandler implements PreferencesHandler
             appFolder = Paths.get(String.format(pattern, home, appName)).toAbsolutePath();
             logFolder = appFolder.resolve("logs").toAbsolutePath();
             Files.createDirectories(logFolder);
-            log.info("App folder: {}", appFolder);
-            log.info("Logging folder: {}", logFolder);
+            // PreferencesHandler can be used to programmatically set the log folder, so don't log yet
+            System.out.printf("App folder: %s\n", appFolder);
+            System.out.printf("Logging folder: %s\n", logFolder);
           }
         catch (IOException e)
           {

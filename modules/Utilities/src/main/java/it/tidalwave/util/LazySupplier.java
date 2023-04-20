@@ -31,6 +31,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import java.util.function.Supplier;
 import it.tidalwave.util.annotation.VisibleForTesting;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 /***********************************************************************************************************************
  *
@@ -41,7 +42,7 @@ import lombok.RequiredArgsConstructor;
  * @since   3.2-ALPHA-13
  *
  **********************************************************************************************************************/
-@ThreadSafe @RequiredArgsConstructor(staticName = "of")
+@ThreadSafe @RequiredArgsConstructor(staticName = "of") @ToString(of = "ref")
 public class LazySupplier<T> implements Supplier<T>
   {
     @Nonnull

@@ -200,20 +200,4 @@ public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
       {
         return new TypeSafeHashMap(map);
       }
-
-    /** @deprecated Use {@link #keySet()} instead.
-     * @return - */
-    @Nonnull @Deprecated
-    public default Set<Key<?>> getKeys()
-      {
-        return keySet();
-      }
-
-    /** @deprecated Use {@link #size()} instead.
-     * @return - */
-    @Deprecated
-    public default int getSize()
-      {
-        return size();
-      }
   }

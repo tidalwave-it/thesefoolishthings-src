@@ -171,20 +171,4 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
       {
         return new TypeSafeHashMultiMap(Collections.emptyMap());
       }
-
-    /** @deprecated Use {@link #keySet()} instead.
-     * @return - */
-    @Nonnull @Deprecated
-    public default Set<Key<?>> getKeys()
-      {
-        return keySet();
-      }
-
-    /** @deprecated Use {@link #size()} instead.
-     * @return - */
-    @Deprecated
-    public default int getSize()
-      {
-        return size();
-      }
   }

@@ -27,6 +27,7 @@
 package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
+import java.util.concurrent.atomic.AtomicInteger;
 import it.tidalwave.util.Id;
 
 /***********************************************************************************************************************
@@ -39,9 +40,24 @@ import it.tidalwave.util.Id;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
+@FunctionalInterface
 public interface IdFactory
   {
     public static final Class<IdFactory> _IdFactory_ = IdFactory.class;
+
+    /** A default implementation that uses UUID.
+     *  @since 3.2-ALPHA-19 */
+    public static final IdFactory DEFAULT = Id::ofUuid;
+
+    /** A mock implementation, useful for testing, that returns mock UUIDs based on a sequential counter.
+     *  @since 3.2-ALPHA-19 */
+    public static final IdFactory MOCK = () ->
+            Id.of(String.format("%08x-0000-0000-0000-000000000000", Private.SEQUENCE.getAndIncrement()));
+
+    static class Private
+      {
+        private static final AtomicInteger SEQUENCE = new AtomicInteger(0);
+      }
 
     /*******************************************************************************************************************
      *
@@ -62,7 +78,10 @@ public interface IdFactory
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Id createId (@Nonnull Class<?> objectClass);
+    public default Id createId (@Nonnull Class<?> objectClass)
+      {
+        return createId();
+      }
 
     /*******************************************************************************************************************
      *
@@ -75,5 +94,8 @@ public interface IdFactory
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Id createId (@Nonnull Class<?> objectClass, @Nonnull Object object);
+    public default Id createId (@Nonnull Class<?> objectClass, @Nonnull Object object)
+      {
+        return createId(objectClass);
+      }
   }

@@ -30,7 +30,6 @@ import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -62,9 +61,9 @@ public class ReflectionUtilsTest
     @Getter
     static class WithAnnotation
       {
-        @Inject private Bean1 bean1;
-        @Inject private Bean2 bean2;
-        @Inject private Bean3 bean3;
+        @javax.inject.Inject private Bean1 bean1;
+        @javax.inject.Inject private Bean2 bean2;
+        @jakarta.inject.Inject private Bean3 bean3;
       }
 
     /******************************************************************************************************************/

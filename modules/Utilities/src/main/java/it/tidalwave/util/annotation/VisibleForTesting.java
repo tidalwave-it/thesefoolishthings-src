@@ -42,7 +42,7 @@ import static java.lang.annotation.ElementType.*;
  * @it.tidalwave.javadoc.stable
  *
  **********************************************************************************************************************/
-@Retention(RetentionPolicy.SOURCE) @Documented @Target({TYPE, FIELD, METHOD})
+@Retention(RetentionPolicy.SOURCE) @Documented @Target({TYPE, FIELD, METHOD, CONSTRUCTOR})
 public @interface VisibleForTesting
   {
   }
