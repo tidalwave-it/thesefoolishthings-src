@@ -34,7 +34,6 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -174,7 +173,8 @@ public class ReflectionUtils
       {
         for (final var field : object.getClass().getDeclaredFields())
           {
-            if (field.getAnnotation(Inject.class) != null)
+            if (field.getAnnotation(javax.inject.Inject.class) != null
+                || field.getAnnotation(jakarta.inject.Inject.class) != null)
               {
                 field.setAccessible(true);
                 final var type = field.getType();
