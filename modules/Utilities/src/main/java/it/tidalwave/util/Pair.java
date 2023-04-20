@@ -456,7 +456,7 @@ public class Pair<A, B>
     public static <A, B> Stream<Pair<A, B>> zip (@Nonnull final Stream<? extends A> streamA,
                                                  @Nonnull final Stream<? extends B> streamB)
       {
-        return StreamUtils.zip(streamA, streamB, Pair::of);
+        return StreamUtils.zip(streamA, streamB);
       }
 
     @NotThreadSafe

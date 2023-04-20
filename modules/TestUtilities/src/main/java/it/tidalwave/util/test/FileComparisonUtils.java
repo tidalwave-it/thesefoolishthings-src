@@ -48,7 +48,6 @@ import lombok.extern.slf4j.Slf4j;
 import static java.util.stream.Collectors.*;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static it.tidalwave.util.Pair.indexedPairStream;
-import static org.junit.Assert.fail;
 
 /***********************************************************************************************************************
  *
@@ -273,7 +272,7 @@ public class FileComparisonUtils
 
         if (!diff.isEmpty())
           {
-            fail(String.join(System.lineSeparator(), diff));
+            throw new AssertionError(String.join(System.lineSeparator(), diff));
           }
       }
 

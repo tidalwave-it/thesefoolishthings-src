@@ -34,7 +34,7 @@
     <parent>
         <groupId>it.tidalwave.superpom</groupId>
         <artifactId>superpom</artifactId>
-        <version>5.0-ALPHA-15</version>
+        <version>5.0-ALPHA-16</version>
         <relativePath />
     </parent>
 
@@ -78,8 +78,6 @@ Maschwitz and Strachey.
         <tidalwave.issues>TFT</tidalwave.issues>
         <tidalwave.github.readonly.url>https://github.com/tidalwave-it/thesefoolishthings-src</tidalwave.github.readonly.url>
         <tidalwave.github.browse.url>https://github.com/tidalwave-it/thesefoolishthings-src</tidalwave.github.browse.url>
-
-        <tft.maven-javadoc-plugin.version>3.4.1</tft.maven-javadoc-plugin.version>
     </properties>
 
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
