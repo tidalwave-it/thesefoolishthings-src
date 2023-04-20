@@ -27,6 +27,11 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.util.Random;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.function.BiFunction;
@@ -92,5 +97,27 @@ public final class StreamUtils
           parallel)
           .onClose(streamA::close)
           .onClose(streamB::close);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns a {@code Stream} of random {@link LocalDateTime}s, in the given range.
+     *
+     * @param   seed      the random seed
+     * @param   from      the lower bound of the range (included)
+     * @param   to        the upper bound of the range (excluded)
+     * @return            the stream
+     * @since   3.2-ALPHA-19
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static Stream<LocalDateTime> randomLocalDateTimeStream (final long seed,
+                                                                   @Nonnull final LocalDateTime from,
+                                                                   @Nonnull final LocalDateTime to)
+      {
+        final var zo = ZoneOffset.UTC;
+        return new Random(seed)
+                .longs(from.toEpochSecond(zo), to.toEpochSecond(zo))
+                .mapToObj(l -> LocalDateTime.ofInstant(Instant.ofEpochSecond(l), ZoneId.of(zo.getId())));
       }
   }

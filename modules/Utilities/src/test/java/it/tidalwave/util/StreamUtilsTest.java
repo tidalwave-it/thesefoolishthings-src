@@ -28,8 +28,11 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.*;
@@ -54,6 +57,48 @@ public class StreamUtilsTest
                                                           "2 - string-c",
                                                           "3 - string-d",
                                                           "4 - string-e")));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Test(dataProvider = "randomLocalDateTimeStreamData")
+    public void test_randomLocalDateTimeStream (final long seed,
+                                                @Nonnull final LocalDateTime from,
+                                                @Nonnull final LocalDateTime to,
+                                                @Nonnull final List<LocalDateTime> expectedResult)
+      {
+        // when
+        final var underTest = StreamUtils.randomLocalDateTimeStream(seed, from, to);
+        // then
+        assertThat(underTest.limit(expectedResult.size()).collect(toList()), is(expectedResult));
+      }
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @DataProvider
+    private static Object[][] randomLocalDateTimeStreamData()
+      {
+        return new Object[][]
+          {
+            { 7,
+              LocalDateTime.of(2022, 1, 1, 0, 0),
+              LocalDateTime.of(2023, 1, 12, 0, 0),
+              List.of(LocalDateTime.of(2022, 10, 26, 17, 17),
+                      LocalDateTime.of(2022, 7, 3, 12, 10, 4),
+                      LocalDateTime.of(2022, 6, 22, 16, 26, 22))
+            },
+            { 5,
+              LocalDateTime.of(1970, 1, 1, 0, 0),
+              LocalDateTime.of(2000, 1, 12, 0, 0),
+              List.of(LocalDateTime.of(1986, 2, 28, 15, 41, 32),
+                      LocalDateTime.of(1974, 3, 21, 2, 1, 20),
+                      LocalDateTime.of(1995, 4, 18, 20, 49, 41),
+                      LocalDateTime.of(1979, 12, 18, 15, 37, 7),
+                      LocalDateTime.of(1971, 10, 11, 20, 3, 53))
+            }
+          };
       }
 
     /*******************************************************************************************************************
