@@ -6,10 +6,11 @@
 TheseFoolishThings
 ================================
 
-This project is a collection of miscellaneous tools shared by a number of projects of the same author. There are **simple tuples** to use with
-Java Streams, **type-safe maps** (following advice of Joshua Bloch), a **finder** that handles in a smart way queries to data sources, a facility to use the
-**DCI (Data, Context and Interactions) architectural pattern**, a simple **message bus** suitable for using the pub-sub pattern inside an application, some
-**test utilities**, an **experimental actor framework** and a few other small things.
+This project is a collection of miscellaneous tools shared by a number of projects of the same author. There are **simple tuples** to use with Java Streams,
+**type-safe maps** ([inspired by the heterogeneous map pattern](https://www.informit.com/articles/article.aspx?p=2861454&seqNum=8)) described in Effective Java
+by Joshua Bloch, a **finder** that handles in a smart way queries to data sources, a facility to use  the **DCI (Data, Context and Interactions) architectural
+pattern**, a simple **message bus** suitable for using the pub-sub pattern inside an application, some **test utilities**, an **experimental actor framework**
+and a few other small things.
 
 Yes, the project name is a tribute to the [jazz standard with the same name](https://en.wikipedia.org/wiki/These_Foolish_Things_(Remind_Me_of_You)) by
 Maschwitz and Strachey.
@@ -17,7 +18,7 @@ Maschwitz and Strachey.
 TheseFoolishThings requires and is tested with JDKs in this range: [11, 17].
 It is released under the [Apache Licence v2](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
-Please have a look at the [project website](https://tidalwave.bitbucket.io/thesefoolishthings/) for a quick introduction with samples, tutorials, JavaDocs and build reports.
+Please have a look at the [project website](${project.url/${project.version}) for a quick introduction with samples, tutorials, JavaDocs and build reports.
 
 
 Bootstrapping
