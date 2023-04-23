@@ -90,8 +90,11 @@ public class DefaultPreferencesHandler implements PreferencesHandler
             logFolder = appFolder.resolve("logs").toAbsolutePath();
             Files.createDirectories(logFolder);
             // PreferencesHandler can be used to programmatically set the log folder, so don't log yet
-            System.out.printf("App folder: %s\n", appFolder);
-            System.out.printf("Logging folder: %s\n", logFolder);
+            if (!Boolean.getBoolean(PROP_SUPPRESS_CONSOLE))
+              {
+                System.out.printf("App folder: %s\n", appFolder);
+                System.out.printf("Logging folder: %s\n", logFolder);
+              }
           }
         catch (IOException e)
           {

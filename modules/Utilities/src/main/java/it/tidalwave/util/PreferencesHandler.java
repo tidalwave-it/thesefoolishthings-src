@@ -44,7 +44,12 @@ public interface PreferencesHandler
         private static final LazySupplier<PreferencesHandler> REF = lazySupplierOf(PreferencesHandler.class);
       }
 
-    public static final String PROP_APP_NAME = PreferencesHandler.class.getPackage().getName() + ".appName";
+    public static final String PROPS_BASE_NAME = PreferencesHandler.class.getPackage().getName();
+
+    public static final String PROP_APP_NAME = PROPS_BASE_NAME + ".appName";
+
+    /** Suppress any console output. @since 3.2-ALPHA-21 */
+    public static final String PROP_SUPPRESS_CONSOLE = PROPS_BASE_NAME + ".suppressConsoleOutput";
 
     // FIXME: make private as soon as the right Java version is required
     public static final String __BASE_NAME = "it.tidalwave.javafx";

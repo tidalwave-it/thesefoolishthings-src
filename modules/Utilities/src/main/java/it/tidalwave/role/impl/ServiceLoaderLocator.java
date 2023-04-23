@@ -48,6 +48,11 @@ import static java.util.stream.Collectors.*;
 // PreferencesHandler can be used to programmatically set the log folder, so don't inject logger
 public class ServiceLoaderLocator
   {
+    public static final String PROPS_BASE_NAME = PreferencesHandler.class.getPackage().getName();
+
+    /** Suppress any console output. @since 3.2-ALPHA-21 */
+    public static final String PROP_SUPPRESS_CONSOLE = PROPS_BASE_NAME + ".suppressConsoleOutput";
+
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
@@ -81,15 +86,15 @@ public class ServiceLoaderLocator
         final var provider = providers.get(0);
         
         // PreferencesHandler can be used to programmatically set the log folder, so don't log yet
-        if (serviceClass.equals(PreferencesHandler.class))
-          {
-            System.out.printf("%s instantiated from META-INF/services: %s\n", serviceClassName, provider);
-          }
-        else
+        if (!serviceClass.equals(PreferencesHandler.class))
           {
             getLogger().info("{} instantiated from META-INF/services: {}", serviceClassName, provider);
           }
-        
+        else if (!Boolean.getBoolean(PROP_SUPPRESS_CONSOLE))
+          {
+            System.out.printf("%s instantiated from META-INF/services: %s\n", serviceClassName, provider);
+          }
+
         return provider;
       }
 
