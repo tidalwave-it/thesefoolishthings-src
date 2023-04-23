@@ -24,17 +24,16 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.role;
+package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
 import java.util.concurrent.atomic.AtomicInteger;
-import it.tidalwave.util.Id;
+import lombok.NoArgsConstructor;
+import static lombok.AccessLevel.PRIVATE;
 
 /***********************************************************************************************************************
  *
  * A factory for creating a new, unique {@code Id} for an object.
- *
- * @stereotype Role
  *
  * @author  Fabrizio Giudici
  * @it.tidalwave.javadoc.stable
@@ -54,7 +53,8 @@ public interface IdFactory
     public static final IdFactory MOCK = () ->
             Id.of(String.format("%08x-0000-0000-0000-000000000000", Private.SEQUENCE.getAndIncrement()));
 
-    static class Private
+    @NoArgsConstructor(access = PRIVATE)
+    static final class Private
       {
         private static final AtomicInteger SEQUENCE = new AtomicInteger(0);
       }
