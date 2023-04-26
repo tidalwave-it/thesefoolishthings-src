@@ -30,8 +30,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.function.Supplier;
 import it.tidalwave.util.annotation.VisibleForTesting;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 /***********************************************************************************************************************
  *
@@ -42,13 +43,16 @@ import lombok.ToString;
  * @since   3.2-ALPHA-13
  *
  **********************************************************************************************************************/
-@ThreadSafe @RequiredArgsConstructor(staticName = "of") @ToString(of = "ref")
+@ThreadSafe @RequiredArgsConstructor(staticName = "of") @EqualsAndHashCode(of = {"ref", "initialized"})
 public class LazySupplier<T> implements Supplier<T>
   {
     @Nonnull
     private final Supplier<T> supplier;
 
     @VisibleForTesting volatile T ref = null;
+
+    @Getter
+    @VisibleForTesting volatile boolean initialized;
 
     /** {@inheritDoc} */
     @Override @Nonnull
@@ -59,6 +63,7 @@ public class LazySupplier<T> implements Supplier<T>
         if (ref == null)
           {
             ref = supplier.get();
+            initialized = true;
           }
 
         return ref;
@@ -72,5 +77,11 @@ public class LazySupplier<T> implements Supplier<T>
     public void set (@Nonnull final T ref)
       {
         this.ref = ref;
+      }
+
+    @Nonnull
+    public String toString()
+      {
+        return String.format("LazySupplier(%s)", (ref == null && !initialized) ? "<not initialised>" : ref);
       }
   }
