@@ -383,7 +383,7 @@ public interface Finder<T> extends Cloneable, Serializable
 
     /*******************************************************************************************************************
      *
-     * Returns am iterator of results.
+     * Returns an iterator of results.
      *
      * @return    the iterator
      * @since 3.2-ALPHA-1 (previously in Finder8)
@@ -392,7 +392,7 @@ public interface Finder<T> extends Cloneable, Serializable
     @Nonnull
     public default Iterator<T> iterator()
       {
-        return results().iterator();
+        return stream().iterator();
       }
 
     /*******************************************************************************************************************
