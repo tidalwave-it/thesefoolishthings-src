@@ -35,6 +35,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -392,6 +393,19 @@ public interface Finder<T> extends Cloneable, Serializable
     public default Iterator<T> iterator()
       {
         return results().iterator();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Iterates through results.
+     *
+     * @param   consumer  the consumer
+     * @since 3.2-ALPHA-22
+     *
+     ******************************************************************************************************************/
+    public default void forEach (@Nonnull final Consumer<? super T> consumer)
+      {
+        stream().forEach(consumer);
       }
 
     /*******************************************************************************************************************
