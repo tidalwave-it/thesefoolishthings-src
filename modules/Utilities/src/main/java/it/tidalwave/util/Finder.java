@@ -34,6 +34,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -218,6 +219,21 @@ public interface Finder<T> extends Cloneable, Serializable
 
     /*******************************************************************************************************************
      *
+     * Tells the {@code Finder} that only a subset of found items will be returned, starting from the given position.
+     *
+     * @param   firstResult    the index of the first result to return
+     * @return                 the {@code Finder}
+     * @since   3.2-ALPHA-22
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public default Finder<T> from (@Nonnull final OptionalInt firstResult)
+      {
+        return firstResult.isPresent() ? from(firstResult.getAsInt()) : this;
+      }
+
+    /*******************************************************************************************************************
+     *
      * Tells the {@code Finder} that only a maximum number of found items will be returned.
      *
      * @param   maxResults    the max number of results to return
@@ -242,6 +258,21 @@ public interface Finder<T> extends Cloneable, Serializable
     public default Finder<T> max (@Nonnull final Optional<Integer> maxResults)
       {
         return maxResults.map(this::max).orElse(this);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Tells the {@code Finder} that only a maximum number of found items will be returned.
+     *
+     * @param   maxResults    the max number of results to return
+     * @return                the {@code Finder}
+     * @since   3.2-ALPHA-22
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public default Finder<T> max (@Nonnull final OptionalInt maxResults)
+      {
+        return maxResults.isPresent() ? max(maxResults.getAsInt()) : this;
       }
 
     /*******************************************************************************************************************
