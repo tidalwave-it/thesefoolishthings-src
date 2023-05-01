@@ -26,16 +26,21 @@
  */
 package it.tidalwave.messagebus.impl.spring;
 
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.DisposableBean;
 import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
 
 /***********************************************************************************************************************
  *
- * This aspect implements the semantics of @SimpleMessageSubscriber in a Spring 3+ environment.
+ * This aspect implements the semantics of @SimpleMessageSubscriber in a Spring 3+ environment. To use it, the ajc
+ * compiler is required. In a Maven environment this is usually done by means of the aspectj-maven-plugin with the
+ * proper configuration.
+ * If the Tidalwave Super POM is used, it can be done by activating the profiles it.tidalwave-aspectj-v2
+ * and it.tidalwave-aspectj-v2.
  *
  * @author  Fabrizio Giudici
- * @version $Id: Class.java,v 631568052e17 2013/02/19 15:45:02 fabrizio $
  *
  **********************************************************************************************************************/
 public aspect SpringSimpleMessageSubscriberAspect
@@ -45,15 +50,19 @@ public aspect SpringSimpleMessageSubscriberAspect
     // an implementation that delegates the required subscribe/unsubscribe semantics to
     // SpringSimpleMessageSubscriberSupport
     //
-    static interface MessageBusHelperAware extends InitializingBean, DisposableBean
+    static interface MessageBusHelperAware extends InitializingBean, DisposableBean, BeanFactoryAware
       {
       }
 
     declare parents:
         @SimpleMessageSubscriber * implements MessageBusHelperAware;
 
-    public SpringSimpleMessageSubscriberSupport MessageBusHelperAware.support =
-        new SpringSimpleMessageSubscriberSupport(this);
+    public SpringSimpleMessageSubscriberSupport MessageBusHelperAware.support;
+
+    public void MessageBusHelperAware.setBeanFactory (BeanFactory beanFactory)
+      {
+        support = new SpringSimpleMessageSubscriberSupport(beanFactory, this);
+      }
 
     public void MessageBusHelperAware.afterPropertiesSet()
       {
