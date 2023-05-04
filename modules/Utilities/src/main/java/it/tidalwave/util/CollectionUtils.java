@@ -80,7 +80,7 @@ public final class CollectionUtils
      * @it.tidalwave.javadoc.stable
      *
      ******************************************************************************************************************/
-    @Nonnull
+    @Nonnull @SafeVarargs
     public static <T> List<T> concatAll (@Nonnull final Collection<? extends T>... collections)
       {
         final List<T> result = new ArrayList<>();
