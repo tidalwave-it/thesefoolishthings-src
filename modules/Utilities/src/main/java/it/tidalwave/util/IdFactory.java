@@ -28,8 +28,6 @@ package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
 import java.util.concurrent.atomic.AtomicInteger;
-import lombok.NoArgsConstructor;
-import static lombok.AccessLevel.PRIVATE;
 
 /***********************************************************************************************************************
  *
@@ -48,15 +46,19 @@ public interface IdFactory
      *  @since 3.2-ALPHA-19 */
     public static final IdFactory DEFAULT = Id::ofUuid;
 
-    /** A mock implementation, useful for testing, that returns mock UUIDs based on a sequential counter.
-     *  @since 3.2-ALPHA-19 */
-    public static final IdFactory MOCK = () ->
-            Id.of(String.format("%08x-0000-0000-0000-000000000000", Private.SEQUENCE.getAndIncrement()));
-
-    @NoArgsConstructor(access = PRIVATE)
-    static final class Private
+    /*******************************************************************************************************************
+     *
+     * Creates a new mock factory, useful for testing, that returns mock UUIDs based on a sequential counter.
+     *
+     * @return  the new factory
+     * @since 3.2-ALPHA-23
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static IdFactory createMock()
       {
-        private static final AtomicInteger SEQUENCE = new AtomicInteger(0);
+        final var sequence = new AtomicInteger(0);
+        return () -> Id.of(String.format("%08x-0000-0000-0000-000000000000", sequence.getAndIncrement()));
       }
 
     /*******************************************************************************************************************
