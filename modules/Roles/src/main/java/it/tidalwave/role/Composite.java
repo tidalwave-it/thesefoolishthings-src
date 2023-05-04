@@ -28,6 +28,8 @@ package it.tidalwave.role;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 import it.tidalwave.util.Finder;
 
 /***********************************************************************************************************************
@@ -69,6 +71,33 @@ public interface Composite<T, F extends Finder<? extends T>>
      ******************************************************************************************************************/
     @Nonnull
     public F findChildren();
+
+    /*******************************************************************************************************************
+     *
+     * Returns a stream of children.
+     *
+     * @return    the stream
+     * @since 3.2-ALPHA-23
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public default Stream<? extends T> stream()
+      {
+        return findChildren().stream();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Iterates through children.
+     *
+     * @param   consumer  the consumer
+     * @since 3.2-ALPHA-23
+     *
+     ******************************************************************************************************************/
+    public default void forEach (@Nonnull final Consumer<? super T> consumer)
+      {
+        stream().forEach(consumer);
+      }
 
     /*******************************************************************************************************************
      *
