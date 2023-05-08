@@ -26,7 +26,9 @@
  */
 package it.tidalwave.util;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
@@ -55,6 +57,8 @@ import static it.tidalwave.util.ShortNames.*;
 @Slf4j
 public class ReflectionUtils
   {
+    private static final List<String> INJECT_CLASS_NAMES = List.of("javax.inject.Inject", "jakarta.inject.Inject");
+
     /*******************************************************************************************************************
      *
      * Get the actual type arguments a subclass has used to extend a generic base class.
@@ -173,8 +177,7 @@ public class ReflectionUtils
       {
         for (final var field : object.getClass().getDeclaredFields())
           {
-            if (field.getAnnotation(javax.inject.Inject.class) != null
-                || field.getAnnotation(jakarta.inject.Inject.class) != null)
+            if (hasInjectAnnotation(field))
               {
                 field.setAccessible(true);
                 final var type = field.getType();
@@ -232,5 +235,35 @@ public class ReflectionUtils
 //            throw new IllegalArgumentException(type.toString());
             return null;
           }
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
+    private static boolean hasInjectAnnotation (@Nonnull final Field field)
+      {
+        final var classLoader = Thread.currentThread().getContextClassLoader();
+
+        for (final var className : INJECT_CLASS_NAMES)
+          {
+            try
+              {
+                @SuppressWarnings("unchecked")
+                final var clazz = (Class<? extends Annotation>)classLoader.loadClass(className);
+
+                if (field.getAnnotation(clazz) != null)
+                  {
+                    return true;
+                  }
+              }
+            catch (ClassNotFoundException e)
+              {
+                // try next
+              }
+          }
+
+        return false;
       }
   }
