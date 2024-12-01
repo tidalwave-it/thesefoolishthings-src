@@ -49,9 +49,10 @@
 
     <properties>
         <!-- TODO: push tu SuperPOM -->
-        <java-diff-utils.version>4.12</java-diff-utils.version>
+        <java-diff-utils.version>4.15</java-diff-utils.version>
         <jakarta.inject-api.version>2.0.0</jakarta.inject-api.version>
-        <tft.lombok.version>1.18.36</tft.lombok.version>
+        <joda-time.version>2.13.0</joda-time.version>
+        <tft.aspectjrt.version>1.9.20.1</tft.aspectjrt.version> <!-- Last with JDK 11 support -->
     </properties>
 
     <dependencyManagement>
