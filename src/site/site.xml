@@ -27,23 +27,16 @@
     *********************************************************************************************************************
 
 -->
-<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
-
-    <bannerLeft>
-        <name>${project.name}</name>
-        <src>http://tidalwave.it/media/Tidalwave%20Logo.png</src>
-        <href>https://tidalwave.it/</href>
+<site xmlns="http://maven.apache.org/SITE/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/SITE/2.0.0 https://maven.apache.org/xsd/site-2.0.0.xsd">
+    <bannerLeft name="${project.name}" href="https://tidalwave.it">
+        <image src="http://tidalwave.it/media/Tidalwave%20Logo.png" />
     </bannerLeft>
-    <bannerRight>
-        <!-- src>http://tidalwave.it/media/Tidalwave%20Logo.png</src -->
-    </bannerRight>
 
     <skin>
         <groupId>org.apache.maven.skins</groupId>
         <artifactId>maven-fluido-skin</artifactId>
-        <version>1.7</version>
+        <version>${tft.maven-fluido-skin.version}</version>
     </skin>
 
     <custom>
@@ -72,4 +65,4 @@
         </menu>
         <menu ref="reports" inherit="bottom"/>
     </body>
-</project>
+</site>
