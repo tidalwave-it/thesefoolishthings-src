@@ -5,7 +5,7 @@
 # TheseFoolishThings: Miscellaneous utilities
 # http://tidalwave.it/projects/thesefoolishthings
 #
-# Copyright (C) 2009 - 2023 by Tidalwave s.a.s. (http://tidalwave.it)
+# Copyright (C) 2009 - 2024 by Tidalwave s.a.s. (http://tidalwave.it)
 #
 # *********************************************************************************************************************
 #
