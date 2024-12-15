@@ -41,6 +41,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.*;
@@ -77,7 +78,7 @@ public class ReflectionUtils
         Type type = childClass;
 
         // start walking up the inheritance hierarchy until we hit baseClass
-        while (!getClass(type).equals(baseClass))
+        while (!baseClass.equals(getClass(type)))
           {
             if (type instanceof Class<?>)
               {
