@@ -29,8 +29,11 @@ package it.tidalwave.role.ui.impl;
 import javax.annotation.Nonnull;
 import java.text.Collator;
 import java.util.Comparator;
+import java.io.Serializable;
 import it.tidalwave.util.As;
 import it.tidalwave.role.ui.Displayable;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import static it.tidalwave.role.ui.Displayable._Displayable_;
 
 /***********************************************************************************************************************
@@ -41,11 +44,12 @@ import static it.tidalwave.role.ui.Displayable._Displayable_;
  * @it.tidalwave.javadoc.draft Will be moved to a different package
  *
  **********************************************************************************************************************/
-public final class AsDisplayableComparator implements Comparator<As>
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class AsDisplayableComparator implements Comparator<As>, Serializable
   {
-    private static final AsDisplayableComparator INSTANCE = new AsDisplayableComparator();
+    private static final long serialVersionUID = 7452490266897348L;
 
-    private final Collator collator = Collator.getInstance();
+    private static final AsDisplayableComparator INSTANCE = new AsDisplayableComparator();
 
     @Nonnull
     public static AsDisplayableComparator getInstance()
@@ -54,8 +58,8 @@ public final class AsDisplayableComparator implements Comparator<As>
       }
 
     @Override
-    public int compare (@Nonnull final As object1, @Nonnull final As object2)
+    public int compare (@Nonnull final As o1, @Nonnull final As o2)
       {
-        return collator.compare(object1.as(_Displayable_).getDisplayName(), object2.as(_Displayable_).getDisplayName());
+        return Collator.getInstance().compare(o1.as(_Displayable_).getDisplayName(), o2.as(_Displayable_).getDisplayName());
       }
   }
