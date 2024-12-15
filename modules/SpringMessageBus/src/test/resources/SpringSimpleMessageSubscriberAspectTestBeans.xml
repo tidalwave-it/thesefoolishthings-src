@@ -54,11 +54,11 @@
     </bean>
 
     <bean id="applicationMessageBus" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="it.tidalwave.messagebus.MessageBus"/>
+        <constructor-arg type="java.lang.Class" value="it.tidalwave.messagebus.MessageBus"/>
     </bean>
 
     <bean id="otherMessageBus" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="it.tidalwave.messagebus.MessageBus"/>
+        <constructor-arg type="java.lang.Class" value="it.tidalwave.messagebus.MessageBus"/>
     </bean>
 
 </beans>

@@ -64,7 +64,7 @@ Maschwitz and Strachey.
     </distributionManagement>
 
     <properties>
-        <tft.maven.requiredJdk>[11, 17]</tft.maven.requiredJdk>
+        <tft.maven.requiredJdk>[11, 21]</tft.maven.requiredJdk>
         <tft.javac.source>11</tft.javac.source>
         <tft.javac.target>11</tft.javac.target>
         <tft.javac.release>11</tft.javac.release>
