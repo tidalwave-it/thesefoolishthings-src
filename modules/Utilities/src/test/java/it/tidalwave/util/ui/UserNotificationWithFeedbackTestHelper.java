@@ -92,6 +92,24 @@ public final class UserNotificationWithFeedbackTestHelper
 
     /*******************************************************************************************************************
      *
+     * An {@link Answer} that does a thing and then triggers a confirmation to a {@link UserNotificationWithFeedback}.
+     *
+     * @param   thingToDo   the thing to do
+     * @return              the {@code Answer}
+     * @since               3.2-ALPHA-24
+     *
+     ******************************************************************************************************************/
+    public static Answer<Void> doAndConfirm (@Nonnull final Consumer<? super InvocationOnMock> thingToDo)
+      {
+        return invocationOnMock ->
+          {
+            thingToDo.accept(invocationOnMock);
+            return CONFIRM.answer(invocationOnMock);
+          };
+      }
+
+    /*******************************************************************************************************************
+     *
      * An {@link Answer} that triggers a cancellation to a {@link UserNotificationWithFeedback}.
      *
      * @return  the {@code Answer}
