@@ -27,9 +27,12 @@
 package it.tidalwave.util.ui;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.function.Consumer;
 import java.awt.EventQueue;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -103,44 +106,57 @@ public final class UserNotificationWithFeedbackTestHelper
      *
      ******************************************************************************************************************/
     private static final Answer<Void> CONFIRM = invocation ->
-    {
-      // FIXME: use Platform.runLater() and wait
-      EventQueue.invokeAndWait(() ->
-        {
-          try
-            {
-              final var notification = (UserNotificationWithFeedback)invocation.getArguments()[0];
-              log.info(">>>> mock UI confirming {}...", notification);
-              notification.confirm();
-            }
-          catch (Exception e)
-            {
-              log.debug("", e);
-            }
-        });
+      {
+        // FIXME: use Platform.runLater() and wait
+        EventQueue.invokeAndWait(() ->
+          {
+            try
+              {
+                final var notification = findNotification(invocation);
+                log.info(">>>> mock UI confirming {}...", notification);
+                notification.confirm();
+              }
+            catch (Exception e)
+              {
+                log.debug("", e);
+              }
+          });
 
-      return null;
-    };
+        return null;
+      };
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
     private static final Answer<Void> CANCEL = invocation ->
-    {
-      // FIXME: use Platform.runLater() and wait
-      EventQueue.invokeAndWait(() ->
-        {
-          try
-            {
-              final var notification = (UserNotificationWithFeedback)invocation.getArguments()[0];
-              log.info(">>>> mock UI cancelling {}...", notification);
-              notification.cancel();
-            }
-          catch (Exception e)
-            {
-              log.debug("", e);
-            }
-        });
-      return null;
-    };
+      {
+        // FIXME: use Platform.runLater() and wait
+        EventQueue.invokeAndWait(() ->
+          {
+            try
+              {
+                final var notification = findNotification(invocation);
+                log.info(">>>> mock UI cancelling {}...", notification);
+                notification.cancel();
+              }
+            catch (Exception e)
+              {
+                log.debug("", e);
+              }
+          });
+
+        return null;
+      };
+
+    /*******************************************************************************************************************
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    private static UserNotificationWithFeedback findNotification (@Nonnull final InvocationOnMock invocation)
+      {
+        return (UserNotificationWithFeedback)Arrays.stream(invocation.getArguments())
+                     .filter(a -> a instanceof UserNotificationWithFeedback)
+                     .findFirst()
+                     .orElseThrow();
+      }
   }
