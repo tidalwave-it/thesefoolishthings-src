@@ -34,13 +34,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>3.2-ALPHA-24-SNAPSHOT</version>
+        <version>3.2-ALPHA-24</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-role-spring</artifactId>
-    <version>3.2-ALPHA-24-SNAPSHOT</version>
+    <version>3.2-ALPHA-24</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings :: Roles :: Spring</name>
     <description>
