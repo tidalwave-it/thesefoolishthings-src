@@ -39,14 +39,14 @@ import static lombok.AccessLevel.PROTECTED;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable
+@Getter @Immutable
 @RequiredArgsConstructor(access = PROTECTED) @ToString
 public class UserNotification
   {
-    @Getter
+    @Nonnull
     protected final String text;
 
-    @Getter
+    @Nonnull
     protected final String caption;
 
     /*******************************************************************************************************************

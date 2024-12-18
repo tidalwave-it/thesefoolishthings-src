@@ -71,7 +71,7 @@ public class Id implements Serializable, Comparable<Id>, StringValue
     @Nonnull
     public static Id ofUuid()
       {
-        return Id.of(UUID.randomUUID().toString());
+        return of(UUID.randomUUID().toString());
       }
 
     /*******************************************************************************************************************

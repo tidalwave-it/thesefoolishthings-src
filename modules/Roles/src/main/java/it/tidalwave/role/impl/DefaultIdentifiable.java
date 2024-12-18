@@ -41,12 +41,12 @@ import lombok.RequiredArgsConstructor;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable @RequiredArgsConstructor
+@Getter @Immutable @RequiredArgsConstructor
 public class DefaultIdentifiable implements Identifiable, Serializable
   {
     private static final long serialVersionUID = 45654634423793043L;
 
-    @Getter @Nonnull
+    @Nonnull
     private final Id id;
 
     /*******************************************************************************************************************

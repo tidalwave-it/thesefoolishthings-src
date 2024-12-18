@@ -75,7 +75,7 @@ public class TypeSafeHashMap implements TypeSafeMap, Serializable
      *
      *
      ******************************************************************************************************************/
-    /* package */ TypeSafeHashMap (@Nonnull final Map<Key<?>, Object> map, final boolean dummy)
+    /* package */ TypeSafeHashMap (@Nonnull final Map<Key<?>, Object> map, final boolean ignored)
       {
         this.map = map;
       }

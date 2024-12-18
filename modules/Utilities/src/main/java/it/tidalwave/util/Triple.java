@@ -45,16 +45,16 @@ import lombok.ToString;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-@Immutable @RequiredArgsConstructor(staticName = "of") @ToString @EqualsAndHashCode
+@Getter @Immutable @RequiredArgsConstructor(staticName = "of") @ToString @EqualsAndHashCode
 public class Triple<A, B, C>
   {
-    @Getter @Nonnull
+    @Nonnull
     public final A a;
 
-    @Getter @Nonnull
+    @Nonnull
     public final B b;
 
-    @Getter @Nonnull
+    @Nonnull
     public final C c;
 
     /*******************************************************************************************************************
@@ -92,7 +92,7 @@ public class Triple<A, B, C>
     public static <T, U, V> Stream<Triple<T, U, V>> tripleStream (@Nonnull final Pair<T, U> pair,
                                                                   @Nonnull final Stream<? extends V> stream)
       {
-        return stream.map(value -> Triple.of(pair, value));
+        return stream.map(value -> of(pair, value));
       }
 
     /*******************************************************************************************************************

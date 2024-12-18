@@ -101,7 +101,7 @@ public class ServiceLoaderLocator
     @Nonnull
     public static <T> LazySupplier<T> lazySupplierOf (@Nonnull final Class<? extends T> clazz)
       {
-        return LazySupplier.of(() -> ServiceLoaderLocator.findService(clazz));
+        return LazySupplier.of(() -> findService(clazz));
       }
 
     @Nonnull

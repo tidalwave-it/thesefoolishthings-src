@@ -41,10 +41,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
  *
@@ -110,7 +109,7 @@ public class DciContextWithAutoThreadBindingAspectTest
           }
 
         @Override
-        /* package */ void packageMethod()
+          /* package */ void packageMethod()
           {
             super.packageMethod();
           }
@@ -197,7 +196,7 @@ public class DciContextWithAutoThreadBindingAspectTest
       }
 
     /*******************************************************************************************************************
-     *
+     * @param methodName  the method to call
      ******************************************************************************************************************/
     @Test(dataProvider = "methodNames")
     public void must_not_bind_context_when_no_annotation (final @Nonnull String methodName)
@@ -213,7 +212,7 @@ public class DciContextWithAutoThreadBindingAspectTest
       }
 
     /*******************************************************************************************************************
-     *
+     * @param methodName  the method to call
      ******************************************************************************************************************/
     @Test(dataProvider = "methodNames")
     public void must_not_bind_context_when_annotation_present_but_no_autoThreadBinding(final @Nonnull String methodName)
@@ -229,7 +228,7 @@ public class DciContextWithAutoThreadBindingAspectTest
       }
 
     /*******************************************************************************************************************
-     *
+     * @param methodName  the method to call
      ******************************************************************************************************************/
     @Test(dataProvider = "methodNames")
     public void must_bind_context_when_annotation_present_and_autoThreadBinding (final @Nonnull String methodName)

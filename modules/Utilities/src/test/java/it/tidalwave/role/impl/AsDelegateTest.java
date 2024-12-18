@@ -40,7 +40,7 @@ import org.testng.annotations.Test;
 import static it.tidalwave.util.Parameters.r;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
  *

@@ -41,9 +41,8 @@ import lombok.Setter;
  * @since   1.39
  *
  **********************************************************************************************************************/
-public class MockTimeProvider implements TimeProvider
+@Setter public class MockTimeProvider implements TimeProvider
   {
-    @Setter
     private Instant instant = Instant.ofEpochMilli(0);
 
     @Override @Nonnull

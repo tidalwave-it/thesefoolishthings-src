@@ -119,6 +119,7 @@ public class FileComparisonUtils
      *
      * @param   expectedPath    the file with the expected contents
      * @param   actualPath      the file with the contents to probe
+     * @return                  whether the two files have the same contents
      * @throws  IOException     in case of error
      * @since   1.2-ALPHA-15
      *
@@ -326,8 +327,8 @@ public class FileComparisonUtils
                                        .limit(TABULAR_LIMIT)
                                        .collect(toList());
 
-            final var padA = pairs.stream().mapToInt(p -> p.a.length()).max().getAsInt();
-            final var padB = pairs.stream().mapToInt(p -> p.b.length()).max().getAsInt();
+            final var padA = pairs.stream().mapToInt(p -> p.a.length()).max().orElseThrow();
+            final var padB = pairs.stream().mapToInt(p -> p.b.length()).max().orElseThrow();
             log.error("{} Tabular text is trimmed; row limit set to -D{}={}", TF, P_TABULAR_LIMIT, TABULAR_LIMIT);
             log.error("{} |-{}-+-{}-|", TF, pad("--------", padA, '-'), pad("--------", padB, '-'));
             log.error("{} | {} | {} |", TF, pad("expected", padA, ' '), pad("actual  ", padB, ' '));

@@ -81,7 +81,7 @@ public interface UserAction extends As
 
     /*******************************************************************************************************************
      *
-     * Creates a new instance out of a callback and a role (typically a {@link Displayable}.
+     * Creates a new instance out of a callback and a role (typically a {@link Displayable}).
      *
      * @param   callback    the callback
      * @param   role        the role (or role factory)

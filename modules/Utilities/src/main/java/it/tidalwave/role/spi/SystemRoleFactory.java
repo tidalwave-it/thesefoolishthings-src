@@ -52,6 +52,10 @@ public interface SystemRoleFactory
 
     /*******************************************************************************************************************
      *
+     * Returns a singleton instance.
+     *
+     * @return  the singleton instance
+     *
      ******************************************************************************************************************/
     @Nonnull
     public static SystemRoleFactory getInstance()

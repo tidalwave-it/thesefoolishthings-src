@@ -49,7 +49,7 @@ import static it.tidalwave.util.Parameters.r;
 import static it.tidalwave.role.ui.PresentationModel._SimpleCompositeOfPresentationModel_;
 import static org.testng.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
  *
@@ -127,10 +127,10 @@ public class SimpleCompositePresentableTest
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    @RequiredArgsConstructor
+    @Getter @RequiredArgsConstructor
     static class MockRole2
       {
-        @Getter @Nonnull
+        @Nonnull
         private final MockDatum datum;
       }
 

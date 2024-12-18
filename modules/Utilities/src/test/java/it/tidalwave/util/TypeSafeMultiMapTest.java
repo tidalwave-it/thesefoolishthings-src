@@ -37,7 +37,7 @@ import java.util.Map;
 import org.testng.annotations.Test;
 import static java.util.Collections.*;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
 /***********************************************************************************************************************

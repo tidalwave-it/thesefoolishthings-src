@@ -37,7 +37,7 @@ import java.util.Set;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
 /***********************************************************************************************************************
@@ -182,8 +182,8 @@ public class TypeSafeMapTest
                                  .with(k2, 1);
         final Optional<String> v1 = m.getOptional(k1);
         final Optional<Integer> v2 = m.getOptional(k2);
-        assertThat(v1.get(), is("Value 1"));
-        assertThat(v2.get(), is(1));
+        assertThat(v1.orElseThrow(), is("Value 1"));
+        assertThat(v2.orElseThrow(), is(1));
         // END SNIPPET TypeSafeMap
       }
 

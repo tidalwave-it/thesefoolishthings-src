@@ -86,6 +86,7 @@ public class DciMarshalXStreamExample
         // END SNIPPET: xstreamcontext-contextmanager
       }
 
+    @SuppressWarnings("unused")
     private void runWithXStreamContext2()
             throws IOException
       {
@@ -97,6 +98,7 @@ public class DciMarshalXStreamExample
         // END SNIPPET: xstreamcontext-contextmanager2
       }
 
+    @SuppressWarnings("unused")
     private void alternateSyntax()
             throws IOException
       {

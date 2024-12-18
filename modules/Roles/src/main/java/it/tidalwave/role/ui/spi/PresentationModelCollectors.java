@@ -107,7 +107,7 @@ public class PresentationModelCollectors extends ArrayListCollectorSupport<Prese
       {
         return StreamSupport.stream(i.spliterator(), false)
                             .map(o -> o.as(_Presentable_).createPresentationModel(r(roleCreator.apply(o))))
-                            .collect(PresentationModelCollectors.toCompositePresentationModel());
+                            .collect(toCompositePresentationModel());
       }
 
     /*******************************************************************************************************************

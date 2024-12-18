@@ -58,6 +58,6 @@ public class NonEmptyFunction extends UnaryBoundFunctionSupport<String, Boolean>
     @Override @Nonnull
     protected Boolean function (final String value)
       {
-        return (value != null) && !"".equals(value.trim());
+        return (value != null) && !value.trim().isEmpty();
       }
   }

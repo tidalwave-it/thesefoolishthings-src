@@ -31,8 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.NoArgsConstructor;
 import org.testng.annotations.Test;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
  *

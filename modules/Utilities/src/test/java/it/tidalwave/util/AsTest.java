@@ -40,7 +40,7 @@ import lombok.experimental.Delegate;
 import org.testng.annotations.Test;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
  *
@@ -132,7 +132,7 @@ public class AsTest
         // when
         final var actualRole = underTest.maybeAs(_roleOfStrings_);
         // then
-        assertThat(actualRole.get(), is(role));
+        assertThat(actualRole.orElseThrow(), is(role));
       }
 
     @Test

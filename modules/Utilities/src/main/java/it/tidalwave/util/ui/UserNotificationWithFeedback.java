@@ -44,7 +44,7 @@ import static it.tidalwave.util.BundleUtilities.getMessage;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@Immutable
+@Getter @Immutable
 @ToString(callSuper = true)
 public class UserNotificationWithFeedback extends UserNotification
   {
@@ -119,7 +119,6 @@ public class UserNotificationWithFeedback extends UserNotification
           }
       }
 
-    @Getter
     protected final Feedback feedback;
 
     /*******************************************************************************************************************

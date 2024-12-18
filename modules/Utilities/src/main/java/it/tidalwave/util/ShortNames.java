@@ -152,7 +152,7 @@ public class ShortNames
             final var id = object.getClass().getMethod("getId").invoke(object);
             s.append("/").append(id != null ? id.toString() : "null");
           }
-        catch (Exception e)
+        catch (Exception ignored)
           {
             // log.trace("While invoking 'getId(): {}", e.toString());
           }
@@ -174,7 +174,7 @@ public class ShortNames
         final var result = new StringBuilder();
         var separator = "";
 
-        for (final Object object : objects)
+        for (final var object : objects)
           {
             result.append(separator).append(shortId(object));
             separator = ", ";

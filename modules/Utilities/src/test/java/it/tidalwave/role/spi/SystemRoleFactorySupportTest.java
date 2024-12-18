@@ -45,8 +45,8 @@ import static it.tidalwave.util.ShortNames.*;
 import static it.tidalwave.util.spi.Mocks.*;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 class XCA1 extends CA1 {}
 class YCA1 extends XCA1 {}
@@ -123,7 +123,8 @@ public class SystemRoleFactorySupportTest
       }
 
     /*******************************************************************************************************************
-     *
+     * @param clazz               a class
+     * @param expectedInterfaces  the interfaces implemented by the class that should be discovered
      ******************************************************************************************************************/
     @Test(dataProvider = "classesAndExpectedInterfaces")
     public void must_correctly_find_implemented_interfaces (@Nonnull final Class<?> clazz,
@@ -269,7 +270,9 @@ public class SystemRoleFactorySupportTest
       }
 
     /*******************************************************************************************************************
-     *
+     * @param owner           the owner object
+     * @param roleClass       the role associated to the object under test
+     * @param expectedRoles   the expected implementations of the role
      ******************************************************************************************************************/
     @Test(dataProvider = "ownersAndRoleImplementations")
     public void must_correctly_find_roles (@Nonnull final Object owner,

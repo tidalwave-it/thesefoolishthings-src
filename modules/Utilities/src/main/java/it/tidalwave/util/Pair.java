@@ -54,7 +54,7 @@ import lombok.ToString;
  * @it.tidalwave.javadoc.draft
  *
  **********************************************************************************************************************/
-@Immutable @RequiredArgsConstructor(staticName = "of") @ToString @EqualsAndHashCode
+@Getter @Immutable @RequiredArgsConstructor(staticName = "of") @ToString @EqualsAndHashCode
 public class Pair<A, B>
   {
     /** A base 0 index rebaser. */
@@ -63,10 +63,10 @@ public class Pair<A, B>
     /** A base 1 index rebaser. */
     public static final IntUnaryOperator BASE_1 = i -> i + 1;
 
-    @Getter @Nonnull
+    @Nonnull
     public final A a;
 
-    @Getter @Nonnull
+    @Nonnull
     public final B b;
 
     /*******************************************************************************************************************
@@ -141,7 +141,7 @@ public class Pair<A, B>
     @Nonnull
     public static <T> Stream<Pair<Integer, T>> indexedPairStream (@Nonnull final T[] array)
       {
-        return Pair.indexedPairStream(array, BASE_0);
+        return indexedPairStream(array, BASE_0);
       }
 
     /*******************************************************************************************************************
@@ -159,7 +159,7 @@ public class Pair<A, B>
     public static <T> Stream<Pair<Integer, T>> indexedPairStream (@Nonnull final T[] array,
                                                                   @Nonnull final IntUnaryOperator rebaser)
       {
-        return Pair.indexedPairStream(array, rebaser, i -> i);
+        return indexedPairStream(array, rebaser, i -> i);
       }
 
     /*******************************************************************************************************************
@@ -178,7 +178,7 @@ public class Pair<A, B>
     public static <I, T> Stream<Pair<I, T>> indexedPairStream (@Nonnull final T[] array,
                                                                @Nonnull final IntFunction<? extends I> indexTransformer)
       {
-        return Pair.indexedPairStream(array, BASE_0, indexTransformer);
+        return indexedPairStream(array, BASE_0, indexTransformer);
       }
 
     /*******************************************************************************************************************
@@ -215,7 +215,7 @@ public class Pair<A, B>
     @Nonnull
     public static <T> Stream<Pair<Integer, T>> indexedPairStream (@Nonnull final Iterable<? extends T> iterable)
       {
-        return Pair.indexedPairStream(iterable, BASE_0);
+        return indexedPairStream(iterable, BASE_0);
       }
 
     /*******************************************************************************************************************
@@ -233,7 +233,7 @@ public class Pair<A, B>
     public static <T> Stream<Pair<Integer, T>> indexedPairStream (@Nonnull final Iterable<? extends T> iterable,
                                                                   @Nonnull final IntUnaryOperator rebaser)
       {
-        return Pair.indexedPairStream(iterable, rebaser, i -> i);
+        return indexedPairStream(iterable, rebaser, i -> i);
       }
 
     /*******************************************************************************************************************
@@ -248,11 +248,11 @@ public class Pair<A, B>
      * @return                        the stream
      *
      ******************************************************************************************************************/
-    @Nonnull @SuppressWarnings("unchecked")
+    @Nonnull
     public static <I, T> Stream<Pair<I, T>> indexedPairStream (@Nonnull final Iterable<? extends T> iterable,
                                                                @Nonnull final IntFunction<? extends I> indexTransformer)
       {
-        return Pair.indexedPairStream(iterable, BASE_0, indexTransformer);
+        return indexedPairStream(iterable, BASE_0, indexTransformer);
       }
 
     /*******************************************************************************************************************
@@ -268,7 +268,7 @@ public class Pair<A, B>
      * @return                        the stream
      *
      ******************************************************************************************************************/
-    @Nonnull @SuppressWarnings("unchecked")
+    @Nonnull
     public static <I, T> Stream<Pair<I, T>> indexedPairStream (@Nonnull final Iterable<? extends T> iterable,
                                                                @Nonnull final IntUnaryOperator rebaser,
                                                                @Nonnull final IntFunction<? extends I> indexTransformer)
@@ -290,7 +290,7 @@ public class Pair<A, B>
     @Nonnull @SuppressWarnings("unchecked")
     public static <T> Stream<Pair<Integer, T>> indexedPairStream (@Nonnull final Stream<? extends T> stream)
       {
-        return Pair.indexedPairStream(((Stream<T>)stream)::iterator);
+        return indexedPairStream(((Stream<T>)stream)::iterator);
       }
 
     /*******************************************************************************************************************
@@ -309,7 +309,7 @@ public class Pair<A, B>
     public static <T> Stream<Pair<Integer, T>> indexedPairStream (@Nonnull final Stream<? extends T> stream,
                                                                   @Nonnull final IntUnaryOperator rebaser)
       {
-        return Pair.indexedPairStream(((Stream<T>)stream)::iterator, rebaser);
+        return indexedPairStream(((Stream<T>)stream)::iterator, rebaser);
       }
 
     /*******************************************************************************************************************
@@ -330,7 +330,7 @@ public class Pair<A, B>
     public static <I, T> Stream<Pair<I, T>> indexedPairStream (@Nonnull final Stream<? extends T> stream,
                                                                @Nonnull final IntFunction<? extends I> indexTransformer)
       {
-        return Pair.indexedPairStream(((Stream<T>)stream)::iterator, indexTransformer);
+        return indexedPairStream(((Stream<T>)stream)::iterator, indexTransformer);
       }
 
     /*******************************************************************************************************************
@@ -353,7 +353,7 @@ public class Pair<A, B>
                                                                @Nonnull final IntUnaryOperator rebaser,
                                                                @Nonnull final IntFunction<? extends I> indexTransformer)
       {
-        return Pair.indexedPairStream(((Stream<T>)stream)::iterator, rebaser, indexTransformer);
+        return indexedPairStream(((Stream<T>)stream)::iterator, rebaser, indexTransformer);
       }
 
     /*******************************************************************************************************************

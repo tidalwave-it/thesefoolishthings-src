@@ -51,7 +51,6 @@ public class Main
     private static final As.Type<Findable<Person>> _Findable_of_Person_ = As.type(_Findable_);
 
     public static void main (@Nonnull final String... args)
-            throws Exception
       {
         try (final var txManager = TxManager.getInstance())
           {

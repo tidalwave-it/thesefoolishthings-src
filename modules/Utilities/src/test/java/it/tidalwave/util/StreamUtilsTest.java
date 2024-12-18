@@ -36,8 +36,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class StreamUtilsTest
   {
@@ -60,7 +60,10 @@ public class StreamUtilsTest
       }
 
     /*******************************************************************************************************************
-     *
+     * @param seed            a random seed
+     * @param from            the lower bound of the range
+     * @param to              the upper bound of the range
+     * @param expectedResult  the expected range
      ******************************************************************************************************************/
     @Test(dataProvider = "randomLocalDateTimeStreamData")
     public void test_randomLocalDateTimeStream (final long seed,

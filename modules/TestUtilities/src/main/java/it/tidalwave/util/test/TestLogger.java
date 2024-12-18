@@ -110,7 +110,7 @@ public class TestLogger extends TestListenerAdapter
         log.info(separator);
         log.info("TEST \"{}\"", result.getName().replace('_', ' '));
 
-        if (!"".equals(args))
+        if (!args.isEmpty())
           {
             log.info("ARGS {}", args);
           }
@@ -129,7 +129,7 @@ public class TestLogger extends TestListenerAdapter
         log.error("TEST FAILED in {} msec - {}{} - {}",
                  result.getEndMillis() - result.getStartMillis(),
                  result.getName().replace('_', ' '),
-                 "".equals(args) ? "" : " " + args,
+                 args.isEmpty() ? "" : " " + args,
                  getMessage(throwable));
 
         if (throwable != null)

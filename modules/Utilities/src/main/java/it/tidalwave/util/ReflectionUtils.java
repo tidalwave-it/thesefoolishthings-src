@@ -41,7 +41,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.*;
@@ -139,7 +138,7 @@ public class ReflectionUtils
      *
      * @param <T>     the generic type of the object to instantiate
      * @param type    the dynamic type of the object to instantiate; it is expected to have a single constructor
-     * @param beans   the pool of objects to instantiate
+     * @param beans   the bag of objects to instantiate
      * @return        the new instance
      * @throws        RuntimeException if something fails
      * @since         3.2-ALPHA-17
@@ -171,6 +170,10 @@ public class ReflectionUtils
 
     /*******************************************************************************************************************
      *
+     * Performs dependency injection to an object by means of field introspection.
+     *
+     * @param object  the object
+     * @param beans   the bag of objects to instantiate
      * @since         3.2-ALPHA-17
      *
      ******************************************************************************************************************/
@@ -203,7 +206,10 @@ public class ReflectionUtils
 
     /*******************************************************************************************************************
      *
+     * Returns the class literal associated to the given type.
      *
+     * @param   type    the type to inspect
+     * @return          the class literal; it might be {@code null} if fails
      *
      ******************************************************************************************************************/
     @CheckForNull
@@ -259,7 +265,7 @@ public class ReflectionUtils
                     return true;
                   }
               }
-            catch (ClassNotFoundException e)
+            catch (ClassNotFoundException ignored)
               {
                 // try next
               }

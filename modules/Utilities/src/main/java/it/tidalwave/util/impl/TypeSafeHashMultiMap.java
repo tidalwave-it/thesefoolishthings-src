@@ -73,7 +73,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
      *
      *
      ******************************************************************************************************************/
-    /* package */ TypeSafeHashMultiMap (@Nonnull final Map<Key<?>, Collection<?>> map, final boolean dummy)
+    /* package */ TypeSafeHashMultiMap (@Nonnull final Map<Key<?>, Collection<?>> map, final boolean ignored)
       {
         this.map = map;
       }

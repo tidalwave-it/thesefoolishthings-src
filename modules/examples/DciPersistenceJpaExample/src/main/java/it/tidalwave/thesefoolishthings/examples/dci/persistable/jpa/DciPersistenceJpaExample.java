@@ -55,7 +55,6 @@ public class DciPersistenceJpaExample
 
     @PostConstruct
     public void run()
-            throws Exception
       {
         contextManager.runEWithContexts(this::process, jpaPersistenceContext);
       }

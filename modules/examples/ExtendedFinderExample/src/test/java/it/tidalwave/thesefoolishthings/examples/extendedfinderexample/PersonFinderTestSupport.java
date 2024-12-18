@@ -33,8 +33,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample.PersonSortCriteria.*;
 import static it.tidalwave.util.Finder.SortDirection.DESCENDING;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
  *
@@ -111,7 +111,7 @@ public class PersonFinderTestSupport
     @Test
     public void testLastNameIsBerniniFirstResult()
       {
-        assertThat(underTest.withLastName("Bernini").optionalFirstResult().get().toString(),
+        assertThat(underTest.withLastName("Bernini").optionalFirstResult().orElseThrow().toString(),
                    is("Lorenzo Bernini"));
       }
   }

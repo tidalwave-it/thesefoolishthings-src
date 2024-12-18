@@ -63,7 +63,7 @@ public class SimpleCompositePresentable implements Presentable
     @RequiredArgsConstructor
     static class SCPFinder extends SimpleFinderSupport<PresentationModel>
       {
-        private static final long serialVersionUID = -3235827383866946732L;
+        // private static final long serialVersionUID = -3235827383866946732L;
 
         @Nonnull
         private final SimpleCompositePresentable scp;

@@ -36,8 +36,8 @@ import java.util.stream.IntStream;
 import org.testng.annotations.Test;
 import static java.util.stream.Collectors.*;
 import static it.tidalwave.util.CollectionUtils.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
  *

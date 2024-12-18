@@ -35,22 +35,18 @@ import lombok.RequiredArgsConstructor;
  * @author  Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor
+@Getter @RequiredArgsConstructor
 public class ActorActivatorStats implements ActorActivatorStatsMBean
   {
-    @Nonnegative @Getter
+    @Nonnegative
     private final int poolSize;
 
-    @Getter
     private int pendingMessageCount;
 
-    @Getter
     private int invocationCount;
 
-    @Getter
     private int succesfulInvocationCount;
 
-    @Getter
     private int invocationErrorCount;
 
     public void changePendingMessageCount (final int delta)

@@ -44,10 +44,9 @@ import lombok.Getter;
  *
  **********************************************************************************************************************/
 // START SNIPPET: xstreamcontext
-@DciContext
+@Getter @DciContext
 public class XStreamContext2 implements XStreamContext
   {
-    @Getter
     private final XStream xStream = new XStream(new StaxDriver());
 
     public XStreamContext2()

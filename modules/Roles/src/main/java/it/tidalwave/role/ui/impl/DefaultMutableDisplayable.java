@@ -50,7 +50,7 @@ import it.tidalwave.role.ui.MutableLocalizedDisplayable;
  **********************************************************************************************************************/
 public class DefaultMutableDisplayable implements MutableLocalizedDisplayable
   {
-    private static final long serialVersionUID = 45345436345634734L;
+    // private static final long serialVersionUID = 45345436345634734L;
 
     @Nonnull
     private final String toStringName;

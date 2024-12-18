@@ -64,6 +64,10 @@ public interface ContextManager
 
     /*******************************************************************************************************************
      *
+     * Returns a singleton instance.
+     *
+     * @return  the singleton instance
+     *
      ******************************************************************************************************************/
     @Nonnull
     public static ContextManager getInstance()

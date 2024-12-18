@@ -36,7 +36,7 @@ import org.testng.annotations.Test;
 import static java.util.stream.Collectors.*;
 import static org.testng.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
  *
@@ -84,21 +84,21 @@ public class KeyTest
       }
 
     /*******************************************************************************************************************
-     *
+     * @param underTest     the key to test
+     * @param expectedType  the expected key type
+     * @param <T>           the expected key type
      ******************************************************************************************************************/
     @Test(dataProvider = "keysAndExpectedTypes")
-    public <T> void must_return_the_correct_dynamic_type (@Nonnull final Key<T> key, @Nonnull final Class<T> expectedType)
+    public <T> void must_return_the_correct_dynamic_type (@Nonnull final Key<T> underTest, @Nonnull final Class<T> expectedType)
       {
         // when
-        final var actualType = key.getType();
+        final var actualType = underTest.getType();
         // then
         assertEquals(actualType, expectedType);
       }
 
     /*******************************************************************************************************************
-     *
      * Test for deprecated constructor, don't use Key.of().
-     *
      ******************************************************************************************************************/
     @DataProvider
     private static Object[][] keysAndExpectedTypes()

@@ -41,7 +41,7 @@ import static java.util.stream.Collectors.*;
 import static org.testng.FileAssert.fail;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
  *
@@ -98,7 +98,7 @@ public class UserActionProviderTest
         // then
         assertThat(underTest.getActions(), is(InstanceMatcher.sameInstances(asList(ACTIONS))));
         assertThat(underTest.getDefaultAction(), sameInstance(ACTIONS[0]));
-        assertThat(underTest.getOptionalDefaultAction().get(), sameInstance(ACTIONS[0]));
+        assertThat(underTest.getOptionalDefaultAction().orElseThrow(), sameInstance(ACTIONS[0]));
       }
 
     @Test

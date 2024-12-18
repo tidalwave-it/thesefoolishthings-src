@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 import static it.tidalwave.util.FunctionalCheckedExceptionWrappers.*;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @SuppressWarnings({"SameReturnValue", "RedundantThrows"}) @Slf4j
 public class FunctionalCheckedExceptionWrappersTest

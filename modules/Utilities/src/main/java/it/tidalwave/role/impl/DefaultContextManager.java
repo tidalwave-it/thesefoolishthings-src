@@ -170,7 +170,7 @@ public class DefaultContextManager implements ContextManager
       {
         log.trace("runWithContexts({}, {})", shortId(supplier), shortIds(contexts));
 
-        try (final var __ = binder(contexts))
+        try (final var unused = binder(contexts))
           {
             if (log.isTraceEnabled())
               {

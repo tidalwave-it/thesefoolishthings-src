@@ -372,11 +372,11 @@ public interface Finder<T> extends Cloneable, Serializable
     public default Optional<T> optionalResult()
     // END SNIPPET: optionalResult
       {
-        final var results = (List<T>)results();
+        final var results = results();
 
         if (results.size() > 1)
           {
-            throw new RuntimeException("" + results.size() + " results, expected only one");
+            throw new RuntimeException(results.size() + " results, expected only one");
           }
 
         return results.stream().findFirst();

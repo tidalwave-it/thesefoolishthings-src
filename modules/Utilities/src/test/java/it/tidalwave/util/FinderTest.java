@@ -39,8 +39,8 @@ import it.tidalwave.util.spi.ExtendedFinderSupport;
 import it.tidalwave.util.spi.HierarchicFinderSupport;
 import org.testng.annotations.Test;
 import static java.util.stream.Collectors.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***********************************************************************************************************************
  *
@@ -171,19 +171,5 @@ public class FinderTest
         assertThat(actualResult1, is(expectedResult1));
         assertThat(actualResult2, is(expectedResult2));
         // END SNIPPET: mapping-example
-      }
-
-    public void test1() // just to see the syntax
-      {
-//        Composite<String, Finder<String>> composite = null;
-//        List<? extends String> results1 = composite.findChildren().max(10).results();
-//        List<? extends Integer> results2 = composite.findChildren().ofType(Integer.class).results();
-      }
-
-    public void test2() // just to see the syntax
-      {
-//        Composite<String, NameFinder> composite = null;
-//        List<? extends String> results1 = composite.findChildren().from(2).startingWith("A").max(10).results();
-//        List<? extends Integer> results2 = composite.findChildren().ofType(Integer.class).results();
       }
   }

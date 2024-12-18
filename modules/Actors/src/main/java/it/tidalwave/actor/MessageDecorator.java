@@ -50,10 +50,10 @@ public interface MessageDecorator
      * A default implementation of {@code MessageDecorator} which returns the same message.
      *
      ******************************************************************************************************************/
-    @RequiredArgsConstructor @ToString
+    @Getter @RequiredArgsConstructor @ToString
     public static class Same<T extends MessageSupport> implements MessageDecorator
       {
-        @Getter @Nonnull
+        @Nonnull
         private final T decoratedMessage;
       }
 

@@ -28,7 +28,7 @@ package it.tidalwave.util;
 
 import java.util.stream.IntStream;
 import org.testng.annotations.Test;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 /***********************************************************************************************************************

@@ -112,7 +112,7 @@ public class DefaultPresentationModel implements PresentationModel
                     return Optional.of(role);
                   }
               }
-            catch (AsException e)
+            catch (AsException ignore)
               {
                 // fallback
               }

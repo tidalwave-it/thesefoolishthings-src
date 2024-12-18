@@ -50,6 +50,6 @@ public class CopyIfEmptyOrConform extends WeakCopyFunctionSupport<String>
     @Override
     protected boolean shouldChange (final String oldValue, final String newValue)
       {
-        return oldValue.equals(targetValue) || "".equals(targetValue);
+        return oldValue.equals(targetValue) || targetValue.isEmpty();
       }
   }
