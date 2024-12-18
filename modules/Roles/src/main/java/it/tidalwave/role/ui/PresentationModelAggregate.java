@@ -29,6 +29,7 @@ package it.tidalwave.role.ui;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 import it.tidalwave.role.Aggregate;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -107,7 +108,7 @@ public class PresentationModelAggregate implements Aggregate<PresentationModel>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Collection<String> getNames()
+    public Set<String> getNames()
       {
         return delegate.getNames();
       }

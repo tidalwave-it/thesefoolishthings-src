@@ -28,12 +28,12 @@ package it.tidalwave.role.impl;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 import it.tidalwave.role.Aggregate;
 import lombok.ToString;
 
@@ -88,9 +88,9 @@ public class MapAggregate<T> implements Aggregate<T>
      *
      ******************************************************************************************************************/
     @Override @Nonnull
-    public Collection<String> getNames()
+    public Set<String> getNames()
       {
-        return new CopyOnWriteArrayList<>(mapByName.keySet());
+        return new CopyOnWriteArraySet<>(mapByName.keySet());
       }
 
     /*******************************************************************************************************************

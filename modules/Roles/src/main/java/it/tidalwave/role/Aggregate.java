@@ -31,6 +31,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import it.tidalwave.role.impl.MapAggregate;
 
 /***********************************************************************************************************************
@@ -67,9 +68,9 @@ public interface Aggregate<T>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public default Collection<String> getNames()
+    public default Set<String> getNames()
       {
-        return Collections.emptyList();
+        return Collections.emptySet();
       }
 
     /*******************************************************************************************************************
