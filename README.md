@@ -18,7 +18,7 @@ Maschwitz and Strachey.
 TheseFoolishThings requires and is tested with JDKs in this range: [11, 17].
 It is released under the [Apache Licence v2](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
-Please have a look at the [project website](${project.url/${project.version}) for a quick introduction with samples, tutorials, JavaDocs and build reports.
+Please have a look at the [project website](${project.url}/${project.version}) for a quick introduction with samples, tutorials, JavaDocs and build reports.
 
 
 Bootstrapping

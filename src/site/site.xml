@@ -29,7 +29,7 @@
 -->
 <site xmlns="http://maven.apache.org/SITE/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://maven.apache.org/SITE/2.0.0 https://maven.apache.org/xsd/site-2.0.0.xsd">
-    <bannerLeft name="${project.name}" href="https://tidalwave.it">
+    <bannerLeft name="${project.name}" href="http://tidalwave.it">
         <image src="http://tidalwave.it/media/Tidalwave%20Logo.png" />
     </bannerLeft>
 
@@ -60,9 +60,38 @@
     </custom>
 
     <body>
-        <menu name="Overview">
+        <menu name="Overview" inherit="top">
             <item name="Introduction" href="index.html"/>
+            <item name="As" href="modules/it-tidalwave-util/index.html#As"/>
+            <item name="Collaborative Actors" href="modules/it-tidalwave-actor/index.html"/>
+            <item name="Finder" href="modules/it-tidalwave-util/index.html#Finder"/>
+            <item name="Message Bus" href="modules/it-tidalwave-messagebus/index.html"/>
+            <item name="Pair and Triple" href="modules/it-tidalwave-util/index.html#Pair_and_Triple"/>
+            <item name="Roles" href="modules/it-tidalwave-role/index.html"/>
+            <item name="Test Utilities" href="modules/it-tidalwave-util-test/index.html"/>
+            <item name="Type-safe maps" href="modules/it-tidalwave-util/index.html#Type-safe_maps"/>
+            <item name="Utilities" href="modules/it-tidalwave-util/index.html"/>
         </menu>
+
+        <menu name="SpotBugs" inherit="top">
+            <!-- It's not possible to have a SpotBugs aggregate: https://spotbugs.github.io/spotbugs-maven-plugin/faq.html#Aggregate_Reporting -->
+            <item name="SpotBugs Actors" href="modules/it-tidalwave-actor/spotbugs.html"/>
+            <item name="SpotBugs Roles" href="modules/it-tidalwave-role/spotbugs.html"/>
+            <item name="SpotBugs Spring Roles" href="modules/it-tidalwave-role-spring/spotbugs.html"/>
+            <item name="SpotBugs MessageBus" href="modules/it-tidalwave-messagebus/spotbugs.html"/>
+            <item name="SpotBugs MessageBus Spring" href="modules/it-tidalwave-messagebus-spring/spotbugs.html"/>
+            <item name="SpotBugs Utilities" href="modules/it-tidalwave-util/spotbugs.html"/>
+            <item name="SpotBugs Test Utilities" href="modules/it-tidalwave-util-test/spotbugs.html"/>
+            <item name="SpotBugs Examples Finder Example 1" href="modules/thesefoolishthings-examples/it-tidalwave-thesefoolishthings-examples-finderexample1/spotbugs.html"/>
+            <item name="SpotBugs Examples Finder Example 2" href="modules/thesefoolishthings-examples/it-tidalwave-thesefoolishthings-examples-finderexample2/spotbugs.html"/>
+            <item name="SpotBugs Examples Finder Example 3" href="modules/thesefoolishthings-examples/it-tidalwave-thesefoolishthings-examples-finderexample3/spotbugs.html"/>
+            <item name="SpotBugs Examples Data" href="modules/thesefoolishthings-examples/it-tidalwave-thesefoolishthings-examples-data/spotbugs.html"/>
+            <item name="SpotBugs Examples DCI Displayable" href="modules/thesefoolishthings-examples/it-tidalwave-thesefoolishthings-examples-dci-displayable/spotbugs.html"/>
+            <item name="SpotBugs Examples DCI Marshal XStream" href="modules/thesefoolishthings-examples/it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream/spotbugs.html"/>
+            <item name="SpotBugs Examples DCI Persistence JPA" href="modules/thesefoolishthings-examples/it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa/spotbugs.html"/>
+            <item name="SpotBugs Examples DCI Swing" href="modules/thesefoolishthings-examples/it-tidalwave-thesefoolishthings-examples-dci-swing/spotbugs.html"/>
+        </menu>
+
         <menu ref="reports" inherit="bottom"/>
     </body>
 </site>

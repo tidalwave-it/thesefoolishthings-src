@@ -49,6 +49,9 @@ Snippets for other build tool (such as Gradle) are available [here](dependency-i
 
 #[[##]]# Pair and Triple
 
+![UML](apidocs/it/tidalwave/util/Pair.svg)
+![UML](apidocs/it/tidalwave/util/Triple.svg)
+
 `Pair` and `Triple` are immutable heterogeneous tuples (for n=2,3) that can be simply used to hold values together:
 
 <!-- MACRO{snippet|id=pair1|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
@@ -85,9 +88,6 @@ is equivalent to this three-levels nested loop:
 It is also possible to "zip" two streams into a `Stream<Pair>`:
 
 <!-- MACRO{snippet|id=zipPairTest1|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
-
-![UML](apidocs/it/tidalwave/util/Pair.svg)
-![UML](apidocs/it/tidalwave/util/Triple.svg)
 
 
 
@@ -274,7 +274,7 @@ A point that is worth mentioning is about how transactions are handled: it large
 mandatory practices that come with it. In the case of JPA, it is required that the ```Stream``` of results produced by a query is consumed before the
 transaction is committed; in our case this means within the call to ```TxManager```.
 
-![UML](${project.basedir}/../../modules/examples/JPAFinderExample/target/site/apidocs/it/tidalwave/thesefoolishthings/examples/jpafinderexample/impl/package.svg)
+![UML](${project.basedir}/../../modules/examples/JPAFinderExample/target/site/apidocs/it/tidalwave/thesefoolishthings/examples/jpafinderexample/package.svg)
 
 
 #[[###]]# Extended ```Finder```s
@@ -959,7 +959,7 @@ directly on the datum, if it implements `As`; or by creating a delegate by means
 
 `As` implementation relies on a singleton named `SystemRoleFactory` that, given an object, returns all the roles associated to it.
 
-![UML](apidocs/it/tidalwave/util/spi/SystemRoleFactory.svg)
+![UML](apidocs/it/tidalwave/role/spi/SystemRoleFactory.svg)
 
 A default implementation relies upon the the [Java Service Provider interface](https://www.baeldung.com/java-spi), based on the class
 [`ServiceProvider`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html). In short, a special file named
