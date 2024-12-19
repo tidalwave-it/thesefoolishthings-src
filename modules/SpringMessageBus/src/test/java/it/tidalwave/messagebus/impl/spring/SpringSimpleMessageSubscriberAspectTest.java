@@ -33,7 +33,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import it.tidalwave.messagebus.MessageBus;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import static it.tidalwave.messagebus.impl.spring.ListenerAdapterMatcher.listenerAdapter;
+import static it.tidalwave.messagebus.impl.spring.ListenerAdapterMatcher.*;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;

@@ -28,6 +28,7 @@ package it.tidalwave.util.impl;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -64,7 +65,7 @@ public class DefaultPreferencesHandler implements PreferencesHandler
             final var appName = System.getProperty(PROP_APP_NAME);
             Objects.requireNonNull(appName, "You must call PreferencesHandler.setAppName(\"...\") before getting here");
 
-            final var osName = System.getProperty("os.name").toLowerCase();
+            final var osName = System.getProperty("os.name").toLowerCase(Locale.getDefault());
             var pattern = "";
 
             switch (osName)
@@ -92,8 +93,8 @@ public class DefaultPreferencesHandler implements PreferencesHandler
             // PreferencesHandler can be used to programmatically set the log folder, so don't log yet
             if (!Boolean.getBoolean(PROP_SUPPRESS_CONSOLE))
               {
-                System.out.printf("App folder: %s\n", appFolder);
-                System.out.printf("Logging folder: %s\n", logFolder);
+                System.out.printf("App folder: %s%n", appFolder);
+                System.out.printf("Logging folder: %s%n", logFolder);
               }
           }
         catch (IOException e)

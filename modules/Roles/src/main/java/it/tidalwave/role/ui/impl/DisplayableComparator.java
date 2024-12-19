@@ -44,8 +44,6 @@ public final class DisplayableComparator implements Comparator<Displayable>
   {
     private static final DisplayableComparator INSTANCE = new DisplayableComparator();
 
-    private final Collator collator = Collator.getInstance();
-
     @Nonnull
     public static DisplayableComparator getInstance()
       {
@@ -55,6 +53,6 @@ public final class DisplayableComparator implements Comparator<Displayable>
     @Override
     public int compare (@Nonnull final Displayable d1, @Nonnull final Displayable d2)
       {
-        return collator.compare(d1.getDisplayName(), d2.getDisplayName());
+        return Collator.getInstance().compare(d1.getDisplayName(), d2.getDisplayName());
       }
   }

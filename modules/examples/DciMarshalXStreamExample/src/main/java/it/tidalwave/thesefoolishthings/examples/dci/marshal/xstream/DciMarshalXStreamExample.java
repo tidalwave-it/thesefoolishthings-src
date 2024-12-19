@@ -98,7 +98,7 @@ public class DciMarshalXStreamExample
         // END SNIPPET: xstreamcontext-contextmanager2
       }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "UPM_UNCALLED_PRIVATE_METHOD"})
     private void alternateSyntax()
             throws IOException
       {

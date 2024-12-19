@@ -46,12 +46,10 @@ public class TxManagerImpl implements TxManager
     @Override
     public <T> T computeInTx (@Nonnull final Function<? super EntityManager, T> task)
       {
-        EntityManager em = null;
         EntityTransaction tx = null;
 
-        try
+        try (final var em = emf.createEntityManager())
           {
-            em = emf.createEntityManager();
             tx = em.getTransaction();
             tx.begin();
             final var result = task.apply(em);
@@ -66,13 +64,6 @@ public class TxManagerImpl implements TxManager
               }
 
             throw new RuntimeException(e);
-          }
-        finally
-          {
-            if (em != null)
-              {
-                em.close();
-              }
           }
       }
 

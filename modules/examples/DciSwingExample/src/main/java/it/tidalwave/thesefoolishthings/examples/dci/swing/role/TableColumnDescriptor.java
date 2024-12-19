@@ -27,23 +27,14 @@
 package it.tidalwave.thesefoolishthings.examples.dci.swing.role;
 
 import javax.annotation.Nonnull;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 /***********************************************************************************************************************
  *
  * A descriptor for a column in a table.
  *
- * @author  Fabrizio Giudici
+ * @author Fabrizio Giudici
  *
  **********************************************************************************************************************/
-@RequiredArgsConstructor @Getter @ToString
-public class TableColumnDescriptor
+public record TableColumnDescriptor (@Nonnull String propertyName, @Nonnull String headerName)
   {
-    @Nonnull
-    private final String propertyName;
-
-    @Nonnull
-    private final String headerName;
   }

@@ -382,7 +382,7 @@ public class HierarchicFinderSupport<T, F extends Finder<T>> implements Finder<T
      *
      *
      ******************************************************************************************************************/
-    private void checkSubClass()
+    private void checkSubClass ()
       {
         try
           {

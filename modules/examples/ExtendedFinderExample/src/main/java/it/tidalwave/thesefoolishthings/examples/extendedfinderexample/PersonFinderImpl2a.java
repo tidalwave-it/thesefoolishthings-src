@@ -40,6 +40,8 @@ import it.tidalwave.thesefoolishthings.examples.person.Person;
  **********************************************************************************************************************/
 public class PersonFinderImpl2a extends HierarchicFinderSupport<Person, PersonFinder> implements PersonFinder
   {
+    private static final long serialVersionUID = 51438631451345L;
+
     // START SNIPPET: public-constructor-and-fields
     @Nonnull
     private final List<Person> persons;

@@ -48,6 +48,10 @@ public class TransactionalProcessor
   {
     private static final As.Type<Findable<Person>> _FindableOfPersons_ = As.type(Findable.class);
 
+    /**
+     * Inserts a bunch of people into the database.
+     * @param   persons   the entities to insert
+     * */
     @Transactional
     public void persistPeople (@Nonnull final Iterable<Person> persons)
       {
@@ -61,12 +65,17 @@ public class TransactionalProcessor
 //        persons.forEach(_r(person ->  person.as(_Removable_).remove()));
 //      }
 
+    /** {@return The persons in the database. */
     @Transactional @Nonnull
     public List<Person> retrievePeople()
       {
         return Person.prototype().as(_FindableOfPersons_).findAll();
       }
 
+    /**
+     * {@return a specific person} in the database
+     * @param   id  the id of the person to retrieve
+     */
     @Transactional @Nonnull
     public Optional<Person> retrievePerson (@Nonnull final Id id)
       {

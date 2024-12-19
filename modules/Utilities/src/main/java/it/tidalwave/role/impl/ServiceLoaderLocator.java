@@ -92,7 +92,7 @@ public class ServiceLoaderLocator
           }
         else if (!Boolean.getBoolean(PROP_SUPPRESS_CONSOLE))
           {
-            System.out.printf("%s instantiated from META-INF/services: %s\n", serviceClassName, provider);
+            System.out.printf("%s instantiated from META-INF/services: %s%n", serviceClassName, provider);
           }
 
         return provider;

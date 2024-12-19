@@ -47,10 +47,10 @@ public final class MappingFinder<T, U> extends SimpleFinderSupport<T>
     private static final long serialVersionUID = -6359683808082070089L;
 
     @Nonnull
-    private final transient Finder<? extends U> delegate;
+    private final Finder<? extends U> delegate;
 
     @Nonnull
-    private final transient Function<? super U, ? extends T> decorator;
+    private final Function<? super U, ? extends T> decorator;
 
     public MappingFinder (@Nonnull final Finder<? extends U> delegate,
                           @Nonnull final Function<? super U, ? extends T> decorator)
@@ -59,7 +59,7 @@ public final class MappingFinder<T, U> extends SimpleFinderSupport<T>
         this.decorator = decorator;
       }
 
-    public MappingFinder (@Nonnull final MappingFinder other, @Nonnull final Object override)
+    public MappingFinder (@Nonnull final MappingFinder<T, ?> other, @Nonnull final Object override)
       {
         super(other, override);
         final MappingFinder<T, U> source = getSource(MappingFinder.class, other, override);

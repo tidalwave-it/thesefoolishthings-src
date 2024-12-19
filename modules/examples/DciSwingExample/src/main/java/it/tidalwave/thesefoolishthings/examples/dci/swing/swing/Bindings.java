@@ -99,7 +99,7 @@ public final class Bindings
         final var tb = SwingBindings.createJTableBinding(READ_WRITE, ol, jTable);
 
         datum.as(_TableHeaderDescriptor_).getColumnDescriptors().forEach(cd ->
-              tb.addColumnBinding(BeanProperty.create(cd.getPropertyName())).setColumnName(cd.getHeaderName()));
+              tb.addColumnBinding(BeanProperty.create(cd.propertyName())).setColumnName(cd.headerName()));
 
         bindings.addBinding(tb);
       }

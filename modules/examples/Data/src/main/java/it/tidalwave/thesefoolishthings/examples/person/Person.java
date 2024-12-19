@@ -29,6 +29,7 @@ package it.tidalwave.thesefoolishthings.examples.person;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import java.util.UUID;
+import java.io.Serializable;
 import it.tidalwave.util.Id;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -43,7 +44,7 @@ import lombok.Getter;
  **********************************************************************************************************************/
 // START SNIPPET: person
 @Immutable @AllArgsConstructor @Getter @EqualsAndHashCode
-public class Person
+public class Person implements Serializable // Serializable is not a requirement anyway
   {
     @Nonnull
     public static Person prototype()
