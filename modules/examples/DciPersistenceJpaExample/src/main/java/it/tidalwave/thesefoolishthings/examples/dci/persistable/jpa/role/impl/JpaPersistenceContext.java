@@ -27,9 +27,9 @@
 package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.impl;
 
 import javax.annotation.Nonnull;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import it.tidalwave.dci.annotation.DciContext;
 import lombok.extern.slf4j.Slf4j;
 

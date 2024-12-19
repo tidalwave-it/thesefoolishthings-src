@@ -28,10 +28,10 @@ package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
 import javax.annotation.Nonnull;
 import java.util.function.Function;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.TxManager;
 
 /***********************************************************************************************************************

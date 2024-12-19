@@ -29,7 +29,7 @@ package it.tidalwave.thesefoolishthings.examples.jpafinderexample;
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import it.tidalwave.util.LazySupplier;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.TxManagerImpl;
 

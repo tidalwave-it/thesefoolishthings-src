@@ -47,11 +47,14 @@
     </description>
 
     <properties>
+        <tft.javac.source>17</tft.javac.source>
+        <tft.javac.target>17</tft.javac.target>
+        <tft.javac.release>17</tft.javac.release>
         <h2.version>2.3.232</h2.version>
         <betterbeansbinding.version>1.3.0</betterbeansbinding.version>
         <xstream.version>1.4.21</xstream.version>
-        <tft.spring-boot.version>2.7.18</tft.spring-boot.version> <!-- SpringBoot 3 requires JDK 17 -->
-        <tft.spring.version>5.3.37</tft.spring.version>
+        <tft.spring-boot.version>3.4.1</tft.spring-boot.version>
+        <tft.spring.version>6.2.1</tft.spring.version>
         <tft.hibernate.version>6.6.3.Final</tft.hibernate.version>
 
         <tft.defaultGoal>clean install exec:java</tft.defaultGoal>
@@ -85,13 +88,8 @@
             </dependency>
 
             <dependency>
-                <groupId>org.hibernate.ogm</groupId>
+                <groupId>org.hibernate.orm</groupId>
                 <artifactId>hibernate-core</artifactId>
-                <version>${tft.hibernate.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate.ogm</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
                 <version>${tft.hibernate.version}</version>
             </dependency>
             <dependency>

@@ -29,7 +29,7 @@ package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import it.tidalwave.util.As;
 import it.tidalwave.util.AsExtensions;
 import it.tidalwave.util.Id;
