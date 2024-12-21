@@ -1,28 +1,27 @@
 /*
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2024 by Tidalwave s.a.s. (http://tidalwave.it)
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
  * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  */
 package it.tidalwave.actor.impl;
 
@@ -37,13 +36,13 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 
-/***********************************************************************************************************************
+/***************************************************************************************************************************************************************
  *
  * An executor that propagates the {@link it.tidalwave.actor.Collaboration}.
  *
  * @author  Fabrizio Giudici
  *
- **********************************************************************************************************************/
+ **************************************************************************************************************************************************************/
 @Slf4j
 public class ExecutorWithPriority
   {
@@ -90,15 +89,13 @@ public class ExecutorWithPriority
 
     private final Executor executor;
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Creates an executor with the given pool size.
      *
      * @param  poolSize          the pool size
      * @param  name              the thread base name
      * @param  initialPriority   the initial thread priority in this executor
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     public ExecutorWithPriority (@Nonnegative final int poolSize,
                                  @Nonnull final String name,
                                  @Nonnegative final int initialPriority)
@@ -122,13 +119,11 @@ public class ExecutorWithPriority
 //        executor = new ThreadPoolExecutor(poolSize, poolSize, 2, TimeUnit.SECONDS, runnableQueue, threadFactory);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Schedules the execution of a worker at the end of the queue.
      *
      * @param  worker  the worker
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     public void execute (@Nonnull final Runnable worker)
       {
         runnableQueue.add(worker);
@@ -136,13 +131,11 @@ public class ExecutorWithPriority
 //        executor.execute(worker);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Schedules the execution of a worker as soon as possible.
      *
      * @param  worker  the worker
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     public void executeWithPriority (@Nonnull final Runnable worker)
       {
 //        executor.execute(new PriorityRunnable()

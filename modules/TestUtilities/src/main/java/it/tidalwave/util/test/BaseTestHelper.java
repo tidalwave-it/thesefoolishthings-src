@@ -1,28 +1,27 @@
 /*
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2024 by Tidalwave s.a.s. (http://tidalwave.it)
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
  * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  */
 package it.tidalwave.util.test;
 
@@ -39,30 +38,28 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static it.tidalwave.util.test.FileComparisonUtils.assertSameContents;
 import static lombok.AccessLevel.PRIVATE;
 
-/***********************************************************************************************************************
+/***************************************************************************************************************************************************************
  *
  * A facility that provides some common tasks for testing, such as manipulating test files.
  *
  * @author  Fabrizio Giudici
  * @since 3.2-ALPHA-18
  *
- **********************************************************************************************************************/
+ **************************************************************************************************************************************************************/
 @RequiredArgsConstructor @Slf4j
 public class BaseTestHelper
   {
     @Nonnull
     protected final Object test;
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns a {@link Path} for a resource file. The resource should be placed under
      * {@code src/test/resources/test-class-simple-name/test-resources/resource-name}. Note that the file actually
      * loaded is the one under {@code target/test-classes} copied there (and eventually filtered) by Maven.
      *
      * @param   resourceName    the resource name
      * @return the {@code Path}
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public Path resourceFileFor (@Nonnull final String resourceName)
       {
@@ -70,16 +67,14 @@ public class BaseTestHelper
         return Paths.get("target/test-classes", testName, "test-resources", resourceName);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Reads the content from the resource file as a single string. See {@link #resourceFileFor(String)} for
      * further info.
      *
      * @param   resourceName    the resource name
      * @return the string
      * @throws IOException     in case of error
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public String readStringFromResource (@Nonnull final String resourceName)
             throws IOException
@@ -98,8 +93,7 @@ public class BaseTestHelper
 //            return String.join("\n", Files.readAllLines(path, UTF_8)); TODO JDK 8
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Create a {@link TestResource} for the given name. The actual file will be created under
      * {@code target/test-artifacts/test-class-simple-name/resourceName}. The expected file should be
      * placed in {@code src/test/resources/test-class-simple-name/expected-results/resource-name}. Note that the file
@@ -112,8 +106,7 @@ public class BaseTestHelper
      * @param   resourceName    the name
      * @return the {@code TestResource}
      * @throws IOException     in case of error
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public TestResource testResourceFor (@Nonnull final String resourceName)
             throws IOException
@@ -125,9 +118,9 @@ public class BaseTestHelper
         return new TestResource(resourceName, actualFile, expectedFile);
       }
 
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
+    /***********************************************************************************************************************************************************
+     * 
+     **********************************************************************************************************************************************************/
     @Nonnull
     private Path findExpectedFilePath (@Nonnull final String resourceName)
             throws IOException
@@ -146,11 +139,9 @@ public class BaseTestHelper
         throw new FileNotFoundException("Expected file for test " + resourceName);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * A manipulator of a pair of (actual file, expected file).
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @RequiredArgsConstructor(access = PRIVATE)
     public final class TestResource
       {

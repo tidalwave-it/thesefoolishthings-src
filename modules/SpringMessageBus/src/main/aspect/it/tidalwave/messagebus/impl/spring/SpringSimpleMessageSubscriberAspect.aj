@@ -32,7 +32,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.DisposableBean;
 import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
 
-/***********************************************************************************************************************
+/***************************************************************************************************************************************************************
  *
  * This aspect implements the semantics of @SimpleMessageSubscriber in a Spring 3+ environment. To use it, the ajc
  * compiler is required. In a Maven environment this is usually done by means of the aspectj-maven-plugin with the
@@ -42,7 +42,7 @@ import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
  *
  * @author  Fabrizio Giudici
  *
- **********************************************************************************************************************/
+ **************************************************************************************************************************************************************/
 public aspect SpringSimpleMessageSubscriberAspect
   {
     //

@@ -1,28 +1,27 @@
 /*
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2024 by Tidalwave s.a.s. (http://tidalwave.it)
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
  * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  */
 package it.tidalwave.actor;
 
@@ -43,7 +42,7 @@ import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.actor.MessageDecorator._MessageDecorator_;
 
-/***********************************************************************************************************************
+/***************************************************************************************************************************************************************
  *
  * A support class for implementing messages.
  *
@@ -51,7 +50,7 @@ import static it.tidalwave.actor.MessageDecorator._MessageDecorator_;
  *
  * @author  Fabrizio Giudici
  *
- **********************************************************************************************************************/
+ **************************************************************************************************************************************************************/
 @Slf4j @EqualsAndHashCode(of = "collaboration")
 public abstract class MessageSupport implements Collaboration.Provider, As, Serializable
   {
@@ -72,46 +71,38 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
     @Delegate(excludes = Exclusions.class)
     private final As as = As.forObject(this);
 
-    /*******************************************************************************************************************
+    /***********************************************************************************************************************************************************
      *
-     *
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     protected MessageSupport()
       {
         this.collaboration = DefaultCollaboration.getOrCreateCollaboration(this);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * @param   collaboration   the collaboration
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     protected MessageSupport (@Nonnull final Collaboration collaboration)
       {
         this.collaboration = (DefaultCollaboration)collaboration;
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns the {@link Collaboration} that this message is part of.
      *
      * @return  the {@code Collaboration}
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Override @Nonnull
     public Collaboration getCollaboration()
       {
         return collaboration;
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Sends this message, eventually performing a replacement (see {@link MessageDecorator} for further info).
      *
      * @return  the {@code Collaboration} that this message is part of
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull @SuppressWarnings("UnusedReturnValue")
     public Collaboration send()
       {
@@ -119,13 +110,11 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
         return findDecoratedMessage().sendDirectly();
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Sends this message directly, not performing any replacement (see {@link MessageDecorator} for further info).
      *
      * @return  the {@code Collaboration} that this message is part of
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public Collaboration sendDirectly()
       {
@@ -135,16 +124,14 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
         return collaboration;
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Sends this message after a delay, eventually performing a replacement (see {@link MessageDecorator} for
      * further info).
      *
      * @param   delay     the delay
      * @param   timeUnit  the {@link TimeUnit} for the delay
      * @return            the {@code Collaboration} that this message is part of
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public Collaboration sendLater (@Nonnegative final int delay, @Nonnull final TimeUnit timeUnit)
       {
@@ -164,11 +151,9 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
         return collaboration;
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Override @Nonnull
     public <T> Optional<T> maybeAs (@Nonnull final Class<? extends T> type)
       {
@@ -179,11 +164,9 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
                : type.equals(MessageDecorator.class) ? Optional.of(type.cast(sameMessageDecorator)) : Optional.empty();
       }
 
-    /*******************************************************************************************************************
+    /***********************************************************************************************************************************************************
      *
-     *
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     private MessageSupport findDecoratedMessage()
       {

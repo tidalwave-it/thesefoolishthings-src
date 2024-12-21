@@ -1,28 +1,27 @@
 /*
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2024 by Tidalwave s.a.s. (http://tidalwave.it)
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
  * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  */
 package it.tidalwave.role.spi;
 
@@ -46,7 +45,7 @@ import lombok.extern.slf4j.Slf4j;
 import static java.util.Comparator.*;
 import static it.tidalwave.util.ShortNames.*;
 
-/***********************************************************************************************************************
+/***************************************************************************************************************************************************************
  *
  * A basic implementation of a {@link SystemRoleFactory}. This class must be specialized to:
  *
@@ -61,7 +60,7 @@ import static it.tidalwave.util.ShortNames.*;
  *
  * @author  Fabrizio Giudici
  *
- **********************************************************************************************************************/
+ **************************************************************************************************************************************************************/
 @Slf4j
 public abstract class SystemRoleFactorySupport implements SystemRoleFactory
   {
@@ -70,11 +69,9 @@ public abstract class SystemRoleFactorySupport implements SystemRoleFactory
     // FIXME: use ConcurrentHashMap
     @VisibleForTesting final Set<OwnerAndRole> alreadyScanned = new HashSet<>();
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Override @Nonnull
     public synchronized <T> List<T> findRoles (@Nonnull final Object datum, @Nonnull final Class<? extends T> roleType)
       {
@@ -129,8 +126,7 @@ public abstract class SystemRoleFactorySupport implements SystemRoleFactory
         return roles;
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Prepare the constructor parameters out of the given expected types. Parameters will be eventually made of the
      * given datum, context, and other objects returned by {@link #getBean(java.lang.Class)}.
      *
@@ -139,8 +135,7 @@ public abstract class SystemRoleFactorySupport implements SystemRoleFactory
      * @param   datum               the datum
      * @param   contextClass        the type of the context
      * @param   context             the context
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     private Object[] getParameterValues (@Nonnull final Class<?>[] parameterTypes,
                                          @Nonnull final Class<?> datumClass,
@@ -171,8 +166,7 @@ public abstract class SystemRoleFactorySupport implements SystemRoleFactory
         return values.toArray();
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Finds the role implementations for the given owner type and role type. This method might discover new
      * implementations that weren't found during the initial scan, since the initial scan can't go down in a
      * hierarchy; that is, given a Base class or interface with some associated roles, it can't associate those roles
@@ -182,8 +176,7 @@ public abstract class SystemRoleFactorySupport implements SystemRoleFactory
      * @param   datumType       the type of the datum
      * @param   roleType        the type of the role to find
      * @return                  the types of role implementations
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     @VisibleForTesting synchronized <T> Set<Class<? extends T>> findRoleImplementationsFor (
             @Nonnull final Class<?> datumType,
@@ -208,13 +201,11 @@ public abstract class SystemRoleFactorySupport implements SystemRoleFactory
         return (Set<Class<? extends T>>)(Set)roleMapByOwnerAndRole.getValues(datumAndRole);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Scans all the given role implementation classes and build a map of roles by owner class.
      *
      * @param   roleImplementationTypes     the types of role implementations to scan
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     protected synchronized void scan (@Nonnull final Collection<Class<?>> roleImplementationTypes)
       {
         log.debug("scan({})", shortNames(roleImplementationTypes));
@@ -236,15 +227,13 @@ public abstract class SystemRoleFactorySupport implements SystemRoleFactory
         logRoles();
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Finds all the interfaces implemented by a given class, including those eventually implemented by superclasses
      * and interfaces that are indirectly implemented (e.g. C implements I1, I1 extends I2).
      *
      * @param  clazz    the class to inspect
      * @return          the implemented interfaces
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     @VisibleForTesting static SortedSet<Class<?>> findAllImplementedInterfacesOf (@Nonnull final Class<?> clazz)
       {
@@ -264,29 +253,25 @@ public abstract class SystemRoleFactorySupport implements SystemRoleFactory
         return interfaces;
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Retrieves an extra bean.
      *
      * @param <T>           the static type of the bean
      * @param beanType      the dynamic type of the bean
      * @return              the bean
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     protected <T> Optional<T> getBean (@Nonnull final Class<T> beanType)
       {
         return Optional.empty();
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns the type of the context associated to the given role implementation type.
      *
      * @param   roleImplementationType      the role type
      * @return                              the context type
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     protected Optional<Class<?>> findContextTypeForRole (@Nonnull final Class<?> roleImplementationType)
       {
@@ -294,24 +279,20 @@ public abstract class SystemRoleFactorySupport implements SystemRoleFactory
         return (contextClass == DciRole.NoContext.class) ? Optional.empty() : Optional.of(contextClass);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns the valid datum types for the given role implementation type.
      *
      * @param   roleImplementationType      the role type
      * @return                              the datum types
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     protected Class<?>[] findDatumTypesForRole (@Nonnull final Class<?> roleImplementationType)
       {
         return roleImplementationType.getAnnotation(DciRole.class).datumType();
       }
 
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
+    /***********************************************************************************************************************************************************
+     **********************************************************************************************************************************************************/
     private void logChanges (@Nonnull final OwnerAndRole ownerAndRole,
                              @Nonnull final Set<Class<?>> before,
                              @Nonnull final Set<Class<?>> after)
@@ -329,10 +310,8 @@ public abstract class SystemRoleFactorySupport implements SystemRoleFactory
           }
       }
 
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
+    /***********************************************************************************************************************************************************
+     **********************************************************************************************************************************************************/
     public void logRoles()
       {
         log.debug("Configured roles:");
@@ -350,15 +329,13 @@ public abstract class SystemRoleFactorySupport implements SystemRoleFactory
           }
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns the type of an object, taking care of mocks created by Mockito, for which the implemented interface is
      * returned.
      *
      * @param  object   the object
      * @return          the object type
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     @VisibleForTesting static <T> Class<T> findTypeOf (@Nonnull final T object)
       {

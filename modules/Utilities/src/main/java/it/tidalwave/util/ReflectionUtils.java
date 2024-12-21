@@ -1,28 +1,27 @@
 /*
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2024 by Tidalwave s.a.s. (http://tidalwave.it)
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
  * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  */
 package it.tidalwave.util;
 
@@ -46,29 +45,27 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.*;
 import static it.tidalwave.util.ShortNames.*;
 
-/***********************************************************************************************************************
+/***************************************************************************************************************************************************************
  *
  * Adapted from <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=208860">this article</a>
  *
  * @author Ian Robertson
  * @author Fabrizio Giudici
  *
- **********************************************************************************************************************/
+ **************************************************************************************************************************************************************/
 @Slf4j
 public class ReflectionUtils
   {
     private static final List<String> INJECT_CLASS_NAMES = List.of("javax.inject.Inject", "jakarta.inject.Inject");
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Get the actual type arguments a subclass has used to extend a generic base class.
      *
      * @param   <T>           the static type of the base class
      * @param   baseClass     the base class
      * @param   childClass    the subclass
      * @return                a list of the raw classes for the actual type arguments.
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public static <T> List<Class<?>> getTypeArguments (@Nonnull final Class<T> baseClass,
                                                        @Nonnull final Class<? extends T> childClass)
@@ -132,8 +129,7 @@ public class ReflectionUtils
         return typeArgumentsAsClasses;
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Instantiates an object of the given class performing dependency injections through the constructor.
      *
      * @param <T>     the generic type of the object to instantiate
@@ -142,8 +138,7 @@ public class ReflectionUtils
      * @return        the new instance
      * @throws        RuntimeException if something fails
      * @since         3.2-ALPHA-17
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     public static <T> T instantiateWithDependencies (@Nonnull final Class<? extends T> type,
                                                      @Nonnull final Map<Class<?>, Object> beans)
       {
@@ -168,15 +163,13 @@ public class ReflectionUtils
           }
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Performs dependency injection to an object by means of field introspection.
      *
      * @param object  the object
      * @param beans   the bag of objects to instantiate
      * @since         3.2-ALPHA-17
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     public static void injectDependencies (@Nonnull final Object object, @Nonnull final Map<Class<?>, Object> beans)
       {
         for (final var field : object.getClass().getDeclaredFields())
@@ -204,14 +197,12 @@ public class ReflectionUtils
           }
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns the class literal associated to the given type.
      *
      * @param   type    the type to inspect
      * @return          the class literal; it might be {@code null} if fails
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @CheckForNull
     public static Class<?> getClass (@Nonnull final Type type)
       {
@@ -244,11 +235,9 @@ public class ReflectionUtils
           }
       }
 
-    /*******************************************************************************************************************
+    /***********************************************************************************************************************************************************
      *
-     *
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     private static boolean hasInjectAnnotation (@Nonnull final Field field)
       {
         final var classLoader = Thread.currentThread().getContextClassLoader();

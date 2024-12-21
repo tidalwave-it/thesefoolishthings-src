@@ -1,28 +1,27 @@
 /*
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2024 by Tidalwave s.a.s. (http://tidalwave.it)
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
  * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  */
 package it.tidalwave.thesefoolishthings.examples.dci.swing.swing;
 
@@ -43,19 +42,18 @@ import static it.tidalwave.thesefoolishthings.examples.dci.swing.role.Observable
 import static it.tidalwave.thesefoolishthings.examples.dci.swing.role.TableHeaderDescriptor._TableHeaderDescriptor_;
 import static org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.*;
 
-/***********************************************************************************************************************
+/***************************************************************************************************************************************************************
  *
  * A facility to bind some Swing components to data.
  *
  * @author  Fabrizio Giudici
  *
- **********************************************************************************************************************/
+ **************************************************************************************************************************************************************/
 @ExtensionMethod(AsExtensions.class)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Bindings
   {
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Binds a source to a {@link JList}. Two roles are used:
      *
      * <ol>
@@ -66,8 +64,7 @@ public final class Bindings
      * @param  bindings  the {@link BindingGroup} to add the new binding to
      * @param  datum     the datum
      * @param  jList     the {@code JList}
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     public static void bind (@Nonnull final BindingGroup bindings,
                              @Nonnull final Object datum,
                              @Nonnull final JList jList)
@@ -77,8 +74,7 @@ public final class Bindings
         jList.setCellRenderer(new HtmlRenderableListCellRenderer());
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Binds a source to a {@link JTable}. Two roles are used:
      *
      * <ol>
@@ -89,8 +85,7 @@ public final class Bindings
      * @param  bindings  the {@link BindingGroup} to add the new binding to
      * @param  datum     the datum
      * @param  jTable    the {@code JTable}
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     public static <T> void bind (@Nonnull final BindingGroup bindings,
                                  @Nonnull final Object datum,
                                  @Nonnull final JTable jTable)

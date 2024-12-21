@@ -1,28 +1,27 @@
 /*
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2024 by Tidalwave s.a.s. (http://tidalwave.it)
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
  * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  */
 package it.tidalwave.util;
 
@@ -51,24 +50,22 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-/***********************************************************************************************************************
+/***************************************************************************************************************************************************************
  *
  * A factory for providing results of a search. {@code Finder} implementations must be <em>immutable</em>.
  *
  * @author  Fabrizio Giudici
  * @it.tidalwave.javadoc.draft
  *
- **********************************************************************************************************************/
+ **************************************************************************************************************************************************************/
 public interface Finder<T> extends Cloneable, Serializable
   {
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * A tag interface to mark objects which are meaningful sort criteria that can be passed to
      * {@link Finder#sort(it.tidalwave.util.Finder.SortCriterion)}. In general, a {@code SortCriterion} is just a
      * behaviourless and methodless object, that should be specifically handled by concrete implementations of
      * {@link Finder}. The only exceptions are {@link InMemorySortCriterion} objects.
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     public static interface SortCriterion
       {
         public static final Class<SortCriterion> _SortCriterion_ = SortCriterion.class;
@@ -79,15 +76,13 @@ public interface Finder<T> extends Cloneable, Serializable
         public static final SortCriterion DEFAULT = UNSORTED;
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * An interface that should be implemented by specific {@link SortCriterion} objects which are capable to implement
      * by themselves the sorting of objects, by post-processing an existing collection of objects. While this is often
      * convenient, it is possible for it to be inefficient in cases in which the original source of objects is capable
      * to perform the sort in an optimized way (e.g. an SQL database by means of {@code ORDER BY}). The facility class
        * {@link it.tidalwave.util.spi.HierarchicFinderSupport} supports {@code FilterSortCriterion} objects out of the box.
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     public static interface InMemorySortCriterion<U> extends SortCriterion
       {
         /***************************************************************************************************************
@@ -168,13 +163,11 @@ public interface Finder<T> extends Cloneable, Serializable
           }
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * An enumeration to define the direction of a sort (ascending or descending).
      *
      * @it.tidalwave.javadoc.stable
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
     public static enum SortDirection
       {
@@ -189,130 +182,112 @@ public interface Finder<T> extends Cloneable, Serializable
           }
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Tells the {@code Finder} that only a subset of found items will be returned, starting from the given position.
      *
      * @param   firstResult    the index of the first result to return
      * @return                 the {@code Finder}
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     // START SNIPPET: from
     @Nonnull
       public Finder<T> from (@Nonnegative int firstResult);
     // END SNIPPET: from
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Tells the {@code Finder} that only a subset of found items will be returned, starting from the given position.
      *
      * @param   firstResult    the index of the first result to return
      * @return                 the {@code Finder}
      * @since   3.2-ALPHA-19
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public default Finder<T> from (@Nonnull final Optional<Integer> firstResult)
       {
         return firstResult.map(this::from).orElse(this);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Tells the {@code Finder} that only a subset of found items will be returned, starting from the given position.
      *
      * @param   firstResult    the index of the first result to return
      * @return                 the {@code Finder}
      * @since   3.2-ALPHA-22
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public default Finder<T> from (@Nonnull final OptionalInt firstResult)
       {
         return firstResult.isPresent() ? from(firstResult.getAsInt()) : this;
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Tells the {@code Finder} that only a maximum number of found items will be returned.
      *
      * @param   maxResults    the max number of results to return
      * @return                the {@code Finder}
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     // START SNIPPET: max
     @Nonnull
     public Finder<T> max (@Nonnegative int maxResults);
     // END SNIPPET: max
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Tells the {@code Finder} that only a maximum number of found items will be returned.
      *
      * @param   maxResults    the max number of results to return
      * @return                the {@code Finder}
      * @since   3.2-ALPHA-19
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public default Finder<T> max (@Nonnull final Optional<Integer> maxResults)
       {
         return maxResults.map(this::max).orElse(this);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Tells the {@code Finder} that only a maximum number of found items will be returned.
      *
      * @param   maxResults    the max number of results to return
      * @return                the {@code Finder}
      * @since   3.2-ALPHA-22
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public default Finder<T> max (@Nonnull final OptionalInt maxResults)
       {
         return maxResults.isPresent() ? max(maxResults.getAsInt()) : this;
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Tells the {@code Finder} that results should be created with the given context. This method can be called 
      * multiple times; contexts are accumulated.
      *
      * @param  context    the context
      * @return            the {@code Finder}
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public default Finder<T> withContext (@Nonnull final Object context)
       {
         throw new UnsupportedOperationException("Not implemented yet.");
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Tells the {@code Finder} that the specified type of results is expected.
      *
      * @param <U>  the static type
      * @param   type          the dynamic type
      * @return                the {@code Finder}
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public default <U> Finder<U> ofType (@Nonnull final Class<U> type)
       {
         throw new UnsupportedOperationException("Not implemented yet.");
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Tells the {@code Finder} that results will be sorted according to the given criterion, in ascending direction.
      *
      * @param  criterion  the sort criterion
      * @return            the {@code Finder}
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public default Finder<T> sort (@Nonnull final SortCriterion criterion)
       {
@@ -320,44 +295,37 @@ public interface Finder<T> extends Cloneable, Serializable
       }
 
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Tells the {@code Finder} that results will be sorted according to the given criterion and direction.
      *
      * @param  criterion  the sort criterion
      * @param  direction  the sort direction
      * @return            the {@code Finder}
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public Finder<T> sort (@Nonnull SortCriterion criterion, @Nonnull SortDirection direction);
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Performs the search and returns the found items.
      *
      * @return            the searched items
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     // START SNIPPET: results
     @Nonnull
     public List<T> results();
     // END SNIPPET: results
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Performs the search and returns the count of found items.
      *
      * @return            the count of found items
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     // START SNIPPET: count
     @Nonnegative
     public int count();
     // END SNIPPET: count
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Performs the search assuming that it will return a single item and returns it. This method fails if the search
      * returns more than one single item.
      *
@@ -365,8 +333,7 @@ public interface Finder<T> extends Cloneable, Serializable
      * @throws RuntimeException   if the search returned more than one single item
      *
      * @since 3.2-ALPHA-1 (previously in Finder8)
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     // START SNIPPET: optionalResult
     @Nonnull
     public default Optional<T> optionalResult()
@@ -382,14 +349,12 @@ public interface Finder<T> extends Cloneable, Serializable
         return results.stream().findFirst();
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Performs the search and returns only the first found item.
      *
      * @return            the first result
      * @since 3.2-ALPHA-1 (previously in Finder8)
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     // START SNIPPET: optionalFirstResult
     @Nonnull
     public default Optional<T> optionalFirstResult()
@@ -398,49 +363,42 @@ public interface Finder<T> extends Cloneable, Serializable
         return stream().findFirst();
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns a stream of results.
      *
      * @return    the stream
      * @since 3.2-ALPHA-1 (previously in Finder8)
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public default Stream<T> stream()
       {
         return results().stream();
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns an iterator of results.
      *
      * @return    the iterator
      * @since 3.2-ALPHA-1 (previously in Finder8)
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public default Iterator<T> iterator()
       {
         return stream().iterator();
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Iterates through results.
      *
      * @param   consumer  the consumer
      * @since 3.2-ALPHA-22
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     public default void forEach (@Nonnull final Consumer<? super T> consumer)
       {
         stream().forEach(consumer);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Performs the search assuming that it will return a single item and returns it. This method fails if the search
      * returns more than one single item.
      *
@@ -448,8 +406,7 @@ public interface Finder<T> extends Cloneable, Serializable
      * @throws NotFoundException  if the search didn't find anything
      * @throws RuntimeException   if the search returned more than one single item
      * @deprecated                Use {@link #optionalResult()} instead
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull @Deprecated
     public default T result()
             throws NotFoundException, RuntimeException
@@ -457,15 +414,13 @@ public interface Finder<T> extends Cloneable, Serializable
         return optionalResult().orElseThrow(NotFoundException::new);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Performs the search and returns only the first found item.
      *
      * @return                    the first found item
      * @throws NotFoundException  if the search didn't find anything
      * @deprecated                Use {@link #optionalFirstResult()} instead
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull @Deprecated
     public default T firstResult()
             throws NotFoundException
@@ -473,23 +428,20 @@ public interface Finder<T> extends Cloneable, Serializable
         return optionalFirstResult().orElseThrow(NotFoundException::new);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns an empty {@code Finder}.
      *
      * @param   <U>     the type of the {@code Finder}
      * @return          the empty {@code Finder}
      * @since 3.2-ALPHA-1 (previously in HierarchicFinderSupport.emptyFinder())
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public static <U> Finder<U> empty()
       {
         return ofCloned(Collections.emptyList());
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns a wrapped {@code Finder} on a given collection of elements. The collection is cloned and will be
      * immutable.
      * If you need to compute the collection on demand, use {@link #ofSupplier(Supplier)}.
@@ -504,8 +456,7 @@ public interface Finder<T> extends Cloneable, Serializable
      * @see             #ofSupplier(Supplier)
      * @see             #ofProvider(BiFunction)
      * @since 3.2-ALPHA-1
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     // START SNIPPET: ofCloned
     @Nonnull
     public static <U> Finder<U> ofCloned (@Nonnull final Collection<? extends U> items)
@@ -514,8 +465,7 @@ public interface Finder<T> extends Cloneable, Serializable
         return new ArrayListFinder<>(items);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns a wrapped {@code Finder} on a given supplier. The collection will be cloned after being supplied.
      * This method retrieves the full range of results that will be later segmented in compliance with the values
      * specified by {@link #from(int)} and {@link #max(int)}; this is ok if the whole list of results is already
@@ -528,8 +478,7 @@ public interface Finder<T> extends Cloneable, Serializable
      * @see               #ofCloned(Collection) 
      * @see               #ofProvider(BiFunction)
      * @since 3.2-ALPHA-15
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     // START SNIPPET: ofsupplier
     @Nonnull
     public static <U> Finder<U> ofSupplier (@Nonnull final Supplier<? extends Collection<? extends U>> supplier)
@@ -538,8 +487,7 @@ public interface Finder<T> extends Cloneable, Serializable
         return new SupplierFinder<>(supplier);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns a wrapped {@code Finder} on a given function to provide results. The function receives the 'from' and
      * 'max' arguments to select a subrange of the results. The collection will be cloned after being supplied.
      *
@@ -549,8 +497,7 @@ public interface Finder<T> extends Cloneable, Serializable
      * @see               #ofCloned(Collection)
      * @see               #ofSupplier(Supplier) 
      * @since 3.2-ALPHA-15
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     // START SNIPPET: ofProvider
     @Nonnull
     public static <U> Finder<U> ofProvider (
@@ -560,8 +507,7 @@ public interface Finder<T> extends Cloneable, Serializable
         return new ProviderFinder<>(provider);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns a mapping {@code Finder} on a given delegate {@code Finder}. The mapper finder provides the same
      * results as the delegate, transformed by a mapper function.
      *
@@ -571,8 +517,7 @@ public interface Finder<T> extends Cloneable, Serializable
      * @param   mapper the mapper function
      * @return            the wrapped {@code Finder}
      * @since 3.2-ALPHA-15
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     // START SNIPPET: mapping
     @Nonnull
     public static <U, V> Finder<U> mapping (@Nonnull final Finder<V> delegate,

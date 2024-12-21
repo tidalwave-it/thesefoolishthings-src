@@ -1,28 +1,27 @@
 /*
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2024 by Tidalwave s.a.s. (http://tidalwave.it)
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
  * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  */
 package it.tidalwave.role.impl;
 
@@ -39,11 +38,11 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import static java.util.stream.Collectors.*;
 
-/***********************************************************************************************************************
+/***************************************************************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
- **********************************************************************************************************************/
+ **************************************************************************************************************************************************************/
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 // PreferencesHandler can be used to programmatically set the log folder, so don't inject logger
 public class ServiceLoaderLocator
@@ -53,9 +52,9 @@ public class ServiceLoaderLocator
     /** Suppress any console output. @since 3.2-ALPHA-21 */
     public static final String PROP_SUPPRESS_CONSOLE = PROPS_BASE_NAME + ".suppressConsoleOutput";
 
-    /*******************************************************************************************************************
-     *
-     ******************************************************************************************************************/
+    /***********************************************************************************************************************************************************
+     * 
+     **********************************************************************************************************************************************************/
     @Nonnull
     public static <T> T findService (@Nonnull final Class<? extends T> serviceClass)
       {

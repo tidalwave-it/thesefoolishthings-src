@@ -1,28 +1,27 @@
 /*
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2024 by Tidalwave s.a.s. (http://tidalwave.it)
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
  * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  */
 package it.tidalwave.messagebus.spi;
 
@@ -39,11 +38,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
-/***********************************************************************************************************************
+/***************************************************************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
- **********************************************************************************************************************/
+ **************************************************************************************************************************************************************/
 @Slf4j
 public class MultiQueue 
   {
@@ -62,30 +61,26 @@ public class MultiQueue
     
     private Class<?> latestSentTopic = null;
     
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Adds a message of the given topic to this queue and issues a notification.
      *
      * @param   <T>   the static type of the message
      * @param   topic     the dynamic type of the message
      * @param   message   the message
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     public synchronized <T> void add (@Nonnull final Class<T> topic, @Nonnull final T message)
       {
         getQueue(topic).add(message);
         notifyAll();
       }
     
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Removes and returns the next pair (topic, message) from the queue. Blocks until one is available.
      *
      * @param   <T>                 the static type of the topic
      * @return                          the topic and message
      * @throws  InterruptedException    if interrupted while waiting
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public synchronized <T> TopicAndMessage<T> remove()
       throws InterruptedException
@@ -119,11 +114,9 @@ public class MultiQueue
           }
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns the list of topics reordered, so it starts just after latestSentTopic and wraps around.
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     private List<Class<?>> reorderedTopics() 
       {
@@ -143,10 +136,8 @@ public class MultiQueue
         return scanSet;
       }
     
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
+    /***********************************************************************************************************************************************************
+     **********************************************************************************************************************************************************/
     private synchronized String stats()
       {
         final var b = new StringBuilder();
@@ -162,14 +153,12 @@ public class MultiQueue
         return b.toString();
       }
     
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns the queue associated to a given topic. The queue is created if the topic is new.
      * 
      * @param   topic       the topic
      * @return              the queue
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     private synchronized <T> Queue<T> getQueue (@Nonnull final Class<T> topic)
       {

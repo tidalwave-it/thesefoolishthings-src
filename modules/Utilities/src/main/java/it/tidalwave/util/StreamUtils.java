@@ -1,28 +1,27 @@
 /*
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
  * http://tidalwave.it/projects/thesefoolishthings
  *
  * Copyright (C) 2009 - 2024 by Tidalwave s.a.s. (http://tidalwave.it)
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  *
  * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
  * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
- * *********************************************************************************************************************
+ * *************************************************************************************************************************************************************
  */
 package it.tidalwave.util;
 
@@ -41,7 +40,7 @@ import java.util.stream.StreamSupport;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-/***********************************************************************************************************************
+/***************************************************************************************************************************************************************
  *
  * A collection of operations on {@link Stream}s.
  *
@@ -49,12 +48,11 @@ import lombok.NoArgsConstructor;
  * @since   3.2-ALPHA-12
  * @it.tidalwave.javadoc.draft
  *
- **********************************************************************************************************************/
+ **************************************************************************************************************************************************************/
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class StreamUtils
   {
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Zips two streams.
      *
      * @param   streamA     the first {@link Stream}
@@ -64,8 +62,7 @@ public final class StreamUtils
      * @return              the zipped {@link Stream} of {@link Pair}s
      * @see     #zip(Stream, Stream, BiFunction)
      * @since   3.2-ALPHA-20
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public static <A, B> Stream<Pair<A, B>> zip (@Nonnull final Stream<? extends A> streamA,
                                                  @Nonnull final Stream<? extends B> streamB)
@@ -73,8 +70,7 @@ public final class StreamUtils
         return zip(streamA, streamB, Pair::of);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Zips two streams.
      *
      * @param   streamA     the first {@link Stream}
@@ -86,8 +82,7 @@ public final class StreamUtils
      * @return              the zipped {@link Stream}
      * @see     #zip(Stream, Stream)
      * @since   3.2-ALPHA-12
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public static <A, B, R> Stream<R> zip (@Nonnull final Stream<? extends A> streamA,
                                            @Nonnull final Stream<? extends B> streamB,
@@ -120,8 +115,7 @@ public final class StreamUtils
           .onClose(streamB::close);
       }
 
-    /*******************************************************************************************************************
-     *
+    /***********************************************************************************************************************************************************
      * Returns a {@code Stream} of random {@link LocalDateTime}s, in the given range.
      *
      * @param   seed      the random seed
@@ -129,8 +123,7 @@ public final class StreamUtils
      * @param   to        the upper bound of the range (excluded)
      * @return            the stream
      * @since   3.2-ALPHA-19
-     *
-     ******************************************************************************************************************/
+     **********************************************************************************************************************************************************/
     @Nonnull
     public static Stream<LocalDateTime> randomLocalDateTimeStream (final long seed,
                                                                    @Nonnull final LocalDateTime from,
