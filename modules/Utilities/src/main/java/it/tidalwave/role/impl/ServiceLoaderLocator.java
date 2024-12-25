@@ -71,7 +71,7 @@ public class ServiceLoaderLocator
 
         if (providers.size() > 1) // filter out the default one
           {
-            getLogger().info("Too many instances of {}, ignoring default providers ...", serviceClassName);
+            getLogger().info("Too many instances of {}, using @DefaultProvider ...", serviceClassName);
             providers = providers.stream()
                                  .filter(p -> p.getClass().getAnnotation(DefaultProvider.class) == null)
                                  .collect(toList());
