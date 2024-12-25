@@ -50,15 +50,6 @@ public interface PreferencesHandler
     /** Suppress any console output. @since 3.2-ALPHA-21 */
     public static final String PROP_SUPPRESS_CONSOLE = PROPS_BASE_NAME + ".suppressConsoleOutput";
 
-    // FIXME: make private as soon as the right Java version is required
-    public static final String __BASE_NAME = "it.tidalwave.javafx";
-
-    /** A property representing the initial main window size as a percentual of the screen size. */
-    public static final Key<Double> KEY_INITIAL_SIZE = Key.of(__BASE_NAME + ".initialSize", Double.class);
-
-    /** Whether the application should start at full screen. */
-    public static final Key<Boolean> KEY_FULL_SCREEN = Key.of(__BASE_NAME + ".fullScreen", Boolean.class);
-
     /***********************************************************************************************************************************************************
      * Returns a singleton instance.
      *
