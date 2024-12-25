@@ -135,9 +135,10 @@ public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
      * Performs the given action on all the pairs (key, value) contained in this map.
      *
      * @param action  the action
+     * @param <T>     the value type
      * @since         3.2-ALPHA-10
      **********************************************************************************************************************************************************/
-    public void forEach (@Nonnull BiConsumer<? super Key<?>, ? super Object> action);
+    public <T> void forEach (@Nonnull BiConsumer<? super Key<T>, ? super T> action);
 
     /***********************************************************************************************************************************************************
      * Create a new instance with an additional pair (key, value=

@@ -100,9 +100,10 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
      * Performs the given action on all the pairs (key, value) contained in this map.
      *
      * @param action  the action
+     * @param <T>     the value type
      * @since         3.2-ALPHA-10
      **********************************************************************************************************************************************************/
-    public void forEach (@Nonnull BiConsumer<? super Key<?>, ? super Collection<?>> action);
+    public <T> void forEach (@Nonnull BiConsumer<? super Key<T>, ? super Collection<T>> action);
 
     /***********************************************************************************************************************************************************
      * Returns the contents as a plain {@link Map}.

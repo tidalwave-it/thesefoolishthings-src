@@ -162,10 +162,10 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
     /***********************************************************************************************************************************************************
      * {@inheritDoc}
      **********************************************************************************************************************************************************/
-    @Override
-    public void forEach (@Nonnull final BiConsumer<? super Key<?>, ? super Collection<?>> action)
+    @Override @SuppressWarnings("unchecked")
+    public <T> void forEach (@Nonnull final BiConsumer<? super Key<T>, ? super Collection<T>> action)
       {
-        map.forEach(action);
+        map.forEach((BiConsumer<? super Key<?>, ? super Collection<?>>)action);
       }
 
     /***********************************************************************************************************************************************************
