@@ -34,13 +34,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>3.2-ALPHA-25-SNAPSHOT</version>
+        <version>3.2-ALPHA-25</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-messagebus</artifactId>
-    <version>3.2-ALPHA-25-SNAPSHOT</version>
+    <version>3.2-ALPHA-25</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings :: MessageBus</name>
     <description>

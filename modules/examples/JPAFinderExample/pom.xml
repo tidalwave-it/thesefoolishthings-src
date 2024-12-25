@@ -33,13 +33,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings-examples</artifactId>
-        <version>3.2-ALPHA-25-SNAPSHOT</version>
+        <version>3.2-ALPHA-25</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample3</artifactId>
-    <version>3.2-ALPHA-25-SNAPSHOT</version>
+    <version>3.2-ALPHA-25</version>
     <name>TheseFoolishThings :: Examples :: Finder :: JPA Finder</name>
     <description>
         An example of Finder integration with JPA.
