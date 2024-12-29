@@ -985,7 +985,7 @@ The standard Java SPI approach sets up the runtime once and for all, as it is ap
 runtime must be installed from scratch each time. On this purpose a specific method is available that should be called before running a test (or a batch
 of tests), providing an empty provider or a mock:
 
-<!-- MACRO{snippet|id=setup|file=${project.basedir}/../../modules/Roles/src/test/java/it/tidalwave/role/ui/PresentationModelTest.java} -->
+<!-- MACRO{snippet|id=setup|file=${project.basedir}/../../modules/Utilities/src/test/java/it/tidalwave/role/impl/AsDelegateTest.java} -->
 
 
 #[[####]]# With Spring

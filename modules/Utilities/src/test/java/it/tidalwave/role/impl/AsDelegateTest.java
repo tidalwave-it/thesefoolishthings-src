@@ -107,7 +107,9 @@ public class AsDelegateTest
     @BeforeMethod
     public void setup()
       {
+        // START SNIPPET: setup
         SystemRoleFactory.reset();
+        // END SNIPPET: setup
         owner = new Object();
         localRole1 = mock(Role1.class);
         localRole2 = mock(Role2.class);

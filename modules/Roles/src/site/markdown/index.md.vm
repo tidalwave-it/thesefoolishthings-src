@@ -39,16 +39,6 @@ TBD
 
 
 
-#[[##]]# `PresentationModel`
-
-`Presentable`
-`PresentationModel`
-`PresentationModelAggregate`
-`PresentationModelFactory`
-
-> PENDING
-
-
 #[[##]]# Generic roles
 
 > PENDING
@@ -65,11 +55,6 @@ TBD
 
 
 #[[###]]# `Aggregate`
-
-> PENDING
-
-
-#[[###]]# `StringRenderable`, `PlainTextRenderable`, `HtmlRenderable`
 
 > PENDING
 
@@ -92,40 +77,3 @@ TBD
 
 
 #[[###]]# `Persistable`
-
-
-#[[##]]# User interface
-
-#[[###]]# `Displayable`, `LocalizedDisplayable`, `MutableDisplayable`, `MutableLocalizedDisplayable`
-
-> PENDING
-
-
-#[[###]]# `IconProvider`, `MutableIconProvider`
-
-> PENDING
-
-
-#[[###]]# `Selectable`
-
-> PENDING
-
-
-#[[###]]# `Styleable`
-
-> PENDING
-
-
-#[[###]]# `Changeable`, `ChangingSource`
-
-> PENDING
-
-
-#[[###]]# `ActionProvider`
-
-> PENDING
-
-
-#[[###]]# `UserAction`, `UserActionProvider`
-
-> PENDING
