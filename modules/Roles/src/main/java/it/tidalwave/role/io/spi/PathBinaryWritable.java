@@ -52,7 +52,6 @@ public class PathBinaryWritable implements BinaryWritable
 
     /***********************************************************************************************************************************************************
      * Creates an instance with the given path and options.
-     *
      * @param   path          the path to open
      * @param   openOptions   open options
      **********************************************************************************************************************************************************/

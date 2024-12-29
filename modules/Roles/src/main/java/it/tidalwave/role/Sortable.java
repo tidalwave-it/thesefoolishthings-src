@@ -43,9 +43,8 @@ public interface Sortable
     public static final Class<Sortable> _Sortable_ = Sortable.class;
 
     /***********************************************************************************************************************************************************
-     * A default {@code Sortable} which does nothing (useful for implementing the NullObject pattern). This object
-     * always returns {@link SortCriterion#UNSORTED} as {@code sortCriterion} and {@link SortDirection#ASCENDING} as
-     * {@code sortDirection}.
+     * A default {@code Sortable} which does nothing (useful for implementing the NullObject pattern). This object always returns
+     * {@link SortCriterion#UNSORTED} as {@code sortCriterion} and {@link SortDirection#ASCENDING} as {@code sortDirection}.
      **********************************************************************************************************************************************************/
     public static final Sortable DEFAULT = new Sortable()
       {
@@ -74,7 +73,6 @@ public interface Sortable
 
     /***********************************************************************************************************************************************************
      * Sets the sort criterion.
-     *
      * @param sortCriterion  the sort criterion
      **********************************************************************************************************************************************************/
     @SuppressWarnings("EmptyMethod")
@@ -82,7 +80,6 @@ public interface Sortable
 
     /***********************************************************************************************************************************************************
      * Sets the sort direction.
-     *
      * @param sortDirection  the sort direction
      **********************************************************************************************************************************************************/
     @SuppressWarnings("EmptyMethod")
@@ -90,7 +87,6 @@ public interface Sortable
 
     /***********************************************************************************************************************************************************
      * Returns the current sort criterion.
-     *
      * @return  the sort criterion
      **********************************************************************************************************************************************************/
     @Nonnull @SuppressWarnings("SameReturnValue")
@@ -98,7 +94,6 @@ public interface Sortable
 
     /***********************************************************************************************************************************************************
      * Returns the current sort direction.
-     *
      * @return  the sort direction
      **********************************************************************************************************************************************************/
     @Nonnull @SuppressWarnings("SameReturnValue")

@@ -56,9 +56,7 @@ public interface TextReadable
       };
 
     /***********************************************************************************************************************************************************
-     * Returns a {@link Reader} to read from the object.
-     *
-     * @return               the {@code Reader}
+     * {@return a {@link Reader} to read from the object}.
      * @throws  IOException  if the operation can't be performed
      **********************************************************************************************************************************************************/
     @Nonnull

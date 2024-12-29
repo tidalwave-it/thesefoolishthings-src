@@ -45,7 +45,6 @@ public interface Unmarshallable
 
     /***********************************************************************************************************************************************************
      * Unmarshalls the object from the given {@link InputStream}.
-     *
      * @param  <T>             the type of the returned value
      * @param   is             the {@code InputStream}
      * @return                 the unmarshalled object

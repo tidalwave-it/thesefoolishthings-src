@@ -58,9 +58,7 @@ public interface BinaryWritable
       };
 
     /***********************************************************************************************************************************************************
-     * Returns an {@link OutputStream} to write into the object.
-     *
-     * @return               the {@code OutputStream}
+     * {@return an {@link OutputStream} to write into the object}.
      * @throws  IOException  if the operation can't be performed
      **********************************************************************************************************************************************************/
     @Nonnull

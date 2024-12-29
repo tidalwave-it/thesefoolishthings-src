@@ -58,9 +58,7 @@ public interface BinaryReadable
       };
 
     /***********************************************************************************************************************************************************
-     * Returns an {@link InputStream} to read from the object.
-     *
-     * @return               the {@code InputStream}
+     * {@return an {@link InputStream}} to read from the object.
      * @throws  IOException  if the operation can't be performed
      **********************************************************************************************************************************************************/
     @Nonnull

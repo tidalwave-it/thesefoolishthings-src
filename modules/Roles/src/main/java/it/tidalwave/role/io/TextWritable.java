@@ -56,9 +56,7 @@ public interface TextWritable
       };
 
     /***********************************************************************************************************************************************************
-     * Returns a {@link Writer} to write into the object.
-     *
-     * @return               the {@code Writer}
+     * {@return  a {@link Writer} to write into the object.}
      * @throws  IOException  if the operation can't be performed
      **********************************************************************************************************************************************************/
     @Nonnull

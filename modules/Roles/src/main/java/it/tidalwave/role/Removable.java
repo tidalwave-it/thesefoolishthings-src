@@ -47,7 +47,6 @@ public interface Removable
 
     /***********************************************************************************************************************************************************
      * Removes this object from some implicit, or context-provided container (e.g. a persistence facility, etc...).
-     *
      * @throws  Exception   if the operation fails
      **********************************************************************************************************************************************************/
     @SuppressWarnings("RedundantThrows")

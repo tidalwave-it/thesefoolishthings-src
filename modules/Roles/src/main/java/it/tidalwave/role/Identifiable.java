@@ -45,18 +45,14 @@ public interface Identifiable
     public static final Class<Identifiable> _Identifiable_ = Identifiable.class;
 
     /***********************************************************************************************************************************************************
-     * Returns the identifier.
-     *
-     * @return              the id
+     * {@return the identifier}.
      **********************************************************************************************************************************************************/
     @Nonnull
     public Id getId();
 
     /***********************************************************************************************************************************************************
-     * Returns a default instance which returns the given idr.
-     *
+     * {@return a default instance which returns the given id}.
      * @param         id    the id
-     * @return              the identifiable
      * @since               3.2-ALPHA-6
      **********************************************************************************************************************************************************/
     @Nonnull

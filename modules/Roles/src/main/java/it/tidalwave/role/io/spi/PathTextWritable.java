@@ -57,7 +57,6 @@ public class PathTextWritable implements TextWritable
 
     /***********************************************************************************************************************************************************
      * Creates an instance with the given path and options.
-     *
      * @param   path          the path to open
      **********************************************************************************************************************************************************/
     public PathTextWritable (@Nonnull final Path path)
@@ -67,7 +66,6 @@ public class PathTextWritable implements TextWritable
 
     /***********************************************************************************************************************************************************
      * Creates an instance with the given path and options.
-     *
      * @param   path          the path to open
      * @param   charset       the character set
      * @param   openOptions   open options

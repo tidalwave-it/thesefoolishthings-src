@@ -53,7 +53,6 @@ public class PathTextReadable implements TextReadable
 
     /***********************************************************************************************************************************************************
      * Creates an instance with the given path and options.
-     *
      * @param   path          the path to open
      **********************************************************************************************************************************************************/
     public PathTextReadable (@Nonnull final Path path)
@@ -63,7 +62,6 @@ public class PathTextReadable implements TextReadable
 
     /***********************************************************************************************************************************************************
      * Creates an instance with the given path and options.
-     *
      * @param   path          the path to open
      * @param   charset       the character set
      **********************************************************************************************************************************************************/

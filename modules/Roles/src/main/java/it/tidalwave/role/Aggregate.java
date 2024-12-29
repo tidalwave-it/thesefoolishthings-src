@@ -48,7 +48,6 @@ public interface Aggregate<T>
 
     /***********************************************************************************************************************************************************
      * Returns an object given its name.
-     *
      * @param   name      the name
      * @return  the object
      **********************************************************************************************************************************************************/
@@ -57,7 +56,6 @@ public interface Aggregate<T>
 
     /***********************************************************************************************************************************************************
      * Returns the names of contained objects.
-     *
      * @return  the names of the objects
      * @since   3.1-ALPHA-8
      **********************************************************************************************************************************************************/
@@ -69,7 +67,6 @@ public interface Aggregate<T>
 
     /***********************************************************************************************************************************************************
      * Returns a new instance with the specified (name, value) pairs.
-     *
      * @param   <T>         the static type of the value
      * @param   mapByName   the map containing the pairs
      * @return              the new instance
@@ -83,7 +80,6 @@ public interface Aggregate<T>
 
     /***********************************************************************************************************************************************************
      * Returns a new empty instance that will be populated by means of {@link #with(String, Object)}.
-     *
      * @param   <T>         the static type of the aggregate
      * @return              the new instance
      * @since               3.2-ALPHA-2
@@ -96,7 +92,6 @@ public interface Aggregate<T>
 
     /***********************************************************************************************************************************************************
      * Returns a new instance with the specified (name, value) pair.
-     *
      * @param   <T>         the static type of the aggregate
      * @param   name        the name in the pair
      * @param   value       the value in the pair
@@ -111,7 +106,6 @@ public interface Aggregate<T>
 
     /***********************************************************************************************************************************************************
      * Returns a new instance with the specified (name, value) pair.
-     *
      * @param   name        the name in the pair
      * @param   value       the value in the pair
      * @return              the new instance

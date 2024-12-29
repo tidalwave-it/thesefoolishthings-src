@@ -46,8 +46,7 @@ public interface SimpleComposite<T> extends Composite<T, Finder<T>>
     public static final Class<SimpleComposite> _SimpleComposite_ = SimpleComposite.class;
 
     /***********************************************************************************************************************************************************
-     * Returns a wrapped {@code SimpleComposite} on a given {@link Finder}
-     *
+     * {@return a wrapped {@code SimpleComposite} on a given {@link Finder}}
      * @param   <U>     the type of the {@code Finder}
      * @param   finder  the {@code Finder}
      * @return          the wrapped {@code SimpleComposite}
@@ -60,12 +59,9 @@ public interface SimpleComposite<T> extends Composite<T, Finder<T>>
       }
 
     /***********************************************************************************************************************************************************
-     * Returns a wrapped {@code SimpleComposite} on a given collection of elements. The collection is cloned and will be
-     * immutable
-     *
+     * {@return a wrapped {@code SimpleComposite} on a given collection of elements}. The collection is cloned and will be immutable.
      * @param   <U>     the type of the {@code Finder}
      * @param   items   the objects to wrap
-     * @return          the wrapped {@code SimpleComposite}
      * @since 3.2-ALPHA-1
      **********************************************************************************************************************************************************/
     @Nonnull
