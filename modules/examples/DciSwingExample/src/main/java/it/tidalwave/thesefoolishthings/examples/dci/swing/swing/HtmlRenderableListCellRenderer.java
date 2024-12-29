@@ -32,10 +32,9 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.AsExtensions;
-import it.tidalwave.role.HtmlRenderable;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.ExtensionMethod;
-import static it.tidalwave.role.HtmlRenderable._HtmlRenderable_;
+import static it.tidalwave.thesefoolishthings.examples.dci.swing.role.HtmlRenderable._HtmlRenderable_;
 
 /***************************************************************************************************************************************************************
  *
@@ -63,9 +62,9 @@ public class HtmlRenderableListCellRenderer extends DefaultListCellRenderer
       {
         try
           {
-            final var builder = new StringBuilder("<html>");
-            value.as(_HtmlRenderable_).renderTo(builder);
-            return builder.append("</html>").toString();
+            final var builder = new StringBuilder();
+            value.as(_HtmlRenderable_).renderTo("<html>%s</<html>", builder::append);
+            return builder.toString();
           }
         catch (AsException e)
           {

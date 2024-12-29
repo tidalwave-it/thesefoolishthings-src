@@ -30,8 +30,8 @@ import it.tidalwave.util.Id;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 import lombok.experimental.ExtensionMethod;
 import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.thesefoolishthings.examples.dci.displayable.role.Displayable._Displayable_;
 import static it.tidalwave.thesefoolishthings.examples.dci.displayable.role.Renderable._Renderable_;
-import static it.tidalwave.role.ui.Displayable._Displayable_;
 
 /***************************************************************************************************************************************************************
  *

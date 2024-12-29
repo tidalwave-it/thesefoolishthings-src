@@ -23,34 +23,19 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.thesefoolishthings.examples.person;
+package it.tidalwave.thesefoolishthings.examples.dci.swing.role;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
-import it.tidalwave.dci.annotation.DciRole;
-import it.tidalwave.thesefoolishthings.examples.dci.swing.role.HtmlRenderable;
-import it.tidalwave.thesefoolishthings.examples.dci.swing.role.StringRenderable;
-import lombok.RequiredArgsConstructor;
 
 /***************************************************************************************************************************************************************
- *
- * The implementation of the {@link HtmlRenderable} role for {@link Person}.
- *
- * @stereotype Role
  *
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@DciRole(datumType = Person.class)
-@RequiredArgsConstructor
-public class PersonHtmlRenderable implements HtmlRenderable, StringRenderable
+public interface Renderable
   {
-    @Nonnull
-    private final Person datum;
+    public static final Class<Renderable> _Renderable_ = Renderable.class;
 
-    @Override
-    public void renderTo (@Nonnull final String pattern, @Nonnull final Consumer<String> renderingContext)
-      {
-        renderingContext.accept(String.format("<html>%s <b>%s</b></html>", datum.firstName, datum.lastName));
-      }
+    public void renderTo (@Nonnull final String pattern, @Nonnull final Consumer<String> renderingContext);
   }
