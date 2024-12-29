@@ -33,13 +33,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings-examples</artifactId>
-        <version>4.0-ALPHA-1</version>
+        <version>4.0-ALPHA-2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-thesefoolishthings-examples-dci-swing</artifactId>
-    <version>4.0-ALPHA-1</version>
+    <version>4.0-ALPHA-2-SNAPSHOT</version>
     <name>TheseFoolishThings :: Examples :: DCI :: Swing</name>
     <description>
         An example of how DCI roles can be used for a Swing application (obsolete stuff).
