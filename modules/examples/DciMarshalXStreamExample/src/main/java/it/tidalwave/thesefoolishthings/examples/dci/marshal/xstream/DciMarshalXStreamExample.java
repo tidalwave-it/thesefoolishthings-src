@@ -26,7 +26,7 @@
 package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -57,7 +57,7 @@ import static it.tidalwave.role.io.Unmarshallable._Unmarshallable_;
 @ExtensionMethod(AsExtensions.class) @Slf4j
 public class DciMarshalXStreamExample
   {
-    @Inject @Nonnull
+    @Inject
     private ContextManager contextManager;
 
     public void run()

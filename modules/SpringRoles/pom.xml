@@ -92,9 +92,16 @@
             <artifactId>aspectjrt</artifactId>
         </dependency>
 
+        <!-- TODO: During the transition we support both annotation groups, but without having them as transitive dependencies. -->
+        <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

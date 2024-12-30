@@ -25,8 +25,8 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import it.tidalwave.util.ContextManager;

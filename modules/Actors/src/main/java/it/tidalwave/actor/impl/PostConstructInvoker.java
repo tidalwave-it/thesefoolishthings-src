@@ -25,10 +25,11 @@
  */
 package it.tidalwave.actor.impl;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import javax.annotation.Nonnull;
-import javax.annotation.PostConstruct;
+import java.util.List;
 import it.tidalwave.messagebus.spi.ReflectionUtils;
 import lombok.RequiredArgsConstructor;
 
@@ -40,21 +41,38 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PostConstructInvoker extends ReflectionUtils.MethodProcessorSupport
   {
+    private static final List<String> POSTCONSTRUCT_CLASS_NAMES = List.of("javax.annotation.PostConstruct", "jakarta.annotation.PostConstruct");
+
     @Nonnull
     private final Object object;
 
     @Override
     public void process (@Nonnull final Method method)
       {
-        if (method.getAnnotation(PostConstruct.class) != null)
+        final var classLoader = Thread.currentThread().getContextClassLoader();
+
+        for (final var className : POSTCONSTRUCT_CLASS_NAMES)
           {
             try
               {
-                method.invoke(object);
+                @SuppressWarnings("unchecked")
+                final var clazz = (Class<? extends Annotation>)classLoader.loadClass(className);
+
+                if (method.getAnnotation(clazz) != null)
+                  {
+                    try
+                      {
+                        method.invoke(object);
+                      }
+                    catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e)
+                      {
+                        throw new RuntimeException(e);
+                      }
+                  }
               }
-            catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e)
+            catch (ClassNotFoundException ignored)
               {
-                throw new RuntimeException(e);
+                // try next
               }
           }
       }

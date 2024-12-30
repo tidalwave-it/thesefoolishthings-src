@@ -26,8 +26,6 @@
 package it.tidalwave.role.spring.spi;
 
 import javax.annotation.Nonnull;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 import java.util.Optional;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -48,13 +46,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j @Configurable
 public class AnnotationSpringSystemRoleFactory extends SystemRoleFactorySupport
   {
-    @Inject @Nonnull
+    @javax.inject.Inject
+    @jakarta.inject.Inject
     private BeanFactory beanFactory;
 
     /***********************************************************************************************************************************************************
      *
      **********************************************************************************************************************************************************/
-    @PostConstruct
+    @javax.annotation.PostConstruct
+    @jakarta.annotation.PostConstruct
     /* package */ void initialize()
       {
         log.debug("scanning classes with {} annotation...", DciRole.class);
