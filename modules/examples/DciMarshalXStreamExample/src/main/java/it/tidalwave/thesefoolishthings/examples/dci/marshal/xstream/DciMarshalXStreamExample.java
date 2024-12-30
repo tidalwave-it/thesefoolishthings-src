@@ -31,6 +31,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.tidalwave.util.AsExtensions;
 import it.tidalwave.util.ContextManager;
 import it.tidalwave.util.Id;
@@ -97,7 +98,7 @@ public class DciMarshalXStreamExample
         // END SNIPPET: xstreamcontext-contextmanager2
       }
 
-    @SuppressWarnings({"unused", "UPM_UNCALLED_PRIVATE_METHOD"})
+    @SuppressWarnings("unused") @SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
     private void alternateSyntax()
             throws IOException
       {
