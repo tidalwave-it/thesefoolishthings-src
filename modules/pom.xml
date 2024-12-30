@@ -48,12 +48,9 @@
     </description>
 
     <properties>
-        <!-- TODO: push tu SuperPOM -->
         <java-diff-utils.version>4.15</java-diff-utils.version>
-        <jakarta.inject-api.version>2.0.0</jakarta.inject-api.version>
         <joda-time.version>2.13.0</joda-time.version>
         <tft.aspectjrt.version>1.9.20.1</tft.aspectjrt.version> <!-- Last with JDK 11 support -->
-        <tft.mockito.version>5.13.0</tft.mockito.version>
     </properties>
 
     <dependencyManagement>
@@ -65,19 +62,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <dependency>
-                <groupId>jakarta.inject</groupId>
-                <artifactId>jakarta.inject-api</artifactId>
-                <version>${jakarta.inject-api.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
                 <version>${joda-time.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>io.github.java-diff-utils</groupId>
                 <artifactId>java-diff-utils</artifactId>
