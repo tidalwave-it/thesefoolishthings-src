@@ -59,7 +59,8 @@ public class ReflectionUtils
     private static final List<String> INJECT_CLASS_NAMES = List.of("javax.inject.Inject", "jakarta.inject.Inject");
 
     /***********************************************************************************************************************************************************
-     * Get the actual type arguments a subclass has used to extend a generic base class.
+     * Get the actual type arguments a subclass has used to extend a generic base class. Note: if the base class is an interface, this method will work only
+     * if it is the first inherited interface in childClass.
      *
      * @param   <T>           the static type of the base class
      * @param   baseClass     the base class
@@ -78,8 +79,15 @@ public class ReflectionUtils
           {
             if (type instanceof Class<?>)
               {
+                if (baseClass.isInterface())
+                  {
+                    type = ((Class<?>)type).getGenericInterfaces()[0]; // FIXME: works only for one interface in hierarchy
+                  }
+                else
+                  {
+                    type = ((Class<?>)type).getGenericSuperclass();
+                  }
                 // there is no useful information for us in raw types, so just keep going.
-                type = ((Class<?>)type).getGenericSuperclass();
               }
             else
               {
