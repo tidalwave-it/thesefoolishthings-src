@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util.thread;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import lombok.NoArgsConstructor;
 import static lombok.AccessLevel.PRIVATE;
 

@@ -26,7 +26,7 @@
 package it.tidalwave.actor.impl;
 
 import java.lang.reflect.Method;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.inject.Provider;
 import java.util.ArrayList;
 import java.util.List;

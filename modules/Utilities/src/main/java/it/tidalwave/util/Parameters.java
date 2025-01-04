@@ -25,8 +25,8 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -85,9 +85,9 @@ public final class Parameters
      * @return                            the value of the parameter
      * @throws IllegalArgumentException   if more than a single value is found
      **********************************************************************************************************************************************************/
-    @CheckForNull
+    @Nullable
     public static <T> T find (@Nonnull final Class<? extends T> parameterClass,
-                              @CheckForNull final T defaultOption,
+                              @Nullable final T defaultOption,
                               @Nonnull final Object... parameters)
             throws IllegalArgumentException
       {

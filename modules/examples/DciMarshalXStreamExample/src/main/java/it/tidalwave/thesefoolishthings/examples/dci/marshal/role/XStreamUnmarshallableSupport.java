@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.io.InputStream;
 import it.tidalwave.role.io.Unmarshallable;
 import lombok.RequiredArgsConstructor;

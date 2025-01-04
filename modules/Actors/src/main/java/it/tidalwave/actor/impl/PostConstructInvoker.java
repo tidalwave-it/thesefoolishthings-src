@@ -28,7 +28,7 @@ package it.tidalwave.actor.impl;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.List;
 import it.tidalwave.messagebus.spi.ReflectionUtils;
 import lombok.RequiredArgsConstructor;

@@ -25,9 +25,9 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.util.List;
 import java.util.Scanner;
 import java.io.IOException;
@@ -138,7 +138,7 @@ public interface ProcessExecutor
          * @return     the listener
          *
          **************************************************************************************************************/
-        @CheckForNull
+        @Nullable
         public Listener getListener();
     }
 

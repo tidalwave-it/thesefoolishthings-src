@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import lombok.extern.slf4j.Slf4j;

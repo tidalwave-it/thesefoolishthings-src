@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.marshal.role;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import com.thoughtworks.xstream.XStream;
 import it.tidalwave.dci.annotation.DciContext;
 

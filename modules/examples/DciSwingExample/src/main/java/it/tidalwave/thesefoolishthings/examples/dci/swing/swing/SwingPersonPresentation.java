@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.swing.swing;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.awt.EventQueue;
 import javax.swing.Action;
 import javax.swing.JFrame;

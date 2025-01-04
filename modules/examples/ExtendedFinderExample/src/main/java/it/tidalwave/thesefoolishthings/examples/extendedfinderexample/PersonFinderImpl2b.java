@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.extendedfinderexample;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;

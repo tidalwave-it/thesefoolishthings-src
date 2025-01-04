@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import lombok.AccessLevel;

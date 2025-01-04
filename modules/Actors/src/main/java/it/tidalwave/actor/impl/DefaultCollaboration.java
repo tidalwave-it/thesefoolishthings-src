@@ -26,7 +26,7 @@
 package it.tidalwave.actor.impl;
 
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;

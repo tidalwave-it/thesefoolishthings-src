@@ -26,7 +26,7 @@
 package it.tidalwave.role.spring.spi;
 
 import java.lang.reflect.Method;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;

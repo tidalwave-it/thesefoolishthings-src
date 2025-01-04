@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import jakarta.inject.Inject;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

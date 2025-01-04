@@ -28,7 +28,7 @@ package it.tidalwave.actor.impl;
 import java.lang.management.ManagementFactory;
 import java.lang.reflect.Modifier;
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 import it.tidalwave.actor.spi.ActorActivatorStats;

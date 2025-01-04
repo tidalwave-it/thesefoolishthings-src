@@ -26,9 +26,9 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.NotThreadSafe;
+import jakarta.annotation.Nonnull;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.IntFunction;

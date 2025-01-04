@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util.test;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.IOException;

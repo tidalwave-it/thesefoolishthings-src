@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.Locale;
 import it.tidalwave.util.mock.Mock;
 import org.testng.annotations.DataProvider;

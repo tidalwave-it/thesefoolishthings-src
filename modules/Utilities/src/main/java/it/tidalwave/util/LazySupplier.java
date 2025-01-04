@@ -25,8 +25,8 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
+import jakarta.annotation.Nonnull;
 import java.util.function.Supplier;
 import it.tidalwave.util.annotation.VisibleForTesting;
 import lombok.EqualsAndHashCode;

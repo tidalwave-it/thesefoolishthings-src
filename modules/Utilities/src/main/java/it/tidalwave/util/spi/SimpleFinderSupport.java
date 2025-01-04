@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util.spi;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import it.tidalwave.util.Finder;
 import lombok.NoArgsConstructor;
 

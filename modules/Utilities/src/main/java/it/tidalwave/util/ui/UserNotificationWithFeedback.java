@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util.ui;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import it.tidalwave.util.Callback;
 import lombok.AccessLevel;

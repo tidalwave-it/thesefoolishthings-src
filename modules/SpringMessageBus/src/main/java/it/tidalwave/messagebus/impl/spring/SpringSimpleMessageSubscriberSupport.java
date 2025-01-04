@@ -25,7 +25,7 @@
  */
 package it.tidalwave.messagebus.impl.spring;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import org.springframework.beans.factory.BeanFactory;
 import it.tidalwave.messagebus.MessageBus;
 import it.tidalwave.messagebus.MessageBusHelper;

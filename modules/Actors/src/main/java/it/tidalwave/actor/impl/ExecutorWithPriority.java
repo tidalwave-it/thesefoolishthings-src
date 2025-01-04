@@ -26,7 +26,7 @@
 package it.tidalwave.actor.impl;
 
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingDeque;

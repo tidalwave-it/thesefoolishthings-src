@@ -27,7 +27,7 @@ package it.tidalwave.actor.spi;
 
 import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import it.tidalwave.actor.annotation.Actor;
 import it.tidalwave.actor.impl.CollaborationAwareMessageBusAdapter;
 import it.tidalwave.actor.impl.ExecutorWithPriority;

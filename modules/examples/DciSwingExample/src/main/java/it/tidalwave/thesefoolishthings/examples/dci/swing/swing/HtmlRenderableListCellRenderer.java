@@ -26,7 +26,7 @@
 package it.tidalwave.thesefoolishthings.examples.dci.swing.swing;
 
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;

@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.extendedfinderexample;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import it.tidalwave.util.spi.ExtendedFinderSupport;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 

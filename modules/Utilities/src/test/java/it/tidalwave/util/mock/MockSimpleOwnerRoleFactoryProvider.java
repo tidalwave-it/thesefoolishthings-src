@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util.mock;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
 import it.tidalwave.role.spi.OwnerRoleFactory;

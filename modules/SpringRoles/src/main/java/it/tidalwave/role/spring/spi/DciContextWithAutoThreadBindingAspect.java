@@ -25,7 +25,7 @@
  */
 package it.tidalwave.role.spring.spi;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

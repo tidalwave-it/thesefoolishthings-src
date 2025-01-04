@@ -25,7 +25,7 @@
  */
 package it.tidalwave.role;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;

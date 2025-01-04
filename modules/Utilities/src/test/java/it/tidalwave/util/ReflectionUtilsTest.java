@@ -28,7 +28,7 @@ package it.tidalwave.util;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

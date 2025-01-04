@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.person;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import it.tidalwave.util.Finder.InMemorySortCriterion;

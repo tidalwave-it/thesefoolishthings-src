@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.persistable.jpa.role.impl;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 

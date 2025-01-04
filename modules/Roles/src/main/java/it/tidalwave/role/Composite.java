@@ -25,7 +25,7 @@
  */
 package it.tidalwave.role;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Stream;

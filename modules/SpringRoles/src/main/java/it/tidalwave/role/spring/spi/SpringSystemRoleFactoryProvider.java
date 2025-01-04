@@ -25,7 +25,7 @@
  */
 package it.tidalwave.role.spring.spi;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import it.tidalwave.role.spi.SystemRoleFactory;
 import it.tidalwave.role.spi.SystemRoleFactoryProvider;
 

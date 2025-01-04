@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import it.tidalwave.util.Finder;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.PersonRegistry3;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.TxManager;

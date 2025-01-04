@@ -25,8 +25,8 @@
  */
 package it.tidalwave.actor;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import jakarta.annotation.Nonnull;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import it.tidalwave.actor.annotation.Message;

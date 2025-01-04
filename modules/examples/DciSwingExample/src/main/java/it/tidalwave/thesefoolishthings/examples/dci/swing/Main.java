@@ -26,7 +26,7 @@
 package it.tidalwave.thesefoolishthings.examples.dci.swing;
 
 import java.lang.reflect.InvocationTargetException;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import it.tidalwave.role.spring.RoleSpringConfiguration;

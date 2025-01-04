@@ -26,7 +26,7 @@
 package it.tidalwave.actor.impl;
 
 import java.lang.reflect.Method;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import it.tidalwave.actor.annotation.Message;
 import it.tidalwave.actor.spi.ActorActivatorStats;
 import it.tidalwave.messagebus.MessageBus;

@@ -25,7 +25,7 @@
  */
 package it.tidalwave.actor;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;

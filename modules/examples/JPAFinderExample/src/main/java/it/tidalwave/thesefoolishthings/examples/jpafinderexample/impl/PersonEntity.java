@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.io.Serializable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

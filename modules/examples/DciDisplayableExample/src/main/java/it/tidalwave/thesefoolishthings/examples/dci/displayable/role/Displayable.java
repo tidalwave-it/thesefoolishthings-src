@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.displayable.role;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /***************************************************************************************************************************************************************
  *

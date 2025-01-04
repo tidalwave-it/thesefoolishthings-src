@@ -25,8 +25,8 @@
  */
 package it.tidalwave.util.test;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.util.Arrays;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;

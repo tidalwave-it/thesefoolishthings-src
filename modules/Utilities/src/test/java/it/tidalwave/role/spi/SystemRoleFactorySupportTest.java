@@ -25,7 +25,7 @@
  */
 package it.tidalwave.role.spi;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;

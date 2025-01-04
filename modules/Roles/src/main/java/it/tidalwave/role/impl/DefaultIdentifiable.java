@@ -25,8 +25,8 @@
  */
 package it.tidalwave.role.impl;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import jakarta.annotation.Nonnull;
 import java.io.Serializable;
 import it.tidalwave.util.Id;
 import it.tidalwave.role.Identifiable;

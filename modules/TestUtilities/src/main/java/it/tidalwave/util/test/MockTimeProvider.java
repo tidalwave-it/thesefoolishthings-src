@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util.test;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.time.Instant;
 import it.tidalwave.util.TimeProvider;
 import lombok.Setter;

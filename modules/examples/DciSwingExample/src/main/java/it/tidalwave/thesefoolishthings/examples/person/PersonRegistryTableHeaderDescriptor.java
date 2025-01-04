@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.person;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.List;
 import it.tidalwave.dci.annotation.DciRole;
 import it.tidalwave.thesefoolishthings.examples.dci.swing.role.TableColumnDescriptor;

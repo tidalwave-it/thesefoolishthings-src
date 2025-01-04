@@ -26,8 +26,8 @@
 package it.tidalwave.messagebus.spi;
 
 import java.lang.ref.WeakReference;
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
+import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;

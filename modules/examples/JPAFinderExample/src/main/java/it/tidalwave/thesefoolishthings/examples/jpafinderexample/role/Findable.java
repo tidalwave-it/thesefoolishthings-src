@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample.role;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.List;
 import it.tidalwave.util.Finder;
 

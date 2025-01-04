@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util.ui;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;

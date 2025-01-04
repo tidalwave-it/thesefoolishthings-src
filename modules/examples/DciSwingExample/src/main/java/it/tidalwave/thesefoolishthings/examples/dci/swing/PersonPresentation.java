@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.swing;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.Action;
 import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
 

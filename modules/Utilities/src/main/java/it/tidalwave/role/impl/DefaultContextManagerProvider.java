@@ -25,7 +25,7 @@
  */
 package it.tidalwave.role.impl;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import it.tidalwave.util.ContextManager;
 import it.tidalwave.role.spi.ContextManagerProvider;
 import it.tidalwave.role.spi.annotation.DefaultProvider;

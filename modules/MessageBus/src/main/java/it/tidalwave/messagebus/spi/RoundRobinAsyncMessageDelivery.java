@@ -25,7 +25,7 @@
  */
 package it.tidalwave.messagebus.spi;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import it.tidalwave.messagebus.spi.MultiQueue.TopicAndMessage;
 import lombok.Getter;
 import lombok.Setter;

@@ -27,7 +27,7 @@ package it.tidalwave.util.spi;
 
 import java.lang.reflect.Constructor;
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

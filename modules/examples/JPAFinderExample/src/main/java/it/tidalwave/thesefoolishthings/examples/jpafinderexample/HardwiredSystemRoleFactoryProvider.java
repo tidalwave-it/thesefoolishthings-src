@@ -1,6 +1,6 @@
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.List;
 import it.tidalwave.role.spi.SystemRoleFactory;
 import it.tidalwave.role.spi.SystemRoleFactoryProvider;

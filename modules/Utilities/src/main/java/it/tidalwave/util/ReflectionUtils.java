@@ -33,8 +33,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -211,7 +211,7 @@ public class ReflectionUtils
      * @param   type    the type to inspect
      * @return          the class literal; it might be {@code null} if fails
      **********************************************************************************************************************************************************/
-    @CheckForNull
+    @Nullable
     public static Class<?> getClass (@Nonnull final Type type)
       {
         requireNonNull(type, "type");

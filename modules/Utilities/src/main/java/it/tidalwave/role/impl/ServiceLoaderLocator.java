@@ -25,7 +25,7 @@
  */
 package it.tidalwave.role.impl;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.ServiceLoader;
 import java.util.Spliterators;
 import java.util.stream.StreamSupport;

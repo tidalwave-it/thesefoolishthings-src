@@ -26,8 +26,8 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import jakarta.annotation.Nonnull;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import lombok.EqualsAndHashCode;

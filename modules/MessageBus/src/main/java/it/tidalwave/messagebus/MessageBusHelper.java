@@ -26,7 +26,7 @@
 package it.tidalwave.messagebus;
 
 import java.lang.reflect.Method;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import it.tidalwave.messagebus.annotation.ListensTo;

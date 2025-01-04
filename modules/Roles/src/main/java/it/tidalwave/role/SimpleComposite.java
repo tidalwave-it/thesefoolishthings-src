@@ -25,7 +25,7 @@
  */
 package it.tidalwave.role;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.Collection;
 import it.tidalwave.util.Finder;
 import it.tidalwave.role.impl.DefaultSimpleComposite;

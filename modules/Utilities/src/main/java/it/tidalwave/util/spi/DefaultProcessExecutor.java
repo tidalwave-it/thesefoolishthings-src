@@ -25,9 +25,9 @@
  */
 package it.tidalwave.util.spi;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -81,7 +81,7 @@ public class DefaultProcessExecutor implements ProcessExecutor
 
         private final AtomicBoolean started = new AtomicBoolean();
         
-        @CheckForNull @Setter @Getter
+        @Nullable @Setter @Getter
         private Listener listener;
 
         /***************************************************************************************************************

@@ -25,8 +25,8 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import jakarta.annotation.Nonnull;
 import java.util.UUID;
 import java.io.Serializable;
 import lombok.EqualsAndHashCode;

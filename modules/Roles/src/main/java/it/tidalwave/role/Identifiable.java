@@ -25,7 +25,7 @@
  */
 package it.tidalwave.role;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import it.tidalwave.util.Id;
 import it.tidalwave.role.impl.DefaultIdentifiable;
 

@@ -26,7 +26,7 @@
 package it.tidalwave.thesefoolishthings.examples.dci.swing;
 
 import java.lang.reflect.InvocationTargetException;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import it.tidalwave.thesefoolishthings.examples.dci.swing.swing.SwingPersonPresentation;

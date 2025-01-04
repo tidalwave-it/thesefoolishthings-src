@@ -1,6 +1,6 @@
 package it.tidalwave.thesefoolishthings.examples.dci.marshal.xstream.converter;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;

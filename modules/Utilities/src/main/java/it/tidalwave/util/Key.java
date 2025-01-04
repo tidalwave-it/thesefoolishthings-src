@@ -25,8 +25,8 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import jakarta.annotation.Nonnull;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;

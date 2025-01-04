@@ -26,8 +26,8 @@
 package it.tidalwave.util;
 
 import java.lang.reflect.InvocationTargetException;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

@@ -26,7 +26,7 @@
 package it.tidalwave.actor;
 
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.inject.Provider;
 import java.util.Optional;
 import java.util.Timer;

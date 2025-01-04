@@ -25,7 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.dci.swing.swing;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.swing.JList;
 import javax.swing.JTable;
 import org.jdesktop.beansbinding.BeanProperty;

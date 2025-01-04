@@ -26,7 +26,7 @@
 package it.tidalwave.messagebus.impl.spring;
 
 import java.lang.reflect.Method;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import it.tidalwave.util.annotation.VisibleForTesting;
 import it.tidalwave.messagebus.MessageBus;
 import it.tidalwave.messagebus.MessageBusHelper;

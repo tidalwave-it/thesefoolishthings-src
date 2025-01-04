@@ -25,8 +25,8 @@
  */
 package it.tidalwave.role.impl;
 
-import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.EqualsAndHashCode;

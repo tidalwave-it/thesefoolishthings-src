@@ -25,7 +25,7 @@
  */
 package it.tidalwave.actor.impl;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.inject.Provider;
 
 /***************************************************************************************************************************************************************

@@ -25,7 +25,7 @@
  */
 package it.tidalwave.messagebus;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import it.tidalwave.messagebus.annotation.ListensTo;
 import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
 import lombok.extern.slf4j.Slf4j;
