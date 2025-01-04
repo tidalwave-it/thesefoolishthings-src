@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import it.tidalwave.util.As;
+import it.tidalwave.util.RoleFactory;
 import it.tidalwave.util.Task;
 import it.tidalwave.role.spi.OwnerRoleFactory;
 import it.tidalwave.role.spi.SystemRoleFactory;
@@ -65,22 +66,31 @@ class DefaultOwnerRoleFactory implements OwnerRoleFactory
     /***********************************************************************************************************************************************************
      * {@inheritDoc}
      **********************************************************************************************************************************************************/
-    @Override @Nonnull
+    @Override @Nonnull @SuppressWarnings("unchecked")
     public <T> Collection<T> findRoles (@Nonnull final Class<? extends T> roleType)
       {
         log.trace("as({}) for {}", shortName(roleType), shortId(owner));
         log.trace(">>>> contexts: {}", contextSnapshot);
+        final var systemRoleFactory = SystemRoleFactory.getInstance();
 
-        final var roles =
-                new ArrayList<T>(contextSnapshot.runWithContexts(new Task<List<? extends T>, RuntimeException>()
+        final List<T> roles = new ArrayList<>(contextSnapshot.runWithContexts(new Task<List<? extends T>, RuntimeException>()
+          {
+            @Override @Nonnull
+            public List<? extends T> run ()
+              {
+                final List<T> systemRoles = systemRoleFactory.findRoles(owner, roleType);
+
+                for (final var roleFactory : systemRoleFactory.findRoles(owner, RoleFactory.class))
                   {
-                    @Override
-                    @Nonnull
-                    public List<? extends T> run ()
+                    if (roleType.isAssignableFrom(roleFactory.getRoleType()))
                       {
-                        return SystemRoleFactory.getInstance().findRoles(owner, roleType);
+                        ((RoleFactory<Object, T>)roleFactory).createRoleFor(owner).ifPresent(systemRoles::add);
                       }
-                  }));
+                  }
+
+                return systemRoles;
+              }
+          }));
 
         if (roleType.isAssignableFrom(owner.getClass()))
           {
