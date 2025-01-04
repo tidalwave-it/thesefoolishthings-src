@@ -119,7 +119,7 @@ public class AsDelegate implements As
       {
         ownerRoleFactory = LazySupplier.of(() -> systemRoleFactoryFunction.apply(owner));
         this.owner = owner;
-        this.roles.addAll(resolveFactories(roles));
+        this.roles.addAll(RoleFactory.resolveFactories(owner, roles));
       }
 
     /***********************************************************************************************************************************************************
@@ -164,31 +164,5 @@ public class AsDelegate implements As
         results.addAll(ownerRoleFactory.get().findRoles(type));
 
         return results;
-      }
-
-    /***********************************************************************************************************************************************************
-     * Resolve the factories: if found, they are invoked and the produced roles are added to the list.
-     *
-     * @param  roles  the list of roles or factory roles
-     * @return                   a list of roles
-     **********************************************************************************************************************************************************/
-    @Nonnull
-    private List<Object> resolveFactories (@Nonnull final Collection<Object> roles)
-      {
-        final var result = new ArrayList<>();
-
-        for (final var roleOrFactory : roles)
-          {
-            if (roleOrFactory instanceof RoleFactory)
-              {
-                result.add(((RoleFactory<Object>)roleOrFactory).createRoleFor(owner));
-              }
-            else
-              {
-                result.add(roleOrFactory);
-              }
-          }
-
-        return result;
       }
   }

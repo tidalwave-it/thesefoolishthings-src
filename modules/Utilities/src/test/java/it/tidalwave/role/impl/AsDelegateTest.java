@@ -29,6 +29,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.RoleFactory;
 import it.tidalwave.role.spi.SystemRoleFactory;
@@ -86,12 +87,12 @@ public class AsDelegateTest
         private final Object owner;
       }
 
-    public static class RoleFactory3 implements RoleFactory<Object>
+    public static class RoleFactory3 implements RoleFactory<Object, Role3>
       {
         @Override @Nonnull
-        public Object createRoleFor (@Nonnull final Object owner)
+        public Optional<Role3> createRoleFor (@Nonnull final Object owner)
           {
-            return new Role3(owner);
+            return Optional.of(new Role3(owner));
           }
       }
 
@@ -137,7 +138,7 @@ public class AsDelegateTest
       }
 
     /***********************************************************************************************************************************************************
-     * 
+     *
      **********************************************************************************************************************************************************/
     @Test
     public void must_create_role_from_factory()
@@ -147,7 +148,6 @@ public class AsDelegateTest
         // when
         final var role = underTest.as(Role3.class);
         // then
-        assertThat(role, is(notNullValue()));
         assertThat(role.getOwner(), is(sameInstance(owner)));
       }
 

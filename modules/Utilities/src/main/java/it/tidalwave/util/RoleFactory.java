@@ -26,15 +26,62 @@
 package it.tidalwave.util;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 /***************************************************************************************************************************************************************
  *
+ * A factory of roles.
+ *
+ * @param   <T>   the type of the owner
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
 @FunctionalInterface
-public interface RoleFactory<T>
+public interface RoleFactory<T, R>
   {
+    /***********************************************************************************************************************************************************
+     * {@return one or more roles — if multiple ones have to be returned, they must be wrapped in a {@link java.util.Collection}}.
+     * @param   owner   the owner
+     **********************************************************************************************************************************************************/
     @Nonnull
-    public Object createRoleFor (@Nonnull T owner);
+    public Optional<R> createRoleFor (@Nonnull T owner);
+
+    /***********************************************************************************************************************************************************
+     * {@return the role type}.
+     * @since   4.0-ALPHA-2
+     **********************************************************************************************************************************************************/
+    @Nonnull @SuppressWarnings("unchecked")
+    public default Class<R> getRoleType()
+      {
+        return (Class<R>)ReflectionUtils.getTypeArguments(RoleFactory.class, getClass()).get(1);
+      }
+
+    /***********************************************************************************************************************************************************
+     * {@return a collection of roles resolving factories}; that is, any factory in the collection is invoked so it can eventually create another role.
+     * @param   roleOrFactories   a collection of roles or {@link RoleFactory} instances
+     * @param   owner             the role owner
+     * @since   4.0-ALPHA-2
+     **********************************************************************************************************************************************************/
+    @Nonnull @SuppressWarnings("unchecked")
+    public static <T> Collection<Object> resolveFactories (@Nonnull final T owner, @Nonnull final Iterable<Object> roleOrFactories)
+      {
+        final List<Object> result = new ArrayList<>();
+
+        for (final var roleOrFactory : roleOrFactories)
+          {
+            if (roleOrFactory instanceof RoleFactory)
+              {
+                ((RoleFactory<T, ?>)roleOrFactory).createRoleFor(owner).ifPresent(result::add);
+              }
+            else
+              {
+                result.add(roleOrFactory);
+              }
+          }
+
+        return result;
+      }
   }
