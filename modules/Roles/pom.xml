@@ -33,13 +33,13 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>4.0-ALPHA-2-SNAPSHOT</version>
+        <version>4.0-ALPHA-2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-role</artifactId>
-    <version>4.0-ALPHA-2-SNAPSHOT</version>
+    <version>4.0-ALPHA-2</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings :: Roles</name>
     <description>
