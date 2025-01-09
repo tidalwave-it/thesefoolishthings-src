@@ -1,10 +1,20 @@
-image: maven:3.9.1-openjdk-11
+image: maven:3.9.9
 
+clone:
+  # SonarQube Cloud scanner needs the full history to assign issues properly
+  depth: full
+definitions:
+  caches:
+    sonar: ~/.sonar/cache
 pipelines:
   branches:
     master:
       - step:
+          name: Build and test
           caches:
             - maven
+            - sonar
           script:
-            - mvn -B -DskipTests -Pit.tidalwave-ci-v1,generate-revision-id
+            - mvn -B -Pit.tidalwave-metrics-v2 -Dtft.profile.metrics.checkstyleGoal= -Dtft.owasp.skip=true
+          artifacts:
+            - '**/target/**'
