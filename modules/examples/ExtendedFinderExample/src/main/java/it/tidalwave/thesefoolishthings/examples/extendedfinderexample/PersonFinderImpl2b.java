@@ -29,7 +29,6 @@ import jakarta.annotation.Nonnull;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.io.Serializable;
 import it.tidalwave.util.spi.HierarchicFinderSupport;
 import it.tidalwave.thesefoolishthings.examples.person.Person;
 
