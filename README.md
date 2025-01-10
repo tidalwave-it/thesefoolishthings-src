@@ -12,13 +12,13 @@ by Joshua Bloch, a **finder** that handles in a smart way queries to data source
 pattern**, a simple **message bus** suitable for using the pub-sub pattern inside an application, some **test utilities**, an **experimental actor framework**
 and a few other small things.
 
-Yes, the project name is a tribute to the [jazz standard with the same name](https://en.wikipedia.org/wiki/These_Foolish_Things_(Remind_Me_of_You)) by
+The project name is a tribute to the [jazz standard with the same name](https://en.wikipedia.org/wiki/These_Foolish_Things_(Remind_Me_of_You)) by
 Maschwitz and Strachey.
 
-TheseFoolishThings requires and is tested with JDKs in this range: [11, 17].
+TheseFoolishThings requires and is tested with JDKs in the range [21,22) and targets JDK 11.
 It is released under the [Apache Licence v2](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
-Please have a look at the [project website](${project.url}/${project.version}) for a quick introduction with samples, tutorials, JavaDocs and build reports.
+Please have a look at the [project website](https://tidalwave.bitbucket.io/thesefoolishthings/) for a quick introduction with samples, tutorials, JavaDocs and build reports.
 
 
 Bootstrapping
