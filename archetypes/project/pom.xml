@@ -33,7 +33,7 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>thesefoolishthings</artifactId>
-        <version>4.0-ALPHA-3-SNAPSHOT</version>
+        <version>4.0-ALPHA-3</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
