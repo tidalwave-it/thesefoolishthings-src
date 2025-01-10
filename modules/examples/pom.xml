@@ -37,10 +37,8 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings-examples</artifactId>
     <packaging>pom</packaging>
-    <version>4.0-ALPHA-3-SNAPSHOT</version>
     <name>TheseFoolishThings :: Examples (master)</name>
     <description>
         A set of examples demonstrating the features of this project.

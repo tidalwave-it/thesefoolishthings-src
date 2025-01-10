@@ -38,9 +38,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>it-tidalwave-actor</artifactId>
-    <version>4.0-ALPHA-3-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>TheseFoolishThings :: Actors</name>
     <description>

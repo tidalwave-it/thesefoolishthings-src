@@ -40,8 +40,8 @@
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings</artifactId>
-    <packaging>pom</packaging>
     <version>4.0-ALPHA-3-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>TheseFoolishThings</name>
     <inceptionYear>2009</inceptionYear>
     <url>https://tidalwave.bitbucket.io/thesefoolishthings/</url>
