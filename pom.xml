@@ -40,7 +40,7 @@
 
     <groupId>it.tidalwave.thesefoolishthings</groupId>
     <artifactId>thesefoolishthings</artifactId>
-    <version>4.0-ALPHA-3</version>
+    <version>4.0-ALPHA-4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>TheseFoolishThings</name>
     <inceptionYear>2009</inceptionYear>
@@ -84,7 +84,7 @@ Maschwitz and Strachey.
         <connection>scm:git:${scm.repo.readonly.url}</connection>
         <developerConnection>scm:git:${scm.repo.effective.url}</developerConnection>
         <url>${scm.repo.browse.url}</url>
-      <tag>4.0-ALPHA-3</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <dependencyManagement>
@@ -92,95 +92,95 @@ Maschwitz and Strachey.
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-actor</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-role</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-role</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-util-test</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-messagebus-spring</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-role-spring</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-data</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-displayable</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-marshal-xstream</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-persistence-jpa</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-dci-swing</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample1</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample2</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>it.tidalwave.thesefoolishthings</groupId>
                 <artifactId>it-tidalwave-thesefoolishthings-examples-finderexample3</artifactId>
-                <version>4.0-ALPHA-3</version>
+                <version>4.0-ALPHA-4-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
