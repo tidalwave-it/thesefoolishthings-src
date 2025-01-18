@@ -52,7 +52,7 @@
         <betterbeansbinding.version>1.3.0</betterbeansbinding.version>
         <xstream.version>1.4.21</xstream.version>
         <tft.spring-boot.version>3.4.1</tft.spring-boot.version>
-        <tft.hibernate.version>6.6.3.Final</tft.hibernate.version>
+        <tft.hibernate.version>6.6.4.Final</tft.hibernate.version>
 
         <tft.defaultGoal>clean install exec:java</tft.defaultGoal>
         <tft.animal-sniffer-maven-plugin.skip>true</tft.animal-sniffer-maven-plugin.skip>
