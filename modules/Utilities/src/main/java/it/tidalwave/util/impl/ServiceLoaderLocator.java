@@ -23,7 +23,7 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.role.impl;
+package it.tidalwave.util.impl;
 
 import jakarta.annotation.Nonnull;
 import java.util.ServiceLoader;

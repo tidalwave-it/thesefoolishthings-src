@@ -23,58 +23,26 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.role.impl;
+package it.tidalwave.util.impl;
 
-// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import static it.tidalwave.util.ShortNames.shortName;
+import it.tidalwave.role.spi.SystemRoleFactory;
+import it.tidalwave.role.spi.SystemRoleFactoryProvider;
+import it.tidalwave.role.spi.annotation.DefaultProvider;
 
 /***************************************************************************************************************************************************************
+ *
+ * The default implementation of {@link SystemRoleFactoryProvider}, registered in {@code META-INF/services}.
  *
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-/* @Immutable */ @RequiredArgsConstructor @Getter @EqualsAndHashCode
-public class OwnerAndRole
+@DefaultProvider
+public final class DefaultSystemRoleFactoryProvider implements SystemRoleFactoryProvider
   {
-    @Nonnull
-    private final Class<?> ownerClass;
-
-    @Nonnull
-    private final Class<?> roleClass;
-
-    /***************************************************************************************************************
-     *
-     * Returns pairs (class, role) for each class or interface up in the hierarchy.
-     *
-     **************************************************************************************************************/
-    @Nonnull
-    public List<OwnerAndRole> getSuper()
-      {
-        final List<OwnerAndRole> result = new ArrayList<>();
-        result.add(this);
-
-        if (ownerClass.getSuperclass() != null)
-          {
-            result.addAll(new OwnerAndRole(ownerClass.getSuperclass(), roleClass).getSuper());
-          }
-
-        for (final var interfaceClass : ownerClass.getInterfaces())
-          {
-            result.addAll(new OwnerAndRole(interfaceClass, roleClass).getSuper());
-          }
-
-        return result;
-      }
-
     @Override @Nonnull
-    public String toString()
+    public SystemRoleFactory getSystemRoleFactory()
       {
-        return String.format("(%s, %s)", shortName(ownerClass), shortName(roleClass));
+        return new DefaultSystemRoleFactory();
       }
   }

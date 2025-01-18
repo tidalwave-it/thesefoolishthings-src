@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import it.tidalwave.util.ContextManager;
-import it.tidalwave.role.impl.OwnerAndRole;
+import it.tidalwave.util.impl.OwnerAndRole;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

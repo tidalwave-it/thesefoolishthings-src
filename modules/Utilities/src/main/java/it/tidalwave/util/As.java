@@ -28,7 +28,7 @@ package it.tidalwave.util;
 import jakarta.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Optional;
-import it.tidalwave.role.impl.AsDelegate;
+import it.tidalwave.util.impl.AsDelegate;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;

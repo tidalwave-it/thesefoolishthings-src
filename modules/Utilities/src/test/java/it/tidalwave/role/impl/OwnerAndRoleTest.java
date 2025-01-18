@@ -27,6 +27,7 @@ package it.tidalwave.role.impl;
 
 import jakarta.annotation.Nonnull;
 import java.util.List;
+import it.tidalwave.util.impl.OwnerAndRole;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;

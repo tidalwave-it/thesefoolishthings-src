@@ -23,15 +23,26 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.role.impl;
+package it.tidalwave.util.impl;
 
-import it.tidalwave.role.spi.SystemRoleFactorySupport;
+import jakarta.annotation.Nonnull;
+import it.tidalwave.util.ContextManager;
+import it.tidalwave.role.spi.ContextManagerProvider;
+import it.tidalwave.role.spi.annotation.DefaultProvider;
 
 /***************************************************************************************************************************************************************
+ *
+ * The default implementation of {@link ContextManagerProvider}, registered in {@code META-INF/services}.
  *
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-public class DefaultSystemRoleFactory extends SystemRoleFactorySupport
+@DefaultProvider
+public final class DefaultContextManagerProvider implements ContextManagerProvider
   {
+    @Override @Nonnull
+    public ContextManager getContextManager()
+      {
+        return new DefaultContextManager();
+      }
   }

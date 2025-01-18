@@ -23,26 +23,55 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.role.impl;
+package it.tidalwave.util.impl;
 
 import jakarta.annotation.Nonnull;
-import it.tidalwave.util.ContextManager;
-import it.tidalwave.role.spi.ContextManagerProvider;
-import it.tidalwave.role.spi.annotation.DefaultProvider;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /***************************************************************************************************************************************************************
- *
- * The default implementation of {@link ContextManagerProvider}, registered in {@code META-INF/services}.
  *
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@DefaultProvider
-public final class DefaultContextManagerProvider implements ContextManagerProvider
+public class MultiMap<K, V> extends HashMap<K, Set<V>>
   {
-    @Override @Nonnull
-    public ContextManager getContextManager()
+    private static final long serialVersionUID = 8834342771135005212L;
+
+    public synchronized void add (@Nonnull final K key, @Nonnull final V value)
       {
-        return new DefaultContextManager();
+        internalGetValues(key).add(value);
+      }
+
+    public synchronized void addAll (@Nonnull final K key, @Nonnull final Collection<? extends V> values)
+      {
+        if (!values.isEmpty())
+          {
+            internalGetValues(key).addAll(values);
+          }
+      }
+
+    @Nonnull
+    public synchronized Set<V> getValues (@Nonnull final K key)
+      {
+        final var values = get(key);
+        return (values == null) ? Collections.emptySet() : Collections.unmodifiableSet(values);
+      }
+
+    @Nonnull
+    private Set<V> internalGetValues (@Nonnull final K key)
+      {
+        var values = get(key);
+
+        if (values == null)
+          {
+            values = new HashSet<>();
+            put(key, values);
+          }
+
+        return values;
       }
   }

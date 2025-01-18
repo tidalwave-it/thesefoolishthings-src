@@ -23,96 +23,78 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.role.impl;
+package it.tidalwave.util.spi;
 
 import jakarta.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import it.tidalwave.util.ContextManager;
 import it.tidalwave.util.Task;
-import it.tidalwave.role.spi.ContextManagerProvider;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import lombok.extern.slf4j.Slf4j;
+import static it.tidalwave.util.ShortNames.*;
 
 /***************************************************************************************************************************************************************
+ *
+ * A facility that takes a snapshot of the contexts that are current at creation time and make them available later.
  *
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-public class ContextSnapshotTest
+@Slf4j
+public class ContextSnapshot
   {
-    @RequiredArgsConstructor @Getter static
-    class MockContextManagerProvider implements ContextManagerProvider
-      {
-        @Nonnull
-        private final ContextManager contextManager;
-      }
+    private final ContextManager contextManager = ContextManager.getInstance();
 
-    private ContextSnapshot underTest;
-
-    private ContextManager contextManager;
+    // TODO: should be weak references? Should a context be alive as soon as all the objects created with it are
+    // alive?
+    private final List<Object> contexts = Collections.unmodifiableList(contextManager.getContexts());
 
     /***********************************************************************************************************************************************************
-     * 
+     * Creates a new instance and samples the currently available contexts.
+     *
+     * @param owner     the owner
      **********************************************************************************************************************************************************/
-    @BeforeMethod
-    public void setup()
+    public ContextSnapshot (@Nonnull final Object owner)
       {
-        contextManager = mock(ContextManager.class);
-        ContextManager.set(new MockContextManagerProvider(contextManager));
-      }
-
-    /***********************************************************************************************************************************************************
-     * 
-     **********************************************************************************************************************************************************/
-    @Test(dataProvider = "contextProvider")
-    public void must_sample_Contexts_at_construction_time (@Nonnull final List<Object> contexts)
-      {
-        // given
-        when(contextManager.getContexts()).thenReturn(contexts);
-        // when
-        underTest = new ContextSnapshot(new Object());
-        // then
-        assertThat(underTest.getContexts(), is(contexts));
-      }
-
-    /***********************************************************************************************************************************************************
-     * 
-     **********************************************************************************************************************************************************/
-    @Test(dataProvider = "contextProvider")
-    public void must_delegate_runWithContexts_to_ContextManager (@Nonnull final List<Object> contexts)
-      {
-        // given
-        when(contextManager.getContexts()).thenReturn(contexts);
-        final var task = mock(Task.class);
-//        when(contextManager.runWithContexts(any(List.class), eq(task))).thenReturn("result");
-        underTest = new ContextSnapshot(new Object());
-        reset(contextManager);
-        // when
-        final var result = underTest.runWithContexts(task);
-        // then
-        verify(contextManager, times(1)).runWithContexts(eq(contexts), same(task));
-        verifyNoMoreInteractions(contextManager);
-//        assertThat(result, is("result")); FIXME: depend on commented stubbing above
-      }
-
-    /***********************************************************************************************************************************************************
-     * 
-     **********************************************************************************************************************************************************/
-    @DataProvider
-    public Object[][] contextProvider()
-      {
-        return new Object[][]
+        if (log.isTraceEnabled())
           {
-            { Collections.emptyList()            },
-            { List.of("a", "b", "c")       },
-            { List.of("a", "b", "c" , "d") },
-          };
+            log.trace(">>>> contexts for {} at construction time: {}", shortId(owner), shortIds(contexts));
+          }
+      }
+
+    /***********************************************************************************************************************************************************
+     * Returns the previously sampled contexts.
+     *
+     * @return    the contexts
+     **********************************************************************************************************************************************************/
+    @Nonnull
+    public List<Object> getContexts()
+      {
+        return new CopyOnWriteArrayList<>(contexts);
+      }
+
+    /***********************************************************************************************************************************************************
+     * Runs a {@link Task} associated with the sampled contexts.
+     *
+     * @param  <V>      the type of the result value
+     * @param  <T>      the type of the exception
+     * @param  task     the task
+     * @return          the value produced by the task
+     * @throws T        the exception(s) thrown by the task
+     **********************************************************************************************************************************************************/
+    public <V, T extends Throwable> V runWithContexts (@Nonnull final Task<V, T> task)
+      throws T
+      {
+        return contextManager.runWithContexts(contexts, task);
+      }
+
+    /***********************************************************************************************************************************************************
+     * {@inheritDoc}
+     **********************************************************************************************************************************************************/
+    @Override @Nonnull
+    public String toString()
+      {
+        return String.format("ContextSnapshot%s", shortIds(contexts));
       }
   }

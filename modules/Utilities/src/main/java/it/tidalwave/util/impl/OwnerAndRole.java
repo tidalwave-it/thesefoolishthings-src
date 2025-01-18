@@ -23,55 +23,58 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.role.impl;
+package it.tidalwave.util.impl;
 
+// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import static it.tidalwave.util.ShortNames.shortName;
 
 /***************************************************************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-public class MultiMap<K, V> extends HashMap<K, Set<V>>
+/* @Immutable */ @RequiredArgsConstructor @Getter @EqualsAndHashCode
+public class OwnerAndRole
   {
-    private static final long serialVersionUID = 8834342771135005212L;
-
-    public synchronized void add (@Nonnull final K key, @Nonnull final V value)
-      {
-        internalGetValues(key).add(value);
-      }
-
-    public synchronized void addAll (@Nonnull final K key, @Nonnull final Collection<? extends V> values)
-      {
-        if (!values.isEmpty())
-          {
-            internalGetValues(key).addAll(values);
-          }
-      }
+    @Nonnull
+    private final Class<?> ownerClass;
 
     @Nonnull
-    public synchronized Set<V> getValues (@Nonnull final K key)
-      {
-        final var values = get(key);
-        return (values == null) ? Collections.emptySet() : Collections.unmodifiableSet(values);
-      }
+    private final Class<?> roleClass;
 
+    /***************************************************************************************************************
+     *
+     * Returns pairs (class, role) for each class or interface up in the hierarchy.
+     *
+     **************************************************************************************************************/
     @Nonnull
-    private Set<V> internalGetValues (@Nonnull final K key)
+    public List<OwnerAndRole> getSuper()
       {
-        var values = get(key);
+        final List<OwnerAndRole> result = new ArrayList<>();
+        result.add(this);
 
-        if (values == null)
+        if (ownerClass.getSuperclass() != null)
           {
-            values = new HashSet<>();
-            put(key, values);
+            result.addAll(new OwnerAndRole(ownerClass.getSuperclass(), roleClass).getSuper());
           }
 
-        return values;
+        for (final var interfaceClass : ownerClass.getInterfaces())
+          {
+            result.addAll(new OwnerAndRole(interfaceClass, roleClass).getSuper());
+          }
+
+        return result;
+      }
+
+    @Override @Nonnull
+    public String toString()
+      {
+        return String.format("(%s, %s)", shortName(ownerClass), shortName(roleClass));
       }
   }

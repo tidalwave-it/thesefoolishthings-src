@@ -31,7 +31,7 @@ import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.function.Supplier;
 import it.tidalwave.role.spi.ContextManagerProvider;
-import static it.tidalwave.role.impl.ServiceLoaderLocator.lazySupplierOf;
+import static it.tidalwave.util.impl.ServiceLoaderLocator.lazySupplierOf;
 
 /***************************************************************************************************************************************************************
  *

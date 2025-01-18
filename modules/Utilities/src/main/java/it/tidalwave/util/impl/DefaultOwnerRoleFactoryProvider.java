@@ -23,26 +23,26 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.role.impl;
+package it.tidalwave.util.impl;
 
 import jakarta.annotation.Nonnull;
-import it.tidalwave.role.spi.SystemRoleFactory;
-import it.tidalwave.role.spi.SystemRoleFactoryProvider;
+import it.tidalwave.role.spi.OwnerRoleFactory;
+import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
 import it.tidalwave.role.spi.annotation.DefaultProvider;
 
 /***************************************************************************************************************************************************************
  *
- * The default implementation of {@link SystemRoleFactoryProvider}, registered in {@code META-INF/services}.
+ * The default implementation of {@link OwnerRoleFactoryProvider}, registered in {@code META-INF/services}.
  *
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
 @DefaultProvider
-public final class DefaultSystemRoleFactoryProvider implements SystemRoleFactoryProvider
+public final class DefaultOwnerRoleFactoryProvider implements OwnerRoleFactoryProvider
   {
     @Override @Nonnull
-    public SystemRoleFactory getSystemRoleFactory()
+    public OwnerRoleFactory createRoleFactory (@Nonnull final Object owner)
       {
-        return new DefaultSystemRoleFactory();
+        return new DefaultOwnerRoleFactory(owner);
       }
   }

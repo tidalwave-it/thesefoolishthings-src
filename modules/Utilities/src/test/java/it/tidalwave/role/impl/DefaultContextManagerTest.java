@@ -33,6 +33,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.function.Supplier;
 import it.tidalwave.util.Task;
+import it.tidalwave.util.impl.DefaultContextManager;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static java.util.Arrays.asList;

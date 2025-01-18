@@ -26,71 +26,93 @@
 package it.tidalwave.role.spi;
 
 import jakarta.annotation.Nonnull;
+import java.util.Collections;
 import java.util.List;
-import it.tidalwave.util.LazySupplier;
-import static it.tidalwave.util.impl.ServiceLoaderLocator.lazySupplierOf;
+import it.tidalwave.util.ContextManager;
+import it.tidalwave.util.Task;
+import it.tidalwave.util.spi.ContextSnapshot;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+import static org.mockito.Mockito.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
- *
- * A service which retrieves DCI Roles for a given object.
  *
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@FunctionalInterface
-public interface SystemRoleFactory
+public class ContextSnapshotTest
   {
-    static class Inner
+    @RequiredArgsConstructor @Getter static
+    class MockContextManagerProvider implements ContextManagerProvider
       {
-        private static final LazySupplier<SystemRoleFactory> INSTANCE_REF =
-                LazySupplier.of(() -> Inner.PROVIDER_REF.get().getSystemRoleFactory());
+        @Nonnull
+        private final ContextManager contextManager;
+      }
 
-        private static final LazySupplier<SystemRoleFactoryProvider> PROVIDER_REF =
-                lazySupplierOf(SystemRoleFactoryProvider.class);
+    private ContextSnapshot underTest;
+
+    private ContextManager contextManager;
+
+    /***********************************************************************************************************************************************************
+     * 
+     **********************************************************************************************************************************************************/
+    @BeforeMethod
+    public void setup()
+      {
+        contextManager = mock(ContextManager.class);
+        ContextManager.set(new MockContextManagerProvider(contextManager));
       }
 
     /***********************************************************************************************************************************************************
-     * Returns a singleton instance.
-     *
-     * @return  the singleton instance
+     * 
      **********************************************************************************************************************************************************/
-    @Nonnull
-    public static SystemRoleFactory getInstance()
+    @Test(dataProvider = "contextProvider")
+    public void must_sample_Contexts_at_construction_time (@Nonnull final List<Object> contexts)
       {
-        return Inner.INSTANCE_REF.get();
+        // given
+        when(contextManager.getContexts()).thenReturn(contexts);
+        // when
+        underTest = new ContextSnapshot(new Object());
+        // then
+        assertThat(underTest.getContexts(), is(contexts));
       }
 
     /***********************************************************************************************************************************************************
-     * Removes a previously installed {@link SystemRoleFactory}. <b>This method is for testing only (used to clean up a
-     * testing context).</b>
-     *
-     * @see     #set(SystemRoleFactory)
+     * 
      **********************************************************************************************************************************************************/
-    public static void reset()
+    @Test(dataProvider = "contextProvider")
+    public void must_delegate_runWithContexts_to_ContextManager (@Nonnull final List<Object> contexts)
       {
-        Inner.PROVIDER_REF.clear();
-        Inner.INSTANCE_REF.clear();
+        // given
+        when(contextManager.getContexts()).thenReturn(contexts);
+        final var task = mock(Task.class);
+//        when(contextManager.runWithContexts(any(List.class), eq(task))).thenReturn("result");
+        underTest = new ContextSnapshot(new Object());
+        reset(contextManager);
+        // when
+        final var result = underTest.runWithContexts(task);
+        // then
+        verify(contextManager, times(1)).runWithContexts(eq(contexts), same(task));
+        verifyNoMoreInteractions(contextManager);
+//        assertThat(result, is("result")); FIXME: depend on commented stubbing above
       }
 
     /***********************************************************************************************************************************************************
-     * Installs a {@link SystemRoleFactory}. <b>This method is for testing only (used to set up a testing context).</b>
-     *
-     * @param   systemRoleFactory   the {@link SystemRoleFactory}
-     * @see     #reset()
+     * 
      **********************************************************************************************************************************************************/
-    public static void set (@Nonnull final SystemRoleFactory systemRoleFactory)
+    @DataProvider
+    public Object[][] contextProvider()
       {
-        Inner.PROVIDER_REF.set(() -> systemRoleFactory);
+        return new Object[][]
+          {
+            { Collections.emptyList()            },
+            { List.of("a", "b", "c")       },
+            { List.of("a", "b", "c" , "d") },
+          };
       }
-
-    /***********************************************************************************************************************************************************
-     * Retrieves the roles of the given class for the given owner object.
-     *
-     * @param <T>           the static type of the roles
-     * @param   owner       the owner object
-     * @param   roleType    the dynamic type of the roles
-     * @return              a list of roles
-     **********************************************************************************************************************************************************/
-    @Nonnull
-    public <T> List<T> findRoles (@Nonnull Object owner, @Nonnull Class<? extends T> roleType);
   }

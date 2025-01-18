@@ -29,7 +29,7 @@ import jakarta.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
 import it.tidalwave.util.As;
-import it.tidalwave.role.impl.AsDelegate;
+import it.tidalwave.util.impl.AsDelegate;
 import it.tidalwave.role.spi.OwnerRoleFactory;
 import it.tidalwave.role.spi.OwnerRoleFactoryProvider;
 import lombok.AccessLevel;

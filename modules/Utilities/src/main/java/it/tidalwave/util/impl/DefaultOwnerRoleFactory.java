@@ -23,78 +23,83 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.role.impl;
+package it.tidalwave.util.impl;
 
 import jakarta.annotation.Nonnull;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import it.tidalwave.util.ContextManager;
+import it.tidalwave.util.As;
+import it.tidalwave.util.RoleFactory;
 import it.tidalwave.util.Task;
+import it.tidalwave.util.spi.ContextSnapshot;
+import it.tidalwave.role.spi.OwnerRoleFactory;
+import it.tidalwave.role.spi.SystemRoleFactory;
 import lombok.extern.slf4j.Slf4j;
 import static it.tidalwave.util.ShortNames.*;
 
 /***************************************************************************************************************************************************************
  *
- * A facility that takes a snapshot of the contexts that are current at creation time and make them available later.
+ * An implementation for {@link As} based on Spring.
  *
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
 @Slf4j
-public class ContextSnapshot
+class DefaultOwnerRoleFactory implements OwnerRoleFactory
   {
-    private final ContextManager contextManager = ContextManager.getInstance();
-
-    // TODO: should be weak references? Should a context be alive as soon as all the objects created with it are
-    // alive?
-    private final List<Object> contexts = Collections.unmodifiableList(contextManager.getContexts());
-
-    /***********************************************************************************************************************************************************
-     * Creates a new instance and samples the currently available contexts.
-     *
-     * @param owner     the owner
-     **********************************************************************************************************************************************************/
-    public ContextSnapshot (@Nonnull final Object owner)
-      {
-        if (log.isTraceEnabled())
-          {
-            log.trace(">>>> contexts for {} at construction time: {}", shortId(owner), shortIds(contexts));
-          }
-      }
-
-    /***********************************************************************************************************************************************************
-     * Returns the previously sampled contexts.
-     *
-     * @return    the contexts
-     **********************************************************************************************************************************************************/
     @Nonnull
-    public List<Object> getContexts()
-      {
-        return new CopyOnWriteArrayList<>(contexts);
-      }
+    private final Object owner;
+
+    private final ContextSnapshot contextSnapshot;
 
     /***********************************************************************************************************************************************************
-     * Runs a {@link Task} associated with the sampled contexts.
+     * Constructor for use with composition.
      *
-     * @param  <V>      the type of the result value
-     * @param  <T>      the type of the exception
-     * @param  task     the task
-     * @return          the value produced by the task
-     * @throws T        the exception(s) thrown by the task
+     * @param  owner  the owner object
      **********************************************************************************************************************************************************/
-    public <V, T extends Throwable> V runWithContexts (@Nonnull final Task<V, T> task)
-      throws T
+    public DefaultOwnerRoleFactory (@Nonnull final Object owner)
       {
-        return contextManager.runWithContexts(contexts, task);
+        this.owner = owner;
+        contextSnapshot = new ContextSnapshot(owner);
       }
 
     /***********************************************************************************************************************************************************
      * {@inheritDoc}
      **********************************************************************************************************************************************************/
-    @Override @Nonnull
-    public String toString()
+    @Override @Nonnull @SuppressWarnings("unchecked")
+    public <T> Collection<T> findRoles (@Nonnull final Class<? extends T> roleType)
       {
-        return String.format("ContextSnapshot%s", shortIds(contexts));
+        log.trace("as({}) for {}", shortName(roleType), shortId(owner));
+        log.trace(">>>> contexts: {}", contextSnapshot);
+        final var systemRoleFactory = SystemRoleFactory.getInstance();
+
+        final List<T> roles = new ArrayList<>(contextSnapshot.runWithContexts(new Task<List<? extends T>, RuntimeException>()
+          {
+            @Override @Nonnull
+            public List<? extends T> run ()
+              {
+                final List<T> systemRoles = systemRoleFactory.findRoles(owner, roleType);
+
+                for (final var roleFactory : systemRoleFactory.findRoles(owner, RoleFactory.class))
+                  {
+                    if (roleType.isAssignableFrom(roleFactory.getRoleType()))
+                      {
+                        ((RoleFactory<Object, T>)roleFactory).createRoleFor(owner).ifPresent(systemRoles::add);
+                      }
+                  }
+
+                return systemRoles;
+              }
+          }));
+
+        if (roleType.isAssignableFrom(owner.getClass()))
+          {
+            roles.add(roleType.cast(owner));
+          }
+
+        log.trace(">>>> as() returning {}", shortIds(roles));
+
+        return roles;
       }
   }

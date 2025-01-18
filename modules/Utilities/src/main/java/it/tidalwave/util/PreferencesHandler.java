@@ -28,7 +28,7 @@ package it.tidalwave.util;
 import jakarta.annotation.Nonnull;
 import java.util.Optional;
 import java.nio.file.Path;
-import static it.tidalwave.role.impl.ServiceLoaderLocator.lazySupplierOf;
+import static it.tidalwave.util.impl.ServiceLoaderLocator.lazySupplierOf;
 
 /***************************************************************************************************************************************************************
  *

@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Optional;
 import it.tidalwave.util.AsException;
 import it.tidalwave.util.RoleFactory;
+import it.tidalwave.util.impl.AsDelegate;
 import it.tidalwave.role.spi.SystemRoleFactory;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
