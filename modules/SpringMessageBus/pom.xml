@@ -61,7 +61,7 @@
             <exclusions>
                 <exclusion>
                     <groupId>org.aspectj</groupId>
-                    <artifactId>aspectjweaver</artifactId>
+                    <artifactId>aspectjrt</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -87,6 +87,7 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

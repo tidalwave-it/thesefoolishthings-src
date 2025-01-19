@@ -80,14 +80,9 @@
             <exclusions>
                 <exclusion>
                     <groupId>org.aspectj</groupId>
-                    <artifactId>aspectjweaver</artifactId>
+                    <artifactId>aspectjrt</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
         </dependency>
 
         <!-- TODO: During the transition we support both annotation groups, but without having them as transitive dependencies. -->
