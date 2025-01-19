@@ -59,6 +59,7 @@ public class SpringAdapterTest // FIXME: tests are genera, move to a AsSupportTe
     @BeforeMethod
     public void setup()
       {
+        // will be injected to AnnotationSpringSystemRoleFactory by AspectJ.
         context = new ClassPathXmlApplicationContext(RoleSpringConfiguration.BEANS);
         datum1 = new MockDatum1();
         datum2 = new MockDatum2();
