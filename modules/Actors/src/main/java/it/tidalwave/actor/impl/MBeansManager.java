@@ -27,7 +27,7 @@ package it.tidalwave.actor.impl;
 
 import java.lang.management.ManagementFactory;
 import java.lang.reflect.Modifier;
-import javax.annotation.Nonnegative;
+// import javax.annotation.Nonnegative;
 import jakarta.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,7 +63,7 @@ public class MBeansManager
     /***********************************************************************************************************************************************************
      *
      **********************************************************************************************************************************************************/
-    public MBeansManager (@Nonnull final Object actorObject, @Nonnegative final int poolSize)
+    public MBeansManager (@Nonnull final Object actorObject, /* @Nonnegative */ final int poolSize)
       {
         this.actorObject = actorObject;
         stats = new ActorActivatorStats(poolSize);

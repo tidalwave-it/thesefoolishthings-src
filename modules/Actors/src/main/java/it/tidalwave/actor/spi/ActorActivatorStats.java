@@ -25,7 +25,7 @@
  */
 package it.tidalwave.actor.spi;
 
-import javax.annotation.Nonnegative;
+// import javax.annotation.Nonnegative;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -37,7 +37,7 @@ import lombok.RequiredArgsConstructor;
 @Getter @RequiredArgsConstructor
 public class ActorActivatorStats implements ActorActivatorStatsMBean
   {
-    @Nonnegative
+    /* @Nonnegative */
     private final int poolSize;
 
     private int pendingMessageCount;

@@ -25,7 +25,7 @@
  */
 package it.tidalwave.role.impl;
 
-import javax.annotation.concurrent.Immutable;
+// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ import static it.tidalwave.util.ShortNames.shortName;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@Immutable @RequiredArgsConstructor @Getter @EqualsAndHashCode
+/* @Immutable */ @RequiredArgsConstructor @Getter @EqualsAndHashCode
 public class OwnerAndRole
   {
     @Nonnull

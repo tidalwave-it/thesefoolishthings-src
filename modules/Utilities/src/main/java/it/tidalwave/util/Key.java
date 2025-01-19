@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.concurrent.Immutable;
+// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
 import java.util.Comparator;
 import java.util.Set;
@@ -46,7 +46,7 @@ import lombok.ToString;
  * @stereotype flyweight
  *
  **************************************************************************************************************************************************************/
-@Immutable @RequiredArgsConstructor(access = AccessLevel.PRIVATE) @EqualsAndHashCode @ToString
+/* @Immutable */ @RequiredArgsConstructor(access = AccessLevel.PRIVATE) @EqualsAndHashCode @ToString
 public class Key<T> implements StringValue, Comparable<Key<?>>, Serializable
   {
     private static final long serialVersionUID = 2817490298518793579L;

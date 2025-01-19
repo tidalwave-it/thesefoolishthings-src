@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util.impl.finder;
 
-import javax.annotation.concurrent.Immutable;
+// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
 import java.util.Collection;
 import java.util.List;
@@ -41,7 +41,7 @@ import it.tidalwave.util.spi.SimpleFinderSupport;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@Immutable
+/* @Immutable */ 
 public class SupplierFinder<T> extends SimpleFinderSupport<T>
   {
     private static final long serialVersionUID = 1344191036948400804L;

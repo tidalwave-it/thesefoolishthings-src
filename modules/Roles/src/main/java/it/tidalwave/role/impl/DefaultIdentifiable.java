@@ -25,7 +25,7 @@
  */
 package it.tidalwave.role.impl;
 
-import javax.annotation.concurrent.Immutable;
+// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
 import java.io.Serializable;
 import it.tidalwave.util.Id;
@@ -40,7 +40,7 @@ import lombok.RequiredArgsConstructor;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@Getter @Immutable @RequiredArgsConstructor
+@Getter /* @Immutable */  @RequiredArgsConstructor
 public class DefaultIdentifiable implements Identifiable, Serializable
   {
     private static final long serialVersionUID = 45654634423793043L;

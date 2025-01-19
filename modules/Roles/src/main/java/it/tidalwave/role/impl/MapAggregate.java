@@ -25,7 +25,7 @@
  */
 package it.tidalwave.role.impl;
 
-import javax.annotation.concurrent.Immutable;
+// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
 import java.util.Collections;
 import java.util.HashMap;
@@ -47,7 +47,7 @@ import lombok.ToString;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@Immutable @ToString
+/* @Immutable */  @ToString
 public class MapAggregate<T> implements Aggregate<T>
   {
     private final Map<String, T> mapByName;

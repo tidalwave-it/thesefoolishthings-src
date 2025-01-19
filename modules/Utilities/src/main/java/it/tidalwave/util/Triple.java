@@ -25,8 +25,8 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.concurrent.Immutable;
+// import javax.annotation.Nonnegative;
+// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -44,7 +44,7 @@ import lombok.ToString;
  * @it.tidalwave.javadoc.draft
  *
  **************************************************************************************************************************************************************/
-@Getter @Immutable @RequiredArgsConstructor(staticName = "of") @ToString @EqualsAndHashCode
+@Getter /* @Immutable */ @RequiredArgsConstructor(staticName = "of") @ToString @EqualsAndHashCode
 public class Triple<A, B, C>
   {
     @Nonnull
@@ -103,8 +103,8 @@ public class Triple<A, B, C>
      **********************************************************************************************************************************************************/
     @Nonnull
     public static <T, U> Stream<Triple<T, U, Integer>> tripleRange (@Nonnull final Pair<T, U> pair,
-                                                                    @Nonnegative final int from,
-                                                                    @Nonnegative final int to)
+                                                                    /* @Nonnegative */ final int from,
+                                                                    /* @Nonnegative */ final int to)
       {
         return tripleStream(pair, IntStream.range(from, to).boxed());
       }
@@ -122,8 +122,8 @@ public class Triple<A, B, C>
      **********************************************************************************************************************************************************/
     @Nonnull
     public static <T, U> Stream<Triple<T, U, Integer>> tripleRangeClosed (@Nonnull final Pair<T, U> pair,
-                                                                          @Nonnegative final int from,
-                                                                          @Nonnegative final int to)
+                                                                          /* @Nonnegative */ final int from,
+                                                                          /* @Nonnegative */ final int to)
       {
         return tripleStream(pair, IntStream.rangeClosed(from, to).boxed());
       }

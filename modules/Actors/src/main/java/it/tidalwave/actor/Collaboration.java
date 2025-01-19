@@ -25,7 +25,7 @@
  */
 package it.tidalwave.actor;
 
-import javax.annotation.Nonnegative;
+// import javax.annotation.Nonnegative;
 import jakarta.annotation.Nonnull;
 import java.time.Duration;
 import java.time.ZoneId;
@@ -230,7 +230,7 @@ public interface Collaboration
      *
      * @return  the number of messages not yet delivered
      **********************************************************************************************************************************************************/
-    @Nonnegative
+    /* @Nonnegative */
     public int getDeliveringMessagesCount();
 
     /***********************************************************************************************************************************************************
@@ -238,7 +238,7 @@ public interface Collaboration
      *
      * @return  the number of messages not yet consumed
      **********************************************************************************************************************************************************/
-    @Nonnegative
+    /* @Nonnegative */
     public int getPendingMessagesCount();
 
     /***********************************************************************************************************************************************************
@@ -246,6 +246,6 @@ public interface Collaboration
      *
      * @return  the number of threads
      **********************************************************************************************************************************************************/
-    @Nonnegative
+    /* @Nonnegative */
     public int getRunningThreadsCount();
   }

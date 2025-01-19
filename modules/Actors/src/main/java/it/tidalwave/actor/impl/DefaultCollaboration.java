@@ -25,7 +25,7 @@
  */
 package it.tidalwave.actor.impl;
 
-import javax.annotation.Nonnegative;
+// import javax.annotation.Nonnegative;
 import jakarta.annotation.Nonnull;
 import java.time.Duration;
 import java.time.ZonedDateTime;
@@ -192,7 +192,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
     /***********************************************************************************************************************************************************
      * {@inheritDoc}
      **********************************************************************************************************************************************************/
-    @Override @Nonnegative
+    @Override /* @Nonnegative */
     public synchronized int getDeliveringMessagesCount()
       {
         return deliveringMessages.size();
@@ -201,7 +201,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
     /***********************************************************************************************************************************************************
      * {@inheritDoc}
      **********************************************************************************************************************************************************/
-    @Override @Nonnegative
+    @Override /* @Nonnegative */
     public synchronized int getPendingMessagesCount()
       {
         return pendingMessages.size();
@@ -210,7 +210,7 @@ public class DefaultCollaboration implements Serializable, Collaboration
     /***********************************************************************************************************************************************************
      * {@inheritDoc}
      **********************************************************************************************************************************************************/
-    @Override @Nonnegative
+    @Override /* @Nonnegative */
     public synchronized int getRunningThreadsCount()
       {
         return runningThreads.size();

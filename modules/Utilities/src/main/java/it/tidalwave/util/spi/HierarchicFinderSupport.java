@@ -26,7 +26,7 @@
 package it.tidalwave.util.spi;
 
 import java.lang.reflect.Constructor;
-import javax.annotation.Nonnegative;
+// import javax.annotation.Nonnegative;
 import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -82,10 +82,10 @@ public class HierarchicFinderSupport<T, F extends Finder<T>> implements Finder<T
     @Nonnull
     private final String name;
 
-    @Nonnegative
+    /* @Nonnegative */
     protected final int firstResult;
 
-    @Nonnegative
+    /* @Nonnegative */
     protected final int maxResults;
 
     @Nonnull @Getter(AccessLevel.PROTECTED)
@@ -192,7 +192,7 @@ public class HierarchicFinderSupport<T, F extends Finder<T>> implements Finder<T
      * {@inheritDoc}
      **********************************************************************************************************************************************************/
     @Override @Nonnull
-    public F from (@Nonnegative final int firstResult)
+    public F from (/* @Nonnegative */ final int firstResult)
       {
         return clonedWith(new HierarchicFinderSupport<T, F>(name, firstResult, maxResults, contexts, sorters));
       }
@@ -201,7 +201,7 @@ public class HierarchicFinderSupport<T, F extends Finder<T>> implements Finder<T
      * {@inheritDoc}
      **********************************************************************************************************************************************************/
     @Override @Nonnull
-    public F max (@Nonnegative final int maxResults)
+    public F max (/* @Nonnegative */ final int maxResults)
       {
         return clonedWith(new HierarchicFinderSupport<T, F>(name, firstResult, maxResults, contexts, sorters));
       }
@@ -263,7 +263,7 @@ public class HierarchicFinderSupport<T, F extends Finder<T>> implements Finder<T
     /***********************************************************************************************************************************************************
      * {@inheritDoc}
      **********************************************************************************************************************************************************/
-    @Override @Nonnegative
+    @Override /* @Nonnegative */
     public int count()
       {
         return computeNeededResults().size();

@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.Nonnegative;
+// import javax.annotation.Nonnegative;
 import jakarta.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
@@ -93,7 +93,7 @@ public interface TypeSafeMultiMap extends Iterable<Map.Entry<Key<?>, Collection<
      *
      * @return        the size
      **********************************************************************************************************************************************************/
-    @Nonnegative
+    /* @Nonnegative */
     public int size();
 
     /***********************************************************************************************************************************************************

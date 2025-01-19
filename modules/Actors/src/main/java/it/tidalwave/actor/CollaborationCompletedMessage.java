@@ -25,7 +25,7 @@
  */
 package it.tidalwave.actor;
 
-import javax.annotation.concurrent.Immutable;
+// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
 import java.time.Duration;
 import java.time.ZonedDateTime;
@@ -40,7 +40,7 @@ import lombok.ToString;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@Message @Immutable @EqualsAndHashCode @ToString
+@Message /* @Immutable */ @EqualsAndHashCode @ToString
 public class CollaborationCompletedMessage extends MessageSupport
   {
     private final ZonedDateTime endTime = ZonedDateTime.now();

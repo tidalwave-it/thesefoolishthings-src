@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util.spi;
 
-import javax.annotation.Nonnegative;
+// import javax.annotation.Nonnegative;
 import jakarta.annotation.Nonnull;
 import it.tidalwave.util.Finder;
 
@@ -52,11 +52,11 @@ public interface ExtendedFinderSupport<T, F extends Finder<T>> extends Finder<T>
   {
     /** {@inheritDoc} */
     @Override @Nonnull
-    public F from (@Nonnegative int firstResult);
+    public F from (/* @Nonnegative */ int firstResult);
 
     /** {@inheritDoc} */
     @Override @Nonnull
-    public F max (@Nonnegative int maxResults);
+    public F max (/* @Nonnegative */ int maxResults);
 
     /** {@inheritDoc} */
     @Override @Nonnull

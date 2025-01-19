@@ -25,8 +25,8 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.concurrent.Immutable;
+// import javax.annotation.Nonnegative;
+// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
@@ -43,7 +43,7 @@ import it.tidalwave.util.impl.TypeSafeHashMap;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@Immutable
+/* @Immutable */ 
 public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
   {
     /***********************************************************************************************************************************************************
@@ -120,7 +120,7 @@ public interface TypeSafeMap extends Iterable<Map.Entry<Key<?>, Object>>
      *
      * @return    the size
      **********************************************************************************************************************************************************/
-    @Nonnegative
+    /* @Nonnegative */
     public int size();
 
     /***********************************************************************************************************************************************************

@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.Nonnegative;
+// import javax.annotation.Nonnegative;
 import jakarta.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
@@ -190,7 +190,7 @@ public interface Finder<T> extends Cloneable, Serializable
      **********************************************************************************************************************************************************/
     // START SNIPPET: from
     @Nonnull
-      public Finder<T> from (@Nonnegative int firstResult);
+      public Finder<T> from (/* @Nonnegative */ int firstResult);
     // END SNIPPET: from
 
     /***********************************************************************************************************************************************************
@@ -227,7 +227,7 @@ public interface Finder<T> extends Cloneable, Serializable
      **********************************************************************************************************************************************************/
     // START SNIPPET: max
     @Nonnull
-    public Finder<T> max (@Nonnegative int maxResults);
+    public Finder<T> max (/* @Nonnegative */ int maxResults);
     // END SNIPPET: max
 
     /***********************************************************************************************************************************************************
@@ -321,7 +321,7 @@ public interface Finder<T> extends Cloneable, Serializable
      * @return            the count of found items
      **********************************************************************************************************************************************************/
     // START SNIPPET: count
-    @Nonnegative
+    /* @Nonnegative */
     public int count();
     // END SNIPPET: count
 

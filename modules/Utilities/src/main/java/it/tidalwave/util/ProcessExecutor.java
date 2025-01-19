@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.concurrent.ThreadSafe;
+// import javax.annotation.concurrent.ThreadSafe;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.util.List;
@@ -44,7 +44,7 @@ import it.tidalwave.util.spi.DefaultProcessExecutor;
  * @since   1.39
  *
  **************************************************************************************************************************************************************/
-@ThreadSafe
+/* @ThreadSafe */
 public interface ProcessExecutor
   {
     /***********************************************************************************************************************************************************

@@ -26,7 +26,7 @@
 package it.tidalwave.messagebus.spi;
 
 import java.lang.ref.WeakReference;
-import javax.annotation.concurrent.ThreadSafe;
+// import javax.annotation.concurrent.ThreadSafe;
 import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +46,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@ThreadSafe @Slf4j
+/* @ThreadSafe */  @Slf4j
 public class SimpleMessageBus implements MessageBus
   {
     private final Map<Class<?>, List<WeakReference<Listener<?>>>> listenersMapByTopic = new HashMap<>();

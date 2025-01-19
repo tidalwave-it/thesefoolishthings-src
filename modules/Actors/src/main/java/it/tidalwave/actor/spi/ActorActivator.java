@@ -26,7 +26,7 @@
 package it.tidalwave.actor.spi;
 
 import java.lang.reflect.InvocationTargetException;
-import javax.annotation.Nonnegative;
+// import javax.annotation.Nonnegative;
 import jakarta.annotation.Nonnull;
 import it.tidalwave.actor.annotation.Actor;
 import it.tidalwave.actor.impl.CollaborationAwareMessageBusAdapter;
@@ -51,7 +51,7 @@ public class ActorActivator
     @Nonnull
     private final Class<?> actorClass;
 
-    @Nonnegative @Getter
+    /* @Nonnegative */ @Getter
     private final int poolSize;
 
     @Getter
@@ -81,7 +81,7 @@ public class ActorActivator
      * @return             the activator
      **********************************************************************************************************************************************************/
     @Nonnull
-    public ActorActivator withPoolSize (@Nonnegative final int poolSize)
+    public ActorActivator withPoolSize (/* @Nonnegative */ final int poolSize)
       {
         return new ActorActivator(actorClass, poolSize);
       }
@@ -89,7 +89,7 @@ public class ActorActivator
     /***********************************************************************************************************************************************************
      *
      **********************************************************************************************************************************************************/
-    private ActorActivator (@Nonnull final Class<?> actorClass, @Nonnegative final int poolSize)
+    private ActorActivator (@Nonnull final Class<?> actorClass, /* @Nonnegative */ final int poolSize)
       {
         this.actorClass = actorClass;
         this.poolSize = poolSize;

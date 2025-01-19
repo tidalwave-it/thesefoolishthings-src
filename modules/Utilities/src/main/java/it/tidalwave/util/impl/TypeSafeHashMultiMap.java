@@ -25,8 +25,8 @@
  */
 package it.tidalwave.util.impl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.concurrent.Immutable;
+// import javax.annotation.Nonnegative;
+// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,7 +47,7 @@ import lombok.EqualsAndHashCode;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@Immutable @EqualsAndHashCode
+/* @Immutable */ @EqualsAndHashCode
 public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
   {
     private static final long serialVersionUID = 759233572056L;
@@ -144,7 +144,7 @@ public class TypeSafeHashMultiMap implements TypeSafeMultiMap, Serializable
     /***********************************************************************************************************************************************************
      * {@inheritDoc}
      **********************************************************************************************************************************************************/
-    @Override @Nonnegative
+    @Override /* @Nonnegative */
     public int size()
       {
         return map.size();

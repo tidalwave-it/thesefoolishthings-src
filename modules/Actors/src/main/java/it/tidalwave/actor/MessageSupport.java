@@ -25,7 +25,7 @@
  */
 package it.tidalwave.actor;
 
-import javax.annotation.Nonnegative;
+// import javax.annotation.Nonnegative;
 import jakarta.annotation.Nonnull;
 import javax.inject.Provider;
 import java.util.Optional;
@@ -133,7 +133,7 @@ public abstract class MessageSupport implements Collaboration.Provider, As, Seri
      * @return            the {@code Collaboration} that this message is part of
      **********************************************************************************************************************************************************/
     @Nonnull
-    public Collaboration sendLater (@Nonnegative final int delay, @Nonnull final TimeUnit timeUnit)
+    public Collaboration sendLater (/* @Nonnegative */ final int delay, @Nonnull final TimeUnit timeUnit)
       {
         log.debug("sendLater({}, {}) - {}", delay, timeUnit, this);
         final var message = findDecoratedMessage();

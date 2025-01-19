@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.concurrent.ThreadSafe;
+// import javax.annotation.concurrent.ThreadSafe;
 import jakarta.annotation.Nonnull;
 import java.util.function.Supplier;
 import it.tidalwave.util.annotation.VisibleForTesting;
@@ -42,7 +42,7 @@ import lombok.RequiredArgsConstructor;
  * @since   3.2-ALPHA-13
  *
  **************************************************************************************************************************************************************/
-@ThreadSafe @RequiredArgsConstructor(staticName = "of") @EqualsAndHashCode(of = {"ref", "initialized"})
+/* @ThreadSafe */ @RequiredArgsConstructor(staticName = "of") @EqualsAndHashCode(of = {"ref", "initialized"})
 public class LazySupplier<T> implements Supplier<T>
   {
     @Nonnull

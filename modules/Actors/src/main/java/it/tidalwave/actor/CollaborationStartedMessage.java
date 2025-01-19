@@ -25,7 +25,7 @@
  */
 package it.tidalwave.actor;
 
-import javax.annotation.concurrent.Immutable;
+// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
 import java.time.ZonedDateTime;
 import it.tidalwave.actor.annotation.Message;
@@ -39,7 +39,7 @@ import lombok.ToString;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@Message @Immutable @EqualsAndHashCode(callSuper = true) @ToString
+@Message /* @Immutable */  @EqualsAndHashCode(callSuper = true) @ToString
 public class CollaborationStartedMessage extends MessageSupport
   {
     /***********************************************************************************************************************************************************

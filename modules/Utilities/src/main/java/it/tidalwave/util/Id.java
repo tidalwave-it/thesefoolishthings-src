@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.concurrent.Immutable;
+// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
 import java.util.UUID;
 import java.io.Serializable;
@@ -40,7 +40,7 @@ import lombok.RequiredArgsConstructor;
  * @it.tidalwave.javadoc.stable
  *
  **************************************************************************************************************************************************************/
-@Immutable @RequiredArgsConstructor @EqualsAndHashCode
+/* @Immutable */ @RequiredArgsConstructor @EqualsAndHashCode
 public class Id implements Serializable, Comparable<Id>, StringValue
   {
     private static final long serialVersionUID = 3309234234279593043L;

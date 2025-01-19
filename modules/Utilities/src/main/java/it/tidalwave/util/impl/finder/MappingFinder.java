@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util.impl.finder;
 
-import javax.annotation.concurrent.Immutable;
+// import javax.annotation.concurrent.Immutable;
 import jakarta.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Function;
@@ -40,7 +40,7 @@ import static java.util.stream.Collectors.*;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@Immutable
+/* @Immutable */ 
 public final class MappingFinder<T, U> extends SimpleFinderSupport<T>
   {
     private static final long serialVersionUID = -6359683808082070089L;

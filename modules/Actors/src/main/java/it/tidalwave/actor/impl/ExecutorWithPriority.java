@@ -25,7 +25,7 @@
  */
 package it.tidalwave.actor.impl;
 
-import javax.annotation.Nonnegative;
+// import javax.annotation.Nonnegative;
 import jakarta.annotation.Nonnull;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
@@ -96,9 +96,9 @@ public class ExecutorWithPriority
      * @param  name              the thread base name
      * @param  initialPriority   the initial thread priority in this executor
      **********************************************************************************************************************************************************/
-    public ExecutorWithPriority (@Nonnegative final int poolSize,
+    public ExecutorWithPriority (/* @Nonnegative */ final int poolSize,
                                  @Nonnull final String name,
-                                 @Nonnegative final int initialPriority)
+                                 /* @Nonnegative */ final int initialPriority)
       {
         final var threadFactory = new ThreadFactory()
           {

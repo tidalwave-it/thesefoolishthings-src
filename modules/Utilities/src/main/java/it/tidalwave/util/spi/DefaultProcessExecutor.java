@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util.spi;
 
-import javax.annotation.concurrent.ThreadSafe;
+// import javax.annotation.concurrent.ThreadSafe;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since   1.39
  *
  **************************************************************************************************************************************************************/
-@ThreadSafe @NoArgsConstructor(access=AccessLevel.PRIVATE) @Slf4j
+/* @ThreadSafe */ @NoArgsConstructor(access=AccessLevel.PRIVATE) @Slf4j
 public class DefaultProcessExecutor implements ProcessExecutor
   {
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);

@@ -25,7 +25,7 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.Nonnegative;
+// import javax.annotation.Nonnegative;
 import jakarta.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -107,7 +107,7 @@ public class StreamUtilsTest
      * 
      **********************************************************************************************************************************************************/
     @Nonnull
-    private static Stream<String> stringStream (@Nonnegative final int size)
+    private static Stream<String> stringStream (/* @Nonnegative */ final int size)
       {
         return IntStream.range(0, size).mapToObj(n -> "string-" + (char)('a' + n));
       }

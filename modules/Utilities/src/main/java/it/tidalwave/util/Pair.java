@@ -25,9 +25,9 @@
  */
 package it.tidalwave.util;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.concurrent.Immutable;
-import javax.annotation.concurrent.NotThreadSafe;
+// import javax.annotation.Nonnegative;
+// import javax.annotation.concurrent.Immutable;
+// import javax.annotation.concurrent.NotThreadSafe;
 import jakarta.annotation.Nonnull;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -53,7 +53,7 @@ import lombok.ToString;
  * @it.tidalwave.javadoc.draft
  *
  **************************************************************************************************************************************************************/
-@Getter @Immutable @RequiredArgsConstructor(staticName = "of") @ToString @EqualsAndHashCode
+@Getter /* @Immutable */ @RequiredArgsConstructor(staticName = "of") @ToString @EqualsAndHashCode
 public class Pair<A, B>
   {
     /** A base 0 index rebaser. */
@@ -98,8 +98,8 @@ public class Pair<A, B>
      **********************************************************************************************************************************************************/
     @Nonnull
     public static <T> Stream<Pair<T, Integer>> pairRange (@Nonnull final T value,
-                                                          @Nonnegative final int from,
-                                                          @Nonnegative final int to)
+                                                          /* @Nonnegative */ final int from,
+                                                          /* @Nonnegative */ final int to)
       {
         return pairStream(value, IntStream.range(from, to).boxed());
       }
@@ -116,8 +116,8 @@ public class Pair<A, B>
      **********************************************************************************************************************************************************/
     @Nonnull
     public static <T> Stream<Pair<T, Integer>> pairRangeClosed (@Nonnull final T value,
-                                                                @Nonnegative final int from,
-                                                                @Nonnegative final int to)
+                                                                /* @Nonnegative */ final int from,
+                                                                /* @Nonnegative */ final int to)
       {
         return pairStream(value, IntStream.rangeClosed(from, to).boxed());
       }
@@ -336,8 +336,8 @@ public class Pair<A, B>
      * @return                        the stream
      **********************************************************************************************************************************************************/
     @Nonnull
-    public static <T> Stream<Pair<Integer, T>> indexedPairStream (@Nonnegative final int from,
-                                                                  @Nonnegative final int to,
+    public static <T> Stream<Pair<Integer, T>> indexedPairStream (/* @Nonnegative */ final int from,
+                                                                  /* @Nonnegative */ final int to,
                                                                   @Nonnull final IntFunction<? extends T> valueSupplier)
       {
         return indexedPairStream(from, to, valueSupplier, BASE_0, i -> i);
@@ -355,8 +355,8 @@ public class Pair<A, B>
      * @return                        the stream
      **********************************************************************************************************************************************************/
     @Nonnull
-    public static <T> Stream<Pair<Integer, T>> indexedPairStream (@Nonnegative final int from,
-                                                                  @Nonnegative final int to,
+    public static <T> Stream<Pair<Integer, T>> indexedPairStream (/* @Nonnegative */ final int from,
+                                                                  /* @Nonnegative */ final int to,
                                                                   @Nonnull final IntFunction<? extends T> valueSupplier,
                                                                   @Nonnull final IntUnaryOperator rebaser)
       {
@@ -377,8 +377,8 @@ public class Pair<A, B>
      * @return                        the stream
      **********************************************************************************************************************************************************/
     @Nonnull
-    public static <T, I> Stream<Pair<I, T>> indexedPairStream (@Nonnegative final int from,
-                                                               @Nonnegative final int to,
+    public static <T, I> Stream<Pair<I, T>> indexedPairStream (/* @Nonnegative */ final int from,
+                                                               /* @Nonnegative */ final int to,
                                                                @Nonnull final IntFunction<? extends T> valueSupplier,
                                                                @Nonnull final IntUnaryOperator rebaser,
                                                                @Nonnull final IntFunction<? extends I> indexTransformer)
@@ -418,7 +418,7 @@ public class Pair<A, B>
         return StreamUtils.zip(streamA, streamB);
       }
 
-    @NotThreadSafe
+    /* @NotThreadSafe */
     static final class Factory<I, T>
       {
         private final AtomicInteger n = new AtomicInteger(0);
