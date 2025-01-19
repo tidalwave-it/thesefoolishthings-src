@@ -23,13 +23,13 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.messagebus.impl.spring;
-
-/***************************************************************************************************************************************************************
- *
- * @author  Fabrizio Giudici
- *
- **************************************************************************************************************************************************************/
-public class MockEvent1
+module it.tidalwave.messagebus.spring
   {
+    requires static lombok;
+    requires org.slf4j;
+    requires jakarta.annotation;
+    requires it.tidalwave.util;
+    requires it.tidalwave.messagebus;
+    requires spring.beans;
+    exports it.tidalwave.messagebus.spi.spring;
   }

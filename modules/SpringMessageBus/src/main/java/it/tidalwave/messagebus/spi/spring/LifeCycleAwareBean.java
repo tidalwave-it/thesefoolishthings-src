@@ -1,4 +1,4 @@
-#*
+/**
  * *********************************************************************************************************************
  *
  * TheseFoolishThings: Miscellaneous utilities
@@ -23,31 +23,18 @@
  * git clone https://github.com/tidalwave-it/thesefoolishthings-src
  *
  * *********************************************************************************************************************
- *#
-Introduction
-============
+ */
+package it.tidalwave.messagebus.spi.spring;
 
-${project.description}
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 
-[Javadoc](apidocs/index.html)
-
-TBD
-
-#[[##]]# Compatibility with Java 9 modules
-
-This library is fully compatible with Java 9 modules. Since it uses reflection, modules using these features need to be properly “opened”, such as in the
-following example:
-
-```java
-module com.acme.mymodule
+/***************************************************************************************************************************************************************
+ *
+ * @author Fabrizio Giudici
+ *
+ **************************************************************************************************************************************************************/
+public interface LifeCycleAwareBean extends InitializingBean, DisposableBean, BeanFactoryAware
   {
-    // ...
-    opens com.acme.mymodule.impl to it.tidalwave.messagebus.spring;
   }
-```
-
-The packages in the `opens` declaration are those containing the classes that are registered as message bus subscribers.
-
-If this operation is not done, a runtime exception will occur; its message will explain which packages needsto be opened. More information about open
-modules and reflection is available in this
-[Stack Overflow article](https://stackoverflow.com/questions/46482364/what-is-an-open-module-in-java-9-and-how-do-i-use-it).

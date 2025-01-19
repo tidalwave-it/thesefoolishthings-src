@@ -30,6 +30,6 @@
 <aspectj>
     <!-- AspectJ load-time weaving config file. -->
     <aspects>
-        <aspect name="it.tidalwave.messagebus.impl.spring.SpringSimpleMessageSubscriberAspect"/>
+        <aspect name="it.tidalwave.messagebus.spi.spring.SpringSimpleMessageSubscriberAspect"/>
     </aspects>
 </aspectj>

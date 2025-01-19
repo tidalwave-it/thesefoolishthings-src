@@ -23,13 +23,25 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.messagebus.impl.spring;
+package it.tidalwave.messagebus.spi.spring;
+
+import jakarta.annotation.Nonnull;
+import it.tidalwave.messagebus.annotation.ListensTo;
+import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
 
 /***************************************************************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-public class MockEvent2
+@SimpleMessageSubscriber(source = "otherMessageBus") @SuppressWarnings("EmptyMethod")
+public class MockSubscriber2
   {
+    void onMockEvent1 (@Nonnull @ListensTo final MockEvent1 event)
+      {
+      }
+
+    void onMockEvent2 (@Nonnull @ListensTo final MockEvent2 event)
+      {
+      }
   }

@@ -23,25 +23,16 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.messagebus.impl.spring;
-
-import jakarta.annotation.Nonnull;
-import it.tidalwave.messagebus.annotation.ListensTo;
-import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
-
-/***************************************************************************************************************************************************************
- *
- * @author  Fabrizio Giudici
- *
- **************************************************************************************************************************************************************/
-@SuppressWarnings("EmptyMethod") @SimpleMessageSubscriber
-public class MockSubscriber1
+module it.tidalwave.role
   {
-    void onMockEvent1 (@Nonnull @ListensTo final MockEvent1 event)
-      {
-      }
-
-    void onMockEvent2 (@Nonnull @ListensTo final MockEvent2 event)
-      {
-      }
+    requires static lombok;
+    // requires static jsr305; // Cannot be used because packages clash with java.annotation
+    requires static java.annotation;
+    requires jakarta.annotation;
+    requires static com.github.spotbugs.annotations;
+    requires org.slf4j;
+    requires transitive it.tidalwave.util;
+    exports it.tidalwave.role;
+    exports it.tidalwave.role.io;
+    exports it.tidalwave.role.io.spi;
   }

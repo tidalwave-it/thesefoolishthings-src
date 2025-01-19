@@ -49,6 +49,11 @@
         <java-diff-utils.version>4.15</java-diff-utils.version>
         <joda-time.version>2.13.0</joda-time.version>
         <tft.aspectjrt.version>1.9.20.1</tft.aspectjrt.version> <!-- Last with JDK 11 support -->
+        <tft.modulePathInTests>false</tft.modulePathInTests>
+        <!-- Since we're still supporting old annotations, jakarta.annotations is not declared as transitive, and this produces tons of 'exports' warnings. -->
+        <tft.javac.xlint>-Xlint:all,-exports,-missing-explicit-ctor</tft.javac.xlint>
+        <tft.profile.metrics.checkstyleGoal /> <!-- FIXME: checkstyle crashes with module-info.java -->
+        <tft.checkstyle.skip>true</tft.checkstyle.skip>
     </properties>
 
     <dependencyManagement>
@@ -120,6 +125,23 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <annotationProcessorPath>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </annotationProcessorPath>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <modules>
         <module>Actors</module>

@@ -1045,3 +1045,23 @@ all the values instead of replacing the previous one.
 
 Find more information in [the JavaDoc for TypeSafeMap](apidocs/it/tidalwave/util/TypeSafeMap.html) and
 [TypeSafeMultiMap](apidocs/it/tidalwave/util/TypeSafeMultiMap.html).
+
+
+#[[##]]# Compatibility with Java 9 modules
+
+This library is fully compatible with Java 9 modules. Since some parts of it use reflection to instantiate classes or inject them with dependencies (e.g.
+`Finder` and DCI roles), modules using these features need to be properly “opened”, such as in the following example:
+
+```java
+module com.acme.mymodule
+  {
+    // ...
+    opens com.acme.mymodule.impl to it.tidalwave.util;
+  }
+```
+
+The packages in the `opens` declaration are those containing the classes that need the reflective operations.
+
+If this operation is not done, a runtime exception will occur; its message will explain which packages needsto be opened. More information about open
+modules and reflection is available in this
+[Stack Overflow article](https://stackoverflow.com/questions/46482364/what-is-an-open-module-in-java-9-and-how-do-i-use-it).

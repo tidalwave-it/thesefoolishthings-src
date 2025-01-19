@@ -23,51 +23,13 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.messagebus.impl.spring;
-
-import jakarta.annotation.Nonnull;
-import it.tidalwave.messagebus.impl.spring.MessageBusAdapterFactory.MessageBusListenerAdapter;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-import lombok.With;
-import org.mockito.ArgumentMatcher;
-import static lombok.AccessLevel.PRIVATE;
+package it.tidalwave.messagebus.spi.spring;
 
 /***************************************************************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@RequiredArgsConstructor(access = PRIVATE) @AllArgsConstructor @ToString
-public class ListenerAdapterMatcher<T> implements ArgumentMatcher<MessageBusListenerAdapter<T>>
+public class MockEvent2
   {
-    @With
-    public String methodName;
-
-    @With
-    public Object owner;
-
-    @Nonnull
-    public Class<?> topic;
-
-    @Override
-    public boolean matches (final MessageBusListenerAdapter<T> listener)
-      {
-        return (methodName.equals(listener.getMethod().getName())
-                && (owner == listener.getOwner())
-                && topic.equals(listener.getTopic()));
-      }
-
-    @Nonnull
-    public static <T> ListenerAdapterMatcher<T> listenerAdapter (@Nonnull final Class<T> topic)
-      {
-        return new ListenerAdapterMatcher<>(topic);
-      }
-
-//    @Override FIXME!
-//    public void describeTo (final @Nonnull Description description)
-//      {
-//        description.appendText(toString());
-//      }
   }

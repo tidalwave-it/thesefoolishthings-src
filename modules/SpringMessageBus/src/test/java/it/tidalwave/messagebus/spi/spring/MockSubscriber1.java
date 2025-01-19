@@ -23,51 +23,25 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.messagebus.impl.spring;
+package it.tidalwave.messagebus.spi.spring;
 
 import jakarta.annotation.Nonnull;
-import it.tidalwave.messagebus.impl.spring.MessageBusAdapterFactory.MessageBusListenerAdapter;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-import lombok.With;
-import org.mockito.ArgumentMatcher;
-import static lombok.AccessLevel.PRIVATE;
+import it.tidalwave.messagebus.annotation.ListensTo;
+import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
 
 /***************************************************************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@RequiredArgsConstructor(access = PRIVATE) @AllArgsConstructor @ToString
-public class ListenerAdapterMatcher<T> implements ArgumentMatcher<MessageBusListenerAdapter<T>>
+@SuppressWarnings("EmptyMethod") @SimpleMessageSubscriber
+public class MockSubscriber1
   {
-    @With
-    public String methodName;
-
-    @With
-    public Object owner;
-
-    @Nonnull
-    public Class<?> topic;
-
-    @Override
-    public boolean matches (final MessageBusListenerAdapter<T> listener)
+    void onMockEvent1 (@Nonnull @ListensTo final MockEvent1 event)
       {
-        return (methodName.equals(listener.getMethod().getName())
-                && (owner == listener.getOwner())
-                && topic.equals(listener.getTopic()));
       }
 
-    @Nonnull
-    public static <T> ListenerAdapterMatcher<T> listenerAdapter (@Nonnull final Class<T> topic)
+    void onMockEvent2 (@Nonnull @ListensTo final MockEvent2 event)
       {
-        return new ListenerAdapterMatcher<>(topic);
       }
-
-//    @Override FIXME!
-//    public void describeTo (final @Nonnull Description description)
-//      {
-//        description.appendText(toString());
-//      }
   }

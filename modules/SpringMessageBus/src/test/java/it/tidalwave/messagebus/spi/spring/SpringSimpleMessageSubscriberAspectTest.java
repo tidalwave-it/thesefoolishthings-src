@@ -23,7 +23,7 @@
  *
  * *************************************************************************************************************************************************************
  */
-package it.tidalwave.messagebus.impl.spring;
+package it.tidalwave.messagebus.spi.spring;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -81,14 +81,12 @@ public class SpringSimpleMessageSubscriberAspectTest
         assertThat("AspectJ didn't enhance object", subscriber1, is(instanceOf(InitializingBean.class)));
         ((InitializingBean)subscriber1).afterPropertiesSet();
         // then
-        verify(applicationMessageBus).subscribe(eq(MockEvent1.class), argThat(listenerAdapter()
-                                                                            .withMethodName("onMockEvent1")
-                                                                            .withOwner(subscriber1)
-                                                                            .withTopic(MockEvent1.class)));
-        verify(applicationMessageBus).subscribe(eq(MockEvent2.class), argThat(listenerAdapter()
-                                                                            .withMethodName("onMockEvent2")
-                                                                            .withOwner(subscriber1)
-                                                                            .withTopic(MockEvent2.class)));
+        verify(applicationMessageBus).subscribe(eq(MockEvent1.class), argThat(listenerAdapter(MockEvent1.class)
+                                                                              .withMethodName("onMockEvent1")
+                                                                              .withOwner(subscriber1)));
+        verify(applicationMessageBus).subscribe(eq(MockEvent2.class), argThat(listenerAdapter(MockEvent2.class)
+                                                                              .withMethodName("onMockEvent2")
+                                                                              .withOwner(subscriber1)));
         verifyNoMoreInteractions(applicationMessageBus);
         verifyNoMoreInteractions(otherMessageBus);
       }
@@ -107,12 +105,12 @@ public class SpringSimpleMessageSubscriberAspectTest
         assertThat(subscriber1, is(instanceOf(DisposableBean.class)));
         ((DisposableBean)subscriber1).destroy();
         // then
-        verify(applicationMessageBus).unsubscribe(argThat(listenerAdapter().withMethodName("onMockEvent1")
-                                                                .withOwner(subscriber1)
-                                                                .withTopic(MockEvent1.class)));
-        verify(applicationMessageBus).unsubscribe(argThat(listenerAdapter().withMethodName("onMockEvent2")
-                                                                .withOwner(subscriber1)
-                                                                .withTopic(MockEvent2.class)));
+        verify(applicationMessageBus).unsubscribe(argThat(listenerAdapter(MockEvent1.class)
+                                                          .withMethodName("onMockEvent1")
+                                                          .withOwner(subscriber1)));
+        verify(applicationMessageBus).unsubscribe(argThat(listenerAdapter(MockEvent2.class)
+                                                          .withMethodName("onMockEvent2")
+                                                          .withOwner(subscriber1)));
         verifyNoMoreInteractions(applicationMessageBus);
         verifyNoMoreInteractions(otherMessageBus);
       }
@@ -131,14 +129,12 @@ public class SpringSimpleMessageSubscriberAspectTest
         assertThat(subscriber2, is(instanceOf(InitializingBean.class)));
         ((InitializingBean)subscriber2).afterPropertiesSet();
         // then
-        verify(otherMessageBus).subscribe(eq(MockEvent1.class), argThat(listenerAdapter()
-                                                                            .withMethodName("onMockEvent1")
-                                                                            .withOwner(subscriber2)
-                                                                            .withTopic(MockEvent1.class)));
-        verify(otherMessageBus).subscribe(eq(MockEvent2.class), argThat(listenerAdapter()
-                                                                            .withMethodName("onMockEvent2")
-                                                                            .withOwner(subscriber2)
-                                                                            .withTopic(MockEvent2.class)));
+        verify(otherMessageBus).subscribe(eq(MockEvent1.class), argThat(listenerAdapter(MockEvent1.class)
+                                                                        .withMethodName("onMockEvent1")
+                                                                        .withOwner(subscriber2)));
+        verify(otherMessageBus).subscribe(eq(MockEvent2.class), argThat(listenerAdapter(MockEvent2.class)
+                                                                        .withMethodName("onMockEvent2")
+                                                                        .withOwner(subscriber2)));
         verifyNoMoreInteractions(otherMessageBus);
         verifyNoMoreInteractions(applicationMessageBus);
       }
@@ -157,12 +153,12 @@ public class SpringSimpleMessageSubscriberAspectTest
         assertThat(subscriber2, is(instanceOf(DisposableBean.class)));
         ((DisposableBean)subscriber2).destroy();
         // then
-        verify(otherMessageBus).unsubscribe(argThat(listenerAdapter().withMethodName("onMockEvent1")
-                                                                     .withOwner(subscriber2)
-                                                                     .withTopic(MockEvent1.class)));
-        verify(otherMessageBus).unsubscribe(argThat(listenerAdapter().withMethodName("onMockEvent2")
-                                                                     .withOwner(subscriber2)
-                                                                     .withTopic(MockEvent2.class)));
+        verify(otherMessageBus).unsubscribe(argThat(listenerAdapter(MockEvent1.class)
+                                                    .withMethodName("onMockEvent1")
+                                                    .withOwner(subscriber2)));
+        verify(otherMessageBus).unsubscribe(argThat(listenerAdapter(MockEvent2.class)
+                                                    .withMethodName("onMockEvent2")
+                                                    .withOwner(subscriber2)));
         verifyNoMoreInteractions(otherMessageBus);
         verifyNoMoreInteractions(applicationMessageBus);
       }

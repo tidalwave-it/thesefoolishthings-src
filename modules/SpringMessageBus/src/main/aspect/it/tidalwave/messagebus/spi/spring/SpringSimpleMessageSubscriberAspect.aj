@@ -24,13 +24,15 @@
  *
  * *********************************************************************************************************************
  */
-package it.tidalwave.messagebus.impl.spring;
+package it.tidalwave.messagebus.spi.spring;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.DisposableBean;
 import it.tidalwave.messagebus.annotation.SimpleMessageSubscriber;
+import it.tidalwave.messagebus.spi.spring.LifeCycleAwareBean;
+import it.tidalwave.messagebus.impl.spring.SpringSimpleMessageSubscriberSupport;
 
 /***************************************************************************************************************************************************************
  *
@@ -50,26 +52,22 @@ public aspect SpringSimpleMessageSubscriberAspect
     // an implementation that delegates the required subscribe/unsubscribe semantics to
     // SpringSimpleMessageSubscriberSupport
     //
-    static interface MessageBusHelperAware extends InitializingBean, DisposableBean, BeanFactoryAware
-      {
-      }
-
     declare parents:
-        @SimpleMessageSubscriber * implements MessageBusHelperAware;
+        @SimpleMessageSubscriber * implements LifeCycleAwareBean;
 
-    private SpringSimpleMessageSubscriberSupport MessageBusHelperAware.support;
+    private SpringSimpleMessageSubscriberSupport LifeCycleAwareBean.support;
 
-    public void MessageBusHelperAware.setBeanFactory (BeanFactory beanFactory)
+    public void LifeCycleAwareBean.setBeanFactory (BeanFactory beanFactory)
       {
         support = new SpringSimpleMessageSubscriberSupport(beanFactory, this);
       }
 
-    public void MessageBusHelperAware.afterPropertiesSet()
+    public void LifeCycleAwareBean.afterPropertiesSet()
       {
         support.subscribeAll();
       }
 
-    public void MessageBusHelperAware.destroy()
+    public void LifeCycleAwareBean.destroy()
       {
         support.unsubscribeAll();
       }

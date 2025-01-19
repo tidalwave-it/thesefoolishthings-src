@@ -44,12 +44,12 @@
     <context:spring-configured/>
 
     <bean id="subscriber1"
-          class="it.tidalwave.messagebus.impl.spring.MockSubscriber1"
+          class="it.tidalwave.messagebus.spi.spring.MockSubscriber1"
           lazy-init="true">
     </bean>
 
     <bean id="subscriber2"
-          class="it.tidalwave.messagebus.impl.spring.MockSubscriber2"
+          class="it.tidalwave.messagebus.spi.spring.MockSubscriber2"
           lazy-init="true">
     </bean>
 
