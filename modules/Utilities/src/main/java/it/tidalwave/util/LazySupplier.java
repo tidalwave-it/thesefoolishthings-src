@@ -27,6 +27,8 @@ package it.tidalwave.util;
 
 // import javax.annotation.concurrent.ThreadSafe;
 import jakarta.annotation.Nonnull;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 import it.tidalwave.util.annotation.VisibleForTesting;
 import lombok.EqualsAndHashCode;
@@ -48,10 +50,10 @@ public class LazySupplier<T> implements Supplier<T>
     @Nonnull
     private final Supplier<T> supplier;
 
-    @VisibleForTesting volatile T ref = null;
+    @VisibleForTesting final AtomicReference<T> ref = new AtomicReference<>(null);
 
     @Getter
-    @VisibleForTesting volatile boolean initialized;
+    @VisibleForTesting final AtomicBoolean initialized = new AtomicBoolean(false);
 
     /** {@inheritDoc} */
     @Override @Nonnull
@@ -59,28 +61,28 @@ public class LazySupplier<T> implements Supplier<T>
       {
         // AtomicReference.updateAndGet() not good because in case of contention it might call supplier multiple times
         // We don't mess with double check for null since nowadays synchronized is fast
-        if (ref == null)
+        if (ref.get() == null)
           {
-            ref = supplier.get();
-            initialized = true;
+            ref.set(supplier.get());
+            initialized.set(true);
           }
 
-        return ref;
+        return ref.get();
       }
 
     public synchronized void clear()
       {
-        ref = null;
+        ref.set(null);
       }
 
-    public void set (@Nonnull final T ref)
+    public synchronized void set (@Nonnull final T ref)
       {
-        this.ref = ref;
+        this.ref.set(ref);
       }
 
     @Nonnull
     public String toString()
       {
-        return String.format("LazySupplier(%s)", (ref == null && !initialized) ? "<not initialised>" : ref);
+        return String.format("LazySupplier(%s)", (ref.get() == null && !initialized.get()) ? "<not initialised>" : ref.get());
       }
   }

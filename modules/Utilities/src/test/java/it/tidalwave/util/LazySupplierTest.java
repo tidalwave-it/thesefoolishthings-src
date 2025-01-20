@@ -43,8 +43,8 @@ public class LazySupplierTest
         // when
         final var underTest = LazySupplier.of(Object::new);
         // then
-        assertThat(underTest.ref, is((Object)null));
-        assertThat(underTest.initialized, is(false));
+        assertThat(underTest.ref.get(), is((Object)null));
+        assertThat(underTest.initialized.get(), is(false));
         assertThat(underTest.toString(), is("LazySupplier(<not initialised>)"));
       }
 
@@ -60,7 +60,7 @@ public class LazySupplierTest
         // then
         assertThat(o2, sameInstance(o1));
         assertThat(o3, sameInstance(o1));
-        assertThat(underTest.initialized, is(true));
+        assertThat(underTest.initialized.get(), is(true));
         assertThat(underTest.toString(), is(String.format("LazySupplier(%s)", underTest.get())));
       }
 
