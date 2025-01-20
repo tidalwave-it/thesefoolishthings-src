@@ -183,7 +183,10 @@ public class JpaFinder<T, E> implements Finder<T>
         final var jpaql = buffer.get();
         log.info(">>>> {}", jpaql);
         // START SNIPPET: createQuery
-        return em.createQuery(jpaql, resultType).setFirstResult(firstResult).setMaxResults(maxResults);
+        final var query = em.createQuery(jpaql, resultType);
+        query.setFirstResult(firstResult);
+        query.setMaxResults(maxResults);
+        return query;
         // END SNIPPET: createQuery
       }
     // END SNIPPET: createQueryFull

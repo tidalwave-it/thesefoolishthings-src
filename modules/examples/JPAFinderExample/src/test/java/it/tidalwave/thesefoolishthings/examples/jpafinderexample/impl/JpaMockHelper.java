@@ -27,13 +27,13 @@ package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
 import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.function.Function;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import it.tidalwave.thesefoolishthings.examples.jpafinderexample.TxManager;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
+import org.mockito.ArgumentCaptor;
 import static org.mockito.Mockito.*;
 
 /***************************************************************************************************************************************************************
@@ -44,9 +44,13 @@ import static org.mockito.Mockito.*;
 public class JpaMockHelper
   {
     public final EntityManager em = mock(EntityManager.class);
-    
-    private final TypedQuery query = mock(TypedQuery.class);
-    
+
+    @SuppressWarnings("unchecked")
+    private final TypedQuery<PersonEntity> query = mock(TypedQuery.class);
+
+    @SuppressWarnings("unchecked")
+    private final TypedQuery<Long> queryCount = mock(TypedQuery.class);
+
     public final TxManager mockTxManager = new TxManager()
       {
         @Override
@@ -56,46 +60,54 @@ public class JpaMockHelper
           }
       };
 
-    public String sqlQuery;
+    @Nonnull
+    private final ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
 
-    public int firstResult;
+    @Nonnull
+    private final ArgumentCaptor<Integer> firstResultCaptor = ArgumentCaptor.forClass(Integer.class);
 
-    public int maxResults;
+    @Nonnull
+    private final ArgumentCaptor<Integer> maxResultsCaptor = ArgumentCaptor.forClass(Integer.class);
 
-    public JpaMockHelper ()
+    private boolean captured = false;
+
+    public JpaMockHelper()
       {
-        when(em.createQuery(anyString(), any())).thenAnswer(new Answer<TypedQuery<?>>()
-          {
-            @Nonnull
-            public TypedQuery<?> answer (@Nonnull final InvocationOnMock invocation)
-              {
-                sqlQuery = (String)invocation.getArguments()[0];
-                return query;  
-              }
-          });
+        when(query.getResultList()).thenReturn(new ArrayList<>());
+        when(query.setFirstResult(anyInt())).thenReturn(query);
+        when(query.setMaxResults(anyInt())).thenReturn(query);
+        when(queryCount.getSingleResult()).thenReturn(1L);
+        when(em.createQuery(anyString(), eq(PersonEntity.class))).thenReturn(query);
+        when(em.createQuery(anyString(), eq(Long.class))).thenReturn(queryCount);
+      }
 
-        when(query.setFirstResult(anyInt())).thenAnswer(new Answer<Query>()
-          {
-            @Nonnull
-            public TypedQuery<?> answer (@Nonnull final InvocationOnMock invocation)
-              {
-                firstResult = (Integer)invocation.getArguments()[0];
-                return query;
-              }
-          });
+    @Nonnull
+    public String getSql()
+      {
+        capture();
+        return queryCaptor.getValue();
+      }
 
-        when(query.setMaxResults(anyInt())).thenAnswer(new Answer<Query>()
+    public Optional<Integer> getFirstResult()
+      {
+        capture();
+        return firstResultCaptor.getAllValues().stream().findFirst();
+      }
+
+    public Optional<Integer> getMaxResults()
+      {
+        capture();
+        return maxResultsCaptor.getAllValues().stream().findFirst();
+      }
+
+    private void capture()
+      {
+        if (!captured)
           {
-            @Nonnull
-            public TypedQuery<?> answer (@Nonnull final InvocationOnMock invocation)
-              {
-                maxResults = (Integer)invocation.getArguments()[0];
-                return query;
-              }
-          });
-        
-        when(query.getResultList()).thenReturn(new ArrayList<PersonEntity>());
-        // in the test class it's used for count()
-        when(query.getSingleResult()).thenReturn(1L);
+            verify(query, atLeast(0)).setFirstResult(firstResultCaptor.capture());
+            verify(query, atLeast(0)).setMaxResults(maxResultsCaptor.capture());
+            verify(em, atLeast(0)).createQuery(queryCaptor.capture(), any());
+            captured = true;
+          }
       }
   }

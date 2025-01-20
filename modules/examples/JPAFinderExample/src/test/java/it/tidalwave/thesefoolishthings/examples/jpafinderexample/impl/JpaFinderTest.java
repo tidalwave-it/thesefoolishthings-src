@@ -25,6 +25,7 @@
  */
 package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 
+import it.tidalwave.thesefoolishthings.examples.person.Person;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl.JpaFinder.*;
@@ -41,7 +42,7 @@ public class JpaFinderTest
   {
     private JpaMockHelper jpaMock;
 
-    private JpaFinder underTest;
+    private JpaFinder<Person, PersonEntity> underTest;
 
     @BeforeMethod
     public void setup()
@@ -57,9 +58,9 @@ public class JpaFinderTest
         // when
         final var results = underTest.results();
         // then
-        assertThat(jpaMock.sqlQuery, is("SELECT p FROM PersonEntity p"));
-        assertThat(jpaMock.firstResult, is(0));
-        assertThat(jpaMock.maxResults, is(Integer.MAX_VALUE));
+        assertThat(jpaMock.getSql(), is("SELECT p FROM PersonEntity p"));
+        assertThat(jpaMock.getFirstResult().orElseThrow(), is(0));
+        assertThat(jpaMock.getMaxResults().orElseThrow(), is(Integer.MAX_VALUE));
       }
 
     @Test
@@ -68,9 +69,9 @@ public class JpaFinderTest
         // when
         final var results = underTest.sort(BY_FIRST_NAME).from(2).max(4).results();
         // then
-        assertThat(jpaMock.sqlQuery, is("SELECT p FROM PersonEntity p ORDER BY p.firstName"));
-        assertThat(jpaMock.firstResult, is(2));
-        assertThat(jpaMock.maxResults, is(4));
+        assertThat(jpaMock.getSql(), is("SELECT p FROM PersonEntity p ORDER BY p.firstName"));
+        assertThat(jpaMock.getFirstResult().orElseThrow(), is(2));
+        assertThat(jpaMock.getMaxResults().orElseThrow(), is(4));
       }
 
     @Test
@@ -79,9 +80,9 @@ public class JpaFinderTest
         // when
         final var results = underTest.sort(BY_LAST_NAME, DESCENDING).from(3).max(7).results();
         // then
-        assertThat(jpaMock.sqlQuery, is("SELECT p FROM PersonEntity p ORDER BY p.lastName DESC"));
-        assertThat(jpaMock.firstResult, is(3));
-        assertThat(jpaMock.maxResults, is(7));
+        assertThat(jpaMock.getSql(), is("SELECT p FROM PersonEntity p ORDER BY p.lastName DESC"));
+        assertThat(jpaMock.getFirstResult().orElseThrow(), is(3));
+        assertThat(jpaMock.getMaxResults().orElseThrow(), is(7));
       }
 
     @Test
@@ -90,9 +91,9 @@ public class JpaFinderTest
         // when
         final var results = underTest.sort(BY_LAST_NAME, DESCENDING).sort(BY_FIRST_NAME, ASCENDING).results();
         // then
-        assertThat(jpaMock.sqlQuery, is("SELECT p FROM PersonEntity p ORDER BY p.lastName DESC, p.firstName"));
-        assertThat(jpaMock.firstResult, is(0));
-        assertThat(jpaMock.maxResults, is(Integer.MAX_VALUE));
+        assertThat(jpaMock.getSql(), is("SELECT p FROM PersonEntity p ORDER BY p.lastName DESC, p.firstName"));
+        assertThat(jpaMock.getFirstResult().orElseThrow(), is(0));
+        assertThat(jpaMock.getMaxResults().orElseThrow(), is(Integer.MAX_VALUE));
       }
 
     @Test
@@ -101,9 +102,9 @@ public class JpaFinderTest
         // when
         final var count = underTest.count();
         // then
-        assertThat(jpaMock.sqlQuery, is("SELECT COUNT(p) FROM PersonEntity p"));
-        assertThat(jpaMock.firstResult, is(0));
-        assertThat(jpaMock.maxResults, is(Integer.MAX_VALUE));
+        assertThat(jpaMock.getSql(), is("SELECT COUNT(p) FROM PersonEntity p"));
+        assertThat(jpaMock.getFirstResult().isPresent(), is(false));
+        assertThat(jpaMock.getMaxResults().isPresent(), is(false));
       }
     // END SNIPPET: tests
   }
