@@ -57,7 +57,7 @@ public aspect SpringSimpleMessageSubscriberAspect
     declare parents:
         @SimpleMessageSubscriber * implements MessageBusHelperAware;
 
-    public SpringSimpleMessageSubscriberSupport MessageBusHelperAware.support;
+    private SpringSimpleMessageSubscriberSupport MessageBusHelperAware.support;
 
     public void MessageBusHelperAware.setBeanFactory (BeanFactory beanFactory)
       {
