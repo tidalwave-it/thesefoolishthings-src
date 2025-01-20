@@ -64,6 +64,6 @@ public class Main
       {
         // See https://github.com/spring-projects/spring-boot/issues/12649#issuecomment-1269568055
         System.setProperty("org.springframework.boot.logging.LoggingSystem", "none");
-        SpringApplication.run(new Class[] { RoleSpringConfiguration.class, Main.class }, args);
+        SpringApplication.run(new Class<?>[] { RoleSpringConfiguration.class, Main.class }, args);
       }
   }

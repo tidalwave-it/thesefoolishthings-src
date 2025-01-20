@@ -36,6 +36,7 @@ import java.util.concurrent.Callable;
  * @it.tidalwave.javadoc.experimental
  *
  **************************************************************************************************************************************************************/
+@SuppressWarnings("this-escape")
 public abstract class Task<T, E extends Throwable>
   {
     @Nonnull

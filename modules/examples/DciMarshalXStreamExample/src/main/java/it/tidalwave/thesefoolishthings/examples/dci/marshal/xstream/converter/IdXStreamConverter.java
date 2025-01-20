@@ -47,7 +47,7 @@ public class IdXStreamConverter implements SingleValueConverter
         return new Id(string);
       }
 
-    @Override
+    @Override @SuppressWarnings("rawtypes")
     public boolean canConvert (final Class type)
       {
         return type.equals(Id.class);

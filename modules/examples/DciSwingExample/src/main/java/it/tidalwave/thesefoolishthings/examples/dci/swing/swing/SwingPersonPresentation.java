@@ -40,6 +40,7 @@ import it.tidalwave.thesefoolishthings.examples.person.PersonRegistry;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
+@SuppressWarnings("this-escape")
 public class SwingPersonPresentation extends JPanel implements PersonPresentation
   {
     private final BindingGroup bindings = new BindingGroup();
@@ -92,7 +93,7 @@ public class SwingPersonPresentation extends JPanel implements PersonPresentatio
         jScrollPane1 = new javax.swing.JScrollPane();
         taPeople = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        liPeople = new javax.swing.JList();
+        liPeople = new javax.swing.JList<>();
 
         setName("Form"); // NOI18N
 
@@ -117,7 +118,7 @@ public class SwingPersonPresentation extends JPanel implements PersonPresentatio
 
         jScrollPane2.setName("jScrollPane2"); // NOI18N
 
-        liPeople.setModel(new javax.swing.AbstractListModel() {
+        liPeople.setModel(new javax.swing.AbstractListModel<>() {
             final String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(final int i) { return strings[i]; }
@@ -158,7 +159,7 @@ public class SwingPersonPresentation extends JPanel implements PersonPresentatio
     private javax.swing.JButton btOk;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList liPeople;
+    private javax.swing.JList<Object> liPeople;
     private javax.swing.JTable taPeople;
     // End of variables declaration//GEN-END:variables
   }

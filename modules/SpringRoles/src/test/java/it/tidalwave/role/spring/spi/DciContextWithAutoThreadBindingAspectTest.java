@@ -173,13 +173,13 @@ public class DciContextWithAutoThreadBindingAspectTest
     public void setup()
       {
         contextManager = mock(ContextManager.class);
-        doAnswer(new Answer()
+        doAnswer(new Answer<Object>()
           {
             @Override
             public Object answer (final InvocationOnMock invocation)
               throws Throwable
               {
-                final Task task = (Task)invocation.getArguments()[1];
+                final var task = (Task<Object, RuntimeException>)invocation.getArguments()[1];
                 return task.run();
               }
           }).when(contextManager).runWithContext(any(), any(Task.class));

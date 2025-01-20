@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@SimpleMessageSubscriber @Slf4j
+@SimpleMessageSubscriber @Slf4j @SuppressWarnings("this-escape")
 public class EventBusAdapterExample
   {
     private final MessageBusHelper messageBusHelper;

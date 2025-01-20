@@ -28,6 +28,7 @@ package it.tidalwave.actor.spi;
 import java.lang.reflect.InvocationTargetException;
 // import javax.annotation.Nonnegative;
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import it.tidalwave.actor.annotation.Actor;
 import it.tidalwave.actor.impl.CollaborationAwareMessageBusAdapter;
 import it.tidalwave.actor.impl.ExecutorWithPriority;
@@ -102,8 +103,7 @@ public class ActorActivator
       {
         try
           {
-            final var actor = actorClass.getAnnotation(Actor.class);
-            validate(actor);
+            final var actor = validated(actorClass.getAnnotation(Actor.class));
             actorObject = actorClass.getDeclaredConstructor().newInstance();
             executor = new ExecutorWithPriority(poolSize, actorClass.getSimpleName(), actor.initialPriority());
             mBeansManager = new MBeansManager(actorObject, poolSize);
@@ -132,7 +132,8 @@ public class ActorActivator
     /***********************************************************************************************************************************************************
      *
      **********************************************************************************************************************************************************/
-    private void validate (@Nonnull final Actor actor)
+    @Nonnull
+    private Actor validated (@Nullable final Actor actor)
       {
         //noinspection ConstantConditions
         if (actor == null)
@@ -144,5 +145,7 @@ public class ActorActivator
           {
             throw new IllegalArgumentException("Actors that aren't thread safe can't have pool size > 1");
           }
+
+        return actor;
       }
   }

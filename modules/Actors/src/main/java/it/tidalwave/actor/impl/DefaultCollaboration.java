@@ -58,12 +58,12 @@ public class DefaultCollaboration implements Serializable, Collaboration
     private static final DefaultCollaboration NULL_DEFAULT_COLLABORATION = new DefaultCollaboration(new Object())
       {
         @Override
-        public void bindToCurrentThread()
+        public synchronized void bindToCurrentThread()
           {
           }
 
         @Override
-        public void unbindFromCurrentThread()
+        public synchronized void unbindFromCurrentThread()
           {
           }
       };

@@ -46,7 +46,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-/* @ThreadSafe */  @Slf4j
+/* @ThreadSafe */  @Slf4j @SuppressWarnings("this-escape")
 public class SimpleMessageBus implements MessageBus
   {
     private final Map<Class<?>, List<WeakReference<Listener<?>>>> listenersMapByTopic = new HashMap<>();

@@ -67,7 +67,7 @@ public final class Bindings
      **********************************************************************************************************************************************************/
     public static void bind (@Nonnull final BindingGroup bindings,
                              @Nonnull final Object datum,
-                             @Nonnull final JList jList)
+                             @Nonnull final JList<Object> jList)
       {
         final ObservableList<?> ol = datum.as(_ObservableListProvider_).createObservableList();
         bindings.addBinding(SwingBindings.createJListBinding(READ, ol, jList));

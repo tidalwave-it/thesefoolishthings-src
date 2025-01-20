@@ -61,7 +61,7 @@ public class PersonConverter implements Converter
         return ((MutablePerson)context.convertAnother(null, MutablePerson.class)).toPerson();
       }
 
-    @Override
+    @Override @SuppressWarnings("rawtypes")
     public boolean canConvert (@Nonnull final Class type)
       {
         return type.equals(Person.class);

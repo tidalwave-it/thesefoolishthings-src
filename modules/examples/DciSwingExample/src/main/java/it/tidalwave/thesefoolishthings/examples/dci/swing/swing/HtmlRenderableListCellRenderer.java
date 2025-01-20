@@ -48,7 +48,7 @@ import static it.tidalwave.thesefoolishthings.examples.dci.swing.role.HtmlRender
 public class HtmlRenderableListCellRenderer extends DefaultListCellRenderer
   {
     @Override @Nonnull
-    public Component getListCellRendererComponent (@Nonnull final JList list,
+    public Component getListCellRendererComponent (@Nonnull final JList<?> list,
                                                    @Nonnull final Object value,
                                                    @Nonnegative final int index,
                                                    final boolean isSelected,

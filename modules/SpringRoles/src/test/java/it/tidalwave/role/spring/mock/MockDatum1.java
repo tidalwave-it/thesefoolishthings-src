@@ -33,6 +33,7 @@ import lombok.experimental.Delegate;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
+@SuppressWarnings("this-escape")
 public class MockDatum1 implements As
   {
     @Delegate

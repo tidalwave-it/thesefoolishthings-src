@@ -51,7 +51,7 @@ import static it.tidalwave.actor.MessageDecorator._MessageDecorator_;
  * @author  Fabrizio Giudici
  *
  **************************************************************************************************************************************************************/
-@Slf4j @EqualsAndHashCode(of = "collaboration")
+@Slf4j @EqualsAndHashCode(of = "collaboration") @SuppressWarnings("this-escape")
 public abstract class MessageSupport implements Collaboration.Provider, As, Serializable
   {
     // TODO: @Inject

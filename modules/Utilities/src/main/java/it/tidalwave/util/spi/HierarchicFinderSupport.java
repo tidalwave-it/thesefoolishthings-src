@@ -233,6 +233,7 @@ public class HierarchicFinderSupport<T, F extends Finder<T>> implements Finder<T
       {
         if (criterion instanceof Finder.InMemorySortCriterion)
           {
+            @SuppressWarnings("unchecked")
             final var sorters = concat(this.sorters, new Sorter<>((InMemorySortCriterion<T>)criterion, direction));
             return clonedWith(new HierarchicFinderSupport<T, F>(name, firstResult, maxResults, contexts, sorters));
           }
@@ -334,11 +335,11 @@ public class HierarchicFinderSupport<T, F extends Finder<T>> implements Finder<T
 
     /***********************************************************************************************************************************************************
      **********************************************************************************************************************************************************/
-    @Nonnull
-    private Constructor<? extends HierarchicFinderSupport> getCloneConstructor()
+    @Nonnull @SuppressWarnings("unchecked")
+    private Constructor<HierarchicFinderSupport<T, F>> getCloneConstructor()
       throws SecurityException, NoSuchMethodException
       {
-        return getClass().getConstructor(getClass(), Object.class);
+        return (Constructor<HierarchicFinderSupport<T, F>>)getClass().getConstructor(getClass(), Object.class);
       }
 
     /***********************************************************************************************************************************************************
