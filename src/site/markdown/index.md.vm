@@ -29,7 +29,7 @@
 #set ($build_status = "https://img.shields.io/jenkins/s/http/services.tidalwave.it/ci/job/" + $project_cc + "_Build_from_Scratch.svg")
 #set ($ci_view = "http://services.tidalwave.it/ci/job/" + $project_cc)
 #set ($test_status = "https://img.shields.io/jenkins/t/http/services.tidalwave.it/ci/job/" + $project_cc + ".svg")
-#set ($coverage_status = "https://img.shields.io/jenkins/c/http/services.tidalwave.it/ci/job/" + $project_cc + ".svg")
+#set ($coverage_status = "https://img.shields.io/jenkins/coverage/jacoco?jobUrl=https%3A%2F%2Fservices.tidalwave.it%2Fci%2Fview%2F" + $project_cc + "%2Fjob%2F" + $project_cc + "%2F")
 
 [![Maven Central](https://img.shields.io/maven-central/v/${project.groupId}/thesefoolishthings.svg)]()
 [![Build Status]($build_status)]($ci_view)
@@ -193,8 +193,7 @@ The issue tracker is hosted on the Atlassian Jira Cloud:
 The **continuous integration** is available at:
 
 + Tidalwave CI server (primary): ${project.ciManagement.url}
-+ Travis: https://app.travis-ci.com/bitbucket/tidalwave/thesefoolishthings-src
-+ Bitbucket pipelines (demonstration only): https://bitbucket.org/tidalwave/thesefoolishthings-src/addon/pipelines/home
+* Sonar: [https://sonarcloud.io/summary/overall?id=tidalwave_thesefoolishthings-src&branch=master]
 
 #[[###]]# API documentation
 

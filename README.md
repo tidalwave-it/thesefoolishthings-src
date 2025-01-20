@@ -1,7 +1,7 @@
 ![Maven Central](https://img.shields.io/maven-central/v/it.tidalwave.thesefoolishthings/thesefoolishthings.svg)
 [![Build Status](https://img.shields.io/jenkins/s/http/services.tidalwave.it/ci/job/TheseFoolishThings_Build_from_Scratch.svg)](http://services.tidalwave.it/ci/view/TheseFoolishThings)
 [![Test Status](https://img.shields.io/jenkins/t/http/services.tidalwave.it/ci/job/TheseFoolishThings.svg)](http://services.tidalwave.it/ci/view/TheseFoolishThings)
-[![Coverage](https://img.shields.io/jenkins/c/http/services.tidalwave.it/ci/job/TheseFoolishThings.svg)](http://services.tidalwave.it/ci/view/TheseFoolishThings)
+[![Coverage](https://img.shields.io/jenkins/coverage/jacoco?jobUrl=https%3A%2F%2Fservices.tidalwave.it%2Fci%2Fview%2FTheseFoolishThings%2Fjob%2FTheseFoolishThings%2F)](https://services.tidalwave.it/ci/view/TheseFoolishThings)
 
 TheseFoolishThings
 ================================
@@ -59,4 +59,5 @@ Additional Resources
 
 * [Issue tracking](http://services.tidalwave.it/jira/browse/TFT)
 * [Continuous Integration](http://services.tidalwave.it/ci/view/TheseFoolishThings)
+* [Sonar](https://sonarcloud.io/summary/overall?id=tidalwave_thesefoolishthings-src&branch=master)
 * [Tidalwave Homepage](http://tidalwave.it)
