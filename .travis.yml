@@ -1,8 +1,0 @@
-language: java
-jdk:
-  - openjdk11
-script: mvn install -B -Pit.tidalwave-ci-v1
-cache:
-  directories:
-    - $HOME/.m2
-
