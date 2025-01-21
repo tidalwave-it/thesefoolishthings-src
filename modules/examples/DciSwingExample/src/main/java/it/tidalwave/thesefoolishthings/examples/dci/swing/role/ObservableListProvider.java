@@ -39,6 +39,7 @@ import org.jdesktop.observablecollections.ObservableList;
  **************************************************************************************************************************************************************/
 public interface ObservableListProvider
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<ObservableListProvider> _ObservableListProvider_ = ObservableListProvider.class;
 
     /***********************************************************************************************************************************************************

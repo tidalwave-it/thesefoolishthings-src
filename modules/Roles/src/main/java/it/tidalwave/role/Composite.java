@@ -45,6 +45,7 @@ import it.tidalwave.util.Finder;
 @FunctionalInterface
 public interface Composite<T, F extends Finder<? extends T>>
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<Composite> _Composite_ = Composite.class;
 
     /***********************************************************************************************************************************************************

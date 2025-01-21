@@ -32,5 +32,6 @@ package it.tidalwave.thesefoolishthings.examples.dci.swing;
  **************************************************************************************************************************************************************/
 public interface PersonPresentationControl
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<PersonPresentationControl> _PersonPresentationControl_ = PersonPresentationControl.class;
   }

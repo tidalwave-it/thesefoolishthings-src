@@ -42,6 +42,7 @@ import java.io.OutputStream;
 @FunctionalInterface
 public interface BinaryWritable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<BinaryWritable> _BinaryWritable_ = BinaryWritable.class;
 
     /***********************************************************************************************************************************************************

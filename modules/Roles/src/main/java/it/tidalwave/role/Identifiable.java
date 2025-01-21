@@ -42,6 +42,7 @@ import it.tidalwave.role.impl.DefaultIdentifiable;
 @FunctionalInterface
 public interface Identifiable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<Identifiable> _Identifiable_ = Identifiable.class;
 
     /***********************************************************************************************************************************************************

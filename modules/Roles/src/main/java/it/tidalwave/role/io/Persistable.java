@@ -38,6 +38,7 @@ package it.tidalwave.role.io;
 @FunctionalInterface
 public interface Persistable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<Persistable> _Persistable_ = Persistable.class;
 
     /***********************************************************************************************************************************************************

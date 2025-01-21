@@ -41,6 +41,7 @@ import java.io.OutputStream;
 @FunctionalInterface
 public interface Marshallable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<Marshallable> _Marshallable_ = Marshallable.class;
 
     /***********************************************************************************************************************************************************

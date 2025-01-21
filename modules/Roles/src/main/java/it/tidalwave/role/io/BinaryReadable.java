@@ -42,6 +42,7 @@ import java.io.InputStream;
 @FunctionalInterface
 public interface BinaryReadable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<BinaryReadable> _BinaryReadable_ = BinaryReadable.class;
 
     /***********************************************************************************************************************************************************

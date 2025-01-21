@@ -41,6 +41,7 @@ import java.io.InputStream;
 @FunctionalInterface
 public interface Unmarshallable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<Unmarshallable> _Unmarshallable_ = Unmarshallable.class;
 
     /***********************************************************************************************************************************************************

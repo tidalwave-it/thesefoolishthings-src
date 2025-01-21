@@ -40,6 +40,7 @@ import java.io.Reader;
 @FunctionalInterface
 public interface TextReadable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<TextReadable> _TextReadable_ = TextReadable.class;
 
     /***********************************************************************************************************************************************************

@@ -40,6 +40,7 @@ import java.nio.file.Path;
 // START SNIPPET: loadable
 public interface Loadable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<Loadable> _Loadable_ = Loadable.class;
 
     public default <T> T loadFrom (@Nonnull final Path path)

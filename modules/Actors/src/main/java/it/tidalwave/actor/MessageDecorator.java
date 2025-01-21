@@ -42,6 +42,7 @@ import lombok.ToString;
  **************************************************************************************************************************************************************/
 public interface MessageDecorator
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<MessageDecorator> _MessageDecorator_ = MessageDecorator.class;
 
     /***********************************************************************************************************************************************************

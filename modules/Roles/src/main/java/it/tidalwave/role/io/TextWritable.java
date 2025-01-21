@@ -40,6 +40,7 @@ import java.io.Writer;
 @FunctionalInterface
 public interface TextWritable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<TextWritable> _TextWritable_ = TextWritable.class;
 
     /***********************************************************************************************************************************************************

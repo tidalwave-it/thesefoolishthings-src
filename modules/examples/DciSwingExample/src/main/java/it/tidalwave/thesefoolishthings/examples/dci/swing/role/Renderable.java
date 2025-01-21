@@ -35,6 +35,7 @@ import java.util.function.Consumer;
  **************************************************************************************************************************************************************/
 public interface Renderable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<Renderable> _Renderable_ = Renderable.class;
 
     public void renderTo (@Nonnull final String pattern, @Nonnull final Consumer<String> renderingContext);

@@ -37,6 +37,7 @@ import it.tidalwave.util.Id;
  **************************************************************************************************************************************************************/
 public interface Findable<T>
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<Findable> _Findable_ = Findable.class;
 
     @Nonnull

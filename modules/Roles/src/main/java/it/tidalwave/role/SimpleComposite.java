@@ -43,6 +43,7 @@ import it.tidalwave.role.impl.DefaultSimpleComposite;
 @FunctionalInterface
 public interface SimpleComposite<T> extends Composite<T, Finder<T>>
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<SimpleComposite> _SimpleComposite_ = SimpleComposite.class;
 
     /***********************************************************************************************************************************************************

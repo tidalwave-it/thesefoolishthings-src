@@ -38,6 +38,7 @@ package it.tidalwave.role;
 @FunctionalInterface
 public interface Removable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<Removable> _Removable_ = Removable.class;
 
     /***********************************************************************************************************************************************************

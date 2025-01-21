@@ -40,6 +40,7 @@ import java.nio.file.Path;
 // START SNIPPET: savable
 public interface Savable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<Savable> _Savable_ = Savable.class;
 
     public default void saveTo (@Nonnull final Path path)

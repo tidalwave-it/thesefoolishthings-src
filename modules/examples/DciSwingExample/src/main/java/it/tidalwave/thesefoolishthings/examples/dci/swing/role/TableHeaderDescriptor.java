@@ -39,6 +39,7 @@ import java.util.List;
  **************************************************************************************************************************************************************/
 public interface TableHeaderDescriptor
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<TableHeaderDescriptor> _TableHeaderDescriptor_ = TableHeaderDescriptor.class;
 
     @Nonnull

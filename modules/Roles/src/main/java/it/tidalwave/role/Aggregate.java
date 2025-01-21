@@ -44,6 +44,7 @@ import it.tidalwave.role.impl.MapAggregate;
 @FunctionalInterface
 public interface Aggregate<T>
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<Aggregate> _Aggregate_ = Aggregate.class;
 
     /***********************************************************************************************************************************************************

@@ -34,6 +34,7 @@ import jakarta.annotation.Nonnull;
  **************************************************************************************************************************************************************/
 public interface Displayable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<Displayable> _Displayable_ = Displayable.class;
 
     @Nonnull

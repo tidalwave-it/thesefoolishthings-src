@@ -41,6 +41,7 @@ import lombok.experimental.Delegate;
 @RequiredArgsConstructor(staticName = "of")
 public final class NamedCallback implements Callback
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<NamedCallback> _NamedCallback_ = NamedCallback.class;
 
     @Getter @Nonnull

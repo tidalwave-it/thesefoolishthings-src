@@ -39,6 +39,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @FunctionalInterface
 public interface IdFactory
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<IdFactory> _IdFactory_ = IdFactory.class;
 
     /** A default implementation that uses UUID.

@@ -32,5 +32,6 @@ package it.tidalwave.thesefoolishthings.examples.dci.swing.role;
  **************************************************************************************************************************************************************/
 public interface StringRenderable extends Renderable
   {
+    /** Shortcut for {@link it.tidalwave.util.As}. */
     public static final Class<StringRenderable> _StringRenderable_ = StringRenderable.class;
   }

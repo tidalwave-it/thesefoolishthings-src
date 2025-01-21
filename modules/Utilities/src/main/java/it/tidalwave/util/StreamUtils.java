@@ -116,8 +116,7 @@ public final class StreamUtils
       }
 
     /***********************************************************************************************************************************************************
-     * Returns a {@code Stream} of random {@link LocalDateTime}s, in the given range.
-     *
+     * Returns a {@code Stream} of random {@link LocalDateTime}s, in the given range. The used random generator is not strong enough for cryptographic purposes.
      * @param   seed      the random seed
      * @param   from      the lower bound of the range (included)
      * @param   to        the upper bound of the range (excluded)
