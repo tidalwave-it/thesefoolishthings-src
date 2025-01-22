@@ -49,8 +49,8 @@ Snippets for other build tool (such as Gradle) are available [here](dependency-i
 
 #[[##]]# Pair and Triple
 
-![UML](apidocs/it/tidalwave/util/Pair.svg)
-![UML](apidocs/it/tidalwave/util/Triple.svg)
+![UML](apidocs/it.tidalwave.util/it/tidalwave/util/Pair.svg)
+![UML](apidocs/it.tidalwave.util/it/tidalwave/util/Triple.svg)
 
 `Pair` and `Triple` are immutable heterogeneous tuples (for n=2,3) that can be simply used to hold values together:
 
@@ -104,7 +104,7 @@ been designed with these main purposes:
 the presentation tier might rely upon a half-baked query provided in the business tier and specify additional criteria (sorting, filtering, pagination).
 4. To provide a decoupling abstraction from the implementation of the data source.
 
-![UML](apidocs/it/tidalwave/util/Finder.svg)
+![UML](apidocs/it.tidalwave.util/it/tidalwave/util/Finder.svg)
 
 
 ```Finder```'s methods can be either **intermediate** or **termination**:
@@ -311,7 +311,7 @@ To address this problem a specific interface named ```ExtendedFinderSupport``` i
 overriding their return value type (in our example to ```PersonFinder``` in place of ```Finder<Person>```). This is possible thanks to the fact that Java features
 [covariant return type](https://www.baeldung.com/java-covariant-return-type).
 
-![UML](apidocs/it/tidalwave/util/spi/ExtendedFinderSupport.svg)
+![UML](apidocs/it.tidalwave.util/it/tidalwave/util/spi/ExtendedFinderSupport.svg)
 
 ```ExtendedFinderSupport``` takes two generics: the type of the managed object (```Person```) and type of the new ```Finder``` (```PersonFinder```). To better
 understand this, have a look at the```ExtendedFinderSupport``` source:
@@ -338,7 +338,7 @@ his favourite design strategy. Anyway the API provides a support class
 This is a way to mitigate the tight coupling caused by inheritance, so one can make changes to the internal status to a Finder in an intermediate level of
 the hierarchy without forcing the subclasses to be adjusted.
 
-![UML](apidocs/it/tidalwave/util/spi/HierarchicFinderSupport.svg)
+![UML](apidocs/it.tidalwave.util/it/tidalwave/util/spi/HierarchicFinderSupport.svg)
 
 To explain how this works by examples, we are going to show how an implementation of the extended ```Finder``` we introduced in the previous section might be
 done (in-memory, to keep things simpler).
@@ -750,7 +750,7 @@ To be able to use `As` we need to learn three more things:
 + how to configure a context and declare roles with annotations.
 
 
-![UML](apidocs/it/tidalwave/util/As.svg)
+![UML](apidocs/it.tidalwave.util/it/tidalwave/util/As.svg)
 
 
 #[[###]]# Implementing objects with `As` support
@@ -791,7 +791,7 @@ Displayable d = as(joe, _Displayable_);
 
 Also in this case there might be a performance hit.
 
-![UML](apidocs/it/tidalwave/util/AsExtensions.svg)
+![UML](apidocs/it.tidalwave.util/it/tidalwave/util/AsExtensions.svg)
 
 
 #[[###]]# `As` and roles with generics
@@ -959,7 +959,7 @@ directly on the datum, if it implements `As`; or by creating a delegate by means
 
 `As` implementation relies on a singleton named `SystemRoleFactory` that, given an object, returns all the roles associated to it.
 
-![UML](apidocs/it/tidalwave/role/spi/SystemRoleFactory.svg)
+![UML](apidocs//it.tidalwave.util/it/tidalwave/role/spi/SystemRoleFactory.svg)
 
 A default implementation relies upon the the [Java Service Provider interface](https://www.baeldung.com/java-spi), based on the class
 [`ServiceProvider`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html). In short, a special file named
@@ -1043,8 +1043,8 @@ all the values instead of replacing the previous one.
 
 <!-- MACRO{snippet|id=TypeSafeMultiMap|file=${project.basedir}/src/test/java/it/tidalwave/util/TypeSafeMultiMapTest.java} -->
 
-Find more information in [the JavaDoc for TypeSafeMap](apidocs/it/tidalwave/util/TypeSafeMap.html) and
-[TypeSafeMultiMap](apidocs/it/tidalwave/util/TypeSafeMultiMap.html).
+Find more information in [the JavaDoc for TypeSafeMap](apidocs/it.tidalwave.util/it/tidalwave/util/TypeSafeMap.html) and
+[TypeSafeMultiMap](apidocs/it.tidalwave.util/it/tidalwave/util/TypeSafeMultiMap.html).
 
 
 #[[##]]# Compatibility with Java 9 modules
