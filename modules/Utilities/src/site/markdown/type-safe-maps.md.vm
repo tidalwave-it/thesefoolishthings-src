@@ -1,0 +1,41 @@
+#*
+ * *************************************************************************************************************************************************************
+ *
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings
+ *
+ * Copyright (C) 2009 - 2025 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
+ * *************************************************************************************************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on  an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
+ *
+ * *************************************************************************************************************************************************************
+ *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
+ *
+ * *************************************************************************************************************************************************************
+ *#
+
+#[[##]]# Type-safe maps
+
+Inspired by [the heterogeneous map pattern](https://www.informit.com/articles/article.aspx?p=2861454&amp;seqNum=8) described in Effective Java by Joshua Bloch,
+`TypeSafeMap` is an **immutable** map that works with **type-aware keys**, so its retrieval method is type-safe; furthermore it supports `Optional`.
+
+<!-- MACRO{snippet|id=TypeSafeMap|file=${project.basedir}/src/test/java/it/tidalwave/util/TypeSafeMapTest.java} -->
+
+`TypeSafeMultiMap` is similar, but associates keys to collection of values, not single values; so associating multiple `(key, value)` pairs keep
+all the values instead of replacing the previous one.
+
+<!-- MACRO{snippet|id=TypeSafeMultiMap|file=${project.basedir}/src/test/java/it/tidalwave/util/TypeSafeMultiMapTest.java} -->
+
+Find more information in [the JavaDoc for TypeSafeMap](apidocs/it.tidalwave.util/it/tidalwave/util/TypeSafeMap.html) and
+[TypeSafeMultiMap](apidocs/it.tidalwave.util/it/tidalwave/util/TypeSafeMultiMap.html).
+

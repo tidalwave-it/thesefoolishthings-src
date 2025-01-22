@@ -1,0 +1,71 @@
+#*
+ * *************************************************************************************************************************************************************
+ *
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings
+ *
+ * Copyright (C) 2009 - 2025 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
+ * *************************************************************************************************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on  an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
+ *
+ * *************************************************************************************************************************************************************
+ *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
+ *
+ * *************************************************************************************************************************************************************
+ *#
+
+ #[[##]]# Table of contents
+
+ <!-- MACRO{toc|section=0|fromDepth=1|toDepth=3} -->
+
+#[[##]]# Pair and Triple
+
+![UML](apidocs/it.tidalwave.util/it/tidalwave/util/Pair.svg)
+![UML](apidocs/it.tidalwave.util/it/tidalwave/util/Triple.svg)
+
+`Pair` and `Triple` are immutable heterogeneous tuples (for n=2,3) that can be simply used to hold values together:
+
+<!-- MACRO{snippet|id=pair1|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+<!-- MACRO{snippet|id=triple1|file=${project.basedir}/src/test/java/it/tidalwave/util/TripleTest.java} -->
+
+Both `Pair` and `Triple` offer methods to generate special `Stream`s. For instance, this code:
+
+<!-- MACRO{snippet|id=pairRangeClosed|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+generates pairs `["foo bar", 1], ["foo bar", 2], ["foo bar", 3]`. The following code:
+
+<!-- MACRO{snippet|id=indexedPairStream|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+generates pairs `[0, "foo"], [1, "bar"]`. Variants allow to start from custom `Stream`s, `Collection`s and `Iterable`s, or
+to pick a different value for the starting index.
+
+`Pair` can be used to easily implement a two-level nested loop with `Stream`s. For instance, the following code:
+
+<!-- MACRO{snippet|id=loop2a|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+is equivalent to this two-levels nested loop:
+
+<!-- MACRO{snippet|id=loop2b|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->
+
+In a similar way, this code with `Triple`:
+
+<!-- MACRO{snippet|id=loop2a|file=${project.basedir}/src/test/java/it/tidalwave/util/TripleTest.java} -->
+
+is equivalent to this three-levels nested loop:
+
+<!-- MACRO{snippet|id=loop2b|file=${project.basedir}/src/test/java/it/tidalwave/util/TripleTest.java} -->
+
+It is also possible to "zip" two streams into a `Stream<Pair>`:
+
+<!-- MACRO{snippet|id=zipPairTest1|file=${project.basedir}/src/test/java/it/tidalwave/util/PairTest.java} -->

@@ -1,0 +1,586 @@
+#*
+ * *************************************************************************************************************************************************************
+ *
+ * TheseFoolishThings: Miscellaneous utilities
+ * http://tidalwave.it/projects/thesefoolishthings
+ *
+ * Copyright (C) 2009 - 2025 by Tidalwave s.a.s. (http://tidalwave.it)
+ *
+ * *************************************************************************************************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on  an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
+ *
+ * *************************************************************************************************************************************************************
+ *
+ * git clone https://bitbucket.org/tidalwave/thesefoolishthings-src
+ * git clone https://github.com/tidalwave-it/thesefoolishthings-src
+ *
+ * *************************************************************************************************************************************************************
+ *#
+
+ #[[##]]# Table of contents
+
+ <!-- MACRO{toc|section=0|fromDepth=1|toDepth=3} -->
+
+
+
+
+#[[##]]# As
+
+[```As```](apidocs/As) is a **factory for providing adapters** (in the meaning of the [Adapter pattern](https://en.wikipedia.org/wiki/Adapter_pattern)) of an
+object.
+
+> *Terminology note: the object for which we are going to create an adapter will be called “datum” and the adapters “roles”. These terms are mutuated from the
+[DCI architectural pattern (Data, Context and Interaction)](https://en.wikipedia.org/wiki/Data,_context_and_interaction), even though ```As``` needn't to be
+used in that way. But TheseFoolishThings does provide explicit support for DCI, as will be explained in the relevant chapter.*
+
+Let's start again from a model class, that could be still the ```Person``` entity. In a typical application we might need to display it in a user interface
+and to save it to a file, for instance in the XML format. The first point is to decouple ```Person``` from the way we perform those two operations, also to comply
+with the [Dependency Inversion principle](https://martinfowler.com/articles/dipInTheWild.html): we want the UI and the XML subsystem to depend on the
+abstraction (```Person```), not the opposite way.
+
+We introduce two small interfaces: ```Displayable``` for computing the display name and ```Marshallable``` to serialize an object to an XML stream.
+
+```java
+interface Displayable
+  {
+    String getDisplayName();
+  }
+
+interface Marshallable
+  {
+    void writeTo (Path path)
+      throws IOException;
+  }
+```
+
+These two interfaces are very simple, so they are also in compliance with the Single Responsibility principle and the Interface
+Segregation principle.
+
+Having ```Person``` to implement the two interfaces is not an option, because would lead to tight coupling. Working with composition would slightly improve things:
+
+```java
+class Person
+  {
+    public Displayable getDisplayable() { ... }
+
+    public Marshallable getMarshallable() { ... }
+  }
+```
+
+even though a hardwired implementation of the two interfaces inside ```Person``` would still leave us not too far from the starting point. Introducing a
+```RoleFactory``` might be the next step:
+
+```java
+class RoleFactory
+  {
+    public static RoleFactory getInstance() { ... }
+
+    public Displayable createDisplayableFor (Person person) { ... }
+
+    public Marshallable createMarshallableFor (Person person) { ... }
+  }
+
+class Person
+  {
+    public Displayable getDisplayable()
+      {
+        return RoleFactory.getInstance().createDisplayableFor(this);
+      }
+
+    public Marshallable getMarshallable()
+      {
+        return RoleFactory.getInstance().createMarshallableeFor(this);
+      }
+  }
+```
+
+Since in a real world application we are going to deal with multiple entities, ```RoleFactory``` must be generic:
+
+```java
+class RoleFactory
+  {
+    public static RoleFactory getInstance() { ... }
+
+    public Displayable createDisplayableFor (Object datum) { ... }
+
+    public Marshallable createMarshallableFor (Object datum) { ... }
+  }
+```
+
+But it's no good to have a fixed, limited set of roles. Who knows what we are going to need in a user interface?
+
+For instance, a ```Selectable``` role might
+be used to execute a task whenever a ```Person``` representation is double-clicked in a UI widget. ```RoleFactory``` can be further generalised as:
+
+```java
+class RoleFactory
+  {
+    public static RoleFactory getInstance() { ... }
+
+    public <T> T createRoleFor (Object datum, Class<T> roleType) { ... }
+  }
+```
+
+so ```Person``` becomes:
+
+```java
+class Person
+  {
+    public Displayable getDisplayable()
+      {
+        return RoleFactory.getInstance().createRoleFor(this, Displayable.class);
+      }
+
+    public Marshallable getMarshallable()
+      {
+        return RoleFactory.getInstance().createRoleFor(this, Marshallable.class);
+      }
+  }
+```
+
+But, again, there is still too much coupling involving ```Person```: any new role would require a new method and after all we don't want ```Person``` to depend even on the
+```RoleFactory``` infrastructure; it might be a legacy code as well that we can't or don't want to change. Let's move the responsibility of retrieving the
+adapter from the adaptee class to the client code that requires the adapter (it does make sense):
+
+```java
+class UserInterface
+  {
+    private final RoleFactory roleFactory = RoleFactory.getInstance();
+
+    public void renderPerson (Person person)
+      {
+        String displayName = roleFactory.createRoleFor(person, Displayable.class).getDisplayName();
+      }
+  }
+```
+
+So now we are back to the pristine ```Person``` totally unaware of the roles:
+
+```java
+class Person
+  {
+    ...
+  }
+```
+
+Now the design is good and we can introduce some syntactic sugar. Since the operation might be read like «given a `Person` treat it **as**
+it were a `Displayable`» we can rename ```createRoleFor()``` to ```as()``` (short names with a proper meaning improve readability) and, with a bit of
+rearranging methods and using static imports, get to this code:
+
+```java
+import static RoleFactory.as;
+
+class UserInterface
+  {
+    public void renderPerson (Person person)
+      {
+        String displayName = as(person, Displayable.class).getDisplayName();
+      }
+  }
+```
+
+If on the other hand we can apply a small change to ```Person``` (the bare minimum), we could think of an interface
+
+```java
+interface As
+  {
+    public <T> T as (Class<T> roleType);
+  }
+```
+
+and have ```Person``` to implement that interface:
+
+```java
+class Person implements As
+  {
+    ...
+  }
+```
+
+So we now have another version of our code:
+
+```java
+class UserInterface
+  {
+    public void renderPerson (Person person)
+      {
+        String displayName = person.as(Displayable.class).getDisplayName();
+      }
+  }
+
+class Persistence
+  {
+    public void storePerson (Person person, Path path)
+      throws IOException
+      {
+        person.as(Marshallable.class).writeTo(path);
+      }
+  }
+```
+
+#[[###]]# What about Tell Don't Ask?
+
+According to [Martin Fowler](https://martinfowler.com/bliki/TellDontAsk.html):
+
+> **Tell-Don't-Ask** is a principle that helps people remember that object-orientation is about bundling data with the functions that operate on that data. It
+reminds us that rather than asking an object for data and acting on that data, we should instead tell an object what to do. This encourages to move behavior
+into an object to go with the data.
+
+It's one of the way we can make our design really strong and resistant to change. Unfortunately, in practice it is the exact opposite of what is commonly
+used in Java with the Java Beans idiom, which mandates getter and setter methods. Known libraries/frameworks (such as JPA, JAXB, GUI frameworks, etc.) are
+designed like that and inspire programmers to follow that way.
+
+This is also due to the fact that TDA is more complex to implement, in particular when there is the need of adding. For instance, given a `Person` provided
+with standard getters such as `getFirstName()` and `getLastName()`, it's easy to use these properties in a plurality of contexts, such as:
+
+```java
+var joe = new Person("Joe", "Smith");
+System.out.println("Name: %s lastName: %s\n", joe.getFirstName(), joe.getLastName());
+...
+graphicContext.renderString(x, y, String.format("Name: %s last name: %s\n", joe.getFirstName(), joe.getLastName()));
+```
+
+How this would look like in TDA? Something such as:
+
+```java
+var joe = new Person("Joe", "Smith");
+joe.render("Name: %1$s lastName: %2$s", System.out::println); // 1$ is first name, 2$ is last name, etc.
+```
+
+This assumes `render(Consumer<String>)` is implemented in `Person`; not a big deal since almost any object we can think of can be rendered as a string and
+it can be done with facilities available in the standard Java library. But what about this?
+
+```java
+joe.render(graphicContext, x, y, "Name: %1$s lastName: %2$s\");
+```
+
+`render(GraphicContext, int, int, String)` would introduce a dependency in `Person`, a model class, to `GraphicContext`, part of a graphical API: this
+is not acceptable. `As` can come to the rescue. Since roles can be injected without touching the original object, a possible solution is:
+
+```java
+joe.as(Renderable.class).render("Name: %1$s lastName: %2$s", System.out::println);
+joe.as(GraphicRenderable.class).render(graphicContext, x, y, "Name: %1$s last name: %2$s\");
+```
+
+Now `Person` does not depend on `GraphicRenderable`; a concrete implementation of `GraphicRenderable` depends on `Person` (which is good and complies with the
+[Depencency Inversion Principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)); the client code depends on both (as expected).
+
+> PENDING: more details about the implementation of roles, their "friendship" to owner classes and constraints imposed by Java 9 modules.
+
+Injected DCI roles could be also useful for a business model designed following the TDA principle in mind as adapters to an external world that follows the
+Java Beans idiom.
+
+
+#[[###]]# Some gory details
+
+If you got up to here, you have understood what `As` is for. Now it's time to deal with implementation details. But before going on let's recap and give a couple
+of definitions. Role implementations compatible with `As` can be:
+
++ **static**, in the sense that the datum directly implements them. For instance, `class Person implements Displayable, Marshallable`. This is totally against
+the decoupling that `As` fosters, but it's legal.
++ **static**, in the sense that roles are implemented in separated classes (this is much better from the design point of view), but they are still statically bound
+to their datum, for instance in the datum constructor. The detail is explained below where `As.forObject()` is introduced. While still a coupled approach, it
+might be meaningful for some corner case.
++ **dynamic**, that is the implementation is separate and it is not directly coupled to the datum; in other words, the datum depends neither on role
+implementations nor their interfaces. This is the best approach since it allows the higher decoupling: roles can be implemented later and independently of the datum, perhaps
+in a different library/module (indeed roles can be even *designed* after the datum has been implemented). In systems which allow to dynamically add code at
+runtime this means that features can be added when the application is running.
+Dynamic roles can be even bound to a datum in a temporary fashion, for instance while running a specific chunk of code.
+In this case it is said that roles are provided by a **context** (the 'C' in DCI). This requires a runtime capable to associate each datum to the relevant;
+usually this is done by annotating roles and taking advantage of a class scanner.
+
+Note that even when static roles are used, dynamic ones can always be adder later.
+To be able to use `As` we need to learn three more things:
+
++ how to implement `As` capabilities for datum objects;
++ how to setup the runtime for binding roles;
++ how to configure a context and declare roles with annotations.
+
+
+![UML](apidocs/it.tidalwave.util/it/tidalwave/util/As.svg)
+
+
+#[[###]]# Implementing objects with `As` support
+
+Once an object is declared to implement `As`, how to write the code for the methods in the contract? The easiest way is by delegation:
+
+<!-- MACRO{snippet|id=as_impl_1|file=${project.basedir}/../../modules/Utilities/src/test/java/it/tidalwave/util/AsTest.java} -->
+
+If Lombok is used, the code is even simpler:
+
+<!-- MACRO{snippet|id=as_impl_2|file=${project.basedir}/../../modules/Utilities/src/test/java/it/tidalwave/util/AsTest.java} -->
+
+Remember in any case to exclude the delegate object from `equals()`, `hashCode()` and `toString()`.
+
+Note that this step only satisfies the implementation requirements of the object, while the runtime has been not initialised yet; this means that no role will
+ever be found. See below the “Configuration” chapters for further details.
+
+It is possible to call `As.forObject()` with extra arguments that are interpreted as static roles. If a role is an implementation of `RoleFactory`, it will
+actually acts a factory of possibly dynamic roles. While this works, it is not the most powerful approach since it couples objects with their roles, while the
+whole point of `As` is to make them totally decoupled.
+
+With Lombok, if one accepts advanced features such as `@ExtensionMethod`, things can be further simplified: it is sufficient to put the annotation
+`@ExtensionMethod(AsExtensions.class)` to the class in which you want to use `As` methods. In the code sample below `Person` is a POJO that doesn't implement
+`As`, but the relevant methods are available on it:
+
+<!-- MACRO{snippet|id=extensionmethod|file=${project.basedir}/../../modules/examples/DciDisplayableExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/displayable/DisplayableExample.java} -->
+
+Note that this approach might have a performance impact: see issue [TFT-301](http://services.tidalwave.it/jira/browse/TFT-301).
+
+At last, it is possible to do without instance methods, using instead the static methods of `AsExtensions`:
+
+```java
+import static it.tidalwave.util.AsExtensions.*;
+
+...
+Displayable d = as(joe, _Displayable_);
+```
+
+Also in this case there might be a performance hit.
+
+![UML](apidocs/it.tidalwave.util/it/tidalwave/util/AsExtensions.svg)
+
+
+#[[###]]# `As` and roles with generics
+
+As explained above, `As.as()` expects a `Class` as a parameter; this works well with roles that don't use generics. But what about ones that do? Let's for
+instance assume to have the role:
+
+<!-- MACRO{snippet|id=dataretriever|file=${project.basedir}/../../modules/Utilities/src/test/java/it/tidalwave/util/AsTest.java} -->
+
+Because of type erasure, the expression `as(DataRetriever.class)` doesn't bear any information about the associated generic type. The `As` API has been designed
+so that the following code compiles and works:
+
+<!-- MACRO{snippet|id=as1|file=${project.basedir}/../../modules/Utilities/src/test/java/it/tidalwave/util/AsTest.java} -->
+
+because the result of `as()` is not generified and the compiler is allowed to assign it to any generified type; but this raises a warning. To work around this
+problem a specific `As.Type` has been introduced to be used as parameter in place of `Class`:
+
+<!-- MACRO{snippet|id=as_Type|file=${project.basedir}/../../modules/Utilities/src/test/java/it/tidalwave/util/AsTest.java} -->
+
+So the following code compiles with no warning:
+
+<!-- MACRO{snippet|id=as2|file=${project.basedir}/../../modules/Utilities/src/test/java/it/tidalwave/util/AsTest.java} -->
+
+... at the expense of a warning in the declaration of `As.Type` variables.
+
+Note that it's still not possible to have two roles with the same class and different generics associated to the same object: again because of type erasure
+the runtime would consider the as two instances of the same role type. To differentiate them it is necessary to use two distinct subclasses.
+
+
+#[[###]]# Contexts and role annotations
+
+#[[####]]# Global context
+
+After the runtime is instantiated, a __global context__ is implicitly activated; a simple code sample is given in the "DciDisplayableExample" module.
+The runtime is scanned for classes annotated with `DciRole`, which specifies which datum class (or classes) the role is associated to. The datum
+instance is also injected in the constructor and, typically, the role implementation keeps a reference to it by means of a field.
+
+<!-- MACRO{snippet|id=role|file=${project.basedir}/../../modules/examples/DciDisplayableExample/src/main/java/it/tidalwave/thesefoolishthings/examples/person/PersonDisplayable.java} -->
+
+Now everything is ready to use the role:
+
+<!-- MACRO{snippet|id=extensionmethod|file=${project.basedir}/../../modules/examples/DciDisplayableExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/displayable/DisplayableExample.java} -->
+
+In most cases a global context is everything needed for an application.
+
+
+#[[####]]# Local contexts
+
+The example named "DciMarshalXStreamExample" illustrates how __local contexts__ work. It uses the popular serialization framework named
+[XStream](https://x-stream.github.io/) to provide XML serialisation capabilities in form of roles.
+
+Let's first introduce the model objects:
+
+<!-- MACRO{snippet|id=person|file=${project.basedir}/../../modules/examples/Data/src/main/java/it/tidalwave/thesefoolishthings/examples/person/Person.java} -->
+
+<!-- MACRO{snippet|id=listofpersons|file=${project.basedir}/../../modules/examples/Data/src/main/java/it/tidalwave/thesefoolishthings/examples/person/ListOfPersons.java} -->
+
+`ListOfPersons` is basically an implementation of `List<Person>` that delegates all methods to an `ArrayList`. While it doesn't offer any specific
+additional behaviour (apart from some factory methods), it is required to use dynamic roles as they are bound to a specific class; because of Java
+type erasure a `List<Person>` cannot be distinguished from a `List` of any other kind, such as `List<String>`. Having a specific subclass fixes this
+ problem, acting as a sort of "reification".
+
+Now let's deal with Xstream. The first thing to do is to set up a bag of configuration that instructs the framework how to manage our model objects. This
+configuration is encapsulated in a specific DCI context:
+
+<!-- MACRO{snippet|id=xstreamcontext|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/XStreamContext.java} -->
+
+<!-- MACRO{snippet|id=xstreamcontext|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/XStreamContext1.java} -->
+
+Details about Xstream converters are not listed since they are specific to Xstream. An alternate implementation could be:
+
+<!-- MACRO{snippet|id=xstreamcontext|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/XStreamContext2.java} -->
+
+Now, what if one wishes to use each of the two serialisation configurations in the same application, but in different circumstances? That's what DCI local contexts
+are for: they can be activated only in specific portions of the code, bound and unbound to the current thread by specific calls to an instance of
+`ContextManager` (it must be injected e.g. by using Spring):
+
+<!-- MACRO{snippet|id=xstreamcontext-contextmanager|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/DciMarshalXStreamExample.java} -->
+
+The `try/finally` pattern to ensure that the context is unbound even in case of exception can be replaced by a shorter syntax using `try-with-resources`:
+
+<!-- MACRO{snippet|id=xstreamcontext-contextmanager2|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/DciMarshalXStreamExample.java} -->
+
+Alternate variants with lambdas are also supported.
+
+> PENDING: include examples
+
+Now let's go with the implementation of roles. First we introduce a generic support for `Marshallable` as follows:
+
+<!-- MACRO{snippet|id=xstreammarshallablesupport|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/XStreamMarshallableSupport.java} -->
+
+Two subclasses are required to bear the relevant annotations that bind them with their owners (`Person` and `ListOfPersons`).
+
+<!-- MACRO{snippet|id=personxstreammarshallable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/PersonXStreamMarshallable.java} -->
+
+<!-- MACRO{snippet|id=listofpersonsxstreammarshallable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/ListOfPersonsXStreamMarshallable.java} -->
+
+Note that in this case the `@DciRole` annotation explicitly refers `XStreamContext`, since the role must be active only when either of the two contexts is activated.
+The context instance is injected in the constructor together with the associated datum instance, so it can provide the Xstream configuration.
+
+The implementation of unmarshallers is similar:
+
+<!-- MACRO{snippet|id=xstreamunmarshallablesupport|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/XStreamUnmarshallableSupport.java} -->
+
+<!-- MACRO{snippet|id=personxstreamunmarshallable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/PersonXStreamUnmarshallable.java} -->
+
+<!-- MACRO{snippet|id=listofpersonsxstreamunmarshallable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/ListOfPersonsXStreamUnmarshallable.java} -->
+
+Now everything is ready:
+
+<!-- MACRO{snippet|id=xstreamcontext-example1|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/DciMarshalXStreamExample.java} -->
+
+For what concerns unmarshallers, since `as()` must be called on an instantiated object a "prototype" empty object must be created. It is immediately discarded,
+as the relevant object is the one returned by the `unmarshall()` call.
+
+<!-- MACRO{snippet|id=xstreamcontext-example2|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/DciMarshalXStreamExample.java} -->
+
+Global and local contexts can co-exist: local contexts just bind new roles in addition to those made available by the global context. Multiple local contexts
+can be used at the same time. If the same role is bound by more than a single context, all of them are available by calling the method `As.asMany()`.
+
+For what concerns the `As.as()` or `As.maybeAs()` methods that return a single role, at the moment it is not deterministic which one is returned.
+See issue [TFT-192](http://services.tidalwave.it/jira/browse/TFT-192).
+
+While the global context is immutable, local contexts can come and go; the lifespan of a typical owner object encompasses multiple activations and
+deactivations of local contexts. So, to what instant of the owner lifespan do the set of roles returned by `as()` refer? Always at the creation time of
+the owner object, even though roles are not necessarily instantiated at that moment. The runtime takes a snapshot of local contexts active a creation
+time of a owner object and uses that snapshot every time it searches for a role.
+
+
+#[[####]]# Local contexts in `Finder`s
+
+An exception of the above mentioned rule might happen with `Finder`s, in the case that their result is composed of objects implementing `As`: the programmer
+might want to use local contexts specified at the moment of the instantiation of the `Finder`, and not at the moment it computes the result. In this case
+the local context can be activated _inside_ the `Finder` implementation.
+For this reason the `ExtendedFinderSupport` interface provides a specific support, namely the `withContext(Object)` method: it allows to make the `Finder`
+aware of it (it can be called multiple times, in which case local contexts are accumulated). The class `HierarchicFinderSupport` provides the accumulation
+behaviour and makes the local contexts available to subclasses by means of a method `getContexts()`.
+
+> PENDING: Show a code example.
+
+
+#[[###]]# Composite roles
+
+A role can be implemented by referring other roles. For instance, let's introduce two example roles that save/load an object to/from a `Path`:
+
+<!-- MACRO{snippet|id=savable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/Savable.java} -->
+
+<!-- MACRO{snippet|id=loadable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/Loadable.java} -->
+
+They can be used as follows:
+
+<!-- MACRO{snippet|id=xstreamcontext-savable-loadable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/xstream/DciMarshalXStreamExample.java} -->
+
+We can provide implementations relying upon the `Marshallable` / `Unmarshallable` roles, whose instances can be achieved by using `as()`. This could be done
+directly on the datum, if it implements `As`; or by creating a delegate by means of `As.forObject` as in example below:
+
+<!-- MACRO{snippet|id=marshallablesavable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/MarshallableSavable.java} -->
+
+<!-- MACRO{snippet|id=marshallableloadable|file=${project.basedir}/../../modules/examples/DciMarshalXStreamExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/marshal/role/MarshallableLoadable.java} -->
+
+
+#[[###]]# Configuration of the runtime
+
+#[[####]]# Standalone
+
+`As` implementation relies on a singleton named `SystemRoleFactory` that, given an object, returns all the roles associated to it.
+
+![UML](apidocs//it.tidalwave.util/it/tidalwave/role/spi/SystemRoleFactory.svg)
+
+A default implementation relies upon the the [Java Service Provider interface](https://www.baeldung.com/java-spi), based on the class
+[`ServiceProvider`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html). In short, a special file named
+`META-INF/services/it.tidalwave.util.spi.SystemRoleFactoryProvider` is searched for at runtime and it must contain the name of a provider for
+`SystemRoleFactory`.
+
+The default implementation (without Spring) is unable to find any role. Applications can specify an overriding implementation, such as in the example:
+
+<!-- MACRO{snippet|id=HardwiredSystemRoleFactoryProvider|file=${project.basedir}/../../modules/examples/JPAFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/jpafinderexample/HardwiredSystemRoleFactoryProvider.java} -->
+
+And the `META-INF/services/it.tidalwave.util.spi.SystemRoleFactoryProvider` file contains:
+
+```
+it.tidalwave.thesefoolishthings.examples.jpafinderexample.HardwiredSystemRoleFactoryProvider
+```
+
+Of course it is possible to provide more sophisticated implementations, such as a classpath scanner (with Spring this is provided out-of-the-box).
+
+
+#[[####]]# For testing
+
+The standard Java SPI approach sets up the runtime once and for all, as it is appropriate for an application. But when running tests a specific
+runtime must be installed from scratch each time. On this purpose a specific method is available that should be called before running a test (or a batch
+of tests), providing an empty provider or a mock:
+
+<!-- MACRO{snippet|id=setup|file=${project.basedir}/../../modules/Utilities/src/test/java/it/tidalwave/role/impl/AsDelegateTest.java} -->
+
+
+#[[####]]# With Spring
+
+To have `As` working with Spring another dependency must be added:
+
+```xml
+<dependency>
+    <groupId>${project.groupId}</groupId>
+    <artifactId>it-tidalwave-role-spring</artifactId>
+    <version>${project.version}</version>
+</dependency>
+```
+
+In the code it is sufficient to include the bean `RoleSpringConfiguration` in the application context, as in this example:
+
+<!-- MACRO{snippet|id=spring|file=${project.basedir}/../../modules/examples/DciDisplayableExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/displayable/Main.java} -->
+
+> PENDING: This probably is not strictly required, but it makes stuff such as the `ContextManager` available with dependency injection.
+
+If annotations are not used and `beans.xml` files are preferred, the value of `RoleSpringConfiguration.BEANS` must be included in the XML context.
+The Spring adapter is able to scan the classpath to find annotated roles. Java classpath scanners need to work from a set of specified root packages;
+the default ones are `com`, `org` ad `it`. If custom packages are needed, they can be specified as follows:
+
+```java
+it.tidalwave.util.spring.ClassScanner.setBasePackages("fr:es:de");
+```
+
+With Spring roles can specify additional parameters in their constructor: the runtime will try to inject into them beans defined in the context.
+
+> PENDING: Injection qualifiers are not supported yet.
+
+
+#[[###]]# Available examples
+
+|--------------------------|---------------------------------------------------------------------------|------------|
+| JPAFinderExample         | While the main focus of this example is a `Finder`, DCI is used to inject persistence-related roles. It also demonstrates a a custom `SystemRoleFactoryProvider`. | Standalone, with Lombok `ExtensionMethod` |
+| DciDisplayableExample    | A very simple DCI example.                                                | Spring     |
+| DciMarshalXStreamExample | DCI used to persist entities with Xstream.                                | Spring     |
+| DciPersistenceJpaExample | DCI used to persist entities with JPA/Hibernate.                          | SpringBoot |
+| DciSwingExample          | A little demonstration of DCI with a User Interface (Swing).              | Spring     |
+
+---
+

@@ -95,7 +95,7 @@ SQL, so data are retrieved in the most efficient way.
 
 <!-- MACRO{snippet|id=extended-example|file=${project.basedir}/modules/examples/ExtendedFinderExample/src/main/java/it/tidalwave/thesefoolishthings/examples/extendedfinderexample/FinderExample2.java} -->
 
-Find more information in [the documentation for module Utilities](modules/it-tidalwave-util/index.html).
+Find more information in [the documentation for Finder](modules/it-tidalwave-util/finder.html).
 
 
 #[[###]]# `As`
@@ -106,7 +106,7 @@ but they are available at runtime in association with that class to provide exte
 
 <!-- MACRO{snippet|id=extensionmethod|file=${project.basedir}/modules/examples/DciDisplayableExample/src/main/java/it/tidalwave/thesefoolishthings/examples/dci/displayable/DisplayableExample.java} -->
 
-Find more information in [the documentation for module Utilities](modules/it-tidalwave-util/index.html).
+Find more information in [the documentation for As](modules/it-tidalwave-util/as.html).
 
 
 #[[###]]# P&S MessageBus
@@ -135,7 +135,7 @@ all the values instead of replacing the previous one.
 
 <!-- MACRO{snippet|id=TypeSafeMultiMap|file=${project.basedir}/modules/Utilities//src/test/java/it/tidalwave/util/TypeSafeMultiMapTest.java} -->
 
-Find more information in [the documentation for module Utilities](modules/it-tidalwave-util/index.html).
+Find more information in [the documentation for Type-safe maps](modules/it-tidalwave-util/type-safe-maps.html).
 
 
 #[[##]]# Modules

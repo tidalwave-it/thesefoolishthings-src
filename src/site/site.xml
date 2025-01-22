@@ -62,14 +62,14 @@
     <body>
         <menu name="Overview" inherit="top">
             <item name="Introduction" href="index.html"/>
-            <item name="As" href="modules/it-tidalwave-util/index.html#As"/>
+            <item name="As" href="modules/it-tidalwave-util/as.html"/>
             <item name="Collaborative Actors" href="modules/it-tidalwave-actor/index.html"/>
-            <item name="Finder" href="modules/it-tidalwave-util/index.html#Finder"/>
+            <item name="Finder" href="modules/it-tidalwave-util/finder.html"/>
             <item name="Message Bus" href="modules/it-tidalwave-messagebus/index.html"/>
-            <item name="Pair and Triple" href="modules/it-tidalwave-util/index.html#Pair_and_Triple"/>
+            <item name="Pair and Triple" href="modules/it-tidalwave-util/pair-and-triple.html"/>
             <item name="Roles" href="modules/it-tidalwave-role/index.html"/>
             <item name="Test Utilities" href="modules/it-tidalwave-util-test/index.html"/>
-            <item name="Type-safe maps" href="modules/it-tidalwave-util/index.html#Type-safe_maps"/>
+            <item name="Type-safe maps" href="modules/it-tidalwave-util/type-safe-maps.html"/>
             <item name="Utilities" href="modules/it-tidalwave-util/index.html"/>
         </menu>
 

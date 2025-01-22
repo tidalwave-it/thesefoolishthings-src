@@ -29,6 +29,10 @@ Introduction
 
 ${project.description}
 
+![UML](./apidocs/it.tidalwave.actor/it/tidalwave/actor/package.svg)
+![UML](./apidocs/it.tidalwave.actor/it/tidalwave/actor/annotation/package.svg)
+![UML](./apidocs/it.tidalwave.actor/it/tidalwave/actor/spi/package.svg)
+
 [Javadoc](apidocs/index.html)
 
 TBD
