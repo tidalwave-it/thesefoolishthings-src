@@ -26,7 +26,6 @@
 package it.tidalwave.role.spi;
 
 import jakarta.annotation.Nonnull;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +38,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static java.util.Arrays.asList;
-import static it.tidalwave.util.CollectionUtils.sorted;
 import static it.tidalwave.util.ShortNames.*;
 import static it.tidalwave.util.spi.Mocks.*;
 import static org.testng.AssertJUnit.assertEquals;
@@ -109,9 +107,7 @@ public class SystemRoleFactorySupportTest
 
     private ContextManager contextManager;
 
-    /***********************************************************************************************************************************************************
-     * 
-     **********************************************************************************************************************************************************/
+    /**********************************************************************************************************************************************************/
     @BeforeMethod
     public void setup()
       {
@@ -119,10 +115,7 @@ public class SystemRoleFactorySupportTest
         ContextManager.set(() -> contextManager);
       }
 
-    /*******************************************************************************************************************
-     * @param clazz               a class
-     * @param expectedInterfaces  the interfaces implemented by the class that should be discovered
-     ******************************************************************************************************************/
+    /**********************************************************************************************************************************************************/
     @Test(dataProvider = "classesAndExpectedInterfaces")
     public void must_correctly_find_implemented_interfaces (@Nonnull final Class<?> clazz, @Nonnull final Set<Class<?>> expectedInterfaces)
       {
@@ -133,9 +126,7 @@ public class SystemRoleFactorySupportTest
         assertThat(actualInterfaces).containsExactlyInAnyOrder(expectedInterfaces.toArray(Class[]::new));
       }
 
-    /***********************************************************************************************************************************************************
-     * 
-     **********************************************************************************************************************************************************/
+    /**********************************************************************************************************************************************************/
     @DataProvider
     private static Object[][] classesAndExpectedInterfaces()
       {
@@ -150,9 +141,7 @@ public class SystemRoleFactorySupportTest
           };
       }
 
-    /***********************************************************************************************************************************************************
-     * 
-     **********************************************************************************************************************************************************/
+    /**********************************************************************************************************************************************************/
     @Test
     public void must_properly_scan_classes()
       {
@@ -265,11 +254,7 @@ public class SystemRoleFactorySupportTest
         assertThat(m.getValues(new OwnerAndRole(YCA1.class, R2.class))).containsOnly(RI2A.class);
       }
 
-    /*******************************************************************************************************************
-     * @param owner           the owner object
-     * @param roleClass       the role associated to the object under test
-     * @param expectedRoles   the expected implementations of the role
-     ******************************************************************************************************************/
+    /**********************************************************************************************************************************************************/
     @Test(dataProvider = "ownersAndRoleImplementations")
     public void must_correctly_find_roles (@Nonnull final Object owner,  @Nonnull final Class<?> roleClass, @Nonnull final List<Object> expectedRoles)
       {
@@ -291,9 +276,7 @@ public class SystemRoleFactorySupportTest
         assertThat(actualRoles).withFailMessage(message).containsExactlyInAnyOrderElementsOf(expectedRoles);
       }
 
-    /***********************************************************************************************************************************************************
-     * 
-     **********************************************************************************************************************************************************/
+    /**********************************************************************************************************************************************************/
     @DataProvider
     private static Object[][] ownersAndRoleImplementations()
       {
@@ -331,9 +314,7 @@ public class SystemRoleFactorySupportTest
           };
       }
 
-    /***********************************************************************************************************************************************************
-     * 
-     **********************************************************************************************************************************************************/
+    /**********************************************************************************************************************************************************/
     @Test
     public void findTypeOf_must_return_original_class_for_Mockito_mocks()
       {
@@ -348,9 +329,7 @@ public class SystemRoleFactorySupportTest
         assertEquals(R2.class, mockType);
       }
 
-    /***********************************************************************************************************************************************************
-     * 
-     **********************************************************************************************************************************************************/
+    /**********************************************************************************************************************************************************/
     private void registerMockRoles (@Nonnull final UnderTest underTest)
       {
         underTest.register(RI1A.class, CA1.class, CA2.class);
