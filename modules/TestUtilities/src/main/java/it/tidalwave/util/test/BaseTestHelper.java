@@ -31,7 +31,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -64,7 +63,7 @@ public class BaseTestHelper
     public Path resourceFileFor (@Nonnull final String resourceName)
       {
         final var testName = test.getClass().getSimpleName();
-        return Paths.get("target/test-classes", testName, "test-resources", resourceName);
+        return Path.of("target/test-classes", testName, "test-resources", resourceName);
       }
 
     /***********************************************************************************************************************************************************
@@ -113,7 +112,7 @@ public class BaseTestHelper
       {
         final var testName = test.getClass().getSimpleName();
         final var expectedFile = findExpectedFilePath(resourceName);
-        final var actualFile = Paths.get("target/test-artifacts", testName, resourceName);
+        final var actualFile = Path.of("target/test-artifacts", testName, resourceName);
         Files.createDirectories(actualFile.getParent());
         return new TestResource(resourceName, actualFile, expectedFile);
       }
@@ -128,7 +127,7 @@ public class BaseTestHelper
         for (var testClass = test.getClass(); testClass != null; testClass = testClass.getSuperclass())
           {
             final var expectedFile =
-                    Paths.get("target/test-classes", testClass.getSimpleName(), "expected-results", resourceName);
+                    Path.of("target/test-classes", testClass.getSimpleName(), "expected-results", resourceName);
 
             if (Files.exists(expectedFile))
               {

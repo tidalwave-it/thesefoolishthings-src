@@ -34,7 +34,6 @@ import java.util.Optional;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import it.tidalwave.util.Key;
 import it.tidalwave.util.PreferencesHandler;
 import lombok.Getter;
@@ -86,7 +85,7 @@ public class DefaultPreferencesHandler implements PreferencesHandler
               }
 
             final var home = System.getProperty("user.home", "/tmp");
-            appFolder = Paths.get(String.format(pattern, home, appName)).toAbsolutePath();
+            appFolder = Path.of(String.format(pattern, home, appName)).toAbsolutePath();
             logFolder = appFolder.resolve("logs").toAbsolutePath();
             Files.createDirectories(logFolder);
             // PreferencesHandler can be used to programmatically set the log folder, so don't log yet
