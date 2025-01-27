@@ -27,7 +27,6 @@ package it.tidalwave.role.impl;
 
 import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
@@ -36,10 +35,8 @@ import it.tidalwave.util.Task;
 import it.tidalwave.util.impl.DefaultContextManager;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -88,7 +85,7 @@ public class DefaultContextManagerTest
         // when
         final var contexts = underTest.getContexts();
         // then
-        assertThat(contexts, is(Collections.emptyList()));
+        assertThat(contexts).isEmpty();
       }
 
     /***********************************************************************************************************************************************************
@@ -102,7 +99,7 @@ public class DefaultContextManagerTest
         // when
         final var contexts = underTest.getContexts();
         // then
-        assertThat(contexts, is(List.of(globalContext1)));
+        assertThat(contexts).containsExactly(globalContext1);
       }
 
     /***********************************************************************************************************************************************************
@@ -118,7 +115,7 @@ public class DefaultContextManagerTest
         // when
         final var contexts = underTest.getContexts();
         // then
-        assertThat(contexts, is(asList(globalContext1, globalContext2, globalContext3)));
+        assertThat(contexts).containsExactly(globalContext1, globalContext2, globalContext3);
       }
 
     /***********************************************************************************************************************************************************
@@ -135,7 +132,7 @@ public class DefaultContextManagerTest
         // when
         final var contexts = underTest.getContexts();
         // then
-        assertThat(contexts, is(asList(globalContext1, globalContext3)));
+        assertThat(contexts).containsExactly(globalContext1, globalContext3);
       }
 
     /***********************************************************************************************************************************************************
@@ -149,7 +146,7 @@ public class DefaultContextManagerTest
         // when
         final var contexts = underTest.getContexts();
         // then
-        assertThat(contexts, is(List.of(localContext1)));
+        assertThat(contexts).containsExactly(localContext1);
       }
 
     /***********************************************************************************************************************************************************
@@ -165,7 +162,7 @@ public class DefaultContextManagerTest
         // when
         final var contexts = underTest.getContexts();
         // then
-        assertThat(contexts, is(asList(localContext3, localContext2, localContext1)));
+        assertThat(contexts).containsExactly(localContext3, localContext2, localContext1);
       }
 
     /***********************************************************************************************************************************************************
@@ -182,7 +179,7 @@ public class DefaultContextManagerTest
         // when
         final var contexts = underTest.getContexts();
         // then
-        assertThat(contexts, is(asList(localContext3, localContext1)));
+        assertThat(contexts).containsExactly(localContext3, localContext1);
       }
 
     /***********************************************************************************************************************************************************
@@ -201,8 +198,7 @@ public class DefaultContextManagerTest
         // when
         final var contexts = underTest.getContexts();
         // then
-        assertThat(contexts, is(asList(globalContext1, globalContext2, globalContext3,
-                                       localContext3, localContext2, localContext1)));
+        assertThat(contexts).containsExactly(globalContext1, globalContext2, globalContext3, localContext3, localContext2, localContext1);
       }
 
     /***********************************************************************************************************************************************************
@@ -242,7 +238,7 @@ public class DefaultContextManagerTest
         executorService.submit(r3);
         latch.await();
         // then
-        assertThat(underTest.getContexts(), is(asList(globalContext1, globalContext2, globalContext3)));
+        assertThat(underTest.getContexts()).containsExactly(globalContext1, globalContext2, globalContext3);
       }
 
     // TODO: test findContextOfType()
@@ -260,7 +256,7 @@ public class DefaultContextManagerTest
         final var contextsBefore = underTest.getContexts();
         // when
         final List<Object> contextsInThread = new ArrayList<>();
-        final var result = underTest.runWithContexts(asList(localContext1, localContext2, localContext3),
+        final var result = underTest.runWithContexts(List.of(localContext1, localContext2, localContext3),
                                                      new Task<String, RuntimeException>()
                                                           {
                                                             @Override @Nonnull
@@ -272,11 +268,10 @@ public class DefaultContextManagerTest
                                                           });
         final var contextsAfter = underTest.getContexts();
         // then
-        assertThat(contextsBefore, is(asList(globalContext1, globalContext2, globalContext3)));
-        assertThat(contextsInThread, is(asList(globalContext1, globalContext2, globalContext3,
-                                               localContext3, localContext2, localContext1)));
-        assertThat(contextsAfter, is(contextsBefore));
-        assertThat(result, is("result"));
+        assertThat(contextsBefore).containsExactly(globalContext1, globalContext2, globalContext3);
+        assertThat(contextsInThread).containsExactly(globalContext1, globalContext2, globalContext3, localContext3, localContext2, localContext1);
+        assertThat(contextsAfter).isEqualTo(contextsBefore);
+        assertThat(result).isEqualTo("result");
       }
 
     /***********************************************************************************************************************************************************
@@ -372,6 +367,6 @@ public class DefaultContextManagerTest
         verify(underTest).removeLocalContext(same(localContext1));
         verify(underTest).removeLocalContext(same(localContext2));
         verify(underTest).removeLocalContext(same(localContext3));
-        assertThat(result, is("foo bar"));
+        assertThat(result).isEqualTo("foo bar");
       }
   }

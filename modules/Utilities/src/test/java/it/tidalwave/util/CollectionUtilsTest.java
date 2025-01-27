@@ -33,10 +33,9 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.IntStream;
 import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 import static java.util.stream.Collectors.*;
 import static it.tidalwave.util.CollectionUtils.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -58,7 +57,7 @@ public class CollectionUtilsTest
         final var actual = concat(l1, i2);
         // then
         final var expected = IntStream.rangeClosed(1, 10).boxed().collect(toList());
-        assertThat(expected, is(actual));
+        assertThat(expected).isEqualTo(actual);
       }
 
     /***********************************************************************************************************************************************************
@@ -75,7 +74,7 @@ public class CollectionUtilsTest
         final var actual = concatAll(l1, l2, l3);
         // then
         final var expected = IntStream.rangeClosed(1, 20).boxed().collect(toList());
-        assertThat(expected, is(actual));
+        assertThat(expected).isEqualTo(actual);
       }
 
     /***********************************************************************************************************************************************************
@@ -91,7 +90,7 @@ public class CollectionUtilsTest
         // then
         final var expected = IntStream.rangeClosed(1, 10).boxed().collect(toList());
         Collections.reverse(expected);
-        assertThat(expected, is(actual));
+        assertThat(expected).isEqualTo(actual);
       }
 
     /***********************************************************************************************************************************************************
@@ -106,7 +105,7 @@ public class CollectionUtilsTest
         final var actual = optionalHead(l);
         // then
         final var expected = Optional.of(1);
-        assertThat(expected, is(actual));
+        assertThat(expected).isEqualTo(actual);
       }
 
     /***********************************************************************************************************************************************************
@@ -121,7 +120,7 @@ public class CollectionUtilsTest
         final var actual = optionalHead(l);
         // then
         final Optional<Integer> expected = Optional.empty();
-        assertThat(expected, is(actual));
+        assertThat(expected).isEqualTo(actual);
       }
 
     /***********************************************************************************************************************************************************
@@ -136,7 +135,7 @@ public class CollectionUtilsTest
         final var actual = head(l);
         // then
         final Integer expected = 1;
-        assertThat(expected, is(actual));
+        assertThat(expected).isEqualTo(actual);
       }
 
     /***********************************************************************************************************************************************************
@@ -164,7 +163,7 @@ public class CollectionUtilsTest
         final var actual = tail(l);
         // then
         final var expected = IntStream.rangeClosed(2, 10).boxed().collect(toList());
-        assertThat(expected, is(actual));
+        assertThat(expected).isEqualTo(actual);
       }
 
     /***********************************************************************************************************************************************************
@@ -180,7 +179,7 @@ public class CollectionUtilsTest
         // then
         final var expectedResult = new ArrayList<>(list);
         Collections.sort(expectedResult);
-        assertThat(actualResult, is(expectedResult));
+        assertThat(actualResult).isEqualTo(expectedResult);
       }
 
     /***********************************************************************************************************************************************************
@@ -197,7 +196,7 @@ public class CollectionUtilsTest
         // then
         final var expectedResult = new ArrayList<>(list);
         expectedResult.sort(comparator);
-        assertThat(actualResult, is(expectedResult));
+        assertThat(actualResult).isEqualTo(expectedResult);
       }
 
     /***********************************************************************************************************************************************************
@@ -217,13 +216,13 @@ public class CollectionUtilsTest
         final var subList6 = safeSubList(list, 12, 15);
         final var subList7 = safeSubList(list, 9, 5);
         // then
-        assertThat(subList1, is(List.of()));
-        assertThat(subList2, is(List.of(1, 2)));
-        assertThat(subList3, is(List.of(3, 4, 5)));
-        assertThat(subList4, is(List.of(6, 7, 8, 9)));
-        assertThat(subList5, is(List.of(10)));
-        assertThat(subList6, is(List.of()));
-        assertThat(subList7, is(List.of()));
+        assertThat(subList1).isEmpty();
+        assertThat(subList2).containsExactly(1, 2);
+        assertThat(subList3).containsExactly(3, 4, 5);
+        assertThat(subList4).containsExactly(6, 7, 8, 9);
+        assertThat(subList5).containsExactly(10);
+        assertThat(subList6).isEmpty();
+        assertThat(subList7).isEmpty();
       }
 
     /***********************************************************************************************************************************************************
@@ -238,10 +237,10 @@ public class CollectionUtilsTest
         // when
         final var split = split(list, boundaries);
         // then
-        assertThat(split.size(), is(4));
-        assertThat(split.get(0), is(List.of(4, 5, 6, 7)));
-        assertThat(split.get(1), is(List.of(8, 9)));
-        assertThat(split.get(2), is(List.of(10)));
-        assertThat(split.get(3), is(List.of()));
+        assertThat(split).hasSize(4);
+        assertThat(split.get(0)).containsExactly(4, 5, 6, 7);
+        assertThat(split.get(1)).containsExactly(8, 9);
+        assertThat(split.get(2)).containsExactly(10);
+        assertThat(split.get(3)).isEmpty();
       }
   }

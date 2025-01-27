@@ -37,8 +37,7 @@ import it.tidalwave.role.spring.mock.MockRole2;
 import it.tidalwave.role.spring.mock.MockRole3;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -74,9 +73,8 @@ public class SpringAdapterTest // FIXME: tests are genera, move to a AsSupportTe
         // when
         final var role = datum1.as(MockRole1.class);
         // then
-        assertThat(role, is(notNullValue()));
-        assertThat(role, is(instanceOf(MockConcreteRole1.class)));
-        assertThat(((MockConcreteRole1)role).getOwner(), is(sameInstance(datum1)));
+        assertThat(role).isNotNull().isInstanceOf(MockConcreteRole1.class);
+        assertThat(((MockConcreteRole1)role).getOwner()).isSameAs(datum1);
       }
 
     /***********************************************************************************************************************************************************
@@ -89,13 +87,11 @@ public class SpringAdapterTest // FIXME: tests are genera, move to a AsSupportTe
         final var role1 = datum1.as(MockRole2.class);
         final var role2 = datum2.as(MockRole2.class);
         // then
-        assertThat(role1, is(notNullValue()));
-        assertThat(role1, is(instanceOf(MockConcreteRole2.class)));
-        assertThat(((MockConcreteRole2)role1).getOwner(), is(sameInstance(datum1)));
+        assertThat(role1).isNotNull().isInstanceOf(MockConcreteRole2.class);
+        assertThat(((MockConcreteRole2)role1).getOwner()).isSameAs(datum1);
 
-        assertThat(role2, is(notNullValue()));
-        assertThat(role2, is(instanceOf(MockConcreteRole2.class)));
-        assertThat(((MockConcreteRole2)role2).getOwner(), is(sameInstance(datum2)));
+        assertThat(role2).isNotNull().isInstanceOf(MockConcreteRole2.class);
+        assertThat(((MockConcreteRole2)role2).getOwner()).isSameAs(datum2);
       }
 
     /***********************************************************************************************************************************************************
@@ -125,7 +121,6 @@ public class SpringAdapterTest // FIXME: tests are genera, move to a AsSupportTe
         // when
         final var role = datum2.as(MockRole3.class);
         // then
-        assertThat(role, is(notNullValue()));
-        assertThat(role, is(sameInstance(datum2)));
+        assertThat(role).isNotNull().isSameAs(datum2);
       }
   }

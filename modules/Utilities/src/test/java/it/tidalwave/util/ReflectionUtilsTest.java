@@ -34,9 +34,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -77,9 +76,9 @@ public class ReflectionUtilsTest
         final var object = ReflectionUtils.instantiateWithDependencies(WithConstructor.class, beanMap);
         // then
         // assertThat(object, isNotNull());
-        assertThat(object.bean1, is(sameInstance(beanMap.get(Bean1.class))));
-        assertThat(object.bean2, is(sameInstance(beanMap.get(Bean2.class))));
-        assertThat(object.bean3, is(sameInstance(beanMap.get(Bean3.class))));
+        assertThat(object.bean1).isSameAs(beanMap.get(Bean1.class));
+        assertThat(object.bean2).isSameAs(beanMap.get(Bean2.class));
+        assertThat(object.bean3).isSameAs(beanMap.get(Bean3.class));
       }
 
     /******************************************************************************************************************/
@@ -94,9 +93,9 @@ public class ReflectionUtilsTest
         // when
         ReflectionUtils.injectDependencies(object, beanMap);
         // then
-        assertThat(object.bean1, is(sameInstance(beanMap.get(Bean1.class))));
-        assertThat(object.bean2, is(sameInstance(beanMap.get(Bean2.class))));
-        assertThat(object.bean3, is(sameInstance(beanMap.get(Bean3.class))));
+        assertThat(object.bean1).isSameAs(beanMap.get(Bean1.class));
+        assertThat(object.bean2).isSameAs(beanMap.get(Bean2.class));
+        assertThat(object.bean3).isSameAs(beanMap.get(Bean3.class));
       }
 
     /******************************************************************************************************************/
@@ -104,7 +103,7 @@ public class ReflectionUtilsTest
     public void test_getClass (@Nonnull final Type type, @Nonnull final Class<?> expectedResult)
       {
         final var actualResult = ReflectionUtils.getClass(type);
-        assertThat(actualResult, is(equalTo(expectedResult)));
+        assertThat(actualResult).isEqualTo(expectedResult);
       }
 
     /******************************************************************************************************************/

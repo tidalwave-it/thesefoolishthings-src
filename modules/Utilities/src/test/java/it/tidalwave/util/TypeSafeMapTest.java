@@ -28,16 +28,12 @@ package it.tidalwave.util;
 import jakarta.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.testng.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 
 /***************************************************************************************************************************************************************
  *
@@ -61,9 +57,9 @@ public class TypeSafeMapTest
         // when
         final var underTest = TypeSafeMap.newInstance();
         // then
-        assertThat(underTest.size(), is(0));
-        assertThat(underTest.keySet(), is(Collections.emptySet()));
-        assertThat(underTest.asMap(), is(Collections.emptyMap()));
+        assertThat(underTest).isEmpty();
+        assertThat(underTest.keySet()).isEmpty();
+        assertThat(underTest.asMap()).isEmpty();
       }
 
     /***********************************************************************************************************************************************************
@@ -78,12 +74,12 @@ public class TypeSafeMapTest
         // when
         final var underTest = TypeSafeMap.ofCloned(map);
         // then
-        assertThat(underTest.size(), is(3));
-        assertThat(underTest.keySet(), is(Set.of(K_STRING, K_INTEGER, K_DATETIME)));
-        assertThat(underTest.asMap(), is(map));
-        assertThat(underTest.get(K_STRING), is("1"));
-        assertThat(underTest.get(K_INTEGER), is(2));
-        assertThat(underTest.get(K_DATETIME), is(LOCAL_DATE));
+        assertThat(underTest).hasSize(3);
+        assertThat(underTest.keySet()).containsExactlyInAnyOrder(K_STRING, K_INTEGER, K_DATETIME);
+        assertThat(underTest.asMap()).isEqualTo(map);
+        assertThat(underTest.get(K_STRING)).isEqualTo("1");
+        assertThat(underTest.get(K_INTEGER)).isEqualTo(2);
+        assertThat(underTest.get(K_DATETIME)).isEqualTo(LOCAL_DATE);
 
         try
           {
@@ -95,14 +91,14 @@ public class TypeSafeMapTest
             // ok
           }
 
-        assertThat(underTest.getOptional(K_STRING), is(Optional.of("1")));
-        assertThat(underTest.getOptional(K_INTEGER), is(Optional.of(2)));
-        assertThat(underTest.getOptional(K_DATETIME), is(Optional.of(LOCAL_DATE)));
-        assertThat(underTest.getOptional(K_STRING2), is(Optional.empty()));
-        assertThat(underTest.containsKey(K_STRING), is(true));
-        assertThat(underTest.containsKey(K_INTEGER), is(true));
-        assertThat(underTest.containsKey(K_DATETIME), is(true));
-        assertThat(underTest.containsKey(K_STRING2), is(false));
+        assertThat(underTest.getOptional(K_STRING)).contains("1");
+        assertThat(underTest.getOptional(K_INTEGER)).contains(2);
+        assertThat(underTest.getOptional(K_DATETIME)).contains(LOCAL_DATE);
+        assertThat(underTest.getOptional(K_STRING2)).isEmpty();
+        assertThat(underTest.containsKey(K_STRING)).isTrue();
+        assertThat(underTest.containsKey(K_INTEGER)).isTrue();
+        assertThat(underTest.containsKey(K_DATETIME)).isTrue();
+        assertThat(underTest.containsKey(K_STRING2)).isFalse();
       }
 
     /***********************************************************************************************************************************************************
@@ -118,16 +114,16 @@ public class TypeSafeMapTest
         // when
         final var underTest = firstMap.with(K_STRING2, "2");
         // then
-        assertThat(underTest, is(not(sameInstance(firstMap))));
-        assertThat(firstMap.size(), is(3));
-        assertThat(underTest.size(), is(4));
-        assertThat(firstMap.keySet(), is(Set.of(K_STRING, K_INTEGER, K_DATETIME)));
-        assertThat(underTest.keySet(), is(Set.of(K_STRING, K_INTEGER, K_DATETIME, K_STRING2)));
+        assertThat(underTest).isNotSameAs(firstMap);
+        assertThat(firstMap).hasSize(3);
+        assertThat(underTest).hasSize(4);
+        assertThat(firstMap.keySet()).containsExactlyInAnyOrder(K_STRING, K_INTEGER, K_DATETIME);
+        assertThat(underTest.keySet()).containsExactlyInAnyOrder(K_STRING, K_INTEGER, K_DATETIME, K_STRING2);
         map.put(K_STRING2, "2");
-        assertThat(underTest.asMap(), is(map));
-        assertThat(underTest.get(K_STRING2), is("2"));
-        assertThat(underTest.getOptional(K_STRING2), is(Optional.of("2")));
-        assertThat(underTest.containsKey(K_STRING2), is(true));
+        assertThat(underTest.asMap()).isEqualTo(map);
+        assertThat(underTest.get(K_STRING2)).isEqualTo("2");
+        assertThat(underTest.getOptional(K_STRING2)).contains("2");
+        assertThat(underTest.containsKey(K_STRING2)).isTrue();
       }
 
     /***********************************************************************************************************************************************************
@@ -137,15 +133,14 @@ public class TypeSafeMapTest
     public void asMap_must_return_different_mutable_instances_detached_from_internal_state()
       {
         // given
-        final var map = createSampleMap();
+        final var underTest = TypeSafeMap.ofCloned(createSampleMap());
         // when
-        final var underTest = TypeSafeMap.ofCloned(map);
         final var map1 = underTest.asMap();
         final var map2 = underTest.asMap();
         map1.clear();
         // then
-        assertThat(map1, is(not(sameInstance(map2))));
-        assertThat(underTest.size(), is(not(0)));
+        assertThat(map1).isNotSameAs(map2);
+        assertThat(underTest).isNotEmpty();
       }
 
     /***********************************************************************************************************************************************************
@@ -155,15 +150,14 @@ public class TypeSafeMapTest
     public void getKeys_must_return_different_mutable_instances_detached_from_internal_state()
       {
         // given
-        final var map = createSampleMap();
+        final var underTest = TypeSafeMap.ofCloned(createSampleMap());
         // when
-        final var underTest = TypeSafeMap.ofCloned(map);
         final var set1 = underTest.keySet();
         final var set2 = underTest.keySet();
         set1.clear();
         // then
-        assertThat(set1, is(not(sameInstance(set2))));
-        assertThat(underTest.size(), is(not(0)));
+        assertThat(set1).isNotSameAs(set2);
+        assertThat(underTest).isNotEmpty();
       }
 
 
@@ -181,15 +175,15 @@ public class TypeSafeMapTest
                                  .with(k2, 1);
         final Optional<String> v1 = m.getOptional(k1);
         final Optional<Integer> v2 = m.getOptional(k2);
-        assertThat(v1.orElseThrow(), is("Value 1"));
-        assertThat(v2.orElseThrow(), is(1));
+        assertThat(v1).contains("Value 1");
+        assertThat(v2).contains(1);
         // END SNIPPET TypeSafeMap
       }
 
     /***********************************************************************************************************************************************************
      * 
      **********************************************************************************************************************************************************/
-    @Test
+    @Test @SuppressWarnings("unchecked")
     public void test_forEach()
       {
         // given
@@ -199,10 +193,10 @@ public class TypeSafeMapTest
         final var pairs = new ArrayList<Pair<Key<?>, Object>>();
         underTest.forEach((k, v) -> pairs.add(Pair.of(k, v)));
         // then
-        assertThat(pairs, containsInAnyOrder(underTest.entrySet()
+        assertThat(pairs).contains(underTest.entrySet()
                                                       .stream()
                                                       .map(e -> Pair.of(e.getKey(), e.getValue()))
-                                                      .toArray()));
+                                                      .toArray(Pair[]::new));
       }
 
     /***********************************************************************************************************************************************************

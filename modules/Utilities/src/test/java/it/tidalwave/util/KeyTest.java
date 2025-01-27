@@ -32,10 +32,9 @@ import java.util.List;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 import static java.util.stream.Collectors.*;
 import static org.testng.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -64,22 +63,20 @@ public class KeyTest
         final var key1c = Key.of("key1", LocalDateTime.class); // existing name, different type
         final var allKeys = Key.allKeys();
         // then
-        assertThat(key1.getName(), is("key1"));
+        assertThat(key1.getName()).isEqualTo("key1");
         assertEquals(key1.getType(), String.class);
-        assertThat(key2.getName(), is("key2"));
+        assertThat(key2.getName()).isEqualTo("key2");
         assertEquals(key2.getType(), String.class);
-        assertThat(key3.getName(), is("key3"));
+        assertThat(key3.getName()).isEqualTo("key3");
         assertEquals(key3.getType(), Integer.class);
-        assertThat(key1b.getName(), is("key1"));
+        assertThat(key1b.getName()).isEqualTo("key1");
         assertEquals(key1b.getType(), String.class);
-        assertThat(key1c.getName(), is("key1"));
+        assertThat(key1c.getName()).isEqualTo("key1");
         assertEquals(key1c.getType(), LocalDateTime.class);
-        assertThat(key1b, is(sameInstance(key1)));
-        assertThat(key1c, is(not(sameInstance(key1))));
-        assertThat(allKeys.stream().map(Key::getName).collect(toList()),
-                   is(List.of("key1", "key1", "key2", "key3")));
-        assertThat(allKeys.stream().map(Key::getType).collect(toList()),
-                   is(List.of(String.class, LocalDateTime.class, String.class, Integer.class)));
+        assertThat(key1b).isSameAs(key1);
+        assertThat(key1c).isNotSameAs(key1);
+        assertThat(allKeys.stream().map(Key::getName).collect(toList())).containsExactly("key1", "key1", "key2", "key3");
+        assertThat(allKeys.stream().map(Key::getType).collect(toList())).isEqualTo(List.of(String.class, LocalDateTime.class, String.class, Integer.class));
       }
 
     /*******************************************************************************************************************

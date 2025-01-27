@@ -38,10 +38,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 import static it.tidalwave.util.Parameters.r;
 import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -133,9 +132,9 @@ public class AsDelegateTest
         final var ut2Role1 = underTest2.as(Role1.class);
         final var ut2Role2 = underTest2.as(Role2.class);
         // then
-        assertThat(ut1role1, is(sameInstance(localRole1)));
-        assertThat(ut2Role1, is(sameInstance(localRole1)));
-        assertThat(ut2Role2, is(sameInstance(localRole2)));
+        assertThat(ut1role1).isSameAs(localRole1);
+        assertThat(ut2Role1).isSameAs(localRole1);
+        assertThat(ut2Role2).isSameAs(localRole2);
       }
 
     /***********************************************************************************************************************************************************
@@ -149,7 +148,7 @@ public class AsDelegateTest
         // when
         final var role = underTest.as(Role3.class);
         // then
-        assertThat(role.getOwner(), is(sameInstance(owner)));
+        assertThat(role.getOwner()).isSameAs(owner);
       }
 
     /***********************************************************************************************************************************************************
@@ -188,7 +187,7 @@ public class AsDelegateTest
         // when
         final var role = underTest.as(Role2.class);
         // then
-        assertThat(role, is(sameInstance(delegateRole2)));
+        assertThat(role).isSameAs(delegateRole2);
       }
 
     /***********************************************************************************************************************************************************
@@ -203,7 +202,7 @@ public class AsDelegateTest
         // when
         final var role = underTest.as(Role2.class);
         // then
-        assertThat(role, is(sameInstance(localRole2)));
+        assertThat(role).isSameAs(localRole2);
       }
 
     /***********************************************************************************************************************************************************
@@ -217,9 +216,7 @@ public class AsDelegateTest
         // when
         final var roles = underTest.asMany(Role2.class);
         // then
-        assertThat("" + roles, roles.size(), is(2));
-        assertThat("" + roles, roles.contains(localRole2), is(true));
-        assertThat("" + roles, roles.contains(localRole2b), is(true));
+        assertThat(roles).containsExactlyInAnyOrder(localRole2, localRole2b);
       }
 
     /***********************************************************************************************************************************************************
@@ -234,9 +231,6 @@ public class AsDelegateTest
         // when
         final var roles = underTest.asMany(Role2.class);
         // then
-        assertThat("" + roles, roles.size(), is(3));
-        assertThat("" + roles, roles.contains(localRole2), is(true));
-        assertThat("" + roles, roles.contains(localRole2b), is(true));
-        assertThat("" + roles, roles.contains(delegateRole2), is(true));
+        assertThat(roles).containsExactlyInAnyOrder(localRole2, localRole2b, delegateRole2);
       }
   }

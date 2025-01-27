@@ -40,9 +40,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -271,9 +270,11 @@ public class DciContextWithAutoThreadBindingAspectTest
      **********************************************************************************************************************************************************/
     private void verifyMethodInvocations (final @Nonnull Support object, final @Nonnull String methodName)
       {
-        assertThat("target method not invoked: " + methodName,
-                   object.invocationCount.size(), is(1));
-        assertThat("extra method invoked: " + methodName,
-                   object.invocationCount.getOrDefault(methodName, new AtomicInteger(0)).get(), is(1));
+        assertThat(object.invocationCount)
+                .withFailMessage("target method not invoked: " + methodName)
+                .hasSize(1);
+        assertThat(object.invocationCount.get(methodName).get())
+                .withFailMessage("extra method invoked: " + methodName)
+                .isEqualTo(1);
       }
   }

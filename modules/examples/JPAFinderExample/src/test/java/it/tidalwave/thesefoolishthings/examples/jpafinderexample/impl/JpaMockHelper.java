@@ -28,7 +28,6 @@ package it.tidalwave.thesefoolishthings.examples.jpafinderexample.impl;
 import jakarta.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.OptionalInt;
 import java.util.function.Function;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;

@@ -32,10 +32,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import it.tidalwave.messagebus.MessageBus;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import static it.tidalwave.messagebus.impl.spring.ListenerAdapterMatcher.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static it.tidalwave.messagebus.impl.spring.ListenerAdapterMatcher.listenerAdapter;
 import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -78,7 +77,7 @@ public class SpringSimpleMessageSubscriberAspectTest
         reset(applicationMessageBus);
         reset(otherMessageBus);
         // when
-        assertThat("AspectJ didn't enhance object", subscriber1, is(instanceOf(InitializingBean.class)));
+        assertThat(subscriber1).withFailMessage("AspectJ didn't enhance object").isInstanceOf(InitializingBean.class);
         ((InitializingBean)subscriber1).afterPropertiesSet();
         // then
         verify(applicationMessageBus).subscribe(eq(MockEvent1.class), argThat(listenerAdapter(MockEvent1.class)
@@ -102,7 +101,7 @@ public class SpringSimpleMessageSubscriberAspectTest
         reset(applicationMessageBus);
         reset(otherMessageBus);
         // when
-        assertThat(subscriber1, is(instanceOf(DisposableBean.class)));
+        assertThat(subscriber1).isInstanceOf(DisposableBean.class);
         ((DisposableBean)subscriber1).destroy();
         // then
         verify(applicationMessageBus).unsubscribe(argThat(listenerAdapter(MockEvent1.class)
@@ -126,7 +125,7 @@ public class SpringSimpleMessageSubscriberAspectTest
         reset(applicationMessageBus);
         reset(otherMessageBus);
         // when
-        assertThat(subscriber2, is(instanceOf(InitializingBean.class)));
+        assertThat(subscriber2).isInstanceOf(InitializingBean.class);
         ((InitializingBean)subscriber2).afterPropertiesSet();
         // then
         verify(otherMessageBus).subscribe(eq(MockEvent1.class), argThat(listenerAdapter(MockEvent1.class)
@@ -150,7 +149,7 @@ public class SpringSimpleMessageSubscriberAspectTest
         reset(applicationMessageBus);
         reset(otherMessageBus);
         // when
-        assertThat(subscriber2, is(instanceOf(DisposableBean.class)));
+        assertThat(subscriber2).isInstanceOf(DisposableBean.class);
         ((DisposableBean)subscriber2).destroy();
         // then
         verify(otherMessageBus).unsubscribe(argThat(listenerAdapter(MockEvent1.class)

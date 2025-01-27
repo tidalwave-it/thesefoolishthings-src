@@ -28,8 +28,7 @@ package it.tidalwave.util;
 import java.util.Optional;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -52,10 +51,8 @@ public class ConcurrentHashMapWithOptionalsTest
         // when
         final var result = underTest.putIfAbsentAndGetNewKey("key", "new value");
         // then
-        assertThat(underTest.containsKey("key"), is(true));
-        assertThat(underTest.get("key"), is("new value"));
-        assertThat(result.isPresent(), is(true));
-        assertThat(result.get(), is("key"));
+        assertThat(underTest).containsEntry("key", "new value");
+        assertThat(result).contains("key");
       }
 
     @Test
@@ -66,9 +63,8 @@ public class ConcurrentHashMapWithOptionalsTest
         // when
         final var result = underTest.putIfAbsentAndGetNewKey("key", "new value");
         // then
-        assertThat(underTest.containsKey("key"), is(true));
-        assertThat(underTest.get("key"), is("old value"));
-        assertThat(result.isPresent(), is(false));
+        assertThat(underTest).containsEntry("key", "old value");
+        assertThat(result).isNotPresent();
       }
 
     @Test
@@ -77,10 +73,8 @@ public class ConcurrentHashMapWithOptionalsTest
         // when
         final var result = underTest.putIfAbsentAndGetNewKey(Optional.of("key"), "new value");
         // then
-        assertThat(underTest.containsKey("key"), is(true));
-        assertThat(underTest.get("key"), is("new value"));
-        assertThat(result.isPresent(), is(true));
-        assertThat(result.get(), is("key"));
+        assertThat(underTest).containsEntry("key", "new value");
+        assertThat(result).contains("key");
       }
 
     @Test
@@ -91,9 +85,8 @@ public class ConcurrentHashMapWithOptionalsTest
         // when
         final var result = underTest.putIfAbsentAndGetNewKey(Optional.of("key"), "new value");
         // then
-        assertThat(underTest.containsKey("key"), is(true));
-        assertThat(underTest.get("key"), is("old value"));
-        assertThat(result.isPresent(), is(false));
+        assertThat(underTest).containsEntry("key", "old value");
+        assertThat(result).isNotPresent();
       }
 
     @Test
@@ -102,8 +95,8 @@ public class ConcurrentHashMapWithOptionalsTest
         // when
         final var result = underTest.putIfAbsentAndGetNewKey(Optional.empty(), "new value");
         // then
-        assertThat(underTest.containsKey("key"), is(false));
-        assertThat(result.isPresent(), is(false));
+        assertThat(underTest).doesNotContainKey("key");
+        assertThat(result).isNotPresent();
       }
 
     @Test
@@ -114,8 +107,7 @@ public class ConcurrentHashMapWithOptionalsTest
         // when
         final var result = underTest.putIfAbsentAndGetNewKey(Optional.empty(), "new value");
         // then
-        assertThat(underTest.containsKey("key"), is(true));
-        assertThat(underTest.get("key"), is("old value"));
-        assertThat(result.isPresent(), is(false));
+        assertThat(underTest).containsEntry("key", "old value");
+        assertThat(result).isNotPresent();
       }
   }

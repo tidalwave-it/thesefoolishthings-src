@@ -33,8 +33,7 @@ import java.time.format.FormatStyle;
 import java.util.Locale;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -53,7 +52,7 @@ public class LocalizedDateTimeFormattersTest
         final var actualValue = LocalizedDateTimeFormatters.getDateTimeFormatterFor(style, locale).format(dt);
         // then
         // JDK 8 formats AM/PM, JDK 9+ formats am/pm ...
-        assertThat(actualValue.replace(" am", " AM").replace(" pm", " PM"), is(expectedValue));
+        assertThat(actualValue.replace(" am", " AM").replace(" pm", " PM")).isEqualTo(expectedValue);
       }
 
     @DataProvider(name = "dates")

@@ -30,8 +30,7 @@ import java.io.Serializable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.testng.annotations.Test;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -58,7 +57,7 @@ public class ShortNamesTest
       {
         // given
         final var actualValue = ShortNames.shortName(String.class);
-        assertThat(actualValue, is("j.l.String"));
+        assertThat(actualValue).isEqualTo("j.l.String");
       }
 
     /******************************************************************************************************************/
@@ -68,7 +67,7 @@ public class ShortNamesTest
         // when
         final var actualValue = ShortNames.shortNames(List.of(String.class, List.class));
         // then
-        assertThat(actualValue, is("[j.l.String, j.u.List]"));
+        assertThat(actualValue).isEqualTo("[j.l.String, j.u.List]");
       }
 
     /******************************************************************************************************************/
@@ -78,8 +77,7 @@ public class ShortNamesTest
         // when
         final var actualValue = ShortNames.shortName(AClass.class, true);
         // then
-        assertThat(actualValue, is(
-        "i.t.u.ShortNamesTest$AClass{i.t.u.ShortNamesTest$AnInterface, i.t.u.ShortNamesTest$AnotherInterface}"));
+        assertThat(actualValue).isEqualTo("i.t.u.ShortNamesTest$AClass{i.t.u.ShortNamesTest$AnInterface, i.t.u.ShortNamesTest$AnotherInterface}");
       }
 
     /******************************************************************************************************************/
@@ -91,7 +89,7 @@ public class ShortNamesTest
         // when
         final var actualValue = ShortNames.shortId(object);
         // then
-        assertThat(actualValue, is(String.format("j.l.String@%x", System.identityHashCode(object))));
+        assertThat(actualValue).isEqualTo(String.format("j.l.String@%x", System.identityHashCode(object)));
       }
 
     /******************************************************************************************************************/
@@ -103,8 +101,7 @@ public class ShortNamesTest
         // when
         final var actualValue = ShortNames.shortId(object);
         // then
-        assertThat(actualValue, is(String.format("i.t.u.ShortNamesTest$WithId@%x/foobar",
-                                                 System.identityHashCode(object))));
+        assertThat(actualValue).isEqualTo(String.format("i.t.u.ShortNamesTest$WithId@%x/foobar", System.identityHashCode(object)));
       }
 
     /******************************************************************************************************************/
@@ -114,7 +111,7 @@ public class ShortNamesTest
         // when
         final var actualValue = ShortNames.shortId(null);
         // then
-        assertThat(actualValue, is("null"));
+        assertThat(actualValue).isEqualTo("null");
       }
 
     /******************************************************************************************************************/
@@ -127,8 +124,8 @@ public class ShortNamesTest
         // when
         final var actualValue = ShortNames.shortIds(List.of(object1, object2));
         // then
-        assertThat(actualValue, is(
+        assertThat(actualValue).isEqualTo(
             String.format("[i.t.u.ShortNamesTest$WithId@%x/foo, i.t.u.ShortNamesTest$WithId@%x/bar]",
-                          System.identityHashCode(object1), System.identityHashCode(object2))));
+                          System.identityHashCode(object1), System.identityHashCode(object2)));
       }
   }

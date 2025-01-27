@@ -29,10 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.testng.annotations.Test;
-import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static java.util.stream.Collectors.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -53,9 +51,9 @@ public class TripleTest
         final var bool = t.c;
         // END SNIPPET: triple1
         // then
-        assertThat(fooBar, is("foo bar"));
-        assertThat(seven, is(7));
-        assertThat(bool, is(false));
+        assertThat(fooBar).isEqualTo("foo bar");
+        assertThat(seven).isEqualTo(7);
+        assertThat(bool).isFalse();
       }
 
     /***********************************************************************************************************************************************************
@@ -69,11 +67,11 @@ public class TripleTest
         // when
         final var underTest = Triple.tripleStream(pair, IntStream.rangeClosed(1, 5).boxed());
         // then
-        assertThat(underTest.collect(toList()), is(asList(Triple.of(pair, 1),
-                                                          Triple.of(pair, 2),
-                                                          Triple.of(pair, 3),
-                                                          Triple.of(pair, 4),
-                                                          Triple.of(pair, 5))));
+        assertThat(underTest.collect(toList())).containsExactly(Triple.of(pair, 1),
+                                                                Triple.of(pair, 2),
+                                                                Triple.of(pair, 3),
+                                                                Triple.of(pair, 4),
+                                                                Triple.of(pair, 5));
       }
 
     /***********************************************************************************************************************************************************
@@ -87,10 +85,10 @@ public class TripleTest
         // when
         final var underTest = Triple.tripleRange(pair, 1, 5);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Triple.of(pair, 1),
-                                                          Triple.of(pair, 2),
-                                                          Triple.of(pair, 3),
-                                                          Triple.of(pair, 4))));
+        assertThat(underTest.collect(toList())).containsExactly(Triple.of(pair, 1),
+                                                                Triple.of(pair, 2),
+                                                                Triple.of(pair, 3),
+                                                                Triple.of(pair, 4));
       }
 
     /***********************************************************************************************************************************************************
@@ -104,11 +102,11 @@ public class TripleTest
         // when
         final var underTest = Triple.tripleRangeClosed(pair, 1, 5);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Triple.of(pair, 1),
-                                                          Triple.of(pair, 2),
-                                                          Triple.of(pair, 3),
-                                                          Triple.of(pair, 4),
-                                                          Triple.of(pair, 5))));
+        assertThat(underTest.collect(toList())).containsExactly(Triple.of(pair, 1),
+                                                                Triple.of(pair, 2),
+                                                                Triple.of(pair, 3),
+                                                                Triple.of(pair, 4),
+                                                                Triple.of(pair, 5));
       }
 
     /***********************************************************************************************************************************************************
@@ -143,6 +141,6 @@ public class TripleTest
           }
         // END SNIPPET: loop2b
 
-        assertThat(actual, is(expected));
+        assertThat(actual).isEqualTo(expected);
       }
   }

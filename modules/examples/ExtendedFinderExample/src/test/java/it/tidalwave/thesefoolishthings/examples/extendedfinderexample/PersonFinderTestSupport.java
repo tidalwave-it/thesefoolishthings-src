@@ -31,9 +31,8 @@ import it.tidalwave.thesefoolishthings.examples.person.PersonRegistryHelper;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static it.tidalwave.thesefoolishthings.examples.inmemoryfinderexample.PersonSortCriteria.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static it.tidalwave.util.Finder.SortDirection.DESCENDING;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -63,54 +62,54 @@ public class PersonFinderTestSupport
     @Test
     public void testAllPersons()
       {
-        assertThat(underTest.results().toString(),
-                   is("[Michelangelo Buonarroti, Lorenzo Bernini, Leonardo da Vinci, Pietro Perugino, " +
-                      "Paolo Uccello, Andrea Mantegna, Ambrogio Lorenzetti, Piero della Francesca, Giotto da Bondone]"));
+        assertThat(underTest.results()).
+                   hasToString("[Michelangelo Buonarroti, Lorenzo Bernini, Leonardo da Vinci, Pietro Perugino, " +
+                      "Paolo Uccello, Andrea Mantegna, Ambrogio Lorenzetti, Piero della Francesca, Giotto da Bondone]");
       }
 
 
     @Test
     public void testAllPersonsSortedByFirstName()
       {
-        assertThat(underTest.sort(BY_FIRST_NAME).results().toString(),
-                   is("[Ambrogio Lorenzetti, Andrea Mantegna, Giotto da Bondone, Leonardo da Vinci, " +
-                      "Lorenzo Bernini, Michelangelo Buonarroti, Paolo Uccello, Piero della Francesca, Pietro Perugino]"));
+        assertThat(underTest.sort(BY_FIRST_NAME).results()).
+                hasToString("[Ambrogio Lorenzetti, Andrea Mantegna, Giotto da Bondone, Leonardo da Vinci, " +
+                      "Lorenzo Bernini, Michelangelo Buonarroti, Paolo Uccello, Piero della Francesca, Pietro Perugino]");
       }
 
     @Test
     public void testAllPersonsSortedByLastNameDescending()
       {
-        assertThat(underTest.sort(BY_LAST_NAME, DESCENDING).results().toString(),
-                   is("[Piero della Francesca, Leonardo da Vinci, Giotto da Bondone, Paolo Uccello, " +
+        assertThat(underTest.sort(BY_LAST_NAME, DESCENDING).results()).
+                hasToString("[Piero della Francesca, Leonardo da Vinci, Giotto da Bondone, Paolo Uccello, " +
                       "Pietro Perugino, Andrea Mantegna, Ambrogio Lorenzetti, Michelangelo Buonarroti, " +
-                      "Lorenzo Bernini]"));
+                      "Lorenzo Bernini]");
       }
 
     @Test
     public void testPersonRange()
       {
-        assertThat(underTest.from(3).max(2).results().toString(),
-                   is("[Pietro Perugino, Paolo Uccello]"));
+        assertThat(underTest.from(3).max(2).results()).
+                hasToString("[Pietro Perugino, Paolo Uccello]");
       }
 
     @Test
     public void testLastNameStartingWithB()
       {
-        assertThat(underTest.withLastName("B.*").results().toString(),
-                   is("[Michelangelo Buonarroti, Lorenzo Bernini]"));
+        assertThat(underTest.withLastName("B.*").results()).
+                hasToString("[Michelangelo Buonarroti, Lorenzo Bernini]");
       }
 
     @Test
     public void testLastNameStartingWithBSortedByFirstName()
       {
-        assertThat(underTest.withLastName("B.*").sort(BY_FIRST_NAME).results().toString(),
-                   is("[Lorenzo Bernini, Michelangelo Buonarroti]"));
+        assertThat(underTest.withLastName("B.*").sort(BY_FIRST_NAME).results()).
+                hasToString("[Lorenzo Bernini, Michelangelo Buonarroti]");
       }
 
     @Test
     public void testLastNameIsBerniniFirstResult()
       {
-        assertThat(underTest.withLastName("Bernini").optionalFirstResult().orElseThrow().toString(),
-                   is("Lorenzo Bernini"));
+        assertThat(underTest.withLastName("Bernini").optionalFirstResult().orElseThrow()).
+                hasToString("Lorenzo Bernini");
       }
   }

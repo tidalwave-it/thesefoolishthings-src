@@ -33,10 +33,8 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static java.util.stream.Collectors.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class StreamUtilsTest
   {
@@ -51,11 +49,11 @@ public class StreamUtilsTest
                                               stringStream( 5),
                                               (n, s) -> String.format("%d - %s", n, s));
         // then
-        assertThat(underTest.collect(toList()), is(asList("0 - string-a",
-                                                          "1 - string-b",
-                                                          "2 - string-c",
-                                                          "3 - string-d",
-                                                          "4 - string-e")));
+        assertThat(underTest.collect(toList())).containsExactly("0 - string-a",
+                                                                "1 - string-b",
+                                                                "2 - string-c",
+                                                                "3 - string-d",
+                                                                "4 - string-e");
       }
 
     /*******************************************************************************************************************
@@ -73,7 +71,7 @@ public class StreamUtilsTest
         // when
         final var underTest = StreamUtils.randomLocalDateTimeStream(seed, from, to);
         // then
-        assertThat(underTest.limit(expectedResult.size()).collect(toList()), is(expectedResult));
+        assertThat(underTest.limit(expectedResult.size()).collect(toList())).isEqualTo(expectedResult);
       }
 
     /***********************************************************************************************************************************************************

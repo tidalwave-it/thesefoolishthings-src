@@ -32,9 +32,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.lessThan;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -58,8 +56,8 @@ public class TimeProviderTest
         // then
         final var zoneId = ZoneId.systemDefault();
         final var offset = zoneId.getRules().getStandardOffset(nowInstant);
-        assertThat(getDeltaMillis(nowInstant, nowLocal, offset), is(lessThan(1L)));
-        assertThat(getDeltaMillis(nowInstant, nowZoned), is(lessThan(1L)));
+        assertThat(getDeltaMillis(nowInstant, nowLocal, offset)).isLessThan(1L);
+        assertThat(getDeltaMillis(nowInstant, nowZoned)).isLessThan(1L);
       }
 
     private static long getDeltaMillis (final Instant i, final LocalDateTime ldt, final ZoneOffset offset)

@@ -37,9 +37,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Delegate;
 import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -85,8 +84,8 @@ public class AsTest
         final var underTest = new UnderTest(delegate);
         // then
         final var result = underTest.maybeAs(Role.class);
-        assertThat(result.isPresent(), is(true));
-        assertThat(result.get(), is(sameInstance(role)));
+        assertThat(result).isPresent();
+        assertThat(result.get()).isSameAs(role);
       }
 
     @Test
@@ -99,7 +98,7 @@ public class AsTest
         final var underTest = new UnderTest(delegate);
         // then
         final var result = underTest.maybeAs(Role.class);
-        assertThat(result.isPresent(), is(false));
+        assertThat(result).isNotPresent();
       }
 
     static interface RoleWithGeneric<T>
@@ -118,7 +117,7 @@ public class AsTest
         // when
         final var actualRole = underTest.as(_roleOfStrings_);
         // then
-        assertThat(actualRole, is(role));
+        assertThat(actualRole).isEqualTo(role);
       }
 
     @Test
@@ -131,7 +130,7 @@ public class AsTest
         // when
         final var actualRole = underTest.maybeAs(_roleOfStrings_);
         // then
-        assertThat(actualRole.orElseThrow(), is(role));
+        assertThat(actualRole).contains(role);
       }
 
     @Test
@@ -144,7 +143,7 @@ public class AsTest
         // when
         final var actualRoles = underTest.asMany(_roleOfStrings_);
         // then
-        assertThat(actualRoles, is(List.of(role)));
+        assertThat(actualRoles).containsExactly(role);
       }
 
     // START SNIPPET: dataretriever

@@ -27,8 +27,7 @@ package it.tidalwave.util;
 
 import java.util.stream.IntStream;
 import org.testng.annotations.Test;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -43,9 +42,9 @@ public class LazySupplierTest
         // when
         final var underTest = LazySupplier.of(Object::new);
         // then
-        assertThat(underTest.ref.get(), is((Object)null));
-        assertThat(underTest.initialized.get(), is(false));
-        assertThat(underTest.toString(), is("LazySupplier(<not initialised>)"));
+        assertThat(underTest.ref.get()).isEqualTo((Object)null);
+        assertThat(underTest.initialized.get()).isFalse();
+        assertThat(underTest).hasToString("LazySupplier(<not initialised>)");
       }
 
     @Test
@@ -58,10 +57,10 @@ public class LazySupplierTest
         final var o2 = underTest.get();
         final var o3 = underTest.get();
         // then
-        assertThat(o2, sameInstance(o1));
-        assertThat(o3, sameInstance(o1));
-        assertThat(underTest.initialized.get(), is(true));
-        assertThat(underTest.toString(), is(String.format("LazySupplier(%s)", underTest.get())));
+        assertThat(o2).isSameAs(o1);
+        assertThat(o3).isSameAs(o1);
+        assertThat(underTest.initialized.get()).isTrue();
+        assertThat(underTest).hasToString("LazySupplier(%s)", underTest.get());
       }
 
     @Test
@@ -72,6 +71,6 @@ public class LazySupplierTest
         // when
         final var count = IntStream.range(0, 10_000_000).parallel().mapToObj(__ -> underTest.get()).distinct().count();
         // then
-        assertThat(count, is(1L));
+        assertThat(count).isEqualTo(1L);
       }
   }

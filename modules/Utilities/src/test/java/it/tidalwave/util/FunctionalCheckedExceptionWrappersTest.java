@@ -32,9 +32,8 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 import static it.tidalwave.util.FunctionalCheckedExceptionWrappers.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 @SuppressWarnings({"SameReturnValue", "RedundantThrows"}) @Slf4j
 public class FunctionalCheckedExceptionWrappersTest
@@ -46,7 +45,7 @@ public class FunctionalCheckedExceptionWrappersTest
     public void test_function_wrapper()
       {
         final var r = _f(this::sampleFunction).apply("good");
-        assertThat(r, is("good"));
+        assertThat(r).isEqualTo("good");
       }
 
     /***********************************************************************************************************************************************************
@@ -83,7 +82,7 @@ public class FunctionalCheckedExceptionWrappersTest
     public void test_supplier_wrapper()
       {
         final var r = _s(this::sampleSupplier).get();
-        assertThat(r, is("foo"));
+        assertThat(r).isEqualTo("foo");
       }
 
     /***********************************************************************************************************************************************************
@@ -102,7 +101,7 @@ public class FunctionalCheckedExceptionWrappersTest
     public void test_predicate_wrapper()
       {
         final var r = _p(this::samplePredicate).test("foo");
-        assertThat(r, is(true));
+        assertThat(r).isTrue();
       }
 
     /***********************************************************************************************************************************************************
@@ -147,7 +146,7 @@ public class FunctionalCheckedExceptionWrappersTest
       {
         final var e = new RuntimeException();
         final var we = wrappedException(e);
-        assertThat(we, is(sameInstance(e)));
+        assertThat(we).isSameAs(e);
       }
 
     /***********************************************************************************************************************************************************
@@ -158,7 +157,7 @@ public class FunctionalCheckedExceptionWrappersTest
       {
         final var e = new InterruptedException();
         final var we = wrappedException(e);
-        assertThat(we.getCause(), is(sameInstance(e)));
+        assertThat(we.getCause()).isSameAs(e);
       }
 
     /***********************************************************************************************************************************************************
@@ -169,8 +168,8 @@ public class FunctionalCheckedExceptionWrappersTest
       {
         final var e = new IOException();
         final var we = wrappedException(e);
-        assertThat(we.getCause(), is(sameInstance(e)));
-        assertThat(we, is(instanceOf(UncheckedIOException.class)));
+        assertThat(we.getCause()).isSameAs(e);
+        assertThat(we).isInstanceOf(UncheckedIOException.class);
       }
 
     /***********************************************************************************************************************************************************

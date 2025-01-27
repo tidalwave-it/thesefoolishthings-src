@@ -32,10 +32,8 @@ import java.util.Map;
 import java.util.function.IntFunction;
 import java.util.stream.IntStream;
 import org.testng.annotations.Test;
-import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static java.util.stream.Collectors.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -65,8 +63,8 @@ public class PairTest
         final var seven = p.b;
         // END SNIPPET: pair1
         // then
-        assertThat(fooBar, is("foo bar"));
-        assertThat(seven, is(7));
+        assertThat(fooBar).isEqualTo("foo bar");
+        assertThat(seven).isEqualTo(7);
       }
 
     /***********************************************************************************************************************************************************
@@ -80,10 +78,10 @@ public class PairTest
         // when
         final var underTest = Pair.pairRange(value, 1, 5);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(value, 1),
-                                                          Pair.of(value, 2),
-                                                          Pair.of(value, 3),
-                                                          Pair.of(value, 4))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of(value, 1),
+                                                                Pair.of(value, 2),
+                                                                Pair.of(value, 3),
+                                                                Pair.of(value, 4));
       }
 
     /***********************************************************************************************************************************************************
@@ -97,11 +95,11 @@ public class PairTest
         // when
         final var underTest = Pair.pairRangeClosed(value, 1, 5);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(value, 1),
-                                                          Pair.of(value, 2),
-                                                          Pair.of(value, 3),
-                                                          Pair.of(value, 4),
-                                                          Pair.of(value, 5))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of(value, 1),
+                                                                Pair.of(value, 2),
+                                                                Pair.of(value, 3),
+                                                                Pair.of(value, 4),
+                                                                Pair.of(value, 5));
       }
 
     /***********************************************************************************************************************************************************
@@ -132,7 +130,7 @@ public class PairTest
           }
         // END SNIPPET: loop2b
 
-        assertThat(actual, is(expected));
+        assertThat(actual).isEqualTo(expected);
       }
 
     /***********************************************************************************************************************************************************
@@ -145,11 +143,11 @@ public class PairTest
         // when
         final var underTest = Pair.indexedPairStream(array);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "one"),
-                                                          Pair.of(1, "two"),
-                                                          Pair.of(2, "three"),
-                                                          Pair.of(3, "four"),
-                                                          Pair.of(4, "five"))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of(0, "one"),
+                                                                Pair.of(1, "two"),
+                                                                Pair.of(2, "three"),
+                                                                Pair.of(3, "four"),
+                                                                Pair.of(4, "five"));
         // END SNIPPET: indexed
       }
 
@@ -162,11 +160,11 @@ public class PairTest
         // when
         final var underTest = Pair.indexedPairStream(array, Pair.BASE_1);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(1, "one"),
-                                                          Pair.of(2, "two"),
-                                                          Pair.of(3, "three"),
-                                                          Pair.of(4, "four"),
-                                                          Pair.of(5, "five"))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of(1, "one"),
+                                                                Pair.of(2, "two"),
+                                                                Pair.of(3, "three"),
+                                                                Pair.of(4, "four"),
+                                                                Pair.of(5, "five"));
       }
 
     /***********************************************************************************************************************************************************
@@ -178,11 +176,11 @@ public class PairTest
         // when
         final var underTest = Pair.indexedPairStream(array, Pair.BASE_0, indexTransformer);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of("1", "one"),
-                                                          Pair.of("2", "two"),
-                                                          Pair.of("3", "three"),
-                                                          Pair.of("4", "four"),
-                                                          Pair.of("5", "five"))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of("1", "one"),
+                                                                Pair.of("2", "two"),
+                                                                Pair.of("3", "three"),
+                                                                Pair.of("4", "four"),
+                                                                Pair.of("5", "five"));
       }
 
     /***********************************************************************************************************************************************************
@@ -194,11 +192,11 @@ public class PairTest
         // when
         final var underTest = Pair.indexedPairStream(iterable);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "one"),
-                                                          Pair.of(1, "two"),
-                                                          Pair.of(2, "three"),
-                                                          Pair.of(3, "four"),
-                                                          Pair.of(4, "five"))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of(0, "one"),
+                                                                Pair.of(1, "two"),
+                                                                Pair.of(2, "three"),
+                                                                Pair.of(3, "four"),
+                                                                Pair.of(4, "five"));
       }
 
     /***********************************************************************************************************************************************************
@@ -210,11 +208,11 @@ public class PairTest
         // when
         final var underTest = Pair.indexedPairStream(iterable, Pair.BASE_1);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(1, "one"),
-                                                          Pair.of(2, "two"),
-                                                          Pair.of(3, "three"),
-                                                          Pair.of(4, "four"),
-                                                          Pair.of(5, "five"))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of(1, "one"),
+                                                                Pair.of(2, "two"),
+                                                                Pair.of(3, "three"),
+                                                                Pair.of(4, "four"),
+                                                                Pair.of(5, "five"));
       }
 
     /***********************************************************************************************************************************************************
@@ -226,11 +224,11 @@ public class PairTest
         // when
         final var underTest = Pair.indexedPairStream(iterable, Pair.BASE_0, indexTransformer);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of("1", "one"),
-                                                          Pair.of("2", "two"),
-                                                          Pair.of("3", "three"),
-                                                          Pair.of("4", "four"),
-                                                          Pair.of("5", "five"))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of("1", "one"),
+                                                                Pair.of("2", "two"),
+                                                                Pair.of("3", "three"),
+                                                                Pair.of("4", "four"),
+                                                                Pair.of("5", "five"));
       }
 
     /***********************************************************************************************************************************************************
@@ -242,11 +240,11 @@ public class PairTest
         // when
         final var underTest = Pair.indexedPairStream(Arrays.stream(array));
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "one"),
-                                                          Pair.of(1, "two"),
-                                                          Pair.of(2, "three"),
-                                                          Pair.of(3, "four"),
-                                                          Pair.of(4, "five"))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of(0, "one"),
+                                                                Pair.of(1, "two"),
+                                                                Pair.of(2, "three"),
+                                                                Pair.of(3, "four"),
+                                                                Pair.of(4, "five"));
       }
 
     /***********************************************************************************************************************************************************
@@ -258,11 +256,11 @@ public class PairTest
         // when
         final var underTest = Pair.indexedPairStream(Arrays.stream(array), Pair.BASE_1);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(1, "one"),
-                                                          Pair.of(2, "two"),
-                                                          Pair.of(3, "three"),
-                                                          Pair.of(4, "four"),
-                                                          Pair.of(5, "five"))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of(1, "one"),
+                                                                Pair.of(2, "two"),
+                                                                Pair.of(3, "three"),
+                                                                Pair.of(4, "four"),
+                                                                Pair.of(5, "five"));
       }
 
     /***********************************************************************************************************************************************************
@@ -274,11 +272,11 @@ public class PairTest
         // when
         final var underTest = Pair.indexedPairStream(Arrays.stream(array), Pair.BASE_0, indexTransformer);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of("1", "one"),
-                                                          Pair.of("2", "two"),
-                                                          Pair.of("3", "three"),
-                                                          Pair.of("4", "four"),
-                                                          Pair.of("5", "five"))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of("1", "one"),
+                                                                Pair.of("2", "two"),
+                                                                Pair.of("3", "three"),
+                                                                Pair.of("4", "four"),
+                                                                Pair.of("5", "five"));
       }
 
     /***********************************************************************************************************************************************************
@@ -290,12 +288,12 @@ public class PairTest
         // when
         final var underTest = Pair.indexedPairStream(3, 9, valueSupplier);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(3, "#3"),
-                                                          Pair.of(4, "#4"),
-                                                          Pair.of(5, "#5"),
-                                                          Pair.of(6, "#6"),
-                                                          Pair.of(7, "#7"),
-                                                          Pair.of(8, "#8"))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of(3, "#3"),
+                                                                Pair.of(4, "#4"),
+                                                                Pair.of(5, "#5"),
+                                                                Pair.of(6, "#6"),
+                                                                Pair.of(7, "#7"),
+                                                                Pair.of(8, "#8"));
       }
 
     /***********************************************************************************************************************************************************
@@ -307,12 +305,12 @@ public class PairTest
         // when
         final var underTest = Pair.indexedPairStream(3, 9, valueSupplier, Pair.BASE_1);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(4, "#3"),
-                                                          Pair.of(5, "#4"),
-                                                          Pair.of(6, "#5"),
-                                                          Pair.of(7, "#6"),
-                                                          Pair.of(8, "#7"),
-                                                          Pair.of(9, "#8"))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of(4, "#3"),
+                                                                Pair.of(5, "#4"),
+                                                                Pair.of(6, "#5"),
+                                                                Pair.of(7, "#6"),
+                                                                Pair.of(8, "#7"),
+                                                                Pair.of(9, "#8"));
       }
 
     /***********************************************************************************************************************************************************
@@ -324,12 +322,12 @@ public class PairTest
         // when
         final var underTest = Pair.indexedPairStream(3, 9, valueSupplier, Pair.BASE_0, indexTransformer);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of("4", "#3"),
-                                                          Pair.of("5", "#4"),
-                                                          Pair.of("6", "#5"),
-                                                          Pair.of("7", "#6"),
-                                                          Pair.of("8", "#7"),
-                                                          Pair.of("9", "#8"))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of("4", "#3"),
+                                                                Pair.of("5", "#4"),
+                                                                Pair.of("6", "#5"),
+                                                                Pair.of("7", "#6"),
+                                                                Pair.of("8", "#7"),
+                                                                Pair.of("9", "#8"));
       }
 
     /***********************************************************************************************************************************************************
@@ -349,7 +347,7 @@ public class PairTest
                 2, "three",
                 3, "four",
                 4, "five");
-        assertThat(actual, is(expected));
+        assertThat(actual).isEqualTo(expected);
       }
 
     /***********************************************************************************************************************************************************
@@ -363,11 +361,11 @@ public class PairTest
         // when
         final var underTest = Pair.pairStream(value, IntStream.rangeClosed(1, 5).boxed());
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(value, 1),
-                                                          Pair.of(value, 2),
-                                                          Pair.of(value, 3),
-                                                          Pair.of(value, 4),
-                                                          Pair.of(value, 5))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of(value, 1),
+                                                                Pair.of(value, 2),
+                                                                Pair.of(value, 3),
+                                                                Pair.of(value, 4),
+                                                                Pair.of(value, 5));
       }
 
     /***********************************************************************************************************************************************************
@@ -383,11 +381,11 @@ public class PairTest
         // when
         final var underTest = Pair.zip(intStream, stringStream);
         // then
-        assertThat(underTest.collect(toList()), is(asList(Pair.of(0, "string-a"),
-                                                          Pair.of(1, "string-b"),
-                                                          Pair.of(2, "string-c"),
-                                                          Pair.of(3, "string-d"),
-                                                          Pair.of(4, "string-e"))));
+        assertThat(underTest.collect(toList())).containsExactly(Pair.of(0, "string-a"),
+                                                                Pair.of(1, "string-b"),
+                                                                Pair.of(2, "string-c"),
+                                                                Pair.of(3, "string-d"),
+                                                                Pair.of(4, "string-e"));
         // END SNIPPET: zipPairTest1
       }
 

@@ -30,10 +30,9 @@ import java.util.List;
 import it.tidalwave.util.impl.OwnerAndRole;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 import static java.util.Arrays.asList;
 import static it.tidalwave.util.spi.Mocks.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -48,7 +47,7 @@ public class OwnerAndRoleTest
         // when
         final var actual = underTest.getSuper();
         // then
-        assertThat(actual, is(expected));
+        assertThat(actual).isEqualTo(expected);
       }
 
     @DataProvider

@@ -30,8 +30,7 @@ import java.util.Locale;
 import it.tidalwave.util.mock.Mock;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -49,7 +48,7 @@ public class BundleUtilitiesTest
         // when
         final var actualResult = BundleUtilities.getMessage(Mock.class, locale, resourceName, params);
         // then
-        assertThat(actualResult, is(expectedResult));
+        assertThat(actualResult).isEqualTo(expectedResult);
       }
 
     @DataProvider

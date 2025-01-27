@@ -37,9 +37,8 @@ import java.util.stream.IntStream;
 import it.tidalwave.util.spi.ExtendedFinderSupport;
 import it.tidalwave.util.spi.HierarchicFinderSupport;
 import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 import static java.util.stream.Collectors.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -96,9 +95,9 @@ public class FinderTest
         // when
         final var underTest = Finder.ofCloned(ITEMS);
         // then
-        assertThat(underTest.results(), is(ITEMS));
-        assertThat(underTest.from(5).results(), is(ITEMS.subList(5, 10)));
-        assertThat(underTest.from(7).max(2).results(), is(ITEMS.subList(7, 9)));
+        assertThat(underTest.results()).isEqualTo(ITEMS);
+        assertThat(underTest.from(5).results()).isEqualTo(ITEMS.subList(5, 10));
+        assertThat(underTest.from(7).max(2).results()).isEqualTo(ITEMS.subList(7, 9));
       }
 
     @Test
@@ -124,9 +123,9 @@ public class FinderTest
         // when
         final var actualResult = underTest.results();
         // then
-        assertThat(actualResult, is(list));
-        assertThat(called.get(), is(true));
-        assertThat(calledTooEarly, is(false));
+        assertThat(actualResult).isEqualTo(list);
+        assertThat(called.get()).isTrue();
+        assertThat(calledTooEarly).isFalse();
         // END SNIPPET: ofsupplier-example
       }
 
@@ -147,8 +146,8 @@ public class FinderTest
         // then
         final var expectedResult1 = List.of("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
         final var expectedResult2 = List.of("4", "5", "6");
-        assertThat(actualResult1, is(expectedResult1));
-        assertThat(actualResult2, is(expectedResult2));
+        assertThat(actualResult1).isEqualTo(expectedResult1);
+        assertThat(actualResult2).isEqualTo(expectedResult2);
         // END SNIPPET: ofProvider-example
       }
 
@@ -167,8 +166,8 @@ public class FinderTest
         // then
         final var expectedResult1 = List.of("18", "10", "14", "12", "6");
         final var expectedResult2 = List.of("14", "12");
-        assertThat(actualResult1, is(expectedResult1));
-        assertThat(actualResult2, is(expectedResult2));
+        assertThat(actualResult1).isEqualTo(expectedResult1);
+        assertThat(actualResult2).isEqualTo(expectedResult2);
         // END SNIPPET: mapping-example
       }
   }

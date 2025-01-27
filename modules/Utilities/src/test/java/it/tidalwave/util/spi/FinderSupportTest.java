@@ -30,8 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.NoArgsConstructor;
 import org.testng.annotations.Test;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -72,7 +71,7 @@ public class FinderSupportTest
         // when
         final var results = underTest.from(11).results();
         // then
-        assertThat(results.size(), is(100 - 11));
+        assertThat(results).hasSize(100 - 11);
       }
 
     @Test
@@ -83,6 +82,6 @@ public class FinderSupportTest
         // when
         final var results = underTest.from(101).results();
         // then
-        assertThat(results.size(), is(0));
+        assertThat(results).isEmpty();
       }
   }

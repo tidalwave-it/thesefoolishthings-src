@@ -26,7 +26,6 @@
 package it.tidalwave.role.spi;
 
 import jakarta.annotation.Nonnull;
-import java.util.Collections;
 import java.util.List;
 import it.tidalwave.util.ContextManager;
 import it.tidalwave.util.Task;
@@ -36,9 +35,8 @@ import lombok.RequiredArgsConstructor;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -79,7 +77,7 @@ public class ContextSnapshotTest
         // when
         underTest = new ContextSnapshot(new Object());
         // then
-        assertThat(underTest.getContexts(), is(contexts));
+        assertThat(underTest.getContexts()).isEqualTo(contexts);
       }
 
     /***********************************************************************************************************************************************************
@@ -99,7 +97,7 @@ public class ContextSnapshotTest
         // then
         verify(contextManager, times(1)).runWithContexts(eq(contexts), same(task));
         verifyNoMoreInteractions(contextManager);
-//        assertThat(result, is("result")); FIXME: depend on commented stubbing above
+//        assertThat(result).isEqualTo("result");
       }
 
     /***********************************************************************************************************************************************************
@@ -110,7 +108,7 @@ public class ContextSnapshotTest
       {
         return new Object[][]
           {
-            { Collections.emptyList()            },
+            { List.of()                    },
             { List.of("a", "b", "c")       },
             { List.of("a", "b", "c" , "d") },
           };

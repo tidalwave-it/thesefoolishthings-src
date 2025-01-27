@@ -28,8 +28,7 @@ package it.tidalwave.util;
 import java.util.Collection;
 import java.util.List;
 import org.testng.annotations.Test;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -58,6 +57,6 @@ public class ParameterTest
         final var result = Parameters.r(r1, r2, r3, rc1, r6, rc2, r9);
         // then
         final Collection<Object> expected = List.of(r1, r2, r3, r4, r5, r6, r7, r8, r9);
-        assertThat(result, is(expected));
+        assertThat(result).isEqualTo(expected);
       }
   }

@@ -28,8 +28,7 @@ package it.tidalwave.util;
 import jakarta.annotation.Nonnull;
 import java.util.Optional;
 import org.testng.annotations.Test;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -51,6 +50,6 @@ public class RoleFactoryTest
     public void test_getRoleType()
       {
         final var underTest = new UnderTest();
-        assertThat(underTest.getRoleType(), is(String.class));
+        assertThat(underTest.getRoleType()).isEqualTo(String.class);
       }
   }

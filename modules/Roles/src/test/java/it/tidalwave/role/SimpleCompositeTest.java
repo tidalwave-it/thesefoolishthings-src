@@ -27,8 +27,7 @@ package it.tidalwave.role;
 
 import java.util.List;
 import org.testng.annotations.Test;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /***************************************************************************************************************************************************************
  *
@@ -50,7 +49,7 @@ public class SimpleCompositeTest
         final var results1 = finder1.results();
         final var results2 = finder2.results();
         // then
-        assertThat(results1, is(data));
-        assertThat(results2, is(List.of("4")));
+        assertThat(results1).isEqualTo(data);
+        assertThat(results2).isEqualTo(List.of("4"));
       }
 }

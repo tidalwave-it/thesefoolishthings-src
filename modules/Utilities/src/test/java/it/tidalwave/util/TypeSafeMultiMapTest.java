@@ -30,14 +30,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import org.testng.annotations.Test;
-import static java.util.Collections.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.assertj.core.api.Assertions.assertThat;
+import static java.util.Collections.singletonList;
 
 /***************************************************************************************************************************************************************
  *
@@ -61,9 +58,9 @@ public class TypeSafeMultiMapTest
         // when
         final var underTest = TypeSafeMultiMap.newInstance();
         // then
-        assertThat(underTest.size(), is(0));
-        assertThat(underTest.keySet(), is(emptySet()));
-        assertThat(underTest.asMap(), is(emptyMap()));
+        assertThat(underTest).isEmpty();
+        assertThat(underTest.keySet()).isEmpty();
+        assertThat(underTest.asMap()).isEmpty();
       }
 
     /***********************************************************************************************************************************************************
@@ -77,17 +74,17 @@ public class TypeSafeMultiMapTest
         // when
         final var underTest = TypeSafeMultiMap.ofCloned(map);
         // then
-        assertThat(underTest.size(), is(3));
-        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME))));
-        assertThat(underTest.asMap(), is(map));
-        assertThat(underTest.get(K_STRING), is(singletonList("1")));
-        assertThat(underTest.get(K_INTEGER), is(singletonList(2)));
-        assertThat(underTest.get(K_DATETIME), is(singletonList(LOCAL_DATE)));
-        assertThat(underTest.get(K_STRING2), is(emptyList()));
-        assertThat(underTest.containsKey(K_STRING), is(true));
-        assertThat(underTest.containsKey(K_INTEGER), is(true));
-        assertThat(underTest.containsKey(K_DATETIME), is(true));
-        assertThat(underTest.containsKey(K_STRING2), is(false));
+        assertThat(underTest).hasSize(3);
+        assertThat(underTest.keySet()).containsOnly(K_STRING, K_INTEGER, K_DATETIME);
+        assertThat(underTest.asMap()).isEqualTo(map);
+        assertThat(underTest.get(K_STRING)).containsOnly("1");
+        assertThat(underTest.get(K_INTEGER)).containsOnly(2);
+        assertThat(underTest.get(K_DATETIME)).containsOnly(LOCAL_DATE);
+        assertThat(underTest.get(K_STRING2)).isEmpty();
+        assertThat(underTest.containsKey(K_STRING)).isTrue();
+        assertThat(underTest.containsKey(K_INTEGER)).isTrue();
+        assertThat(underTest.containsKey(K_DATETIME)).isTrue();
+        assertThat(underTest.containsKey(K_STRING2)).isFalse();
       }
 
     /***********************************************************************************************************************************************************
@@ -101,16 +98,16 @@ public class TypeSafeMultiMapTest
         // when
         final var underTest = firstMap.with(K_STRING2, "2");
         // then
-        assertThat(underTest, is(not(sameInstance(firstMap))));
-        assertThat(firstMap.size(), is(0));
-        assertThat(underTest.size(), is(1));
-        assertThat(firstMap.keySet(), is(emptySet()));
-        assertThat(underTest.keySet(), is(singleton(K_STRING2)));
+        assertThat(underTest).isNotSameAs(firstMap);
+        assertThat(firstMap).isEmpty();
+        assertThat(underTest).hasSize(1);
+        assertThat(firstMap.keySet()).isEmpty();
+        assertThat(underTest.keySet()).containsOnly(K_STRING2);
         final Map<Key<?>, Object> map = new HashMap<>();
         map.put(K_STRING2, singletonList("2"));
-        assertThat(underTest.asMap(), is(map));
-        assertThat(underTest.get(K_STRING2), is(singletonList("2")));
-        assertThat(underTest.containsKey(K_STRING2), is(true));
+        assertThat(underTest.asMap()).isEqualTo(map);
+        assertThat(underTest.get(K_STRING2)).containsOnly("2");
+        assertThat(underTest.containsKey(K_STRING2)).isTrue();
       }
 
     /***********************************************************************************************************************************************************
@@ -125,15 +122,15 @@ public class TypeSafeMultiMapTest
         // when
         final var underTest = firstMap.with(K_STRING2, "2");
         // then
-        assertThat(underTest, is(not(sameInstance(firstMap))));
-        assertThat(firstMap.size(), is(3));
-        assertThat(underTest.size(), is(4));
-        assertThat(firstMap.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME))));
-        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME, K_STRING2))));
+        assertThat(underTest).isNotSameAs(firstMap);
+        assertThat(firstMap).hasSize(3);
+        assertThat(underTest).hasSize(4);
+        assertThat(firstMap.keySet()).containsOnly(K_STRING, K_INTEGER, K_DATETIME);
+        assertThat(underTest.keySet()).containsOnly(K_STRING, K_INTEGER, K_DATETIME, K_STRING2);
         map.put(K_STRING2, singletonList("2"));
-        assertThat(underTest.asMap(), is(map));
-        assertThat(underTest.get(K_STRING2), is(singletonList("2")));
-        assertThat(underTest.containsKey(K_STRING2), is(true));
+        assertThat(underTest.asMap()).isEqualTo(map);
+        assertThat(underTest.get(K_STRING2)).containsOnly("2");
+        assertThat(underTest.containsKey(K_STRING2)).isTrue();
       }
 
     /***********************************************************************************************************************************************************
@@ -148,15 +145,15 @@ public class TypeSafeMultiMapTest
         // when
         final var underTest = firstMap.with(K_STRING, "1+"); // STRING key is already present
         // then
-        assertThat(underTest, is(not(sameInstance(firstMap))));
-        assertThat(firstMap.size(), is(3));
-        assertThat(underTest.size(), is(3));
-        assertThat(firstMap.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME))));
-        assertThat(underTest.keySet(), is(new HashSet<Key<?>>(List.of(K_STRING, K_INTEGER, K_DATETIME))));
+        assertThat(underTest).isNotSameAs(firstMap);
+        assertThat(firstMap).hasSize(3);
+        assertThat(underTest).hasSize(3);
+        assertThat(firstMap.keySet()).containsOnly(K_STRING, K_INTEGER, K_DATETIME);
+        assertThat(underTest.keySet()).containsOnly(K_STRING, K_INTEGER, K_DATETIME);
         map.put(K_STRING, List.of("1", "1+"));
-        assertThat(underTest.asMap(), is(map));
-        assertThat(firstMap.get(K_STRING), is(singletonList("1")));
-        assertThat(underTest.get(K_STRING), is(List.of("1", "1+")));
+        assertThat(underTest.asMap()).isEqualTo(map);
+        assertThat(firstMap.get(K_STRING)).containsExactly("1");
+        assertThat(underTest.get(K_STRING)).containsExactly("1", "1+");
       }
 
     /***********************************************************************************************************************************************************
@@ -173,8 +170,8 @@ public class TypeSafeMultiMapTest
         final var map2 = underTest.asMap();
         map1.clear();
         // then
-        assertThat(map1, is(not(sameInstance(map2))));
-        assertThat(underTest.size(), is(not(0)));
+        assertThat(map1).isNotSameAs(map2);
+        assertThat(underTest).isNotEmpty();
       }
 
     /***********************************************************************************************************************************************************
@@ -191,14 +188,14 @@ public class TypeSafeMultiMapTest
         final var set2 = underTest.keySet();
         set1.clear();
         // then
-        assertThat(set1, is(not(sameInstance(set2))));
-        assertThat(underTest.size(), is(not(0)));
+        assertThat(set1).isNotSameAs(set2);
+        assertThat(underTest).isNotEmpty();
       }
 
     /***********************************************************************************************************************************************************
      * 
      **********************************************************************************************************************************************************/
-    @Test
+    @Test @SuppressWarnings("unchecked")
     public void test_forEach()
       {
         // given
@@ -208,10 +205,10 @@ public class TypeSafeMultiMapTest
         final List<Pair<Key<?>, Collection<?>>> pairs = new ArrayList<>();
         underTest.forEach((k, v) -> pairs.add(Pair.of(k, v)));
         // then
-        assertThat(pairs, containsInAnyOrder(underTest.entrySet()
+        assertThat(pairs).contains(underTest.entrySet()
                                                       .stream()
                                                       .map(e -> Pair.of(e.getKey(), e.getValue()))
-                                                      .toArray()));
+                                                      .toArray(Pair[]::new));
       }
 
     /***********************************************************************************************************************************************************
@@ -230,8 +227,8 @@ public class TypeSafeMultiMapTest
                                         .with(k2, 2);
           final Collection<String> v1 = m.get(k1);
           final Collection<Integer> v2 = m.get(k2);
-          assertThat(v1, is(List.of("Value 1", "Value 2")));
-          assertThat(v2, is(List.of(1, 2)));
+          assertThat(v1).containsExactly("Value 1", "Value 2");
+          assertThat(v2).containsExactly(1, 2);
           // END SNIPPET TypeSafeMultiMap
       }
 
