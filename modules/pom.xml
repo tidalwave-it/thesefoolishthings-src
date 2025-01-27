@@ -47,7 +47,6 @@
 
     <properties>
         <java-diff-utils.version>4.15</java-diff-utils.version>
-        <joda-time.version>2.13.0</joda-time.version>
         <tft.aspectjrt.version>1.9.20.1</tft.aspectjrt.version> <!-- Last with JDK 11 support -->
         <tft.modulePathInTests>false</tft.modulePathInTests>
         <!-- Since we're still supporting old annotations, jakarta.annotations is not declared as transitive, and this produces tons of 'exports' warnings. -->
@@ -64,11 +63,6 @@
                 <version>${tft.spring.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>joda-time</groupId>
-                <artifactId>joda-time</artifactId>
-                <version>${joda-time.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.java-diff-utils</groupId>
