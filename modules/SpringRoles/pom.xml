@@ -34,7 +34,7 @@
     <parent>
         <groupId>it.tidalwave.thesefoolishthings</groupId>
         <artifactId>modules</artifactId>
-        <version>5.0-ALPHA-2-SNAPSHOT</version>
+        <version>5.0-ALPHA-2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
